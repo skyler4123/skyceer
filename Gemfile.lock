@@ -66,11 +66,20 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    ast (2.4.2)
+    better_html (2.0.2)
+      actionview (>= 6.0)
+      activesupport (>= 6.0)
+      ast (~> 2.0)
+      erubi (~> 1.4)
+      parser (>= 2.4)
+      smart_properties
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
     concurrent-ruby (1.2.2)
+    constant_resolver (0.2.0)
     crass (1.0.6)
     date (3.3.3)
     debug (1.8.0)
@@ -79,6 +88,11 @@ GEM
     erubi (1.12.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphwerk (1.2.1)
+      activesupport
+      packwerk
+      ruby-graphviz
+      sorbet-runtime
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.2.1)
@@ -116,6 +130,20 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
+    packwerk (3.1.0)
+      activesupport (>= 6.0)
+      ast
+      better_html
+      bundler
+      constant_resolver (>= 0.2.0)
+      parallel
+      parser
+      sorbet-runtime (>= 0.5.9914)
+      zeitwerk (>= 2.6.1)
+    parallel (1.23.0)
+    parser (3.2.2.3)
+      ast (~> 2.4.1)
+      racc
     pg (1.5.4)
     psych (5.1.0)
       stringio
@@ -158,6 +186,11 @@ GEM
       psych (>= 4.0.0)
     reline (0.3.8)
       io-console (~> 0.5)
+    rexml (3.2.6)
+    ruby-graphviz (1.2.5)
+      rexml
+    smart_properties (1.17.0)
+    sorbet-runtime (0.5.11048)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -194,8 +227,10 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   debug
+  graphwerk
   importmap-rails
   jbuilder
+  packwerk
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.8)
