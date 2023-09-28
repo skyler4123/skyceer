@@ -69,3 +69,5 @@ end
 
 gem "packwerk"
 gem "graphwerk"
+gem "dotenv-rails"
+gem "view_component"

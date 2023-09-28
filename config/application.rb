@@ -34,5 +34,6 @@ module Skyceer
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.paths.add 'app/packages', glob: '*/{*,*/concerns}', eager_load: true
+    config.assets.paths << Rails.root.join('app')
   end
 end
