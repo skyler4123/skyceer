@@ -82,6 +82,7 @@ GEM
     concurrent-ruby (1.2.2)
     constant_resolver (0.2.0)
     crass (1.0.6)
+    dalli (3.2.6)
     date (3.3.3)
     debug (1.8.0)
       irb (>= 1.5.0)
@@ -94,6 +95,7 @@ GEM
     erubi (1.12.0)
     faker (3.2.1)
       i18n (>= 1.8.11, < 2)
+    ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
     graphwerk (1.2.1)
@@ -103,6 +105,9 @@ GEM
       sorbet-runtime
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    image_processing (1.12.2)
+      mini_magick (>= 4.9.5, < 5)
+      ruby-vips (>= 2.0.17, < 3)
     importmap-rails (1.2.1)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
@@ -113,6 +118,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jwt (2.7.1)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -123,6 +129,7 @@ GEM
       net-smtp
     marcel (1.0.2)
     method_source (1.0.0)
+    mini_magick (4.12.0)
     mini_mime (1.1.5)
     minitest (5.20.0)
     msgpack (1.7.2)
@@ -135,6 +142,7 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
+    netrc (0.11.0)
     nio4r (2.5.9)
     nokogiri (1.15.4-aarch64-linux)
       racc (~> 1.4)
@@ -155,6 +163,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.4)
+    prettier_print (1.2.1)
     psych (5.1.0)
       stringio
     puma (5.6.7)
@@ -192,8 +201,12 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    rbi (0.1.1)
+      sorbet-runtime (>= 0.5.9204)
+      yarp (>= 0.11.0)
     rdoc (6.5.0)
       psych (>= 4.0.0)
+    redis (4.8.1)
     reline (0.3.8)
       io-console (~> 0.5)
     rexml (3.2.6)
@@ -216,8 +229,21 @@ GEM
     rspec-support (3.12.1)
     ruby-graphviz (1.2.5)
       rexml
+    ruby-vips (2.1.4)
+      ffi (~> 1.12)
     smart_properties (1.17.0)
+    sorbet (0.5.11048)
+      sorbet-static (= 0.5.11048)
     sorbet-runtime (0.5.11048)
+    sorbet-static (0.5.11048-x86_64-linux)
+    sorbet-static-and-runtime (0.5.11048)
+      sorbet (= 0.5.11048)
+      sorbet-runtime (= 0.5.11048)
+    spoom (1.2.4)
+      erubi (>= 1.10.0)
+      sorbet-static-and-runtime (>= 0.5.10187)
+      syntax_tree (>= 6.1.1)
+      thor (>= 0.19.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -228,10 +254,21 @@ GEM
     stimulus-rails (1.2.2)
       railties (>= 6.0.0)
     stringio (3.0.8)
+    syntax_tree (6.2.0)
+      prettier_print (>= 1.2.0)
     tailwindcss-rails (2.0.30-aarch64-linux)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.30-x86_64-linux)
       railties (>= 6.0.0)
+    tapioca (0.11.9)
+      bundler (>= 2.2.25)
+      netrc (>= 0.11.0)
+      parallel (>= 1.21.0)
+      rbi (~> 0.1.0, >= 0.1.0)
+      sorbet-static-and-runtime (>= 0.5.10187)
+      spoom (~> 1.2.0, >= 1.2.0)
+      thor (>= 1.2.0)
+      yard-sorbet
     thor (1.2.2)
     timeout (0.4.0)
     turbo-rails (1.4.0)
@@ -249,9 +286,15 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webrick (1.8.1)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    yard (0.9.34)
+    yard-sorbet (0.8.1)
+      sorbet-runtime (>= 0.5)
+      yard (>= 0.9)
+    yarp (0.13.0)
     zeitwerk (2.6.12)
 
 PLATFORMS
@@ -261,24 +304,32 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
+  dalli
   debug
   dotenv-rails
   faker
   graphwerk
+  image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  jwt
   packwerk
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.8)
+  redis (~> 4.0)
   rspec-rails
+  sorbet
+  sorbet-runtime
   sprockets-rails
   stimulus-rails
   tailwindcss-rails
+  tapioca
   turbo-rails
   tzinfo-data
   view_component
   web-console
+  webrick
 
 RUBY VERSION
    ruby 3.2.2p53
