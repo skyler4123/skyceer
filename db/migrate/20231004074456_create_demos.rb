@@ -1,7 +1,7 @@
 class CreateDemos < ActiveRecord::Migration[7.0]
   def change
     create_table :demos, id: :uuid do |t|
-      t.string :content
+      t.string :content, null: false
 
       t.timestamps
     end
