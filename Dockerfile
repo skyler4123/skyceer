@@ -8,10 +8,10 @@ FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 WORKDIR /rails
 
 # Set production environment
-# ENV RAILS_ENV="production" \
-#     BUNDLE_DEPLOYMENT="1" \
-#     BUNDLE_PATH="/usr/local/bundle" \
-#     BUNDLE_WITHOUT="development"
+ENV RAILS_ENV="production" \
+    BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_WITHOUT="development"
 
 
 # Throw-away build stage to reduce size of final image
@@ -25,7 +25,8 @@ RUN apt-get update -qq && \
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
-    bundle exec bootsnap precompile --gemfile
+    bundle exec bootsnap precompile --gemfile && \
+    bundle lock --add-platform x86_64-linux
 
 # Copy application code
 COPY . .
