@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["checkbox"]
   static values = {
     fields: Array, default: [],
-    rememberable: Boolean, default: false
+    rememberable: Boolean
   }
   connect() {
     // console.log("Hello, Stimulus!", this.fieldsValue);
@@ -14,6 +14,14 @@ export default class extends Controller {
     this.checkboxTarget.setAttribute('data-action', 'change->input--remember-me-component#toggleRemember')
     this.formElement().setAttribute('data-action', 'form#remmemberMe')
     this.formElement().setAttribute('data-form-input--remember-me-component-outlet', `#${this.element.id}`)
+    const formLocalStorage = JSON.parse(localStorage.getItem(this.formElement().id))
+    this.rememberable = formLocalStorage.rememberable
+    this.checkboxTarget.checked = this.rememberable
+    if (this.rememberable) {
+      [...this.inputElements()].forEach((input) => {
+        input.value = formLocalStorage[input.name]
+      })
+    }
   }
   formElement() {
     return this.element.closest('form')
@@ -25,19 +33,21 @@ export default class extends Controller {
     })
   }
   remmemberMeData() {
-    var remmemberMeData = {}
-    this.fieldsValue.forEach((field) => {
-      remmemberMeData = {...remmemberMeData, [field]: this.inputElements().find(input => input.name === field).value}
-    })
-    return remmemberMeData
+    var remmemberMeData = {rememberable: this.rememberable}
+    if (this.rememberable === false) {
+      return remmemberMeData
+    } else {
+      this.fieldsValue.forEach((field) => {
+        remmemberMeData = {...remmemberMeData, [field]: this.inputElements().find(input => input.name === field).value}
+      })
+      return remmemberMeData
+    }
   }
   toggleRemember() {
     this.rememberable = this.checkboxTarget.checked
   }
   saveToLocalStorage() {
-    if (this.rememberable) {
-      localStorage.setItem(this.formElement().id, JSON.stringify(this.remmemberMeData()))
-    }
+    localStorage.setItem(this.formElement().id, JSON.stringify(this.remmemberMeData()))
   }
 
 }

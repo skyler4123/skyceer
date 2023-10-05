@@ -6,7 +6,7 @@ export default class extends Controller {
     // console.log("Form stimulus controller")
   }
   remmemberMe() {
-    console.log(this.inputRememberMeComponentOutlet.saveToLocalStorage())
+    this.inputRememberMeComponentOutlet.saveToLocalStorage()
   }
 
 }
