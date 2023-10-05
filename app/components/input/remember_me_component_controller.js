@@ -31,7 +31,6 @@ export default class extends Controller {
   }
   toggleRemember() {
     this.rememberable = this.checkboxTarget.checked
-    this.saveToLocalStorage()
   }
   saveToLocalStorage() {
     localStorage.setItem(this.formElement().id, JSON.stringify(this.remmemberMeData()))
