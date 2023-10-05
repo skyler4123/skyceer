@@ -7,7 +7,7 @@ export default class extends Controller {
     rememberable: Boolean, default: false
   }
   connect() {
-    console.log("Hello, Stimulus!", this.fieldsValue);
+    // console.log("Hello, Stimulus!", this.fieldsValue);
   }
   initialize() {
     this.element.querySelector('input').setAttribute('data-input--remember-me-component-target', 'checkbox')
