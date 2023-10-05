@@ -3,13 +3,13 @@
 module JsonWebToken
   extend T::Sig
 
-  JWT_EXPIRATION = ENV.fetch('JWT_EXPIRATION', '5')
+  JWT_EXPIRATION = ENV.fetch('JWT_EXPIRATION', '1')
   JWT_SECRET = ENV.fetch('JWT_SECRET', 'secret')
   JWT_ALGORITHM = ENV.fetch('JWT_ALGORITHM', 'HS256')
 
-  sig {params(user: User, expire: DateTime, secret: String, algorithm: String).returns(String)}
-  def self.encode(user:, expire: JWT_EXPIRATION.to_i.minutes.from_now, secret: JWT_SECRET, algorithm: JWT_ALGORITHM)
-    expire_epochtime = expire.to_i
+  sig {params(user: User, expire: ActiveSupport::Duration, secret: String, algorithm: String).returns(String)}
+  def self.encode(user:, expire: JWT_EXPIRATION.to_i.minutes, secret: JWT_SECRET, algorithm: JWT_ALGORITHM)
+    expire_epochtime = expire.from_now.to_i
     payload = {
       id: user.id,
       email: user.email,

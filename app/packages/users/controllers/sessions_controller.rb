@@ -1,11 +1,16 @@
 class SessionsController < ApplicationController
+
   def new
   end
 
   def create
     @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
-      authenticate(user: @user)
+      access_token = JsonWebToken.encode(user: @user)
+      refresh_token = JsonWebToken.encode(user: @user, expire: 5.minutes, algorithm: "HS512")
+      @user.update(refresh_token: refresh_token)
+      session[:access_token] = access_token
+      session[:refresh_token] = refresh_token
       flash[:notice] = 'Signin OK!'
       redirect_to user_path
     else
@@ -14,8 +19,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    REDIS.del(session[:token].last(10))
-    session[:token] = nil
+    session[:access_token] = nil
+    session[:refresh_token] = nil
     flash[:notice] = "Sign Out!!!"
     redirect_to signin_path
   end
@@ -39,10 +44,4 @@ class SessionsController < ApplicationController
     end
   end
 
-  private
-  def authenticate(user:)
-    token = JsonWebToken.encode(user)
-    session[:token] = token
-    REDIS.set(token.last(10), token, ex: JsonWebToken::EXP.to_i.minutes)
-  end
 end
