@@ -12,6 +12,8 @@ export default class extends Controller {
   initialize() {
     this.element.querySelector('input').setAttribute('data-input--remember-me-component-target', 'checkbox')
     this.checkboxTarget.setAttribute('data-action', 'change->input--remember-me-component#toggleRemember')
+    this.formElement().setAttribute('data-action', 'form#remmemberMe')
+    this.formElement().setAttribute('data-form-input--remember-me-component-outlet', `#${this.element.id}`)
   }
   formElement() {
     return this.element.closest('form')
@@ -33,7 +35,9 @@ export default class extends Controller {
     this.rememberable = this.checkboxTarget.checked
   }
   saveToLocalStorage() {
-    localStorage.setItem(this.formElement().id, JSON.stringify(this.remmemberMeData()))
+    if (this.rememberable) {
+      localStorage.setItem(this.formElement().id, JSON.stringify(this.remmemberMeData()))
+    }
   }
 
 }
