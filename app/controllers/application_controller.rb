@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
   append_view_path(Dir.glob(Rails.root.join('app/packages/*/views')))
 
+  before_action :authenticate_user!
+
   def current_user
-    @current_user ||= User.find(JsonWebToken.decode(REDIS.get(session[:token].last(10)))[0]['id'])
-  rescue JWT::DecodeError, NoMethodError, Mongoid::Errors::DocumentNotFound 
-    false
+    @current_user ||= User.find(JsonWebToken.decode(token: session[:access_token])[:id])
+  rescue JWT::DecodeError, JWT::ExpiredSignature
+    nil
   end
 
   def user_signed_in?

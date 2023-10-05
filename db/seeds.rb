@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+ActiveRecord::Base.transaction do
+  User.delete_all
+
+  5.times do |n|
+    User.create(
+      email: "email#{n + 1}@gmail.com",
+      password: "password",
+      password_confirmation: "password"
+    )
+  end
+end
