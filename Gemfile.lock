@@ -131,7 +131,6 @@ GEM
     method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.4)
     minitest (5.20.0)
     msgpack (1.7.2)
     net-imap (0.4.0)
@@ -145,9 +144,6 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.5.9)
-    nokogiri (1.15.4)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     packwerk (3.1.0)
@@ -234,13 +230,13 @@ GEM
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     smart_properties (1.17.0)
-    sorbet (0.5.11062)
-      sorbet-static (= 0.5.11062)
-    sorbet-runtime (0.5.11062)
-    sorbet-static (0.5.11062-x86_64-linux)
-    sorbet-static-and-runtime (0.5.11062)
-      sorbet (= 0.5.11062)
-      sorbet-runtime (= 0.5.11062)
+    sorbet (0.5.10993)
+      sorbet-static (= 0.5.10993)
+    sorbet-runtime (0.5.10993)
+    sorbet-static (0.5.10993-x86_64-linux)
+    sorbet-static-and-runtime (0.5.10993)
+      sorbet (= 0.5.10993)
+      sorbet-runtime (= 0.5.10993)
     spoom (1.2.4)
       erubi (>= 1.10.0)
       sorbet-static-and-runtime (>= 0.5.10187)
@@ -258,8 +254,6 @@ GEM
     stringio (3.0.8)
     syntax_tree (6.2.0)
       prettier_print (>= 1.2.0)
-    tailwindcss-rails (2.0.30)
-      railties (>= 6.0.0)
     tailwindcss-rails (2.0.30-x86_64-linux)
       railties (>= 6.0.0)
     tapioca (0.11.9)
@@ -300,7 +294,6 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
-  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -321,7 +314,7 @@ DEPENDENCIES
   rails (~> 7.0.8)
   redis (~> 4.0)
   rspec-rails
-  sorbet
+  sorbet (= 0.5.10993)
   sorbet-runtime
   sprockets-rails
   stimulus-rails

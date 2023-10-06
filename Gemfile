@@ -75,7 +75,7 @@ gem "view_component"
 gem "faker"
 gem "webrick"
 gem "dalli"
-gem 'sorbet', :group => :development
+gem 'sorbet', "0.5.10993", :group => :development
 gem 'sorbet-runtime'
 gem 'tapioca', require: false, :group => :development
 gem "jwt"
