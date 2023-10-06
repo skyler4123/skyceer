@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["checkbox"]
   static values = {
     fields: Array, default: [],
-    rememberable: Boolean
+    rememberable: Boolean, default: false
   }
   connect() {
     // console.log("Hello, Stimulus!", this.fieldsValue);
