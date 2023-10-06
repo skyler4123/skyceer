@@ -304,7 +304,7 @@ DEPENDENCIES
   rails (~> 7.0.8)
   redis (~> 4.0)
   rspec-rails
-  sorbet (= 0.4.5072)
+  sorbet
   sorbet-runtime
   sprockets-rails
   stimulus-rails
