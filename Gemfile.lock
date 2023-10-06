@@ -131,10 +131,9 @@ GEM
     method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.4)
     minitest (5.20.0)
     msgpack (1.7.2)
-    net-imap (0.3.7)
+    net-imap (0.4.0)
       date
       net-protocol
     net-pop (0.1.2)
@@ -145,11 +144,6 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.5.9)
-    nokogiri (1.15.4)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
-    nokogiri (1.15.4-aarch64-linux)
-      racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     packwerk (3.1.0)
@@ -163,7 +157,7 @@ GEM
       sorbet-runtime (>= 0.5.9914)
       zeitwerk (>= 2.6.1)
     parallel (1.23.0)
-    parser (3.2.2.3)
+    parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
     pg (1.5.4)
@@ -211,7 +205,7 @@ GEM
     rdoc (6.5.0)
       psych (>= 4.0.0)
     redis (4.8.1)
-    reline (0.3.8)
+    reline (0.3.9)
       io-console (~> 0.5)
     rexml (3.2.6)
     rspec-core (3.12.2)
@@ -236,13 +230,13 @@ GEM
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     smart_properties (1.17.0)
-    sorbet (0.5.11048)
-      sorbet-static (= 0.5.11048)
-    sorbet-runtime (0.5.11048)
-    sorbet-static (0.5.11048-x86_64-linux)
-    sorbet-static-and-runtime (0.5.11048)
-      sorbet (= 0.5.11048)
-      sorbet-runtime (= 0.5.11048)
+    sorbet (0.5.11062)
+      sorbet-static (= 0.5.11062)
+    sorbet-runtime (0.5.11062)
+    sorbet-static (0.5.11062-x86_64-linux)
+    sorbet-static-and-runtime (0.5.11062)
+      sorbet (= 0.5.11062)
+      sorbet-runtime (= 0.5.11062)
     spoom (1.2.4)
       erubi (>= 1.10.0)
       sorbet-static-and-runtime (>= 0.5.10187)
@@ -260,10 +254,6 @@ GEM
     stringio (3.0.8)
     syntax_tree (6.2.0)
       prettier_print (>= 1.2.0)
-    tailwindcss-rails (2.0.30)
-      railties (>= 6.0.0)
-    tailwindcss-rails (2.0.30-aarch64-linux)
-      railties (>= 6.0.0)
     tailwindcss-rails (2.0.30-x86_64-linux)
       railties (>= 6.0.0)
     tapioca (0.11.9)
@@ -305,8 +295,6 @@ GEM
 
 PLATFORMS
   x86_64-linux
-  aarch64-linux
-  ruby
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
@@ -342,4 +330,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.19
+   2.4.10
