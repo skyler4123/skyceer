@@ -4,13 +4,19 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   def current_user
-    return false unless session[:access_token]
-    @current_user ||= User.find(JsonWebToken.decode(token: session[:access_token])[:id])
-    return false unless @current_user.refresh_token
-    return false if @current_user.id != JsonWebToken.decode(token: session[:refresh_token], algorithm: "HS512")[:id]
-    @current_user
-  rescue JWT::DecodeError, JWT::ExpiredSignature
-    false
+    begin
+      return false unless session[:access_token]
+      @current_user ||= User.find(JsonWebToken.decode(token: session[:access_token])[:id])
+    rescue JWT::DecodeError, JWT::ExpiredSignature
+      begin
+        return false unless session[:refresh_token]
+        @current_user ||= User.find(JsonWebToken.decode(token: session[:refresh_token], algorithm: "HS512")[:id])
+        access_token = JsonWebToken.encode(user: @current_user, expire: 3.minutes)
+        session[:access_token] = access_token
+      rescue JWT::DecodeError, JWT::ExpiredSignature
+        false
+      end
+    end
   end
 
   def user_signed_in?
