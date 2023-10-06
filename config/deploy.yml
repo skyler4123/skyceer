@@ -6,7 +6,7 @@ image: pkphung2001/skyceer
 
 # Deploy to these servers.
 servers:
-  - 13.212.92.60
+  - 157.230.244.114
 
 # Credentials for your image host.
 registry:
@@ -31,9 +31,9 @@ env:
     - DB_PORT
 
 # Use a different ssh user than root
-ssh:
-  user: ubuntu
-  proxy: "ubuntu@13.212.92.60"
+# ssh:
+#   user: ubuntu
+#   proxy: "ubuntu@13.212.92.60"
 
 # Configure builder setup.
 # builder:
