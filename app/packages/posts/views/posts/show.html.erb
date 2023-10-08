@@ -11,5 +11,28 @@
       <%= button_to 'Destroy this post', post_path(@post), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
     <%= link_to 'Back to posts', posts_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr />
+    <div>You can create comments for this post:</div>
+    <div>
+      <%= form_with(url: comments_path, method: :post, class: "contents") do |form| %>
+        <div class="my-5">
+          <%= form.label :content %>
+          <%= form.hidden_field "comment[user_id]", value: @current_user.id %>
+          <%= form.hidden_field "comment[post_id]", value: @post.id %>
+          <%= form.text_field "comment[content]", class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+        </div>
+        <div class="inline">
+          <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <h1>Comments:</h1>
+    <div>
+      <% @post.comments&.each do |comment| %>
+        <p><%= comment.content %></p>
+      <% end %>
+    </div>
   </div>
 </div>

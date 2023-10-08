@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
         @current_user ||= User.find(JsonWebToken.decode(token: session[:refresh_token], algorithm: "HS512")[:id])
         access_token = JsonWebToken.encode(user: @current_user, expire: 3.minutes)
         session[:access_token] = access_token
+        @current_user
       rescue JWT::DecodeError, JWT::ExpiredSignature
         false
       end
