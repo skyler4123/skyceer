@@ -36,5 +36,6 @@ module Skyceer
     config.paths.add 'app/packages', glob: '*/{*,*/concerns}', eager_load: true
     config.assets.paths << Rails.root.join('app')
     # config.assets.css_compressor = nil
+    config.generators.orm :active_record, primary_key_type: :uuid
   end
 end

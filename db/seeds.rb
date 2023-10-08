@@ -8,12 +8,27 @@
 
 ActiveRecord::Base.transaction do
   User.delete_all
-
+  Post.delete_all
+  Comment.delete_all
+  
   5.times do |n|
     User.create(
       email: "email#{n + 1}@gmail.com",
       password: "password",
       password_confirmation: "password"
+    )
+  end
+  5.times do |n|
+    Post.create(
+      content: Faker::Quote.famous_last_words,
+      user: User.all.sample,
+    )
+  end
+  10.times do |n|
+    Comment.create(
+      content: Faker::Quote.robin,
+      user: User.all.sample,
+      post: Post.all.sample,
     )
   end
 end
