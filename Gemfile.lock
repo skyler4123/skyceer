@@ -92,7 +92,11 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
+    em-websocket (0.5.3)
+      eventmachine (>= 0.12.9)
+      http_parser.rb (~> 0)
     erubi (1.12.0)
+    eventmachine (1.2.7)
     faker (3.2.1)
       i18n (>= 1.8.11, < 2)
     ffi (1.16.3)
@@ -103,6 +107,7 @@ GEM
       packwerk
       ruby-graphviz
       sorbet-runtime
+    http_parser.rb (0.8.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -307,6 +312,7 @@ DEPENDENCIES
   dalli
   debug
   dotenv-rails
+  em-websocket
   faker
   graphwerk
   image_processing (~> 1.2)
