@@ -1,0 +1,1 @@
+REDIS = Redis.new(url: ENV.fetch('REDIS_URL') { 'redis://0.0.0.0:6379' })
