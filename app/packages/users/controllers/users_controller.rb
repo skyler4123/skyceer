@@ -26,6 +26,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        access_token = JsonWebToken.encode(user: @user, expire: 1.minutes)
+        refresh_token = JsonWebToken.encode(user: @user, expire: 10.minutes, algorithm: "HS512")
+        @user.update(refresh_token: refresh_token)
+        session[:access_token] = access_token
+        session[:refresh_token] = refresh_token
         format.html { redirect_to user_url(@user), notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else

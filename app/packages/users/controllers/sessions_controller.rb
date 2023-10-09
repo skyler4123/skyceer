@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
-      access_token = JsonWebToken.encode(user: @user, expire: 3.minutes)
+      access_token = JsonWebToken.encode(user: @user, expire: 1.minutes)
       refresh_token = JsonWebToken.encode(user: @user, expire: 10.minutes, algorithm: "HS512")
       @user.update(refresh_token: refresh_token)
       session[:access_token] = access_token
