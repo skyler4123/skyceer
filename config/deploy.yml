@@ -8,10 +8,10 @@ image: pkphung2001/skyceer
 servers:
   web:
     - 146.190.97.225
-  websocket:
-    hosts:
-      - 139.59.125.146
-    cmd: rails runner app/websockets/websocket.rb
+  # websocket:
+  #   hosts:
+  #     - 139.59.125.146
+  #   cmd: rails runner app/websockets/websocket.rb
 
 # Credentials for your image host.
 registry:
