@@ -32,3 +32,5 @@ ActiveRecord::Base.transaction do
     )
   end
 end
+
+puts "db:seed done!"
