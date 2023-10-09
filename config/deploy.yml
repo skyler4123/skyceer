@@ -11,7 +11,7 @@ servers:
   websocket:
     hosts:
       - 54.255.170.174
-    cmd: bundle exec rails runner lib/websockets/websocket.rb
+    cmd: rails runner lib/websockets/websocket.rb
 
 # Credentials for your image host.
 registry:
