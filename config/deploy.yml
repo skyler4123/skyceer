@@ -7,11 +7,11 @@ image: pkphung2001/skyceer
 # Deploy to these servers.
 servers:
   web:
-    - 13.250.29.204
+    - 159.223.36.60
   websocket:
     hosts:
-      - 54.255.170.174
-    cmd: 'bundle exec rails runner lib/websockets/websocket.rb'
+      - 159.223.36.135
+    cmd: rails runner lib/websockets/websocket.rb
 
 # Credentials for your image host.
 registry:
@@ -38,7 +38,7 @@ env:
 
 # Use a different ssh user than root
 ssh:
-  user: ubuntu
+  user: root
   # proxy:
   #   - "ubuntu@13.250.29.204"
   #   - "ubuntu@54.255.170.174"
