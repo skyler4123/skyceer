@@ -39,9 +39,9 @@ env:
 # Use a different ssh user than root
 ssh:
   user: ubuntu
-  proxy:
-    - "ubuntu@13.250.29.204"
-    - "ubuntu@54.255.170.174"
+  # proxy:
+  #   - "ubuntu@13.250.29.204"
+  #   - "ubuntu@54.255.170.174"
 
 # Configure builder setup.
 # builder:
