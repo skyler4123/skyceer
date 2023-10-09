@@ -37,9 +37,11 @@ env:
     - REDIS_URL
 
 # Use a different ssh user than root
-# ssh:
-#   user: ubuntu
-#   proxy: "ubuntu@13.212.192.136"
+ssh:
+  user: ubuntu
+  proxy:
+    - "ubuntu@13.250.29.204"
+    - "ubuntu@54.255.170.174"
 
 # Configure builder setup.
 # builder:
