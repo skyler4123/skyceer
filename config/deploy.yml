@@ -6,7 +6,12 @@ image: pkphung2001/skyceer
 
 # Deploy to these servers.
 servers:
-  - 13.212.192.136
+  web:
+    - 146.190.97.225
+  websocket:
+    hosts:
+      - 139.59.125.146
+    cmd: rails runner app/websockets/websocket.rb
 
 # Credentials for your image host.
 registry:
@@ -29,11 +34,12 @@ env:
     - DB_PASSWORD
     - DB_HOST
     - DB_PORT
+    - REDIS_URL
 
 # Use a different ssh user than root
-ssh:
-  user: ubuntu
-  proxy: "ubuntu@13.212.192.136"
+# ssh:
+#   user: ubuntu
+#   proxy: "ubuntu@13.212.192.136"
 
 # Configure builder setup.
 # builder:
