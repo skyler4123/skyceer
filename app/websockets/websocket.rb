@@ -1,3 +1,5 @@
+# How to run
+# docker run -it --name skyceer-websocket -p 8080:80808 -v $PWD:/rails skyceer rails runner app/websockets/websocket.rb
 EM.run {
   @channels = {} # {channel_id: [ws]}
   @clients = {} # {client_id: channel_id}
