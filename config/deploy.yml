@@ -79,7 +79,7 @@ accessories:
 #       - data:/var/lib/mysql
   redis:
     image: redis
-    host: 143.198.90.214
+    host: 10.0.0.6
     port: 6379
     directories:
       - data:/data
