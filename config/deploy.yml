@@ -7,10 +7,10 @@ image: pkphung2001/skyceer
 # Deploy to these servers.
 servers:
   web:
-    - 159.223.36.60
+    - 159.65.11.107
   websocket:
     hosts:
-      - 159.223.36.135
+      - 159.65.139.40
     cmd: rails runner lib/websockets/websocket.rb
 
 # Credentials for your image host.
