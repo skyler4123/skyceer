@@ -7,10 +7,10 @@ image: pkphung2001/skyceer
 # Deploy to these servers.
 servers:
   web:
-    - 159.65.11.107
+    - 128.199.201.86
   job:
     hosts:
-      - 159.65.139.40
+      - 167.99.77.238
     cmd: bundle exec sidekiq
   # websocket:
   #   hosts:
@@ -42,6 +42,8 @@ env:
     - WEB_URL
     - WEBSOCKET_URL
     - JOB_URL
+    - SIDEKIQ_UI_USERNAME
+    - SIDEKIQ_UI_PASSWORD
 
 # Use a different ssh user than root
 ssh:
