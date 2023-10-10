@@ -1,8 +1,8 @@
 # Name of your application. Used to uniquely configure containers.
-service: skyceer
+service: skyceerjob
 
 # Name of the container image.
-image: pkphung2001/skyceer
+image: pkphung2001/skyceerjob
 
 # Deploy to these servers.
 servers:
@@ -107,4 +107,4 @@ ssh:
 #   wait: 2
 labels:
   # traefik.http.routers.skyceer-web.rule: Host(`143.198.90.214`)
-  traefik.http.routers.skyceer-web.rule: Host(`admin.143.198.90.214`)
+  traefik.http.routers.skyceerjob-web.rule: Host(`admin.143.198.90.214`)
