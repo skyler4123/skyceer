@@ -80,6 +80,7 @@ GEM
       msgpack (~> 1.2)
     builder (3.2.4)
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
     constant_resolver (0.2.0)
     crass (1.0.6)
     dalli (3.2.6)
@@ -96,10 +97,15 @@ GEM
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0)
     erubi (1.12.0)
+    et-orbi (1.2.7)
+      tzinfo
     eventmachine (1.2.7)
     faker (3.2.1)
       i18n (>= 1.8.11, < 2)
     ffi (1.16.3)
+    fugit (1.8.1)
+      et-orbi (~> 1, >= 1.2.7)
+      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     graphwerk (1.2.1)
@@ -173,6 +179,7 @@ GEM
       stringio
     puma (5.6.7)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.7.1)
     rack (2.2.8)
     rack-test (2.1.0)
@@ -212,6 +219,8 @@ GEM
     rdoc (6.5.0)
       psych (>= 4.0.0)
     redis (4.8.1)
+    redis-client (0.17.0)
+      connection_pool
     reline (0.3.9)
       io-console (~> 0.5)
     rexml (3.2.6)
@@ -236,6 +245,15 @@ GEM
       rexml
     ruby-vips (2.1.4)
       ffi (~> 1.12)
+    sidekiq (7.1.6)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.14.0)
+    sidekiq-cron (1.10.1)
+      fugit (~> 1.8)
+      globalid (>= 1.0.1)
+      sidekiq (>= 6)
     smart_properties (1.17.0)
     sorbet (0.5.11063)
       sorbet-static (= 0.5.11063)
@@ -325,6 +343,8 @@ DEPENDENCIES
   rails (~> 7.0.8)
   redis (~> 4.0)
   rspec-rails
+  sidekiq
+  sidekiq-cron
   sorbet
   sorbet-runtime
   sprockets-rails
