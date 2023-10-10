@@ -8,10 +8,10 @@ image: pkphung2001/skyceer
 servers:
   web:
     - 143.198.90.214
-  job:
-    hosts:
-      - 143.198.90.214
-    cmd: bundle exec sidekiq
+  # job:
+  #   hosts:
+  #     - 143.198.90.214
+  #   cmd: bundle exec sidekiq
   # websocket:
   #   hosts:
   #     - 159.65.139.40
@@ -105,3 +105,6 @@ ssh:
 # boot:
 #   limit: 10 # Can also specify as a percentage of total hosts, such as "25%"
 #   wait: 2
+labels:
+  traefik.http.routers.skyceer-web.rule: Host(`143.198.90.214`)
+  # traefik.http.routers.skyceer-web.rule: Host(`admin.143.198.90.214`)
