@@ -8,10 +8,14 @@ image: pkphung2001/skyceer
 servers:
   web:
     - 159.65.11.107
-  websocket:
+  job:
     hosts:
       - 159.65.139.40
-    cmd: bin/rails runner lib/websockets/websocket.rb
+    cmd: bundle exec sidekiq
+  # websocket:
+  #   hosts:
+  #     - 159.65.139.40
+  #   cmd: bin/rails runner lib/websockets/websocket.rb
 
 # Credentials for your image host.
 registry:
@@ -37,6 +41,7 @@ env:
     - REDIS_URL
     - WEB_URL
     - WEBSOCKET_URL
+    - JOB_URL
 
 # Use a different ssh user than root
 ssh:
