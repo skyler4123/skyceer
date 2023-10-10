@@ -107,4 +107,4 @@ ssh:
 #   wait: 2
 labels:
   # traefik.http.routers.skyceer-web.rule: Host(`143.198.90.214`)
-  traefik.http.routers.skyceer-web.rule: Host(`admin.143.198.90.214`)
+  traefik.http.routers.skyceer-job.rule: Host(`job.143.198.90.214`)
