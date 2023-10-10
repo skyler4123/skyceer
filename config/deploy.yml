@@ -11,7 +11,7 @@ servers:
   websocket:
     hosts:
       - 159.65.139.40
-    cmd: ./bin/rails runner lib/websockets/websocket.rb
+    cmd: './bin/rails runner lib/websockets/websocket.rb'
 
 # Credentials for your image host.
 registry:
