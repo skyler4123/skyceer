@@ -7,10 +7,10 @@ image: pkphung2001/skyceer
 # Deploy to these servers.
 servers:
   web:
-    - 128.199.201.86
+    - 143.198.90.214
   job:
     hosts:
-      - 167.99.77.238
+      - 143.198.90.214
     cmd: bundle exec sidekiq
   # websocket:
   #   hosts:
