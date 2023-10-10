@@ -3,7 +3,7 @@
 EM.run {
   @channels = {} # {channel_id: [ws]}
   @clients = {} # {client_id: channel_id}
-  EM::WebSocket.run(:host => "0.0.0.0", :port => 3000) do |ws|
+  EM::WebSocket.run(:host => "0.0.0.0", :port => 8080) do |ws|
     ws.onopen { |handshake|
     # TODO: validate
       puts "WebSocket connection open"

@@ -1,8 +1,8 @@
 # Name of your application. Used to uniquely configure containers.
-service: skyceerjob
+service: skyceer
 
 # Name of the container image.
-image: pkphung2001/skyceerjob
+image: pkphung2001/skyceer
 
 # Deploy to these servers.
 servers:
@@ -41,7 +41,6 @@ env:
     - REDIS_URL
     - WEB_URL
     - WEBSOCKET_URL
-    - JOB_URL
     - SIDEKIQ_UI_USERNAME
     - SIDEKIQ_UI_PASSWORD
 
@@ -63,7 +62,7 @@ ssh:
 #     host: ssh://app@192.168.0.1
 
 # Use accessory services (secrets come from .env).
-# accessories:
+accessories:
 #   db:
 #     image: mysql:8.0
 #     host: 192.168.0.2
@@ -78,12 +77,12 @@ ssh:
 #       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
 #     directories:
 #       - data:/var/lib/mysql
-#   redis:
-#     image: redis:7.0
-#     host: 192.168.0.2
-#     port: 6379
-#     directories:
-#       - data:/data
+  redis:
+    image: redis
+    host: 143.198.90.214
+    port: 6379
+    directories:
+      - data:/data
 
 # Configure custom arguments for Traefik
 # traefik:
@@ -105,6 +104,6 @@ ssh:
 # boot:
 #   limit: 10 # Can also specify as a percentage of total hosts, such as "25%"
 #   wait: 2
-labels:
+# labels:
   # traefik.http.routers.skyceer-web.rule: Host(`143.198.90.214`)
-  traefik.http.routers.skyceerjob-web.rule: Host(`admin.143.198.90.214`)
+  # traefik.http.routers.skyceerjob-web.rule: Host(`admin.143.198.90.214`)
