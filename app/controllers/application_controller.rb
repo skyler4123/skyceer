@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
       return false unless session[:access_token]
       @current_user ||= User.find(JsonWebToken.decode(token: session[:access_token])[:id])
       return false unless @current_user.refresh_token
+      @current_user
     rescue JWT::DecodeError, JWT::ExpiredSignature
       begin
         return false unless session[:refresh_token]
