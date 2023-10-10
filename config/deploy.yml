@@ -11,6 +11,7 @@ servers:
   websocket:
     hosts:
       - 159.65.139.40
+    port: 8080
     cmd:
       bash -c "bundle exec rails runner lib/websockets/websocket.rb"
 
