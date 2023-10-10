@@ -35,6 +35,8 @@ env:
     - DB_HOST
     - DB_PORT
     - REDIS_URL
+    - WEB_URL
+    - WEBSOCKET_URL
 
 # Use a different ssh user than root
 ssh:
