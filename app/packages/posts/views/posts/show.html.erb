@@ -38,7 +38,7 @@
 </div>
 
 <script>
-  var ws = new WebSocket("ws://<%= ENV.fetch('WEBSOCKET_URL') { "192.168.1.11" } %>:3000/post_<%= @post.id %>");
+  var ws = new WebSocket("ws://<%= Constants::WEBSOCKET_URL %>/post_<%= @post.id %>");
   ws.onopen = (event) => {
     console.log("Connected to Websocket Server");
   };

@@ -1,0 +1,5 @@
+module Constants
+  WEBSOCKET_HOST = ENV.fetch('WEBSOCKET_URL') { "0.0.0.0" }
+  WEBSOCKET_PORT = ENV.fetch('WEBSOCKET_PORT') { "8080" }
+  WEBSOCKET_URL = WEBSOCKET_HOST + ':' + WEBSOCKET_PORT
+end
