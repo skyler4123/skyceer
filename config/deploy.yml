@@ -12,7 +12,7 @@ servers:
     hosts:
       - 159.65.139.40
     cmd:
-      "bundle exec rails runner lib/websockets/websocket.rb"
+      bash -c "bundle exec rails runner lib/websockets/websocket.rb"
 
 # Credentials for your image host.
 registry:
