@@ -8,11 +8,11 @@ image: pkphung2001/skyceer
 servers:
   web:
     hosts:
-      - 206.189.82.233
-  # job:
-  #   hosts:
-  #     - 143.198.90.214
-  #   cmd: bundle exec sidekiq
+      - 209.97.165.152
+  job:
+    hosts:
+      - 178.128.52.185
+    cmd: bundle exec rails runner lib/websockets/websocket.rb
   # websocket:
   #   hosts:
   #     - 159.65.139.40
@@ -79,18 +79,18 @@ accessories:
 #       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
 #     directories:
 #       - data:/var/lib/mysql
-  # postgres:
-  #   image: postgres
-  #   host: 192.168.0.2
-  #   port: 5432
-  #   env:
-  #     secret:
-  #       - POSTGRES_PASSWORD
-  #   volumes:
-  #     - /var/lib/postgres:/data
+  postgres:
+    image: postgres:latest
+    host: 209.97.173.107
+    port: 5432
+    env:
+      secret:
+        - POSTGRES_PASSWORD
+    volumes:
+      - /var/lib/postgres:/data
   redis:
     image: redis:latest
-    host: 206.189.37.210
+    host: 209.97.173.123
     port: 6379
     volumes:
       - /var/lib/redis:/data
