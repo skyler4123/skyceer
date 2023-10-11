@@ -9,10 +9,10 @@ servers:
   web:
     hosts:
       - <%= ENV["KAMAL_WEB_HOST"] %>
-  # job:
-  #   hosts:
-  #     - <%= ENV[""] %>
-  #   cmd: bundle exec rails runner lib/websockets/websocket.rb
+  job:
+    hosts:
+      - <%= ENV["KAMAL_JOB_HOST"] %>
+    cmd: bundle exec sidekiq
   # websocket:
   #   hosts:
   #     - <%= ENV[""] %>
