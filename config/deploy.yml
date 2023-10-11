@@ -89,7 +89,7 @@ accessories:
   #   volumes:
   #     - /var/lib/postgres:/data
   redis:
-    image: redis:lastest
+    image: redis:latest
     host: 206.189.37.210
     port: 6379
     volumes:
