@@ -35,13 +35,11 @@ env:
   #   DB_HOST: 192.168.0.2
   secret:
     - RAILS_MASTER_KEY
-    - PRIVATE_REDIS_HOST
-    - REDIS_PORT
     - REDIS_URL
     - SIDEKIQ_UI_USERNAME
     - SIDEKIQ_UI_PASSWORD
     - POSTGRES_USERNAME
-    - PRIVATE_POSTGRES_HOST
+    - POSTGRES_HOST
     - POSTGRES_PORT
     - POSTGRES_PASSWORD
 
@@ -78,21 +76,21 @@ accessories:
 #       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
 #     directories:
 #       - data:/var/lib/mysql
-  postgres:
-    image: postgres:latest
-    host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
-    port: <%= ENV["POSTGRES_PORT"] %>
-    env:
-      secret:
-        - POSTGRES_PASSWORD
-    volumes:
-      - /var/lib/postgres:/data
-  redis:
-    image: redis:latest
-    host: <%= ENV["KAMAL_REDIS_HOST"] %>
-    port: <%= ENV["REDIS_PORT"] %>
-    volumes:
-      - /var/lib/redis:/data
+  # postgres:
+  #   image: postgres:latest
+  #   host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
+  #   port: <%= ENV["POSTGRES_PORT"] %>
+  #   env:
+  #     secret:
+  #       - POSTGRES_PASSWORD
+  #   volumes:
+  #     - /var/lib/postgres:/data
+  # redis:
+  #   image: redis:latest
+  #   host: <%= ENV["KAMAL_REDIS_HOST"] %>
+  #   port: <%= ENV["REDIS_PORT"] %>
+  #   volumes:
+  #     - /var/lib/redis:/data
 
 # Configure custom arguments for Traefik
 # traefik:

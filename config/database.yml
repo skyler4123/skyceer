@@ -7,7 +7,7 @@ default: &default
 
   username: <%= ENV.fetch("POSTGRES_USERNAME") { "postgres" } %>
   password: <%= ENV.fetch("POSTGRES_PASSWORD") { "password" } %>
-  host: <%= ENV.fetch("PRIVATE_POSTGRES_HOST") { "0.0.0.0" } %>
+  host: <%= ENV.fetch("POSTGRES_HOST") { "0.0.0.0" } %>
   port: <%= ENV.fetch("POSTGRES_PORT") { "5432" } %>
 
 development:
