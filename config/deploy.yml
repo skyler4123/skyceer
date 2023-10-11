@@ -8,14 +8,14 @@ image: pkphung2001/skyceer
 servers:
   web:
     hosts:
-      - 68.183.238.28
+      - <%= ENV["KAMAL_WEB_HOST"] %>
   # job:
   #   hosts:
-  #     - 178.128.52.185
+  #     - <%= ENV[""] %>
   #   cmd: bundle exec rails runner lib/websockets/websocket.rb
   # websocket:
   #   hosts:
-  #     - 159.65.139.40
+  #     - <%= ENV[""] %>
   #   cmd: bin/rails runner lib/websockets/websocket.rb
 
 # Credentials for your image host.
@@ -35,20 +35,18 @@ env:
   #   DB_HOST: 192.168.0.2
   secret:
     - RAILS_MASTER_KEY
-    - DB_USERNAME
-    - DB_PASSWORD
-    - DB_HOST
-    - DB_PORT
-    - REDIS_URL
-    - WEB_HOST
-    - WEBSOCKET_HOST
-    - WEBSOCKET_PORT
+    - PRIVATE_REDIS_HOST
+    - REDIS_PORT
     - SIDEKIQ_UI_USERNAME
     - SIDEKIQ_UI_PASSWORD
+    - POSTGRES_USERNAME
+    - PRIVATE_POSTGRES_HOST
+    - POSTGRES_PORT
+    - POSTGRES_PASSWORD
 
 # Use a different ssh user than root
 ssh:
-  user: root
+  user: <%= ENV["KAMAL_SSH_USER"] %>
   # proxy:
   #   - "ubuntu@13.250.29.204"
   #   - "ubuntu@54.255.170.174"
@@ -81,8 +79,8 @@ accessories:
 #       - data:/var/lib/mysql
   postgres:
     image: postgres:latest
-    host: 167.172.89.150
-    port: 5432
+    host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
+    port: <%= ENV["POSTGRES_PORT"] %>
     env:
       secret:
         - POSTGRES_PASSWORD
@@ -90,8 +88,8 @@ accessories:
       - /var/lib/postgres:/data
   redis:
     image: redis:latest
-    host: 68.183.225.54
-    port: 6379
+    host: <%= ENV["KAMAL_REDIS_HOST"] %>
+    port: <%= ENV["REDIS_PORT"] %>
     volumes:
       - /var/lib/redis:/data
 
