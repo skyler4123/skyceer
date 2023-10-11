@@ -79,15 +79,15 @@ accessories:
 #       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
 #     directories:
 #       - data:/var/lib/mysql
-  # postgres:
-  #   image: postgres:latest
-  #   host: 209.97.173.107
-  #   port: 5432
-  #   env:
-  #     secret:
-  #       - POSTGRES_PASSWORD
-  #   volumes:
-  #     - /var/lib/postgres:/data
+  postgres:
+    image: postgres:latest
+    host: 167.172.89.150
+    port: 5432
+    env:
+      secret:
+        - POSTGRES_PASSWORD
+    volumes:
+      - /var/lib/postgres:/data
   redis:
     image: redis:latest
     host: 68.183.225.54
