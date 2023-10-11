@@ -8,9 +8,7 @@ image: pkphung2001/skyceer
 servers:
   web:
     hosts:
-      - 167.172.74.10
-    options:
-      network: "skyceer-network"
+      - 157.245.152.181
   # job:
   #   hosts:
   #     - 143.198.90.214
@@ -42,8 +40,9 @@ env:
     - DB_HOST
     - DB_PORT
     - REDIS_URL
-    - WEB_URL
-    - WEBSOCKET_URL
+    - WEB_HOST
+    - WEBSOCKET_HOST
+    - WEBSOCKET_PORT
     - SIDEKIQ_UI_USERNAME
     - SIDEKIQ_UI_PASSWORD
 
@@ -80,20 +79,26 @@ accessories:
 #       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
 #     directories:
 #       - data:/var/lib/mysql
+  # postgres:
+  #   image: postgres
+  #   host: 192.168.0.2
+  #   port: 5432
+  #   env:
+  #     secret:
+  #       - POSTGRES_PASSWORD
+  #   volumes:
+  #     - /var/lib/postgres:/data
   redis:
-    image: redis:latest
-    roles:
-      - web
-    port: "6379:6379"
+    image: redis
+    host: 157.245.156.76
+    port: 6379
     volumes:
       - /var/lib/redis:/data
-    options:
-      network: "skyceer-network"
 
 # Configure custom arguments for Traefik
-traefik:
-  options:
-    network: "skyceer-network"
+# traefik:
+#   options:
+#     network: "skyceer-network"
 #   args:
 #     accesslog: true
 #     accesslog.format: json
