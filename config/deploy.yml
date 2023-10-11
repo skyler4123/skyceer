@@ -85,12 +85,12 @@ accessories:
   #       - POSTGRES_PASSWORD
   #   volumes:
   #     - /var/lib/postgres:/data
-  # redis:
-  #   image: redis:latest
-  #   host: <%= ENV["KAMAL_REDIS_HOST"] %>
-  #   port: <%= ENV["REDIS_PORT"] %>
-  #   volumes:
-  #     - /var/lib/redis:/data
+  redis:
+    image: redis:latest
+    host: <%= ENV["KAMAL_REDIS_HOST"] %>
+    port: <%= ENV["REDIS_PORT"] %>
+    volumes:
+      - /var/lib/redis:/data
 
 # Configure custom arguments for Traefik
 # traefik:
