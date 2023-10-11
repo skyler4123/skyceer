@@ -8,7 +8,7 @@ image: pkphung2001/skyceer
 servers:
   web:
     hosts:
-      - 157.245.152.181
+      - 206.189.82.233
   # job:
   #   hosts:
   #     - 143.198.90.214
@@ -90,7 +90,7 @@ accessories:
   #     - /var/lib/postgres:/data
   redis:
     image: redis
-    host: 157.245.156.76
+    host: 206.189.37.210
     port: 6379
     volumes:
       - /var/lib/redis:/data
