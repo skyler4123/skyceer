@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
+return if ENV['RAILS_ENV'] == 'production'
 ActiveRecord::Base.transaction do
   User.delete_all
   Post.delete_all
@@ -32,5 +32,4 @@ ActiveRecord::Base.transaction do
     )
   end
 end
-
 puts "db:seed done!"
