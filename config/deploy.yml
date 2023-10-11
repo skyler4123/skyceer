@@ -7,7 +7,10 @@ image: pkphung2001/skyceer
 # Deploy to these servers.
 servers:
   web:
-    - 143.198.90.214
+    hosts:
+      - 143.198.90.214
+    options:
+      network: "skyceer-network"
   # job:
   #   hosts:
   #     - 143.198.90.214
@@ -81,12 +84,16 @@ accessories:
     image: redis:latest
     roles:
       - web
-    port: "36379:6379"
+    port: "6379:6379"
     volumes:
       - /var/lib/redis:/data
+    options:
+      network: "skyceer-network"
 
 # Configure custom arguments for Traefik
-# traefik:
+traefik:
+  options:
+    network: "skyceer-network"
 #   args:
 #     accesslog: true
 #     accesslog.format: json
