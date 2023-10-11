@@ -8,7 +8,7 @@ image: pkphung2001/skyceer
 servers:
   web:
     hosts:
-      - 143.198.90.214
+      - 167.172.74.10
     options:
       network: "skyceer-network"
   # job:
