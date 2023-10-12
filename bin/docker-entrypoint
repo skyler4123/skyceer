@@ -6,5 +6,6 @@ rm -f /rails/tmp/pids/server.pid
 #   ./bin/rails db:prepare
 # fi
 ./bin/rails db:prepare
+./bin/rails log:clear
 
 exec "${@}"
