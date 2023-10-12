@@ -1,4 +1,7 @@
 <div id="<%= dom_id user %>">
+  <div>
+    <%= image_tag user.avatar.variant(:medium) if user.avatar.attached? %>
+  </div>
   <p class="my-5">
     <strong class="block font-medium mb-1">Email:</strong>
     <%= user.email %>

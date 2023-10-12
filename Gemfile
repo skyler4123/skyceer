@@ -83,3 +83,4 @@ gem "em-websocket"
 gem "sidekiq"
 gem "sidekiq-cron"
 gem 'newrelic_rpm'
+gem "aws-sdk-s3", require: false
