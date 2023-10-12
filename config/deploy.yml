@@ -9,12 +9,12 @@ servers:
   web:
     hosts:
       - <%= ENV["KAMAL_WEB_HOST"] %>
-    volumes:
-      - ".:/rails"
-  job:
-    hosts:
-      - <%= ENV["KAMAL_JOB_HOST"] %>
-    cmd: bundle exec sidekiq
+    # volumes:
+    #   - ".:/rails"
+  # job:
+  #   hosts:
+  #     - <%= ENV["KAMAL_JOB_HOST"] %>
+  #   cmd: bundle exec sidekiq
   # websocket:
   #   hosts:
   #     - <%= ENV[""] %>
@@ -79,21 +79,21 @@ accessories:
 #       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
 #     directories:
 #       - data:/var/lib/mysql
-  postgres:
-    image: postgres:latest
-    host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
-    port: <%= ENV["POSTGRES_PORT"] %>
-    env:
-      secret:
-        - POSTGRES_PASSWORD
-    volumes:
-      - /var/lib/postgres:/data
-  redis:
-    image: redis:latest
-    host: <%= ENV["KAMAL_REDIS_HOST"] %>
-    port: <%= ENV["REDIS_PORT"] %>
-    volumes:
-      - /var/lib/redis:/data
+  # postgres:
+  #   image: postgres:latest
+  #   host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
+  #   port: <%= ENV["POSTGRES_PORT"] %>
+  #   env:
+  #     secret:
+  #       - POSTGRES_PASSWORD
+  #   volumes:
+  #     - /var/lib/postgres:/data
+  # redis:
+  #   image: redis:latest
+  #   host: <%= ENV["KAMAL_REDIS_HOST"] %>
+  #   port: <%= ENV["REDIS_PORT"] %>
+  #   volumes:
+  #     - /var/lib/redis:/data
 
 # Configure custom arguments for Traefik
 # traefik:
