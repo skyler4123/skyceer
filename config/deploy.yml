@@ -9,6 +9,8 @@ servers:
   web:
     hosts:
       - <%= ENV["KAMAL_WEB_HOST"] %>
+    volumes:
+      - "$PWD:/rails"
   job:
     hosts:
       - <%= ENV["KAMAL_JOB_HOST"] %>
