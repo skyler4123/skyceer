@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-return if ENV['RAILS_ENV'] == 'production'
+# return if ENV['RAILS_ENV'] == 'production'
 ActiveRecord::Base.transaction do
   User.delete_all
   Post.delete_all
@@ -18,13 +18,13 @@ ActiveRecord::Base.transaction do
       password_confirmation: "password"
     )
   end
-  5.times do |n|
+  15.times do |n|
     Post.create(
       content: Faker::Quote.famous_last_words,
       user: User.all.sample,
     )
   end
-  10.times do |n|
+  50.times do |n|
     Comment.create(
       content: Faker::Quote.robin,
       user: User.all.sample,
