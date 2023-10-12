@@ -82,3 +82,4 @@ gem "jwt"
 gem "em-websocket"
 gem "sidekiq"
 gem "sidekiq-cron"
+gem 'newrelic_rpm'
