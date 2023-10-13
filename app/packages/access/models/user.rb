@@ -6,7 +6,6 @@ class User < ApplicationRecord
     attachable.variant :small, resize_to_limit: [300, 300]
     attachable.variant :medium, resize_to_limit: [500, 500]
     attachable.variant :large, resize_to_limit: [1000, 1000]
-
   end
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy

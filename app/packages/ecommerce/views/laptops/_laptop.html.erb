@@ -1,0 +1,74 @@
+<div id="<%= dom_id laptop %>">
+  <% if laptop.images.attached? %>
+    <div>
+      <% laptop.images.each do |image| %>
+        <%= image_tag image %>
+      <% end %>
+    </div>
+  <% end %>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= laptop.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Brand:</strong>
+    <%= laptop.brand %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Model name:</strong>
+    <%= laptop.model_name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Unit price:</strong>
+    <%= laptop.unit_price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Quantity:</strong>
+    <%= laptop.quantity %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Color:</strong>
+    <%= laptop.color %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Hard disk:</strong>
+    <%= laptop.hard_disk %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Cpu:</strong>
+    <%= laptop.cpu %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Ram:</strong>
+    <%= laptop.ram %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Os:</strong>
+    <%= laptop.os %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Graphic card:</strong>
+    <%= laptop.graphic_card %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Screen size:</strong>
+    <%= laptop.screen_size %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this laptop", laptop, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this laptop', edit_laptop_path(laptop), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
