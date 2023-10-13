@@ -27,6 +27,9 @@ module GeneratedUrlHelpersModule
   def edit_demo_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def edit_laptop_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def edit_post_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -36,10 +39,19 @@ module GeneratedUrlHelpersModule
   def edit_user_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def laptop_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def laptops_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def new_comment_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_demo_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_laptop_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_post_url(*args); end

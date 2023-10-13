@@ -27,6 +27,9 @@ module GeneratedPathHelpersModule
   def edit_demo_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def edit_laptop_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def edit_post_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -36,10 +39,19 @@ module GeneratedPathHelpersModule
   def edit_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def laptop_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def laptops_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def new_comment_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_demo_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_laptop_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_post_path(*args); end

@@ -32,7 +32,7 @@ ActiveRecord::Base.transaction do
       post: Post.all.sample,
     )
   end
-  30.times do |n|
+  5.times do |n|
     Laptop.create(
       name: Faker::Commerce.product_name,
       brand: Faker::Commerce.brand,
@@ -47,6 +47,13 @@ ActiveRecord::Base.transaction do
       graphic_card: ["intel", 'ndivia', 'amd'].sample,
       screen_size: [13, 14, 15.6, 17].sample,
     )
+  end
+end
+15.times do |n|
+  (Dir.glob("/rails/faker/images/laptop/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
+    file_name, file_type = file.path.split('/').last.split('.')
+    Laptop.all.sample.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+    puts index
   end
 end
 puts "db:seed done!"
