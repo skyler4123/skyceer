@@ -66,6 +66,6 @@ class LaptopsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def laptop_params
-      params.require(:laptop).permit(:name, :brand, :model_name, :unit_price, :quantity, :color, :hard_disk, :cpu, :ram, :os, :graphic_card, :screen_size)
+      params.require(:laptop).permit(:name, :brand, :model, :unit_price, :quantity, :color, :hard_disk, :cpu, :ram, :os, :graphic_card, :screen_size)
     end
 end

@@ -53,7 +53,6 @@ end
   (Dir.glob("/rails/faker/images/laptop/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
     file_name, file_type = file.path.split('/').last.split('.')
     Laptop.all.sample.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-    puts index
   end
 end
 puts "db:seed done!"
