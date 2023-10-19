@@ -10,6 +10,7 @@ User.destroy_all
 Post.destroy_all
 Comment.destroy_all
 Laptop.destroy_all
+Blogger.destroy_all
 
 ActiveRecord::Base.transaction do
   5.times do |n|
@@ -46,6 +47,12 @@ ActiveRecord::Base.transaction do
       os: Faker::Computer.platform,
       graphic_card: ["intel", 'ndivia', 'amd'].sample,
       screen_size: [13, 14, 15.6, 17].sample,
+    )
+  end
+  User.all.each do |user|
+    Blogger.create(
+      nickname: Faker::FunnyName.name,
+      user_id: user.id,
     )
   end
 end
