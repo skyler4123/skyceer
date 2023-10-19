@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
       begin
         return false unless session[:refresh_token]
         @current_user ||= User.find(JsonWebToken.decode(token: session[:refresh_token], algorithm: "HS512")[:id])
-        access_token = JsonWebToken.encode(user: @current_user, expire: 3.minutes)
+        access_token = JsonWebToken.encode(user: @current_user, expire: Constants::ACCESS_TOKEN_EXPIRATION.to_i.minutes)
         session[:access_token] = access_token
         @current_user
       rescue JWT::DecodeError, JWT::ExpiredSignature, ActiveRecord::RecordNotFound
@@ -29,5 +29,8 @@ class ApplicationController < ActionController::Base
   def authenticate_user!
     redirect_to signin_path unless user_signed_in?
   end
-  
+
+  def current_blogger
+    @current_blogger ||= Blogger.find_by(user_id: current_user.id)
+  end
 end

@@ -1,4 +1,4 @@
-<div data-controller="rich-text--trix-component" class='<%= @editor_class || 'w-3/4' %>'>
+<div data-controller="rich-text--trix-component" class='<%= @editor_class %>'>
   <input id="<%= @id %>" type="hidden" name="<%= @name %>">
   <trix-editor input="<%= @id %>"></trix-editor>
   <%= content %>

@@ -26,8 +26,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        access_token = JsonWebToken.encode(user: @user, expire: 1.minutes)
-        refresh_token = JsonWebToken.encode(user: @user, expire: 10.minutes, algorithm: "HS512")
+        access_token = JsonWebToken.encode(user: @user, expire: Constants::ACCESS_TOKEN_EXPIRATION.to_i.minutes)
+        refresh_token = JsonWebToken.encode(user: @user, expire: Constants::REFRESH_TOKEN_EXPIRATION.to_i.minutes, algorithm: "HS512")
         @user.update(refresh_token: refresh_token)
         session[:access_token] = access_token
         session[:refresh_token] = refresh_token
