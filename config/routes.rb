@@ -5,11 +5,14 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
+  
+  # MongoDB 
   resources :blogs
   resources :bloggers
-  resources :laptops
-  mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
 
+  # PostgreSQL
+  resources :laptops
   resources :comments
   resources :posts
   get 'signin', to: 'sessions#new'

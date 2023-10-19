@@ -9,6 +9,18 @@ module GeneratedPathHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def blog_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def blogger_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def bloggers_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def blogs_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def comment_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -19,6 +31,12 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def demos_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_blog_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_blogger_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_comment_path(*args); end
@@ -43,6 +61,12 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def laptops_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_blog_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_blogger_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_comment_path(*args); end

@@ -7,7 +7,10 @@
 module ActionController::Redirecting
   include GeneratedInstanceMethods
 
+  mixes_in_class_methods ::AbstractController::Logger::ClassMethods
+  mixes_in_class_methods ::ActionDispatch::Routing::UrlFor::ClassMethods
   mixes_in_class_methods ::AbstractController::UrlFor::ClassMethods
+  mixes_in_class_methods ::ActionController::UrlFor::ClassMethods
   mixes_in_class_methods GeneratedClassMethods
 
   module GeneratedClassMethods

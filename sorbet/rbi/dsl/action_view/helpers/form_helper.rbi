@@ -7,4 +7,6 @@
 module ActionView::Helpers::FormHelper
   mixes_in_class_methods ::ActionView::Helpers::UrlHelper::ClassMethods
   mixes_in_class_methods ::ActionView::Helpers::SanitizeHelper::ClassMethods
+  mixes_in_class_methods ::ActionView::Helpers::TextHelper::ClassMethods
+  mixes_in_class_methods ::ActionView::Helpers::FormTagHelper::ClassMethods
 end

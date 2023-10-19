@@ -9,6 +9,18 @@ module GeneratedUrlHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def blog_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def blogger_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def bloggers_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def blogs_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def comment_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -19,6 +31,12 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def demos_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_blog_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_blogger_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_comment_url(*args); end
@@ -43,6 +61,12 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def laptops_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_blog_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_blogger_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_comment_url(*args); end

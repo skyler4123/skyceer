@@ -8,6 +8,7 @@ module ActiveRecord::AttributeMethods::Dirty
   include GeneratedInstanceMethods
 
   mixes_in_class_methods ::ActiveModel::AttributeMethods::ClassMethods
+  mixes_in_class_methods ::ActiveModel::Dirty::ClassMethods
   mixes_in_class_methods GeneratedClassMethods
 
   module GeneratedClassMethods

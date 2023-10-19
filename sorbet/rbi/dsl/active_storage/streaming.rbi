@@ -6,5 +6,6 @@
 
 module ActiveStorage::Streaming
   mixes_in_class_methods ::ActionController::Rendering::ClassMethods
+  mixes_in_class_methods ::ActionController::DataStreaming::ClassMethods
   mixes_in_class_methods ::ActionController::Live::ClassMethods
 end

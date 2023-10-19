@@ -7,6 +7,7 @@
 module ActiveRecord::Serialization
   include GeneratedInstanceMethods
 
+  mixes_in_class_methods ::ActiveModel::Serializers::JSON::ClassMethods
   mixes_in_class_methods GeneratedClassMethods
 
   module GeneratedClassMethods
