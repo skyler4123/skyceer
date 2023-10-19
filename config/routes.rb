@@ -5,6 +5,7 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :blogs
   resources :bloggers
   resources :laptops
   mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app

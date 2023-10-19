@@ -4,6 +4,8 @@ class Blogger
   field :nickname, type: String
   field :user_id, type: String
 
+  has_many :blogs, dependent: :destroy
+  
   def user
     User.where(id: self.user_id)
   end

@@ -11,6 +11,7 @@ Post.destroy_all
 Comment.destroy_all
 Laptop.destroy_all
 Blogger.destroy_all
+Blog.destroy_all
 
 ActiveRecord::Base.transaction do
   5.times do |n|
@@ -53,6 +54,12 @@ ActiveRecord::Base.transaction do
     Blogger.create(
       nickname: Faker::FunnyName.name,
       user_id: user.id,
+    )
+  end
+  10.times do |n|
+    Blog.create(
+      content: Faker::Quote.matz,
+      blogger: Blogger.all.sample,
     )
   end
 end
