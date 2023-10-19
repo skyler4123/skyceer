@@ -1,3 +1,5 @@
+# typed: false
+
 class Blog
   include Mongoid::Document
   include Mongoid::Timestamps
