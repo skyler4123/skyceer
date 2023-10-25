@@ -54,7 +54,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_13_072803) do
   end
 
   create_table "demos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "content", null: false
+    t.string "string", null: false
+    t.text "text"
+    t.float "float"
+    t.decimal "decimal"
+    t.datetime "datetime"
+    t.time "time"
+    t.date "date"
+    t.binary "binary"
+    t.boolean "boolean"
+    t.json "json"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

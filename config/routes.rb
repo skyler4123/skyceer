@@ -5,6 +5,7 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :demos
   post 'images/upload_by_file'
   post 'images/upload_by_url'
   mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
@@ -21,7 +22,6 @@ Rails.application.routes.draw do
   post 'signin', to: 'sessions#create'
   delete 'signout', to: 'sessions#destroy'
   get 'signup', to: 'users#new'
-  resources :demos
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
