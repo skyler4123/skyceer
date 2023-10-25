@@ -1,4 +1,4 @@
-<div data-controller="editor--editorjs-component" class="flex flex-col">
+<div data-controller="editor--editorjs-component" data-editor--editorjs-component-object-id-value='<%= @object_id %>' data-editor--editorjs-component-object-type-value="<%= @object_type %>" data-editor--editorjs-component-image-endpoint-by-file-value="<%= @image_endpoint_by_file %>" data-editor--editorjs-component-image-endpoint-by-url-value="<%= @image_endpoint_by_url %>" class="flex flex-col">
   <div id="<%= @holder %>" data-editor--editorjs-component-target="editor"></div>
   <%= render ButtonComponent.new %>
 </div>

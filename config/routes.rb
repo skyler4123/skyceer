@@ -5,6 +5,8 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  post 'images/upload_by_file'
+  post 'images/upload_by_url'
   mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
   
   # MongoDB 
