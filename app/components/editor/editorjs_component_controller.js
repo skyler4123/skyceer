@@ -75,8 +75,9 @@ export default class extends Controller {
     return editor;
   }
   save() {
-    this.editor().save().then(saveData => {
-      console.log(saveData)
-    })
+    console.log("Hello, Stimulus!");
+    // this.editor().save().then(saveData => {
+    //   console.log(saveData)
+    // })
   }
 }
