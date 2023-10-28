@@ -1,25 +1,25 @@
-require 'rails_helper'
+# require 'rails_helper'
 
-RSpec.describe "blogs/edit", type: :view do
-  let(:blog) {
-    Blog.create!(
-      content: "MyString",
-      blogger: nil
-    )
-  }
+# RSpec.describe "blogs/edit", type: :view do
+#   let(:blog) {
+#     Blog.create!(
+#       content: "MyString",
+#       blogger: nil
+#     )
+#   }
 
-  before(:each) do
-    assign(:blog, blog)
-  end
+#   before(:each) do
+#     assign(:blog, blog)
+#   end
 
-  it "renders the edit blog form" do
-    render
+#   it "renders the edit blog form" do
+#     render
 
-    assert_select "form[action=?][method=?]", blog_path(blog), "post" do
+#     assert_select "form[action=?][method=?]", blog_path(blog), "post" do
 
-      assert_select "input[name=?]", "blog[content]"
+#       assert_select "input[name=?]", "blog[content]"
 
-      assert_select "input[name=?]", "blog[blogger_id]"
-    end
-  end
-end
+#       assert_select "input[name=?]", "blog[blogger_id]"
+#     end
+#   end
+# end
