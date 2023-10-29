@@ -7,6 +7,6 @@ rm -f /rails/tmp/pids/server.pid
 # fi
 ./bin/rails db:prepare
 ./bin/rails log:clear
-./bin/rails assets:precompile
+# ./bin/rails assets:precompile
 
 exec "${@}"
