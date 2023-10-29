@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       session[:access_token] = access_token
       session[:refresh_token] = refresh_token
       flash[:notice] = 'Signin OK!'
-      redirect_to root_path
+      redirect_to @user
     else
       redirect_to signin_path
     end
