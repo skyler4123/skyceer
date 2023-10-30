@@ -8,7 +8,7 @@ import List from '@editorjs/list';
 import Checklist from '@editorjs/checklist';
 import Embed from '@editorjs/embed';
 import Quote from '@editorjs/quote';
-
+import { v4 as uuidv4 } from 'uuid';
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -24,9 +24,24 @@ export default class extends Controller {
   }
   initialize() {
     this.editor()
+    if (!this.objectIdValue) { 
+      this.objectIdValue = uuidv4()
+      this.formParent().prepend(this.inputId())
+    }
+    // console.log(this.formParent())
   }
   csrfToken() {
     return document.querySelector('meta[name="csrf-token"]').content
+  }
+  formParent() {
+    return this.element.closest("form")
+  }
+  inputId() {
+    let inputId = document.createElement("input");
+    inputId.setAttribute("name", `${this.objectTypeValue}[id]`)
+    inputId.setAttribute("type", "hidden")
+    inputId.setAttribute("value", this.objectIdValue)
+    return inputId
   }
   editor() {
     const editor = new EditorJS({

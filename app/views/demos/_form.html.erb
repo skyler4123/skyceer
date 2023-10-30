@@ -59,7 +59,7 @@
   <div class="my-5">
     <%= form.label :json %>
     <%#= form.text_field :json, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-    <%= render Editor::EditorjsComponent.new %>
+    <%= render Editor::EditorjsComponent.new(object_type: 'demo', object_id: demo.id) %>
   </div>
 
   <div class="inline">
