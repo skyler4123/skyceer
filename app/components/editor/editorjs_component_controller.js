@@ -18,33 +18,13 @@ export default class extends Controller {
     objectType: String,
     imageEndpointByFile: String,
     imageEndpointByUrl: String,
+    editor: Object
   }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }
   initialize() {
-    this.editor()
-    if (!this.objectIdValue) { 
-      this.objectIdValue = uuidv4()
-      this.formParent().prepend(this.inputId())
-    }
-    // console.log(this.formParent())
-  }
-  csrfToken() {
-    return document.querySelector('meta[name="csrf-token"]').content
-  }
-  formParent() {
-    return this.element.closest("form")
-  }
-  inputId() {
-    let inputId = document.createElement("input");
-    inputId.setAttribute("name", `${this.objectTypeValue}[id]`)
-    inputId.setAttribute("type", "hidden")
-    inputId.setAttribute("value", this.objectIdValue)
-    return inputId
-  }
-  editor() {
-    const editor = new EditorJS({
+    this.editorJS = new EditorJS({
       holder: this.editorTarget.id,
       autofocus: true,
       tools: {
@@ -87,12 +67,30 @@ export default class extends Controller {
         quote: Quote,
       }
     });
-    return editor;
+    if (!this.objectIdValue) { 
+      this.objectIdValue = uuidv4()
+      this.formParent().prepend(this.inputId())
+    }
+  }
+  csrfToken() {
+    return document.querySelector('meta[name="csrf-token"]').content
+  }
+  formParent() {
+    return this.element.closest("form")
+  }
+  inputId() {
+    let inputId = document.createElement("input");
+    inputId.setAttribute("name", `${this.objectTypeValue}[id]`)
+    inputId.setAttribute("type", "hidden")
+    inputId.setAttribute("value", this.objectIdValue)
+    return inputId
   }
   save() {
-    console.log("Hello, Stimulus!");
-    // this.editor().save().then(saveData => {
-    //   console.log(saveData)
-    // })
+    console.log("Hello, Stimulus!", this.editorJS);
+    this.editorJS.save().then(outputData => {
+      console.log(outputData)
+    }).catch(error => {
+      console.log(error)
+    })
   }
 }

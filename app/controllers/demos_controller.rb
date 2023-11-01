@@ -65,6 +65,6 @@ class DemosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def demo_params
-      params.require(:demo).permit(:string, :text, :float, :decimal, :datetime, :time, :date, :binary, :boolean, :json)
+      params.require(:demo).permit(:id, :string, :text, :float, :decimal, :datetime, :time, :date, :binary, :boolean, :json)
     end
 end
