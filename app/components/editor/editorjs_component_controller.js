@@ -63,7 +63,14 @@ export default class extends Controller {
             defaultStyle: 'unordered'
           }
         },
-        embed: Embed,
+        embed: {
+          class: Embed,
+          config: {
+            services: {
+              youtube: true
+            }
+          }
+        },
         quote: Quote,
       }
     });
