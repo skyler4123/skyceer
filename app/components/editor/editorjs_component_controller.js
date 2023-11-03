@@ -14,8 +14,8 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["editor"]
   static values = {
-    objectId: String,
-    objectType: String,
+    recordId: String,
+    recordType: String,
     imageEndpointByFile: String,
     imageEndpointByUrl: String,
     editor: Object
@@ -50,8 +50,8 @@ export default class extends Controller {
               'X-CSRF-Token': this.csrfToken()
             },
             additionalRequestData: {
-              object_id: this.objectIdValue,
-              object_type: this.objectTypeValue,
+              record_id: this.recordIdValue,
+              record_type: this.recordTypeValue,
             }
           }
         },
@@ -74,8 +74,8 @@ export default class extends Controller {
         quote: Quote,
       }
     });
-    if (!this.objectIdValue) { 
-      this.objectIdValue = uuidv4()
+    if (!this.recordIdValue) { 
+      this.recordIdValue = uuidv4()
       this.formParent().prepend(this.inputId())
     }
   }
@@ -87,9 +87,9 @@ export default class extends Controller {
   }
   inputId() {
     let inputId = document.createElement("input");
-    inputId.setAttribute("name", `${this.objectTypeValue}[id]`)
+    inputId.setAttribute("name", `${this.recordTypeValue}[id]`)
     inputId.setAttribute("type", "hidden")
-    inputId.setAttribute("value", this.objectIdValue)
+    inputId.setAttribute("value", this.recordIdValue)
     return inputId
   }
   save() {
