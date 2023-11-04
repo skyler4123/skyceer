@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
 
+  validates :email, presence: true, uniqueness: true
+
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_limit: [150, 150]
     attachable.variant :small, resize_to_limit: [300, 300]
