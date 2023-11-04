@@ -12,7 +12,7 @@ RSpec.describe "Sessions", type: :request do
   describe "POST /create" do
     it "returns http success" do
       # User.create(email: 'email1@gmail.com', password: 'password', password_confirmation: 'password')
-      post "/signin", params: { email: 'email1@gmail.com', password: 'password' }
+      post "/signin", params: { email: user.email, password: 'password' }
       expect(response).to redirect_to(assigns(:user))
     end
   end

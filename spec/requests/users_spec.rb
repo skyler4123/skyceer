@@ -13,7 +13,15 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/users", type: :request do
-  
+  let(:users) do
+    5.times { create(:user) }
+    User.all
+  end
+  let(:user) { users.sample }
+  subject!(:signin) {
+    post "/signin", params: { email: user.email, password: 'password' }
+  }
+  # let(:pagination_params) { { page:  } }
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
@@ -25,19 +33,16 @@ RSpec.describe "/users", type: :request do
   #   skip("Add a hash of attributes invalid for your model")
   # }
 
-  # describe "GET /index" do
-  #   it "renders a successful response" do
-  #     User.create! valid_attributes
-  #     get users_url
-  #     expect(response).to be_successful
-  #   end
-  # end
-  let(:user) {
-    create(:user, email: 'email1@gmail.com', password: 'password')
-  }
-  subject!(:signin) {
-    post "/signin", params: { email: user.email, password: user.password }
-  }
+  describe "GET /index" do
+    it "renders a successful response" do
+      get users_url
+      expect(response).to render_template(:index)
+    end
+    it "pagination" do
+      get users_url
+      expect(assigns(:pagy).present?).to be_truthy
+    end
+  end
 
   describe "GET /show" do
     it "renders a successful response" do
