@@ -23,6 +23,7 @@ class SessionsController
     include ::ActionController::Base::HelperMethods
     include ::ApplicationHelper
     include ::DemosHelper
+    include ::ImagesHelper
     include ::PreviewHelper
     include ::ApplicationController::HelperMethods
     include ::SessionsHelper

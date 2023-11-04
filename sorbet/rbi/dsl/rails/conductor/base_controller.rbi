@@ -26,6 +26,7 @@ class Rails::Conductor::BaseController
     include ::ActionController::Base::HelperMethods
     include ::ApplicationHelper
     include ::DemosHelper
+    include ::ImagesHelper
     include ::PreviewHelper
   end
 

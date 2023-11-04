@@ -23,6 +23,7 @@ class CommentsController
     include ::ActionController::Base::HelperMethods
     include ::ApplicationHelper
     include ::DemosHelper
+    include ::ImagesHelper
     include ::PreviewHelper
     include ::ApplicationController::HelperMethods
     include ::CommentsHelper

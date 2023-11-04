@@ -57,6 +57,12 @@ module GeneratedPathHelpersModule
   def edit_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def images_upload_by_file_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def images_upload_by_url_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def laptop_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

@@ -26,6 +26,7 @@ class ApplicationController
     include ::ActionController::Base::HelperMethods
     include ::ApplicationHelper
     include ::DemosHelper
+    include ::ImagesHelper
     include ::PreviewHelper
   end
 

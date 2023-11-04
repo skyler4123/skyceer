@@ -57,6 +57,12 @@ module GeneratedUrlHelpersModule
   def edit_user_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def images_upload_by_file_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def images_upload_by_url_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def laptop_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
