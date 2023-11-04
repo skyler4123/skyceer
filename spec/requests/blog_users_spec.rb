@@ -12,10 +12,10 @@
 # # of tools you can use to make these specs even more expressive, but we're
 # # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-# RSpec.describe "/bloggers", type: :request do
+# RSpec.describe "/blog_users", type: :request do
   
 #   # This should return the minimal set of attributes required to create a valid
-#   # Blogger. As you add validations to Blogger, be sure to
+#   # BlogUser. As you add validations to BlogUser, be sure to
 #   # adjust the attributes here as well.
 #   let(:valid_attributes) {
 #     skip("Add a hash of attributes valid for your model")
@@ -27,59 +27,59 @@
 
 #   describe "GET /index" do
 #     it "renders a successful response" do
-#       Blogger.create! valid_attributes
-#       get bloggers_url
+#       BlogUser.create! valid_attributes
+#       get blog_users_url
 #       expect(response).to be_successful
 #     end
 #   end
 
 #   describe "GET /show" do
 #     it "renders a successful response" do
-#       blogger = Blogger.create! valid_attributes
-#       get blogger_url(blogger)
+#       blog_user = BlogUser.create! valid_attributes
+#       get blog_user_url(blog_user)
 #       expect(response).to be_successful
 #     end
 #   end
 
 #   describe "GET /new" do
 #     it "renders a successful response" do
-#       get new_blogger_url
+#       get new_blog_user_url
 #       expect(response).to be_successful
 #     end
 #   end
 
 #   describe "GET /edit" do
 #     it "renders a successful response" do
-#       blogger = Blogger.create! valid_attributes
-#       get edit_blogger_url(blogger)
+#       blog_user = BlogUser.create! valid_attributes
+#       get edit_blog_user_url(blog_user)
 #       expect(response).to be_successful
 #     end
 #   end
 
 #   describe "POST /create" do
 #     context "with valid parameters" do
-#       it "creates a new Blogger" do
+#       it "creates a new BlogUser" do
 #         expect {
-#           post bloggers_url, params: { blogger: valid_attributes }
-#         }.to change(Blogger, :count).by(1)
+#           post blog_users_url, params: { blog_user: valid_attributes }
+#         }.to change(BlogUser, :count).by(1)
 #       end
 
-#       it "redirects to the created blogger" do
-#         post bloggers_url, params: { blogger: valid_attributes }
-#         expect(response).to redirect_to(blogger_url(Blogger.last))
+#       it "redirects to the created blog_user" do
+#         post blog_users_url, params: { blog_user: valid_attributes }
+#         expect(response).to redirect_to(blog_user_url(BlogUser.last))
 #       end
 #     end
 
 #     context "with invalid parameters" do
-#       it "does not create a new Blogger" do
+#       it "does not create a new BlogUser" do
 #         expect {
-#           post bloggers_url, params: { blogger: invalid_attributes }
-#         }.to change(Blogger, :count).by(0)
+#           post blog_users_url, params: { blog_user: invalid_attributes }
+#         }.to change(BlogUser, :count).by(0)
 #       end
 
     
 #       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-#         post bloggers_url, params: { blogger: invalid_attributes }
+#         post blog_users_url, params: { blog_user: invalid_attributes }
 #         expect(response).to have_http_status(:unprocessable_entity)
 #       end
     
@@ -92,26 +92,26 @@
 #         skip("Add a hash of attributes valid for your model")
 #       }
 
-#       it "updates the requested blogger" do
-#         blogger = Blogger.create! valid_attributes
-#         patch blogger_url(blogger), params: { blogger: new_attributes }
-#         blogger.reload
+#       it "updates the requested blog_user" do
+#         blog_user = BlogUser.create! valid_attributes
+#         patch blog_user_url(blog_user), params: { blog_user: new_attributes }
+#         blog_user.reload
 #         skip("Add assertions for updated state")
 #       end
 
-#       it "redirects to the blogger" do
-#         blogger = Blogger.create! valid_attributes
-#         patch blogger_url(blogger), params: { blogger: new_attributes }
-#         blogger.reload
-#         expect(response).to redirect_to(blogger_url(blogger))
+#       it "redirects to the blog_user" do
+#         blog_user = BlogUser.create! valid_attributes
+#         patch blog_user_url(blog_user), params: { blog_user: new_attributes }
+#         blog_user.reload
+#         expect(response).to redirect_to(blog_user_url(blog_user))
 #       end
 #     end
 
 #     context "with invalid parameters" do
     
 #       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-#         blogger = Blogger.create! valid_attributes
-#         patch blogger_url(blogger), params: { blogger: invalid_attributes }
+#         blog_user = BlogUser.create! valid_attributes
+#         patch blog_user_url(blog_user), params: { blog_user: invalid_attributes }
 #         expect(response).to have_http_status(:unprocessable_entity)
 #       end
     
@@ -119,17 +119,17 @@
 #   end
 
 #   describe "DELETE /destroy" do
-#     it "destroys the requested blogger" do
-#       blogger = Blogger.create! valid_attributes
+#     it "destroys the requested blog_user" do
+#       blog_user = BlogUser.create! valid_attributes
 #       expect {
-#         delete blogger_url(blogger)
-#       }.to change(Blogger, :count).by(-1)
+#         delete blog_user_url(blog_user)
+#       }.to change(BlogUser, :count).by(-1)
 #     end
 
-#     it "redirects to the bloggers list" do
-#       blogger = Blogger.create! valid_attributes
-#       delete blogger_url(blogger)
-#       expect(response).to redirect_to(bloggers_url)
+#     it "redirects to the blog_users list" do
+#       blog_user = BlogUser.create! valid_attributes
+#       delete blog_user_url(blog_user)
+#       expect(response).to redirect_to(blog_users_url)
 #     end
 #   end
 # end

@@ -4,7 +4,7 @@
 #   let(:blog) {
 #     Blog.create!(
 #       content: "MyString",
-#       blogger: nil
+#       blog_user: nil
 #     )
 #   }
 
@@ -19,7 +19,7 @@
 
 #       assert_select "input[name=?]", "blog[content]"
 
-#       assert_select "input[name=?]", "blog[blogger_id]"
+#       assert_select "input[name=?]", "blog[blog_user_id]"
 #     end
 #   end
 # end

@@ -4,7 +4,7 @@
 #   before(:each) do
 #     assign(:blog, Blog.create!(
 #       content: "Content",
-#       blogger: nil
+#       blog_user: nil
 #     ))
 #   end
 

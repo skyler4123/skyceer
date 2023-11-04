@@ -1,6 +1,6 @@
 # typed: false
 
-class Blogger
+class BlogUser
   extend T::Sig
 
   include Mongoid::Document

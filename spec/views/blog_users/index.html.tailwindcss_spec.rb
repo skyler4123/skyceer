@@ -1,20 +1,20 @@
 # require 'rails_helper'
 
-# RSpec.describe "bloggers/index", type: :view do
+# RSpec.describe "blog_users/index", type: :view do
 #   before(:each) do
-#     assign(:bloggers, [
-#       Blogger.create!(
+#     assign(:blog_users, [
+#       BlogUser.create!(
 #         nickname: "Nickname",
 #         user_id: "User"
 #       ),
-#       Blogger.create!(
+#       BlogUser.create!(
 #         nickname: "Nickname",
 #         user_id: "User"
 #       )
 #     ])
 #   end
 
-#   it "renders a list of bloggers" do
+#   it "renders a list of blog_users" do
 #     render
 #     cell_selector = Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
 #     assert_select cell_selector, text: Regexp.new("Nickname".to_s), count: 2

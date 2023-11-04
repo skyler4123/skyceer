@@ -1,8 +1,8 @@
 # require 'rails_helper'
 
-# RSpec.describe "bloggers/show", type: :view do
+# RSpec.describe "blog_users/show", type: :view do
 #   before(:each) do
-#     assign(:blogger, Blogger.create!(
+#     assign(:blog_user, BlogUser.create!(
 #       nickname: "Nickname",
 #       user_id: "User"
 #     ))

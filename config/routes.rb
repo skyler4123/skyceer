@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   
   # MongoDB 
   resources :blogs
-  resources :bloggers
+  resources :blog_users
 
   # PostgreSQL
   resources :laptops

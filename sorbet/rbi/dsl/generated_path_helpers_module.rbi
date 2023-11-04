@@ -12,10 +12,10 @@ module GeneratedPathHelpersModule
   def blog_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def blogger_path(*args); end
+  def blog_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def bloggers_path(*args); end
+  def blog_users_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def blogs_path(*args); end
@@ -36,7 +36,7 @@ module GeneratedPathHelpersModule
   def edit_blog_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_blogger_path(*args); end
+  def edit_blog_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_comment_path(*args); end
@@ -66,7 +66,7 @@ module GeneratedPathHelpersModule
   def new_blog_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def new_blogger_path(*args); end
+  def new_blog_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_comment_path(*args); end

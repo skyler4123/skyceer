@@ -5,11 +5,11 @@
 #     assign(:blogs, [
 #       Blog.create!(
 #         content: "Content",
-#         blogger: nil
+#         blog_user: nil
 #       ),
 #       Blog.create!(
 #         content: "Content",
-#         blogger: nil
+#         blog_user: nil
 #       )
 #     ])
 #   end

@@ -1,10 +1,10 @@
-<%= form_with(model: blogger, class: "contents") do |form| %>
-  <% if blogger.errors.any? %>
+<%= form_with(model: blog_user, class: "contents") do |form| %>
+  <% if blog_user.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(blogger.errors.count, "error") %> prohibited this blogger from being saved:</h2>
+      <h2><%= pluralize(blog_user.errors.count, "error") %> prohibited this blog_user from being saved:</h2>
 
       <ul>
-        <% blogger.errors.each do |error| %>
+        <% blog_user.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>

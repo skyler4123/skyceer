@@ -12,10 +12,10 @@ module GeneratedUrlHelpersModule
   def blog_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def blogger_url(*args); end
+  def blog_user_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def bloggers_url(*args); end
+  def blog_users_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def blogs_url(*args); end
@@ -36,7 +36,7 @@ module GeneratedUrlHelpersModule
   def edit_blog_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_blogger_url(*args); end
+  def edit_blog_user_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_comment_url(*args); end
@@ -66,7 +66,7 @@ module GeneratedUrlHelpersModule
   def new_blog_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def new_blogger_url(*args); end
+  def new_blog_user_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_comment_url(*args); end

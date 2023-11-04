@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     redirect_to signin_path unless user_signed_in?
   end
 
-  def current_blogger
-    @current_blogger ||= Blogger.find_by(user_id: current_user.id)
+  def current_blog_user
+    @current_blog_user ||= BlogUser.find_by(user_id: current_user.id)
   end
 end

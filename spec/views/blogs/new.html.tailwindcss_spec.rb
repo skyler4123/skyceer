@@ -4,7 +4,7 @@
 #   before(:each) do
 #     assign(:blog, Blog.new(
 #       content: "MyString",
-#       blogger: nil
+#       blog_user: nil
 #     ))
 #   end
 
@@ -15,7 +15,7 @@
 
 #       assert_select "input[name=?]", "blog[content]"
 
-#       assert_select "input[name=?]", "blog[blogger_id]"
+#       assert_select "input[name=?]", "blog[blog_user_id]"
 #     end
 #   end
 # end

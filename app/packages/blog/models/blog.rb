@@ -5,5 +5,5 @@ class Blog
   include Mongoid::Timestamps
   field :content, type: String
 
-  belongs_to :blogger
+  belongs_to :blog_user
 end
