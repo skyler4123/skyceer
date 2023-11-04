@@ -201,6 +201,7 @@ GEM
       parser
       sorbet-runtime (>= 0.5.9914)
       zeitwerk (>= 2.6.1)
+    pagy (6.1.0)
     parallel (1.23.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
@@ -387,6 +388,7 @@ DEPENDENCIES
   mongoid
   newrelic_rpm
   packwerk
+  pagy
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.8)

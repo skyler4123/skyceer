@@ -90,3 +90,4 @@ gem "aws-sdk-s3", require: false
 # gem "vernier"
 gem "mongoid"
 gem "rails-controller-testing"
+gem 'pagy'

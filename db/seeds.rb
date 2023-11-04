@@ -14,7 +14,7 @@ BlogUser.destroy_all
 Blog.destroy_all
 
 ActiveRecord::Base.transaction do
-  5.times do |n|
+  25.times do |n|
     User.create(
       email: "email#{n + 1}@gmail.com",
       password: "password",
