@@ -12,6 +12,8 @@ Comment.destroy_all
 Laptop.destroy_all
 BlogUser.destroy_all
 Blog.destroy_all
+ChatUser.destroy_all
+
 
 ActiveRecord::Base.transaction do
   25.times do |n|
@@ -50,23 +52,30 @@ ActiveRecord::Base.transaction do
       screen_size: [13, 14, 15.6, 17].sample,
     )
   end
-  User.all.each do |user|
-    BlogUser.create(
-      nickname: Faker::FunnyName.name,
-      user_id: user.id,
-    )
-  end
-  10.times do |n|
-    Blog.create(
-      content: Faker::Quote.matz,
-      blog_user: BlogUser.all.sample,
-    )
-  end
 end
 15.times do |n|
   (Dir.glob("/rails/faker/images/laptop/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
     file_name, file_type = file.path.split('/').last.split('.')
     Laptop.all.sample.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
   end
+end
+
+# MongoDB
+User.all.each do |user|
+  BlogUser.create(
+    nickname: Faker::FunnyName.name,
+    user_id: user.id,
+  )
+end
+10.times do |n|
+  Blog.create(
+    content: Faker::Quote.matz,
+    blog_user: BlogUser.all.sample,
+  )
+end
+User.all.each do |user|
+  ChatUser.create(
+    user_id: user.id,
+  )
 end
 puts "db:seed done!"
