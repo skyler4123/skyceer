@@ -1,6 +1,7 @@
 class ChatUser
   include Mongoid::Document
   include Mongoid::Timestamps
+
   field :user_id, type: String
 
   def user

@@ -13,6 +13,8 @@ Laptop.destroy_all
 BlogUser.destroy_all
 Blog.destroy_all
 ChatUser.destroy_all
+ChatRoom.destroy_all
+ChatMessage.destroy_all
 
 
 ActiveRecord::Base.transaction do
@@ -78,4 +80,16 @@ User.all.each do |user|
     user_id: user.id,
   )
 end
+10.times do |n|
+  chat_user_ids = ChatUser.all.take(rand(2..5)).pluck(:id)
+  chat_room = ChatRoom.create(
+    chat_user_ids: chat_user_ids
+  )
+  10.times do |n|
+    chat_room.chat_messages << ChatMessage.new(chat_user_id: chat_user_ids.sample, content: "chat message #{n}")
+  end
+end
+
+
+
 puts "db:seed done!"

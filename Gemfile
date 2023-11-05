@@ -58,7 +58,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem "rails-controller-testing"
   gem 'shoulda-matchers'
-  gem 'simplecov', require: false
 end
 
 group :development do
@@ -70,6 +69,10 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+end
+
+group :test do
+  gem 'simplecov', require: false
 end
 
 gem "packwerk"
