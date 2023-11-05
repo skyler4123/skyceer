@@ -21,6 +21,24 @@ module GeneratedPathHelpersModule
   def blogs_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def chat_message_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def chat_messages_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def chat_room_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def chat_rooms_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def chat_user_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def chat_users_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def comment_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -37,6 +55,15 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def edit_blog_user_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_chat_message_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_chat_room_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_chat_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_comment_path(*args); end
@@ -73,6 +100,15 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_blog_user_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_chat_message_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_chat_room_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_chat_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_comment_path(*args); end

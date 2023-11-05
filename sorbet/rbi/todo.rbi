@@ -44,4 +44,5 @@ module Mongoid::Timestamps::Updated::ClassMethods; end
 module Mongoid::Timestamps::Updated::Short::ClassMethods; end
 module Sidekiq::Process; end
 module Sidekiq::SortedEntry; end
+module Sidekiq::Testing; end
 module Sidekiq::Web; end

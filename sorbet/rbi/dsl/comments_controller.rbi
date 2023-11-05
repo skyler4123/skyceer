@@ -21,6 +21,8 @@ class CommentsController
     include ::ActionText::TagHelper
     include ::Importmap::ImportmapTagsHelper
     include ::ActionController::Base::HelperMethods
+    include ::Pagy::UrlHelpers
+    include ::Pagy::Frontend
     include ::ApplicationHelper
     include ::DemosHelper
     include ::ImagesHelper

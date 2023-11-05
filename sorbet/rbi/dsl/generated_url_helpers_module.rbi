@@ -21,6 +21,24 @@ module GeneratedUrlHelpersModule
   def blogs_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def chat_message_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def chat_messages_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def chat_room_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def chat_rooms_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def chat_user_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def chat_users_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def comment_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -37,6 +55,15 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def edit_blog_user_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_chat_message_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_chat_room_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_chat_user_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_comment_url(*args); end
@@ -73,6 +100,15 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_blog_user_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_chat_message_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_chat_room_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_chat_user_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_comment_url(*args); end
