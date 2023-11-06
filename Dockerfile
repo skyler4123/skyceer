@@ -55,10 +55,10 @@ COPY --from=build /rails /rails
 # USER rails:rails
 
 # Check Packwerk and Sorbet
-RUN .bin/bundle exec tapioca init \
-    .bin/bundle exec tapioca dsl \
-    .bin/bundle exec packwerk check \
-    .bin/rails graphwerk:update \
+RUN ./bin/bundle exec tapioca init && \
+    ./bin/bundle exec tapioca dsl && \
+    ./bin/bundle exec packwerk check && \
+    ./bin/rails graphwerk:update
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
