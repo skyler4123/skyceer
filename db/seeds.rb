@@ -18,7 +18,7 @@ ChatMessage.destroy_all
 
 
 ActiveRecord::Base.transaction do
-  25.times do |n|
+  10.times do |n|
     User.create(
       email: "email#{n + 1}@gmail.com",
       password: "password",
