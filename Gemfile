@@ -92,5 +92,7 @@ gem "sidekiq-cron"
 gem 'newrelic_rpm'
 gem "aws-sdk-s3", require: false
 # gem "vernier"
+gem 'rails_mini_profiler'
+gem 'stackprof'
 gem "mongoid"
 gem 'pagy'
