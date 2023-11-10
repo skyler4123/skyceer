@@ -9,3 +9,4 @@ module Constants
   JWT_ACCESS_EXPIRATION = ENV.fetch('JWT_ACCESS_EXPIRATION') { "1" }
   JWT_REFRESH_EXPIRATION = ENV.fetch('JWT_REFRESH_EXPIRATION') { "10" }
 end
+TrueOrFalse = ActiveModel::Type::Boolean.new

@@ -1,10 +1,11 @@
 RailsMiniProfiler.configure do |config|
   # Customize when Rails Mini Profiler should run
-  config.enabled = proc { |env| Rails.env.development? || env['HTTP_RMP_ENABLED'].present? }
+  # config.enabled = proc { |env| Rails.env.development? || env['HTTP_RMP_ENABLED'].present? }
+  config.enabled = TrueOrFalse.cast(ENV.fetch('HTTP_RMP_ENABLED') { false })
 
   # Configure how hedgehog badge is rendered
   config.badge_enabled = true
-  # config.badge_position = 'top-left'
+  config.badge_position = 'top-right'
 
   # Configure Flamegraph generation
   config.flamegraph_enabled = true
