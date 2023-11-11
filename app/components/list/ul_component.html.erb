@@ -1,8 +1,13 @@
-<ul data-controller="list--ul-component" data-list--ul-component-value="<%= @sortable %>">
-  <% if content? %>
-    <%= content %>
-  <% else %>
-    <li>Li content 1</li>
-    <li>Li content 2</li>
+<div data-controller="list--ul-component">
+  <% if @header %>
+    <div><%= @header %></div>
   <% end %>
-</ul>
+  <ul data-list--ul-component-value="<%= @sortable %>">
+    <% if content? %>
+      <%= content %>
+    <% else %>
+      <li>Li content 1</li>
+      <li>Li content 2</li>
+    <% end %>
+  </ul>
+</div>

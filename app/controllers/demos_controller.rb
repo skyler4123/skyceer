@@ -4,7 +4,7 @@ class DemosController < ApplicationController
 
   # GET /demos or /demos.json
   def index
-    @demos = Demo.all
+    # @demos = Demo.all
   end
 
   # GET /demos/1 or /demos/1.json
