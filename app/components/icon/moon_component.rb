@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Icon::Bars3Component < ViewComponent::Base
+class Icon::MoonComponent < ViewComponent::Base
   def initialize(svg_class: "w-4 h-4 text-gray-500")
     @svg_class = svg_class
   end
