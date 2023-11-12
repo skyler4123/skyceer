@@ -1,9 +1,13 @@
 <div data-controller="link-component" class="<%= @klass %>">
   <button class="<%= @button_class %>">
     <a class="<%= @link_class %>" href="<%= @url %>">
-      <%= before if before? %>
-      <%= @label %>
-      <%= after if after? %>
+      <% if content? %>
+        <%= content %>
+      <% else %>
+        <%= before if before? %>
+        <%= @label %>
+        <%= after if after? %>
+      <% end %>
     </a>
   </button>
 </div> 

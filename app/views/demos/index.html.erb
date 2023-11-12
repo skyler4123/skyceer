@@ -1,11 +1,30 @@
-<%= render(Header::StickyComponent.new(klass: "flex flex-row justify-center gap-x-1")) do %>
-  <%= render(Badge::DefaultComponent.new(label: "New")) %>
-  <div>We have launched Flowbite Blocks featuring over 330+ website sections!</div>
-  <%= render(LinkComponent.new(label: "Check it out", link_class: "flex flex-row justify-center items-center gap-x-2 text-sky-800 hover:underline")) do |component| %>
-    <% component.with_after do %>
-      <%= render(Icon::SmallArrowComponent.new(klass: "flex justify-center items-center")) %>
+<%= render(Header::StickyComponent.new) do %>
+  <div class="flex flex-row justify-center gap-x-1 p-3">
+    <%= render(Badge::DefaultComponent.new(label: "New")) %>
+    <div>We have launched Flowbite Blocks featuring over 330+ website sections!</div>
+    <%= render(LinkComponent.new(label: "Check it out", link_class: "flex flex-row justify-center items-center gap-x-2 text-sky-800 hover:underline")) do |component| %>
+      <% component.with_after do %>
+        <%= render(Icon::SmallArrowComponent.new(klass: "flex justify-center items-center")) %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+  <div class="flex flex-row justify-between items-center px-4 py-2">
+      <%= render(LinkComponent.new(label: "Flowbite", link_class: "flex flex-row justify-center items-center gap-x-2 text-xl font-medium", klass: "inline group flex justify-start items-center px-2")) do |component| %>
+        <% component.with_before do %>
+          <%= image_tag("https://flowbite.com/docs/images/logo.svg") %>
+        <% end %>
+      <% end %>
+    <%= render(Form::SearchComponent.new) %>
+    <div class="flex flex-row justify-center items-center gap-x-2">
+      <%= render(LinkComponent.new(label: "Quickstart")) %>
+      <%= render(LinkComponent.new(label: "Blocks")) %>
+      <%= render(LinkComponent.new(label: "Figma")) %>
+      <%= render(LinkComponent.new(label: "Icons")) %>
+      <%= render(LinkComponent.new(label: "Blogs")) %>
+      <%= render(LinkComponent.new(label: "Pro version")) %>
+      <%= render(LinkComponent.new) { render(Icon::StarComponent.new) } %>
+    </div>
+  </div>
 <% end %>
 <div>Content</div>
 <%= render(Footer::NormalComponent.new) do %>
