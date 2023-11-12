@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class LinkComponent < ViewComponent::Base
-  def initialize(label: 'Link', url: "#", button_class: "text-black dark:text-white hover:text-sky-800 font-medium text-lg text-center", link_class: nil, klass: "inline group flex justify-center item-center")
+  renders_one :before
+  renders_one :after
+  
+  def initialize(label: 'Link', url: "#", button_class: "", link_class: "flex flex-row justify-center items-center gap-x-2", klass: "inline group flex justify-center items-center text-black hover:text-sky-800")
     @label = label
     @url = url
     @link_class = link_class

@@ -1,34 +1,42 @@
 <% case @color %>
 <% when :blue %>
-  <span data-controller="badge--default-component" class="bg-blue-100 text-blue-800 text-xs font-medium rounded dark:bg-blue-900 dark:text-blue-300 flex flex-row justify-center gap-x-1">
+  <div data-controller="badge--default-component" class="bg-blue-100 text-blue-800 text-xs font-medium rounded dark:bg-blue-900 dark:text-blue-300 flex flex-row justify-center items-center gap-x-1 px-2 py-0.5">
+    <%= icon if icon? %>
     <%= @label %>
-  </span>
+  </div>
 <% when :dark %>
-<span data-controller="badge--default-component" class="bg-gray-100 text-gray-800 text-xs font-medium rounded dark:bg-gray-700 dark:text-gray-300 flex flex-row justify-center gap-x-1">
-  <%= @label %>
-</span>
+  <div data-controller="badge--default-component" class="bg-gray-100 text-gray-800 text-xs font-medium rounded dark:bg-gray-700 dark:text-gray-300 flex flex-row justify-center items-center gap-x-1 px-2 py-0.5">
+    <%= icon if icon? %>
+    <%= @label %>
+  </div>
 <% when :red %>
-<span data-controller="badge--default-component" class="bg-red-100 text-red-800 text-xs font-medium rounded dark:bg-red-900 dark:text-red-300 flex flex-row justify-center gap-x-1">
-  <%= @label %>
-</span>
+  <div data-controller="badge--default-component" class="bg-red-100 text-red-800 text-xs font-medium rounded dark:bg-red-900 dark:text-red-300 flex flex-row justify-center items-center gap-x-1 px-2 py-0.5">
+    <%= icon if icon? %>
+    <%= @label %>
+  </div>
 <% when :green %>
-<span data-controller="badge--default-component" class="bg-green-100 text-green-800 text-xs font-medium rounded dark:bg-green-900 dark:text-green-300 flex flex-row justify-center gap-x-1">
-  <%= @label %>
-</span>
+  <div data-controller="badge--default-component" class="bg-green-100 text-green-800 text-xs font-medium rounded dark:bg-green-900 dark:text-green-300 flex flex-row justify-center items-center gap-x-1 px-2 py-0.5">
+    <%= icon if icon? %>
+    <%= @label %>
+  </div>
 <% when :yellow %>
-<span data-controller="badge--default-component" class="bg-yellow-100 text-yellow-800 text-xs font-medium rounded dark:bg-yellow-900 dark:text-yellow-300 flex flex-row justify-center gap-x-1">
-  <%= @label %>
-</span>
+  <div data-controller="badge--default-component" class="bg-yellow-100 text-yellow-800 text-xs font-medium rounded dark:bg-yellow-900 dark:text-yellow-300 flex flex-row justify-center items-center gap-x-1 px-2 py-0.5">
+    <%= icon if icon? %>
+    <%= @label %>
+  </div>
 <% when :indigo %>
-<span data-controller="badge--default-component" class="bg-indigo-100 text-indigo-800 text-xs font-medium rounded dark:bg-indigo-900 dark:text-indigo-300 flex flex-row justify-center gap-x-1">
-  <%= @label %>
-</span>
+  <div data-controller="badge--default-component" class="bg-indigo-100 text-indigo-800 text-xs font-medium rounded dark:bg-indigo-900 dark:text-indigo-300 flex flex-row justify-center items-center gap-x-1 px-2 py-0.5">
+    <%= icon if icon? %>
+    <%= @label %>
+  </div>
 <% when :purple %>
-<span data-controller="badge--default-component" class="bg-purple-100 text-purple-800 text-xs font-medium rounded dark:bg-purple-900 dark:text-purple-300 flex flex-row justify-center gap-x-1">
-  <%= @label %>
-</span>
+  <div data-controller="badge--default-component" class="bg-purple-100 text-purple-800 text-xs font-medium rounded dark:bg-purple-900 dark:text-purple-300 flex flex-row justify-center items-center gap-x-1 px-2 py-0.5">
+    <%= icon if icon? %>
+    <%= @label %>
+  </div>
 <% when :pink %>
-<span data-controller="badge--default-component" class="bg-pink-100 text-pink-800 text-xs font-medium rounded dark:bg-pink-900 dark:text-pink-300 flex flex-row justify-center gap-x-1">
-  <%= @label %>
-</span>
+  <div data-controller="badge--default-component" class="bg-pink-100 text-pink-800 text-xs font-medium rounded dark:bg-pink-900 dark:text-pink-300 flex flex-row justify-center items-center gap-x-1 px-2 py-0.5">
+    <%= icon if icon? %>
+    <%= @label %>
+  </div>
 <% end %>

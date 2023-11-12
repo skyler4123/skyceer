@@ -1,22 +1,35 @@
-<%= render(Header::StickyComponent.new) %>
+<%= render(Header::StickyComponent.new(klass: "flex flex-row justify-center gap-x-1")) do %>
+  <%= render(Badge::DefaultComponent.new(label: "New")) %>
+  <div>We have launched Flowbite Blocks featuring over 330+ website sections!</div>
+  <%= render(LinkComponent.new(label: "Check it out", link_class: "flex flex-row justify-center items-center gap-x-2 text-sky-800 hover:underline")) do |component| %>
+    <% component.with_after do %>
+      <%= render(Icon::SmallArrowComponent.new(klass: "flex justify-center items-center")) %>
+    <% end %>
+  <% end %>
+<% end %>
 <div>Content</div>
 <%= render(Footer::NormalComponent.new) do %>
   <div class="flex flex-row justify-between">
-    <div>
-    <%= render(LinkComponent.new) %>
-    <div>Flowbite is an ecosystem built on top of Tailwind CSS including a component library, block sections, a Figma design system and other resources.</div>
+    <div class="basis-1/3">
+      <%= render(LinkComponent.new(label: "Flowbite", link_class: "flex flex-row justify-center items-center gap-x-2 text-xl font-medium", klass: "inline group flex justify-start items-center px-2")) do |component| %>
+        <% component.with_before do %>
+          <%= image_tag("https://flowbite.com/docs/images/logo.svg") %>
+        <% end %>
+      <% end %>
+      <div>Flowbite is an ecosystem built on top of Tailwind CSS including a component library, block sections, a Figma design system and other resources.</div>
+      <div>Code licensed MIT, docs CC BY 3.0.</div>
     </div>
     <%= render(List::UlComponent.new(header: "RESOURCES")) do %>
-      <li><%= render(LinkComponent.new(label: "Documentation")) %></li>
-      <li><%= render(LinkComponent.new(label: "Flowbite Blocks")) %></li>
-      <li><%= render(LinkComponent.new(label: "Flowbite Icons")) %></li>
-      <li><%= render(LinkComponent.new(label: "Flowbite Figma")) %></li>
-      <li><%= render(LinkComponent.new(label: "Pro version")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Documentation")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Flowbite Blocks")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Flowbite Icons")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Flowbite Figma")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Pro version")) %></li>
     <% end %>
     <%= render(List::UlComponent.new(header: "HELP & SUPPORT")) do %>
-      <li><%= render(LinkComponent.new(label: "Contact us")) %></li>
-      <li><%= render(LinkComponent.new(label: "Support center")) %></li>
-      <li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Contact us")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Support center")) %></li>
+      <li class="flex flex-row justify-center items-center gap-x-2">
         <%= render(LinkComponent.new(label: "Work with us")) %>
         <%= render(Badge::PillComponent.new(label: "New")) do |component| %>
           <% component.with_icon do %>
@@ -26,15 +39,15 @@
       </li>
     <% end %>
     <%= render(List::UlComponent.new(header: "FOLLOW US")) do %>
-      <li><%= render(LinkComponent.new(label: "Discord")) %></li>
-      <li><%= render(LinkComponent.new(label: "Github")) %></li>
-      <li><%= render(LinkComponent.new(label: "Twitter")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Discord")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Github")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Twitter")) %></li>
     <% end %>
     <%= render(List::UlComponent.new(header: "LEGAL")) do %>
-      <li><%= render(LinkComponent.new(label: "License (EULA)")) %></li>
-      <li><%= render(LinkComponent.new(label: "Privacy policy")) %></li>
-      <li><%= render(LinkComponent.new(label: "Terms & conditions")) %></li>
-      <li><%= render(LinkComponent.new(label: "Brand guideline")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "License (EULA)")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Privacy policy")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Terms & conditions")) %></li>
+      <li class="flex flex-row"><%= render(LinkComponent.new(label: "Brand guideline")) %></li>
     <% end %>
   </div>
   <div class="flex justify-center">© 2019-2023 Flowbite™ is a registered trademark. All Rights Reserved.</div>
