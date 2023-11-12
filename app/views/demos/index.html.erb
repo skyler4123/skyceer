@@ -16,7 +16,14 @@
     <%= render(List::UlComponent.new(header: "HELP & SUPPORT")) do %>
       <li><%= render(LinkComponent.new(label: "Contact us")) %></li>
       <li><%= render(LinkComponent.new(label: "Support center")) %></li>
-      <li><%= render(LinkComponent.new(label: "Work with us")) %><%= render(Badge::PillComponent.new(label: "New")) %></li>
+      <li>
+        <%= render(LinkComponent.new(label: "Work with us")) %>
+        <%= render(Badge::PillComponent.new(label: "New")) do |component| %>
+          <% component.with_icon do %>
+            <%= render(Icon::ClockComponent.new(svg_class: 'w-3 h-3')) %>
+          <% end %>
+        <% end %>
+      </li>
     <% end %>
     <%= render(List::UlComponent.new(header: "FOLLOW US")) do %>
       <li><%= render(LinkComponent.new(label: "Discord")) %></li>
@@ -32,4 +39,3 @@
   </div>
   <div class="flex justify-center">© 2019-2023 Flowbite™ is a registered trademark. All Rights Reserved.</div>
 <% end %>
-<%= render(Icon::ClockComponent.new) %>
