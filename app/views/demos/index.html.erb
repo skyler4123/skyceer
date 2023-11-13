@@ -26,7 +26,11 @@
       <%= render(LinkComponent.new) { render(Logo::DiscordComponent.new) } %>
       <%= render(LinkComponent.new) { render(Logo::YoutubeComponent.new) } %>
       <%= render(LinkComponent.new) { render(Icon::MoonComponent.new) } %>
-      <%= render(ButtonComponent.new(label: "Pricing")) %>
+      <%= render(ButtonComponent.new(label: "Pricing")) do |component| %>
+        <% component.with_after do %>
+          <%= render(Icon::LongArrowComponent.new) %>
+        <% end %>
+      <% end %>
 
     </div>
   </div>

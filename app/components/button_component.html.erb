@@ -1,5 +1,13 @@
-<%= tag.div(class: @klass, data: @data) do %>
-  <button type="button" class="<%= @button_class %>">
-    <%= content? ? content : @label %>
+<div data-controller="button-component" class="<%= @klass %>">
+  <button class="<%= @button_class %>">
+    <a class="flex flex-row gap-x-2 bg-blue-700 hover:bg-blue-800 rounded-lg text-white font-medium py-3 px-5" href="<%= @url %>">
+      <% if content %>
+        <%= content %>
+      <% else %>
+        <%= before if before? %>
+        <%= @label %>
+        <%= after if after? %>
+      <% end %>
+    </a>
   </button>
-<% end %>
+</div> 

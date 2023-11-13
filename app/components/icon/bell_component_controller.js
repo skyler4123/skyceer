@@ -7,7 +7,7 @@ const svgNode = document.createRange().createContextualFragment(svg)
 export default class extends Controller {
   static targets = ['svg']
   static values = {
-    svgClass: {type: String, default: "w-6 h-6"}
+    svgClass: {type: String, default: "w-4 h-4"}
   }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
