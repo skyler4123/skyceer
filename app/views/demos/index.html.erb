@@ -1,5 +1,5 @@
 <%= render(Header::StickyComponent.new) do %>
-  <div class="flex flex-row justify-center gap-x-1 p-3">
+  <div class="flex flex-row justify-center gap-x-1 p-3 border-b-2 border-gray-300">
     <%= render(Badge::DefaultComponent.new(label: "New")) %>
     <div>We have launched Flowbite Blocks featuring over 330+ website sections!</div>
     <%= render(LinkComponent.new(label: "Check it out", link_class: "flex flex-row justify-center items-center gap-x-2 text-sky-800 hover:underline")) do |component| %>
@@ -9,13 +9,13 @@
     <% end %>
   </div>
   <div class="flex flex-row justify-between items-center px-4 py-2">
-      <%= render(LinkComponent.new(label: "Flowbite", link_class: "flex flex-row justify-center items-center gap-x-2 text-xl font-medium", klass: "inline group flex justify-start items-center px-2")) do |component| %>
-        <% component.with_before do %>
-          <%= image_tag("https://flowbite.com/docs/images/logo.svg") %>
-        <% end %>
+    <%= render(LinkComponent.new(label: "Flowbite", link_class: "flex flex-row justify-center items-center gap-x-2 text-xl font-medium", klass: "inline group flex justify-start items-center px-2")) do |component| %>
+      <% component.with_before do %>
+        <%= image_tag("https://flowbite.com/docs/images/logo.svg") %>
       <% end %>
+    <% end %>
     <%= render(Form::SearchComponent.new) %>
-    <div class="flex flex-row justify-center items-center gap-x-2">
+    <div class="flex flex-row justify-center items-center gap-x-5">
       <%= render(LinkComponent.new(label: "Quickstart")) %>
       <%= render(LinkComponent.new(label: "Blocks")) %>
       <%= render(LinkComponent.new(label: "Figma")) %>
@@ -28,7 +28,7 @@
       <%= render(LinkComponent.new) { render(Icon::MoonComponent.new) } %>
       <%= render(ButtonComponent.new(label: "Pricing")) do |component| %>
         <% component.with_after do %>
-          <%= render(Icon::LongArrowComponent.new) %>
+          <%= render(Icon::LongArrowComponent.new(svg_class: "w-6 h-6")) %>
         <% end %>
       <% end %>
 
@@ -36,7 +36,7 @@
   </div>
 <% end %>
 <div>
-  <%= render(Icon::ExpandComponent.new) %>
+  <%= render(ButtonComponent.new(klass = "bg")) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
