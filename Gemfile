@@ -95,3 +95,4 @@ gem 'rails_mini_profiler'
 gem 'stackprof'
 gem "mongoid"
 gem 'pagy'
+gem 'rack-cors'

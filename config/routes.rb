@@ -32,4 +32,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   get "/up", to: Proc.new { [200, {}, ["OK"]] }
   root "demos#index"
+
+  namespace :api do
+    resources :users
+  end
 end
