@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import morphdom from "morphdom"
 
 export default class extends Controller {
   static targets = ["changeable"]
@@ -7,10 +8,7 @@ export default class extends Controller {
   }
   initialize() {
     document.querySelectorAll('[data-language-key]').forEach((element) => {
-      var target = findTextElement(element)[0]
-      target.setAttribute('data-language-target', 'changeable')
-      target.setAttribute('data-language-key', element.dataset.languageKey)
-      element.removeAttribute('data-language-key')
+      element.setAttribute('data-language-target', 'changeable')
     })
   }
   connect() {
@@ -18,24 +16,37 @@ export default class extends Controller {
   }
   english() {
     if (this.currentLanguageValue == "english") { return }
-    this.currentLanguageValue = "english"
     this.changeableTargets.forEach((target) => {
-      target.innerText = englishDictionary[target.dataset.languageKey]
+      const nextHTML = target.outerHTML.replace(this.currentWord(target), englishDictionary[target.dataset.languageKey])
+      morphdom(target, nextHTML)
     })
+    this.currentLanguageValue = "english"
   }
   vietnamese() {
     if (this.currentLanguageValue == "vietnamese") { return }
-    this.currentLanguageValue = "vietnamese"
     this.changeableTargets.forEach((target) => {
-      target.innerText = vietnameseDictionary[target.dataset.languageKey]
+      const nextHTML = target.outerHTML.replace(this.currentWord(target), vietnameseDictionary[target.dataset.languageKey])
+      morphdom(target, nextHTML)
     })
+    this.currentLanguageValue = "vietnamese"
   }
   spain() {
     if (this.currentLanguageValue == "spain") { return }
-    this.currentLanguageValue = "spain"
     this.changeableTargets.forEach((target) => {
-      target.innerText = spainDictionary[target.dataset.languageKey]
+      const nextHTML = target.outerHTML.replace(this.currentWord(target), spainDictionary[target.dataset.languageKey])
+      morphdom(target, nextHTML)
     })
+    this.currentLanguageValue = "spain"
+  }
+  currentWord(element) {
+    switch(this.currentLanguageValue) {
+      case "english":
+        return englishDictionary[element.dataset.languageKey]
+      case "vietnamese":
+        return vietnameseDictionary[element.dataset.languageKey]
+      case "spain":
+        return spainDictionary[element.dataset.languageKey]
+    }
   }
 }
 
@@ -53,11 +64,14 @@ function findTextElement(element) {
 }
 
 const englishDictionary = {
-  quickstart: "Quickstart"
+  quickstart: "Quickstart",
+  price: "Price"
 }
 const vietnameseDictionary = {
-  quickstart: "Nhanh"
+  quickstart: "Nhanh",
+  price: "Gia ban"
 }
 const spainDictionary = {
-  quickstart: "spain_fast"
+  quickstart: "spain_fast",
+  price: "spain_price"
 }

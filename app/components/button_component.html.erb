@@ -1,4 +1,4 @@
-<div data-controller="button-component" class="<%= @klass %>">
+<%= tag.div(class: @klass, id: @id, data: @data) do %>
   <button class="<%= @button_class %>">
     <% if @url %>
       <a class="<%= @link_class %>" href="<%= @url %>">
@@ -20,4 +20,4 @@
       <% end %>
     <% end %>
   </button>
-</div> 
+<% end %>

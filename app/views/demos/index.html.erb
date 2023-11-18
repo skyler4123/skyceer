@@ -16,7 +16,7 @@
     <% end %>
     <%= render(Form::SearchComponent.new) %>
     <div class="flex flex-row justify-center items-center gap-x-5">
-      <%= render(LinkComponent.new(label: "Quickstart", data: { languageable: true })) %>
+      <%= render(LinkComponent.new(label: "Quickstart", data: { language_key: :quickstart })) %>
       <%= render(LinkComponent.new(label: "Blocks")) %>
       <%= render(LinkComponent.new(label: "Figma")) %>
       <%= render(LinkComponent.new(label: "Icons")) %>
@@ -26,7 +26,7 @@
       <%= render(LinkComponent.new) { render(Logo::DiscordComponent.new) } %>
       <%= render(LinkComponent.new) { render(Logo::YoutubeComponent.new) } %>
       <%= render(LinkComponent.new) { render(Icon::MoonComponent.new) } %>
-      <%= render(ButtonComponent.new(label: "Pricing")) do |component| %>
+      <%= render(ButtonComponent.new(label: "Price", data: { language_key: :price })) do |component| %>
         <% component.with_after do %>
           <%= render(Icon::LongArrowComponent.new(svg_class: "w-6 h-6")) %>
         <% end %>
