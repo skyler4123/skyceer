@@ -16,37 +16,24 @@ export default class extends Controller {
   }
   english() {
     if (this.currentLanguageValue == "english") { return }
-    this.changeableTargets.forEach((target) => {
-      const nextHTML = target.outerHTML.replace(this.currentWord(target), englishDictionary[target.dataset.languageKey])
-      morphdom(target, nextHTML)
-    })
     this.currentLanguageValue = "english"
   }
   vietnamese() {
     if (this.currentLanguageValue == "vietnamese") { return }
-    this.changeableTargets.forEach((target) => {
-      const nextHTML = target.outerHTML.replace(this.currentWord(target), vietnameseDictionary[target.dataset.languageKey])
-      morphdom(target, nextHTML)
-    })
     this.currentLanguageValue = "vietnamese"
   }
   spain() {
     if (this.currentLanguageValue == "spain") { return }
-    this.changeableTargets.forEach((target) => {
-      const nextHTML = target.outerHTML.replace(this.currentWord(target), spainDictionary[target.dataset.languageKey])
-      morphdom(target, nextHTML)
-    })
     this.currentLanguageValue = "spain"
   }
-  currentWord(element) {
-    switch(this.currentLanguageValue) {
-      case "english":
-        return englishDictionary[element.dataset.languageKey]
-      case "vietnamese":
-        return vietnameseDictionary[element.dataset.languageKey]
-      case "spain":
-        return spainDictionary[element.dataset.languageKey]
-    }
+  currentLanguageValueChanged(nextLanguage, previousLanguage) {
+    if (!previousLanguage) { return }
+    this.changeableTargets.forEach((target) => {
+      const previousWord = I18n[previousLanguage][target.dataset.languageKey]
+      const nextWord = I18n[nextLanguage][target.dataset.languageKey]
+      const nextHTML = target.outerHTML.replace(previousWord, nextWord)
+      morphdom(target, nextHTML)
+    })
   }
 }
 
@@ -63,15 +50,17 @@ function findTextElement(element) {
   }
 }
 
-const englishDictionary = {
-  quickstart: "Quickstart",
-  price: "Price"
-}
-const vietnameseDictionary = {
-  quickstart: "Nhanh",
-  price: "Gia ban"
-}
-const spainDictionary = {
-  quickstart: "spain_fast",
-  price: "spain_price"
+const I18n = {
+  english: {
+    quickstart: "Quickstart",
+    price: "Price"
+  },
+  vietnamese: {
+    quickstart: "Nhanh",
+    price: "Gia ban"
+  },
+  spain: {
+    quickstart: "spain_fast",
+    price: "spain_price"
+  }
 }
