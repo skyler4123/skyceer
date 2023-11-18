@@ -1,0 +1,9 @@
+<div data-controller="button--language-component">
+  <%= render(Dropdown::HoverComponent.new(**@dropdown_options)) do %>
+    <%= render(List::UlComponent.new(**@list_options)) do %>
+      <% @language.each do |key, name| %>
+        <li class="<%= @li_class %>" data-action="click->language#<%= key %>"><%= name %></li>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

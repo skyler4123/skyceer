@@ -39,13 +39,7 @@
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
-  <%= render(Dropdown::HoverComponent.new) do %>
-    <%= render(List::UlComponent.new) do %>
-      <li class="cursor-pointer" data-action="click->language#english">English</li>
-      <li class="cursor-pointer" data-action="click->language#vietnamese">Vietnamese</li>
-      <li class="cursor-pointer" data-action="click->language#spain">Spain</li>
-    <% end %>
-  <% end %>
+  <%= render(Button::LanguageComponent.new(dropdown_options: {label: "Language"}, english: "English", vietnamese: "Viet Nam", spain: "Spain")) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
