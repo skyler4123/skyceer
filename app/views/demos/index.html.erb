@@ -26,6 +26,7 @@
       <%= render(LinkComponent.new) { render(Logo::DiscordComponent.new) } %>
       <%= render(LinkComponent.new) { render(Logo::YoutubeComponent.new) } %>
       <%= render(LinkComponent.new) { render(Icon::MoonComponent.new) } %>
+      <%= render(Button::LanguageComponent.new(dropdown_options: {label: "Language"}, english: "English", vietnamese: "Viet Nam", spain: "Spain")) %>
       <%= render(ButtonComponent.new(label: "Price", link_class: "flex flex-row gap-x-1 w-fit", data: { language_key: :price })) do |component| %>
         <% component.with_after do %>
           <%= render(Icon::LongArrowComponent.new(svg_class: "w-6 h-6")) %>
@@ -39,7 +40,6 @@
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
-  <%= render(Button::LanguageComponent.new(dropdown_options: {label: "Language"}, english: "English", vietnamese: "Viet Nam", spain: "Spain")) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
