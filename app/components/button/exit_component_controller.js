@@ -22,7 +22,7 @@ export default class extends Controller {
         this.element.closest('[data-controller="boxchat--form-component"]')?.classList.add('hidden')
         break;
       default:
-        this.element.parentNode.closest("[data-controller]")?.classList.add('hidden')
+        this.element.parentNode.classList.add('hidden')
     }
   }
 }

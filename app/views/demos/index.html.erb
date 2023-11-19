@@ -1,5 +1,5 @@
 <%= render(Header::StickyComponent.new) do %>
-  <div class="flex flex-row justify-center gap-x-1 p-3 border-b-2 border-gray-300">
+  <div class="flex flex-row justify-center items-center gap-x-1 p-3 border-b-2 border-gray-300">
     <%= render(Badge::DefaultComponent.new(label: "New")) %>
     <div>We have launched Flowbite Blocks featuring over 330+ website sections!</div>
     <%= render(LinkComponent.new(label: "Check it out", link_class: "flex flex-row justify-center items-center gap-x-2 text-sky-800 hover:underline")) do |component| %>
@@ -7,6 +7,7 @@
         <%= render(Icon::SmallArrowComponent.new(klass: "flex justify-center items-center")) %>
       <% end %>
     <% end %>
+    <%= render(Button::ExitComponent.new) %>
   </div>
   <div class="flex flex-row justify-between items-center px-4 py-2">
     <%= render(LinkComponent.new(label: "Flowbite", link_class: "flex flex-row justify-center items-center gap-x-2 text-xl font-medium", klass: "inline group flex justify-start items-center px-2")) do |component| %>
@@ -40,7 +41,6 @@
   <%= render(Icon::StarComponent.new) %>
   <%= render(TextComponent.new(klass: "flex flex-row gap-x-1 text-blue-950").with_after_content(render(Icon::MoonComponent.new)).with_before_content(render(Icon::SunComponent.new(svg_class: "w-4 h-4 text-yellow-500")))) %>
   <%= render(Icon::StarComponent.new) %>
-  <h1>Component name: Accordion</h1>
   <%= render(Accordion::AccordionComponent.new) do |component| %>
     <% component.with_block do %>
       <%= render(Accordion::BlockComponent.new(label: "Accordion Head Sample")) do |component| %>
@@ -61,7 +61,6 @@
     <% end %>
   <% end %>
   <%= render(Icon::StarComponent.new) %>
-  <h1>Component name: Info alert!</h1>
   <%= render(Alert::InfoComponent.new(closable: true)) { demo_text } %>
   <%= render(Alert::DangerComponent.new(closable: true)) { demo_text } %>
   <%= render(Alert::DarkComponent.new(closable: true)) { demo_text } %>
@@ -72,6 +71,7 @@
   <%= render(Avatar::CircleComponent.new(src: "https://flowbite.com/docs/images/people/profile-picture-5.jpg")) %>
   <%= render(Avatar::SquareComponent.new) %>
   <%= render(Avatar::SquareComponent.new(src: "https://flowbite.com/docs/images/people/profile-picture-5.jpg")) %>
+  <%= render(Icon::StarComponent.new) %>
   <%= render(Badge::DefaultComponent.new(color: :blue)) %>
   <%= render(Badge::DefaultComponent.new(color: :dark)) %>
   <%= render(Badge::DefaultComponent.new(color: :red)) %>
@@ -97,26 +97,22 @@
   <%= render(Badge::PillComponent.new(color: :purple)) %>
   <%= render(Badge::PillComponent.new(color: :pink)) %>
   <%= render(Badge::BorderComponent.new(color: :green)) { demo_text } %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <%= render(Icon::StarComponent.new) %>
+  <%= render(Button::LanguageComponent.new(dropdown_options: {label: "Language"}, english: "English", vietnamese: "Viet Nam", spain: "Spain")) %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
