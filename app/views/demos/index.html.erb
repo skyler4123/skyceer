@@ -40,7 +40,6 @@
   <%= render(Icon::StarComponent.new) %>
   <%= render(TextComponent.new(klass: "flex flex-row gap-x-1 text-blue-950").with_after_content(render(Icon::MoonComponent.new)).with_before_content(render(Icon::SunComponent.new(svg_class: "w-4 h-4 text-yellow-500")))) %>
   <%= render(Icon::StarComponent.new) %>
-  <%= render(Icon::StarComponent.new) %>
   <h1>Component name: Accordion</h1>
   <%= render(Accordion::AccordionComponent.new) do |component| %>
     <% component.with_block do %>
@@ -64,6 +63,7 @@
   <%= render(Icon::StarComponent.new) %>
   <h1>Component name: Info alert!</h1>
   <%= render(Alert::InfoComponent.new(label: "Info alert sample!")) %>
+  <%= render(Alert::InfoComponent.new(closable: false)) { demo_text } %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
