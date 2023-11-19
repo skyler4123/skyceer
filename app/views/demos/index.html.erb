@@ -98,6 +98,10 @@
   <%= render(Badge::PillComponent.new(color: :pink)) %>
   <%= render(Badge::BorderComponent.new(color: :green)) { demo_text } %>
   <%= render(Icon::StarComponent.new) %>
+  <%= render(Dropdown::ClickComponent.new) %>
+  <%= render(Icon::StarComponent.new) %>
+
+  <%= render(Icon::StarComponent.new) %>
   <%= render(Dropdown::LanguageComponent.new(languages: { english: "English", vietnamese: "Viet Nam" })) %>
   <%= render(Dropdown::LanguageComponent.new) do |component| %>
     <%= component.with_head { demo_text } %>
@@ -123,7 +127,10 @@
   <%= render(Indicator::SpinnerComponent.new(color: :yellow)) %>
   <%= render(Indicator::SpinnerComponent.new(color: :teal)) %>
 
-
+  <div class="group">
+    skldlskajdlksajdkl
+    <div class="group-focus:bg-red-500">aaaaaaaaaaaaaaaaa</div>
+  </div>
 
 
 
