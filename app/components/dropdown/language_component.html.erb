@@ -1,4 +1,6 @@
-<div data-controller="dropdown--hover-component" class="relative inline-block group">
+<% @klass ||= "relative inline-block group" %>
+
+<div data-controller="dropdown--language-component" class="<%= @klass %>">
   <button class='flex flex-row justify-center items-center bg-blue-700 text-white p-2 rounded-md gap-x-2'>
       <%= head? ? head : @label %>
       <div class="group-hover:rotate-180">
@@ -7,7 +9,9 @@
   </button>
   <div>
     <ul class='hidden group-hover:block absolute z-10 bg-slate-100 p-2 rounded-md'>
-      <%= body? ? body : "Dropdown Items" %>
+      <% @languages.each do |language_key, language_name| %>
+        <li class="cursor-pointer hover:bg-gray-200" data-action="click->language#<%= language_key %>"><%= language_name %></li>
+      <% end %>
     </ul>
   </div>
 </div>

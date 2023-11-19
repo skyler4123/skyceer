@@ -27,7 +27,7 @@
       <%= render(LinkComponent.new) { render(Logo::DiscordComponent.new) } %>
       <%= render(LinkComponent.new) { render(Logo::YoutubeComponent.new) } %>
       <%= render(LinkComponent.new) { render(Icon::MoonComponent.new) } %>
-      <%= render(Button::LanguageComponent.new(dropdown_options: {label: "Language"}, english: "English", vietnamese: "Viet Nam", spain: "Spain")) %>
+      <%= render(Dropdown::LanguageComponent.new(languages: { english: "English", vietnamese: "Viet Nam" })) %>
       <%= render(ButtonComponent.new(label: "Price", link_class: "flex flex-row gap-x-1 w-fit", data: { language_key: :price })) do |component| %>
         <% component.with_after do %>
           <%= render(Icon::LongArrowComponent.new(svg_class: "w-6 h-6")) %>
@@ -98,10 +98,20 @@
   <%= render(Badge::PillComponent.new(color: :pink)) %>
   <%= render(Badge::BorderComponent.new(color: :green)) { demo_text } %>
   <%= render(Icon::StarComponent.new) %>
-  <%= render(Button::LanguageComponent.new(dropdown_options: {label: "Language"}, english: "English", vietnamese: "Viet Nam", spain: "Spain")) %>
-
-
-
+  <%= render(Dropdown::LanguageComponent.new(languages: { english: "English", vietnamese: "Viet Nam" })) %>
+  <%= render(Dropdown::LanguageComponent.new) do |component| %>
+    <%= component.with_head { demo_text } %>
+  <% end %>
+  <%= render(Icon::StarComponent.new) %>
+  <%= render(ButtonComponent.new.with_indicator_content(render(Indicator::DotComponent.new(color: :gray)))) %>
+  <%= render(ButtonComponent.new.with_indicator_content(render(Indicator::DotComponent.new(color: :black)))) %>
+  <%= render(ButtonComponent.new.with_indicator_content(render(Indicator::DotComponent.new(color: :blue)))) %>
+  <%= render(ButtonComponent.new.with_indicator_content(render(Indicator::DotComponent.new))) %>
+  <%= render(ButtonComponent.new.with_indicator_content(render(Indicator::DotComponent.new(color: :red)))) %>
+  <%= render(ButtonComponent.new.with_indicator_content(render(Indicator::DotComponent.new(color: :purple)))) %>
+  <%= render(ButtonComponent.new.with_indicator_content(render(Indicator::DotComponent.new(color: :indigo)))) %>
+  <%= render(ButtonComponent.new.with_indicator_content(render(Indicator::DotComponent.new(color: :yellow)))) %>
+  <%= render(ButtonComponent.new.with_indicator_content(render(Indicator::DotComponent.new(color: :teal)))) %>
 
 
 

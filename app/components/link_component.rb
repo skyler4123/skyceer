@@ -3,6 +3,7 @@
 class LinkComponent < ViewComponent::Base
   renders_one :before
   renders_one :after
+  renders_one :indicator
   
   def initialize(
       label: 'Link',
