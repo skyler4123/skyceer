@@ -1,8 +1,10 @@
+<% @klass ||= "flex flex-row justify-between p-2 my-2 text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" %>
+
 <div data-controller="alert--info-component" class="<%= @klass %>" role="alert">
   <% if content %>
     <%= content %>
   <% else %>
     <div><%= @label %></div>
-    <%= render(Button::ExitComponent.new) if @closable %>
   <% end %>
+  <%= render(Button::ExitComponent.new) if @closable %>
 </div>

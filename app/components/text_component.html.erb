@@ -1,3 +1,5 @@
+<% @klass ||= "flex flex-row justify-center items-center gap-x-1" %>
+
 <div data-controller="text-component" class="<%= @klass %>">
   <%= before if before %>
   <%= @label %>

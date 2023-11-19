@@ -62,9 +62,13 @@
   <% end %>
   <%= render(Icon::StarComponent.new) %>
   <h1>Component name: Info alert!</h1>
-  <%= render(Alert::InfoComponent.new(label: "Info alert sample!")) %>
-  <%= render(Alert::InfoComponent.new(closable: false)) { demo_text } %>
+  <%= render(Alert::InfoComponent.new(closable: true)) { demo_text } %>
+  <%= render(Alert::DangerComponent.new(closable: true)) { demo_text } %>
+  <%= render(Alert::DarkComponent.new(closable: true)) { demo_text } %>
+  <%= render(Alert::SuccessComponent.new(closable: true)) { demo_text } %>
+  <%= render(Alert::WarningComponent.new(closable: true)) { demo_text } %>
   <%= render(Icon::StarComponent.new) %>
+  <%= render(Avatar::CircleComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
