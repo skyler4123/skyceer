@@ -37,20 +37,6 @@
   </div>
 <% end %>
 <div>
-
-
-
-
-
-  <%= render(Icon::AnonymousComponent.new) %>
-
-
-
-
-
-
-
-
   <%= render(Icon::StarComponent.new) %>
   <%= render(TextComponent.new(klass: "flex flex-row gap-x-1 text-blue-950").with_after_content(render(Icon::MoonComponent.new)).with_before_content(render(Icon::SunComponent.new(svg_class: "w-4 h-4 text-yellow-500")))) %>
   <%= render(Icon::StarComponent.new) %>
@@ -83,6 +69,15 @@
   <%= render(Alert::WarningComponent.new(closable: true)) { demo_text } %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Avatar::CircleComponent.new) %>
+  <%= render(Avatar::CircleComponent.new(src: "https://flowbite.com/docs/images/people/profile-picture-5.jpg")) %>
+  <%= render(Avatar::SquareComponent.new) %>
+  <%= render(Avatar::SquareComponent.new(src: "https://flowbite.com/docs/images/people/profile-picture-5.jpg")) %>
+  
+
+
+
+
+
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
