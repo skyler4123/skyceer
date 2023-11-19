@@ -37,7 +37,7 @@
     </div>
   </div>
 <% end %>
-<div>
+<div class="flex flex-col justify-center items-center">
   <%= render(Icon::StarComponent.new) %>
   <%= render(TextComponent.new(klass: "flex flex-row gap-x-1 text-blue-950").with_after_content(render(Icon::MoonComponent.new)).with_before_content(render(Icon::SunComponent.new(svg_class: "w-4 h-4 text-yellow-500")))) %>
   <%= render(Icon::StarComponent.new) %>
@@ -100,7 +100,7 @@
   <%= render(Icon::StarComponent.new) %>
   <%= render(Dropdown::ClickComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
-
+  <%= render(Dropdown::HoverComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Dropdown::LanguageComponent.new(languages: { english: "English", vietnamese: "Viet Nam" })) %>
   <%= render(Dropdown::LanguageComponent.new) do |component| %>
@@ -126,11 +126,12 @@
   <%= render(Indicator::SpinnerComponent.new(color: :indigo)) %>
   <%= render(Indicator::SpinnerComponent.new(color: :yellow)) %>
   <%= render(Indicator::SpinnerComponent.new(color: :teal)) %>
-
-  <div class="group">
-    skldlskajdlksajdkl
-    <div class="group-focus:bg-red-500">aaaaaaaaaaaaaaaaa</div>
-  </div>
+  <%= render(Icon::StarComponent.new) %>
+  <%= render(ButtonComponent.new(label: "Test Popover!")) do |component| %>
+    <% component.with_popover do %>
+      <%= render(Popover::BottomComponent.new) { demo_text } %>
+    <% end %>
+  <% end %>
 
 
 
@@ -140,7 +141,6 @@
 
 
   
-  <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>

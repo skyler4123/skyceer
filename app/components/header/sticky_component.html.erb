@@ -1,3 +1,5 @@
+<% @klass ||= "sticky z-10 top-0 shadow-xl bg-white" %>
+
 <header data-controller="header--sticky-component" class="<%= @klass %>">
   <%= content? ? content : "Header Content" %>
 </header>

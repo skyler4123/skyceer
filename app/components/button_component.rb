@@ -4,6 +4,7 @@ class ButtonComponent < ViewComponent::Base
   renders_one :before
   renders_one :after
   renders_one :indicator
+  renders_one :popover
   
   def initialize(
       label: 'Button',
