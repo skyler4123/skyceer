@@ -9,8 +9,8 @@ class LinkComponent < ViewComponent::Base
       label: 'Link',
       url: "#",
       button_class: "",
-      link_class: "flex flex-row justify-center items-center gap-x-2",
-      klass: "inline group flex justify-center items-center text-black hover:text-sky-800",
+      link_class: nil,
+      klass: nil,
       id: nil,
       data: { controller: "" }
     )

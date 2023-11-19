@@ -8,9 +8,9 @@ class ButtonComponent < ViewComponent::Base
   def initialize(
       label: 'Button',
       url: "#",
-      button_class: "",
-      link_class: "",
-      klass: "flex flex-row gap-x-2 bg-blue-700 hover:bg-blue-800 rounded-lg text-white font-medium p-3",
+      button_class: nil,
+      link_class: nil,
+      klass: nil,
       id: nil,
       data: { controller: "" }
       )

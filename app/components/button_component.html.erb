@@ -1,3 +1,7 @@
+<% @klass ||= "flex flex-row gap-x-2 w-fit justify-center items-center bg-blue-700 hover:bg-blue-800 rounded-lg text-white font-medium p-3" %>
+<% @button_class ||= "flex flex-row w-fit justify-center items-center" %>
+<% @link_class ||= "flex flex-row w-fit justify-center items-center" %>
+
 <%= tag.div(class: @klass, id: @id, data: @data) do %>
   <button class="<%= @button_class %>">
     <% if @url %>
