@@ -25,5 +25,9 @@
     <% end %>
   </button>
   <%= indicator if indicator %>
-  <%= popover if popover %>
+  <% if effects %>
+    <% effects.each do |effect| %>
+      <%= effect %>
+    <% end %>
+  <% end %>
 <% end %>

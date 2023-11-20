@@ -128,33 +128,65 @@
   <%= render(Indicator::SpinnerComponent.new(color: :teal)) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(ButtonComponent.new(label: "Test Popover!")) do |component| %>
-    <% component.with_popover do %>
+    <% component.with_effect do %>
       <%= render(Popover::BottomComponent.new) { demo_text } %>
     <% end %>
   <% end %>  
   <%= render(Icon::StarComponent.new) %>
   <%= render(ButtonComponent.new(label: "Test Popover!")) do |component| %>
-    <% component.with_popover do %>
+    <% component.with_effect do %>
       <%= render(Popover::LeftComponent.new) { demo_text } %>
     <% end %>
   <% end %>  
   <%= render(Icon::StarComponent.new) %>
   <%= render(ButtonComponent.new(label: "Test Popover!")) do |component| %>
-    <% component.with_popover do %>
+    <% component.with_effect do %>
       <%= render(Popover::TopComponent.new) { demo_text } %>
     <% end %>
   <% end %>  
   <%= render(Icon::StarComponent.new) %>
   <%= render(ButtonComponent.new(label: "Test Popover!")) do |component| %>
-    <% component.with_popover do %>
+    <% component.with_effect do %>
       <%= render(Popover::RightComponent.new) { demo_text } %>
     <% end %>
   <% end %>  
   <%= render(Icon::StarComponent.new) %>
+  <%= render(ButtonComponent.new(label: "Test Popover!")) do |component| %>
+    <% component.with_effect do %>
+      <%= render(Popover::RightComponent.new) { demo_text } %>
+    <% end %>
+    <% component.with_effect do %>
+      <%= render(Popover::LeftComponent.new) { demo_text } %>
+    <% end %>
+    <% component.with_effect do %>
+      <%= render(Popover::TopComponent.new) { demo_text } %>
+    <% end %>
+    <% component.with_effect do %>
+      <%= render(Popover::BottomComponent.new) { demo_text } %>
+    <% end %>
+  <% end %>  
+  <%= render(Progress::BarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
+  <%= render(React::RatingComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
+
+
+<blockquote class="text-2xl font-semibold italic text-center text-slate-900">
+  When you look
+  <span class="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
+    <span class="relative text-white">annoyed</span>
+  </span>
+  all the time, people think that you're busy.
+</blockquote>
+
   <%= render(Icon::StarComponent.new) %>
+  <%= render(Carousel::CarouselComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
+  <%= render(ButtonComponent.new(label: "Test Modal!")) do |component| %>
+    <% component.with_effect do %>
+      <%= render(Modal::ModalComponent.new) { demo_text } %>
+    <% end %>
+  <% end %>  
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Icon::StarComponent.new) %>

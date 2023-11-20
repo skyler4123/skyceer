@@ -4,11 +4,11 @@ class ButtonComponent < ViewComponent::Base
   renders_one :before
   renders_one :after
   renders_one :indicator
-  renders_one :popover
+  renders_many :effects
   
   def initialize(
       label: 'Button',
-      url: "#",
+      url: nil,
       button_class: nil,
       link_class: nil,
       klass: nil,
