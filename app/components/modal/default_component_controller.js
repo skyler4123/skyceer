@@ -7,6 +7,12 @@ export default class extends Controller {
   }
 
   exit() {
+    console.log('aaaaaaaa')
+    console.log(this.element)
+
+    console.log(this.element.classList)
+    console.log(this.element.classList.add('hidden'))
+
     // console.log(this.element.classList)
     // this.element.setAttribute('style', "display: none")
     // this.element.classList.remove('flex')

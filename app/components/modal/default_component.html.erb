@@ -1,5 +1,5 @@
-<div data-controller="modal--modal-component" class='fixed h-screen w-screen inset-0 z-10 flex-col items-center justify-center bg-transparent hidden'>
-  <div class="z-20 h-full w-full bg-opacity-20 bg-green-500 cursor-pointer" data-action="click->modal--modal-component#exit">
+<div data-controller="modal--default-component" class='fixed h-screen w-screen inset-0 z-10 flex-col items-center justify-center bg-transparent hidden'>
+  <div class="z-20 h-full w-full bg-opacity-20 bg-green-500 cursor-pointer" data-action="click->modal--default-component#exit">
   </div>
   <div class="z-30 opacity-100 bg-red-500 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <%= content? ? content : "Modal Content here!" %>
