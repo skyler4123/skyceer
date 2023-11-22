@@ -1,23 +1,12 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  
-  open() {
-    this.element.classList.remove('hidden')
-  }
 
-  exit() {
-    console.log('aaaaaaaa')
-    console.log(this.element)
-
-    console.log(this.element.classList)
-    console.log(this.element.classList.add('hidden'))
-
-    // console.log(this.element.classList)
-    // this.element.setAttribute('style', "display: none")
-    // this.element.classList.remove('flex')
+  close() {
+    console.log("Close from modal", this.element)
     this.element.classList.add('hidden')
-
+    this.openOrCloseValue = "close"
+    this.element.parentNode.closest('[data-controller]').setAttribute('data-action', 'click->button-component#openModal')
   }
 
 }
