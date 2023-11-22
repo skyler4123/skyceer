@@ -13,6 +13,7 @@ export default class extends Controller {
     // console.log("Hello, Stimulus!", this.element);
   }
   initialize() {
+    if (this.element.childElementCount != 0) { return }
     this.element.appendChild(svgNode.cloneNode(true))
     this.svgTarget.classList = this.svgClassValue
   }

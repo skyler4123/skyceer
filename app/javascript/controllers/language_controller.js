@@ -1,5 +1,5 @@
-import { Controller } from "@hotwired/stimulus"
 import morphdom from "morphdom"
+import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["changeable"]
