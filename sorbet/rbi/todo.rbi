@@ -4,6 +4,7 @@
 
 # typed: false
 
+module ::Logos::GithubComponent; end
 module AbstractController::Logger::ClassMethods; end
 module ActionController::DataStreaming::ClassMethods; end
 module ActionController::UrlFor::ClassMethods; end
@@ -16,6 +17,7 @@ module ActiveModel::API::ClassMethods; end
 module ActiveModel::Dirty::ClassMethods; end
 module ActiveModel::Model::ClassMethods; end
 module ActiveModel::Serializers::JSON::ClassMethods; end
+module Button::LanguageComponent; end
 module Mongoid::Association::Accessors::ClassMethods; end
 module Mongoid::Association::Builders::ClassMethods; end
 module Mongoid::Association::ClassMethods; end

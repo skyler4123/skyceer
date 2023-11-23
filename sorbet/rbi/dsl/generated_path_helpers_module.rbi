@@ -9,6 +9,12 @@ module GeneratedPathHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def api_user_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def api_users_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def blog_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -49,6 +55,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def demos_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_api_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_blog_path(*args); end
@@ -94,6 +103,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def laptops_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_api_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_blog_path(*args); end
@@ -193,6 +205,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def rails_mandrill_inbound_health_check_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def rails_mini_profiler_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_postmark_inbound_emails_path(*args); end

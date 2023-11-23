@@ -9,4 +9,10 @@ rm -f /rails/tmp/pids/server.pid
 ./bin/rails log:clear
 # ./bin/rails assets:precompile
 
+# Update Packwerk and Sorbet
+./bin/bundle exec tapioca init
+./bin/bundle exec tapioca dsl
+./bin/bundle exec packwerk check
+./bin/rails graphwerk:update
+
 exec "${@}"
