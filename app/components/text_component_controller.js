@@ -12,10 +12,10 @@ export default class extends Controller {
 
     const parser = new DOMParser()
     const spanBeforeHTML = this.beforeTarget.outerHTML.replace('<div', '<span').replace('</div>', '</span>')
-    const spanBefore = new DOMParser().parseFromString(spanBeforeHTML, 'text/html').body.childNodes[0]
+    const spanBefore = parser.parseFromString(spanBeforeHTML, 'text/html').body.childNodes[0]
     this.element.replaceChild(spanBefore, this.beforeTarget)
     const spanAfterHTML = this.afterTarget.outerHTML.replace('<div', '<span').replace('</div>', '</span>')
-    const spanAfter = new DOMParser().parseFromString(spanAfterHTML, 'text/html').body.childNodes[0]
+    const spanAfter = parser.parseFromString(spanAfterHTML, 'text/html').body.childNodes[0]
     this.element.replaceChild(spanAfter, this.afterTarget)
   }
 }
