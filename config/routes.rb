@@ -5,6 +5,8 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   mount RailsMiniProfiler::Engine => '/rails_mini_profiler'
   resources :chat_rooms
   resources :chat_messages

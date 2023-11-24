@@ -58,6 +58,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem "rails-controller-testing"
   gem 'shoulda-matchers'
+  gem 'rswag-specs'
 end
 
 group :development do
@@ -96,3 +97,6 @@ gem 'stackprof'
 gem "mongoid"
 gem 'pagy'
 gem 'rack-cors'
+
+gem 'rswag-api'
+gem 'rswag-ui'
