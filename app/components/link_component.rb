@@ -4,6 +4,7 @@ class LinkComponent < ViewComponent::Base
   renders_one :before
   renders_one :after
   renders_one :indicator
+  renders_one :copy_icon
   
   def initialize(
       label: 'Link',
@@ -12,7 +13,8 @@ class LinkComponent < ViewComponent::Base
       link_class: nil,
       klass: nil,
       id: nil,
-      data: { controller: "" }
+      data: { controller: "" },
+      has_copy_icon: false
     )
     @label = label
     @url = url
@@ -24,5 +26,6 @@ class LinkComponent < ViewComponent::Base
     data[:controller] += " link-component"
     data[:controller] = data[:controller].strip
     @data = data
+    @has_copy_icon = has_copy_icon
   end
 end

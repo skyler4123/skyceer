@@ -39,6 +39,13 @@
 <% end %>
 <div class="flex flex-col justify-center items-center">
   <%= render(Icon::StarComponent.new) %>
+  <%= render(Icon::StarComponent.new) %>
+  <%= render(LinkComponent.new(has_copy_icon: true)) %>
+  <%= render(Icon::StarComponent.new) %>
+  <%= render(LinkComponent.new) do |component| %>
+    <%= component.with_copy_icon { render(Icon::LinkComponent.new) } %>
+  <% end %>
+  <%= render(Icon::StarComponent.new) %>
   <%= render(Toast::ToastComponent.new(position: :top_right)) { demo_text } %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(ButtonComponent.new(label: "Test Modal!")) do |component| %>
