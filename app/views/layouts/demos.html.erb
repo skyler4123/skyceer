@@ -13,8 +13,14 @@
   </head>
 
   <body data-controller="user language" data-language-current-language-value='english'>
+    <%= render(Header::StickyComponent.new) do %>
+      <%= render(Page::Demo::HeaderComponent.new) %>
+    <% end %>
     <main class="flex">
       <%= yield %>
     </main>
+    <%= render(Footer::DefaultComponent.new) do %>
+      <%= render(Page::Demo::FooterComponent.new) %>
+    <% end %>
   </body>
 </html>
