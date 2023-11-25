@@ -13,10 +13,10 @@
   </head>
 
   <body data-controller="user language" data-language-current-language-value='english'>
-    <%= render(Header::StickyComponent.new) %>
+    <%= render(Demo::HeaderComponent.new) %>
     <main class="flex">
       <%= yield %>
     </main>
-    <%= render(Footer::DefaultComponent.new) %>
+    <%= render(Demo::FooterComponent.new) %>
   </body>
 </html>
