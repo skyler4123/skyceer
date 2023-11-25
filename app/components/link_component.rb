@@ -9,7 +9,7 @@ class LinkComponent < ViewComponent::Base
   def initialize(
       label: 'Link',
       url: "#",
-      button_class: "",
+      button_class: nil,
       link_class: nil,
       klass: nil,
       id: nil,

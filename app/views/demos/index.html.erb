@@ -43,7 +43,7 @@
   <%= render(LinkComponent.new(has_copy_icon: true)) %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(LinkComponent.new) do |component| %>
-    <%= component.with_copy_icon { render(Icon::LinkComponent.new) } %>
+    <%= component.with_copy_icon { render(Icon::ExpandComponent.new(svg_class: 'w-3 h-3')) } %>
   <% end %>
   <%= render(Icon::StarComponent.new) %>
   <%= render(Toast::ToastComponent.new(position: :top_right)) { demo_text } %>
