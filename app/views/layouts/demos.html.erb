@@ -16,7 +16,7 @@
     <%= render(Header::StickyComponent.new) do %>
       <%= render(Page::Demo::HeaderComponent.new) %>
     <% end %>
-    <main class="flex">
+    <main class="flex flex-col">
       <%= yield %>
     </main>
     <%= render(Footer::DefaultComponent.new) do %>

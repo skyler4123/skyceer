@@ -1,3 +1,11 @@
-<div data-controller="page--demo--header-component">
-  <div>dfds</div>
+<div data-controller="page--demo--header-component" class="flex flex-col justify-center items-center">
+  <%= render(LinkComponent.new) do %>
+    <%= render(TextComponent.new(label: 'Black Fire-Day 2023 - Sale deal rực rỡ!', klass: "flex flex-row justify-center items-center gap-x-1").with_before_content(render(Icon::DotComponent.new(klass: 'flex w-3 h-3 scale-50 me-3 bg-yellow-500 rounded-full animate-ping')))) %>
+  <% end %>
+  <div>
+    <%= render(LinkComponent.new) do %>
+      <%= image_tag("/images/cellphones/top-banner-chinh-sach-bao-hanh-doi-tra.webp") %>
+    <% end %>
+  </div>
+  <div>3</div>
 </div>
