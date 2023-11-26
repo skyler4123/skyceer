@@ -7,15 +7,19 @@ export default class extends Controller {
     // console.log("Hello, Stimulus!", this.element);
   }
   initialize() {
-    this.element.firstElementChild.setAttribute('data-text-component-target', 'before')
-    this.element.lastElementChild.setAttribute('data-text-component-target', 'after')
-
     const parser = new DOMParser()
-    const spanBeforeHTML = this.beforeTarget.outerHTML.replace('<div', '<span').replace('</div>', '</span>')
-    const spanBefore = parser.parseFromString(spanBeforeHTML, 'text/html').body.childNodes[0]
-    this.element.replaceChild(spanBefore, this.beforeTarget)
-    const spanAfterHTML = this.afterTarget.outerHTML.replace('<div', '<span').replace('</div>', '</span>')
-    const spanAfter = parser.parseFromString(spanAfterHTML, 'text/html').body.childNodes[0]
-    this.element.replaceChild(spanAfter, this.afterTarget)
+    if (this.element.firstElementChild) {
+      this.element.firstElementChild.setAttribute('data-text-component-target', 'before')
+      const spanBeforeHTML = this.beforeTarget.outerHTML.replace('<div', '<span').replace('</div>', '</span>')
+      const spanBefore = parser.parseFromString(spanBeforeHTML, 'text/html').body.childNodes[0]
+      this.element.replaceChild(spanBefore, this.beforeTarget)  
+    }
+    if (this.element.lastElementChild) {
+      this.element.lastElementChild.setAttribute('data-text-component-target', 'after')
+      const spanAfterHTML = this.afterTarget.outerHTML.replace('<div', '<span').replace('</div>', '</span>')
+      const spanAfter = parser.parseFromString(spanAfterHTML, 'text/html').body.childNodes[0]
+      this.element.replaceChild(spanAfter, this.afterTarget)  
+    }
+
   }
 }
