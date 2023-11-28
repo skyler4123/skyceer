@@ -1,26 +1,3 @@
-<div class="fixed bottom-5 right-5 flex flex-col justify-between items-center w-1/3 h-96 bg-slate-400 rounded-lg shadow-2xl shadow-red-700">
 
-  <div class="flex flex-row justify-between items-center w-full">
-    <div class="flex flex-row items-center">
-      <%= render(Avatar::CircleComponent.new) %>
-      <%= render(TextComponent.new(label: "Co Chu Nho")) %>
-    </div>
-    <div class="flex flex-row">
-      <%= render(Icon::StarComponent.new) %>
-      <%= render(Icon::StarComponent.new) %>
-      <%= render(Icon::StarComponent.new) %>
-      <%= render(Button::CloseComponent.new) %>
-    </div>
-  </div>
-  <div>2</div>
-  <div class="flex flex-row">
-    <%= render(Icon::StarComponent.new) %>
-    <%= render(Icon::StarComponent.new) %>
-    <%= render(Icon::StarComponent.new) %>
-    <%= render(Icon::StarComponent.new) %>
-    <%= render(Icon::StarComponent.new) %>
-  </div>
 
-</div>
-
-<%= render(Boxchat::FormComponent.new) %>
+<%= render(Boxchat::DefaultComponent.new) %>
