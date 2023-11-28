@@ -7,6 +7,10 @@ export default class extends Controller {
     currentUser: Object 
   }
   connect() {
-    console.log("Hello, Stimulus!", this.element);
+    // console.log("Hello, Stimulus!", this.element);
+  }
+  initialize() {
+    this.boxchatIdValue = this.element.dataset.boxchatId
+    this.element.removeAttribute("data-boxchat-id")
   }
 }

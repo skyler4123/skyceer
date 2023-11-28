@@ -1,5 +1,7 @@
-<div data-controller="boxchat--default-component" data-boxchat--default-component-boxchat-id-value="boxchat_id" class="fixed flex flex-col content-between gap-y-2 bottom-2 right-2 bg-white rounded-md w-[350px] h-96">
+<% @klass ||= "fixed flex flex-col content-between gap-y-2 bottom-2 right-2 bg-white rounded-md w-[350px] h-96" %>
+
+<%= tag.div(class: @klass, data: @data) do %>
   <%= render(Boxchat::HeaderComponent.new) %>
   <%= render(Boxchat::MessagesComponent.new) %>
   <%= render(Boxchat::FooterComponent.new) %>
-</div>
+<% end %>
