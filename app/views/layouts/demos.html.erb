@@ -12,12 +12,14 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
   </head>
 
-  <body data-controller="user language" class="flex flex-row">
-    <%= render(Sidebar::LeftComponent.new) { render(Page::Demo::SidebarComponent.new) } %>
-    <main class="flex flex-col w-full">
-      <%= render(Header::NormalComponent.new) %>
-      <%= yield %>
-      <%= render(Footer::NormalComponent.new) %>
-    </main>
+  <body data-controller="user language" class="flex flex-col w-full">
+    <%= render(Header::StickyComponent.new) { render(Page::Demo::HeaderComponent.new) } %>
+    <div>
+      <%= render(Sidebar::LeftComponent.new) { render(Page::Demo::SidebarComponent.new) } %>
+      <main class="flex flex-col w-full">
+        <%= yield %>
+        <%= render(Footer::NormalComponent.new) { render(Page::Demo::FooterComponent.new) } %>
+      </main>
+    </div>
   </body>
 </html>

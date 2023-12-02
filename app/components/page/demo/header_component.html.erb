@@ -1,12 +1,5 @@
-<div data-controller="page--demo--header-component" class="flex flex-col justify-center items-center">
-  <%= render(LinkComponent.new(url: 'https://cellphones.com.vn/black-friday')) do %>
-    <%= render(Icon::DotComponent.new) %>
-    <%= render(TextComponent.new(label: "Black Fire-Day 2023 - Sale deal rực rỡ!")) %>
-  <% end %>
-  <div>
-    <%= render(LinkComponent.new) do %>
-      <%= image_tag("/images/cellphones/top-banner-chinh-sach-bao-hanh-doi-tra.webp") %>
-    <% end %>
-  </div>
-  <div>3</div>
+<div data-controller="page--demo--header-component" class="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-500">
+  <%= render(LinkComponent.new) { image_tag("https://demo.dashboardpack.com/architectui-html-pro/assets/images/logo.png") } %>
+  <%= render(ButtonComponent.new) { render(Icon::Bars3Component.new) } %>
+  <%= render(ButtonComponent.new) { render(Icon::MagnifyingGlassComponent.new) } %>
 </div>
