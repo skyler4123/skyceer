@@ -13,7 +13,7 @@ class ButtonComponent < ViewComponent::Base
       link_class: nil,
       klass: nil,
       id: nil,
-      data: { controller: "" }
+      controller: self.class.name.underscore.dasherize
       )
     @label = label
     @url = url
@@ -21,9 +21,6 @@ class ButtonComponent < ViewComponent::Base
     @klass = klass
     @button_class = button_class
     @id = id
-    data[:controller] ||= ""
-    data[:controller] += " button-component"
-    data[:controller] = data[:controller].strip
-    @data = data
+    @controller = controller
   end
 end

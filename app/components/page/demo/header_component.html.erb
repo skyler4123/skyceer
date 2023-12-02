@@ -1,5 +1,5 @@
 <div data-controller="page--demo--header-component" class="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-500">
   <%= render(LinkComponent.new) { image_tag("https://demo.dashboardpack.com/architectui-html-pro/assets/images/logo.png") } %>
   <%= render(ButtonComponent.new) { render(Icon::Bars3Component.new) } %>
-  <%= render(ButtonComponent.new) { render(Icon::MagnifyingGlassComponent.new) } %>
+  <%= render(ButtonComponent.new(klass: 'flex flex-row gap-x-2 w-fit justify-center items-center bg-red-700 hover:bg-blue-800 rounded-lg text-white font-medium p-3')) { render(Icon::MagnifyingGlassComponent.new) } %>
 </div>
