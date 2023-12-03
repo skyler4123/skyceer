@@ -25,23 +25,11 @@ export default class extends Controller {
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }
-  dataComponent() {
-    return JSON.parse(this.element.dataset.component)
-  }
   initializeClass() {
-    if (this.dataComponent().klass) {
-      this.klassValue = this.dataComponent().klass
-    }
-    if (this.dataComponent().button_class) {
-      this.buttonClassValue = this.dataComponent().button_class
-    }
-    if (this.dataComponent().link_class) {
-      this.linkClassValue = this.dataComponent().link_class
-    }
-
-    this.element.classList = this.klassValue
-    this.button() && (this.button().classList = this.buttonClassValue)
-    this.link() && (this.link().classList = this.linkClassValue)
+    console.log(this.element.classList)
+    if (!this.element.classList) { this.element.classList = this.klassValue }
+    if (!this.button().classList) { this.button().classList = this.buttonClassValue }
+    if (this.link()?.classList) { this.link().classList = this.linkClassValue }
   }
   button() {
     return this.element.querySelector('button')

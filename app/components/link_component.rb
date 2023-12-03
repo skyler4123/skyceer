@@ -13,8 +13,8 @@ class LinkComponent < ViewComponent::Base
       link_class: nil,
       klass: nil,
       id: nil,
-      data: { controller: "" },
-      has_copy_icon: false
+      has_copy_icon: false,
+      controller: self.class.name.underscore.dasherize
     )
     @label = label
     @url = url
@@ -22,10 +22,7 @@ class LinkComponent < ViewComponent::Base
     @klass = klass
     @button_class = button_class
     @id = id
-    data[:controller] ||= ""
-    data[:controller] += " link-component"
-    data[:controller] = data[:controller].strip
-    @data = data
+    @controller = controller
     @has_copy_icon = has_copy_icon
   end
 end

@@ -1,10 +1,6 @@
-<% @klass ||= "group flex justify-center items-center text-black" %>
-<% @button_class ||= "flex flex-row w-fit justify-center items-center hover:text-sky-800" %>
-<% @link_class ||= "flex flex-row w-fit justify-center items-center" %>
-
-<%= tag.div(class: @klass, id: @id, data: @data) do %>
-  <button class="<%= @button_class %>">
-    <a class="<%= @link_class %>" href="<%= @url %>">
+<%= tag.div(class: @klass, id: @id, data: { controller: @controller }) do %>
+  <%= tag.button(class: @button_class) do %>
+    <%= link_to(@url, class: @link_class) do %>
       <% if content && !copy_icon %>
         <%= content %>
       <% else %>
@@ -12,9 +8,8 @@
         <%= @label %>
         <%= after if after? %>
       <% end %>
-    </a>
-  </button>
-  
+    <% end %>
+  <% end %>
   <% if copy_icon %>
     <%= render(Button::CopyLinkBeforeComponent.new) do %>
       <%= copy_icon %>

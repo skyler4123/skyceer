@@ -1,9 +1,7 @@
-
-
-<%= tag.div(id: @id, data: { controller: @controller, component: { klass: @klass, button_class: @button_class, link_class: @link_class } }) do %>
-  <button class="<%= @button_class %>">
+<%= tag.div(id: @id, class: @klass, data: { controller: @controller }) do %>
+  <%= tag.button(class: @button_class) do %>
     <% if @url %>
-      <a class="<%= @link_class %>" href="<%= @url %>">
+      <%= link_to(@url, class: @link_class) do %>
         <% if content %>
           <%= content %>
         <% else %>
@@ -11,7 +9,7 @@
           <%= @label %>
           <%= after if after? %>
         <% end %>
-      </a>
+      <% end %>
     <% else %>
       <% if content %>
         <%= content %>
@@ -21,7 +19,7 @@
         <%= after if after? %>
       <% end %>
     <% end %>
-  </button>
+  <% end %>
   <%= indicator if indicator %>
   <% if effects %>
     <% effects.each do |effect| %>
