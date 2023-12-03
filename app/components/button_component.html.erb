@@ -1,7 +1,7 @@
-<%= tag.div(id: @id, class: @klass, data: { controller: @controller }) do %>
-  <%= tag.button(class: @button_class) do %>
+<div data-controller="button-component" class="<%= @klass %>">
+  <button class="<%= @button_class %>">
     <% if @url %>
-      <%= link_to(@url, class: @link_class) do %>
+      <a href="<%= @url %>" class="<%= @link_class %>"></a>
         <% if content %>
           <%= content %>
         <% else %>
@@ -9,7 +9,7 @@
           <%= @label %>
           <%= after if after? %>
         <% end %>
-      <% end %>
+      </a>
     <% else %>
       <% if content %>
         <%= content %>
@@ -19,11 +19,11 @@
         <%= after if after? %>
       <% end %>
     <% end %>
-  <% end %>
+  </button>
   <%= indicator if indicator %>
   <% if effects %>
     <% effects.each do |effect| %>
       <%= effect %>
     <% end %>
   <% end %>
-<% end %>
+</div>

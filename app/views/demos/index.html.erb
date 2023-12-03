@@ -10,5 +10,13 @@
   <div></div>
   <div></div>
 </div>
-  <%= render(ButtonComponent.new) %>
+  <%= render(ButtonComponent.new(button_class: "flex flex-row w-fit justify-center items-center bg-green-500 group-focus:bg-violet-500")) do |component| %>
+    <% component.with_effect do %>
+      <%= render(Popover::BottomComponent.new) %>
+    <% end %>
+  <% end %>
   <%= render(LinkComponent.new) %>
+  <div tabindex="0" class="bg-red-500 focus:bg-green-500">sdjflkjdsflkjdskl</div>
+  <%= tag.div(class: "bg-red-500 focus:bg-green-500", tabindex: 0) do %>
+    ld'fl'dslf'dsl;'fls'
+  <% end %>

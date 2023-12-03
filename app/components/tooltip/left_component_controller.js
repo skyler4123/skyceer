@@ -6,6 +6,5 @@ export default class extends Controller {
   }
   initialize() {
     this.element.parentNode.closest('[data-controller]').classList.add('relative', 'group')
-    this.element.parentNode.closest('[data-controller]').setAttribute('tabindex', 0)
   }
 }

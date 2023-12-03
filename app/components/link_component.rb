@@ -14,7 +14,7 @@ class LinkComponent < ViewComponent::Base
       klass: nil,
       id: nil,
       has_copy_icon: false,
-      controller: self.class.name.underscore.dasherize
+      controller: self.class.name.underscore.dasherize.gsub('/', '--')
     )
     @label = label
     @url = url

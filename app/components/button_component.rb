@@ -11,16 +11,12 @@ class ButtonComponent < ViewComponent::Base
       url: nil,
       button_class: nil,
       link_class: nil,
-      klass: nil,
-      id: nil,
-      controller: self.class.name.underscore.dasherize
+      klass: nil
       )
     @label = label
     @url = url
     @link_class = link_class
     @klass = klass
     @button_class = button_class
-    @id = id
-    @controller = controller
   end
 end
