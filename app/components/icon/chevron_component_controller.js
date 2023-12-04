@@ -3,26 +3,41 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ['svg']
   static values = {
-    klass: { type: String, default: "flex w-fit justify-center items-center" },
+    klass: { type: String, default: "flex w-fit justify-center items-center transition-all duration-250 ease-in-out" },
     svgClass: { type: String, default: "w-4 h-4" },
     rotation: { type: String, default: "down" }
   }
   initialize() {
+    if (this.element.childElementCount != 0) { return }
+    
+    this.initializeSvgNode()
+    this.initializeKlass()
+    this.initializeSvgClass()
+    this.initializeRotation()
+  }
+  initializeKlass() {
     if (this.dataComponent().klass) {
       this.klassValue = this.dataComponent().klass
     }
+    this.klassValue.split(' ').forEach((klass) => {
+      this.element.classList.add(klass)
+    })
+  }
+  initializeSvgNode() {
+    this.element.appendChild(this.svgNode().cloneNode(true))
+  }
+  initializeSvgClass() {
     if (this.dataComponent().svg_class) {
       this.svgClassValue = this.dataComponent().svg_class
     }
+    this.svgClassValue.split(' ').forEach((klass) => {
+      this.svgTarget.classList.add(klass)
+    })
+  }
+  initializeRotation() {
     if (this.dataComponent().rotation) {
       this.rotationValue = this.dataComponent().rotation
     }
-
-    if (this.element.childElementCount != 0) { return }
-    this.element.appendChild(this.svgNode().cloneNode(true))
-    this.element.classList = this.klassValue
-    this.svgTarget.classList = this.svgClassValue
-
     switch(this.rotationValue) {
       case "down":
         this.element.classList.add('rotate-0')

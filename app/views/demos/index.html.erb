@@ -1,4 +1,5 @@
-<%= render(Icon::ChevronComponent.new) %>
-<%= render(Icon::ChevronComponent.new(rotation: :top)) %>
-<%= render(Accordion::DefaultComponent.new) %>
+
+<%= render(Accordion::DefaultComponent.new) do %>
+  <%= render(Accordion::BlockComponent.new) %>
+<% end %>
 <%= render(Icon::StarComponent.new) %>
