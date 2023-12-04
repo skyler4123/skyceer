@@ -1,11 +1,19 @@
-<div data-controller="accordion--block-component">
-  <div>
-    <div><%= @label %></div>
+<div data-controller="accordion--block-component" class="">
+  <div class="">
+    <div class="">
+      <%= before if before %>
+      <%= @label %>
+      <%= after if after %>
+    </div>
     <%= render(Icon::ChevronComponent.new) %>
   </div>
-  <div>
-    <div>1</div>
-    <div>2</div>
-    <div>3</div>
+  <div class="">
+    <% if body %>
+      <%= body %>
+    <% else %>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+    <% end %>
   </div>
 </div>

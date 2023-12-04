@@ -5,6 +5,7 @@ export default class extends Controller {
   static values = {
     klass: { type: String },
     headerClass: { type: String },
+    labelClass: { type: String },
     bodyClass: { type: String, default: 'transition-all duration-250 h-0 overflow-hidden ease-in-out' },
     iconClass: { type: String }
   }
@@ -32,7 +33,7 @@ export default class extends Controller {
       this.bodyTarget.classList.add(klass)
     })
     // this.bodyTarget.classList.add(`open:h-[${this.bodyTarget.scrollHeight}px]`)
-    this.bodyTarget.classList.add(`open:h-[73px]`)
+    this.bodyTarget.classList.add(`open:h-[72px]`)
   }
   initializeIconTarget() {
     console.log(this.iconTarget.classList)

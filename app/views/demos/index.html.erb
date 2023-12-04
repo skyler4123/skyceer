@@ -1,5 +1,7 @@
-
+<div class="hidden h-[72px]"></div>
 <%= render(Accordion::DefaultComponent.new) do %>
-  <%= render(Accordion::BlockComponent.new) %>
+  <%= render(Accordion::BlockComponent.new(label: "Test Accordion 1")) do |c| %>
+    <%= c.with_before { render(Icon::StarComponent.new) } %>
+  <% end %>
 <% end %>
 <%= render(Icon::StarComponent.new) %>
