@@ -9,6 +9,7 @@ export default class extends Controller {
     svgClass: { type: String, default: "w-4 h-4" },
     rotation: { type: String, default: "down" }
   }
+
   initialize() {
     if (this.element.childElementCount != 0) { return }
     
@@ -17,6 +18,7 @@ export default class extends Controller {
     this.initializeSvgClass()
     this.initializeRotation()
   }
+
   initializeKlass() {
     if (this.dataComponent().klass) {
       this.klassValue = this.dataComponent().klass
@@ -25,6 +27,7 @@ export default class extends Controller {
       this.element.classList.add(klass)
     })
   }
+
   initializeSvgNode() {
     this.nameValue = this.dataComponent().name
     if (this.dataComponent().type) {
@@ -32,6 +35,7 @@ export default class extends Controller {
     }
     this.element.appendChild(this.svgNode(this.nameValue).cloneNode(true))
   }
+
   initializeSvgClass() {
     if (this.dataComponent().svg_class) {
       this.svgClassValue = this.dataComponent().svg_class
@@ -40,6 +44,7 @@ export default class extends Controller {
       this.svgTarget.classList.add(klass)
     })
   }
+
   initializeRotation() {
     if (this.dataComponent().rotation) {
       this.rotationValue = this.dataComponent().rotation
@@ -59,15 +64,18 @@ export default class extends Controller {
         break
     } 
   }
+
   dataComponent() {
     return JSON.parse(this.element.dataset.component)
   }
+
   svgNode(name) {
     const svg = this.icons()[this.typeValue][name].slice(0, 4) + " " + `data-${this.identifier}-target="svg` + this.icons()[this.typeValue][name].slice(4)
     const svgNode = document.createRange().createContextualFragment(svg)
     svgNode.firstElementChild.removeAttribute('class')
     return svgNode
   }
+  
   icons() {
     return {
       outline: {
