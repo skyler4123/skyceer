@@ -1,22 +1,24 @@
-<%= tag.div(class: @klass, id: @id, data: { controller: @controller }) do %>
-  <%= tag.button(class: @button_class) do %>
-    <%= link_to(@url, class: @link_class) do %>
-      <% if content && !copy_icon %>
+<div data-controller="link-component" class="<%= @klass %>">
+  <button class="<%= @button_class %>">
+    <a href="<%= @url %>" class="<%= @link_class %>"></a>
+      <% if content %>
         <%= content %>
       <% else %>
         <%= before if before? %>
         <%= @label %>
         <%= after if after? %>
       <% end %>
+    </a>
+  </button>
+  <% if copy_icon? %>
+    <%= copy_icon %>
+  <% elsif @has_copy_icon %>
+    <%= render(Button::CopyLinkComponent.new) %>
+  <% end %>
+  <%= indicator if indicator %>
+  <% if effects %>
+    <% effects.each do |effect| %>
+      <%= effect %>
     <% end %>
   <% end %>
-  <% if copy_icon %>
-    <%= render(Button::CopyLinkBeforeComponent.new) do %>
-      <%= copy_icon %>
-    <% end %>
-  <% elsif @has_copy_icon %>
-
-    <%= render(Button::CopyLinkBeforeComponent.new) %>
-  <% end %> 
-  <%= indicator if indicator %>
-<% end %>
+</div>

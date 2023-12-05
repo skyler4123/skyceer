@@ -1,0 +1,7 @@
+<div data-controller="button--copy-link-component" class="flex flex-row px-1 hover:cursor-pointer">
+  <% if content %>
+    <%= content %>
+  <% else %>
+    <%= render(IconsComponent.new(name: 'link', klass: 'pl-1')) %>
+  <% end %>
+</div>

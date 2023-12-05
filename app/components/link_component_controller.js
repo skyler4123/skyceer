@@ -1,23 +1,43 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
+  static targets = ["button", "link", "modal"]
   static values = {
-    klass: { type: String, default: "group peer flex flex-row gap-x-2 w-fit justify-center items-center text-black" },
-    buttonClass: { type: String, default: "flex flex-row w-fit justify-center items-center hover:text-sky-800" },
+    klass: { type: String, default: "flex flex-row w-fit justify-center items-center" },
+    buttonClass: { type: String, default: "flex flex-row w-fit justify-center items-center cursor-pointer" },
     linkClass: { type: String, default: "flex flex-row w-fit justify-center items-center" }
   }
+
   initialize() {
+    this.initializeTarget()
     this.initializeClass()
+    this.initializeModal()
+  }
+  connect() {
+    // console.log("Hello, Stimulus!", this.element);
+  }
+  initializeTarget() {
+    this.element.querySelector('button').setAttribute(`data-${this.identifier}-target`, 'button')
+    this.element.querySelector('a')?.setAttribute(`data-${this.identifier}-target`, 'link')
+    this.element.querySelector('[data-controller*=modal]')?.setAttribute(`data-${this.identifier}-target`, 'modal')
   }
   initializeClass() {
-    if (this.element.classList.length === 0) { this.element.classList = this.klassValue }
-    if (this.button().classList.length === 0) { this.button().classList = this.buttonClassValue }
-    if (this.link()?.classList.length === 0) { this.link().classList = this.linkClassValue }
+    this.klassValue.split(' ').forEach((klass) => {
+      this.element.classList.add(klass)
+    })
+    this.buttonClassValue.split(' ').forEach((klass) => {
+      this.buttonTarget.classList.add(klass)
+    })
+    this.hasLinkTarget && this.linkClassValue.split(' ').forEach((klass) => {
+      this.linkTarget.classList.add(klass)
+    })
+
   }
-  button() {
-    return this.element.querySelector('button')
+  initializeModal() {
+    this.hasModalTarget && this.modalTarget.setAttribute('data-action', `click->${this.identifier}#openModal`)
   }
-  link() {
-    return this.element.querySelector('a')
+  openModal() {
+    this.modalTarget.classList.remove('hidden')
+    this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openModal`, "")
   }
 }
