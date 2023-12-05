@@ -6,7 +6,7 @@ export default class extends Controller {
     klass: { type: String },
     headerClass: { type: String },
     labelClass: { type: String },
-    bodyClass: { type: String, default: 'transition-all duration-250 h-0 overflow-hidden ease-in-out' },
+    bodyClass: { type: String, default: 'grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-250 ease-in-out' },
     iconClass: { type: String }
   }
 
@@ -32,15 +32,14 @@ export default class extends Controller {
     this.bodyClassValue.split(' ').forEach((klass) => {
       this.bodyTarget.classList.add(klass)
     })
-    // this.bodyTarget.classList.add(`open:h-[${this.bodyTarget.scrollHeight}px]`)
-    this.bodyTarget.classList.add(`open:h-[72px]`)
+    this.bodyTarget.firstElementChild.classList.add('overflow-hidden')
   }
   initializeIconTarget() {
-    console.log(this.iconTarget.classList)
-    this.iconTarget.classList.add('group-open:rotate-180')
+    this.iconTarget.classList.add('open:rotate-180')
   }
   open() {
     this.headerTarget.toggleAttribute('open')
     this.bodyTarget.toggleAttribute('open')
+    this.iconTarget.toggleAttribute('open')
   }
 }

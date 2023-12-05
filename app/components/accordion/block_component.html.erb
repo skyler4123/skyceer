@@ -5,15 +5,17 @@
       <%= @label %>
       <%= after if after %>
     </div>
-    <%= render(Icon::ChevronComponent.new) %>
+    <%= render(IconsComponent.new(name: 'chevron-down')) %>
   </div>
-  <div class="">
-    <% if body %>
-      <%= body %>
-    <% else %>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-    <% end %>
+  <div>
+    <div>
+      <% if body %>
+        <%= body %>
+      <% else %>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+      <% end %>
+    </div>
   </div>
 </div>
