@@ -3,19 +3,29 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static values = {
+    klass: { type: String, default: "absolute bottom-0 right-1/2 translate-x-1/2" },
     heightClass: String,
     overflowClass: String
   }
   connect() {
-    console.log(this.element);
+    // console.log(this.element);
   }
   initialize() {
-    this.element.setAttribute('data-action', `click->${this.identifier}#readMore`)
+    this.initializeKlass()
+    this.initializeAction()
     this.heightClassValue = this.heightClass()
     this.overflowClassValue = this.overflowClass()
     this.parentElement().classList.add('relative')
   }
 
+  initializeKlass() {
+    this.klassValue.split(' ').forEach((klass) => {
+      this.element.classList.add(klass)
+    })
+  }
+  initializeAction() {
+    this.element.setAttribute('data-action', `click->${this.identifier}#readMore`)
+  }
   readMore() {
     this.parentElement().classList.remove(this.overflowClassValue)
     this.parentElement().classList.remove(this.heightClassValue)
