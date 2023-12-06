@@ -12,7 +12,7 @@ class LinkComponent < ViewComponent::Base
       url: '#',
       button_class: 'font-medium text-blue-600 hover:underline active:text-blue-800',
       link_class: nil,
-      klass: nil,
+      klass: 'hidden',
       has_copy_icon: false
       )
     @label = label

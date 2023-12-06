@@ -15,6 +15,7 @@ export default class extends Controller {
   }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
+    this.element.classList.remove('hidden')
   }
   initializeTarget() {
     this.element.querySelector('button').setAttribute(`data-${this.identifier}-target`, 'button')
