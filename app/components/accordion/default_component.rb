@@ -3,7 +3,7 @@
 class Accordion::DefaultComponent < ViewComponent::Base
   def initialize(
     label: "Accordion name",
-    klass: 'hidden'
+    klass: nil
     )
     @label = label
     @klass = klass

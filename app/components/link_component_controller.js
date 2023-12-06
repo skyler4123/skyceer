@@ -12,9 +12,13 @@ export default class extends Controller {
     this.initializeTarget()
     this.initializeClass()
     this.initializeModal()
+
+    this.initializeCompleted()
   }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
+  }
+  initializeCompleted() {
     this.element.classList.remove('hidden')
   }
   initializeTarget() {

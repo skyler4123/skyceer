@@ -18,6 +18,11 @@ export default class extends Controller {
     this.initializeHeaderTarget()
     this.initializeBodyTarget()
     this.initializeIconTarget()
+
+    this.initializeCompleted()
+  }
+  initializeCompleted() {
+    this.element.classList.remove('hidden')
   }
   initializeTarget() {
     this.element.firstElementChild.setAttribute(`data-${this.identifier}-target`, 'header')
