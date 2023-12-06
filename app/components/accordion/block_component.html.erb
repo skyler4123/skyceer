@@ -1,21 +1,15 @@
-<div data-controller="accordion--block-component" class="">
-  <div class="">
-    <div class="">
+<div data-controller="accordion--block-component" class="<%= @klass %>">
+  <div class="<%= @header_class %>">
+    <div class="<%= @label_class %>">
       <%= before if before %>
       <%= @label %>
       <%= after if after %>
     </div>
-    <%= render(IconsComponent.new(name: 'chevron-down')) %>
+    <%= icon? ? icon : render(IconsComponent.new(name: 'chevron-down')) %>
   </div>
-  <div>
+  <div class="<%= @body_class %>">
     <div>
-      <% if body %>
-        <%= body %>
-      <% else %>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-      <% end %>
+      <%= body? ? body : "Empty body!" %>
     </div>
   </div>
 </div>
