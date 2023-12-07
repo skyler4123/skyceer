@@ -6,33 +6,14 @@
       <%= render(IconsComponent.new(name: 'star')) %>
       <%= render(IconsComponent.new(name: 'star')) %>
       <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-      <%= render(IconsComponent.new(name: 'star')) %>
-
     <% end %>
   <% end %>
 <% end %>
 
-<%= render(ButtonComponent.new) %>
+<%= render(ButtonComponent.new) do |c| %>
+  <% c.with_effect do %>
+    <%= render(Modal::DefaultComponent.new) %>
+  <% end %>
+<% end %>
 <%= render(LinkComponent.new(has_copy_icon: true)) %>
 <%= render(Button::UpToTopComponent.new) %>

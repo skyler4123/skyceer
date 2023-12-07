@@ -14,7 +14,7 @@ class LinkComponent < ViewComponent::Base
       link_class: nil,
       klass: 'hidden',
       has_copy_icon: false
-      )
+    )
     @label = label
     @url = url
     @link_class = link_class

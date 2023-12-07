@@ -11,7 +11,7 @@ export default class extends Controller {
   initialize() {
     this.initializeTarget()
     this.initializeClass()
-    this.initializeModal()
+    // this.initializeModal()
 
     this.initializeCompleted()
   }
@@ -38,9 +38,9 @@ export default class extends Controller {
     })
 
   }
-  initializeModal() {
-    this.hasModalTarget && this.modalTarget.setAttribute('data-action', `click->${this.identifier}#openModal`)
-  }
+  // initializeModal() {
+  //   this.hasModalTarget && this.modalTarget.setAttribute('data-action', `click->${this.identifier}#openModal`)
+  // }
   openModal() {
     this.modalTarget.classList.remove('hidden')
     this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openModal`, "")
