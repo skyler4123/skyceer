@@ -14,6 +14,9 @@
   <% c.with_effect do %>
     <%= render(Modal::DefaultComponent.new) %>
   <% end %>
+  <% c.with_effect do %>
+    <%= render(Tooltip::BottomComponent.new) %>
+  <% end %>
 <% end %>
 <%= render(LinkComponent.new(has_copy_icon: true)) %>
 <%= render(Button::UpToTopComponent.new) %>
