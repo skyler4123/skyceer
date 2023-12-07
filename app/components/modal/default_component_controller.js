@@ -46,9 +46,8 @@ export default class extends Controller {
   }
   closeModal() {
     this.element.classList.add('hidden')
-    this.openOrCloseValue = "close"
     setTimeout(() => {
-    this.element.parentNode.closest('[data-controller]').setAttribute('data-action', 'click->button-component#openModal')
+    this.element.parentNode.closest('[data-controller]').setAttribute('data-action', `click->${this.parentController().dataset.controller}#openModal`)
     }, 500)
   }
 
