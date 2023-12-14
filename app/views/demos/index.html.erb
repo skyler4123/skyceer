@@ -15,6 +15,11 @@
     <%= render(Modal::DefaultComponent.new) %>
   <% end %>
 <% end %>
+<%= render(ButtonComponent.new(label: "Button with Tooltip")) do |c| %>
+  <% c.with_effect do %>
+    <%= render(Tooltip::DefaultComponent.new) %>
+  <% end %>
+<% end %>
 <%= render(ButtonComponent.new(label: "Button with Popover")) do |c| %>
   <% c.with_effect do %>
     <%= render(Popover::DefaultComponent.new) %>

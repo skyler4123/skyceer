@@ -1,6 +1,4 @@
-<div data-controller="popover--default-component"
-    class="bg-green-500 hidden w-96 h-fit"
->
+<%= tag.div(class: @klass, data: {controller: "popover--default-component", popover__default_component_position_value: @position}) do %>
 Add Tooltip::Default template here
 Add Tooltip::Default template here
 Add Tooltip::Default template here
@@ -9,5 +7,4 @@ Add Tooltip::Default template here
 Add Tooltip::Default template here
 Add Tooltip::Default template here
 Add Tooltip::Default template here
-
-</div>
+<% end %>
