@@ -17,6 +17,8 @@ export default class extends Controller {
     this.initializeKlass()
     this.initializeSvgClass()
     this.initializeRotation()
+
+    this.initializeComplete()
   }
 
   initializeKlass() {
@@ -63,6 +65,10 @@ export default class extends Controller {
         this.element.classList.add('rotate-90')
         break
     } 
+  }
+
+  initializeComplete() {
+    this.element.classList.remove('hidden')
   }
 
   dataComponent() {
