@@ -1,5 +1,9 @@
 <div data-controller="dropdown--hover-component" class="relative inline-block group">
-  <%= render(ButtonComponent.new) %>
+  <%= render(ButtonComponent.new) do |c| %>
+    <% c.with_after do %>
+      <%= render(IconsComponent.new(name: 'chevron-down')) %>
+    <% end %>
+  <% end %>
   <ul class='hidden group-hover:block absolute z-10 bg-slate-100 p-2 rounded-md'>
     <%= body? ? body : "Dropdown Items" %>
   </ul>

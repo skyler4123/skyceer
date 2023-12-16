@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class ButtonComponent < ViewComponent::Base
-  renders_one :before
-  renders_one :after
-  renders_one :indicator
-  renders_many :effects
+  renders_one :before_label
+  renders_one :after_label
+  renders_many :prepends
+  renders_many :appends
   
   def initialize(
       label: 'Button',
