@@ -23,7 +23,7 @@ export default class extends Controller {
   }
 
   initializeType() {
-    this.element.setAttribute('type', 'icon')
+    this.element.setAttribute('data-controller-type', 'icon')
   }
 
   initializeKlass() {

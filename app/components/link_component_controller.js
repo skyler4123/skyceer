@@ -20,7 +20,7 @@ export default class extends Controller {
     // console.log("Hello, Stimulus!", this.element);
   }
   initializeType() {
-    this.element.setAttribute('type', 'link')
+    this.element.setAttribute('data-controller-type', 'link')
   }
   initializeComplete() {
     this.element.classList.remove('hidden')

@@ -1,5 +1,8 @@
 
 <%= render(IconsComponent.new(name: "finger-print", svg_class: "w-20 h-20 text-red-500")) %>
+<%= render(ButtonComponent.new(label: "Default Button")) %>
+<%= render(LinkComponent.new(label: "Default Link")) %>
+
 <%= render(Accordion::DefaultComponent.new) do %>
   <%= render(Accordion::BlockComponent.new(label: "Accordion name 1")) do |c| %>
     <% c.with_body do %>
