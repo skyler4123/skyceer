@@ -5,7 +5,7 @@
       <%= @label %>
       <%= after if after %>
     </div>
-    <%= icon? ? icon : render(IconsComponent.new(name: 'chevron-down')) %>
+    <%= icon? ? icon : render(IconComponent.new(name: 'chevron-down')) %>
   </div>
   <div class="<%= @body_class %>">
     <div>

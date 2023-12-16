@@ -12,13 +12,13 @@ class LinkComponent < ViewComponent::Base
       url: '#',
       button_class: 'font-medium text-blue-600 hover:underline active:text-blue-800',
       link_class: nil,
-      klass: 'hidden',
+      klass: nil,
       has_copy_icon: false
     )
     @label = label
     @url = url
     @link_class = link_class
-    @klass = klass
+    @klass = klass.to_s + " hidden"
     @button_class = button_class
     @has_copy_icon = has_copy_icon
   end

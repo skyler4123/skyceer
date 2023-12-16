@@ -1,10 +1,10 @@
-<div data-controller="dropdown--hover-component" class="relative inline-block group">
-  <%= render(ButtonComponent.new) do |c| %>
-    <% c.with_after do %>
-      <%= render(IconsComponent.new(name: 'chevron-down')) %>
+<div data-controller="dropdown--hover-component" class="<%= @klass %>">
+  <%= render(ButtonComponent.new(klass: @button_class)) do |c| %>
+    <% c.with_append do %>
+      <%= render(IconComponent.new(name: 'chevron-down', klass: @icon_class)) %>
     <% end %>
   <% end %>
-  <ul class='hidden group-hover:block absolute z-10 bg-slate-100 p-2 rounded-md'>
+  <div class='<%= @body_class %>'>
     <%= body? ? body : "Dropdown Items" %>
-  </ul>
+  </div>
 </div>

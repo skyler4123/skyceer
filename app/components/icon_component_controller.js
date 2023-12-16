@@ -13,7 +13,6 @@ export default class extends Controller {
   initialize() {
     if (this.element.childElementCount != 0) { return }
     
-    this.initializeType()
     this.initializeSvgNode()
     this.initializeKlass()
     this.initializeSvgClass()
@@ -22,9 +21,6 @@ export default class extends Controller {
     this.initializeComplete()
   }
 
-  initializeType() {
-    this.element.setAttribute('data-controller-type', 'icon')
-  }
 
   initializeKlass() {
     if (this.dataComponent().klass) {

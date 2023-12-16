@@ -9,7 +9,6 @@ export default class extends Controller {
   }
 
   initialize() {
-    this.initializeType()
     this.initializeTarget()
     this.initializeClass()
 
@@ -17,9 +16,6 @@ export default class extends Controller {
   }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
-  }
-  initializeType() {
-    this.element.setAttribute('data-controller-type', 'button')
   }
   initializeComplete() {
     this.element.classList.remove('hidden')

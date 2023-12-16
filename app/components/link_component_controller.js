@@ -9,7 +9,6 @@ export default class extends Controller {
   }
 
   initialize() {
-    this.initializeType()
     this.initializeTarget()
     this.initializeClass()
     this.initializeModal()
@@ -18,9 +17,6 @@ export default class extends Controller {
   }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
-  }
-  initializeType() {
-    this.element.setAttribute('data-controller-type', 'link')
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
