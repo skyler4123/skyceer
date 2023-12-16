@@ -10,6 +10,16 @@
   <% end %>
 <% end %>
 
+
+
+
+<%= render(Dropdown::HoverComponent.new) %>
+
+
+
+
+
+
 <%= render(ButtonComponent.new(label: "Button with Modal")) do |c| %>
   <% c.with_effect do %>
     <%= render(Modal::DefaultComponent.new) %>
