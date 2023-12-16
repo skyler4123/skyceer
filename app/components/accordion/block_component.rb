@@ -9,7 +9,7 @@ class Accordion::BlockComponent < ViewComponent::Base
   def initialize(
     label: "Accordion Header",
     label_class: nil,
-    klass: nil,
+    klass: 'hidden',
     header_class: nil,
     body_class: nil
     )
