@@ -13,12 +13,17 @@ export default class extends Controller {
   initialize() {
     if (this.element.childElementCount != 0) { return }
     
+    this.initializeType()
     this.initializeSvgNode()
     this.initializeKlass()
     this.initializeSvgClass()
     this.initializeRotation()
 
     this.initializeComplete()
+  }
+
+  initializeType() {
+    this.element.setAttribute('type', 'icon')
   }
 
   initializeKlass() {
