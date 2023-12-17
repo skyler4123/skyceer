@@ -1,5 +1,1 @@
-<div data-controller="horizontal-line--text-component" class="flex flex-row items-center justify-center w-full py-4">
-  <hr class="w-full h-px bg-gray-300 border-0">
-  <div class="font-medium text-black"><%= @label %></div>
-  <hr class="w-full h-px bg-gray-300 border-0">
-</div>
+<%= tag.div(class: @klass, data: { controller: "horizontal-line--text-component", component: { label: @label, label_class: @label_class, horizontal_line_class: @horizontal_line_class } }) %>

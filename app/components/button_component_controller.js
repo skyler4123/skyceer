@@ -14,9 +14,6 @@ export default class extends Controller {
 
     this.initializeComplete()
   }
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
-  }
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
