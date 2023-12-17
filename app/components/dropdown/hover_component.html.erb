@@ -1,7 +1,7 @@
 <div data-controller="dropdown--hover-component" class="<%= @klass %>">
-  <%= render(ButtonComponent.new(klass: @button_class)) do |c| %>
+  <%= button? ? button : render(ButtonComponent.new(klass: @button_class)) do |c| %>
     <% c.with_append do %>
-      <%= render(IconComponent.new(name: 'chevron-down', klass: @icon_class)) %>
+      <%= icon? ? icon : render(IconComponent.new(name: 'chevron-down', klass: @icon_class, svg_class: 'w-5 h-5')) %>
     <% end %>
   <% end %>
   <div class='<%= @body_class %>'>
