@@ -19,4 +19,12 @@
   <%= c.with_body { demo_text } %>
 <% end %>
 
+<%= render(HorizontalLine::TextComponent.new(label: 'Avatar::CircleComponent')) %>
+<%= render(Avatar::CircleComponent.new) %>
+<%= render(Avatar::CircleComponent.new(src: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg')) %>
+
+
+
+
+
 <%= render(HorizontalLine::TextComponent.new) %>

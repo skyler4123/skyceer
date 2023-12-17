@@ -10,7 +10,6 @@ export default class extends Controller {
   }
   initialize() {
     this.initializeValue()
-    console.log(this.element)
     this.initializeElement()
     this.initializeClass()
 

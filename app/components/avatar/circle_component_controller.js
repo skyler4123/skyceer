@@ -19,11 +19,11 @@ export default class extends Controller {
     this.initializeImgTarget()
   }
   initializeImgTarget() {
-    this.element.querySelector('img').setAttribute(`data-${this.identifier}-target`, 'img')
+    this.element.querySelector('img')?.setAttribute(`data-${this.identifier}-target`, 'img')
   }
   initializeClass() {
     this.initializeKlass()
-    this.initializeImgClass()
+    this.hasImgTarget && this.initializeImgClass()
   }
   initializeKlass() {
     this.klassValue.split(' ').forEach((klass) => {
