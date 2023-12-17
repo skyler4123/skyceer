@@ -1,6 +1,11 @@
 <%= render(IconComponent.new(name: "finger-print", svg_class: "w-20 h-20 text-red-500")) %>
 
-
+<%= render(Accordion::DefaultComponent.new) do %>
+  <%= render(Accordion::BlockComponent.new) %>
+  <%= render(Accordion::BlockComponent.new) do %>
+    <%= demo_text %>
+  <% end %>
+<% end %>
 <%= render(Dropdown::HoverComponent.new(label: "Dropdown Hover")) do %>
   <%= demo_text %>
 <% end %>

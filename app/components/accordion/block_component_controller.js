@@ -4,10 +4,10 @@ export default class extends Controller {
   static targets = ["header", "body", "icon"]
   static values = {
     klass: { type: String },
-    headerClass: { type: String },
+    headerClass: { type: String, default: 'flex flex-row items-center' },
     labelClass: { type: String },
     bodyClass: { type: String, default: 'grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-250 ease-in-out' },
-    iconClass: { type: String }
+    iconClass: { type: String, default: 'rotate-0 open:rotate-180 transition duration-250 ease-in-out' }
   }
 
   connect() {
@@ -15,9 +15,8 @@ export default class extends Controller {
   }
   initialize() {
     this.initializeTarget()
-    this.initializeHeaderTarget()
-    this.initializeBodyTarget()
-    this.initializeIconTarget()
+    this.initializeClass()
+    this.initializeAction()
 
     this.initializeComplete()
   }
@@ -29,18 +28,36 @@ export default class extends Controller {
     this.element.lastElementChild.setAttribute(`data-${this.identifier}-target`, 'body')
     this.element.querySelector('[data-controller*=icon]').setAttribute(`data-${this.identifier}-target`, 'icon')
   }
-  initializeHeaderTarget() {
-    this.headerTarget.setAttribute('data-action', `click->${this.identifier}#open`)
-    this.headerTarget.classList.add('group')
+  initializeClass() {
+    // this.initializeLableClass()
+    this.initializeHeaderClass()
+    this.initializeIconClass()
+    this.initializeBodyClass()
   }
-  initializeBodyTarget() {
+  initializeHeaderClass() {
+    if (!this.hasHeaderClassValue) { return }
+
+    this.headerClassValue.split(' ').forEach((klass) => {
+      this.headerTarget.classList.add(klass)
+    })
+  }
+  initializeIconClass() {
+    if (!this.hasIconClassValue) { return }
+
+    this.iconClassValue.split(' ').forEach((klass) => {
+      this.iconTarget.classList.add(klass)
+    })
+  }
+  initializeBodyClass() {
+    if (!this.hasBodyClassValue) { return }
+
     this.bodyClassValue.split(' ').forEach((klass) => {
       this.bodyTarget.classList.add(klass)
     })
     this.bodyTarget.firstElementChild.classList.add('overflow-hidden')
   }
-  initializeIconTarget() {
-    this.iconTarget.classList.add('open:rotate-180')
+  initializeAction() {
+    this.headerTarget.setAttribute('data-action', `click->${this.identifier}#open`)
   }
   open() {
     this.headerTarget.toggleAttribute('open')

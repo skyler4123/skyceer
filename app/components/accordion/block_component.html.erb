@@ -9,7 +9,13 @@
   </div>
   <div class="<%= @body_class %>">
     <div>
-      <%= body? ? body : "Empty body!" %>
+    <% if content %>
+      <%= content %>
+    <% elsif body %>
+      <%= body %>
+    <% else %>
+      "Body Empty!"
+    <% end %>
     </div>
   </div>
 </div>
