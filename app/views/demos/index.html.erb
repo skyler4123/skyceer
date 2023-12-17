@@ -1,15 +1,22 @@
+<%= render(HorizontalLine::TextComponent.new(label: 'IconComponent')) %>
 <%= render(IconComponent.new(name: "finger-print", svg_class: "w-20 h-20 text-red-500")) %>
 
+<%= render(HorizontalLine::TextComponent.new(label: 'Accordion::DefaultComponent')) %>
 <%= render(Accordion::DefaultComponent.new) do %>
   <%= render(Accordion::BlockComponent.new) %>
   <%= render(Accordion::BlockComponent.new) do %>
     <%= demo_text %>
   <% end %>
 <% end %>
+
+<%= render(HorizontalLine::TextComponent.new(label: 'Dropdown::HoverComponent')) %>
 <%= render(Dropdown::HoverComponent.new(label: "Dropdown Hover")) do %>
   <%= demo_text %>
 <% end %>
+
+<%= render(HorizontalLine::TextComponent.new(label: 'Dropdown::ClickComponent')) %>
 <%= render(Dropdown::ClickComponent.new(label: "Dropdown Hover")) do |c| %>
   <%= c.with_body { demo_text } %>
 <% end %>
+
 <%= render(HorizontalLine::TextComponent.new) %>

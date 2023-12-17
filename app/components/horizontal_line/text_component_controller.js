@@ -9,6 +9,8 @@ export default class extends Controller {
     label: { type: String, default: "Horizontal Line" }
   }
   initialize() {
+    this.initializeValue()
+    console.log(this.element)
     this.initializeElement()
     this.initializeClass()
 
@@ -16,6 +18,18 @@ export default class extends Controller {
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
+  }
+  initializeValue() {
+    const dataComponent = JSON.parse(this.element.dataset.component)
+    if (dataComponent.label) {
+      this.labelValue = dataComponent.label
+    }
+    if (dataComponent.label_class) {
+      this.labelClassValue = dataComponent.label_class
+    }
+    if (dataComponent.horizontalLineClass) {
+      this.horizontalLineClassValue = dataComponent.horizontalLineClass
+    }
   }
   initializeElement() {
     this.initializeLabelElement()
@@ -34,11 +48,6 @@ export default class extends Controller {
     horizontalLine.classList = this.horizontalLineClassValue
     this.element.prepend(horizontalLine)
     this.element.appendChild(horizontalLine.cloneNode(true))
-  }
-  initializeValue() {
-    this.labelValue = this.element.dataset.component.label
-    this.labelClassValue = this.element.dataset.component.label_class
-    this.horizontalLineClassValue = this.element.dataset.component.horizontalLineClass
   }
   initializeClass() {
     this.initializeKlass()
