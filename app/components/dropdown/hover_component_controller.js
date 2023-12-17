@@ -5,12 +5,13 @@ export default class extends Controller {
   static values = {
     klass: { type: String, default: "relative inline-block group" },
     buttonClass: { type: String, default: "" },
-    iconClass: { type: String, default: "" },
-    bodyClass: { type: String, default: "hidden opacity-0 group-hover:flex group-hover:opacity-100 absolute z-10 bg-slate-100 p-2 rounded-md transition-all duration-[5000] ease-in-out" }
+    iconClass: { type: String, default: "rotate-0 open:rotate-180 duration-250" },
+    bodyClass: { type: String, default: "opacity-0 flex group-hover:opacity-100 absolute z-10 transition-opacity duration-500 ease-in-out" }
   }
 
   initialize() {
     this.initializeTarget()
+    this.initializeAction()
     this.initializeClass()
 
     this.initializeComplete()
@@ -28,11 +29,16 @@ export default class extends Controller {
     this.element.querySelector('[data-controller*=button]')?.setAttribute(`data-${this.identifier}-target`, 'button')
   }
   initializeIconTarget() {
-
     this.element.querySelector('[data-controller*=icon]')?.setAttribute(`data-${this.identifier}-target`, 'icon')
   }
   initializeBodyTarget() {
     this.element.lastElementChild.setAttribute(`data-${this.identifier}-target`, 'body')
+  }
+  initializeAction() {
+    this.initializeIconAction()
+  }
+  initializeIconAction() {
+    this.buttonTarget.setAttribute('data-action', `mouseover->${this.identifier}#rotateIcon mouseout->${this.identifier}#rotateIcon`)
   }
   initializeClass() {
     this.initializeKlass()
@@ -69,5 +75,10 @@ export default class extends Controller {
   }
   connect() {
     // console.log(this.identifier, this.element);
+  }
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  rotateIcon() {
+    this.iconTarget.toggleAttribute('open')
   }
 }

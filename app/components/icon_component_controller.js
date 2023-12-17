@@ -7,7 +7,7 @@ export default class extends Controller {
     type: { type: String, default: "outline" },
     klass: { type: String, default: "flex w-fit justify-center items-center transition-all duration-250 ease-in-out" },
     svgClass: { type: String, default: "w-4 h-4" },
-    rotation: { type: String, default: "down" }
+    rotation: { type: String }
   }
 
   initialize() {

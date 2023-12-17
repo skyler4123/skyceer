@@ -6,7 +6,10 @@ export default class extends Controller {
   }
   connect() {
     // this.element.textContent = "Hello World!"
+    // console.log(this.nameValue)
+    // this.nameValue = "Ban Mai"
+  }
+  hover() {
     console.log(this.nameValue)
-    this.nameValue = "Ban Mai"
   }
 }
