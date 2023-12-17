@@ -5,6 +5,12 @@
     <% end %>
   <% end %>
   <div class='<%= @body_class %>'>
-    <%= body? ? body : "Dropdown Items" %>
+    <% if content %>
+      <%= content %>
+    <% elsif body %>
+      <%= body %>
+    <% else %>
+      "Dropdown Items"
+    <% end %>
   </div>
 </div>
