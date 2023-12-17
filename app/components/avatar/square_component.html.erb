@@ -1,0 +1,14 @@
+<div data-controller="avatar--square-component" class="relative inline-block w-20 h-20">
+  <% if @src %>
+    <img class="w-full h-full rounded" src="<%= @src %>" alt="Default avatar">
+  <% else %>
+    <%= render(Icon::AnonymousComponent.new(klass: "relative w-full h-full rounded-sm overflow-hidden bg-gray-100")) %>
+  <% end %>
+  <% case @status %>
+  <% when :online %>
+    <span class="top-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+  <% when :offline %>
+    <span class="top-0 left-7 absolute  w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+  <% else %>
+  <% end %>
+</div>

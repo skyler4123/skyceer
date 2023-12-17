@@ -1,14 +1,7 @@
-<div data-controller="avatar--circle-component" class="relative inline-block w-10 h-10">
+<div data-controller="avatar--circle-component" class="<%= @klass %>">
   <% if @src %>
-    <img class="w-full h-full rounded-full" src="<%= @src %>" alt="Rounded avatar">
+    <img class="<%= @img_class %>" src="<%= @src %>" alt="Rounded avatar">
   <% else %>
-    <%= render(Icon::AnonymousComponent.new) %>
-  <% end %>
-  <% case @status %>
-  <% when :online %>
-    <span class="top-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-  <% when :offline %>
-    <span class="top-0 left-7 absolute  w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
-  <% else %>
+    <%= render(IconComponent.new(name: 'user')) %>
   <% end %>
 </div>
