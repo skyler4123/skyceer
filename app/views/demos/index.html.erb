@@ -9,12 +9,6 @@
 <%= render(Dropdown::HoverComponent.new(label: "Dropdown Hover")) do %>
   <%= demo_text %>
 <% end %>
-<%= render(IconComponent.new(name: "finger-print", svg_class: "w-20 h-20 text-red-500")) %>
 <%= render(Dropdown::ClickComponent.new(label: "Dropdown Hover")) do |c| %>
   <%= c.with_body { demo_text } %>
 <% end %>
-
-
-
-
-<%= render(IconComponent.new(name: "finger-print", svg_class: "w-20 h-20 text-red-500")) %>

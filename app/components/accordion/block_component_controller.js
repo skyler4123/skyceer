@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["header", "body", "icon"]
   static values = {
     klass: { type: String },
-    headerClass: { type: String, default: 'flex flex-row items-center' },
+    headerClass: { type: String, default: 'flex flex-row justify-between items-center' },
     labelClass: { type: String },
     bodyClass: { type: String, default: 'grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-250 ease-in-out' },
     iconClass: { type: String, default: 'rotate-0 open:rotate-180 transition duration-250 ease-in-out' }
