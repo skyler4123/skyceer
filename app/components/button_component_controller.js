@@ -38,6 +38,9 @@ export default class extends Controller {
     })
 
   }
+  initializeAttribute() {
+    // this.element.setAttribute('tabindex', 0)
+  }
   openModal() {
     this.modalTarget.classList.remove('hidden')
     this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openModal`, "")

@@ -6,7 +6,7 @@ export default class extends Controller {
     klass: { type: String, default: "relative inline-block group" },
     buttonClass: { type: String, default: "" },
     iconClass: { type: String, default: "rotate-0 open:rotate-180 duration-250" },
-    bodyClass: { type: String, default: "opacity-0 flex group-hover:opacity-100 absolute z-10 transition-opacity duration-500 ease-in-out" }
+    bodyClass: { type: String, default: "opacity-0 open:flex open:opacity-100 absolute z-10 transition-opacity duration-500 ease-in-out" }
   }
 
   initialize() {
@@ -38,7 +38,7 @@ export default class extends Controller {
     this.initializeIconAction()
   }
   initializeIconAction() {
-    this.buttonTarget.setAttribute('data-action', `mouseover->${this.identifier}#rotateIcon mouseout->${this.identifier}#rotateIcon`)
+    this.buttonTarget.setAttribute('data-action', `mouseover->${this.identifier}#openDropdown mouseout->${this.identifier}#closeDropdown`)
   }
   initializeClass() {
     this.initializeKlass()
@@ -76,8 +76,14 @@ export default class extends Controller {
   connect() {
     // console.log(this.identifier, this.element);
   }
-  /////////////////////////////////////////////////////////////////////////////////////
-
+  openDropdown() {
+    this.bodyTarget.setAttribute('open', '')
+    this.rotateIcon()
+  }
+  closeDropdown() {
+    this.bodyTarget.removeAttribute('open')
+    this.rotateIcon()
+  }
   rotateIcon() {
     this.iconTarget.toggleAttribute('open')
   }
