@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["button", "link", "modal", "popover"]
+  static targets = ["button", "link", "modal", "popover", "drawer"]
   static values = {
     klass: { type: String, default: "flex flex-row w-fit justify-center items-center cursor-pointer" },
     buttonClass: { type: String, default: "flex flex-row w-fit justify-center items-center" },
@@ -22,6 +22,7 @@ export default class extends Controller {
     this.element.querySelector('a')?.setAttribute(`data-${this.identifier}-target`, 'link')
     this.element.querySelector('[data-controller*=modal]')?.setAttribute(`data-${this.identifier}-target`, 'modal')
     this.element.querySelector('[data-controller*=popover]')?.setAttribute(`data-${this.identifier}-target`, 'popover')
+    this.element.querySelector('[data-controller*=drawer]')?.setAttribute(`data-${this.identifier}-target`, 'drawer')
   }
   initializeClass() {
     this.klassValue.split(' ').forEach((klass) => {
@@ -49,5 +50,9 @@ export default class extends Controller {
   closePopover() {
     this.popoverTarget.classList.remove('flex')
     this.popoverTarget.classList.add('hidden')
+  }
+  openDrawer() {
+    this.drawerTarget.setAttribute('open', '')
+    this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openDrawer`, "")
   }
 }

@@ -29,6 +29,11 @@
   <%= render(Badge::DefaultComponent.new(color: :yellow, type: :border)) %>
   <%= render(Badge::DefaultComponent.new(color: :blue, type: :pill)) %>
 </div>
-
+<%= render(HorizontalLine::TextComponent.new(label: 'Badge::DefaultComponent')) %>
+<%= render(ButtonComponent.new(label: "Press to toggle Drawer")) do |c| %>
+  <% c.with_append do %>
+    <%= render(Drawer::LeftComponent.new) %>
+  <% end %>
+<% end %>
 
 <%= render(HorizontalLine::TextComponent.new) %>

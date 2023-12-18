@@ -1,1 +1,5 @@
-<div data-controller="drawer--left-component">Add Drawer::Left template here</div>
+<div data-controller="drawer--left-component"
+  class="w-1/3 bg-green-500 fixed top-0 left-0 z-20 h-full open:translate-x-0 -translate-x-full duration-200 ease-in-out"
+>
+  <%= render(Button::ToggleOpenComponent.new) %>
+</div>

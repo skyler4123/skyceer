@@ -3,10 +3,13 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
 
   initialize() {
-    this.initializeTriggerController()
+    this.initializeAction()
   }
-  initializeTriggerController() {
-    this.parentController().setAttribute('data-action', `click->${this.parentController().dataset.controller}#openDrawer`)
+  initializeAction() {
+    this.element.setAttribute('data-action', `click->${this.identifier}#toggleOpen`)
+  }
+  toggleOpen() {
+    this.parentController().toggleAttribute('open')
   }
   parentController() {
     return this.element.parentNode.closest('[data-controller]')
