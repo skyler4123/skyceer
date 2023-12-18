@@ -24,8 +24,11 @@
 <%= render(Avatar::CircleComponent.new(src: 'https://flowbite.com/docs/images/people/profile-picture-5.jpg')) %>
 
 <%= render(HorizontalLine::TextComponent.new(label: 'Badge::DefaultComponent')) %>
-<%= render(Badge::DefaultComponent.new(color: :green)) %>
-
+<div class="flex flex-row gap-x-3">
+  <%= render(Badge::DefaultComponent.new(color: :green)) %>
+  <%= render(Badge::DefaultComponent.new(color: :yellow, type: :border)) %>
+  <%= render(Badge::DefaultComponent.new(color: :blue, type: :pill)) %>
+</div>
 
 
 <%= render(HorizontalLine::TextComponent.new) %>
