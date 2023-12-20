@@ -36,13 +36,8 @@
   <% end %>
 <% end %>
 
-<%= render(HorizontalLine::TextComponent.new(label: 'Table::DefaultComponent')) %>
-<%= render(Table::DefaultComponent.new) %>
-
-
-
-
-
+<%= render(HorizontalLine::TextComponent.new(label: 'IconComponent - Animation')) %>
+<%= render(IconComponent.new(name: :spinner, type: :animation, svg_class: 'inline w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600')) %>
 
 
 
