@@ -44,6 +44,22 @@
 <%= render(HorizontalLine::TextComponent.new(label: 'Table::DemoComponent')) %>
 <%= render(Table::DemoComponent.new) %>
 
+<%= render(HorizontalLine::TextComponent.new(label: 'Tab::DefaultComponent')) %>
+<%= render(Tab::DefaultComponent.new) do |c| %>
+  <% c.with_headers do %>
+    <div>Header 1</div>
+    <div>Header 2</div>
+    <div>Header 3</div>
+    <div>Header 4</div>
+  <% end %>
+  <% c.with_bodies do %>
+    <div>Body 1</div>
+    <div>Body 2</div>
+    <div>Body 3</div>
+    <div>Body 4</div>
+  <% end %>
+<% end %>
+
 
 
 
