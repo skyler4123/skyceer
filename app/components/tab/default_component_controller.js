@@ -67,6 +67,11 @@ export default class extends Controller {
     this.openIndexValue = event.params.openIndex
   }
   openIndexValueChanged() {
+    this.headerTargets.forEach((header) => {
+      header.removeAttribute('open')
+    })
+    this.headerTargets[this.openIndexValue].setAttribute('open', '')
+
     this.bodyTargets.forEach((body) => {
       body.removeAttribute('open')
     })
