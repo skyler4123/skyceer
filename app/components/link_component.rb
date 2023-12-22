@@ -6,7 +6,7 @@ class LinkComponent < ViewComponent::Base
   renders_one :indicator
   renders_one :copy_icon
   renders_many :effects
-  
+
   def initialize(
       label: 'Link',
       url: '#',

@@ -1,62 +1,41 @@
+import morphdom from "morphdom"
+
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['label', 'horizontalLine']
+  static targets = ['template', 'label', 'horizontalLine']
   static values = {
-    klass: { type: String, default: "flex flex-row items-center justify-center w-full py-4" },
-    horizontalLineClass: { type: String, default: "w-1/3 h-px bg-gray-300 border-0" },
-    labelClass: { type: String, default: "w-1/3 flex-1 text-center font-medium text-black" },
-    label: { type: String, default: "Horizontal Line" }
+    label: { type: String, default: "Horizontal Line" },
+    klass: { type: String, default: "inline-flex items-center justify-center w-screen" },
+    hrClass: { type: String, default: "w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" },
+    spanClass: { type: String, default: "absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900" },
   }
   initialize() {
-    this.initializeValue()
-    this.initializeElement()
-    this.initializeClass()
+    this.initializeTarget()
+    this.initializeHTML()
 
     this.initializeComplete()
   }
+
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  initializeValue() {
-    const dataComponent = JSON.parse(this.element.dataset.component)
-    if (dataComponent.label) {
-      this.labelValue = dataComponent.label
-    }
-    if (dataComponent.label_class) {
-      this.labelClassValue = dataComponent.label_class
-    }
-    if (dataComponent.horizontalLineClass) {
-      this.horizontalLineClassValue = dataComponent.horizontalLineClass
-    }
+
+  initializeTarget() {
+    this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
   }
-  initializeElement() {
-    this.initializeLabelElement()
-    this.initializeHorizontalLineElements()
+
+  initializeHTML() {
+    morphdom(this.templateTarget, this.sourceHTML())
   }
-  initializeLabelElement() {
-    const label = document.createElement('div')
-    label.setAttribute(`data-${this.identifier}-target`, 'label')
-    const labelText = document.createTextNode(this.labelValue);
-    label.appendChild(labelText)
-    this.element.appendChild(label).cloneNode(true)
-  }
-  initializeHorizontalLineElements() {
-    const horizontalLine = document.createElement('hr')
-    horizontalLine.setAttribute(`data-${this.identifier}-target`, 'horizontalLine')
-    horizontalLine.classList = this.horizontalLineClassValue
-    this.element.prepend(horizontalLine)
-    this.element.appendChild(horizontalLine.cloneNode(true))
-  }
-  initializeClass() {
-    this.initializeKlass()
-    this.initializeHorizontalLineClass()
-  }
-  initializeKlass() {
-    this.element.classList = this.klassValue
-  }
-  initializeHorizontalLineClass() {
-    this.labelTarget.classList = this.labelClassValue
+
+  sourceHTML() {
+    return `
+      <div class="${this.klassValue}">
+          <hr class="${this.hrClassValue}">
+          <span class="${this.spanClassValue}">${this.labelValue}</span>
+      </div>
+    `
   }
   connect() {
     // console.log("Hello, Stimulus!", this.element);

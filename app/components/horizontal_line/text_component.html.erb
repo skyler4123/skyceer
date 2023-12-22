@@ -1,1 +1,9 @@
-<%= tag.div(class: @klass, data: { controller: "horizontal-line--text-component", component: { label: @label, label_class: @label_class, horizontal_line_class: @horizontal_line_class } }) %>
+<%= tag.div(class: @klass, data: { controller: "horizontal-line--text-component", horizontal_line__text_component_label_value: @label }) do %>
+  <% prepends.each do |prepend| %>
+    <%= prepend %>
+  <% end %>
+  <template></template>
+  <% appends.each do |append| %>
+    <%= append %>
+  <% end %>
+<% end %>
