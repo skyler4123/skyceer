@@ -1,1 +1,1 @@
-<%= tag.div(data: {controller: "icon-component", component: { name: @name, type: @type, klass: @klass, svg_class: @svg_class, rotation: @rotation } } ) %>
+<%= tag.div(class: @klass, data: {controller: "icon-component", value: { name: @name, type: @type, svg_class: @svg_class } } ) %>

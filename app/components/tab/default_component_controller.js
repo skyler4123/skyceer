@@ -24,7 +24,11 @@ export default class extends Controller {
     const values = JSON.parse(this.element.dataset.value)
     Object.keys(values).forEach((key) => {
       if (!values[key]) { return }
-      this.element.setAttribute(`data-${this.identifier}-${key.replaceAll('_', '-')}-value`, JSON.stringify(values[key]))
+      if (Array.isArray(values[key])) {
+        this.element.setAttribute(`data-${this.identifier}-${key.replaceAll('_', '-')}-value`, JSON.stringify(values[key]))
+      } else {
+        this.element.setAttribute(`data-${this.identifier}-${key.replaceAll('_', '-')}-value`, JSON.stringify(values[key]).replaceAll('"', ''))
+      }
     })
     this.element.removeAttribute('data-value')
   }

@@ -10,79 +10,59 @@ export default class extends Controller {
     rotation: { type: String }
   }
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   initialize() {
-    if (this.element.childElementCount != 0) { return }
-    
-    this.initializeSvgNode()
-    this.initializeKlass()
-    this.initializeSvgClass()
-    this.initializeRotation()
-
+    this.initializeInitialTargetAndValue()
+    this.initializeFunction()
     this.initializeComplete()
   }
-
-
-  initializeKlass() {
-    if (this.dataComponent().klass) {
-      this.klassValue = this.dataComponent().klass
-    }
-    this.klassValue.split(' ').forEach((klass) => {
-      this.element.classList.add(klass)
+  initializeInitialTargetAndValue() {
+    this.element.querySelectorAll('[data-target]')?.forEach((target) => {
+      target.setAttribute(`data-${this.identifier}-target`, target.dataset.target.replaceAll('_', '-'))
+      target.removeAttribute('data-target')
     })
-  }
-
-  initializeSvgNode() {
-    this.nameValue = this.dataComponent().name
-    if (this.dataComponent().type) {
-      this.typeValue = this.dataComponent().type
-    }
-    this.element.appendChild(this.svgNode(this.nameValue).cloneNode(true))
-  }
-
-  initializeSvgClass() {
-    if (this.dataComponent().svg_class) {
-      this.svgClassValue = this.dataComponent().svg_class
-    }
-    this.svgClassValue.split(' ').forEach((klass) => {
-      this.svgTarget.classList.add(klass)
+    const values = JSON.parse(this.element.dataset.value)
+    Object.keys(values).forEach((key) => {
+      if (!values[key]) { return }
+      if (Array.isArray(values[key])) {
+        this.element.setAttribute(`data-${this.identifier}-${key.replaceAll('_', '-')}-value`, JSON.stringify(values[key]))
+      } else {
+        this.element.setAttribute(`data-${this.identifier}-${key.replaceAll('_', '-')}-value`, JSON.stringify(values[key]).replaceAll('"', ''))
+      }
     })
+    this.element.removeAttribute('data-value')
   }
-
-  initializeRotation() {
-    if (this.dataComponent().rotation) {
-      this.rotationValue = this.dataComponent().rotation
-    }
-    switch(this.rotationValue) {
-      case "down":
-        this.element.classList.add('rotate-0')
-        break
-      case "top":
-        this.element.classList.add('rotate-180')
-        break
-      case "right":
-        this.element.classList.add('-rotate-90')
-        break
-      case "left":
-        this.element.classList.add('rotate-90')
-        break
-    } 
-  }
-
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  dataComponent() {
-    return JSON.parse(this.element.dataset.component)
-  }
+  initializeFunction() {
+    if (this.element.childElementCount != 0) { return }
 
-  svgNode(name) {
-    const svg = this.icons()[this.typeValue][name].slice(0, 4) + " " + `data-${this.identifier}-target="svg` + this.icons()[this.typeValue][name].slice(4)
-    const svgNode = document.createRange().createContextualFragment(svg)
-    svgNode.firstElementChild.removeAttribute('class')
-    return svgNode
+    this.initializeInnerHTML()
+    this.initializeTarget()
+    this.initializeClass()
   }
-  
+  initializeInnerHTML() {
+    this.element.innerHTML = this.icons()[this.typeValue][this.nameValue]
+  }
+  initializeTarget() {
+    this.initializeSvgTarget()
+  }
+  initializeSvgTarget() {
+    this.element.querySelector('svg').setAttribute(`data-${this.identifier}-target`, 'svg')
+  }
+  initializeClass() {
+    this.initializeKlass()
+    this.initializeSvgClass()
+  }
+  initializeKlass() {
+    this.element.className = this.element.className.concat(' ' + this.klassValue)
+  }
+  initializeSvgClass() {
+    this.svgTarget.classList = this.svgClassValue
+  }
   icons() {
     return {
       outline: {
