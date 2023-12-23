@@ -29,7 +29,7 @@ export default class extends Controller {
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   initializeFunction() {
     this.element.innerHTML = ""
-    this.element.innerHTML = this.table()
+    this.element.innerHTML = this.initHTML()
   }
   headerValueChanged() {
     this.initializeFunction()
@@ -37,7 +37,7 @@ export default class extends Controller {
   bodyValueChanged() {
     this.initializeFunction()
   }
-  table() {
+  initHTML() {
     return `
       <table class="bg-red-500" data-${this.identifier}-target="table">
         <thead data-${this.identifier}-target="headers">

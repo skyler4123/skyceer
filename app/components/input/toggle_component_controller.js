@@ -1,6 +1,13 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
+  static targets = ["input", 'toggle', 'background']
+  static values = {
+    isOpen: { type: Boolean, default: true },
+    klass: { type: String, default: "flex justify-center items-center" },
+    backgroundClass: { type: String, default: "w-11 h-6 bg-gray-500 open:bg-blue-800 duration-200" },
+    toggleClass: { type: String, default: "w-5 h-5 bg-white duration-200" }
+  }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   initialize() {
@@ -25,18 +32,33 @@ export default class extends Controller {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   initializeFunction() {
+    this.initializeHTML()
+    this.initializeClass()
+  }
+  initializeHTML() {
     this.element.innerHTML = ""
     this.element.innerHTML = this.initHTML()
   }
+  initializeClass() {
+    this.element.className = this.element.className.concat(' ' + this.klassValue)
+  }
   initHTML() {
     return `
-    <div class="relative inline-flex items-center cursor-pointer">
-      <input type="checkbox" value="" class="hidden">
-      <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+    <div data-action="click->${this.identifier}#toggle" data-${this.identifier}-target="background" class="relative flex justify-center items-center cursor-pointer rounded-full ${this.backgroundClassValue}">
+      <input type="checkbox" value="" class="hidden" data-${this.identifier}-target="input">
+      <div data-${this.identifier}-target="toggle" class="absolute rounded-full open:translate-x-1/2 -translate-x-1/2 ${this.toggleClassValue}"></div>
     </div>
     `
   }
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+  isOpenValueChanged() {
+    this.backgroundTarget.toggleAttribute('open')
+    this.toggleTarget.toggleAttribute('open')
+    this.inputTarget.value = this.isOpenValue & 1
+  }
   connect() {
-    console.log("Hello, Stimulus!", this.element);
+    // console.log("Hello, Stimulus!", this.element);
   }
 }
