@@ -28,8 +28,6 @@ export default class extends Controller {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   initializeFunction() {
-    this.headerValue = this.headerValue
-    this.bodyValue = this.bodyValue
     this.element.innerHTML = ""
     this.element.innerHTML = this.table()
   }
@@ -41,21 +39,25 @@ export default class extends Controller {
   }
   table() {
     return `
-      <table class="bg-red-500">
-        <tr>
-          <th>${this.headerValue[0]}</th>
-          <th>${this.headerValue[1]}</th>
-          <th>${this.headerValue[2]}</th>
-        </tr>
+      <table class="bg-red-500" data-${this.identifier}-target="table">
+        <thead data-${this.identifier}-target="headers">
+          <tr>
+            <th data-${this.identifier}-target="header">${this.headerValue[0]}</th>
+            <th data-${this.identifier}-target="header">${this.headerValue[1]}</th>
+            <th data-${this.identifier}-target="header">${this.headerValue[2]}</th>
+          </tr>
+        </thead>
+        <tbody data-${this.identifier}-target="body">
           ${this.bodyValue.map((row) => 
             `
-            <tr>
-            <td>${row[0]}</td>
-            <td>${row[1]}</td>
-            <td>${row[2]}</td>
-          </tr>
+            <tr data-${this.identifier}-target="row">
+              <td>${row[0]}</td>
+              <td>${row[1]}</td>
+              <td>${row[2]}</td>
+            </tr>
             `
             ).join('')}
+        </tbody>
       </table>
 
     `
