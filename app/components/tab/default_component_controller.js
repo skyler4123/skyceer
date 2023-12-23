@@ -10,17 +10,34 @@ export default class extends Controller {
     bodyClass: { type: String, default: "hidden open:flex" },
     openIndex: { type: Number, default: 0 }
   }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   initialize() {
+    this.initializeInitialTargetAndValue()
+    this.initializeFunction()
+    this.initializeComplete()
+  }
+  initializeInitialTargetAndValue() {
+    this.element.querySelectorAll('[data-target]')?.forEach((target) => {
+      target.setAttribute(`data-${this.identifier}-target`, target.dataset.target.replaceAll('_', '-'))
+      target.removeAttribute('data-target')
+    })
+    const values = JSON.parse(this.element.dataset.value)
+    Object.keys(values).forEach((key) => {
+      if (!values[key]) { return }
+      this.element.setAttribute(`data-${this.identifier}-${key.replaceAll('_', '-')}-value`, JSON.stringify(values[key]))
+    })
+    this.element.removeAttribute('data-value')
+  }
+  initializeComplete() {
+    this.element.classList.remove('hidden')
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  initializeFunction() {
     if (!this.hasHeadersTarget || !this.hasBodiesTarget) { return }
 
     this.initializeTarget()
     this.initializeClass()
     this.initializeAction()
-
-    this.initializeComplete()
-  }
-  initializeComplete() {
-    this.element.classList.remove('hidden')
   }
   initializeTarget() {
     this.initializeHeaderTarget()
@@ -76,5 +93,8 @@ export default class extends Controller {
       body.removeAttribute('open')
     })
     this.bodyTargets[this.openIndexValue].setAttribute('open', '')
+  }
+  connect() {
+    // console.log("Hello, Stimulus!", this.element);
   }
 }

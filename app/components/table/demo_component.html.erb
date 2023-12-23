@@ -1,1 +1,1 @@
-<div data-controller="table--demo-component">Add Table::Demo template here</div>
+<%= tag.div(class: @klass, data: { controller: "table--demo-component", value: { header: @header, body: @body } }) %>

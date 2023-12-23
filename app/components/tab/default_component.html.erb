@@ -1,8 +1,9 @@
-<div data-controller="tab--default-component" class="<%= @klass %>">
-  <div data-tab--default-component-target="headers">
-    <%= headers %>
+<%= tag.div(class: @klass, data: { controller: "tab--default-component", value: { klass: @klass, headers_class: @headers_class, bodies_class: @bodies_class } }) do %>
+  <div data-target="headers">
+      <%= headers %>
+    </div>
+    <div data-target="bodies">
+      <%= bodies %>
+    </div>
   </div>
-  <div data-tab--default-component-target="bodies">
-    <%= bodies %>
-  </div>
-</div>
+<% end %>
