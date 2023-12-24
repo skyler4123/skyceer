@@ -11,15 +11,15 @@ export default class extends Controller {
     openIndex: { type: Number, default: 0 }
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
-  static outlets = ['initialize-helper']
+  static outlets = ['helper']
   initialize() {
     this.initializeOutlet()
-    this.initializeHelperOutlet.initializeInitialTargetAndValue(this)
+    this.helperOutlet.initializeInitialTargetAndValue(this)
     this.initializeFunction()
-    this.initializeHelperOutlet.initializeComplete(this)
+    this.helperOutlet.initializeComplete(this)
   }
   initializeOutlet() {
-    this.element.setAttribute(`data-${this.identifier}-initialize-helper-outlet`, "body")
+    this.element.setAttribute(`data-${this.identifier}-helper-outlet`, "body")
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   initializeFunction() {
