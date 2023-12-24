@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static outlets = ['helper']
   static targets = ["input", 'toggle', 'background']
   static values = {
     isOpen: { type: Boolean, default: true },
@@ -12,14 +11,17 @@ export default class extends Controller {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   static outlets = ['helper']
+  static targets = ['template']
   initialize() {
     this.initializeOutlet()
-    this.helperOutlet.initializeInitialTargetAndValue(this)
-    this.initializeFunction()
-    this.helperOutlet.initializeComplete(this)
   }
   initializeOutlet() {
     this.element.setAttribute(`data-${this.identifier}-helper-outlet`, "body")
+  }
+  helperOutletConnected() {
+    this.helperOutlet.initTargetValueHTML(this)
+    this.initializeFunction()
+    this.helperOutlet.initializeComplete(this)
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   initializeFunction() {

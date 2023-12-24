@@ -23,3 +23,4 @@ pin "@editorjs/embed", to: "https://ga.jspm.io/npm:@editorjs/embed@2.5.3/dist/bu
 pin "@editorjs/quote", to: "https://ga.jspm.io/npm:@editorjs/quote@2.5.0/dist/bundle.js"
 pin "uuid", to: "https://ga.jspm.io/npm:uuid@9.0.1/dist/esm-browser/index.js"
 pin "morphdom", to: "https://ga.jspm.io/npm:morphdom@2.7.1/dist/morphdom-esm.js"
+pin "cleave.js", to: "https://ga.jspm.io/npm:cleave.js@1.6.0/dist/cleave.js"

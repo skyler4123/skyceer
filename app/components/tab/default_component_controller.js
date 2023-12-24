@@ -1,27 +1,34 @@
 import { Controller } from "@hotwired/stimulus";
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+const outletHelper = ['helper']
+const targetHelper = ['template']
 export default class extends Controller {
-  static targets = ['headers', 'header', 'bodies', 'body']
+  initialize() {
+    this.initializeOutlet()
+  }
+  initializeOutlet() {
+    this.element.setAttribute(`data-${this.identifier}-helper-outlet`, "body")
+  }
+  helperOutletConnected() {
+    this.helperOutlet.initTarget(this)
+    this.helperOutlet.initValue(this)
+    this.helperOutlet.initHTML(this)
+    this.initializeFunction()
+    this.helperOutlet.initCompleted(this)
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  static outlets = [...outletHelper]
+  static targets = ['headers', 'header', 'bodies', 'body', ...targetHelper]
   static values = {
+    isOutletCompleted: { type: Boolean },
     klass: String,
     headersClass: String,
     bodiesClass: String,
     headerClass: { type: String, default: "cursor-pointer" },
     bodyClass: { type: String, default: "hidden open:flex" },
-    openIndex: { type: Number, default: 0 }
+    openIndex: { type: Number }
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  static outlets = ['helper']
-  initialize() {
-    this.initializeOutlet()
-    this.helperOutlet.initializeInitialTargetAndValue(this)
-    this.initializeFunction()
-    this.helperOutlet.initializeComplete(this)
-  }
-  initializeOutlet() {
-    this.element.setAttribute(`data-${this.identifier}-helper-outlet`, "body")
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
   initializeFunction() {
     if (!this.hasHeadersTarget || !this.hasBodiesTarget) { return }
 
@@ -70,6 +77,8 @@ export default class extends Controller {
     this.openIndexValue = event.params.openIndex
   }
   openIndexValueChanged() {
+    if (!this.hasHeadersTarget) { return }
+    
     this.headerTargets.forEach((header) => {
       header.removeAttribute('open')
     })

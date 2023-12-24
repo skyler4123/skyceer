@@ -1,28 +1,31 @@
 import { Controller } from "@hotwired/stimulus";
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+const outletHelper = ['helper']
+const targetHelper = ['template']
 export default class extends Controller {
-  static targets = ['svg']
-  static values = {
-    name: { type: String, default: "chevron-down" },
-    type: { type: String, default: "outline" },
-    klass: { type: String, default: "flex w-fit justify-center items-center transition-all duration-250 ease-in-out" },
-    svgClass: { type: String, default: "w-4 h-4" },
-    rotation: { type: String }
-  }
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  static outlets = ['helper']
   initialize() {
     this.initializeOutlet()
-    this.helperOutlet.initializeInitialTargetAndValue(this)
-    this.initializeFunction()
-    this.helperOutlet.initializeComplete(this)
   }
   initializeOutlet() {
     this.element.setAttribute(`data-${this.identifier}-helper-outlet`, "body")
   }
+  helperOutletConnected() {
+    this.helperOutlet.initTarget(this)
+    this.helperOutlet.initValue(this)
+    this.helperOutlet.initHTML(this)
+    this.initializeFunction()
+    this.helperOutlet.initCompleted(this)
+  }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  static outlets = [...outletHelper]
+  static targets = ['svg', ...targetHelper]
+  static values = {
+    name: { type: String, default: "chevron-down" },
+    type: { type: String, default: "outline" },
+    klass: { type: String, default: "flex w-fit justify-center items-center transition-all duration-250 ease-in-out" },
+    svgClass: { type: String, default: "w-4 h-4" }
+  }
   initializeFunction() {
     if (this.element.childElementCount != 0) { return }
 
