@@ -6,13 +6,20 @@ export default class extends Controller {
     type: { type: String, default: "default" },
     klass: { type: String, default: 'hidden' }
   }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  static outlets = ['helper']
   initialize() {
-    this.initializeClass()
-
-    this.initializeComplete()
+    this.initializeOutlet()
+    this.helperOutlet.initializeInitialTargetAndValue(this)
+    this.initializeFunction()
+    this.helperOutlet.initializeComplete(this)
   }
-  initializeComplete() {
-    this.element.classList.remove('hidden')
+  initializeOutlet() {
+    this.element.setAttribute(`data-${this.identifier}-helper-outlet`, "body")
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  initializeFunction() {
+    this.initializeClass()
   }
   initializeClass() {
     this.initializeKlass()

@@ -1,7 +1,7 @@
-<div data-controller="badge--default-component" class="<%= @klass %>" data-badge--default-component-color-value="<%= @color %>" data-badge--default-component-type-value="<%= @type %>">
+<%= tag.div(class: @klass, data: { controller: "badge--default-component", value: { color: @color, type: @type } }) do %>
   <% if content %>
     <%= content %>
   <% else %>
     <%= @label %>
   <% end %>
-</div>
+<% end %>

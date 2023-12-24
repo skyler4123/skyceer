@@ -2,7 +2,7 @@
 
 class Badge::DefaultComponent < ViewComponent::Base  
   def initialize(klass: nil, label: "Badge Label", color: :blue, type: :default)
-    @klass = klass.to_s + ' hidden'
+    @klass = 'hidden ' + klass.to_s
     @label = label
     @color = color.to_sym
     @type = type.to_sym
