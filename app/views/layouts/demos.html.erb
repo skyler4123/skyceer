@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
   </head>
 
-  <body data-controller="user language helper" class="flex flex-col w-full">
+  <body data-controller="user language initialize-helper" class="flex flex-col w-full">
     <%= render(Header::StickyComponent.new) { render(Page::Demo::HeaderComponent.new) } %>
     <main class="flex flex-col items-center w-full">
       <%= yield %>

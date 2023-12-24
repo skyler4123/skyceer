@@ -11,29 +11,15 @@ export default class extends Controller {
     openIndex: { type: Number, default: 0 }
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
+  static outlets = ['initialize-helper']
   initialize() {
-    this.initializeInitialTargetAndValue()
+    this.initializeOutlet()
+    this.initializeHelperOutlet.initializeInitialTargetAndValue(this)
     this.initializeFunction()
-    this.initializeComplete()
+    this.initializeHelperOutlet.initializeComplete(this)
   }
-  initializeInitialTargetAndValue() {
-    this.element.querySelectorAll('[data-target]')?.forEach((target) => {
-      target.setAttribute(`data-${this.identifier}-target`, target.dataset.target.replaceAll('_', '-'))
-      target.removeAttribute('data-target')
-    })
-    const values = JSON.parse(this.element.dataset.value)
-    Object.keys(values).forEach((key) => {
-      if (!values[key]) { return }
-      if (Array.isArray(values[key])) {
-        this.element.setAttribute(`data-${this.identifier}-${key.replaceAll('_', '-')}-value`, JSON.stringify(values[key]))
-      } else {
-        this.element.setAttribute(`data-${this.identifier}-${key.replaceAll('_', '-')}-value`, JSON.stringify(values[key]).replaceAll('"', ''))
-      }
-    })
-    this.element.removeAttribute('data-value')
-  }
-  initializeComplete() {
-    this.element.classList.remove('hidden')
+  initializeOutlet() {
+    this.element.setAttribute(`data-${this.identifier}-initialize-helper-outlet`, "body")
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   initializeFunction() {
