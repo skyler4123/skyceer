@@ -48,18 +48,10 @@ export default class extends Controller {
     this.initializeBodyClass()
   }
   initializeHeaderClass() {
-    this.headerTargets.forEach((header) => {
-      this.headerClassValue.split(' ').forEach((klass) => {
-        header.classList.add(klass)
-      })
-    })
+    this.headerTargets.className = this.headerTargets.className.concat(' ' + this.headerClassValue)
   }
   initializeBodyClass() {
-    this.bodyTargets.forEach((body, index) => {
-      this.bodyClassValue.split(' ').forEach((klass) => {
-        body.classList.add(klass)
-      })
-    })
+    this.bodyTargets.className = this.bodyTargets.className.concat(' ' + this.bodyClassValue)
   }
   initializeAction() {
     this.initializeHeaderAction()
