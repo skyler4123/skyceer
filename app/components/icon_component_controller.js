@@ -1,56 +1,31 @@
+import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-const outletHelper = ['helper']
-const targetHelper = ['template']
 export default class extends Controller {
-  initialize() {
-    this.initializeOutlet()
-  }
-  initializeOutlet() {
-    this.element.setAttribute(`data-${this.identifier}-helper-outlet`, "body")
-  }
-  helperOutletConnected() {
-    this.helperOutlet.initTarget(this)
-    this.helperOutlet.initValue(this)
-    this.helperOutlet.initHTML(this)
-    this.initializeFunction()
-    this.helperOutlet.initCompleted(this)
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  static outlets = [...outletHelper]
-  static targets = ['svg', ...targetHelper]
+  static targets = ['svg']
   static values = {
     name: { type: String, default: "chevron-down" },
     type: { type: String, default: "outline" },
     klass: { type: String, default: "flex w-fit justify-center items-center transition-all duration-250 ease-in-out" },
     svgClass: { type: String, default: "w-4 h-4" }
   }
-  initializeFunction() {
-    if (this.element.childElementCount != 0) { return }
 
-    this.initializeInnerHTML()
-    this.initializeTarget()
+  initialize() {
+    this.initializeHTML()
     this.initializeClass()
+
+    this.initializeComplete()
   }
-  initializeInnerHTML() {
-    this.element.innerHTML = this.icons()[this.typeValue][this.nameValue]
+  initializeComplete() {
+    this.element.classList.remove('hidden')
   }
-  initializeTarget() {
-    this.initializeSvgTarget()
+
+  initializeHTML() {
+    morphdom(this.element.querySelector('template'), this.icons()[this.typeValue][this.nameValue])
   }
-  initializeSvgTarget() {
-    this.element.querySelector('svg').setAttribute(`data-${this.identifier}-target`, 'svg')
-  }
+
   initializeClass() {
-    this.initializeKlass()
-    this.initializeSvgClass()
-  }
-  initializeKlass() {
-    this.element.className = this.element.className.concat(' ' + this.klassValue)
-  }
-  initializeSvgClass() {
-    this.svgTarget.classList = this.svgClassValue
+    this.element.className = this.element.className + ' ' + this.klassValue
   }
   icons() {
     return {

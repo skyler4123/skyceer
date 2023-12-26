@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class IconComponent < ViewComponent::Base
-  def initialize(name:, type: nil, svg_class: nil, klass: nil)
+  def initialize(name: nil, type: nil, svg_class: nil, klass: nil)
     @name = name
     @type = type
     @svg_class = svg_class
-    @klass = klass.to_s + ' hidden'
+    @klass = 'hidden ' + klass.to_s
   end
 end
