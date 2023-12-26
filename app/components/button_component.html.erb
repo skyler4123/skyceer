@@ -1,33 +1,13 @@
-<div data-controller="button-component" class="<%= @klass %>">
+<%= tag.div(class: @klass, data: { controller: "button-component", button_component_label_value: @label, button_component_url_value: @url, button_component_button_class_value: @button_class, button_component_link_class_value: @link_class}) do %>
   <% if prepends %>
     <% prepends.each do |prepend| %>
       <%= prepend %>
     <% end %>
   <% end %>
-  <button class="<%= @button_class %>">
-    <% if @url %>
-      <a href="<%= @url %>" class="<%= @link_class %>"></a>
-        <% if content %>
-          <%= content %>
-        <% else %>
-          <%= before_label if before_label? %>
-          <%= @label %>
-          <%= after_label if after_label? %>
-        <% end %>
-      </a>
-    <% else %>
-      <% if content %>
-        <%= content %>
-      <% else %>
-        <%= before_label if before_label? %>
-        <%= @label %>
-        <%= after_label if after_label? %>
-      <% end %>
-    <% end %>
-  </button>
+  <template></template>
   <% if appends %>
     <% appends.each do |append| %>
       <%= append %>
     <% end %>
   <% end %>
-</div>
+<% end %>

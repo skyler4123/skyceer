@@ -1,15 +1,18 @@
+import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["button", "link", "modal", "popover", "drawer"]
   static values = {
-    klass: { type: String, default: "flex flex-row w-fit justify-center items-center cursor-pointer" },
-    buttonClass: { type: String, default: "flex flex-row w-fit justify-center items-center" },
-    linkClass: { type: String, default: "flex flex-row w-fit justify-center items-center" }
+    label: { type: String, default: "Button" },
+    url: { type: String },
+    klass: { type: String, default: "" },
+    buttonClass: { type: String, default: "" },
+    linkClass: { type: String, default: "" }
   }
 
   initialize() {
-    this.initializeTarget()
+    this.initializeHTML()
     this.initializeClass()
 
     this.initializeComplete()
@@ -17,27 +20,38 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  initializeTarget() {
-    this.element.querySelector('button').setAttribute(`data-${this.identifier}-target`, 'button')
-    this.element.querySelector('a')?.setAttribute(`data-${this.identifier}-target`, 'link')
-    this.element.querySelector('[data-controller*=modal]')?.setAttribute(`data-${this.identifier}-target`, 'modal')
-    this.element.querySelector('[data-controller*=popover]')?.setAttribute(`data-${this.identifier}-target`, 'popover')
-    this.element.querySelector('[data-controller*=drawer]')?.setAttribute(`data-${this.identifier}-target`, 'drawer')
-  }
-  initializeClass() {
-    this.klassValue.split(' ').forEach((klass) => {
-      this.element.classList.add(klass)
-    })
-    this.buttonClassValue.split(' ').forEach((klass) => {
-      this.buttonTarget.classList.add(klass)
-    })
-    this.hasLinkTarget && this.linkClassValue.split(' ').forEach((klass) => {
-      this.linkTarget.classList.add(klass)
-    })
 
+  initializeHTML() {
+    morphdom(this.element.querySelector('template'), this.initHTML())
   }
-  initializeAttribute() {
-    // this.element.setAttribute('tabindex', 0)
+
+  initializeClass() {
+    this.element.className = this.element.className + ' ' + this.klassValue
+  }
+
+  initHTML() {
+    if (this.urlfValue) {
+      return `
+        <button
+          type="button"
+          class="${this.buttonClassValue} text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          data-${this.identifier}-target="button"
+        >
+          <a urlf="${this.urlfValue}" class="${this.linkClassValue}" data-${this.identifier}-target="link">
+            ${this.labelValue}
+          </a>
+        </button>
+      `
+    } else { return `
+        <button
+          type="button"
+          class="${this.buttonClassValue} text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          data-${this.identifier}-target="button"
+        >
+          ${this.labelValue}
+        </button>
+      `
+    }
   }
   openModal() {
     this.modalTarget.classList.remove('hidden')
