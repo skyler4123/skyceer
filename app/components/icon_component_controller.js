@@ -12,6 +12,7 @@ export default class extends Controller {
 
   initialize() {
     this.initializeHTML()
+    this.initializeTarget()
     this.initializeClass()
 
     this.initializeComplete()
@@ -23,9 +24,12 @@ export default class extends Controller {
   initializeHTML() {
     morphdom(this.element.querySelector('template'), this.icons()[this.typeValue][this.nameValue])
   }
-
+  initializeTarget() {
+    this.element.querySelector('svg').setAttribute(`data-${this.identifier}-target`, 'svg')
+  }
   initializeClass() {
     this.element.className = this.element.className + ' ' + this.klassValue
+    this.svgTarget.classList = this.svgClassValue
   }
   icons() {
     return {
