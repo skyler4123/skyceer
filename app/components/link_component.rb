@@ -1,25 +1,18 @@
 # frozen_string_literal: true
 
 class LinkComponent < ViewComponent::Base
-  renders_one :before
-  renders_one :after
-  renders_one :indicator
-  renders_one :copy_icon
-  renders_many :effects
-
+  renders_many :prepends
+  renders_many :appends
+  
   def initialize(
-      label: 'Link',
-      url: '#',
-      button_class: 'font-medium text-blue-600 hover:underline active:text-blue-800',
+      label: nil,
+      url: nil,
       link_class: nil,
-      klass: nil,
-      has_copy_icon: false
+      klass: nil
     )
     @label = label
     @url = url
     @link_class = link_class
-    @klass = klass.to_s + " hidden"
-    @button_class = button_class
-    @has_copy_icon = has_copy_icon
+    @klass = 'hidden ' + klass.to_s
   end
 end

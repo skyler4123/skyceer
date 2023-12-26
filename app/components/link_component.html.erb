@@ -1,24 +1,13 @@
-<div data-controller="link-component" class="<%= @klass %>">
-  <button class="<%= @button_class %>">
-    <a href="<%= @url %>" class="<%= @link_class %>"></a>
-      <% if content %>
-        <%= content %>
-      <% else %>
-        <%= before if before? %>
-        <%= @label %>
-        <%= after if after? %>
-      <% end %>
-    </a>
-  </button>
-  <% if copy_icon? %>
-    <%= copy_icon %>
-  <% elsif @has_copy_icon %>
-    <%= render(Button::CopyLinkComponent.new) %>
-  <% end %>
-  <%= indicator if indicator %>
-  <% if effects %>
-    <% effects.each do |effect| %>
-      <%= effect %>
+<%= tag.div(class: @klass, data: { controller: "link-component", link_component_label_value: @label, link_component_url_value: @url, link_component_link_class_value: @link_class}) do %>
+  <% if prepends %>
+    <% prepends.each do |prepend| %>
+      <%= prepend %>
     <% end %>
   <% end %>
-</div>
+  <template></template>
+  <% if appends %>
+    <% appends.each do |append| %>
+      <%= append %>
+    <% end %>
+  <% end %>
+<% end %>

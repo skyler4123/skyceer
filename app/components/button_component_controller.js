@@ -6,7 +6,7 @@ export default class extends Controller {
   static values = {
     label: { type: String, default: "Button" },
     url: { type: String },
-    klass: { type: String, default: "" },
+    klass: { type: String, default: "flex bg-red-5" },
     buttonClass: { type: String, default: "" },
     linkClass: { type: String, default: "" }
   }
@@ -30,14 +30,14 @@ export default class extends Controller {
   }
 
   initHTML() {
-    if (this.urlfValue) {
+    if (this.urlValue) {
       return `
         <button
           type="button"
-          class="${this.buttonClassValue} text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          class="${this.buttonClassValue} text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 active:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           data-${this.identifier}-target="button"
         >
-          <a urlf="${this.urlfValue}" class="${this.linkClassValue}" data-${this.identifier}-target="link">
+          <a href="${this.urlValue}" class="${this.linkClassValue}" data-${this.identifier}-target="link">
             ${this.labelValue}
           </a>
         </button>
@@ -45,7 +45,7 @@ export default class extends Controller {
     } else { return `
         <button
           type="button"
-          class="${this.buttonClassValue} text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          class="${this.buttonClassValue} text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 active:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           data-${this.identifier}-target="button"
         >
           ${this.labelValue}
