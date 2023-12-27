@@ -32,7 +32,6 @@ export default class extends Controller {
     this.element.className = this.klassValue
   }
   templateHTML() {
-    console.log(this.templateTarget.innerHTML)
     return this.templateTarget.innerHTML
   }
   initHTML() {
