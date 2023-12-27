@@ -3,9 +3,10 @@
 class ButtonComponent < ViewComponent::Base
   renders_many :prepends
   renders_many :appends
+  renders_one :body
   
   def initialize(
-      label: nil,
+      label: "Button",
       url: nil,
       button_class: nil,
       link_class: nil,
@@ -13,8 +14,8 @@ class ButtonComponent < ViewComponent::Base
     )
     @label = label
     @url = url
+    @klass = klass
     @link_class = link_class
-    @klass = 'hidden ' + klass.to_s
     @button_class = button_class
   end
 end

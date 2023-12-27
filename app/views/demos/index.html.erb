@@ -1,4 +1,6 @@
-<%= render(ButtonComponent.new(url: 'https://stimulus.hotwired.dev/')) %>
-
-<%= render(LinkComponent.new) %>
-<%= render(IconComponent.new(name: 'star')) %>
+<%= render(ButtonComponent.new(label: "Button")) do |c| %>
+  <% c.with_append do %>
+    <%= render(IconComponent.new) %>
+  <% end %>
+<% end %>
+<%= render(ButtonComponent.new) %>
