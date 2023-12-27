@@ -5,7 +5,7 @@ class LinkComponent < ViewComponent::Base
   renders_many :appends
   
   def initialize(
-      label: nil,
+      label: 'Link',
       url: nil,
       link_class: nil,
       klass: nil
@@ -13,6 +13,6 @@ class LinkComponent < ViewComponent::Base
     @label = label
     @url = url
     @link_class = link_class
-    @klass = 'hidden ' + klass.to_s
+    @klass = klass
   end
 end

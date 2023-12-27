@@ -2,15 +2,16 @@ import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["button", "link", "modal", "popover", "drawer"]
+  static targets = ["template", "link"]
   static values = {
-    label: { type: String, default: "Link" },
+    label: { type: String },
     url: { type: String },
-    klass: { type: String, default: "" },
-    linkClass: { type: String, default: "" }
+    klass: { type: String },
+    linkClass: { type: String }
   }
 
   initialize() {
+    this.initializeTarget()
     this.initializeHTML()
     this.initializeClass()
 
@@ -19,21 +20,27 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-
+  initializeTarget() {
+    this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
+  }
   initializeHTML() {
     morphdom(this.element.querySelector('template'), this.initHTML())
   }
 
   initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassValue
+    this.element.className = this.klassValue
   }
-
+  templateHTML() {
+    return this.templateTarget.innerHTML
+  }
   initHTML() {
     return `
-      <a href="${this.urlValue}" data-${this.identifier}-target="link" class="${this.linkClassValue} font-medium text-blue-600 dark:text-blue-500 hover:underline active:text-blue-800">
-        ${this.labelValue}
+      <a href="${this.urlValue}" data-${this.identifier}-target="link" class="${this.linkClassValue} font-medium text-blue-600 dark:text-blue-500 hover:underline"
+      >
+        ${this.templateHTML()}
       </a>
     `
+
   }
   openModal() {
     this.modalTarget.classList.remove('hidden')
