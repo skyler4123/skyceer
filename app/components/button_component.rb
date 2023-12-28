@@ -6,7 +6,7 @@ class ButtonComponent < ViewComponent::Base
   renders_one :body
   
   def initialize(
-      label: "Button",
+      label: nil,
       url: nil,
       button_class: nil,
       link_class: nil,

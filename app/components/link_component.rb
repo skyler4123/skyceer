@@ -6,7 +6,7 @@ class LinkComponent < ViewComponent::Base
   renders_one :body
   
   def initialize(
-      label: 'Link',
+      label: nil,
       url: nil,
       link_class: nil,
       klass: nil

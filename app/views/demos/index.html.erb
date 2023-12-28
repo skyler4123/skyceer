@@ -1,15 +1,4 @@
-<%= render(ButtonComponent.new(label: "Button")) do |c| %>
-  <% c.with_append do %>
-    <%= render(IconComponent.new) %>
-  <% end %>
-<% end %>
+
 <%= render(ButtonComponent.new) %>
-<%= render(LinkComponent.new) do %>
-  <%= render(IconComponent.new) %>
-<% end %>
-<%= render(LinkComponent.new(label: "Skyler")) do |c| %>
-  <% c.with_append do %>
-    <%= render(IconComponent.new) %>
-  <% end %>
-<% end %>
-<%= render(Hr::TextComponent.new) %>
+<%= render(LinkComponent.new) %>
+<%= render(IconComponent.new) %>

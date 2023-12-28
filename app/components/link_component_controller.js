@@ -17,12 +17,15 @@ export default class extends Controller {
 
     this.initializeComplete()
   }
+
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
+
   initializeTarget() {
     this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
   }
+
   initializeHTML() {
     morphdom(this.element.querySelector('template'), this.initHTML())
   }
@@ -30,9 +33,15 @@ export default class extends Controller {
   initializeClass() {
     this.element.className = this.klassValue
   }
+
   templateHTML() {
-    return this.templateTarget.innerHTML
+    if (this.templateTarget.childElementCount === 0) {
+      return this.labelValue
+    } else {
+      return this.templateTarget.innerHTML
+    }
   }
+  
   initHTML() {
     return `
       <a href="${this.urlValue}" data-${this.identifier}-target="link" class="${this.linkClassValue} font-medium text-blue-600 dark:text-blue-500 hover:underline active:text-blue-800"

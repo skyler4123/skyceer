@@ -5,6 +5,6 @@ class IconComponent < ViewComponent::Base
     @name = name
     @type = type
     @svg_class = svg_class
-    @klass = 'hidden ' + klass.to_s
+    @klass = klass
   end
 end
