@@ -25,7 +25,7 @@ export default class extends Controller {
     this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
   }
   initializeHTML() {
-    morphdom(this.element.querySelector('template'), this.initHTML())
+    morphdom(this.templateTarget, this.initHTML())
   }
 
   initializeClass() {

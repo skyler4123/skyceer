@@ -6,7 +6,7 @@ export default class extends Controller {
   static values = {
     label: { type: String },
     url: { type: String },
-    klass: { type: String },
+    klass: { type: String, default: "flex justify-center items-center gap-x-1" },
     linkClass: { type: String }
   }
 
@@ -35,7 +35,7 @@ export default class extends Controller {
   }
   initHTML() {
     return `
-      <a href="${this.urlValue}" data-${this.identifier}-target="link" class="${this.linkClassValue} font-medium text-blue-600 dark:text-blue-500 hover:underline"
+      <a href="${this.urlValue}" data-${this.identifier}-target="link" class="${this.linkClassValue} font-medium text-blue-600 dark:text-blue-500 hover:underline active:text-blue-800"
       >
         ${this.templateHTML()}
       </a>

@@ -3,7 +3,7 @@ import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['template', 'label', 'horizontalLine']
+  static targets = ['template', 'hr', 'span']
   static values = {
     label: { type: String, default: "Horizontal Line" },
     klass: { type: String, default: "inline-flex items-center justify-center w-screen" },
@@ -13,6 +13,7 @@ export default class extends Controller {
   initialize() {
     this.initializeTarget()
     this.initializeHTML()
+    this.initializeClass()
 
     this.initializeComplete()
   }
@@ -26,15 +27,27 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    morphdom(this.templateTarget, this.sourceHTML())
+    morphdom(this.templateTarget, this.initHTML())
   }
 
-  sourceHTML() {
+  initializeClass() {
+    this.element.classList = this.klassValue
+  }
+  templateHTML() {
+    return this.templateTarget.innerHTML
+  }
+
+  initHTML() {
     return `
-      <div class="${this.klassValue}">
-          <hr class="${this.hrClassValue}">
-          <span class="${this.spanClassValue}">${this.labelValue}</span>
+
+    <div class="flex items-center justify-center w-screen">
+      <hr class="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+      <div class="px-3 font-medium text-gray-900 bg-white dark:text-white dark:bg-gray-900">
+        ${this.templateHTML()}
       </div>
+      <hr class="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+    </div>
+
     `
   }
   connect() {
