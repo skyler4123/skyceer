@@ -14,9 +14,9 @@ export default class extends Controller {
     // console.log("Hello, Stimulus!", this.element);
   }
   initialize() {
-    this.initializeTarget()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeTarget()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeCompleted()
   }

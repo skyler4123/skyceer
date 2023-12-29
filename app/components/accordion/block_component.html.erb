@@ -1,21 +1,29 @@
 <div data-controller="accordion--block-component" class="<%= @klass %>">
-  <div class="<%= @header_class %>">
-    <div class="<%= @label_class %>">
-      <%= before if before %>
+
+  <div data-accordion--block-component-target="header">
+    <% if header %>
+      <%= header %>
+    <% elsif @label %>
       <%= @label %>
-      <%= after if after %>
-    </div>
-    <%= icon? ? icon : render(IconComponent.new(name: 'chevron-down')) %>
-  </div>
-  <div class="<%= @body_class %>">
-    <div>
-    <% if content %>
-      <%= content %>
-    <% elsif body %>
-      <%= body %>
     <% else %>
-      "Body Empty!"
+      <%= render(ButtonComponent.new(label: "Accordion Header")) do |c| %>
+        <% c.with_append do %>
+          <%= render(IconComponent.new(name: 'chevron-down', klass: "rotate-0 open:rotate-180 duration-200 ease-in-out")) %>
+        <% end %>
+      <% end %>
     <% end %>
+  </div>
+
+  <div data-accordion--block-component-target="body">
+    <div data-accordion--block-component-target="grid">
+      <% if content %>
+        <%= content %>
+      <% elsif body %>
+        <%= body %>
+      <% else %>
+        "Body Empty!"
+      <% end %>
     </div>
   </div>
+  
 </div>

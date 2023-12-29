@@ -1,8 +1,8 @@
-<%= render(Dropdown::HoverComponent.new) do |c| %>
-  <% c.with_body do %>
-    <div>Body 1</div>
-    <div>Body 2</div>
-    <div>Body 3</div>
-    <div>Body 4</div>
+<%= render(Accordion::DefaultComponent.new) do |c| %>
+  <% c.with_block do %>
+    <%= render(Accordion::BlockComponent.new) %>
+  <% end %>
+  <% c.with_block do %>
+    <%= render(Accordion::BlockComponent.new) %>
   <% end %>
 <% end %>

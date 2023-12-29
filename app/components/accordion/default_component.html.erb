@@ -1,3 +1,8 @@
-<div data-controller="accordion--default-component" class="<%= @klass %>">
-  <%= content ? content : "This accordion still have empty blocks!" %>
+<div data-controller="accordion--default-component" class="hidden ">
+  <% blocks.each_with_index do |block, index| %>
+    <%= block %>
+    <% unless (index + 1) == blocks.size %>
+      <%= separator ? separator : render(Hr::DefaultComponent.new) %>
+    <% end %>
+  <% end %>
 </div>
