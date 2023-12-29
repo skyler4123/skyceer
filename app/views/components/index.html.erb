@@ -50,6 +50,15 @@
         <div>Body 4</div>
       <% end %>
     <% end %>
+    <%= render(Dropdown::HoverComponent.new) do |c| %>
+      <% c.with_body do %>
+        <div>Body 1</div>
+        <div>Body 2</div>
+        <div>Body 3</div>
+        <div>Body 4</div>
+      <% end %>
+    <% end %>
+
 <div>
   </div>
 </div>

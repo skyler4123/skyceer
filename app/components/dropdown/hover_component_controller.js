@@ -6,85 +6,39 @@ export default class extends Controller {
     klass: { type: String, default: "relative inline-block group" },
     buttonClass: { type: String, default: "" },
     iconClass: { type: String, default: "rotate-0 open:rotate-180 duration-250" },
-    bodyClass: { type: String, default: "h-0 opacity-0 open:h-fit open:flex open:opacity-100 absolute z-10 transition-opacity duration-500 ease-in-out" }
+    bodyClass: { type: String, default: "h-0 opacity-0 open:h-fit open:flex open:flex-col open:opacity-100 absolute z-10 transition-opacity duration-200 ease-in-out" }
   }
 
   initialize() {
     this.initializeTarget()
-    this.initializeAction()
+    // this.initializeHTML()
     this.initializeClass()
+    this.initializeAction()
 
     this.initializeCompleted()
   }
-
   initializeCompleted() {
     this.element.classList.remove('hidden')
   }
+
   initializeTarget() {
-    this.initializeButtonTarget()
-    this.initializeIconTarget()
-    this.initializeBodyTarget()
+    this.headerTarget.querySelector("[data-controller='icon-component']").setAttribute(`data-${this.identifier}-target`, 'icon')
   }
-  initializeButtonTarget() {
-    this.element.querySelector('[data-controller*=button]')?.setAttribute(`data-${this.identifier}-target`, 'button')
-  }
-  initializeIconTarget() {
-    this.element.querySelector('[data-controller*=icon]')?.setAttribute(`data-${this.identifier}-target`, 'icon')
-  }
-  initializeBodyTarget() {
-    this.element.lastElementChild.setAttribute(`data-${this.identifier}-target`, 'body')
-  }
-  initializeAction() {
-    this.initializeIconAction()
-  }
-  initializeIconAction() {
-    this.buttonTarget.setAttribute('data-action', `mouseover->${this.identifier}#openDropdown mouseout->${this.identifier}#closeDropdown`)
-  }
+
   initializeClass() {
-    this.initializeKlass()
-    this.initializeButtonClass()
-    this.initializeIconClass()
-    this.initializeBodyClass()
+    this.bodyTarget.className = this.bodyClassValue
   }
-  initializeKlass() {
-    this.klassValue.split(' ').forEach((klass) => {
-      this.element.classList.add(klass)
-    })
-  }
-  initializeButtonClass() {
-    if (!this.buttonClassValue) { return }
 
-    this.buttonClassValue.split(' ').forEach((klass) => {
-      this.buttonTarget.classList.add(klass)
-    })
+  initializeAction() {
+    this.headerTarget.setAttribute('data-action', `mouseover->${this.identifier}#toggleDropdown mouseout->${this.identifier}#toggleDropdown`)
   }
-  initializeIconClass() {
-    if (!this.hasIconTarget) { return }
-    if (!this.iconClassValue) { return }
 
-    this.iconClassValue.split(' ').forEach((klass) => {
-      this.iconTarget.classList.add(klass)
-    })
+  toggleDropdown() {
+    this.iconTarget.toggleAttribute('open')
+    this.bodyTarget.toggleAttribute('open')
   }
-  initializeBodyClass() {
-    if (!this.bodyClassValue) { return }
 
-    this.bodyClassValue.split(' ').forEach((klass) => {
-      this.bodyTarget.classList.add(klass)
-    })
-  }
   connect() {
     // console.log(this.identifier, this.element);
-  }
-  openDropdown() {
-    this.bodyTarget.setAttribute('open', '')
-    this.rotateIcon()
-  }
-  closeDropdown() {
-    this.bodyTarget.removeAttribute('open')
-    this.rotateIcon()
-  }
-  rotateIcon() {
-    this.iconTarget.toggleAttribute('open')
   }
 }

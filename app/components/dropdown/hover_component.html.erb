@@ -1,16 +1,21 @@
-<div data-controller="dropdown--hover-component" class="<%= @klass %>">
-  <%= button? ? button : render(ButtonComponent.new(klass: @button_class)) do |c| %>
-    <% c.with_append do %>
-      <%= icon? ? icon : render(IconComponent.new(name: 'chevron-down', klass: @icon_class, svg_class: 'w-5 h-5')) %>
-    <% end %>
-  <% end %>
-  <div class='<%= @body_class %>'>
-    <% if content %>
-      <%= content %>
-    <% elsif %>
-      <%= body %>
+<%= tag.div(class: 'hidden ', data: { controller: "dropdown--hover-component", dropdown__hover_component_klass_value: @klass }) do %>
+
+  <div data-dropdown--hover-component-target="header">
+    <% if header %>
+      <%= header %>
+    <% elsif @label %>
+      <%= @label %>
     <% else %>
-      "Dropdown Items"
+      <%= render(ButtonComponent.new(label: "Hover Dropdown")) do |c| %>
+        <% c.with_append do %>
+          <%= render(IconComponent.new(name: 'chevron-down', klass: "rotate-0 open:rotate-180 duration-200 ease-in-out")) %>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
-</div>
+  
+  <div data-dropdown--hover-component-target="body" class="hidden">
+    <%= body ? body : "Sample Content!" %>
+  </div>
+  
+<% end %>
