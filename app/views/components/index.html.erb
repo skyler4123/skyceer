@@ -14,7 +14,7 @@
     <%= render(Hr::TextComponent.new(label: "ButtonComponent")) %>
     <%= render(ButtonComponent.new(label: "Custome Button")) do |c| %>
       <% c.with_append do %>
-        <%= render(IconComponent.new) %>
+        <%= render(IconComponent.new(name: 'code-bracket')) %>
       <% end %>
     <% end %>
 

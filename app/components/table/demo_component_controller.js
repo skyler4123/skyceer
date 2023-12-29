@@ -32,7 +32,11 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    morphdom(this.templateTarget, this.initHTML())
+    if (this.hasTemplateTarget) {
+      morphdom(this.templateTarget, this.initHTML())
+    } else {
+      morphdom(this.tableTarget, this.initHTML())
+    }
   }
 
   initializeClass() {
@@ -65,6 +69,9 @@ export default class extends Controller {
     `
   }
 
+  bodyValueChanged() {
+    this.initializeHTML()
+  }
   connect() {
     // console.log("Hello, Stimulus!", this);
   }
