@@ -75,6 +75,42 @@
       <% end %>
     <% end %>
 
-<div>
+    <%= render(Hr::TextComponent.new(label: "Accordion::DefaultComponent")) %>
+    <%= render(Accordion::DefaultComponent.new) do |c| %>
+      <% c.with_separator do %>
+        <%= render(Hr::DefaultComponent.new) %>
+      <% end %>
+      <% c.with_block do %>
+        <%= render(Accordion::BlockComponent.new) %>
+      <% end %>
+      <% c.with_block do %>
+        <%= render(Accordion::BlockComponent.new) do |c| %>
+          <% c.with_header do %>
+            <%= render(ButtonComponent.new(klass: "flex items-center cursor-pointer text-black")) do |c| %>
+              <% c.with_append do %>
+                <%= render(IconComponent.new(name: "star", klass: "rotate-0 open:rotate-180 ease-in-out duration-1000")) %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% c.with_block do %>
+        <%= render(Accordion::BlockComponent.new(label: "Custome Label")) %>
+      <% end %>
+      <% c.with_block do %>
+        <%= render(Accordion::BlockComponent.new) do |c| %>
+          <% c.with_body do %>
+            <div class="px-5">
+              <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
+                <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    
+
   </div>
 </div>
