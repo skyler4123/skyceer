@@ -33,33 +33,11 @@ export default class extends Controller {
     }
     this.gridTarget.className = this.gridClassValue
   }
-  initializeHeaderClass() {
-    if (!this.hasHeaderClassValue) { return }
-
-    this.headerClassValue.split(' ').forEach((klass) => {
-      this.headerTarget.classList.add(klass)
-    })
-  }
-  initializeIconClass() {
-    if (!this.hasIconClassValue) { return }
-
-    this.iconClassValue.split(' ').forEach((klass) => {
-      this.iconTarget.classList.add(klass)
-    })
-  }
-  initializeBodyClass() {
-    if (!this.hasBodyClassValue) { return }
-
-    this.bodyClassValue.split(' ').forEach((klass) => {
-      this.bodyTarget.classList.add(klass)
-    })
-    this.bodyTarget.firstElementChild.classList.add('overflow-hidden')
-  }
   initializeAction() {
     this.headerTarget.setAttribute('data-action', `click->${this.identifier}#toggle`)
   }
   toggle() {
-    // this.headerTarget.toggleAttribute('open')
+    this.headerTarget.toggleAttribute('open')
     this.bodyTarget.toggleAttribute('open')
     if (this.hasIconTarget) {
       this.iconTarget.toggleAttribute('open')
