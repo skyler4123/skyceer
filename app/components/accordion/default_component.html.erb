@@ -1,8 +1,9 @@
 <div data-controller="accordion--default-component" class="hidden ">
   <% blocks.each_with_index do |block, index| %>
     <%= block %>
-    <% unless (index + 1) == blocks.size %>
-      <%= separator ? separator : render(Hr::DefaultComponent.new) %>
+
+    <% if separator && (index + 1) != blocks.size %>
+      <%= separator %>
     <% end %>
   <% end %>
 </div>

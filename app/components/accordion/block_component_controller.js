@@ -1,22 +1,21 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["header", "body", "icon"]
+  static targets = ["header", "body", "grid", "icon"]
   static values = {
     klass: { type: String },
     headerClass: { type: String, default: 'flex flex-row justify-between items-center' },
     labelClass: { type: String },
-    bodyClass: { type: String, default: 'grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-250 ease-in-out' },
+    bodyClass: { type: String, default: "grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-250 ease-in-out text-sm text-slate-600 overflow-hidden duration-300" },
+    gridClass: { type: String, default: 'overflow-hidden' },
     iconClass: { type: String, default: 'rotate-0 open:rotate-180 transition duration-250 ease-in-out' }
   }
 
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
-  }
+
   initialize() {
-    // this.initializeTarget()
-    // this.initializeClass()
-    // this.initializeAction()
+    this.initializeTarget()
+    this.initializeClass()
+    this.initializeAction()
 
     this.initializeCompleted()
   }
@@ -24,15 +23,15 @@ export default class extends Controller {
     this.element.classList.remove('hidden')
   }
   initializeTarget() {
-    this.element.firstElementChild.setAttribute(`data-${this.identifier}-target`, 'header')
-    this.element.lastElementChild.setAttribute(`data-${this.identifier}-target`, 'body')
-    this.element.querySelector('[data-controller*=icon]').setAttribute(`data-${this.identifier}-target`, 'icon')
+    this.headerTarget.querySelector('[data-controller*=icon]')?.setAttribute(`data-${this.identifier}-target`, 'icon')
   }
   initializeClass() {
-    // this.initializeLableClass()
-    this.initializeHeaderClass()
-    this.initializeIconClass()
-    this.initializeBodyClass()
+    this.headerTarget.className = this.headerClassValue
+    this.bodyTarget.className = this.bodyClassValue
+    if (this.hasIconTarget) {
+      this.iconTarget.className = this.iconClassValue
+    }
+    this.gridTarget.className = this.gridClassValue
   }
   initializeHeaderClass() {
     if (!this.hasHeaderClassValue) { return }
@@ -57,11 +56,16 @@ export default class extends Controller {
     this.bodyTarget.firstElementChild.classList.add('overflow-hidden')
   }
   initializeAction() {
-    this.headerTarget.setAttribute('data-action', `click->${this.identifier}#open`)
+    this.headerTarget.setAttribute('data-action', `click->${this.identifier}#toggle`)
   }
-  open() {
-    this.headerTarget.toggleAttribute('open')
+  toggle() {
+    // this.headerTarget.toggleAttribute('open')
     this.bodyTarget.toggleAttribute('open')
-    this.iconTarget.toggleAttribute('open')
+    if (this.hasIconTarget) {
+      this.iconTarget.toggleAttribute('open')
+    }
+  }
+  connect() {
+    // console.log("Hello, Stimulus!", this.element);
   }
 }
