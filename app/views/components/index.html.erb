@@ -8,25 +8,34 @@
   </div>
 
   <div id="components" class="flex flex-col justify-center items-center min-w-full">
+
+    <%= render(Hr::TextComponent.new(label: "ButtonComponent")) %>
     <%= render(ButtonComponent.new(label: "Custome Button")) do |c| %>
       <% c.with_append do %>
         <%= render(IconComponent.new) %>
       <% end %>
     <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "ButtonComponent Default")) %>
     <%= render(ButtonComponent.new) %>
-    <%= render(LinkComponent.new) do %>
-      <%= render(IconComponent.new) %>
-    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "LinkComponent")) %>
+    <%= render(LinkComponent.new) %>
     <%= render(LinkComponent.new(label: "Custom Link")) do |c| %>
       <% c.with_append do %>
-        <%= render(IconComponent.new) %>
+        <%= render(IconComponent.new(name: "link")) %>
       <% end %>
     <% end %>
-    <%= render(Hr::TextComponent.new) %>
+
+    <%= render(Hr::TextComponent.new(label: "IconComponent")) %>
     <%= render(IconComponent.new) %>
     <%= render(IconComponent.new(name: 'star')) %>
+
+    <%= render(Hr::TextComponent.new(label: "TextComponent")) %>
     <%= render(TextComponent.new) %>
     <%= render(TextComponent.new(label: "Price", language_key: :price)) %>
+
+    <%= render(Hr::TextComponent.new(label: "Tab::DefaultComponent")) %>
     <%= render(Tab::DefaultComponent.new) do |c| %>
       <% c.with_headers do %>
         <div>Header 1</div>
@@ -41,8 +50,12 @@
         <div>Body 4</div>
       <% end %>
     <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Table::DemoComponent")) %>
     <%= render(Table::DemoComponent.new) %>
-    <%= render(Dropdown::ClickComponent.new) do |c| %>
+
+    <%= render(Hr::TextComponent.new(label: "Dropdown::DefaultComponent")) %>
+    <%= render(Dropdown::DefaultComponent.new) do |c| %>
       <% c.with_body do %>
         <div>Body 1</div>
         <div>Body 2</div>
@@ -50,7 +63,8 @@
         <div>Body 4</div>
       <% end %>
     <% end %>
-    <%= render(Dropdown::HoverComponent.new) do |c| %>
+    <%= render(Hr::TextComponent.new(label: "Dropdown::DefaultComponent.new(trigger_event: :click)")) %>
+    <%= render(Dropdown::DefaultComponent.new(trigger_event: :click)) do |c| %>
       <% c.with_body do %>
         <div>Body 1</div>
         <div>Body 2</div>

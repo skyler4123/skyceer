@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["button", "icon", "header", "body"]
   static values = {
+    triggerEvent: { type: String, default: "hover" },
     klass: { type: String, default: "relative inline-block group" },
     buttonClass: { type: String, default: "" },
     iconClass: { type: String, default: "rotate-0 open:rotate-180 duration-250" },
@@ -30,7 +31,13 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.headerTarget.setAttribute('data-action', `mouseover->${this.identifier}#toggleDropdown mouseout->${this.identifier}#toggleDropdown`)
+    if (this.triggerEventValue === "click") {
+      this.headerTarget.setAttribute('data-action', `click->${this.identifier}#toggleDropdown`)
+    }
+
+    if (this.triggerEventValue === "hover") {
+      this.headerTarget.setAttribute('data-action', `mouseover->${this.identifier}#toggleDropdown mouseout->${this.identifier}#toggleDropdown`)
+    }
   }
 
   toggleDropdown() {
