@@ -1,7 +1,9 @@
-<% @klass ||= "" %>
 
 <div data-controller="text-component" class="<%= @klass %>">
   <%= before if before %>
   <%= @label %>
   <%= after if after %>
 </div>
+<%= tag.span(class: 'hidden ', data: { text_component_label_value: @label, text_component_klass_value: @klass}) do %>
+  <template></template>
+<% end %>
