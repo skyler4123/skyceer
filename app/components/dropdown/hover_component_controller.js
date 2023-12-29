@@ -14,10 +14,10 @@ export default class extends Controller {
     this.initializeAction()
     this.initializeClass()
 
-    this.initializeComplete()
+    this.initializeCompleted()
   }
 
-  initializeComplete() {
+  initializeCompleted() {
     this.element.classList.remove('hidden')
   }
   initializeTarget() {

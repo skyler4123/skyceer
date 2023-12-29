@@ -1,52 +1,61 @@
+import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
+  static targets = ["template", "table", "head", "headeRow", "headeCell", "body", "bodyRow", "bodyCell"]
   static values = {
     header: { type: Array },
-    body: { type: Array }
+    body: { type: Array },
+    klass: { type: String, default: "" },
+    tableClass: { type: String, default: "" },
+    headClass: { type: String, default: "" },
+    headRowClass: { type: String, default: "" },
+    headCellClass: { type: String, default: "" },
+    bodyClass: { type: String, default: "" },
+    bodyRowClass: { type: String, default: "" },
+    bodyCellClass: { type: String, default: "" }
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  static outlets = ['helper']
-  static targets = ['template']
+
   initialize() {
-    this.initializeOutlet()
+    this.initializeTarget()
+    this.initializeHTML()
+    this.initializeClass()
+
+    this.initializeCompleted()
   }
-  initializeOutlet() {
-    this.element.setAttribute(`data-${this.identifier}-helper-outlet`, "body")
+  initializeCompleted() {
+    this.element.classList.remove('hidden')
   }
-  helperOutletConnected() {
-    this.helperOutlet.initTargetValueHTML(this)
-    this.initializeFunction()
-    this.helperOutlet.initializeComplete(this)
+
+  initializeTarget() {
+    this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  initializeFunction() {
-    this.element.innerHTML = ""
-    this.element.innerHTML = this.initHTML()
+
+  initializeHTML() {
+    morphdom(this.templateTarget, this.initHTML())
   }
-  headerValueChanged() {
-    this.initializeFunction()
+
+  initializeClass() {
+    this.element.className = this.klassValue
   }
-  bodyValueChanged() {
-    this.initializeFunction()
-  }
+
   initHTML() {
     return `
-      <table class="bg-red-500" data-${this.identifier}-target="table">
-        <thead data-${this.identifier}-target="headers">
-          <tr>
-            <th data-${this.identifier}-target="header">${this.headerValue[0]}</th>
-            <th data-${this.identifier}-target="header">${this.headerValue[1]}</th>
-            <th data-${this.identifier}-target="header">${this.headerValue[2]}</th>
+      <table class="${this.tableClassValue}" data-${this.identifier}-target="table">
+        <thead class="${this.headClassValue}" data-${this.identifier}-target="headers">
+          <tr class="${this.headRowClassValue}">
+            <th class="${this.headCellClassValue}" data-${this.identifier}-target="header">${this.headerValue[0]}</th>
+            <th class="${this.headCellClassValue}" data-${this.identifier}-target="header">${this.headerValue[1]}</th>
+            <th class="${this.headCellClassValue}" data-${this.identifier}-target="header">${this.headerValue[2]}</th>
           </tr>
         </thead>
-        <tbody data-${this.identifier}-target="body">
+        <tbody class="${this.bodyClassValue}" data-${this.identifier}-target="body">
           ${this.bodyValue.map((row) => 
             `
-            <tr data-${this.identifier}-target="row">
-              <td>${row[0]}</td>
-              <td>${row[1]}</td>
-              <td>${row[2]}</td>
+            <tr class="${this.bodyRowClassValue}" data-${this.identifier}-target="row">
+              <td class="${this.bodyCellClassValue}" data-${this.identifier}-target="cell" >${row[0]}</td>
+              <td class="${this.bodyCellClassValue}" data-${this.identifier}-target="cell" >${row[1]}</td>
+              <td class="${this.bodyCellClassValue}" data-${this.identifier}-target="cell" >${row[2]}</td>
             </tr>
             `
             ).join('')}
@@ -55,6 +64,7 @@ export default class extends Controller {
 
     `
   }
+
   connect() {
     // console.log("Hello, Stimulus!", this);
   }

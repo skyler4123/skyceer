@@ -16,23 +16,22 @@ export default class extends Controller {
     this.initializeNewTarget()
     this.initializeClass()
 
-    this.initializeComplete()
+    this.initializeCompleted()
   }
-  initializeComplete() {
+  initializeCompleted() {
     this.element.classList.remove('hidden')
   }
   initializeTarget() {
     this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
   }
   initializeHTML() {
-    console.log(this.templateTarget)
     morphdom(this.templateTarget, this.initHTML()[this.typeValue][this.nameValue])
   }
   initializeNewTarget() {
     this.element.querySelector('svg').setAttribute(`data-${this.identifier}-target`, 'svg')
   }
   initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassValue
+    this.element.className = this.klassValue
     this.svgTarget.classList = this.svgClassValue
   }
   initHTML() {

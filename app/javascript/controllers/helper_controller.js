@@ -70,7 +70,7 @@ export default class extends Controller {
   initCompleted(that) {
     that.element.classList.remove('hidden')
   }
-  initializeComplete(that) {
+  initializeCompleted(that) {
     that.element.classList.remove('hidden')
   }
 }

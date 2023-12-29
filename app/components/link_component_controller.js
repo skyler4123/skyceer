@@ -4,10 +4,10 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["template", "link"]
   static values = {
-    label: { type: String },
+    label: { type: String, default: "Link" },
     url: { type: String },
-    klass: { type: String, default: "flex justify-center items-center gap-x-1" },
-    linkClass: { type: String }
+    klass: { type: String, default: "flex justify-center items-center cursor-pointer gap-x-1" },
+    linkClass: { type: String, default: "font-medium text-blue-600 dark:text-blue-500 hover:underline active:text-blue-800" }
   }
 
   initialize() {
@@ -15,10 +15,9 @@ export default class extends Controller {
     this.initializeHTML()
     this.initializeClass()
 
-    this.initializeComplete()
+    this.initializeCompleted()
   }
-
-  initializeComplete() {
+  initializeCompleted() {
     this.element.classList.remove('hidden')
   }
 
@@ -27,6 +26,7 @@ export default class extends Controller {
   }
 
   initializeHTML() {
+    
     morphdom(this.element.querySelector('template'), this.initHTML())
   }
 
@@ -44,25 +44,28 @@ export default class extends Controller {
   
   initHTML() {
     return `
-      <a href="${this.urlValue}" data-${this.identifier}-target="link" class="${this.linkClassValue} font-medium text-blue-600 dark:text-blue-500 hover:underline active:text-blue-800"
+      <a href="${this.urlValue}" data-${this.identifier}-target="link" class="${this.linkClassValue}"
       >
         ${this.templateHTML()}
       </a>
     `
-
   }
+
   openModal() {
     this.modalTarget.classList.remove('hidden')
     this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openModal`, "")
   }
+
   openPopover() {
     this.popoverTarget.classList.remove('hidden')
     this.popoverTarget.classList.add('flex')
   }
+
   closePopover() {
     this.popoverTarget.classList.remove('flex')
     this.popoverTarget.classList.add('hidden')
   }
+  
   openDrawer() {
     this.drawerTarget.setAttribute('open', '')
     this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openDrawer`, "")

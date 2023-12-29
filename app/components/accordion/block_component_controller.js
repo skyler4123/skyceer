@@ -18,9 +18,9 @@ export default class extends Controller {
     this.initializeClass()
     this.initializeAction()
 
-    this.initializeComplete()
+    this.initializeCompleted()
   }
-  initializeComplete() {
+  initializeCompleted() {
     this.element.classList.remove('hidden')
   }
   initializeTarget() {

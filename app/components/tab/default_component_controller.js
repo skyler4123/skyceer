@@ -1,27 +1,9 @@
+import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-const outletHelper = ['helper']
-const targetHelper = ['template']
 export default class extends Controller {
-  initialize() {
-    this.initializeOutlet()
-  }
-  initializeOutlet() {
-    this.element.setAttribute(`data-${this.identifier}-helper-outlet`, "body")
-  }
-  helperOutletConnected() {
-    this.helperOutlet.initTarget(this)
-    this.helperOutlet.initValue(this)
-    this.helperOutlet.initHTML(this)
-    this.initializeFunction()
-    this.helperOutlet.initCompleted(this)
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  static outlets = [...outletHelper]
-  static targets = ['headers', 'header', 'bodies', 'body', ...targetHelper]
+  static targets = ['headers', 'header', 'bodies', 'body']
   static values = {
-    isOutletCompleted: { type: Boolean },
     klass: String,
     headersClass: String,
     bodiesClass: String,
@@ -29,66 +11,84 @@ export default class extends Controller {
     bodyClass: { type: String, default: "hidden open:flex" },
     openIndex: { type: Number }
   }
-  initializeFunction() {
-    if (!this.hasHeadersTarget || !this.hasBodiesTarget) { return }
 
+  initialize() {
     this.initializeTarget()
+    this.initializeHTML()
     this.initializeClass()
-    this.initializeAction()
+
+    this.initializeCompleted()
   }
+  initializeCompleted() {
+    this.element.classList.remove('hidden')
+  }
+
   initializeTarget() {
     this.initializeHeaderTarget()
     this.initializeBodyTarget()
   }
+
   initializeHeaderTarget() {
-    Array.from(this.headersTarget.children).forEach((header) => {
-      header.setAttribute(`data-${this.identifier}-target`, 'header')
+    Array.from(this.headersTarget.children).forEach((target, index) => {
+      target.setAttribute(`data-${this.identifier}-target`, 'header')
+      target.setAttribute('data-action', `click->${this.identifier}#openIndex`)
+      target.setAttribute(`data-${this.identifier}-open-index-param`, index)
     })
   }
+
   initializeBodyTarget() {
-    Array.from(this.bodiesTarget.children).forEach((body) => {
-      body.setAttribute(`data-${this.identifier}-target`, 'body')
+    Array.from(this.bodiesTarget.children).forEach((target) => {
+      target.setAttribute(`data-${this.identifier}-target`, 'body')
     })
   }
+
+  initializeHTML() {
+
+  }
+
   initializeClass() {
+    this.initializeHeadersClass()
     this.initializeHeaderClass()
+    this.initializeBodiesClass()
     this.initializeBodyClass()
   }
+
+  initializeHeadersClass() {
+    this.headersTarget.className = this.headersClassValue
+  }
+
   initializeHeaderClass() {
-    this.headerTargets.forEach((header) => {
-      header.className = header.className.concat(' ' + this.headerClassValue)
+    this.headerTargets.forEach((target) => {
+      target.className = this.headerClassValue
     })
   }
+
+  initializeBodiesClass() {
+    this.bodiesTarget.className = this.bodiesClassValue
+  }
+
   initializeBodyClass() {
-    this.bodyTargets.forEach((body, index) => {
-      body.className = body.className.concat(' ' + this.bodyClassValue)
+    this.bodyTargets.forEach((target) => {
+      target.className = this.bodyClassValue
     })
   }
-  initializeAction() {
-    this.initializeHeaderAction()
-  }
-  initializeHeaderAction() {
-    this.headerTargets.forEach((header, index) => {
-      header.setAttribute('data-action', `click->${this.identifier}#changeOpenIndex`)
-      header.setAttribute(`data-${this.identifier}-open-index-param`, index)
-    })
-  }
-  changeOpenIndex(event) {
+
+  openIndex(event) {
     this.openIndexValue = event.params.openIndex
   }
-  openIndexValueChanged() {
-    if (!this.hasHeadersTarget) { return }
-    
+
+  openIndexValueChanged(nextValue, previousValue) {
     this.headerTargets.forEach((header) => {
       header.removeAttribute('open')
     })
-    this.headerTargets[this.openIndexValue].setAttribute('open', '')
+    this.headerTargets[nextValue].setAttribute('open', '')
 
     this.bodyTargets.forEach((body) => {
       body.removeAttribute('open')
     })
-    this.bodyTargets[this.openIndexValue].setAttribute('open', '')
+    this.bodyTargets[nextValue].setAttribute('open', '')
   }
+
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

@@ -8,7 +8,7 @@
   </div>
 
   <div id="components" class="flex flex-col justify-center items-center min-w-full">
-    <%= render(ButtonComponent.new(label: "Button")) do |c| %>
+    <%= render(ButtonComponent.new(label: "Custome Button")) do |c| %>
       <% c.with_append do %>
         <%= render(IconComponent.new) %>
       <% end %>
@@ -17,11 +17,30 @@
     <%= render(LinkComponent.new) do %>
       <%= render(IconComponent.new) %>
     <% end %>
-    <%= render(LinkComponent.new(label: "Skyler")) do |c| %>
+    <%= render(LinkComponent.new(label: "Custom Link")) do |c| %>
       <% c.with_append do %>
         <%= render(IconComponent.new) %>
       <% end %>
     <% end %>
     <%= render(Hr::TextComponent.new) %>
+    <%= render(IconComponent.new) %>
+    <%= render(IconComponent.new(name: 'star')) %>
+    <%= render(TextComponent.new) %>
+    <%= render(TextComponent.new(label: "Price", language_key: :price)) %>
+    <%= render(Tab::DefaultComponent.new) do |c| %>
+      <% c.with_headers do %>
+        <div>Header 1</div>
+        <div>Header 2</div>
+        <div>Header 3</div>
+        <div>Header 4</div>
+      <% end %>
+      <% c.with_bodies do %>
+        <div>Body 1</div>
+        <div>Body 2</div>
+        <div>Body 3</div>
+        <div>Body 4</div>
+      <% end %>
+    <% end %>
+    <%= render(Table::DemoComponent.new) %>
   </div>
 </div>
