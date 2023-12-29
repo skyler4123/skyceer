@@ -3,10 +3,13 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ['template']
+  static values = {
+    klass: { type: String, default: 'w-full' }
+  }
   initialize() {
     this.initializeTarget()
     this.initializeHTML()
-    // this.initializeClass()
+    this.initializeClass()
 
     this.initializeCompleted()
   }
@@ -23,9 +26,13 @@ export default class extends Controller {
     morphdom(this.templateTarget, this.initHTML())
   }
 
+  initializeClass() {
+    this.element.className = this.klassValue
+  }
+  
   initHTML() {
     return `
-      <hr class="w-screen h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+      <hr class="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
     `
   }
   connect() {
