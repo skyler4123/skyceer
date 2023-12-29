@@ -1,4 +1,5 @@
 <%= tag.div(class: 'hidden ', data: { controller: "dropdown--click-component", dropdown__click_component_klass_value: @klass }) do %>
+
   <div data-dropdown--click-component-target="header">
     <% if header %>
       <%= header %>
@@ -7,12 +8,14 @@
     <% else %>
       <%= render(ButtonComponent.new(label: "Click Dropdown")) do |c| %>
         <% c.with_append do %>
-          <%= render(IconComponent.new(name: 'chevron-down', svg_class: "w-4 h-4 rotate-0 open:rotate-180")) %>
+          <%= render(IconComponent.new(name: 'chevron-down', klass: "rotate-0 open:rotate-180 duration-200 ease-in-out")) %>
         <% end %>
       <% end %>
     <% end %>
   </div>
+  
   <div data-dropdown--click-component-target="body" class="hidden">
     <%= body ? body : "Sample Content!" %>
   </div>
+  
 <% end %>

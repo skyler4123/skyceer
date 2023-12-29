@@ -1,1 +1,8 @@
-<%= render(Dropdown::ClickComponent.new) %>
+<%= render(Dropdown::ClickComponent.new) do |c| %>
+  <% c.with_body do %>
+    <div>Body 1</div>
+    <div>Body 2</div>
+    <div>Body 3</div>
+    <div>Body 4</div>
+  <% end %>
+<% end %>
