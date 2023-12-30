@@ -1,40 +1,68 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
+  static targets = ["content"]
   static values = {
-    position: { type: String, default: 'bottom_left' }
+    isOpen: { type: Boolean, default: false },
+    position: { type: String, default: 'bottom_left' },
+    klass: { type: String },
+    contentClass: { type: String, default: "opacity-0 open:opacity-100 duration-200 ease-in-out" }
   }
 
   initialize() {
+    this.initializeID()
     this.initializeParent()
     this.initializeClass()
   }
+  initializeID() {
+    this.element.id = `controller-${crypto.randomUUID()}`
+  }
   initializeClass() {
-    this.element.className = this.positionClass()[this.positionValue]
+    this.element.className = this.klassValue || this.positionClass()[this.positionValue]
+    this.contentTarget.className = this.contentClassValue
   }
+
   initializeParent() {
-    this.parentController().classList.add('relative')
     this.parentController().setAttribute('data-action', `click->${this.parentController().dataset.controller}#togglePopover`)
+    this.parentController().setAttribute(`data-${this.parentController().dataset.controller}-${this.identifier}-outlet`, `#${this.element.id}`)
   }
+
   parentController() {
-    return this.element.parentNode.closest('[data-controller]')
-  }
-  positionClass() {
-    return {
-      'bottom_left': 'justify-center items-center absolute z-10 -bottom-2 left-0 translate-y-full',
-      'bottom_center': 'justify-center items-center absolute z-10 -bottom-2 translate-y-full',
-      'bottom_right': 'justify-center items-center absolute z-10 -bottom-2 right-0 translate-y-full',
-      'top_right': 'justify-center items-center absolute z-10 -top-2 right-0 -translate-y-full',
-      'top_left': 'justify-center items-center absolute z-10 -top-2 left-0 -translate-y-full',
-      'top_center': 'justify-center items-center absolute z-10 -top-2 -translate-y-full',
-      'left_top': 'justify-center items-center absolute z-10 top-0 -left-2 -translate-x-full',
-      'left_bottom': 'justify-center items-center absolute z-10 bottom-0 -left-2 -translate-x-full',
-      'left_center': 'justify-center items-center absolute z-10 -left-2 -translate-x-full',
-      'right_top': 'justify-center items-center absolute z-10 top-0 -right-2 translate-x-full',
-      'right_bottom': 'justify-center items-center absolute z-10 bottom-0 -right-2 translate-x-full',
-      'right_center': 'justify-center items-center absolute z-10 -right-2 translate-x-full'
+    if (this.element.parentNode.dataset.controller === "button-component") {
+      return this.element.parentNode
     }
   }
+
+  positionClass() {
+    return {
+      'bottom_left': 'hidden justify-center items-center absolute z-10 -bottom-2 left-0 translate-y-full',
+      'bottom_center': 'hidden justify-center items-center absolute z-10 -bottom-2 translate-y-full',
+      'bottom_right': 'hidden justify-center items-center absolute z-10 -bottom-2 right-0 translate-y-full',
+      'top_right': 'hidden justify-center items-center absolute z-10 -top-2 right-0 -translate-y-full',
+      'top_left': 'hidden justify-center items-center absolute z-10 -top-2 left-0 -translate-y-full',
+      'top_center': 'hidden justify-center items-center absolute z-10 -top-2 -translate-y-full',
+      'left_top': 'hidden justify-center items-center absolute z-10 top-0 -left-2 -translate-x-full',
+      'left_bottom': 'hidden justify-center items-center absolute z-10 bottom-0 -left-2 -translate-x-full',
+      'left_center': 'hidden justify-center items-center absolute z-10 -left-2 -translate-x-full',
+      'right_top': 'hidden justify-center items-center absolute z-10 top-0 -right-2 translate-x-full',
+      'right_bottom': 'hidden justify-center items-center absolute z-10 bottom-0 -right-2 translate-x-full',
+      'right_center': 'hidden justify-center items-center absolute z-10 -right-2 translate-x-full'
+    }
+  }
+
+  isOpenValueChanged() {
+    if (this.isOpenValue) {
+      this.element.classList.remove('hidden')
+      this.element.classList.add('flex')
+      this.contentTarget.setAttribute('open', '')
+    } else {
+      this.element.classList.add('hidden')
+      this.element.classList.remove('flex')
+      this.contentTarget.removeAttribute('open')
+    }
+
+  }
+
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

@@ -1,10 +1,11 @@
-<%= tag.div(class: @klass, data: {controller: "popover--default-component", popover__default_component_position_value: @position}) do %>
-Add Tooltip::Default template here
-Add Tooltip::Default template here
-Add Tooltip::Default template here
-Add Tooltip::Default template here
-Add Tooltip::Default template here
-Add Tooltip::Default template here
-Add Tooltip::Default template here
-Add Tooltip::Default template here
+<%= tag.div(class: 'hidden', data: {controller: "popover--default-component", popover__default_component_klass_value: @klass, popover__default_component_position_value: @position}) do %>
+  
+  <div data-popover--default-component-target="content">
+    <% if content %>
+      <%= content %>
+    <% else %>
+      <div class="text-black">Popover Content</div>
+    <% end %>
+  </div>
+
 <% end %>
