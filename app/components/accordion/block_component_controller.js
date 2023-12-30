@@ -3,6 +3,8 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["header", "body", "grid", "icon"]
   static values = {
+    isOpen: { type: Boolean, default: false },
+    triggerEvent: { type: String, default: "click" },
     klass: { type: String },
     headerClass: { type: String, default: 'flex flex-row justify-between items-center' },
     labelClass: { type: String },
@@ -41,6 +43,21 @@ export default class extends Controller {
     this.bodyTarget.toggleAttribute('open')
     if (this.hasIconTarget) {
       this.iconTarget.toggleAttribute('open')
+    }
+  }
+  isOpenValueChanged() {
+    if (this.isOpenValue === true) {
+      this.headerTarget.setAttribute('open', '')
+      this.bodyTarget.setAttribute('open', '')
+      if (this.hasIconTarget) {
+        this.iconTarget.setAttribute('open', '')
+      } 
+    } else {
+      this.headerTarget.removeAttribute('open')
+      this.bodyTarget.removeAttribute('open')
+      if (this.hasIconTarget) {
+        this.iconTarget.removeAttribute('open')
+      }
     }
   }
   connect() {
