@@ -110,7 +110,19 @@
         <% end %>
       <% end %>
     <% end %>
-    
 
+    <%= render(Hr::TextComponent.new(label: "Popover::DefaultComponent")) %>
+    <%= render(ButtonComponent.new) do |c| %>
+      <% c.with_append do %>
+        <%= render(Popover::DefaultComponent.new(position: :right_center)) %>
+      <% end %>
+    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Modal::DefaultComponent")) %>
+    <%= render(ButtonComponent.new) do |c| %>
+      <% c.with_append do %>
+        <%= render(Modal::DefaultComponent.new) %>
+      <% end %>
+    <% end %>
   </div>
 </div>

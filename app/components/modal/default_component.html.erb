@@ -1,7 +1,7 @@
-<div data-controller="modal--default-component" class='<%= @klass %>'>
-  <div class="<%= @background_class %>">
+<%= tag.div(class: "hidden ", data: { controller: "modal--default-component", modal__default_component_klass_value: @klass, modal__default_component_background_class_value: @background_class, modal__default_component_content_class_value: @content_class }) do %>
+  <div data-modal--default-component-target="background">
   </div>
-  <div class="<%= @content_class %>">
+  <div data-modal--default-component-target="content">
     <%= content? ? content : "Modal Content here!" %>
   </div>
-</div>
+<% end %>

@@ -1,5 +1,5 @@
 <%= render(ButtonComponent.new) do |c| %>
   <% c.with_append do %>
-    <%= render(Popover::DefaultComponent.new(position: :right_center)) %>
+    <%= render(Modal::DefaultComponent.new) %>
   <% end %>
 <% end %>

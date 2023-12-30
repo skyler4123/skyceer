@@ -17,14 +17,15 @@ export default class extends Controller {
   initializeID() {
     this.element.id = `controller-${crypto.randomUUID()}`
   }
-  initializeClass() {
-    this.element.className = this.klassValue || this.positionClass()[this.positionValue]
-    this.contentTarget.className = this.contentClassValue
-  }
 
   initializeParent() {
     this.parentController().setAttribute('data-action', `click->${this.parentController().dataset.controller}#togglePopover`)
     this.parentController().setAttribute(`data-${this.parentController().dataset.controller}-${this.identifier}-outlet`, `#${this.element.id}`)
+  }
+
+  initializeClass() {
+    this.element.className = this.klassValue || this.positionClass()[this.positionValue]
+    this.contentTarget.className = this.contentClassValue
   }
 
   parentController() {

@@ -3,52 +3,64 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ['background', 'content']
   static values = {
-    klass: { type: String, default: 'fixed h-screen w-screen inset-0 z-10 flex-col items-center justify-center bg-transparent hidden' },
-    backgroundClass: { type: String, default: 'z-20 h-full w-full cursor-pointer' },
-    contentClass: { type: String, default: 'z-30 opacity-100 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' }
+    isOpen: { type: Boolean, default: false },
+    klass: { type: String, default: 'hidden fixed h-screen w-screen inset-0 z-10 flex-col items-center justify-center bg-transparent' },
+    backgroundClass: { type: String, default: 'bg-gray-200 opacity-50 z-20 h-full w-full cursor-pointer' },
+    contentClass: { type: String, default: 'text-black z-30 opacity-100 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' }
   }
 
   initialize() {
+    this.initializeID()
     this.initializeParent()
-    this.initializeTarget()
     this.initializeAction()
-    this.initializeKlass()
-    this.initializeBackgroundClass()
-    this.initializeContentClass()
+    this.initializeClass()
   }
+  initializeID() {
+    this.element.id = `controller-${crypto.randomUUID()}`
+  }
+
   initializeParent() {
     this.parentController().setAttribute('data-action', `click->${this.parentController().dataset.controller}#openModal`)
+    this.parentController().setAttribute(`data-${this.parentController().dataset.controller}-${this.identifier}-outlet`, `#${this.element.id}`)
   }
-  initializeTarget() {
-    this.element.firstElementChild.setAttribute(`data-${this.identifier}-target`, 'background')
-    this.element.lastElementChild.setAttribute(`data-${this.identifier}-target`, 'content')
+
+  parentController() {
+    if (this.element.parentNode.dataset.controller === "button-component") {
+      return this.element.parentNode
+    }
   }
+
   initializeAction() {
     this.backgroundTarget.setAttribute('data-action', `click->${this.identifier}#closeModal`)
   }
-  initializeKlass() {
-    this.klassValue.split(' ').forEach((klass) => {
-      this.element.classList.add(klass)
-    })
+
+  initializeClass() {
+    this.element.className = this.klassValue
+    this.backgroundTarget.className = this.backgroundClassValue
+    this.contentTarget.className = this.contentClassValue
   }
-  initializeBackgroundClass() {
-    this.backgroundClassValue.split(' ').forEach((klass) => {
-      this.backgroundTarget.classList.add(klass)
-    })
+  openModal() {
+    this.isOpenValue = true
   }
-  initializeContentClass() {
-    this.contentClassValue.split(' ').forEach((klass) => {
-      this.contentTarget.classList.add(klass)
-    })
-  }
-  parentController() {
-    return this.element.parentNode.closest('[data-controller]')
-  }
+
   closeModal() {
-    this.element.classList.add('hidden')
-    setTimeout(() => {
-    this.element.parentNode.closest('[data-controller]').setAttribute('data-action', `click->${this.parentController().dataset.controller}#openModal`)
-    }, 500)
+    this.isOpenValue = false
   }
+  isOpenValueChanged() {
+    if (this.isOpenValue) {
+      this.element.classList.remove('hidden')
+    } else {
+      this.element.classList.add('hidden')
+      setTimeout(() => {
+        this.parentController().setAttribute('data-action', `click->${this.parentController().dataset.controller}#openModal`)
+      }, 500)
+    }
+  }
+  // closeModal() {
+  //   this.element.classList.add('hidden')
+  //   setTimeout(() => {
+  //   this.element.parentNode.closest('[data-controller]').setAttribute('data-action', `click->${this.parentController().dataset.controller}#openModal`)
+  //   }, 500)
+  // }
 
 }
