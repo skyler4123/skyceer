@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["content"]
   static values = {
+    triggerEvent: { type: String, default: "click" },
     isOpen: { type: Boolean, default: false },
     position: { type: String, default: 'bottom_left' },
     klass: { type: String },
@@ -19,7 +20,12 @@ export default class extends Controller {
   }
 
   initializeParent() {
-    this.parentController().setAttribute('data-action', `click->${this.parentController().dataset.controller}#togglePopover`)
+    if (this.triggerEventValue === "click") {
+      this.parentController().setAttribute('data-action', `click->${this.parentController().dataset.controller}#togglePopover`)
+    }
+    if (this.triggerEventValue === "hover") {
+      this.parentController().setAttribute('data-action', `mouseover->${this.parentController().dataset.controller}#togglePopover mouseout->${this.parentController().dataset.controller}#togglePopover`)
+    }
     this.parentController().setAttribute(`data-${this.parentController().dataset.controller}-${this.identifier}-outlet`, `#${this.element.id}`)
   }
 

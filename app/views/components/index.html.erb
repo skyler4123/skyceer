@@ -117,6 +117,11 @@
         <%= render(Popover::DefaultComponent.new(position: :right_center)) %>
       <% end %>
     <% end %>
+    <%= render(ButtonComponent.new) do |c| %>
+      <% c.with_append do %>
+        <%= render(Popover::DefaultComponent.new(position: :left_bottom, trigger_event: :hover)) %>
+      <% end %>
+    <% end %>
 
     <%= render(Hr::TextComponent.new(label: "Modal::DefaultComponent")) %>
     <%= render(ButtonComponent.new) do |c| %>
@@ -124,5 +129,6 @@
         <%= render(Modal::DefaultComponent.new) %>
       <% end %>
     <% end %>
+
   </div>
 </div>

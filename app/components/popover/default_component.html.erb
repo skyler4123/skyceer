@@ -1,4 +1,11 @@
-<%= tag.div(class: 'hidden', data: {controller: "popover--default-component", popover__default_component_klass_value: @klass, popover__default_component_position_value: @position}) do %>
+<%= tag.div(
+  class: 'hidden',
+  data: {
+    controller: "popover--default-component",
+    popover__default_component_klass_value: @klass,
+    popover__default_component_position_value: @position,
+    popover__default_component_trigger_event_value: @trigger_event }) do 
+%>
   
   <div data-popover--default-component-target="content">
     <% if content %>
