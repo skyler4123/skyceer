@@ -1,0 +1,35 @@
+<%= tag.div(class: 'hidden ', data: {
+  controller: "accordion-component",
+  accordion_component_label_value: @label,
+  accordion_component_position_value: @position,
+  accordion_component_klass_value: @klass,
+  accordion_component_header_class_value: @header_class,
+  accordion_component_body_class_value: @body_class,
+  accordion_component_grid_class_value: @grid_class
+}) do %>
+  <div data-accordion-component-target="header">
+    <% if header %>
+      <%= header %>
+    <% elsif @label %>
+      <%= @label %>
+    <% else %>
+      <%= render(ButtonComponent.new(label: "Accordion Header")) do |c| %>
+        <% c.with_append do %>
+          <%= render(IconComponent.new(name: 'chevron-down', klass: "rotate-0 open:rotate-180 duration-200 ease-in-out")) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div data-accordion-component-target="body">
+    <div data-accordion-component-target="grid">
+      <% if content %>
+        <%= content %>
+      <% elsif body %>
+        <%= body %>
+      <% else %>
+        "Body Empty!"
+      <% end %>
+    </div>
+  </div>
+<% end %>
