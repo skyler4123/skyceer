@@ -6,9 +6,9 @@ export default class extends Controller {
     // this.initializeClass()
     // this.initializeAction()
 
-    this.initializeCompleted()
+    this.initializeComplete()
   }
-  initializeCompleted() {
+  initializeComplete() {
     this.element.classList.remove('hidden')
   }
   connect() {

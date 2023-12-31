@@ -18,7 +18,7 @@ export default class extends Controller {
   helperOutletConnected() {
     this.helperOutlet.initTargetValueHTML(this)
     this.initializeFunction()
-    this.helperOutlet.initializeCompleted(this)
+    this.helperOutlet.initializeComplete(this)
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   initializeFunction() {

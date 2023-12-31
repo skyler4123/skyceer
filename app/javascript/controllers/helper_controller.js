@@ -67,10 +67,10 @@ export default class extends Controller {
       morphdom(that.templateTarget, that.initHTML())
     }
   }
-  initCompleted(that) {
+  initComplete(that) {
     that.element.classList.remove('hidden')
   }
-  initializeCompleted(that) {
+  initializeComplete(that) {
     that.element.classList.remove('hidden')
   }
 }
@@ -92,6 +92,6 @@ export default class extends Controller {
 //     this.helperOutlet.initValue(this)
 //     this.helperOutlet.initHTML(this)
 //     this.initializeFunction()
-//     this.helperOutlet.initCompleted(this)
+//     this.helperOutlet.initComplete(this)
 //   }
 //   ///////////////////////////////////////////////Past//////////////////////////////////////////////////////

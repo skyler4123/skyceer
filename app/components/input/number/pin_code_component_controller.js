@@ -16,7 +16,7 @@ export default class extends Controller {
     this.helperOutlet.initValue(this)
     this.helperOutlet.initHTML(this)
     this.initializeFunction()
-    this.helperOutlet.initCompleted(this)
+    this.helperOutlet.initComplete(this)
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   static outlets = [...outletHelper]

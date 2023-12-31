@@ -12,33 +12,18 @@ export default class extends Controller {
   initialize() {
     this.initializeID()
     this.initializeClass()
-    this.initializeTarget()
-    this.initializeOutlet()
 
-    this.initializeCompleted()
+    this.initializeComplete()
   }
   initializeID() {
     this.element.id = `${this.identifier}-${crypto.randomUUID()}`
   }
-  initializeCompleted() {
+  initializeComplete() {
     this.element.classList.remove('hidden')
   }
 
   initializeClass() {
     this.element.className = this.element.className + this.defaultKlassValue + this.klassValue
-  }
-
-  initializeTarget() {
-    this.initializeButtonClose()
-  }
-
-  initializeButtonClose() {
-    const target = this.element.querySelector('[data-controller="button--close-component"]')
-    target.setAttribute(`data-${this.identifier}-target`, 'buttonClose')
-  }
-
-  initializeOutlet() {
-    this.buttonCloseTarget.setAttribute(`data-${this.buttonCloseTarget.dataset.controller}-${this.identifier}-outlet`, `#${this.element.id}`)
   }
 
   isOpenValueChanged() {

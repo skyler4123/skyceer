@@ -28,12 +28,12 @@ export default class extends Controller {
     this.initializeClass()
     this.initializeAction()
 
-    this.initializeCompleted()
+    this.initializeComplete()
   }
   initializeID() {
     this.element.id = `${this.identifier}-${crypto.randomUUID()}`
   }
-  initializeCompleted() {
+  initializeComplete() {
     this.element.classList.remove('hidden')
   }
   initializeTarget() {

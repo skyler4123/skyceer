@@ -10,13 +10,14 @@ export default class extends Controller {
     this.initializeID()
     this.initializeClass()
     this.initializeAction()
+    this.initializeOutlet()
     
-    this.initializeCompleted()
+    this.initializeComplete()
   }
   initializeID() {
     this.element.id = `${this.identifier}-${crypto.randomUUID()}`
   }
-  initializeCompleted() {
+  initializeComplete() {
     this.element.classList.remove('hidden')
   }
 
@@ -27,6 +28,12 @@ export default class extends Controller {
   initializeAction() {
     this.element.setAttribute('data-action', `click->${this.identifier}#close`)
   }
+
+  initializeOutlet() {
+    const boxComponentOutlet = this.element.parentNode.closest('[data-controller="box-component"]')
+    this.element.setAttribute(`data-${this.identifier}-${boxComponentOutlet.dataset.controller}-outlet`, `#${boxComponentOutlet.id}`)
+  }
+
   close() {
     this.boxComponentOutlet.isOpenValue = false
   }
