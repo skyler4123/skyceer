@@ -1,0 +1,9 @@
+<div data-controller="accordion--group-component" class="hidden ">
+  <% accordions.each_with_index do |accordion, index| %>
+    <%= accordion %>
+
+    <% if separator && (index + 1) != blocks.size %>
+      <%= separator %>
+    <% end %>
+  <% end %>
+</div>

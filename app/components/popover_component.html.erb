@@ -1,0 +1,18 @@
+<%= tag.div(
+  class: 'hidden',
+  data: {
+    controller: "popover-component",
+    popover_component_klass_value: @klass,
+    popover_component_position_value: @position,
+    popover_component_trigger_event_value: @trigger_event }) do 
+%>
+  
+  <div data-popover-component-target="content">
+    <% if content %>
+      <%= content %>
+    <% else %>
+      <div class="text-black">Popover Content</div>
+    <% end %>
+  </div>
+
+<% end %>

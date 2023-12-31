@@ -1,1 +1,5 @@
-<%= render(AccordionComponent.new) %>
+<%= render(ButtonComponent.new) do |c| %>
+  <% c.with_append do %>
+    <%= render(PopoverComponent.new(trigger_event: :hover)) %>
+  <% end %>
+<% end %>

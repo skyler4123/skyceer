@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["template", "button", "link"]
-  static outlets = ['popover--default-component', 'modal--default-component']
+  static outlets = ['popover-component', 'modal--default-component']
   static values = {
     label: { type: String, default: "Button" },
     url: { type: String },
@@ -62,11 +62,11 @@ export default class extends Controller {
 
   }
 
-  popoverDefaultComponentOutletConnected() {
+  popoverComponentOutletConnected() {
     this.element.classList.add('relative')
   }
   togglePopover() {
-    this.popoverDefaultComponentOutlet.isOpenValue = !this.popoverDefaultComponentOutlet.isOpenValue
+    this.popoverComponentOutlet.isOpenValue = !this.popoverComponentOutlet.isOpenValue
   }
 
   modalDefaultComponentOutletConnected() {
