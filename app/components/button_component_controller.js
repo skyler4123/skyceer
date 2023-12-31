@@ -7,9 +7,13 @@ export default class extends Controller {
   static values = {
     label: { type: String, default: "Button" },
     url: { type: String },
-    klass: { type: String, default: "flex justify-center items-center text-center cursor-pointer text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 active:bg-gradient-to-br font-medium rounded-lg text-sm px-2.5 py-2.5 gap-x-2" },
-    buttonClass: { type: String, default: "flex justify-center items-center" },
-    linkClass: { type: String, default: "flex justify-center items-center" }
+    klass: { type: String, default: " text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 active:bg-gradient-to-br font-medium rounded-lg text-sm px-2.5 py-2.5 gap-x-2" },
+    buttonClass: { type: String, default: " " },
+    linkClass: { type: String, default: " " },
+
+    defaultKlass: { type: String, default: " flex justify-center items-center text-center cursor-pointer" },
+    defaultButtonClass: { type: String, default: " flex justify-center items-center" },
+    defaultLinkClass: { type: String, default: " flex justify-center items-center" },
   }
 
   initialize() {
@@ -21,7 +25,7 @@ export default class extends Controller {
     this.initializeCompleted()
   }
   initializeID() {
-    this.element.id = `controller-${crypto.randomUUID()}`
+    this.element.id = `${this.identifier}-${crypto.randomUUID()}`
   }
   initializeCompleted() {
     this.element.classList.remove('hidden')
@@ -36,11 +40,15 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = this.klassValue
+    this.element.className = this.element.className + this.defaultKlassValue + this.klassValue
+    this.buttonTarget.className = this.buttonTarget.className + this.defaultButtonClassValue + this.buttonClassValue
+    if (this.hasLinkTarget) {
+      this.linkTarget.className = this.linkTarget.className + this.defaultLinkClassValue + this.linkClassValue
+    }
   }
 
   templateHTML() {
-    if (this.templateTarget.childElementCount === 0) {
+    if (this.templateTarget.content.childElementCount === 0) {
       return this.labelValue
     } else {
       return this.templateTarget.innerHTML

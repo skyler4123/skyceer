@@ -16,7 +16,7 @@ export default class extends Controller {
     this.initializeClass()
   }
   initializeID() {
-    this.element.id = `controller-${crypto.randomUUID()}`
+    this.element.id = `${this.identifier}-${crypto.randomUUID()}`
   }
 
   initializeParent() {

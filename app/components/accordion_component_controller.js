@@ -31,7 +31,7 @@ export default class extends Controller {
     this.initializeCompleted()
   }
   initializeID() {
-    this.element.id = `controller-${crypto.randomUUID()}`
+    this.element.id = `${this.identifier}-${crypto.randomUUID()}`
   }
   initializeCompleted() {
     this.element.classList.remove('hidden')

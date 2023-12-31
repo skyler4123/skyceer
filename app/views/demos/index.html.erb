@@ -1,11 +1,8 @@
-<%= render(Accordion::GroupComponent.new) do |c| %>
-  <% c.with_separator do %>
-    <%= render(Hr::DefaultComponent.new) %>
-  <% end %>
-  <% c.with_accordion do %>
-    <%= render(AccordionComponent.new) %>
-  <% end %>
-  <% c.with_accordion do %>
-    <%= render(AccordionComponent.new) %>
+<%= render(BoxComponent.new) do %>
+  <div>Demo Button::CloseComponent for this BoxComponent</div>
+  <%= render(ButtonComponent.new) do |c| %>
+    <% c.with_append do %>
+      <%= render(Button::CloseComponent.new) %>
+    <% end %>
   <% end %>
 <% end %>

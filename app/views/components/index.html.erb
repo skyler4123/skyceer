@@ -113,5 +113,14 @@
       <% end %>
     <% end %>
 
+    <%= render(Hr::TextComponent.new(label: "Button::CloseComponent")) %>
+    <%= render(BoxComponent.new) do %>
+      <div>Demo Button::CloseComponent for this BoxComponent</div>
+      <%= render(ButtonComponent.new) do |c| %>
+        <% c.with_append do %>
+          <%= render(Button::CloseComponent.new) %>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </div>
