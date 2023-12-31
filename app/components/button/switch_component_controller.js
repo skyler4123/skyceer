@@ -28,11 +28,14 @@ export default class extends Controller {
     })
   }
   initializeClass() {
-    if (isSwitchTargetComplete) {
+  }
+  showIndexValueChanged() {
+    setTimeout(() => {
       this.switchTargets.forEach((target) => {
-        target.className = target.className + " hidden"
+        target.classList.add('hidden')
       })
-    }
+      this.switchTargets[this.showIndexValue + 1].classList.remove('hidden')
+    }, 500)
   }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
