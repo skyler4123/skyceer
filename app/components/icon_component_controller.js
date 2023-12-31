@@ -4,7 +4,6 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ['template', 'svg']
   static values = {
-    isComplete: { type: Boolean, default: false },
     name: { type: String, default: "chevron-down" },
     type: { type: String, default: "outline" },
     klass: { type: String, default: "flex w-fit justify-center items-center transition-all duration-250 ease-in-out" },
@@ -21,7 +20,6 @@ export default class extends Controller {
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
-    this.isCompleteValue = true
   }
   initializeTarget() {
     this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
@@ -36,13 +34,6 @@ export default class extends Controller {
     if (this.typeValue === "animation") { return }
     this.element.className = this.klassValue
     this.svgTarget.classList = this.svgClassValue
-  }
-  isCompleteValueChanged() {
-    if (this.isCompleteValue) {
-      this.element.setAttribute('complete', '')
-    } else {
-      this.element.removeAttribute('complete')
-    }
   }
   initHTML() {
     return {
