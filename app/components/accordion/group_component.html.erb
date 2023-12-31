@@ -2,7 +2,7 @@
   <% accordions.each_with_index do |accordion, index| %>
     <%= accordion %>
 
-    <% if separator && (index + 1) != blocks.size %>
+    <% if separator && (index + 1) != accordions.size %>
       <%= separator %>
     <% end %>
   <% end %>
