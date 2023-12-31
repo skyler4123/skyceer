@@ -46,7 +46,13 @@
         <%= render(AccordionComponent.new) %>
       <% end %>
       <% c.with_accordion do %>
-        <%= render(AccordionComponent.new) %>
+        <%= render(AccordionComponent.new(position: :top)) %>
+      <% end %>
+      <% c.with_accordion do %>
+        <%= render(AccordionComponent.new(position: :right)) %>
+      <% end %>
+      <% c.with_accordion do %>
+        <%= render(AccordionComponent.new(position: :left)) %>
       <% end %>
     <% end %>
 
