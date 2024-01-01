@@ -32,7 +32,7 @@ export default class extends Controller {
   
   initHTML() {
     return `
-      <hr class="w-full h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+      <hr class="w-full h-0.5 my-8 bg-gray-200 border-0 dark:bg-gray-700">
     `
   }
   connect() {
