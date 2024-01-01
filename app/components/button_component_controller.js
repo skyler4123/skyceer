@@ -2,7 +2,7 @@ import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template", "button", "link", "modal", "popover"]
+  static targets = ["template", "button", "link", "modal", "popover", "toast"]
   static values = {
     label: { type: String, default: "Button" },
     url: { type: String },
@@ -20,6 +20,7 @@ export default class extends Controller {
     this.initializeTarget()
     this.initializeHTML()
     this.initializeClass()
+    this.initializeAction()
 
     this.initializeComplete()
   }
@@ -34,6 +35,7 @@ export default class extends Controller {
     this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
     this.element.querySelector('[data-controller="modal-component"]')?.setAttribute(`data-${this.identifier}-target`, 'modal')
     this.element.querySelector('[data-controller="popover-component"]')?.setAttribute(`data-${this.identifier}-target`, 'popover')
+    this.element.querySelector('[data-controller="toast-component"]')?.setAttribute(`data-${this.identifier}-target`, 'toast')
   }
 
   initializeHTML() {
@@ -45,6 +47,12 @@ export default class extends Controller {
     this.buttonTarget.className = this.buttonTarget.className + this.buttonClassDefaultValue + this.buttonClassValue
     if (this.hasLinkTarget) {
       this.linkTarget.className = this.linkTarget.className + this.linkClassDefaultValue + this.linkClassValue
+    }
+  }
+
+  initializeAction() {
+    if (this.hasToastTarget) {
+      this.element.dataset.action = this.element.dataset.action + ` click->${this.identifier}#openToast`
     }
   }
 
@@ -80,6 +88,11 @@ export default class extends Controller {
   togglePopover() {
     const popoverController = this.application.getControllerForElementAndIdentifier(this.popoverTarget, 'popover-component')
     popoverController.isOpenValue = !popoverController.isOpenValue
+  }
+
+  openToast() {
+    const toastController = this.application.getControllerForElementAndIdentifier(this.toastTarget, 'toast-component')
+    toastController.isOpenValue = true
   }
 
   openDrawer() {

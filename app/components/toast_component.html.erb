@@ -1,0 +1,13 @@
+<%= tag.div(class: ' hidden', data: {
+  controller: "toast-component",
+  toast_component_klass_value: @klass,
+  toast_component_klass_default_value: @klass_default,
+  toast_component_content_class_value: @content_class,
+  toast_component_content_class_default_value: @content_class_default
+}) do %>
+
+  <div data-toast-component-target="content">
+    <%= content ? content : "Toast with empty content!" %>
+  </div>
+  
+<% end %>
