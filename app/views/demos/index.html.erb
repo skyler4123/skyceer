@@ -1,7 +1,17 @@
-    <%= render(Button::SwitchComponent.new) do %>
-      <%= render(IconComponent.new(name: "link")) %>
-      <%= render(IconComponent.new(name: "check-circle", svg_class: "w-5 h-6 text-green-500")) %>
-      <%= render(IconComponent.new(name: "spinner", type: :animation)) %>
-      <%= render(IconComponent.new(name: "star", svg_class: "w-5 h-6 text-sky-800")) %>
-      <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
-    <% end %>
+<%= render(SwitchComponent.new) do |c| %>
+  <% c.with_switch do %>
+    <%= render(IconComponent.new(name: "link")) %>
+  <% end %>
+  <% c.with_switch do %>
+    <%= render(IconComponent.new(name: "check-circle", svg_class: "w-5 h-6 text-green-500")) %>
+  <% end %>
+  <% c.with_switch do %>
+    <%= render(IconComponent.new(name: "spinner", type: :animation)) %>
+  <% end %>
+  <% c.with_switch do %>
+    <%= render(IconComponent.new(name: "star", svg_class: "w-5 h-6 text-sky-800")) %>
+  <% end %>
+  <% c.with_switch do %>
+    <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
+  <% end %>
+<% end %>

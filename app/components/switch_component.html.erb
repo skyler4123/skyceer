@@ -1,0 +1,13 @@
+<%= tag.div(class: 'hidden ', data: {
+  controller: "switch-component",
+  switch_component_klass_value: @klass,
+  switch_component_default_klass_value: @default_klass,
+  switch_component_switch_class_value: @default_klass,
+  switch_component_default_switch_class_value: @default_switch_class
+}) do %>
+  <% switches.each do |switch| %>
+    <div data-switch-component-target="switch">
+      <%= switch %>  
+    </div>
+  <% end %>
+<% end %>
