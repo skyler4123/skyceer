@@ -25,12 +25,11 @@ export default class extends Controller {
 
   initializeParent() {
     if (this.triggerEventValue === "click") {
-      this.parentController().setAttribute('data-action', `click->${this.parentController().dataset.controller}#togglePopover`)
+      this.parentTarget().setAttribute('data-action', `click->${this.parentTarget().dataset.controller}#togglePopover`)
     }
     if (this.triggerEventValue === "hover") {
-      this.parentController().setAttribute('data-action', `mouseover->${this.parentController().dataset.controller}#togglePopover mouseout->${this.parentController().dataset.controller}#togglePopover`)
+      this.parentTarget().setAttribute('data-action', `mouseover->${this.parentTarget().dataset.controller}#togglePopover mouseout->${this.parentTarget().dataset.controller}#togglePopover`)
     }
-    this.parentController().setAttribute(`data-${this.parentController().dataset.controller}-${this.identifier}-outlet`, `#${this.element.id}`)
   }
 
   initializeClass() {
@@ -40,7 +39,7 @@ export default class extends Controller {
     this.contentTarget.className = this.contentTarget.className + this.defaultContentClassValue + this.contentClassValue
   }
 
-  parentController() {
+  parentTarget() {
     if (this.element.parentNode.dataset.controller === "button-component") {
       return this.element.parentNode
     }

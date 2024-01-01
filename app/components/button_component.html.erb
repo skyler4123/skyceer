@@ -1,6 +1,6 @@
 <%= tag.div(class: 'hidden ', data: { controller: "button-component", button_component_label_value: @label, button_component_klass_value: @klass, button_component_url_value: @url, button_component_button_class_value: @button_class, button_component_link_class_value: @link_class}) do %>
   
-  <% if prepends && !content %>
+  <% if prepends %>
     <% prepends.each do |prepend| %>
       <%= prepend %>
     <% end %>
@@ -16,7 +16,7 @@
     <% end %>
   </template>
 
-  <% if appends && !content %>
+  <% if appends %>
     <% appends.each do |append| %>
       <%= append %>
     <% end %>

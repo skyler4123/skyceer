@@ -1,5 +1,5 @@
-<%= render(ButtonComponent.new) do |c| %>
-  <% c.with_append do %>
-    <%= render(ModalComponent.new) %>
-  <% end %>
-<% end %>
+    <%= render(ButtonComponent.new) do |c| %>
+      <% c.with_append do %>
+        <%= render(PopoverComponent.new(position: :left_bottom, trigger_event: :click)) %>
+      <% end %>
+    <% end %>

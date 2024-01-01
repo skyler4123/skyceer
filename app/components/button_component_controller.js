@@ -2,8 +2,7 @@ import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template", "button", "link", "modal"]
-  // static outlets = ['popover-component', 'modal-component']
+  static targets = ["template", "button", "link", "modal", "popover"]
   static values = {
     label: { type: String, default: "Button" },
     url: { type: String },
@@ -11,7 +10,7 @@ export default class extends Controller {
     buttonClass: { type: String, default: " " },
     linkClass: { type: String, default: " " },
 
-    klassDefault: { type: String, default: " flex justify-center items-center text-center cursor-pointer" },
+    klassDefault: { type: String, default: " flex justify-center items-center text-center cursor-pointer relative" },
     buttonClassDefault: { type: String, default: " flex justify-center items-center" },
     linkClassDefault: { type: String, default: " flex justify-center items-center" },
   }
@@ -34,6 +33,7 @@ export default class extends Controller {
   initializeTarget() {
     this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
     this.element.querySelector('[data-controller="modal-component"]')?.setAttribute(`data-${this.identifier}-target`, 'modal')
+    this.element.querySelector('[data-controller="popover-component"]')?.setAttribute(`data-${this.identifier}-target`, 'popover')
   }
 
   initializeHTML() {
@@ -75,6 +75,11 @@ export default class extends Controller {
     const modalController = this.application.getControllerForElementAndIdentifier(this.modalTarget, 'modal-component')
     modalController.isOpenValue = true
     this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openModal`, "")
+  }
+
+  togglePopover() {
+    const popoverController = this.application.getControllerForElementAndIdentifier(this.popoverTarget, 'popover-component')
+    popoverController.isOpenValue = !popoverController.isOpenValue
   }
 
   openDrawer() {
