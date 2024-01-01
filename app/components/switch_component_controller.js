@@ -8,8 +8,8 @@ export default class extends Controller {
     klass: { type: String, default: " " },
     switchClass: { type: String, default: " " },
 
-    defaultKlass: { type: String, default: " " },
-    defaultSwitchClass: { type: String, default: " cursor-pointer" },
+    klassDefault: { type: String, default: " " },
+    switchClassDefault: { type: String, default: " cursor-pointer" },
 
   }
   initialize() {
@@ -27,7 +27,6 @@ export default class extends Controller {
   }
 
   initializeTarget() {
-    console.log(this.switchTargets)
     this.switchTargets.forEach((target, index) => {
       target.setAttribute(`data-${this.identifier}-show-index-param`, (index + 1) % this.switchTargets.length)
       target.setAttribute('data-action', `click->${this.identifier}#switch`)
@@ -35,9 +34,9 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = this.element.className + this.defaultKlassValue + this.klassValue
+    this.element.className = this.element.className + this.klassDefaultValue + this.klassValue
     this.switchTargets.forEach((target) => {
-      target.className = target.className + this.defaultSwitchClassValue + this.switchClassValue
+      target.className = target.className + this.switchClassDefaultValue + this.switchClassValue
     })
   }
 

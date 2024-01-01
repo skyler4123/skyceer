@@ -56,11 +56,5 @@ export default class extends Controller {
       }, 500)
     }
   }
-  // closeModal() {
-  //   this.element.classList.add('hidden')
-  //   setTimeout(() => {
-  //   this.element.parentNode.closest('[data-controller]').setAttribute('data-action', `click->${this.parentController().dataset.controller}#openModal`)
-  //   }, 500)
-  // }
 
 }

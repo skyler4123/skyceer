@@ -2,8 +2,8 @@ import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template", "button", "link"]
-  static outlets = ['popover-component', 'modal--default-component']
+  static targets = ["template", "button", "link", "modal"]
+  // static outlets = ['popover-component', 'modal-component']
   static values = {
     label: { type: String, default: "Button" },
     url: { type: String },
@@ -11,9 +11,9 @@ export default class extends Controller {
     buttonClass: { type: String, default: " " },
     linkClass: { type: String, default: " " },
 
-    defaultKlass: { type: String, default: " flex justify-center items-center text-center cursor-pointer" },
-    defaultButtonClass: { type: String, default: " flex justify-center items-center" },
-    defaultLinkClass: { type: String, default: " flex justify-center items-center" },
+    klassDefault: { type: String, default: " flex justify-center items-center text-center cursor-pointer" },
+    buttonClassDefault: { type: String, default: " flex justify-center items-center" },
+    linkClassDefault: { type: String, default: " flex justify-center items-center" },
   }
 
   initialize() {
@@ -33,6 +33,7 @@ export default class extends Controller {
 
   initializeTarget() {
     this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
+    this.element.querySelector('[data-controller="modal-component"]')?.setAttribute(`data-${this.identifier}-target`, 'modal')
   }
 
   initializeHTML() {
@@ -40,10 +41,10 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = this.element.className + this.defaultKlassValue + this.klassValue
-    this.buttonTarget.className = this.buttonTarget.className + this.defaultButtonClassValue + this.buttonClassValue
+    this.element.className = this.element.className + this.klassDefaultValue + this.klassValue
+    this.buttonTarget.className = this.buttonTarget.className + this.buttonClassDefaultValue + this.buttonClassValue
     if (this.hasLinkTarget) {
-      this.linkTarget.className = this.linkTarget.className + this.defaultLinkClassValue + this.linkClassValue
+      this.linkTarget.className = this.linkTarget.className + this.linkClassDefaultValue + this.linkClassValue
     }
   }
 
@@ -70,18 +71,9 @@ export default class extends Controller {
 
   }
 
-  popoverComponentOutletConnected() {
-    this.element.classList.add('relative')
-  }
-  togglePopover() {
-    this.popoverComponentOutlet.isOpenValue = !this.popoverComponentOutlet.isOpenValue
-  }
-
-  modalDefaultComponentOutletConnected() {
-    this.element.classList.add('relative')
-  }
   openModal() {
-    this.modalDefaultComponentOutlet.isOpenValue = true
+    const modalController = this.application.getControllerForElementAndIdentifier(this.modalTarget, 'modal-component')
+    modalController.isOpenValue = true
     this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openModal`, "")
   }
 
