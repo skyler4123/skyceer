@@ -40,6 +40,10 @@ export default class extends Controller {
     this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
   }
 
+  close() {
+    this.isOpenValue = false
+  }
+
   isOpenValueChanged() {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')

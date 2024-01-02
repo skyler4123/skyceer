@@ -2,11 +2,11 @@
   <% c.with_append do %>
     <%= render(ToastComponent.new) do %>
       <%= render(BoxComponent.new) do %>
-        <%= render(Button::CloseComponent.new) %>
+        <%= render(CloseComponent.new) %>
         <div>Demo Button::CloseComponent for this BoxComponent</div>
         <%= render(ButtonComponent.new) do |c| %>
           <% c.with_append do %>
-            <%= render(Button::CloseComponent.new) %>
+            <%= render(CloseComponent.new) %>
           <% end %>
         <% end %>
       <% end %>

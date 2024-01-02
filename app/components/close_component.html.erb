@@ -1,1 +1,5 @@
-<div data-controller="close-component">Add Close template here</div>
+<div data-controller="close-component" class="hidden ">
+  <%= render(ButtonComponent.new(klass: "")) do %>
+    <%= render(IconComponent.new(name: "x-mark", svg_class: 'w-5 h-5 opacity-100 stroke-1 hover:stroke-2')) %>
+  <% end %>
+</div>

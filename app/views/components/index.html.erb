@@ -141,5 +141,22 @@
         <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
       <% end %>
     <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "ToastComponent")) %>
+    <%= render ButtonComponent.new do |c| %>
+      <% c.with_append do %>
+        <%= render(ToastComponent.new) do %>
+          <%= render(BoxComponent.new) do %>
+            <%= render(CloseComponent.new) %>
+            <div>Demo Button::CloseComponent for this BoxComponent</div>
+            <%= render(ButtonComponent.new) do |c| %>
+              <% c.with_append do %>
+                <%= render(CloseComponent.new) %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </div>

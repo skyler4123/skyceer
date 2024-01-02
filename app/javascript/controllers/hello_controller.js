@@ -2,14 +2,12 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = {
-    name: { type: String, default: "Skyler" }
+    name: { type: String }
   }
   connect() {
-    // this.element.textContent = "Hello World!"
-    // console.log(this.nameValue)
-    // this.nameValue = "Ban Mai"
+    console.log(this)
   }
   hover() {
-    console.log(this.nameValue)
+    // console.log(this.nameValue)
   }
 }
