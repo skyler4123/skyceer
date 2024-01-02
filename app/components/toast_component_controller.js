@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["content"]
   static values = {
     isOpen: { type: Boolean, default: false },
-    position: { type: String, default: "left_center" },
+    position: { type: String, default: "left" },
     klass: { type: String },
     contentClass: { type: String },
     klassDefault: { type: String },
@@ -25,38 +25,14 @@ export default class extends Controller {
   }
 
   initializeDefaultClass() {
+
     if (this.positionValue === "left") {
-      this.klassValue = this.klassValue || " "
-      this.contentClassValue = this.contentClassValue || " "
-      this.klassDefaultValue = this.klassDefaultValue || " w-1/3 h-full bg-green-500 fixed top-0 left-0 z-20 open:translate-x-0 -translate-x-full duration-200 ease-in-out"
-      this.contentClassDefaultValue = this.contentClassDefaultValue || " "
-    }
-    if (this.positionValue === "left_top") {
-      this.klassDefaultValue = this.klassDefaultValue || " w-1/3 h-1/3 bg-green-500 fixed top-0 left-0 z-20 open:translate-x-0 -translate-x-full duration-200 ease-in-out"
-      this.contentClassDefaultValue = this.contentClassDefaultValue || " "
-    }
-    if (this.positionValue === "left_center") {
-      this.klassValue = this.klassValue || " w-1/3 h-1/3 bg-green-500 open:translate-x-0"
+      this.klassValue = this.klassValue || " w-1/3 h-5/6 bg-gray-200 rounded-lg text-black shadow-lg shadow-gray-500/50 open:translate-x-0 open:left-2 p-4"
       this.contentClassValue = this.contentClassValue || " "
       this.klassDefaultValue = this.klassDefaultValue || " fixed top-1/2 left-0 z-20 -translate-x-full -translate-y-1/2 duration-200 ease-in-out"
-      this.contentClassDefaultValue = this.contentClassDefaultValue || " "
+      this.contentClassDefaultValue = this.contentClassDefaultValue || " w-full h-full flex justify-center items-center"
     }
-    if (this.positionValue === "left_bottom") {
-      this.klassDefaultValue = this.klassDefaultValue || " w-1/3 h-1/3 bg-green-500 fixed bottom-0 left-0 z-20 open:translate-x-0 -translate-x-full duration-200 ease-in-out"
-      this.contentClassDefaultValue = this.contentClassDefaultValue || " "
-    }
-    if (this.positionValue === "right") {
-      this.klassDefaultValue = this.klassDefaultValue || " w-1/3 h-full bg-green-500 fixed top-0 right-0 z-20 open:-translate-x-0 translate-x-full duration-200 ease-in-out"
-      this.contentClassDefaultValue = this.contentClassDefaultValue || " "
-    }
-    if (this.positionValue === "top") {
-      this.klassDefaultValue = this.klassDefaultValue || " h-1/3 w-full bg-green-500 fixed top-0 z-20 open:translate-y-0 -translate-y-full duration-200 ease-in-out"
-      this.contentClassDefaultValue = this.contentClassDefaultValue || " "
-    }
-    if (this.positionValue === "bottom") {
-      this.klassDefaultValue = this.klassDefaultValue || " h-1/3 w-full bg-green-500 fixed bottom-0 z-20 open:-translate-y-0 translate-y-full duration-200 ease-in-out"
-      this.contentClassDefaultValue = this.contentClassDefaultValue || " "
-    }
+
   }
 
   initializeClass() {
