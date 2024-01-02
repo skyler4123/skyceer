@@ -12,7 +12,7 @@ export default class extends Controller {
     this.initializeID()
     this.initializeClass()
     this.initializeAction()
-    // this.initializeCloseTarget()
+    this.initializeCloseTarget()
     
     this.initializeComplete()
   }
@@ -32,13 +32,13 @@ export default class extends Controller {
   }
 
   initializeCloseTarget() {
-    if (this.hasTargetIdValue) {
-      console.log(this)
-      const closableTarget = document.querySelector(`#${this.targetIdValue}`)
-    } else if (this.hasTargetControllerNameValue) {
-      const closableTarget = this.element.parentNode.closest(`[data-controller="${this.targetControllerNameValue}"]`)
+    let closableTarget
+    if (this.targetIdValue != "") {
+      closableTarget = document.querySelector(`#${this.targetIdValue}`)
+    } else if (this.targetControllerNameValue != "") {
+      closableTarget = this.element.parentNode.closest(`[data-controller="${this.targetControllerNameValue}"]`)
     } else {
-      const closableTarget = this.element.parentNode.closest('[data-controller]')
+      closableTarget = this.element.parentNode.closest('[data-controller]')
     }
     closableTarget.setAttribute('data-action', `${this.identifier}:close->${closableTarget.dataset.controller}#close`)
   }

@@ -1,5 +1,10 @@
-<div data-controller="close-component" class="hidden ">
+<%= tag.div(class: ' hidden', data: {
+  controller: "close-component",
+  close_component_klass_value: @klass,
+  close_component_target_id_value: @target_id,
+  close_component_target_controller_name_value: @target_controller_name,
+}) do %>
   <%= render(ButtonComponent.new(klass: "")) do %>
     <%= render(IconComponent.new(name: "x-mark", svg_class: 'w-5 h-5 opacity-100 stroke-1 hover:stroke-2')) %>
   <% end %>
-</div>
+<% end %>

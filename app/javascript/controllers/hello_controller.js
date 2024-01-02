@@ -5,7 +5,7 @@ export default class extends Controller {
     name: { type: String }
   }
   connect() {
-    console.log(this)
+    // console.log(this)
   }
   hover() {
     // console.log(this.nameValue)
