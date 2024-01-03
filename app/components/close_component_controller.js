@@ -13,7 +13,7 @@ export default class extends Controller {
     this.initializeClass()
     this.initializeAction()
     this.initializeCloseTarget()
-    
+
     this.initializeComplete()
   }
   initializeID() {
@@ -32,23 +32,26 @@ export default class extends Controller {
   }
 
   initializeCloseTarget() {
-    let closableTarget
+    this.closeTarget().setAttribute('data-action', `${this.identifier}:close->${this.closeTarget().dataset.controller}#close`)
+  }
+
+  closeTarget() {
+    let closeTarget
     if (this.targetIdValue != "") {
-      closableTarget = document.querySelector(`#${this.targetIdValue}`)
+      closeTarget = document.querySelector(`#${this.targetIdValue}`)
     } else if (this.targetControllerNameValue != "") {
-      closableTarget = this.element.parentNode.closest(`[data-controller="${this.targetControllerNameValue}"]`)
+      closeTarget = this.element.parentNode.closest(`[data-controller="${this.targetControllerNameValue}"]`)
     } else {
-      closableTarget = this.element.parentNode.closest('[data-controller]')
+      closeTarget = this.element.parentNode.closest('[data-controller]')
     }
-    closableTarget.setAttribute('data-action', `${this.identifier}:close->${closableTarget.dataset.controller}#close`)
+    return closeTarget
   }
 
   close() {
-    this.dispatch('close')
+    console.log(this.closeTarget())
+    this.dispatch('close', { detail: { closeTargetId: `${this.closeTarget().id}` } })
   }
-  closeTarget() {
-    return this.element.parentNode.closest('[data-controller="box-component"]')
-  }
+
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

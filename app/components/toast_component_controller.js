@@ -40,7 +40,8 @@ export default class extends Controller {
     this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
   }
 
-  close() {
+  close({ detail: { content } }) {
+    console.log(content)
     this.isOpenValue = false
   }
 
