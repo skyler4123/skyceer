@@ -1,7 +1,0 @@
-<div data-controller="avatar--circle-component" class="<%= @klass %>">
-  <% if @src %>
-    <img class="<%= @img_class %>" src="<%= @src %>" alt="Rounded avatar">
-  <% else %>
-    <%= render(IconComponent.new(name: 'user', svg_class: "w-10 h-10")) %>
-  <% end %>
-</div>
