@@ -12,7 +12,6 @@ export default class extends Controller {
     this.initializeID()
     this.initializeClass()
     this.initializeAction()
-    this.initializeCloseTarget()
 
     this.initializeComplete()
   }
@@ -31,10 +30,6 @@ export default class extends Controller {
     this.element.setAttribute('data-action', `click->${this.identifier}#close`)
   }
 
-  initializeCloseTarget() {
-    this.closeTarget().setAttribute('data-action', `${this.identifier}:close->${this.closeTarget().dataset.controller}#close`)
-  }
-
   closeTarget() {
     let closeTarget
     if (this.targetIdValue != "") {
@@ -48,8 +43,7 @@ export default class extends Controller {
   }
 
   close() {
-    console.log(this.closeTarget())
-    this.dispatch('close', { detail: { closeTargetId: `${this.closeTarget().id}` } })
+    this.dispatch('close', { detail: { id: `${this.closeTarget().id}` } })
   }
 
   connect() {
