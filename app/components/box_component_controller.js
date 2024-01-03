@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["buttonClose"]
   static values = {
     isOpen: { type: Boolean, default: true },
-
+    closable: { type: Boolean, default: true },
     klass: { type: String, default: " " },
     defaultKlass: { type: String, default: " " },
   }
@@ -24,6 +24,18 @@ export default class extends Controller {
 
   initializeClass() {
     this.element.className = this.element.className + this.defaultKlassValue + this.klassValue
+  }
+
+  initializeAction() {
+    if (this.closableValue) {
+      this.element.dataset.action = this.element.dataset.action + ` close-component:close->${this.identifier}#close`
+    }
+  }
+
+  close({ detail: { id } }) {
+    if (this.element.id === id) {
+      this.isOpenValue = false
+    }
   }
 
   isOpenValueChanged() {
