@@ -42,7 +42,13 @@ export default class extends Controller {
 
   initializeAction() {
     if (this.closableValue) {
-      this.element.dataset.action = this.element.dataset.action + ` close-component:close->${this.identifier}#close`
+      this.element.dataset.action = ` open-component:open@window->${this.identifier}#open close-component:close@window->${this.identifier}#close`
+    }
+  }
+
+  open({ detail: { id } }) {
+    if (this.element.id === id) {
+      this.isOpenValue = true
     }
   }
 
