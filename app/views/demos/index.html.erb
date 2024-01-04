@@ -1,15 +1,5 @@
-<%= render ButtonComponent.new do |c| %>
-  <% c.with_append do %>
-    <%= render(ToastComponent.new) do %>
-      <%= render(BoxComponent.new) do %>
-        <% render(CloseComponent.new) %>
-        <div>Demo Button::CloseComponent for this BoxComponent</div>
-        <%= render(ButtonComponent.new) do |c| %>
-          <% c.with_append do %>
-            <%= render(CloseComponent.new(target_controller_name: 'toast-component')) %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
+<%= render(ListComponent.new) do %>
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
 <% end %>

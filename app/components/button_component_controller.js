@@ -81,7 +81,6 @@ export default class extends Controller {
         ${this.urlValue ? '</a>' : ''}
       </button>
     `
-
   }
 
   openModal() {
