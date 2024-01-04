@@ -96,8 +96,6 @@ export default class extends Controller {
   }
 
   openToast() {
-    // const toastController = this.application.getControllerForElementAndIdentifier(this.toastTarget, 'toast-component')
-    // toastController.isOpenValue = true
     this.dispatch('open', { detail: { id: this.toastTarget.id } })
   }
 
