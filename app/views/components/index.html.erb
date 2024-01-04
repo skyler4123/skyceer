@@ -75,25 +75,6 @@
     <%= render(Hr::TextComponent.new(label: "Table::DemoComponent")) %>
     <%= render(Table::DemoComponent.new) %>
 
-    <%= render(Hr::TextComponent.new(label: "Dropdown::DefaultComponent")) %>
-    <%= render(Dropdown::DefaultComponent.new) do |c| %>
-      <% c.with_body do %>
-        <div>Body 1</div>
-        <div>Body 2</div>
-        <div>Body 3</div>
-        <div>Body 4</div>
-      <% end %>
-    <% end %>
-    <%= render(Hr::TextComponent.new(label: "Dropdown::DefaultComponent.new(trigger_event: :click)")) %>
-    <%= render(Dropdown::DefaultComponent.new(trigger_event: :click)) do |c| %>
-      <% c.with_body do %>
-        <div>Body 1</div>
-        <div>Body 2</div>
-        <div>Body 3</div>
-        <div>Body 4</div>
-      <% end %>
-    <% end %>
-
     <%= render(Hr::TextComponent.new(label: "Popover::DefaultComponent")) %>
     <%= render(ButtonComponent.new) do |c| %>
       <% c.with_append do %>
@@ -115,10 +96,10 @@
 
     <%= render(Hr::TextComponent.new(label: "Button::CloseComponent")) %>
     <%= render(BoxComponent.new) do %>
-      <div>Demo Button::CloseComponent for this BoxComponent</div>
+      <div>CloseComponent for this BoxComponent</div>
       <%= render(ButtonComponent.new) do |c| %>
         <% c.with_append do %>
-          <%= render(Button::CloseComponent.new) %>
+          <%= render(CloseComponent.new) %>
         <% end %>
       <% end %>
     <% end %>
