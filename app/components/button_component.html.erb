@@ -11,8 +11,7 @@
   button_component_button_class_default_value: @button_class_default,
   button_component_link_class_default_value: @link_class_default,
   }) do %>
-  <%= tag.div(class: @content_class, data: { button_component_target: "content" }) do %>
-
+  <%= tag.div(class: @content_class, data: { button_component_target: "visable" }) do %>
     <% if prepends %>
       <% prepends.each do |prepend| %>
         <%= prepend %>
@@ -34,6 +33,13 @@
         <%= append %>
       <% end %>
     <% end %>
+  <% end %>
 
+  <%= tag.div(data: { button_component_target: "hidden" }) do %>
+    <% if hiddens %>
+      <% hiddens.each do |hidden| %>
+        <%= hidden %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

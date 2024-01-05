@@ -16,27 +16,19 @@ export default class extends Controller {
 
   initialize() {
     this.initializeID()
-    this.initializeParent()
     this.initializeAction()
     this.initializeClass()
+    console.log(this)
   }
   initializeID() {
-    this.element.id = `${this.identifier}-${crypto.randomUUID()}`
-  }
-
-  initializeParent() {
-    this.parentTarget().setAttribute('data-action', `click->${this.parentTarget().dataset.controller}#openModal`)
-    this.parentTarget().setAttribute(`data-${this.parentTarget().dataset.controller}-${this.identifier}-outlet`, `#${this.element.id}`)
-  }
-
-  parentTarget() {
-    if (this.element.parentNode.dataset.controller === "button-component") {
-      return this.element.parentNode
+    if (!this.element.id) {
+      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
     }
   }
 
   initializeAction() {
-    this.backgroundTarget.setAttribute('data-action', `click->${this.identifier}#closeModal`)
+    this.element.dataset.action = ` open-component:open@window->${this.identifier}#open close-component:close@window->${this.identifier}#close`
+    this.backgroundTarget.dataset.action = this.backgroundTarget.dataset.action + ` click->${this.identifier}#closeSelf`
   }
 
   initializeClass() {
@@ -44,21 +36,28 @@ export default class extends Controller {
     this.backgroundTarget.className = this.backgroundTarget.className  + this.backgroundClassDefaultValue + this.backgroundClassValue
     this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
   }
-  openModal() {
-    this.isOpenValue = true
+
+  open({ detail: { id } }) {
+    if (this.element.id === id) {
+      this.isOpenValue = true
+    }
   }
 
-  closeModal() {
-    this.isOpenValue = false
+  close({ detail: { id } }) {
+    if (this.element.id === id) {
+      this.isOpenValue = false
+    }
   }
+
+  closeSelf() {
+    this.dispatch('close', { detail: { id: this.modalTarget.id } })
+  }
+
   isOpenValueChanged() {
     if (this.isOpenValue) {
       this.element.classList.remove('hidden')
     } else {
       this.element.classList.add('hidden')
-      setTimeout(() => {
-        this.parentTarget().setAttribute('data-action', `click->${this.parentTarget().dataset.controller}#openModal`)
-      }, 250)
     }
   }
 

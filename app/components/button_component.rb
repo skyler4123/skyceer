@@ -4,6 +4,7 @@ class ButtonComponent < ViewComponent::Base
   renders_many :prepends
   renders_many :appends
   renders_one :body
+  renders_many :hiddens
   
   def initialize(
       label: nil,

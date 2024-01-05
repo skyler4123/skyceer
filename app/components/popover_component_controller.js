@@ -20,7 +20,9 @@ export default class extends Controller {
     this.initializeClass()
   }
   initializeID() {
-    this.element.id = `${this.identifier}-${crypto.randomUUID()}`
+    if (!this.element.id) {
+      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
+    }
   }
 
   initializeParent() {
