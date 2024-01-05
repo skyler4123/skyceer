@@ -10,6 +10,7 @@
     modal_component_content_class_default_value: @defaul_content_class,
   }) do %>
   <div data-modal-component-target="background">
+    <%= render(ToggleComponent.new(klass: "w-full h-full", target_controller_name: 'modal-component')) { '' } %>
   </div>
   <div data-modal-component-target="content">
     <%= content? ? content : "Modal Content here!" %>

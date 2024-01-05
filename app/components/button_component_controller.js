@@ -2,17 +2,17 @@ import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template", 'visable', 'hidden', "button", "link", "modal", "popover", "toast"]
+  static targets = ["template", 'content', 'hidden', "button", "link", "modal", "popover", "toast"]
   static values = {
     label: { type: String, default: "Button" },
     url: { type: String },
 
     klass: { type: String, default: "" },
-    visableClass: { type: String, default: " text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 active:bg-gradient-to-br font-medium rounded-lg text-sm px-2.5 py-2.5 gap-x-2" },
+    contentClass: { type: String, default: " text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 active:bg-gradient-to-br font-medium rounded-lg text-sm px-2.5 py-2.5 gap-x-2" },
     buttonClass: { type: String, default: "" },
     linkClass: { type: String, default: "" },
     klassDefault: { type: String, default: " " },
-    visableClassDefault: { type: String, default: " flex justify-center items-center text-center cursor-pointer relative" },
+    contentClassDefault: { type: String, default: " flex justify-center items-center text-center cursor-pointer relative" },
     buttonClassDefault: { type: String, default: " flex justify-center items-center" },
     linkClassDefault: { type: String, default: " flex justify-center items-center" },    
   }
@@ -48,7 +48,7 @@ export default class extends Controller {
 
   initializeClass() {
     this.element.className = this.element.className + this.klassDefaultValue + this.klassValue
-    this.visableTarget.className = this.visableTarget.className + this.visableClassDefaultValue + this.visableClassValue
+    this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
     this.buttonTarget.className = this.buttonTarget.className + this.buttonClassDefaultValue + this.buttonClassValue
     if (this.hasLinkTarget) {
       this.linkTarget.className = this.linkTarget.className + this.linkClassDefaultValue + this.linkClassValue
@@ -56,9 +56,9 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.visableTarget.dataset.action = this.buttonTarget.dataset.action + ` click->${this.identifier}#openModal`
+    this.contentTarget.dataset.action = (this.contentTarget.dataset.action || '') + ` click->${this.identifier}#openModal`
     if (this.hasToastTarget) {
-      this.element.dataset.action = this.element.dataset.action + ` click->${this.identifier}#openToast`
+      this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#openToast`
     }
   }
 
@@ -85,7 +85,7 @@ export default class extends Controller {
   }
 
   openModal() {
-    this.dispatch('open', { detail: { id: this.modalTarget.id } })
+    this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "open" } })
   }
 
   togglePopover() {
@@ -98,6 +98,6 @@ export default class extends Controller {
 
   openDrawer() {
     this.drawerTarget.setAttribute('open', '')
-    this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openDrawer`, "")
+    this.element.dataset.action = (this.element.dataset.action || '').replace(`click->${this.identifier}#openDrawer`, "")
   }
 }

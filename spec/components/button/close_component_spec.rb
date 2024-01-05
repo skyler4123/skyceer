@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Button::CloseComponent, type: :component do
+RSpec.describe Button::ToggleComponent, type: :component do
   pending "add some examples to (or delete) #{__FILE__}"
 
   # it "renders something useful" do

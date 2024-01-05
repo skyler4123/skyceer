@@ -1,1 +1,5 @@
-<%= render(ModalComponent.new) %>
+    <%= render(ButtonComponent.new) do |c| %>
+      <% c.with_hidden do %>
+        <%= render(ModalComponent.new) %>
+      <% end %>
+    <% end %>

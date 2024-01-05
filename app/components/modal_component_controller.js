@@ -18,7 +18,6 @@ export default class extends Controller {
     this.initializeID()
     this.initializeAction()
     this.initializeClass()
-    console.log(this)
   }
   initializeID() {
     if (!this.element.id) {
@@ -27,8 +26,7 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.element.dataset.action = ` open-component:open@window->${this.identifier}#open close-component:close@window->${this.identifier}#close`
-    this.backgroundTarget.dataset.action = this.backgroundTarget.dataset.action + ` click->${this.identifier}#closeSelf`
+    this.element.dataset.action = (this.element.dataset.action || "") + ` toggle:toggle@window->${this.identifier}#toggle`
   }
 
   initializeClass() {
@@ -37,20 +35,10 @@ export default class extends Controller {
     this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
   }
 
-  open({ detail: { id } }) {
-    if (this.element.id === id) {
-      this.isOpenValue = true
-    }
-  }
-
-  close({ detail: { id } }) {
-    if (this.element.id === id) {
-      this.isOpenValue = false
-    }
-  }
-
-  closeSelf() {
-    this.dispatch('close', { detail: { id: this.modalTarget.id } })
+  toggle({ detail: { id, type } }) {
+    if (this.element.id != id) { return }
+    if (type === 'open') { this.isOpenValue = true }
+    if (type === 'close') { this.isOpenValue = false }
   }
 
   isOpenValueChanged() {

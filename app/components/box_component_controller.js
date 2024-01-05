@@ -30,7 +30,7 @@ export default class extends Controller {
 
   initializeAction() {
     if (this.closableValue) {
-      this.element.dataset.action = this.element.dataset.action + ` close-component:close->${this.identifier}#close`
+      this.element.dataset.action = (this.element.dataset.action || '') + ` close-component:close->${this.identifier}#close`
     }
   }
 

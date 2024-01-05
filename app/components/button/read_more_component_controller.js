@@ -30,13 +30,13 @@ export default class extends Controller {
     this.parentElement().classList.remove(this.overflowClassValue)
     this.parentElement().classList.remove(this.heightClassValue)
     morphdom(this.element, this.element.outerHTML.replace('Read More!', 'Show Less!'))
-    this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#readMore`, `click->${this.identifier}#showLess`)
+    this.element.dataset.action = (this.element.dataset.action || '').replace(`click->${this.identifier}#readMore`, `click->${this.identifier}#showLess`)
   }
   showLess() {
     this.parentElement().classList.add(this.overflowClassValue)
     this.parentElement().classList.add(this.heightClassValue)
     morphdom(this.element, this.element.outerHTML.replace('Show Less!', 'Read More!'))
-    this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#showLess`, `click->${this.identifier}#readMore`)
+    this.element.dataset.action = (this.element.dataset.action || '').replace(`click->${this.identifier}#showLess`, `click->${this.identifier}#readMore`)
 
   }
   parentElement() {

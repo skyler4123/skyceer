@@ -11,7 +11,7 @@
   button_component_button_class_default_value: @button_class_default,
   button_component_link_class_default_value: @link_class_default,
   }) do %>
-  <%= tag.div(class: @content_class, data: { button_component_target: "visable" }) do %>
+  <%= tag.div(class: @content_class, data: { button_component_target: "content" }) do %>
     <% if prepends %>
       <% prepends.each do |prepend| %>
         <%= prepend %>

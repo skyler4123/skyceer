@@ -53,7 +53,7 @@ export default class extends Controller {
 
   openModal() {
     this.modalTarget.classList.remove('hidden')
-    this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openModal`, "")
+    this.element.dataset.action = (this.element.dataset.action || '').replace(`click->${this.identifier}#openModal`, "")
   }
 
   openPopover() {
@@ -68,6 +68,6 @@ export default class extends Controller {
   
   openDrawer() {
     this.drawerTarget.setAttribute('open', '')
-    this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#openDrawer`, "")
+    this.element.dataset.action = (this.element.dataset.action || '').replace(`click->${this.identifier}#openDrawer`, "")
   }
 }

@@ -94,12 +94,12 @@
       <% end %>
     <% end %>
 
-    <%= render(Hr::TextComponent.new(label: "Button::CloseComponent")) %>
+    <%= render(Hr::TextComponent.new(label: "Button::ToggleComponent")) %>
     <%= render(BoxComponent.new) do %>
-      <div>CloseComponent for this BoxComponent</div>
+      <div>ToggleComponent for this BoxComponent</div>
       <%= render(ButtonComponent.new) do |c| %>
         <% c.with_append do %>
-          <%= render(CloseComponent.new) %>
+          <%= render(ToggleComponent.new) %>
         <% end %>
       <% end %>
     <% end %>
@@ -128,11 +128,11 @@
       <% c.with_append do %>
         <%= render(ToastComponent.new) do %>
           <%= render(BoxComponent.new) do %>
-            <% render(CloseComponent.new) %>
-            <div>Demo Button::CloseComponent for this BoxComponent</div>
+            <% render(ToggleComponent.new) %>
+            <div>Demo Button::ToggleComponent for this BoxComponent</div>
             <%= render(ButtonComponent.new) do |c| %>
               <% c.with_append do %>
-                <%= render(CloseComponent.new(target_controller_name: 'toast-component')) %>
+                <%= render(ToggleComponent.new(target_controller_name: 'toast-component')) %>
               <% end %>
             <% end %>
           <% end %>
