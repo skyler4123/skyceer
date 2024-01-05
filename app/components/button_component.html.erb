@@ -12,31 +12,31 @@
   button_component_link_class_default_value: @link_class_default,
   }) do %>
   <%= tag.div(class: @content_class, data: { button_component_target: "content" }) do %>
-    <% if prepends %>
+    <% if prepends? %>
       <% prepends.each do |prepend| %>
         <%= prepend %>
       <% end %>
     <% end %>
 
     <template>
-      <% if content %>
+      <% if content? %>
         <%= content %>
-      <% elsif body %>
+      <% elsif body? %>
         <%= body %>
       <% else %>
         <%= @label %>
       <% end %>
     </template>
 
-    <% if appends %>
+    <% if appends? %>
       <% appends.each do |append| %>
         <%= append %>
       <% end %>
     <% end %>
   <% end %>
 
-  <%= tag.div(data: { button_component_target: "hidden" }) do %>
-    <% if hiddens %>
+  <% if hiddens? %>
+    <%= tag.div(data: { button_component_target: "hidden" }) do %>
       <% hiddens.each do |hidden| %>
         <%= hidden %>
       <% end %>

@@ -1,5 +1,8 @@
-    <%= render(ButtonComponent.new(id: "test-id")) do |c| %>
-      <% c.with_hidden do %>
-        <%= render(ModalComponent.new) %>
+    <%= render(BoxComponent.new) do %>
+      <div>ToggleComponent for this BoxComponent</div>
+      <%= render(ButtonComponent.new) do |c| %>
+        <% c.with_append do %>
+          <%= render(ToggleComponent.new(target_controller_name: 'box-component')) %>
+        <% end %>
       <% end %>
     <% end %>

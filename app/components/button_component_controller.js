@@ -56,7 +56,9 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.contentTarget.dataset.action = (this.contentTarget.dataset.action || '') + ` click->${this.identifier}#openModal`
+    if (this.hasModalTarget) {
+      this.contentTarget.dataset.action = (this.contentTarget.dataset.action || '') + ` click->${this.identifier}#openModal`
+    }
     if (this.hasToastTarget) {
       this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#openToast`
     }

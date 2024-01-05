@@ -12,6 +12,7 @@ export default class extends Controller {
   initialize() {
     this.initializeID()
     this.initializeClass()
+    this.initializeAction()
 
     this.initializeComplete()
   }
@@ -30,14 +31,14 @@ export default class extends Controller {
 
   initializeAction() {
     if (this.closableValue) {
-      this.element.dataset.action = (this.element.dataset.action || '') + ` close-component:close->${this.identifier}#close`
+      this.element.dataset.action = (this.element.dataset.action || "") + ` toggle:toggle@window->${this.identifier}#toggle`
     }
   }
 
-  close({ detail: { id } }) {
-    if (this.element.id === id) {
-      this.isOpenValue = false
-    }
+  toggle({ detail: { id, type } }) {
+    if (this.element.id != id) { return }
+    if (type === 'open') { this.isOpenValue = true }
+    if (type === 'close') { this.isOpenValue = false }
   }
 
   isOpenValueChanged() {
