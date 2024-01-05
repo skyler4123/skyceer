@@ -1,6 +1,7 @@
-<%= tag.div(class: ' hidden', data: {
+<%= tag.div(id: @id, class: ' hidden', data: {
   controller: "toggle-component",
   toggle_component_klass_value: @klass,
+  toggle_component_type_value: @type,
   toggle_component_target_id_value: @target_id,
   toggle_component_target_controller_name_value: @target_controller_name,
 }) do %>

@@ -14,7 +14,9 @@ export default class extends Controller {
     klassDefault: { type: String, default: " " },
     contentClassDefault: { type: String, default: " flex justify-center items-center text-center cursor-pointer relative" },
     buttonClassDefault: { type: String, default: " flex justify-center items-center" },
-    linkClassDefault: { type: String, default: " flex justify-center items-center" },    
+    linkClassDefault: { type: String, default: " flex justify-center items-center" },
+    
+    toastAction: { type: String, default: "open" }
   }
 
   initialize() {
@@ -60,7 +62,7 @@ export default class extends Controller {
       this.contentTarget.dataset.action = (this.contentTarget.dataset.action || '') + ` click->${this.identifier}#openModal`
     }
     if (this.hasToastTarget) {
-      this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#openToast`
+      this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#${this.toastActionValue}Toast`
     }
   }
 
@@ -95,7 +97,13 @@ export default class extends Controller {
   }
 
   openToast() {
-    this.dispatch('open', { detail: { id: this.toastTarget.id } })
+    this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "open" } })
+  }
+  closeToast() {
+    this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "close" } })
+  }
+  toggleToast() {
+    this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "toggle" } })
   }
 
   openDrawer() {

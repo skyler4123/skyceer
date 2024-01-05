@@ -1,8 +1,8 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static outlets = ["box-component"]
   static values = {
+    type: { type: String, default: "close" },
     targetId: { type: String },
     targetControllerName: { type: String },
     klass: { type: String, default: " rounded-lg" },
@@ -29,7 +29,15 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.element.setAttribute('data-action', `click->${this.identifier}#close`)
+    if (this.typeValue === "close") {
+      this.element.setAttribute('data-action', `click->${this.identifier}#close`)
+    }
+    if (this.typeValue === "open") {
+      this.element.setAttribute('data-action', `click->${this.identifier}#open`)
+    }
+    if (this.typeValue === "toggle") {
+      this.element.setAttribute('data-action', `click->${this.identifier}#toggle`)
+    }
   }
 
   closeTarget() {
@@ -50,6 +58,10 @@ export default class extends Controller {
 
   close() {
     this.dispatch('toggle', { detail: { id: `${this.closeTarget().id}`, type: "close" } })
+  }
+
+  toggle() {
+    this.dispatch('toggle', { detail: { id: `${this.closeTarget().id}`, type: "toggle" } })
   }
 
   connect() {

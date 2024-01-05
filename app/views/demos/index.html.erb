@@ -1,8 +1,16 @@
-    <%= render(BoxComponent.new) do %>
-      <div>ToggleComponent for this BoxComponent</div>
-      <%= render(ButtonComponent.new) do |c| %>
-        <% c.with_append do %>
-          <%= render(ToggleComponent.new(target_controller_name: 'box-component')) %>
-        <% end %>
-      <% end %>
+<%= render(ButtonComponent.new) do |c| %>
+  <% c.with_hidden do %>
+    <%= render(ToastComponent.new) do %>
+      <div>Test ToastComponent </div>
+      <%= render(ToggleComponent.new) %>
     <% end %>
+  <% end %>
+<% end %>
+<%= render(ButtonComponent.new(toast_action: "toggle")) do |c| %>
+  <% c.with_hidden do %>
+    <%= render(ToastComponent.new) do %>
+      <div>Test ToastComponent </div>
+      <%= render(ToggleComponent.new) %>
+    <% end %>
+  <% end %>
+<% end %>

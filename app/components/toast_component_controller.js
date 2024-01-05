@@ -43,21 +43,14 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    if (this.closableValue) {
-      this.element.dataset.action = ` open-component:open@window->${this.identifier}#open close-component:close@window->${this.identifier}#close`
-    }
+    this.element.dataset.action = (this.element.dataset.action || "") + ` toggle:toggle@window->${this.identifier}#toggle`
   }
 
-  open({ detail: { id } }) {
-    if (this.element.id === id) {
-      this.isOpenValue = true
-    }
-  }
-
-  close({ detail: { id } }) {
-    if (this.element.id === id) {
-      this.isOpenValue = false
-    }
+  toggle({ detail: { id, type } }) {
+    if (this.element.id != id) { return }
+    if (type === 'open') { this.isOpenValue = true }
+    if (type === 'close') { this.isOpenValue = false }
+    if (type === 'toggle') { this.isOpenValue = !this.isOpenValue }
   }
 
   isOpenValueChanged() {

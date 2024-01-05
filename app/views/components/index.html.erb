@@ -99,7 +99,7 @@
       <div>ToggleComponent for this BoxComponent</div>
       <%= render(ButtonComponent.new) do |c| %>
         <% c.with_append do %>
-          <%= render(ToggleComponent.new) %>
+          <%= render(ToggleComponent.new(target_controller_name: 'box-component')) %>
         <% end %>
       <% end %>
     <% end %>

@@ -8,7 +8,7 @@ class ModalComponent < ViewComponent::Base
     content_class: nil,
     defaul_klass: nil,
     defaul_background_class: nil,
-    defaul_content_class: nil,
+    defaul_content_class: nil
   )
     @id = id
     @klass = klass
