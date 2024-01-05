@@ -89,7 +89,7 @@
 
     <%= render(Hr::TextComponent.new(label: "Modal::DefaultComponent")) %>
     <%= render(ButtonComponent.new) do |c| %>
-      <% c.with_append do %>
+      <% c.with_hidden do %>
         <%= render(ModalComponent.new) %>
       <% end %>
     <% end %>
