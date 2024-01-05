@@ -7,6 +7,7 @@ class ButtonComponent < ViewComponent::Base
   renders_many :hiddens
   
   def initialize(
+      id: nil,
       label: nil,
       url: nil,
       klass: nil,
@@ -18,6 +19,7 @@ class ButtonComponent < ViewComponent::Base
       button_class_default: nil,
       link_class_default: nil
     )
+    @id = id
     @label = label
     @url = url
     @klass = klass
