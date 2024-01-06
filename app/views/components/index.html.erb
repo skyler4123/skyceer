@@ -76,12 +76,12 @@
     <%= render(Table::DemoComponent.new) %>
 
     <%= render(Hr::TextComponent.new(label: "Popover::DefaultComponent")) %>
-    <%= render(ButtonComponent.new) do |c| %>
+    <%= render(ButtonComponent.new(toggle_type: :toggle, event_listener: :click)) do |c| %>
       <% c.with_hidden do %>
         <%= render(PopoverComponent.new(position: :right_center)) %>
       <% end %>
     <% end %>
-    <%= render(ButtonComponent.new) do |c| %>
+    <%= render(ButtonComponent.new(toggle_type: :toggle, event_listener: :hover)) do |c| %>
       <% c.with_hidden do %>
         <%= render(PopoverComponent.new(position: :left_bottom, event_listener: :hover)) %>
       <% end %>

@@ -53,7 +53,6 @@ export default class extends Controller {
   }
 
   toggle({ detail: { id, type } }) {
-    console.log(new Date())
     if (this.element.id != id) { return }
     if (type === 'open') { this.isOpenValue = true }
     if (type === 'close') { this.isOpenValue = false }
