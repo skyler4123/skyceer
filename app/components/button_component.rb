@@ -18,7 +18,8 @@ class ButtonComponent < ViewComponent::Base
       content_class_default: nil,
       button_class_default: nil,
       link_class_default: nil,
-      toast_action: nil
+      toggle_type: nil,
+      event_listener: nil
     )
     @id = id
     @label = label
@@ -31,6 +32,7 @@ class ButtonComponent < ViewComponent::Base
     @content_class_default = content_class_default
     @button_class_default = button_class_default
     @link_class_default = link_class_default
-    @toast_action = toast_action
+    @toggle_type = toggle_type
+    @event_listener = event_listener
   end
 end

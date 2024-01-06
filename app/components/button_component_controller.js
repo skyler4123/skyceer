@@ -7,17 +7,17 @@ export default class extends Controller {
     label: { type: String, default: "Button" },
     url: { type: String },
 
-    klass: { type: String, default: "" },
+    klass: { type: String, default: " " },
     contentClass: { type: String, default: " text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 active:bg-gradient-to-br font-medium rounded-lg text-sm px-2.5 py-2.5 gap-x-2" },
     buttonClass: { type: String, default: "" },
     linkClass: { type: String, default: "" },
-    klassDefault: { type: String, default: " relative" },
-    contentClassDefault: { type: String, default: " relative flex justify-center items-center text-center cursor-pointer" },
+    klassDefault: { type: String, default: " relative cursor-pointer" },
+    contentClassDefault: { type: String, default: " relative flex justify-center items-center text-center" },
     buttonClassDefault: { type: String, default: " flex justify-center items-center" },
     linkClassDefault: { type: String, default: " flex justify-center items-center" },
     
-    toastAction: { type: String, default: "open" },
-    popoverEventListener: { type: String, default: "click" }
+    toggleType: { type: String, default: "open" },
+    eventListener: { type: String, default: "click" }
   }
 
   initialize() {
@@ -59,18 +59,21 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    if (this.hasModalTarget) {
-      this.contentTarget.dataset.action = (this.contentTarget.dataset.action || '') + ` click->${this.identifier}#openModal`
-    }
-    if (this.hasToastTarget) {
-      this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#${this.toastActionValue}Toast`
-    }
-    if (this.hasPopoverTarget) {
-      if (this.popoverEventListenerValue === 'click') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#togglePopover`
+    if (this.eventListenerValue === 'click') {
+      if (this.hasModalTarget) {
+        this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#${this.toggleTypeValue}Modal`
       }
-      if (this.popoverEventListenerValue === 'hover') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ` mouseenter->${this.identifier}#togglePopover mouseout->${this.identifier}#togglePopover`
+      if (this.hasToastTarget) {
+        this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#${this.toggleTypeValue}Toast`
+      }
+      if (this.hasPopoverTarget) {
+        this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#${this.toggleTypeValue}Popover`
+      }
+    }
+
+    if (this.eventListenerValue === 'hover') {
+      if (this.hasPopoverTarget) {
+        this.element.dataset.action = (this.element.dataset.action || '') + ` mouseover->${this.identifier}#${this.toggleTypeValue}Popover mouseout->${this.identifier}#${this.toggleTypeValue}Popover`
       }
     }
   }
@@ -99,6 +102,10 @@ export default class extends Controller {
 
   openModal() {
     this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "open" } })
+  }
+
+  toggleModal() {
+    this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "toggle" } })
   }
 
   togglePopover() {

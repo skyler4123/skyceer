@@ -1,5 +1,5 @@
-    <%= render(ButtonComponent.new) do |c| %>
+    <%= render(ButtonComponent.new(toggle_type: :toggle, event_listener: :click)) do |c| %>
       <% c.with_hidden do %>
-        <%= render(PopoverComponent.new(position: :bottom_center)) %>
+        <%= render(ModalComponent.new) %>
       <% end %>
     <% end %>

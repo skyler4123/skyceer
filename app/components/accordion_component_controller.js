@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["header", "body", "grid", "icon"]
   static values = {
     isOpen: { type: Boolean, default: false },
-    triggerEvent: { type: String, default: "click" },
+    eventListener: { type: String, default: "click" },
     position: { type: String, default: "bottom" },
 
     klass: { type: String, default: " " },
@@ -69,10 +69,10 @@ export default class extends Controller {
     this.gridTarget.className = this.gridTarget.className + this.defaultGridClassValue + this.gridClassValue
   }
   initializeAction() {
-    if (this.triggerEventValue === "click") {
+    if (this.eventListenerValue === "click") {
       this.headerTarget.setAttribute('data-action', `click->${this.identifier}#toggle`)
     }
-    if (this.triggerEventValue === "hover") {
+    if (this.eventListenerValue === "hover") {
       this.headerTarget.setAttribute('data-action', `mouseover->${this.identifier}#toggle mouseout->${this.identifier}#toggle`)
     }
   }

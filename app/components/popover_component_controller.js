@@ -3,7 +3,6 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["content"]
   static values = {
-    triggerEvent: { type: String, default: "click" },
     isOpen: { type: Boolean, default: false },
     position: { type: String, default: 'bottom_left' },
 
@@ -26,10 +25,10 @@ export default class extends Controller {
   }
 
   // initializeParent() {
-  //   if (this.triggerEventValue === "click") {
+  //   if (this.eventListenerValue === "click") {
   //     this.parentTarget().setAttribute('data-action', `click->${this.parentTarget().dataset.controller}#togglePopover`)
   //   }
-  //   if (this.triggerEventValue === "hover") {
+  //   if (this.eventListenerValue === "hover") {
   //     this.parentTarget().setAttribute('data-action', `mouseover->${this.parentTarget().dataset.controller}#togglePopover mouseout->${this.parentTarget().dataset.controller}#togglePopover`)
   //   }
   // }
@@ -62,9 +61,9 @@ export default class extends Controller {
       'left_top': ' justify-center items-center absolute z-10 top-0 -left-2 -translate-x-full',
       'left_bottom': ' justify-center items-center absolute z-10 bottom-0 -left-2 -translate-x-full',
       'left_center': ' justify-center items-center absolute z-10 -left-2 -translate-x-full',
-      'right_top': ' justify-center items-center absolute z-10 top-0 -right-2 translate-x-full',
-      'right_bottom': ' justify-center items-center absolute z-10 bottom-0 -right-2 translate-x-full',
-      'right_center': ' justify-center items-center absolute z-10 -right-2 translate-x-full'
+      'right_top': ' justify-center items-center absolute z-10 right-0 translate-x-full top-0',
+      'right_bottom': ' justify-center items-center absolute z-10 right-0 translate-x-full bottom-0',
+      'right_center': ' justify-center items-center absolute z-10 right-0 translate-x-full -translate-y-1/2 top-1/2'
     }
   }
 

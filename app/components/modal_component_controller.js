@@ -11,7 +11,7 @@ export default class extends Controller {
 
     klassDefault: { type: String, default: ' hidden fixed h-screen w-screen inset-0 z-10 flex-col items-center justify-center bg-transparent' },
     backgroundClassDefault: { type: String, default: ' z-20 h-full w-full cursor-pointer' },
-    contentClassDefault: { type: String, default: ' z-30 opacity-100 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' },
+    contentClassDefault: { type: String, default: ' pointer-events-none z-30 opacity-100 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' },
   }
 
   initialize() {
