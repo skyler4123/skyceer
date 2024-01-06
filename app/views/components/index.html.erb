@@ -132,7 +132,7 @@
         <% end %>
       <% end %>
     <% end %>
-    <%= render(ButtonComponent.new(label: 'Toggle Toast', toast_action: "toggle")) do |c| %>
+    <%= render(ButtonComponent.new(label: 'Toggle Toast', toggle_type: "toggle")) do |c| %>
       <% c.with_hidden do %>
         <%= render(ToastComponent.new) do %>
           <div>Test ToastComponent </div>

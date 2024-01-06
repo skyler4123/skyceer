@@ -24,27 +24,12 @@ export default class extends Controller {
     }
   }
 
-  // initializeParent() {
-  //   if (this.eventListenerValue === "click") {
-  //     this.parentTarget().setAttribute('data-action', `click->${this.parentTarget().dataset.controller}#togglePopover`)
-  //   }
-  //   if (this.eventListenerValue === "hover") {
-  //     this.parentTarget().setAttribute('data-action', `mouseover->${this.parentTarget().dataset.controller}#togglePopover mouseout->${this.parentTarget().dataset.controller}#togglePopover`)
-  //   }
-  // }
-
   initializeClass() {
     this.defaultKlassValue = this.positionClass()[this.positionValue]
 
     this.element.className = this.element.className + this.defaultKlassValue + this.klassValue
     this.contentTarget.className = this.contentTarget.className + this.defaultContentClassValue + this.contentClassValue
   }
-
-  // parentTarget() {
-  //   if (this.element.parentNode.dataset.controller === "button-component") {
-  //     return this.element.parentNode
-  //   }
-  // }
 
   initializeAction() {
     this.element.dataset.action = (this.element.dataset.action || "") + ` toggle:toggle@window->${this.identifier}#toggle`
@@ -85,7 +70,6 @@ export default class extends Controller {
       this.element.classList.remove('flex')
       this.contentTarget.removeAttribute('open')
     }
-
   }
 
   connect() {

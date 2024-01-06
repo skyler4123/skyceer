@@ -100,13 +100,16 @@ export default class extends Controller {
     `
   }
 
+  toggleModal(event) {
+    this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "toggle" } })
+    event.stopPropagation()
+  }
   openModal(event) {
     this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "open" } })
     event.stopPropagation()
   }
-
-  toggleModal(event) {
-    this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "toggle" } })
+  closeModal(event) {
+    this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "close" } })
     event.stopPropagation()
   }
 
@@ -114,17 +117,25 @@ export default class extends Controller {
     this.dispatch('toggle', { detail: { id: this.popoverTarget.id, type: "toggle" } })
     event.stopPropagation()
   }
+  openPopover(event) {
+    this.dispatch('toggle', { detail: { id: this.popoverTarget.id, type: "open" } })
+    event.stopPropagation()
+  }
+  closePopover(event) {
+    this.dispatch('toggle', { detail: { id: this.popoverTarget.id, type: "close" } })
+    event.stopPropagation()
+  }
 
+  toggleToast(event) {
+    this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "toggle" } })
+    event.stopPropagation()
+  }
   openToast(event) {
     this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "open" } })
     event.stopPropagation()
   }
   closeToast(event) {
     this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "close" } })
-    event.stopPropagation()
-  }
-  toggleToast(event) {
-    this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "toggle" } })
     event.stopPropagation()
   }
 
