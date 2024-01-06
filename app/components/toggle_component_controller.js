@@ -52,16 +52,19 @@ export default class extends Controller {
     return closeTarget
   }
 
-  open() {
+  open(event) {
     this.dispatch('toggle', { detail: { id: `${this.closeTarget().id}`, type: "open" } })
+    event.stopPropagation()
   }
 
-  close() {
+  close(event) {
     this.dispatch('toggle', { detail: { id: `${this.closeTarget().id}`, type: "close" } })
+    event.stopPropagation()
   }
 
-  toggle() {
+  toggle(event) {
     this.dispatch('toggle', { detail: { id: `${this.closeTarget().id}`, type: "toggle" } })
+    event.stopPropagation()
   }
 
   connect() {

@@ -76,8 +76,9 @@ export default class extends Controller {
       this.headerTarget.setAttribute('data-action', `mouseover->${this.identifier}#toggle mouseout->${this.identifier}#toggle`)
     }
   }
-  toggle() {
+  toggle(event) {
     this.isOpenValue = !this.isOpenValue
+    event.stopPropagation()
   }
   isOpenValueChanged() {
     if (this.isOpenValue === true) {
@@ -95,9 +96,6 @@ export default class extends Controller {
     }
   }
 
-  test() {
-    return "grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-200 ease-in-out overflow-hidden"
-  }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

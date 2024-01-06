@@ -100,30 +100,37 @@ export default class extends Controller {
     `
   }
 
-  openModal() {
+  openModal(event) {
     this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "open" } })
+    event.stopPropagation()
   }
 
-  toggleModal() {
+  toggleModal(event) {
     this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "toggle" } })
+    event.stopPropagation()
   }
 
-  togglePopover() {
+  togglePopover(event) {
     this.dispatch('toggle', { detail: { id: this.popoverTarget.id, type: "toggle" } })
+    event.stopPropagation()
   }
 
-  openToast() {
+  openToast(event) {
     this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "open" } })
+    event.stopPropagation()
   }
-  closeToast() {
+  closeToast(event) {
     this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "close" } })
+    event.stopPropagation()
   }
-  toggleToast() {
+  toggleToast(event) {
     this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "toggle" } })
+    event.stopPropagation()
   }
 
-  openDrawer() {
+  openDrawer(event) {
     this.drawerTarget.setAttribute('open', '')
     this.element.dataset.action = (this.element.dataset.action || '').replace(`click->${this.identifier}#openDrawer`, "")
+    event.stopPropagation()
   }
 }
