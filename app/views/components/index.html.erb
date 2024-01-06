@@ -124,18 +124,19 @@
     <% end %>
 
     <%= render(Hr::TextComponent.new(label: "ToastComponent")) %>
-    <%= render ButtonComponent.new do |c| %>
-      <% c.with_append do %>
+    <%= render(ButtonComponent.new(label: "Open Toast")) do |c| %>
+      <% c.with_hidden do %>
         <%= render(ToastComponent.new) do %>
-          <%= render(BoxComponent.new) do %>
-            <% render(ToggleComponent.new) %>
-            <div>Demo Button::ToggleComponent for this BoxComponent</div>
-            <%= render(ButtonComponent.new) do |c| %>
-              <% c.with_append do %>
-                <%= render(ToggleComponent.new(target_controller_name: 'toast-component')) %>
-              <% end %>
-            <% end %>
-          <% end %>
+          <div>Test ToastComponent </div>
+          <%= render(ToggleComponent.new) %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%= render(ButtonComponent.new(label: 'Toggle Toast', toast_action: "toggle")) do |c| %>
+      <% c.with_hidden do %>
+        <%= render(ToastComponent.new) do %>
+          <div>Test ToastComponent </div>
+          <%= render(ToggleComponent.new(type: "toggle")) %>
         <% end %>
       <% end %>
     <% end %>

@@ -11,12 +11,13 @@ export default class extends Controller {
     contentClass: { type: String, default: " text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 active:bg-gradient-to-br font-medium rounded-lg text-sm px-2.5 py-2.5 gap-x-2" },
     buttonClass: { type: String, default: "" },
     linkClass: { type: String, default: "" },
-    klassDefault: { type: String, default: " " },
-    contentClassDefault: { type: String, default: " flex justify-center items-center text-center cursor-pointer relative" },
+    klassDefault: { type: String, default: " relative" },
+    contentClassDefault: { type: String, default: " relative flex justify-center items-center text-center cursor-pointer" },
     buttonClassDefault: { type: String, default: " flex justify-center items-center" },
     linkClassDefault: { type: String, default: " flex justify-center items-center" },
     
-    toastAction: { type: String, default: "open" }
+    toastAction: { type: String, default: "open" },
+    popoverEventListener: { type: String, default: "click" }
   }
 
   initialize() {
@@ -64,6 +65,14 @@ export default class extends Controller {
     if (this.hasToastTarget) {
       this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#${this.toastActionValue}Toast`
     }
+    if (this.hasPopoverTarget) {
+      if (this.popoverEventListenerValue === 'click') {
+        this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#togglePopover`
+      }
+      if (this.popoverEventListenerValue === 'hover') {
+        this.element.dataset.action = (this.element.dataset.action || '') + ` mouseenter->${this.identifier}#togglePopover mouseout->${this.identifier}#togglePopover`
+      }
+    }
   }
 
   templateHTML() {
@@ -93,7 +102,7 @@ export default class extends Controller {
   }
 
   togglePopover() {
-    this.dispatch('open', { detail: { id: this.popoverTarget.id } })
+    this.dispatch('toggle', { detail: { id: this.popoverTarget.id, type: "toggle" } })
   }
 
   openToast() {

@@ -39,6 +39,7 @@ export default class extends Controller {
     if (this.element.id != id) { return }
     if (type === 'open') { this.isOpenValue = true }
     if (type === 'close') { this.isOpenValue = false }
+    if (type === 'toggle') { this.isOpenValue = !this.isOpenValue }
   }
 
   isOpenValueChanged() {

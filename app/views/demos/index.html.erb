@@ -1,16 +1,5 @@
-<%= render(ButtonComponent.new(label: "Open Toast")) do |c| %>
-  <% c.with_hidden do %>
-    <%= render(ToastComponent.new) do %>
-      <div>Test ToastComponent </div>
-      <%= render(ToggleComponent.new) %>
+    <%= render(ButtonComponent.new) do |c| %>
+      <% c.with_hidden do %>
+        <%= render(PopoverComponent.new(position: :bottom_center)) %>
+      <% end %>
     <% end %>
-  <% end %>
-<% end %>
-<%= render(ButtonComponent.new(label: 'Toggle Toast', toast_action: "toggle")) do |c| %>
-  <% c.with_hidden do %>
-    <%= render(ToastComponent.new) do %>
-      <div>Test ToastComponent </div>
-      <%= render(ToggleComponent.new) %>
-    <% end %>
-  <% end %>
-<% end %>
