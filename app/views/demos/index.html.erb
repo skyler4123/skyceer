@@ -1,5 +1,17 @@
-    <%= render(ButtonComponent.new(toggle_type: :toggle, event_listener: :click)) do |c| %>
-      <% c.with_hidden do %>
-        <%= render(ModalComponent.new) %>
-      <% end %>
-    <% end %>
+<%= render(InputComponent.new(format_options: { date: true, delimiter: '-', datePattern: ['Y', 'm', 'd'] })) do |c| %>
+  <% c.with_prepend do %>
+    <%= render(IconComponent.new) %>
+  <% end %>
+  <% c.with_append do %>
+    <%= render(IconComponent.new) %>
+  <% end %>
+<% end %>
+<%= render(InputComponent.new(format_options: {     time: true,
+    timePattern: ['h', 'm', 's'] })) do |c| %>
+  <% c.with_prepend do %>
+    <%= render(IconComponent.new(name: 'star')) %>
+  <% end %>
+  <% c.with_append do %>
+    <%= render(IconComponent.new(name: 'moon')) %>
+  <% end %>
+<% end %>
