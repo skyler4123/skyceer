@@ -44,8 +44,8 @@ export default class extends Controller {
     width: { type: String },
 
     klass: { type: String, default: "" },
-    klassDefault: { type: String, default: "" },
     contentClass: { type: String, default: "" },
+    klassDefault: { type: String, default: "" },
     contentClassDefault: { type: String, default: "" },
     inputClass: { type: String, default: "" },
     inputClassDefault: { type: String, default: "" },

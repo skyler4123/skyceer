@@ -7,10 +7,10 @@ export default class extends Controller {
     position: { type: String, default: 'bottom_left' },
 
     klass: { type: String },
-    contentClass: { type: String, default: "opacity-0 open:opacity-100 duration-200 ease-in-out" },
-    
-    defaultKlass: { type: String, default: "" },
-    defaultContentClass: { type: String, default: "" }
+    contentClass: { type: String, default: " duration-200" },
+  
+    klassDefault: { type: String, default: "" },
+    contentClassDefault: { type: String, default: " opacity-0 open:opacity-100 ease-in-out" }
   }
 
   initialize() {
@@ -25,10 +25,10 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.defaultKlassValue = this.positionClass()[this.positionValue]
+    this.klassDefaultValue = this.positionClass()[this.positionValue]
 
-    this.element.className = this.element.className + this.defaultKlassValue + this.klassValue
-    this.contentTarget.className = this.contentTarget.className + this.defaultContentClassValue + this.contentClassValue
+    this.element.className = this.element.className + this.klassDefaultValue + this.klassValue
+    this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
   }
 
   initializeAction() {

@@ -7,11 +7,11 @@ export default class extends Controller {
     eventListener: { type: String, default: "click" },
     position: { type: String, default: "bottom" },
 
-    klass: { type: String, default: " " },
-    headerClass: { type: String, default: ' ' },
-    bodyClass: { type: String, default: " text-sm text-red-600" },
-    gridClass: { type: String, default: ' ' },
-    iconClass: { type: String, default: ' ' },
+    klass: { type: String, default: "" },
+    headerClass: { type: String, default: '' },
+    bodyClass: { type: String, default: "" },
+    gridClass: { type: String, default: '' },
+    iconClass: { type: String, default: '' },
 
     defaultKlass: { type: String, default: " " },
     defaultHeaderClass: { type: String, default: " " },

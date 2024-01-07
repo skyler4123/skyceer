@@ -11,13 +11,13 @@ export default class extends Controller {
 
     // Classes
     klass: { type: String, default: "" },
-    klassDefault: { type: String, default: "" },
     contentClass: { type: String, default: "" },
-    contentClassDefault: { type: String, default: "" },
     itemsClass: { type: String, default: "" },
-    itemsClassDefault: { type: String, default: "" },
     itemClass: { type: String, default: "" },
-    itemClassDefault: { type: String, default: "" },
+    klassDefault: { type: String, default: "" },
+    contentClassDefault: { type: String, default: "" },
+    itemsClassDefault: { type: String, default: "" },
+    itemClassDefault: { type: String, default: "" }
   }
 
   initialize() {

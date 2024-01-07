@@ -8,7 +8,7 @@ export default class extends Controller {
     url: { type: String },
 
     klass: { type: String, default: "" },
-    contentClass: { type: String, default: " text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 active:bg-gradient-to-br font-medium rounded-lg text-sm px-2.5 py-2.5 gap-x-2" },
+    contentClass: { type: String, default: "" },
     buttonClass: { type: String, default: "" },
     linkClass: { type: String, default: "" },
     klassDefault: { type: String, default: " relative cursor-pointer" },

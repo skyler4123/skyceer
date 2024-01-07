@@ -1,10 +1,13 @@
 <div>Hello Stimulus!</div>
 <%= render(BoxComponent.new) do %>
   <div class="flex flex-row">
-    <%= render(ButtonComponent.new(content_class: "")) { render(IconComponent.new(name: 'minus')) } %>
+    <%= render(ButtonComponent.new) { render(IconComponent.new(name: 'minus')) } %>
     <%= render(ToggleComponent.new) %>
   </div>
   <div>2</div>
-  <div>3</div>
+  <div>
+    <%= render(ButtonComponent.new) { render(IconComponent.new(name: 'plus-circle')) } %>
+
+  </div>
 
 <% end %>
