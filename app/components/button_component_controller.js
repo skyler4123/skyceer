@@ -73,7 +73,7 @@ export default class extends Controller {
 
     if (this.eventListenerValue === 'hover') {
       if (this.hasPopoverTarget) {
-        this.element.dataset.action = (this.element.dataset.action || '') + ` mouseover->${this.identifier}#${this.toggleTypeValue}Popover mouseout->${this.identifier}#${this.toggleTypeValue}Popover`
+        this.element.dataset.action = (this.element.dataset.action || '') + ` mouseenter->${this.identifier}#${this.toggleTypeValue}Popover mouseleave->${this.identifier}#${this.toggleTypeValue}Popover`
       }
     }
   }
