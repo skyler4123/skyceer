@@ -166,5 +166,19 @@
         <%= render(IconComponent.new(name: 'moon')) %>
       <% end %>
     <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Input with CleaveJS")) %>
+    <%= render(InputComponent.new(type: :text, format_options: {
+      date: true,
+      delimiter: '-',
+      datePattern: ['Y', 'm', 'd']
+    })) %>
+
+    <%= render(Hr::TextComponent.new(label: "Input with FlatpickJS")) %>
+    <%= render(InputComponent.new(type: :date, format_options: {
+      mode: "range",
+      dateFormat: "Y-m-d",
+    })) %>
+
   </div>
 </div>
