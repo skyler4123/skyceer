@@ -1,7 +1,9 @@
 import morphdom from "morphdom"
 import Cleave from "cleave.js"
 import dayjs from "dayjs"
-import flatpickr from "flatpickr";
+import flatpickr from "flatpickr"
+import { Russian } from "flatpickr/dist/l10n/ru.js"
+import {  Japanese } from "flatpickr/dist/l10n/ja.js"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -82,6 +84,12 @@ export default class extends Controller {
   }
 
   initializeFormat() {
+    const timeTypes = ['date', 'datetime-local', 'month', 'time', 'week']
+    if (timeTypes.includes(this.typeValue)) {
+      flatpickr.l10ns.default.firstDayOfWeek = 1
+      flatpickr(this.inputTarget, this.formatOptionsValue)
+      return
+    }
     var cleave = new Cleave(this.inputTarget, this.formatOptionsValue);
   }
 
