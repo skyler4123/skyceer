@@ -1,9 +1,5 @@
-<%= render(InputComponent.new(type: :text, format_options: {
-    date: true,
-    delimiter: '-',
-    datePattern: ['Y', 'm', 'd']
-})) %>
-<%= render(InputComponent.new(type: :date, format_options: {
-    mode: "range",
-    dateFormat: "Y-m-d",
-})) %>
+
+
+<input id="default-range" type="range" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+
+<%= render(InputComponent.new(type: :range, value: 50, input_class: "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700")) %>
