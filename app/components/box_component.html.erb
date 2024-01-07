@@ -1,3 +1,11 @@
-<%= tag.div(id: @id, class: "hidden ", data: { controller: "box-component", box_component_klass_value: @klass }) do %>
-  <%= content %>
+<%= tag.div(id: @id, class: "hidden ", data: {
+  controller: "box-component",
+  box_component_klass_value: @klass,
+  box_component_klass_default_value: @klass_default,
+  box_component_content_class_value: @content_class,
+  box_component_content_class_default_value: @content_class_default
+}) do %>
+  <div data-box-component-target="content">
+    <%= content %>
+  </div>
 <% end %>

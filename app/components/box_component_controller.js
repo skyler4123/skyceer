@@ -1,12 +1,14 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["buttonClose"]
+  static targets = ["content"]
   static values = {
     isOpen: { type: Boolean, default: true },
     closable: { type: Boolean, default: true },
-    klass: { type: String, default: " " },
-    defaultKlass: { type: String, default: " " },
+    klass: { type: String, default: " w-80 h-96 bg-white rounded-lg border border-gray-200 text-black shadow-lg shadow-gray-500/50" },
+    defaultKlass: { type: String, default: "" },
+    contentClass: { type: String, default: " w-full h-full" },
+    contentClassDefault: { type: String, default: "" }
   }
 
   initialize() {
