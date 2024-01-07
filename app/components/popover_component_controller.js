@@ -4,13 +4,13 @@ export default class extends Controller {
   static targets = ["content"]
   static values = {
     isOpen: { type: Boolean, default: false },
-    position: { type: String, default: 'bottom_left' },
+    position: { type: String, default: 'bottom_center' },
 
     klass: { type: String },
-    contentClass: { type: String, default: " duration-200" },
+    contentClass: { type: String, default: "duration-200" },
   
     klassDefault: { type: String, default: "" },
-    contentClassDefault: { type: String, default: " opacity-0 open:opacity-100 ease-in-out" }
+    contentClassDefault: { type: String, default: "w-fit h-fit text-center opacity-0 open:opacity-100 ease-in-out" }
   }
 
   initialize() {
@@ -27,8 +27,8 @@ export default class extends Controller {
   initializeClass() {
     this.klassDefaultValue = this.positionClass()[this.positionValue]
 
-    this.element.className = this.element.className + this.klassDefaultValue + this.klassValue
-    this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
+    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
+    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
   }
 
   initializeAction() {
@@ -37,18 +37,18 @@ export default class extends Controller {
 
   positionClass() {
     return {
-      'bottom_left': ' justify-center items-center absolute z-10 -bottom-2 left-0 translate-y-full',
-      'bottom_center': ' justify-center items-center absolute z-10 -bottom-2 translate-y-full',
-      'bottom_right': ' justify-center items-center absolute z-10 -bottom-2 right-0 translate-y-full',
-      'top_right': ' justify-center items-center absolute z-10 -top-2 right-0 -translate-y-full',
-      'top_left': ' justify-center items-center absolute z-10 -top-2 left-0 -translate-y-full',
-      'top_center': ' justify-center items-center absolute z-10 -top-2 -translate-y-full',
-      'left_top': ' justify-center items-center absolute z-10 top-0 -left-2 -translate-x-full',
-      'left_bottom': ' justify-center items-center absolute z-10 bottom-0 -left-2 -translate-x-full',
-      'left_center': ' justify-center items-center absolute z-10 -left-2 -translate-x-full',
-      'right_top': ' justify-center items-center absolute z-10 right-0 translate-x-full top-0',
-      'right_bottom': ' justify-center items-center absolute z-10 right-0 translate-x-full bottom-0',
-      'right_center': ' justify-center items-center absolute z-10 right-0 translate-x-full -translate-y-1/2 top-1/2'
+      'bottom_left': 'justify-center items-center absolute z-10 -bottom-2 left-0 translate-y-full',
+      'bottom_center': 'justify-center items-center absolute z-10 -bottom-2 translate-y-full -translate-x-1/2',
+      'bottom_right': 'justify-center items-center absolute z-10 -bottom-2 right-0 translate-y-full',
+      'top_right': 'justify-center items-center absolute z-10 -top-2 right-0 -translate-y-full',
+      'top_left': 'justify-center items-center absolute z-10 -top-2 left-0 -translate-y-full',
+      'top_center': 'justify-center items-center absolute z-10 -top-2 -translate-y-full',
+      'left_top': 'justify-center items-center absolute z-10 top-0 -left-2 -translate-x-full',
+      'left_bottom': 'justify-center items-center absolute z-10 bottom-0 -left-2 -translate-x-full',
+      'left_center': 'justify-center items-center absolute z-10 -left-2 -translate-x-full',
+      'right_top': 'justify-center items-center absolute z-10 right-0 translate-x-full top-0',
+      'right_bottom': 'justify-center items-center absolute z-10 right-0 translate-x-full bottom-0',
+      'right_center': 'justify-center items-center absolute z-10 right-0 translate-x-full -translate-y-1/2 top-1/2'
     }
   }
 

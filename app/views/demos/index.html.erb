@@ -1,13 +1,8 @@
-<div>Hello Stimulus!</div>
-<%= render(BoxComponent.new) do %>
-  <div class="flex flex-row">
-    <%= render(ButtonComponent.new) { render(IconComponent.new(name: 'minus')) } %>
-    <%= render(ToggleComponent.new) %>
-  </div>
-  <div>2</div>
-  <div>
-    <%= render(ButtonComponent.new) { render(IconComponent.new(name: 'plus-circle')) } %>
+    <%= render(ButtonComponent.new(event_listener: :hover, toggle_type: :toggle)) do |c| %>
+      <%= c.with_body { render(IconComponent.new(name: 'plus-circle')) } %>
+      <% c.with_hidden do %>
+        <%= render(PopoverComponent.new(label: "Open more actions", klass: "w-80", content_class: "text-white bg-black px-2 py-1 bg-opacity-75 rounded-md")) %>
+      <% end %>
+    <% end %>
 
-  </div>
-
-<% end %>
+    ajsdsalkdjklasjdasjlkdjasldjal

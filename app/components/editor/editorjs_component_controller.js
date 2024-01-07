@@ -8,7 +8,6 @@ import List from '@editorjs/list';
 import Checklist from '@editorjs/checklist';
 import Embed from '@editorjs/embed';
 import Quote from '@editorjs/quote';
-import { v4 as uuidv4 } from 'uuid';
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -75,7 +74,7 @@ export default class extends Controller {
       }
     });
     if (!this.recordIdValue) { 
-      this.recordIdValue = uuidv4()
+      this.recordIdValue = crypto.randomUUID()
       this.formParent().prepend(this.inputId())
     }
   }

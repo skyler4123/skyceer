@@ -1,10 +1,19 @@
 # frozen_string_literal: true
 
 class PopoverComponent < ViewComponent::Base
-  def initialize(klass: nil, content_class: nil, position: nil, event_listener: nil)
+  def initialize(
+    label: nil,
+    position: nil,
+    klass: nil,
+    content_class: nil,
+    klass_default: nil,
+    content_class_default: nil
+  )
+    @label = label
+    @position = position
     @klass = klass
     @content_class = content_class
-    @position = position
-    @event_listener = event_listener
+    @klass_default = klass_default
+    @content_class_default = content_class_default
   end
 end

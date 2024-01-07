@@ -2,14 +2,20 @@
   class: 'hidden ',
   data: {
     controller: "popover-component",
-    popover_component_klass_value: @klass,
     popover_component_position_value: @position,
-    popover_component_event_listener_value: @event_listener }) do 
+    popover_component_klass_value: @klass,
+    popover_component_content_class_value: @content_class,
+    popover_component_klass_default_value: @klass_default,
+    popover_component_content_class_default_value: @content_class_default
+
+  }) do 
 %>
   
   <div data-popover-component-target="content">
-    <% if content %>
+    <% if content? %>
       <%= content %>
+    <% elsif @label %>
+      <%= @label %>
     <% else %>
       <div class="text-black">Popover Content</div>
     <% end %>
