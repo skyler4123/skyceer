@@ -5,6 +5,8 @@ class AccordionComponent < ViewComponent::Base
   renders_one :body
 
   def initialize(
+    controller: nil,
+    action: nil,
     label: nil,
     position: nil,
     klass: nil,
@@ -12,6 +14,8 @@ class AccordionComponent < ViewComponent::Base
     body_class: nil,
     grid_class: nil
     )
+    @controller = "accordion-component" + controller.to_s
+    @action = action
     @label = label
     @position = position
     @klass = klass

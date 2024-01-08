@@ -7,6 +7,8 @@ class ButtonComponent < ViewComponent::Base
   renders_many :hiddens
   
   def initialize(
+      controller: nil,
+      action: nil,
       id: nil,
       label: nil,
       url: nil,
@@ -21,6 +23,8 @@ class ButtonComponent < ViewComponent::Base
       toggle_type: nil,
       event_listener: nil
     )
+    @controller = "button-component" + controller.to_s
+    @action = action
     @id = id
     @label = label
     @url = url

@@ -144,4 +144,8 @@ export default class extends Controller {
     this.element.dataset.action = (this.element.dataset.action || '').replace(`click->${this.identifier}#openDrawer`, "")
     event.stopPropagation()
   }
+
+  demo() {
+    console.log("hello Skyler")
+  }
 }

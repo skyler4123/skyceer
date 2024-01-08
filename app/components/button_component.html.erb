@@ -1,5 +1,5 @@
 <%= tag.div(id: @id, class: 'hidden ', data: {
-  controller: "button-component",
+  controller: @controller,
   button_component_label_value: @label,
   button_component_url_value: @url,
   button_component_klass_value: @klass,
@@ -13,7 +13,7 @@
   button_component_toggle_type_value: @toggle_type,
   button_component_event_listener_value: @event_listener
   }) do %>
-  <%= tag.div(class: @content_class, data: { button_component_target: "content" }) do %>
+  <%= tag.div(class: @content_class, data: { button_component_target: "content", action: @action }) do %>
     <% if prepends? %>
       <% prepends.each do |prepend| %>
         <%= prepend %>
