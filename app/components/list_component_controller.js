@@ -53,11 +53,11 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = this.element.className + this.klassDefaultValue + this.klassValue
-    this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
-    this.itemsTarget.className = this.itemsTarget.className + this.itemsClassDefaultValue + this.itemsClassValue
+    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
+    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
+    this.itemsTarget.className = this.itemsTarget.className + ' ' + this.itemsClassDefaultValue + ' ' + this.itemsClassValue
     this.itemTargets.forEach((target) => {
-      target.className = target.className + this.itemClassDefaultValue + this.itemClassValue
+      target.className = target.className + ' ' + this.itemClassDefaultValue + ' ' + this.itemClassValue
     })
   }
 

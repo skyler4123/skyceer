@@ -30,9 +30,9 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = this.element.className + this.klassDefaultValue + this.klassValue
-    this.backgroundTarget.className = this.backgroundTarget.className  + this.backgroundClassDefaultValue + this.backgroundClassValue
-    this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
+    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
+    this.backgroundTarget.className = this.backgroundTarget.className  + ' ' + this.backgroundClassDefaultValue + ' ' + this.backgroundClassValue
+    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
   }
 
   toggle({ detail: { id, type } }) {

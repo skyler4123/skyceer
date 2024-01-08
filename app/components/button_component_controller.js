@@ -50,11 +50,11 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = this.element.className + this.klassDefaultValue + this.klassValue
-    this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
-    this.buttonTarget.className = this.buttonTarget.className + this.buttonClassDefaultValue + this.buttonClassValue
+    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
+    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
+    this.buttonTarget.className = this.buttonTarget.className + ' ' + this.buttonClassDefaultValue + ' ' + this.buttonClassValue
     if (this.hasLinkTarget) {
-      this.linkTarget.className = this.linkTarget.className + this.linkClassDefaultValue + this.linkClassValue
+      this.linkTarget.className = this.linkTarget.className + ' ' + this.linkClassDefaultValue + ' ' + this.linkClassValue
     }
   }
 

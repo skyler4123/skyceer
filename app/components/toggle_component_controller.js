@@ -25,7 +25,7 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = this.element.className + this.defaultKlassValue + this.klassValue
+    this.element.className = this.element.className + ' ' + this.defaultKlassValue + ' ' + this.klassValue
   }
 
   initializeAction() {

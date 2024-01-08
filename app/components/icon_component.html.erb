@@ -1,3 +1,12 @@
-<%= tag.div(class: 'hidden ', data: {controller: "icon-component", icon_component_name_value: @name, icon_component_klass_value: @klass, icon_component_type_value: @type, icon_component_svg_class_value: @svg_class } ) do %>
+<%= tag.div(class: 'hidden ', data: {
+  controller: "icon-component",
+  icon_component_name_value: @name,
+  icon_component_type_value: @type,
+  icon_component_svg_html_value: @svg_html,
+  icon_component_klass_value: @klass,
+  icon_component_svg_class_value: @svg_class,
+  icon_component_klass_default_value: @klass_default,
+  icon_component_svg_class_default_value: @svg_class_default
+} ) do %>
   <template></template>
 <% end %>

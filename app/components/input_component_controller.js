@@ -45,10 +45,11 @@ export default class extends Controller {
 
     klass: { type: String, default: "" },
     contentClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "" },
-    contentClassDefault: { type: String, default: "" },
     inputClass: { type: String, default: "" },
+    klassDefault: { type: String, default: "w-20" },
+    contentClassDefault: { type: String, default: "" },
     inputClassDefault: { type: String, default: "" },
+
     formatOptions: { type: Object }
   }
   initialize() {
@@ -78,9 +79,9 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = this.element.className + this.klassValue + this.klassDefaultValue
-    this.contentTarget.className = this.contentTarget.className + this.contentClassDefaultValue + this.contentClassValue
-    this.inputTarget.className = this.inputTarget.className + this.inputClassDefaultValue + this.inputClassValue
+    this.element.className = this.element.className + ' ' + this.klassValue + ' ' + this.klassDefaultValue
+    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
+    this.inputTarget.className = this.inputTarget.className + ' ' + this.inputClassDefaultValue + ' ' + this.inputClassValue
   }
 
   initializeFormat() {

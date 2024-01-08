@@ -36,9 +36,9 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = this.element.className + this.klassDefaultValue + this.klassValue
+    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
     this.switchTargets.forEach((target) => {
-      target.className = target.className + this.switchClassDefaultValue + this.switchClassValue
+      target.className = target.className + ' ' + this.switchClassDefaultValue + ' ' + this.switchClassValue
     })
   }
 
