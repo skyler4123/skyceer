@@ -103,43 +103,43 @@ export default class extends Controller {
   
   initHTML() {
     return `
-    <input
-      ${this.acceptValue ? `accept="${this.acceptValue}"` : ""}
-      ${this.altValue ? `alt="${this.altValue}"` : ""}
-      ${this.autocompleteValue ? `autocomplete="${this.autocompleteValue}"` : ""}
-      ${this.autofocusValue ? `autofocus="${this.autofocusValue}"` : ""}
-      ${this.checkedValue ? `checked` : ""}
-      ${this.dirnameValue ? `dirname="${this.dirnameValue}"` : ""}
-      ${this.disabledValue ? `disabled` : ""}
-      ${this.formValue ? `form="${this.formValue}"` : ""}
-      ${this.formactionValue ? `formaction="${this.formactionValue}"` : ""}
-      ${this.formenctypeValue ? `formenctype="${this.formenctypeValue}"` : ""}
-      ${this.formmethodValue ? `formmethod="${this.formmethodValue}"` : ""}
-      ${this.formnovalidateValue ? `formnovalidate="${this.formnovalidateValue}"` : ""}
-      ${this.formtargetValue ? `formtarget="${this.formtargetValue}"` : ""}
-      ${this.heightValue ? `height="${this.heightValue}"` : ""}
-      ${this.listValue ? `list="${this.listValue}"` : ""}
-      ${this.maxValue ? `max="${this.maxValue}"` : ""}
-      ${this.maxlengthValue ? `maxlength="${this.maxlengthValue}"` : ""}
-      ${this.minValue ? `min="${this.minValue}"` : ""}
-      ${this.minlengthValue ? `minlength="${this.minlengthValue}"` : ""}
-      ${this.multipleValue ? `multiple="${this.multipleValue}"` : ""}
-      ${this.nameValue ? `name="${this.nameValue}"` : ""}
-      ${this.patternValue ? `pattern="${this.patternValue}"` : ""}
-      ${this.placeholderValue ? `placeholder="${this.placeholderValue}"` : ""}
-      ${this.popovertargetValue ? `popovertarget="${this.popovertargetValue}"` : ""}
-      ${this.popovertargetactionValue ? `popovertargetaction="${this.popovertargetactionValue}"` : ""}
-      ${this.readonlyValue ? `readonly` : ""}
-      ${this.requiredValue ? `required` : ""}
-      ${this.sizeValue ? `size="${this.sizeValue}"` : ""}
-      ${this.srcValue ? `src="${this.srcValue}"` : ""}
-      ${this.stepValue ? `step="${this.stepValue}"` : ""}
-      ${this.typeValue ? `type="${this.typeValue}"` : ""}
-      ${this.valueValue ? `value="${this.valueValue}"` : ""}
-      ${this.widthValue ? `width="${this.widthValue}"` : ""}
+      <input
+        ${this.acceptValue ? `accept="${this.acceptValue}"` : ""}
+        ${this.altValue ? `alt="${this.altValue}"` : ""}
+        ${this.autocompleteValue ? `autocomplete="${this.autocompleteValue}"` : ""}
+        ${this.autofocusValue ? `autofocus="${this.autofocusValue}"` : ""}
+        ${this.checkedValue ? `checked` : ""}
+        ${this.dirnameValue ? `dirname="${this.dirnameValue}"` : ""}
+        ${this.disabledValue ? `disabled` : ""}
+        ${this.formValue ? `form="${this.formValue}"` : ""}
+        ${this.formactionValue ? `formaction="${this.formactionValue}"` : ""}
+        ${this.formenctypeValue ? `formenctype="${this.formenctypeValue}"` : ""}
+        ${this.formmethodValue ? `formmethod="${this.formmethodValue}"` : ""}
+        ${this.formnovalidateValue ? `formnovalidate="${this.formnovalidateValue}"` : ""}
+        ${this.formtargetValue ? `formtarget="${this.formtargetValue}"` : ""}
+        ${this.heightValue ? `height="${this.heightValue}"` : ""}
+        ${this.listValue ? `list="${this.listValue}"` : ""}
+        ${this.maxValue ? `max="${this.maxValue}"` : ""}
+        ${this.maxlengthValue ? `maxlength="${this.maxlengthValue}"` : ""}
+        ${this.minValue ? `min="${this.minValue}"` : ""}
+        ${this.minlengthValue ? `minlength="${this.minlengthValue}"` : ""}
+        ${this.multipleValue ? `multiple="${this.multipleValue}"` : ""}
+        ${this.nameValue ? `name="${this.nameValue}"` : ""}
+        ${this.patternValue ? `pattern="${this.patternValue}"` : ""}
+        ${this.placeholderValue ? `placeholder="${this.placeholderValue}"` : ""}
+        ${this.popovertargetValue ? `popovertarget="${this.popovertargetValue}"` : ""}
+        ${this.popovertargetactionValue ? `popovertargetaction="${this.popovertargetactionValue}"` : ""}
+        ${this.readonlyValue ? `readonly` : ""}
+        ${this.requiredValue ? `required` : ""}
+        ${this.sizeValue ? `size="${this.sizeValue}"` : ""}
+        ${this.srcValue ? `src="${this.srcValue}"` : ""}
+        ${this.stepValue ? `step="${this.stepValue}"` : ""}
+        ${this.typeValue ? `type="${this.typeValue}"` : ""}
+        ${this.valueValue ? `value="${this.valueValue}"` : ""}
+        ${this.widthValue ? `width="${this.widthValue}"` : ""}
 
-      data-${this.identifier}-target="input"
-    >
+        data-${this.identifier}-target="input"
+      >
     `
   }
 
