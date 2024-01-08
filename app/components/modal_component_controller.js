@@ -26,7 +26,7 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` toggle:toggle@window->${this.identifier}#toggle`
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:toggle@window->${this.identifier}#toggle`
   }
 
   initializeClass() {
