@@ -1,31 +1,18 @@
-    <%= render(BoxComponent.new) do %>
-      <div class="flex flex-row">
-        <%= render(ButtonComponent.new) { render(IconComponent.new(name: 'minus')) } %>
-        <%= render(ToggleComponent.new) %>
-      </div>
-      <div class="flex grow bg-red-500">2</div>
-      <div class="flex flex-row gap-x-1">
-        <%= render(ButtonComponent.new(event_listener: :hover, toggle_type: :toggle)) do |c| %>
-          <%= c.with_body { render(IconComponent.new(name: 'plus-circle')) } %>
-          <% c.with_hidden do %>
-            <%= render(PopoverComponent.new(label: "Open more actions", klass: "w-80", content_class: "text-white bg-black px-2 py-1 bg-opacity-75 rounded-md")) %>
-          <% end %>
+  <%= render(AccordionComponent.new) do |c| %>
+    <% c.with_header do %>
+      <%= render(ButtonComponent.new(label: "Chart")) do |c| %>
+        <% c.with_prepend do %>
+          <%= render(IconComponent.new(name: 'star')) %>
         <% end %>
-        <%= render(ButtonComponent.new) do %>
-          <%= render(IconComponent.new(name: 'paper-clip')) %>
+        <% c.with_append do %>
+          <%= render(IconComponent.new(name: 'chevron-left', type: :solid, klass: "rotate-0 open:-rotate-90 duration-200 ease-in-out")) %>
         <% end %>
-        <%= render(ButtonComponent.new) do %>
-          <%= render(IconComponent.new(name: 'pencil-square')) %>
-        <% end %>
-        <%= render(ButtonComponent.new) do %>
-          <%= render(IconComponent.new(name: 'gif')) %>
-        <% end %>
-        <%= render(InputComponent.new(placeholder: "Aa")) %>
-        <%= render(ButtonComponent.new) do %>
-          <%= render(IconComponent.new(name: 'face-smile')) %>
-        <% end %>
-        <%= render(ButtonComponent.new) do %>
-          <%= render(IconComponent.new(name: 'hand-thumb-up')) %>
-        <% end %>
-      </div>
+      <% end %>
     <% end %>
+    <% c.with_body do %>
+      <%= render(ButtonComponent.new(label: "Chart JS")) %>
+      <%= render(ButtonComponent.new(label: "Flot")) %>
+      <%= render(ButtonComponent.new(label: "Inline")) %>
+      <%= render(ButtonComponent.new(label: "uPlot")) %>
+    <% end %>
+  <% end %>

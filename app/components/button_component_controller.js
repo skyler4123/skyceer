@@ -36,6 +36,7 @@ export default class extends Controller {
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
+    this.dispatch('dispatch', { detail: { payload: { id: this.element.id, action: "complete", controller: this } } })
   }
 
   initializeTarget() {
@@ -61,19 +62,19 @@ export default class extends Controller {
   initializeAction() {
     if (this.eventListenerValue === 'click') {
       if (this.hasModalTarget) {
-        this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#${this.toggleTypeValue}Modal`
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Modal`
       }
       if (this.hasToastTarget) {
-        this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#${this.toggleTypeValue}Toast`
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Toast`
       }
       if (this.hasPopoverTarget) {
-        this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#${this.toggleTypeValue}Popover`
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Popover`
       }
     }
 
     if (this.eventListenerValue === 'hover') {
       if (this.hasPopoverTarget) {
-        this.element.dataset.action = (this.element.dataset.action || '') + ` mouseenter->${this.identifier}#${this.toggleTypeValue}Popover mouseleave->${this.identifier}#${this.toggleTypeValue}Popover`
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.toggleTypeValue}Popover mouseleave->${this.identifier}#${this.toggleTypeValue}Popover`
       }
     }
   }
@@ -101,41 +102,41 @@ export default class extends Controller {
   }
 
   toggleModal(event) {
-    this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "toggle" } })
+    this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "toggle" } } })
     event.stopPropagation()
   }
   openModal(event) {
-    this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "open" } })
+    this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "open" } } })
     event.stopPropagation()
   }
   closeModal(event) {
-    this.dispatch('toggle', { detail: { id: this.modalTarget.id, type: "close" } })
+    this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "close" } } })
     event.stopPropagation()
   }
 
   togglePopover(event) {
-    this.dispatch('toggle', { detail: { id: this.popoverTarget.id, type: "toggle" } })
+    this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "toggle" } } })
     event.stopPropagation()
   }
   openPopover(event) {
-    this.dispatch('toggle', { detail: { id: this.popoverTarget.id, type: "open" } })
+    this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "open" } } })
     event.stopPropagation()
   }
   closePopover(event) {
-    this.dispatch('toggle', { detail: { id: this.popoverTarget.id, type: "close" } })
+    this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "close" } } })
     event.stopPropagation()
   }
 
   toggleToast(event) {
-    this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "toggle" } })
+    this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "toggle" } } })
     event.stopPropagation()
   }
   openToast(event) {
-    this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "open" } })
+    this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "open" } } })
     event.stopPropagation()
   }
   closeToast(event) {
-    this.dispatch('toggle', { detail: { id: this.toastTarget.id, type: "close" } })
+    this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "close" } } })
     event.stopPropagation()
   }
 
@@ -146,6 +147,6 @@ export default class extends Controller {
   }
 
   demo() {
-    console.log("hello Skyler")
+    console.log("Hello Skyler")
   }
 }

@@ -13,14 +13,21 @@ export default class extends Controller {
   }
 
   initialize() {
+    this.initializeID()
     this.initializeTarget()
     this.initializeHTML()
     this.initializeClass()
 
     this.initializeComplete()
   }
+  initializeID() {
+    if (!this.element.id) {
+      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
+    }
+  }
   initializeComplete() {
     this.element.classList.remove('hidden')
+    this.dispatch('dispatch', { detail: { payload: { id: this.element.id, action: "complete", controller: this } } })
   }
 
   initializeTarget() {

@@ -1,3 +1,13 @@
-<%= tag.span(class: 'hidden ', data: { controller: 'text-component', text_component_label_value: @label, text_component_klass_value: @klass, text_component_language_key_value: @language_key}) do %>
+<%= tag.div(class: 'hidden ', data: {
+  controller: @controller,
+  action: @action,
+  text_component_label_value: @label,
+  text_component_language_name_value: @language_name,
+  text_component_language_key_value: @language_key,
+  text_component_klass_value: @klass,
+  text_component_text_class_value: @text_class,
+  text_component_klass_default_value: @klass_default,
+  text_component_text_class_default_value: @text_class_default
+}) do %>
   <template></template>
 <% end %>

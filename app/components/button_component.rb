@@ -11,6 +11,7 @@ class ButtonComponent < ViewComponent::Base
       action: nil,
       id: nil,
       label: nil,
+      src: nil,
       url: nil,
       klass: nil,
       content_class: nil,
@@ -23,11 +24,11 @@ class ButtonComponent < ViewComponent::Base
       toggle_type: nil,
       event_listener: nil
     )
-    @controller = "button-component" + controller.to_s
+    @controller = "button-component" + ' ' + controller.to_s
     @action = action
     @id = id
     @label = label
-    @url = url
+    @url = url || src
     @klass = klass
     @content_class = content_class
     @button_class = button_class

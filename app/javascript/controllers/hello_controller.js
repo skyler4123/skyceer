@@ -1,9 +1,22 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static values = {
-    name: { type: String }
+
+  initialize() {
+    this.element.dataset.action = (this.element.dataset.action || "") + ' ' + `global:dispatch@window->${this.identifier}#globalDispatch`
   }
+
+  globalDispatch({ detail: { payload } }) {
+    if (this.element.id != payload.id) { return }
+    eval(`this.${payload.action}(payload)`)
+  }
+
+  complete(payload) {
+    // const that = payload.controller
+    // console.log(payload)
+    // that.element.classList.add('text-red-800')
+  }
+
   connect() {
     // console.log(this)
   }

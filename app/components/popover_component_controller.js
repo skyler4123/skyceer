@@ -32,31 +32,41 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` global:toggle@window->${this.identifier}#toggle`
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
   }
 
   positionClass() {
     return {
-      'bottom_left': 'justify-center items-center absolute z-10 -bottom-2 left-0 translate-y-full',
-      'bottom_center': 'justify-center items-center absolute z-10 -bottom-2 translate-y-full -translate-x-1/2',
-      'bottom_right': 'justify-center items-center absolute z-10 -bottom-2 right-0 translate-y-full',
-      'top_right': 'justify-center items-center absolute z-10 -top-2 right-0 -translate-y-full',
-      'top_left': 'justify-center items-center absolute z-10 -top-2 left-0 -translate-y-full',
-      'top_center': 'justify-center items-center absolute z-10 -top-2 -translate-y-full',
-      'left_top': 'justify-center items-center absolute z-10 top-0 -left-2 -translate-x-full',
-      'left_bottom': 'justify-center items-center absolute z-10 bottom-0 -left-2 -translate-x-full',
-      'left_center': 'justify-center items-center absolute z-10 -left-2 -translate-x-full',
-      'right_top': 'justify-center items-center absolute z-10 right-0 translate-x-full top-0',
-      'right_bottom': 'justify-center items-center absolute z-10 right-0 translate-x-full bottom-0',
-      'right_center': 'justify-center items-center absolute z-10 right-0 translate-x-full -translate-y-1/2 top-1/2'
+      'bottom_left': 'absolute justify-center items-center left-0 -bottom-2 translate-y-full',
+      'bottom_center': 'absolute justify-center items-center right-1/2 -bottom-2 translate-y-full translate-x-1/2',
+      'bottom_right': 'absolute justify-center items-center right-0 -bottom-2 translate-y-full',
+      'top_right': 'absolute -justify-center items-center top-2 right-0 -translate-y-full',
+      'top_left': 'absolute -justify-center items-center top-2 left-0 -translate-y-full',
+      'top_center': 'absolute -justify-center items-center top-2 left-1/2 -translate-y-full -translate-x-1/2',
+      'left_top': 'absolute -justify-center items-center left-2 top-0 -translate-x-full',
+      'left_bottom': 'absolute -justify-center items-center left-2 bottom-0 -translate-x-full',
+      'left_center': 'absolute -justify-center items-center left-2 top-1/2 -translate-x-full -translate-y-1/2',
+      'right_top': 'absolute -justify-center items-center right-2 top-0 translate-x-full',
+      'right_bottom': 'absolute -justify-center items-center right-2 bottom-0 translate-x-full',
+      'right_center': 'absolute -justify-center items-center right-2 top-1/2 translate-x-full -translate-y-1/2'
     }
   }
 
-  toggle({ detail: { id, type } }) {
-    if (this.element.id != id) { return }
-    if (type === 'open') { this.isOpenValue = true }
-    if (type === 'close') { this.isOpenValue = false }
-    if (type === 'toggle') { this.isOpenValue = !this.isOpenValue }
+  globalDispatch({ detail: { payload } }) {
+    if (this.element.id != payload.id) { return }
+    eval(`this.${payload.action}()`)
+  }
+
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+
+  open() {
+    this.isOpenValue = true
+  }
+
+  close() {
+    this.isOpenValue = false
   }
 
   isOpenValueChanged() {

@@ -1,0 +1,72 @@
+<%= render(BoxComponent.new) do %>
+  <%= render(AccordionComponent.new(position: :right)) do |c| %>
+    <% c.with_header do %>
+      <%= render(ButtonComponent.new) do %>
+        <%= render(ImgComponent.new(type: :circle, img_class: "w-24 h-24")) %>
+      <% end %>
+    <% end %>
+    <% c.with_body do %>
+      <%= render(TextComponent.new(label: "AdminLTE 3")) %>
+    <% end %>
+  <% end %>
+  <%= render(AccordionComponent.new(position: :right)) do |c| %>
+    <% c.with_header do %>
+      <%= render(ButtonComponent.new) do %>
+        <%= render(ImgComponent.new(type: :circle, img_class: "w-24 h-24")) %>
+      <% end %>
+    <% end %>
+    <% c.with_body do %>
+      <%= render(TextComponent.new(label: "Alexander Pierce")) %>
+    <% end %>
+  <% end %>
+
+  <%= render(AccordionComponent.new) do |c| %>
+    <% c.with_header do %>
+      <%= render(ButtonComponent.new(label: "Chart")) do |c| %>
+        <% c.with_prepend do %>
+          <%= render(IconComponent.new(name: 'star')) %>
+        <% end %>
+        <% c.with_append do %>
+          <%= render(IconComponent.new(name: 'chevron-left', type: :solid, klass: "rotate-0 open:-rotate-90 duration-200 ease-in-out")) %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% c.with_body do %>
+      <%= render(ButtonComponent.new(label: "Chart JS")) %>
+      <%= render(ButtonComponent.new(label: "Flot")) %>
+      <%= render(ButtonComponent.new(label: "Inline")) %>
+      <%= render(ButtonComponent.new(label: "uPlot")) %>
+    <% end %>
+  <% end %>
+
+
+
+<% end %>
+
+
+
+
+
+
+<%= render(BoxComponent.new) do %>
+  <%= render(AccordionComponent.new(position: :right)) do |c| %>
+    <% c.with_header do %>
+      <%= render(ButtonComponent.new) do %>
+        <%= render(ImgComponent.new(type: :circle, img_class: "w-24 h-24")) %>
+      <% end %>
+    <% end %>
+    <% c.with_body do %>
+      <%= render(TextComponent.new(label: "AdminLTE 3")) %>
+    <% end %>
+  <% end %>
+  <%= render(AccordionComponent.new(position: :right)) do |c| %>
+    <% c.with_header do %>
+      <%= render(ButtonComponent.new) do %>
+        <%= render(ImgComponent.new(type: :circle, img_class: "w-24 h-24")) %>
+      <% end %>
+    <% end %>
+    <% c.with_body do %>
+      <%= render(TextComponent.new(label: "Alexander Pierce")) %>
+    <% end %>
+  <% end %>
+<% end %>

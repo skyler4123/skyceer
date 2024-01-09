@@ -1,11 +1,16 @@
 <%= tag.div(class: 'hidden ', data: {
-  controller: "accordion-component",
+  controller: @controller,
+  action: @action,
   accordion_component_label_value: @label,
   accordion_component_position_value: @position,
   accordion_component_klass_value: @klass,
   accordion_component_header_class_value: @header_class,
   accordion_component_body_class_value: @body_class,
-  accordion_component_grid_class_value: @grid_class
+  accordion_component_grid_class_value: @grid_class,
+  accordion_component_klass_default_value: @klass_default,
+  accordion_component_header_class_default_value: @header_class_default,
+  accordion_component_body_class_default_value: @body_class_default,
+  accordion_component_grid_class_default_value: @grid_class_default
 }) do %>
   <div data-accordion-component-target="header">
     <% if header %>

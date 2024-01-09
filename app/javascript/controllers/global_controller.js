@@ -1,13 +1,20 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
+  
   initialize() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` button-component:toggle->${this.identifier}#toggle toggle-component:toggle->${this.identifier}#toggle`
+    this.element.dataset.action = (this.element.dataset.action || "") + `
+    button-component:dispatch->${this.identifier}#reducer
+    toggle-component:dispatch->${this.identifier}#reducer
+    tab--default-component:dispatch->${this.identifier}#reducer
+    `
   }
-  toggle({ detail: { id, type } }) {
-    console.log(id, type)
-    this.dispatch('toggle', { detail: { id: id, type: type } })
+
+  reducer({ detail: { payload } }) {
+    console.log(payload)
+    this.dispatch('dispatch', { detail: { payload: payload } })
   }
+
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

@@ -53,17 +53,17 @@ export default class extends Controller {
   }
 
   open(event) {
-    this.dispatch('toggle', { detail: { id: `${this.closeTarget().id}`, type: "open" } })
+    this.dispatch('dispatch', { detail: { payload: { id: `${this.closeTarget().id}`, action: "open" } } })
     event.stopPropagation()
   }
 
   close(event) {
-    this.dispatch('toggle', { detail: { id: `${this.closeTarget().id}`, type: "close" } })
+    this.dispatch('dispatch', { detail: { payload: { id: `${this.closeTarget().id}`, action: "close" } } })
     event.stopPropagation()
   }
 
   toggle(event) {
-    this.dispatch('toggle', { detail: { id: `${this.closeTarget().id}`, type: "toggle" } })
+    this.dispatch('dispatch', { detail: { payload: { id: `${this.closeTarget().id}`, action: "toggle" } } })
     event.stopPropagation()
   }
 

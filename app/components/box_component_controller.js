@@ -5,7 +5,7 @@ export default class extends Controller {
   static values = {
     isOpen: { type: Boolean, default: true },
     closable: { type: Boolean, default: true },
-    klass: { type: String, default: " w-80 h-96 bg-white rounded-lg border border-gray-200 text-black shadow-lg shadow-gray-500/50" },
+    klass: { type: String, default: "w-full h-full bg-white rounded-lg border border-gray-200 text-black shadow-lg shadow-gray-500/50" },
     defaultKlass: { type: String, default: "" },
     contentClass: { type: String, default: "" },
     contentClassDefault: { type: String, default: "flex flex-col w-full h-full" }
@@ -34,15 +34,25 @@ export default class extends Controller {
 
   initializeAction() {
     if (this.closableValue) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:toggle@window->${this.identifier}#toggle`
+      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }
   }
 
-  toggle({ detail: { id, type } }) {
-    if (this.element.id != id) { return }
-    if (type === 'open') { this.isOpenValue = true }
-    if (type === 'close') { this.isOpenValue = false }
-    if (type === 'toggle') { this.isOpenValue = !this.isOpenValue }
+  globalDispatch({ detail: { payload } }) {
+    if (this.element.id != payload.id) { return }
+    eval(`this.${payload.action}()`)
+  }
+
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+
+  open() {
+    this.isOpenValue = true
+  }
+
+  close() {
+    this.isOpenValue = false
   }
 
   isOpenValueChanged() {

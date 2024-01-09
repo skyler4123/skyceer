@@ -4,10 +4,13 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["template"]
   static values = {
-    label: { type: String, default: "Text Sample" },
-    klass: { type: String, default: "" },
+    label: { type: String, default: "Sample Text" },
     languageName: { type: String, default: "english" },
-    languageKey: { type: String }
+    languageKey: { type: String },
+    klass: { type: String },
+    textClass: { type: String },
+    klassDefault: { type: String },
+    textClassDefault: { type: String }
   }
 
   initialize() {
@@ -35,7 +38,9 @@ export default class extends Controller {
   }
 
   languageNameValueChanged() {
-    this.element.textContent = this.dictionary()[this.languageNameValue][this.languageKeyValue]
+    if (this.languageKeyValue) {
+      this.element.textContent = this.dictionary()[this.languageNameValue][this.languageKeyValue]
+    } 
   }
   
   dictionary() {

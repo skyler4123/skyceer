@@ -1,5 +1,6 @@
 <%= tag.div(id: @id, class: "hidden ", data: {
-  controller: "box-component",
+  controller: @controller,
+  action: @action,
   box_component_klass_value: @klass,
   box_component_klass_default_value: @klass_default,
   box_component_content_class_value: @content_class,

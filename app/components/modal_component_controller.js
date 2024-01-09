@@ -26,7 +26,7 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` global:toggle@window->${this.identifier}#toggle`
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
   }
 
   initializeClass() {
@@ -35,11 +35,21 @@ export default class extends Controller {
     this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
   }
 
-  toggle({ detail: { id, type } }) {
-    if (this.element.id != id) { return }
-    if (type === 'open') { this.isOpenValue = true }
-    if (type === 'close') { this.isOpenValue = false }
-    if (type === 'toggle') { this.isOpenValue = !this.isOpenValue }
+  globalDispatch({ detail: { payload } }) {
+    if (this.element.id != payload.id) { return }
+    eval(`this.${payload.action}()`)
+  }
+
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+
+  open() {
+    this.isOpenValue = true
+  }
+
+  close() {
+    this.isOpenValue = false
   }
 
   isOpenValueChanged() {
