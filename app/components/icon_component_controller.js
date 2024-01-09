@@ -4,6 +4,10 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ['template', 'svg']
   static values = {
+    isOpen: { type: Boolean, default: false },
+    toggleType: { type: String, default: "toggle" },
+    eventListener: { type: String, default: "click" },
+
     name: { type: String, default: 'star' },
     type: { type: String, default: 'outline' },
     svgHtml: { type: String },
@@ -18,6 +22,7 @@ export default class extends Controller {
     this.initializeHTML()
     this.initializeTarget()
     this.initializeClass()
+    this.initializeAction()
 
     this.initializeComplete()
   }
@@ -46,6 +51,36 @@ export default class extends Controller {
       this.svgTarget.classList = this.svgClassDefaultValue + ' ' + this.svgClassValue
     }
   }
+  initializeAction() {
+    if (this.eventListenerValue === 'click') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}`
+    }
+
+    if (this.eventListenerValue === 'hover') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.toggleTypeValue} mouseleave->${this.identifier}#${this.toggleTypeValue}`
+    }
+  }
+
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+
+  open() {
+    this.isOpenValue = true
+  }
+
+  close() {
+    this.isOpenValue = false
+  }
+
+  isOpenValueChanged() {
+    if (this.isOpenValue) {
+      this.element.setAttribute('open', '')
+    } else {
+      this.element.removeAttribute('open')
+    }
+  }
+  
   initHTML() {
     return {
       animation: {

@@ -4,6 +4,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["template", 'content', 'hidden', "button", "link", "modal", "popover", "toast"]
   static values = {
+    isOpen: { type: Boolean, default: false },
     label: { type: String, default: "Button" },
     url: { type: String },
 
@@ -16,7 +17,7 @@ export default class extends Controller {
     buttonClassDefault: { type: String, default: "flex justify-center items-center" },
     linkClassDefault: { type: String, default: "flex justify-center items-center" },
     
-    toggleType: { type: String, default: "open" },
+    toggleType: { type: String, default: "toggle" },
     eventListener: { type: String, default: "click" }
   }
 
@@ -60,21 +61,23 @@ export default class extends Controller {
 
   initializeAction() {
     if (this.eventListenerValue === 'click') {
-      if (this.hasModalTarget) {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Modal`
-      }
-      if (this.hasToastTarget) {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Toast`
-      }
-      if (this.hasPopoverTarget) {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Popover`
-      }
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}`
+    //   if (this.hasModalTarget) {
+    //     this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Modal`
+    //   }
+    //   if (this.hasToastTarget) {
+    //     this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Toast`
+    //   }
+    //   if (this.hasPopoverTarget) {
+    //     this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Popover`
+    //   }
     }
 
     if (this.eventListenerValue === 'hover') {
-      if (this.hasPopoverTarget) {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.toggleTypeValue}Popover mouseleave->${this.identifier}#${this.toggleTypeValue}Popover`
-      }
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.toggleTypeValue} mouseleave->${this.identifier}#${this.toggleTypeValue}`
+      // if (this.hasPopoverTarget) {
+      //   this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.toggleTypeValue}Popover mouseleave->${this.identifier}#${this.toggleTypeValue}Popover`
+      // }
     }
   }
 
@@ -100,50 +103,70 @@ export default class extends Controller {
     `
   }
 
-  toggleModal(event) {
-    this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "toggle" } } })
-    event.stopPropagation()
-  }
-  openModal(event) {
-    this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "open" } } })
-    event.stopPropagation()
-  }
-  closeModal(event) {
-    this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "close" } } })
-    event.stopPropagation()
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
   }
 
-  togglePopover(event) {
-    this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "toggle" } } })
-    event.stopPropagation()
-  }
-  openPopover(event) {
-    this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "open" } } })
-    event.stopPropagation()
-  }
-  closePopover(event) {
-    this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "close" } } })
-    event.stopPropagation()
+  open() {
+    this.isOpenValue = true
   }
 
-  toggleToast(event) {
-    this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "toggle" } } })
-    event.stopPropagation()
-  }
-  openToast(event) {
-    this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "open" } } })
-    event.stopPropagation()
-  }
-  closeToast(event) {
-    this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "close" } } })
-    event.stopPropagation()
+  close() {
+    this.isOpenValue = false
   }
 
-  openDrawer(event) {
-    this.drawerTarget.setAttribute('open', '')
-    this.element.dataset.action = (this.element.dataset.action || '').replace(`click->${this.identifier}#openDrawer`, "")
-    event.stopPropagation()
+  isOpenValueChanged() {
+    if (this.isOpenValue) {
+      this.element.setAttribute('open', '')
+    } else {
+      this.element.removeAttribute('open')
+    }
   }
+
+  // toggleModal(event) {
+  //   this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "toggle" } } })
+  //   event.stopPropagation()
+  // }
+  // openModal(event) {
+  //   this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "open" } } })
+  //   event.stopPropagation()
+  // }
+  // closeModal(event) {
+  //   this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "close" } } })
+  //   event.stopPropagation()
+  // }
+
+  // togglePopover(event) {
+  //   this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "toggle" } } })
+  //   event.stopPropagation()
+  // }
+  // openPopover(event) {
+  //   this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "open" } } })
+  //   event.stopPropagation()
+  // }
+  // closePopover(event) {
+  //   this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "close" } } })
+  //   event.stopPropagation()
+  // }
+
+  // toggleToast(event) {
+  //   this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "toggle" } } })
+  //   event.stopPropagation()
+  // }
+  // openToast(event) {
+  //   this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "open" } } })
+  //   event.stopPropagation()
+  // }
+  // closeToast(event) {
+  //   this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "close" } } })
+  //   event.stopPropagation()
+  // }
+
+  // openDrawer(event) {
+  //   this.drawerTarget.setAttribute('open', '')
+  //   this.element.dataset.action = (this.element.dataset.action || '').replace(`click->${this.identifier}#openDrawer`, "")
+  //   event.stopPropagation()
+  // }
 
   demo() {
     console.log("Hello Skyler")
