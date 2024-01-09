@@ -1,18 +1,5 @@
-  <%= render(AccordionComponent.new) do |c| %>
-    <% c.with_header do %>
       <%= render(ButtonComponent.new(label: "Chart")) do |c| %>
         <% c.with_prepend do %>
-          <%= render(IconComponent.new(name: 'star')) %>
-        <% end %>
-        <% c.with_append do %>
           <%= render(IconComponent.new(name: 'chevron-left', type: :solid, klass: "rotate-0 open:-rotate-90 duration-200 ease-in-out")) %>
         <% end %>
       <% end %>
-    <% end %>
-    <% c.with_body do %>
-      <%= render(ButtonComponent.new(label: "Chart JS")) %>
-      <%= render(ButtonComponent.new(label: "Flot")) %>
-      <%= render(ButtonComponent.new(label: "Inline")) %>
-      <%= render(ButtonComponent.new(label: "uPlot")) %>
-    <% end %>
-  <% end %>

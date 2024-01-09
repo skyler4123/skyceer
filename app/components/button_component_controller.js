@@ -40,7 +40,6 @@ export default class extends Controller {
   }
 
   initializeTarget() {
-    this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
     this.element.querySelector('[data-controller="modal-component"]')?.setAttribute(`data-${this.identifier}-target`, 'modal')
     this.element.querySelector('[data-controller="popover-component"]')?.setAttribute(`data-${this.identifier}-target`, 'popover')
     this.element.querySelector('[data-controller="toast-component"]')?.setAttribute(`data-${this.identifier}-target`, 'toast')

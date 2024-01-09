@@ -14,7 +14,6 @@ export default class extends Controller {
   }
 
   initialize() {
-    this.initializeTarget()
     this.initializeHTML()
     this.initializeClass()
 
@@ -25,10 +24,6 @@ export default class extends Controller {
     this.element.classList.remove('hidden')
   }
 
-  initializeTarget() {
-    this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
-  }
-  
   initializeHTML() {
     morphdom(this.templateTarget, this.labelValue)
   }

@@ -16,9 +16,8 @@ export default class extends Controller {
 
   initialize() {
     this.initializeID()
-    this.initializeTarget()
     this.initializeHTML()
-    this.initializeImgTarget()
+    this.initializeTarget()
     this.initializeDefaultClass()
     this.initializeClass()
 
@@ -34,15 +33,11 @@ export default class extends Controller {
     this.dispatch('dispatch', { detail: { payload: { id: this.element.id, action: "complete", controller: this } } })
   }
 
-  initializeTarget() {
-    this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
-  }
-
   initializeHTML() {
     morphdom(this.templateTarget, this.initHTML())
   }
 
-  initializeImgTarget() {
+  initializeTarget() {
     this.element.querySelector('img').setAttribute(`data-${this.identifier}-target`, 'img')
   }
 

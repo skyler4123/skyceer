@@ -14,19 +14,22 @@ export default class extends Controller {
   }
 
   initialize() {
-    this.initializeTarget()
+    this.initializeID()
     this.initializeHTML()
-    this.initializeSvgTarget()
+    this.initializeTarget()
     this.initializeClass()
 
     this.initializeComplete()
   }
+  initializeID() {
+    if (!this.element.id) {
+      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
+    }
+  }
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  initializeTarget() {
-    this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
-  }
+
   initializeHTML() {
     if (this.svgHtmlValue) {
       morphdom(this.templateTarget, this.svgHtmlValue)
@@ -34,7 +37,7 @@ export default class extends Controller {
       morphdom(this.templateTarget, this.initHTML()[this.typeValue][this.nameValue])
     }
   }
-  initializeSvgTarget() {
+  initializeTarget() {
     this.element.querySelector('svg').setAttribute(`data-${this.identifier}-target`, 'svg')
   }
   initializeClass() {

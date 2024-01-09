@@ -22,7 +22,6 @@ export default class extends Controller {
 
   initialize() {
     this.initializeID()
-    this.initializeTarget()
     this.initializeHTML()
     this.initializeClass()
     this.initializeAction()
@@ -36,10 +35,6 @@ export default class extends Controller {
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
-  }
-
-  initializeTarget() {
-    this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
   }
 
   initializeHTML() {
