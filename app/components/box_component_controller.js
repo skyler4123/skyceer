@@ -7,8 +7,8 @@ export default class extends Controller {
     closable: { type: Boolean, default: true },
     klass: { type: String, default: " w-80 h-96 bg-white rounded-lg border border-gray-200 text-black shadow-lg shadow-gray-500/50" },
     defaultKlass: { type: String, default: "" },
-    contentClass: { type: String, default: " w-full h-full" },
-    contentClassDefault: { type: String, default: "" }
+    contentClass: { type: String, default: "" },
+    contentClassDefault: { type: String, default: "flex flex-col w-full h-full" }
   }
 
   initialize() {
@@ -29,6 +29,7 @@ export default class extends Controller {
 
   initializeClass() {
     this.element.className = this.element.className + ' ' + this.defaultKlassValue + ' ' + this.klassValue
+    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
   }
 
   initializeAction() {

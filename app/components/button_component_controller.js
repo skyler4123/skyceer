@@ -11,10 +11,10 @@ export default class extends Controller {
     contentClass: { type: String, default: "" },
     buttonClass: { type: String, default: "" },
     linkClass: { type: String, default: "" },
-    klassDefault: { type: String, default: " relative cursor-pointer" },
-    contentClassDefault: { type: String, default: " relative flex justify-center items-center text-center" },
-    buttonClassDefault: { type: String, default: " flex justify-center items-center" },
-    linkClassDefault: { type: String, default: " flex justify-center items-center" },
+    klassDefault: { type: String, default: "relative flex justify-center items-center cursor-pointer" },
+    contentClassDefault: { type: String, default: "relative flex justify-center items-center text-center" },
+    buttonClassDefault: { type: String, default: "flex justify-center items-center" },
+    linkClassDefault: { type: String, default: "flex justify-center items-center" },
     
     toggleType: { type: String, default: "open" },
     eventListener: { type: String, default: "click" }

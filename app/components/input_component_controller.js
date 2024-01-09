@@ -46,9 +46,9 @@ export default class extends Controller {
     klass: { type: String, default: "" },
     contentClass: { type: String, default: "" },
     inputClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "w-20" },
-    contentClassDefault: { type: String, default: "" },
-    inputClassDefault: { type: String, default: "" },
+    klassDefault: { type: String, default: "max-w-1/2" },
+    contentClassDefault: { type: String, default: "w-full" },
+    inputClassDefault: { type: String, default: "w-full h-7" },
 
     formatOptions: { type: Object }
   }
