@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = ["template"]
   static values = {
     isOpen: { type: Boolean, default: true },
-    action: { type: String },
+    eventAction: { type: String },
     eventListener: { type: String },
     eventId: { type: String },
 
@@ -50,10 +50,10 @@ export default class extends Controller {
     if (!this.eventListenerValue) { return }
 
     if (this.eventListenerValue === 'click') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.actionValue}`
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventActionValue}`
     }
     if (this.eventListenerValue === 'hover') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.actionValue} mouseleave->${this.identifier}#${this.actionValue}`
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventActionValue} mouseleave->${this.identifier}#${this.eventActionValue}`
     }
   }
 

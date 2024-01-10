@@ -4,7 +4,7 @@ class BoxComponent < ViewComponent::Base
   def initialize(
     controller: nil,
     controller_action: nil,
-    action: nil,
+    event_action: nil,
     event_listener: nil,
     event_id: nil,
     id: nil,
@@ -18,7 +18,7 @@ class BoxComponent < ViewComponent::Base
   )
     @controller = "box-component" + ' ' + controller.to_s
     @controller_action = controller_action
-    @action = action
+    @event_action = event_action
     @event_listener = event_listener
     @event_id = event_id
     @id = id

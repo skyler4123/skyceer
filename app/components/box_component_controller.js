@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["content"]
   static values = {
     isOpen: { type: Boolean, default: true },
-    action: { type: String },
+    eventAction: { type: String },
     eventListener: { type: String },
     eventId: { type: String },
 

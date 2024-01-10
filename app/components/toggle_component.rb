@@ -4,11 +4,12 @@ class ToggleComponent < ViewComponent::Base
   def initialize(
     controller: nil,
     controller_action: nil,
-    action: nil,
+    event_action: nil,
     event_listener: nil,
     event_id: nil,
     id: nil,
 
+    toggle_direction: nil,
 
     klass: nil,
     content_class: nil,
@@ -20,11 +21,13 @@ class ToggleComponent < ViewComponent::Base
     )
     @controller = "toggle-component" + ' ' + controller.to_s
     @controller_action = controller_action
-    @action = action
+    @event_action = event_action
     @event_listener = event_listener
     @event_id = event_id
     @id = id
 
+    @toggle_direction = toggle_direction
+    
     @klass = klass
     @content_class = content_class
     @grid_class = grid_class

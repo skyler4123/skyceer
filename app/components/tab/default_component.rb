@@ -6,7 +6,7 @@ class Tab::DefaultComponent < ViewComponent::Base
 
   def initialize(
     controller: nil,
-    action: nil,
+    event_action: nil,
     klass: nil,
     headers_class: nil,
     header_class: nil,
@@ -14,7 +14,7 @@ class Tab::DefaultComponent < ViewComponent::Base
     body_class: nil
   )
     @controller = "tab--default-component" + ' ' + controller.to_s
-    @action = action
+    @event_action = event_action
     @klass = klass
     @headers_class = headers_class
     @header_class = header_class

@@ -6,7 +6,7 @@ class TextComponent < ViewComponent::Base
 
   def initialize(
     controller: nil,
-    action: nil,
+    event_action: nil,
     id: nil,
     label: nil,
     language_name: nil,
@@ -18,7 +18,7 @@ class TextComponent < ViewComponent::Base
     **rest_data_attributes
   )
     @controller = "text-component" + ' ' + controller.to_s
-    @action = action
+    @event_action = event_action
     @id = id
     @label = label
     @language_name = language_name

@@ -10,7 +10,7 @@ export default class extends Controller {
   static targets = ["template", "content", "input"]
   static values = {
     isOpen: { type: Boolean, default: true },
-    action: { type: String },
+    eventAction: { type: String },
     eventListener: { type: String },
     eventId: { type: String },
 
@@ -114,7 +114,7 @@ export default class extends Controller {
         ${this.dirnameValue ? `dirname="${this.dirnameValue}"` : ""}
         ${this.disabledValue ? `disabled` : ""}
         ${this.formValue ? `form="${this.formValue}"` : ""}
-        ${this.formactionValue ? `formaction="${this.formactionValue}"` : ""}
+        ${this.formeventActionValue ? `formaction="${this.formeventActionValue}"` : ""}
         ${this.formenctypeValue ? `formenctype="${this.formenctypeValue}"` : ""}
         ${this.formmethodValue ? `formmethod="${this.formmethodValue}"` : ""}
         ${this.formnovalidateValue ? `formnovalidate="${this.formnovalidateValue}"` : ""}
@@ -130,7 +130,7 @@ export default class extends Controller {
         ${this.patternValue ? `pattern="${this.patternValue}"` : ""}
         ${this.placeholderValue ? `placeholder="${this.placeholderValue}"` : ""}
         ${this.popovertargetValue ? `popovertarget="${this.popovertargetValue}"` : ""}
-        ${this.popovertargetactionValue ? `popovertargetaction="${this.popovertargetactionValue}"` : ""}
+        ${this.popovertargeteventActionValue ? `popovertargetaction="${this.popovertargeteventActionValue}"` : ""}
         ${this.readonlyValue ? `readonly` : ""}
         ${this.requiredValue ? `required` : ""}
         ${this.sizeValue ? `size="${this.sizeValue}"` : ""}
@@ -150,10 +150,10 @@ export default class extends Controller {
     if (!this.eventListenerValue) { return }
 
     if (this.eventListenerValue === 'click') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.actionValue}`
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventActionValue}`
     }
     if (this.eventListenerValue === 'hover') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.actionValue} mouseleave->${this.identifier}#${this.actionValue}`
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventActionValue} mouseleave->${this.identifier}#${this.eventActionValue}`
     }
   }
 

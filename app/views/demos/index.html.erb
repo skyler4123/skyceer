@@ -1,23 +1,5 @@
- <%= render(AccordionComponent.new(position: :right)) do |c| %>
-  <% c.with_header do %>
-    <% event_id = SecureRandom.uuid %>
-    <%= render(ButtonComponent.new(label: "Skyler", event_id: event_id, event_listener: :click, action: :toggle)) do |c| %>
-      <% c.with_prepend do %>
-        <%= render(IconComponent.new) %>
-      <% end %>
-      <% c.with_append do %>
-        <%= render(IconComponent.new(name: "sun", event_id: event_id, klass: "rotate-0 open:rotate-180")) %>
-      <% end %>
-    <% end %>
-  <% end %>
-  <% c.with_body do %>
-     <%= render(AccordionComponent.new(position: :bottom)) do |c| %>
-      <% c.with_header do %>
-        <div>Header 2</div>
-      <% end %>
-      <% c.with_body do %>
-        <div>Body 2</div>
-      <% end %>
-    <% end %>
-  <% end %>
- <% end %>
+<%= render(IconComponent.new(event_id: 123, klass: "rotate-0 open:rotate-180")) %>
+
+<%= render(ButtonComponent.new(event_id: 123, event_listener: :click, event_action: :toggle)) %>
+
+<%= render(ToggleComponent.new(event_id: 123, toggle_direction: "horizontal")) %>
