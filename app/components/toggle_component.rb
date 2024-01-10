@@ -1,12 +1,36 @@
 # frozen_string_literal: true
 
 class ToggleComponent < ViewComponent::Base
-  def initialize(id: nil, klass: nil, type: nil, target_id: nil, target_controller_name: nil)
-    @id = id
-    @klass = klass
+  def initialize(
+    controller: nil,
+    controller_action: nil,
+    action: nil,
+    event_listener: nil,
+    event_id: nil,
+    id: nil,
 
-    @type = type
-    @target_id = target_id
-    @target_controller_name = target_controller_name
+
+    klass: nil,
+    content_class: nil,
+    grid_class: nil,
+    klass_default: nil,
+    content_class_default: nil,
+    grid_class_default: nil,
+    **rest_data_attributes
+    )
+    @controller = "toggle-component" + ' ' + controller.to_s
+    @controller_action = controller_action
+    @action = action
+    @event_listener = event_listener
+    @event_id = event_id
+    @id = id
+
+    @klass = klass
+    @content_class = content_class
+    @grid_class = grid_class
+    @klass_default = klass_default
+    @content_class_default = content_class_default
+    @grid_class_default = grid_class_default
+    @rest_data_attributes = rest_data_attributes
   end
 end

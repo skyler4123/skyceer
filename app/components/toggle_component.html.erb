@@ -1,15 +1,23 @@
-<%= tag.div(id: @id, class: ' hidden', data: {
-  controller: "toggle-component",
+<%= tag.div(class: 'hidden ', data: {
+  controller: @controller,
+  action: @action,
+  toggle_component_label_value: @label,
+  toggle_component_position_value: @position,
   toggle_component_klass_value: @klass,
-  toggle_component_type_value: @type,
-  toggle_component_target_id_value: @target_id,
-  toggle_component_target_controller_name_value: @target_controller_name,
+  toggle_component_content_class_value: @content_class,
+  toggle_component_grid_class_value: @grid_class,
+  toggle_component_klass_default_value: @klass_default,
+  toggle_component_content_class_default_value: @content_class_default,
+  toggle_component_grid_class_default_value: @grid_class_default,
+  **@rest_data_attributes
 }) do %>
-  <% if content %>
-    <%= content %>
-  <% else %>
-    <%= render(ButtonComponent.new(klass: "", button_class: "", content_class: "")) do %>
-      <%= render(IconComponent.new(name: "x-mark", svg_class: 'w-5 h-5 opacity-100 stroke-1 hover:stroke-2')) %>
-    <% end %>
-  <% end %>
+  <div data-toggle-component-target="content">
+    <div data-toggle-component-target="grid">
+      <% if content? %>
+        <%= content %>
+      <% else %>
+        "Empty Content!"
+      <% end %>
+    </div>
+  </div>
 <% end %>
