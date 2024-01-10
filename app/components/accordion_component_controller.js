@@ -23,7 +23,6 @@ export default class extends Controller {
 
   initialize() {
     this.initializeID()
-    // this.initializeTarget()
     this.initializeDefaultClass()
     this.initializeClass()
     this.initializeAction()
@@ -38,9 +37,7 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  // initializeTarget() {
-  //   this.headerTarget.querySelector('[data-controller*=icon]')?.setAttribute(`data-${this.identifier}-target`, 'icon')
-  // }
+
   initializeDefaultClass() {
     if (this.positionValue === "bottom") {
       this.defaultKlassValue = " flex flex-col"
@@ -80,19 +77,13 @@ export default class extends Controller {
     this.isOpenValue = !this.isOpenValue
     event.stopPropagation()
   }
-  isOpenValueChanged() {
+  isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue === true) {
       this.headerTarget.setAttribute('open', '')
       this.bodyTarget.setAttribute('open', '')
-      // if (this.hasIconTarget) {
-      //   this.iconTarget.setAttribute('open', '')
-      // } 
     } else {
       this.headerTarget.removeAttribute('open')
       this.bodyTarget.removeAttribute('open')
-      // if (this.hasIconTarget) {
-      //   this.iconTarget.removeAttribute('open')
-      // }
     }
   }
 

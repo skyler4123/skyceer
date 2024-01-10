@@ -46,7 +46,7 @@ export default class extends Controller {
   toggle() {
     this.isOpenValue = !this.isOpenValue
   }
-  isOpenValueChanged() {
+  isOpenValueChanged(value, previousValue) {
     this.backgroundTarget.toggleAttribute('open')
     this.toggleTarget.toggleAttribute('open')
     this.inputTarget.value = this.isOpenValue & 1

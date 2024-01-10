@@ -41,6 +41,7 @@
   input_component_input_class_value: @input_class,
   input_component_input_class_default_value: @input_class_default,
   input_component_format_options_value: @format_options,
+  **@rest_data_attributes
 }) do %>
   <% if prepends? %>
     <% prepends.each do |prepend| %>

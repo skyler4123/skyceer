@@ -1,18 +1,23 @@
-<%= tag.div(
-  id: @id, class: "hidden ",
-  data: {
-    controller: "modal-component",
-    modal_component_klass_value: @klass,
-    modal_component_background_class_value: @background_class,
-    modal_component_content_class_value: @content_class,
-    modal_component_klass_default_value: @defaul_klass,
-    modal_component_background_class_default_value: @defaul_background_class,
-    modal_component_content_class_default_value: @defaul_content_class,
+<% event_id = SecureRandom.uuid %>
+
+<%= tag.div(id: @id, class: "", data: {
+  controller: @controller,
+  action: @controller_action,
+  modal_component_action_value: @action,
+  modal_component_event_listener_value: @event_listener,
+  modal_component_event_id_value: @event_id || event_id,
+
+  modal_component_klass_value: @klass,
+  modal_component_background_class_value: @background_class,
+  modal_component_content_class_value: @content_class,
+  modal_component_klass_default_value: @defaul_klass,
+  modal_component_background_class_default_value: @defaul_background_class,
+  modal_component_content_class_default_value: @defaul_content_class,
+  **@rest_data_attributes
   }) do %>
-  <div data-modal-component-target="background">
-    <%= render(ToggleComponent.new(klass: "w-full h-full", target_controller_name: 'modal-component')) { "" } %>
-  </div>
+  <%= render(ButtonComponent.new(label: "", event_id: @event_id || event_id, event_listener: :click, action: :toggle, modal_component_target: "background")) %>
+  
   <div data-modal-component-target="content">
-    <%= content? ? content : "Modal Content here!" %>
+    <%= content? ? content : "Modal Content here! " %>
   </div>
 <% end %>

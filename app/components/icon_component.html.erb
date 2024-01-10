@@ -1,12 +1,19 @@
-<%= tag.div(class: 'hidden ', data: {
-  controller: "icon-component",
+<%= tag.div(class: 'hidden ', id: @id, data: {
+  controller: @controller,
+  action: @controller_action,
+  icon_component_action_value: @action,
+  icon_component_event_listener_value: @event_listener,
+  icon_component_event_id_value: @event_id,
+
   icon_component_name_value: @name,
   icon_component_type_value: @type,
   icon_component_svg_html_value: @svg_html,
+
   icon_component_klass_value: @klass,
   icon_component_svg_class_value: @svg_class,
   icon_component_klass_default_value: @klass_default,
-  icon_component_svg_class_default_value: @svg_class_default
+  icon_component_svg_class_default_value: @svg_class_default,
+  **@rest_data_attributes
 } ) do %>
   <template data-icon-component-target="template"></template>
 <% end %>

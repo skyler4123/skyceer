@@ -5,9 +5,14 @@ export default class extends Controller {
   static targets = ["template", "img"]
   static values = {
     isOpen: { type: Boolean, default: true },
+    action: { type: String },
+    eventListener: { type: String },
+    eventId: { type: String },
+
     type: { type: String },
     url: { type: String, default: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png" },
     alt: { type: String, default: "image description" },
+
     klass: { type: String },
     imgClass: { type: String, default: "h-24 w-24 object-center transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0" },
     klassDefault: { type: String },
@@ -20,7 +25,8 @@ export default class extends Controller {
     this.initializeTarget()
     this.initializeDefaultClass()
     this.initializeClass()
-
+    this.initializeAction()
+    
     this.initializeComplete()
   }
   initializeID() {
@@ -58,6 +64,55 @@ export default class extends Controller {
     `
   }
   
+  initializeAction() {
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    if (!this.eventListenerValue) { return }
+
+    if (this.eventListenerValue === 'click') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.actionValue}`
+    }
+    if (this.eventListenerValue === 'hover') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.actionValue} mouseleave->${this.identifier}#${this.actionValue}`
+    }
+  }
+
+  globalDispatch({ detail: { payload } }) {
+    if (this.eventIdValue === payload.id) {
+      if (payload.action === "toggle") { this.toggle() }
+      if (payload.action === "open") { this.open() }
+      if (payload.action === "close") { this.close() }
+    }
+  }
+
+  toggle(event) {
+    this.isOpenValue = !this.isOpenValue
+    if (event) {
+      event.stopPropagation()
+    }
+  }
+
+  open(event) {
+    this.isOpenValue = true
+    if (event) {
+      event.stopPropagation()
+    }
+  }
+
+  close(event) {
+    this.isOpenValue = false
+    if (event) {
+      event.stopPropagation()
+    }
+  }
+
+  isOpenValueChanged(value, previousValue) {
+    if (this.isOpenValue) {
+      this.element.setAttribute('open', '')
+    } else {
+      this.element.removeAttribute('open')
+    }
+  }
+
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

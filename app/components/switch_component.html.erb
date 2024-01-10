@@ -3,7 +3,8 @@
   switch_component_klass_value: @klass,
   switch_component_switch_class_value: @switch_class,
   switch_component_klass_default_value: @klass_default,
-  switch_component_switch_class_default_value: @switch_class_default
+  switch_component_switch_class_default_value: @switch_class_default,
+  **@rest_data_attributes
 }) do %>
   <% switches.each do |switch| %>
     <div data-switch-component-target="switch">

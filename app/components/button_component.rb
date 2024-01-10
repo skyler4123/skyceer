@@ -7,28 +7,37 @@ class ButtonComponent < ViewComponent::Base
   renders_many :hiddens
   
   def initialize(
-      controller: nil,
-      action: nil,
-      id: nil,
-      label: nil,
-      src: nil,
-      url: nil,
-      klass: nil,
-      content_class: nil,
-      button_class: nil,
-      link_class: nil,
-      klass_default: nil,
-      content_class_default: nil,
-      button_class_default: nil,
-      link_class_default: nil,
-      toggle_type: nil,
-      event_listener: nil
-    )
+    controller: nil,
+    controller_action: nil,
+    action: nil,
+    event_listener: nil,
+    event_id: nil,
+    id: nil,
+
+    label: nil,
+    src: nil,
+    url: nil,
+
+    klass: nil,
+    content_class: nil,
+    button_class: nil,
+    link_class: nil,
+    klass_default: nil,
+    content_class_default: nil,
+    button_class_default: nil,
+    link_class_default: nil,
+    **rest_data_attributes
+  )
     @controller = "button-component" + ' ' + controller.to_s
+    @controller_action = controller_action
     @action = action
+    @event_listener = event_listener
+    @event_id = event_id
     @id = id
+
     @label = label
     @url = url || src
+    
     @klass = klass
     @content_class = content_class
     @button_class = button_class
@@ -37,7 +46,6 @@ class ButtonComponent < ViewComponent::Base
     @content_class_default = content_class_default
     @button_class_default = button_class_default
     @link_class_default = link_class_default
-    @toggle_type = toggle_type
-    @event_listener = event_listener
+    @rest_data_attributes = rest_data_attributes
   end
 end

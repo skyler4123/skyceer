@@ -1,7 +1,13 @@
 <%= tag.div(id: @id, class: 'hidden ', data: {
   controller: @controller,
+  action: @controller_action,
+  button_component_action_value: @action,
+  button_component_event_listener_value: @event_listener,
+  button_component_event_id_value: @event_id,
+
   button_component_label_value: @label,
   button_component_url_value: @url,
+
   button_component_klass_value: @klass,
   button_component_content_class_value: @content_class,
   button_component_button_class_value: @button_class,
@@ -10,8 +16,7 @@
   button_component_content_class_default_value: @content_class_default,
   button_component_button_class_default_value: @button_class_default,
   button_component_link_class_default_value: @link_class_default,
-  button_component_toggle_type_value: @toggle_type,
-  button_component_event_listener_value: @event_listener
+  **@rest_data_attributes
   }) do %>
   <%= tag.div(class: @content_class, data: { button_component_target: "content", action: @action }) do %>
     <% if prepends? %>

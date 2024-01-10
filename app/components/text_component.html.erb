@@ -7,7 +7,8 @@
   text_component_klass_value: @klass,
   text_component_text_class_value: @text_class,
   text_component_klass_default_value: @klass_default,
-  text_component_text_class_default_value: @text_class_default
+  text_component_text_class_default_value: @text_class_default,
+  **@rest_data_attributes
 }) do %>
   <template data-text-component-target="template"></template>
 <% end %>

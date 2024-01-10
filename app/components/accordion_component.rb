@@ -17,7 +17,8 @@ class AccordionComponent < ViewComponent::Base
     klass_default: nil,
     header_class_default: nil,
     body_class_default: nil,
-    grid_class_default: nil
+    grid_class_default: nil,
+    **rest_data_attributes
     )
     @controller = "accordion-component" + " " + controller.to_s
     @action = action
@@ -31,5 +32,6 @@ class AccordionComponent < ViewComponent::Base
     @header_class_default = header_class_default
     @body_class_default = body_class_default
     @grid_class_default = grid_class_default
+    @rest_data_attributes = rest_data_attributes
   end
 end

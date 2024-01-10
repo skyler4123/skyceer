@@ -1,9 +1,15 @@
-<%= tag.div(class: ' hidden', data: {
+<%= tag.div(class: 'hidden', id: @id, data: {
   controller: "toast-component",
+  action: @controller_action,
+  toast_component_action_value: @action,
+  toast_component_event_listener_value: @event_listener,
+  toast_component_event_id_value: @event_id,
+
   toast_component_klass_value: @klass,
   toast_component_klass_default_value: @klass_default,
   toast_component_content_class_value: @content_class,
-  toast_component_content_class_default_value: @content_class_default
+  toast_component_content_class_default_value: @content_class_default,
+  **@rest_data_attributes
 }) do %>
 
   <div data-toast-component-target="content">

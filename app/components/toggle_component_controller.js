@@ -42,9 +42,9 @@ export default class extends Controller {
 
   closeTarget() {
     let closeTarget
-    if (this.targetIdValue != "") {
+    if (this.targetIdValue !== "") {
       closeTarget = document.querySelector(`#${this.targetIdValue}`)
-    } else if (this.targetControllerNameValue != "") {
+    } else if (this.targetControllerNameValue !== "") {
       closeTarget = this.element.parentNode.closest(`[data-controller="${this.targetControllerNameValue}"]`)
     } else {
       closeTarget = this.element.parentNode.closest('[data-controller]')

@@ -4,7 +4,10 @@ export default class extends Controller {
   static targets = ["content"]
   static values = {
     isOpen: { type: Boolean, default: true },
-    closable: { type: Boolean, default: true },
+    action: { type: String },
+    eventListener: { type: String },
+    eventId: { type: String },
+
     klass: { type: String, default: "w-full h-full bg-white rounded-lg border border-gray-200 text-black shadow-lg shadow-gray-500/50" },
     defaultKlass: { type: String, default: "" },
     contentClass: { type: String, default: "" },
@@ -33,14 +36,16 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    if (this.closableValue) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    }
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
   }
 
   globalDispatch({ detail: { payload } }) {
-    if (this.element.id != payload.id) { return }
-    eval(`this.${payload.action}()`)
+    console.log('hahaha', payload)
+    if (this.eventIdValue === payload.id) {
+      if (payload.action === "toggle") { this.toggle() }
+      if (payload.action === "open") { this.open() }
+      if (payload.action === "close") { this.close() }
+    }
   }
 
   toggle() {
@@ -55,7 +60,7 @@ export default class extends Controller {
     this.isOpenValue = false
   }
 
-  isOpenValueChanged() {
+  isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.classList.remove('hidden')
     } else {

@@ -4,17 +4,18 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ['template', 'svg']
   static values = {
-    isOpen: { type: Boolean, default: false },
-    toggleType: { type: String, default: "toggle" },
-    eventListener: { type: String, default: "click" },
+    isOpen: { type: Boolean, default: true },
+    action: { type: String },
+    eventListener: { type: String },
+    eventId: { type: String },
 
     name: { type: String, default: 'star' },
     type: { type: String, default: 'outline' },
     svgHtml: { type: String },
     klass: { type: String },
     svgClass: { type: String, default: 'w-5 h-5' },
-    klassDefault: { type: String, default: "flex w-fit h-fit justify-center items-center transition-all duration-200 ease-in-out" },
-    svgClassDefault: { type: String },
+    klassDefault: { type: String, default: "w-fit h-fit flex justify-center items-center transition-all duration-200 ease-in-out" },
+    svgClassDefault: { type: String }
   }
 
   initialize() {
@@ -33,6 +34,7 @@ export default class extends Controller {
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
+    this.dispatch('dispatch', { detail: { payload: { id: this.element.id, action: "complete", controller: this } } })
   }
 
   initializeHTML() {
@@ -47,33 +49,52 @@ export default class extends Controller {
   }
   initializeClass() {
     this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
-    if (!this.svgHtmlValue && this.typeValue != "animation") {
+    if (!this.svgHtmlValue && this.typeValue !== "animation") {
       this.svgTarget.classList = this.svgClassDefaultValue + ' ' + this.svgClassValue
     }
   }
   initializeAction() {
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    if (!this.eventListenerValue) { return }
+
     if (this.eventListenerValue === 'click') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}`
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.actionValue}`
     }
-
     if (this.eventListenerValue === 'hover') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.toggleTypeValue} mouseleave->${this.identifier}#${this.toggleTypeValue}`
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.actionValue} mouseleave->${this.identifier}#${this.actionValue}`
     }
   }
 
-  toggle() {
+  globalDispatch({ detail: { payload } }) {
+    if (this.eventIdValue === payload.id) {
+      if (payload.action === "toggle") { this.toggle() }
+      if (payload.action === "open") { this.open() }
+      if (payload.action === "close") { this.close() }
+    }
+  }
+
+  toggle(event) {
     this.isOpenValue = !this.isOpenValue
+    if (event) {
+      event.stopPropagation()
+    }
   }
 
-  open() {
+  open(event) {
     this.isOpenValue = true
+    if (event) {
+      event.stopPropagation()
+    }
   }
 
-  close() {
+  close(event) {
     this.isOpenValue = false
+    if (event) {
+      event.stopPropagation()
+    }
   }
 
-  isOpenValueChanged() {
+  isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
     } else {

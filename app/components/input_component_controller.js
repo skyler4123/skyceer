@@ -9,6 +9,11 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["template", "content", "input"]
   static values = {
+    isOpen: { type: Boolean, default: true },
+    action: { type: String },
+    eventListener: { type: String },
+    eventId: { type: String },
+
     accept: { type: String },
     alt: { type: String },
     autocomplete: { type: String },
@@ -57,7 +62,8 @@ export default class extends Controller {
     this.initializeHTML()
     this.initializeClass()
     this.initializeFormat()
-
+    this.initializeAction()
+    
     this.initializeComplete()
   }
   initializeID() {
@@ -137,6 +143,55 @@ export default class extends Controller {
         data-${this.identifier}-target="input"
       >
     `
+  }
+
+  initializeAction() {
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    if (!this.eventListenerValue) { return }
+
+    if (this.eventListenerValue === 'click') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.actionValue}`
+    }
+    if (this.eventListenerValue === 'hover') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.actionValue} mouseleave->${this.identifier}#${this.actionValue}`
+    }
+  }
+
+  globalDispatch({ detail: { payload } }) {
+    if (this.eventIdValue === payload.id) {
+      if (payload.action === "toggle") { this.toggle() }
+      if (payload.action === "open") { this.open() }
+      if (payload.action === "close") { this.close() }
+    }
+  }
+
+  toggle(event) {
+    this.isOpenValue = !this.isOpenValue
+    if (event) {
+      event.stopPropagation()
+    }
+  }
+
+  open(event) {
+    this.isOpenValue = true
+    if (event) {
+      event.stopPropagation()
+    }
+  }
+
+  close(event) {
+    this.isOpenValue = false
+    if (event) {
+      event.stopPropagation()
+    }
+  }
+
+  isOpenValueChanged(value, previousValue) {
+    if (this.isOpenValue) {
+      this.element.setAttribute('open', '')
+    } else {
+      this.element.removeAttribute('open')
+    }
   }
 
   connect() {

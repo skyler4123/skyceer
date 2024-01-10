@@ -2,9 +2,13 @@ import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template", 'content', 'hidden', "button", "link", "modal", "popover", "toast"]
+  static targets = ["template", 'content', 'hidden', "button", "link"]
   static values = {
-    isOpen: { type: Boolean, default: false },
+    isOpen: { type: Boolean, default: true },
+    action: { type: String },
+    eventListener: { type: String },
+    eventId: { type: String },
+
     label: { type: String, default: "Button" },
     url: { type: String },
 
@@ -15,15 +19,11 @@ export default class extends Controller {
     klassDefault: { type: String, default: "relative flex justify-center items-center cursor-pointer" },
     contentClassDefault: { type: String, default: "relative flex justify-center items-center text-center" },
     buttonClassDefault: { type: String, default: "flex justify-center items-center" },
-    linkClassDefault: { type: String, default: "flex justify-center items-center" },
-    
-    toggleType: { type: String, default: "toggle" },
-    eventListener: { type: String, default: "click" }
+    linkClassDefault: { type: String, default: "flex justify-center items-center" }
   }
 
   initialize() {
     this.initializeID()
-    this.initializeTarget()
     this.initializeHTML()
     this.initializeClass()
     this.initializeAction()
@@ -40,12 +40,6 @@ export default class extends Controller {
     this.dispatch('dispatch', { detail: { payload: { id: this.element.id, action: "complete", controller: this } } })
   }
 
-  initializeTarget() {
-    this.element.querySelector('[data-controller="modal-component"]')?.setAttribute(`data-${this.identifier}-target`, 'modal')
-    this.element.querySelector('[data-controller="popover-component"]')?.setAttribute(`data-${this.identifier}-target`, 'popover')
-    this.element.querySelector('[data-controller="toast-component"]')?.setAttribute(`data-${this.identifier}-target`, 'toast')
-  }
-
   initializeHTML() {
     morphdom(this.templateTarget, this.initHTML())
   }
@@ -60,24 +54,13 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    if (this.eventListenerValue === 'click') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}`
-    //   if (this.hasModalTarget) {
-    //     this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Modal`
-    //   }
-    //   if (this.hasToastTarget) {
-    //     this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Toast`
-    //   }
-    //   if (this.hasPopoverTarget) {
-    //     this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.toggleTypeValue}Popover`
-    //   }
-    }
+    if (!this.eventListenerValue) { return }
 
+    if (this.eventListenerValue === 'click') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.actionValue}`
+    }
     if (this.eventListenerValue === 'hover') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.toggleTypeValue} mouseleave->${this.identifier}#${this.toggleTypeValue}`
-      // if (this.hasPopoverTarget) {
-      //   this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.toggleTypeValue}Popover mouseleave->${this.identifier}#${this.toggleTypeValue}Popover`
-      // }
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.actionValue} mouseleave->${this.identifier}#${this.actionValue}`
     }
   }
 
@@ -103,72 +86,31 @@ export default class extends Controller {
     `
   }
 
-  toggle() {
+  toggle(event) {
     this.isOpenValue = !this.isOpenValue
+    event.stopPropagation()
   }
 
-  open() {
+  open(event) {
     this.isOpenValue = true
+    event.stopPropagation()
   }
 
-  close() {
+  close(event) {
     this.isOpenValue = false
+    event.stopPropagation()
   }
 
-  isOpenValueChanged() {
+  isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
     }
+
+    if (typeof previousValue !== 'undefined') {
+      this.dispatch('dispatch', { detail: { payload: { id: this.eventIdValue, action: this.actionValue, controller: this } } })
+    }
   }
 
-  // toggleModal(event) {
-  //   this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "toggle" } } })
-  //   event.stopPropagation()
-  // }
-  // openModal(event) {
-  //   this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "open" } } })
-  //   event.stopPropagation()
-  // }
-  // closeModal(event) {
-  //   this.dispatch('dispatch', { detail: { payload: { id: this.modalTarget.id, action: "close" } } })
-  //   event.stopPropagation()
-  // }
-
-  // togglePopover(event) {
-  //   this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "toggle" } } })
-  //   event.stopPropagation()
-  // }
-  // openPopover(event) {
-  //   this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "open" } } })
-  //   event.stopPropagation()
-  // }
-  // closePopover(event) {
-  //   this.dispatch('dispatch', { detail: { payload: { id: this.popoverTarget.id, action: "close" } } })
-  //   event.stopPropagation()
-  // }
-
-  // toggleToast(event) {
-  //   this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "toggle" } } })
-  //   event.stopPropagation()
-  // }
-  // openToast(event) {
-  //   this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "open" } } })
-  //   event.stopPropagation()
-  // }
-  // closeToast(event) {
-  //   this.dispatch('dispatch', { detail: { payload: { id: this.toastTarget.id, action: "close" } } })
-  //   event.stopPropagation()
-  // }
-
-  // openDrawer(event) {
-  //   this.drawerTarget.setAttribute('open', '')
-  //   this.element.dataset.action = (this.element.dataset.action || '').replace(`click->${this.identifier}#openDrawer`, "")
-  //   event.stopPropagation()
-  // }
-
-  demo() {
-    console.log("Hello Skyler")
-  }
 }

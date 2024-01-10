@@ -45,8 +45,8 @@ class InputComponent < ViewComponent::Base
     content_class_default: nil,
     input_class: nil,
     input_class_default: nil,
-    format_options: nil
-
+    format_options: nil,
+    **rest_data_attributes
   )
     @accept = accept
     @alt = alt
@@ -89,5 +89,6 @@ class InputComponent < ViewComponent::Base
     @input_class = input_class
     @input_class_default = input_class_default
     @format_options = format_options
+    @rest_data_attributes = rest_data_attributes
   end
 end

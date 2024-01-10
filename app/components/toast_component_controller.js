@@ -4,8 +4,13 @@ export default class extends Controller {
   static targets = ["content"]
   static values = {
     isOpen: { type: Boolean, default: false },
+    action: { type: String },
+    eventListener: { type: String },
+    eventId: { type: String },
+
     position: { type: String, default: "left" },
     closable: { type: Boolean, default: true },
+
     klass: { type: String },
     contentClass: { type: String },
     klassDefault: { type: String },
@@ -44,32 +49,53 @@ export default class extends Controller {
 
   initializeAction() {
     this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    if (!this.eventListenerValue) { return }
+
+    if (this.eventListenerValue === 'click') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.actionValue}`
+    }
+    if (this.eventListenerValue === 'hover') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.actionValue} mouseleave->${this.identifier}#${this.actionValue}`
+    }
   }
 
   globalDispatch({ detail: { payload } }) {
-    if (this.element.id != payload.id) { return }
-    eval(`this.${payload.action}()`)
+    if (this.eventIdValue === payload.id) {
+      if (payload.action === "toggle") { this.toggle() }
+      if (payload.action === "open") { this.open() }
+      if (payload.action === "close") { this.close() }
+    }
   }
 
-  toggle() {
+  toggle(event) {
     this.isOpenValue = !this.isOpenValue
+    if (event) {
+      event.stopPropagation()
+    }
   }
 
-  open() {
+  open(event) {
     this.isOpenValue = true
+    if (event) {
+      event.stopPropagation()
+    }
   }
 
-  close() {
+  close(event) {
     this.isOpenValue = false
+    if (event) {
+      event.stopPropagation()
+    }
   }
 
-  isOpenValueChanged() {
+  isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
     }
   }
+  
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

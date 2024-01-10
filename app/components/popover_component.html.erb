@@ -1,13 +1,16 @@
-<%= tag.div(
-  class: 'hidden ',
-  data: {
-    controller: "popover-component",
-    popover_component_position_value: @position,
-    popover_component_klass_value: @klass,
-    popover_component_content_class_value: @content_class,
-    popover_component_klass_default_value: @klass_default,
-    popover_component_content_class_default_value: @content_class_default
+<%= tag.div(id: @id, class: 'hidden ', data: {
+  controller: @controller,
+  action: @controller_action,
+  popover_component_action_value: @action,
+  popover_component_event_listener_value: @event_listener,
+  popover_component_event_id_value: @event_id,
 
+  popover_component_position_value: @position,
+  popover_component_klass_value: @klass,
+  popover_component_content_class_value: @content_class,
+  popover_component_klass_default_value: @klass_default,
+  popover_component_content_class_default_value: @content_class_default,
+  **@rest_data_attributes
   }) do 
 %>
   
@@ -17,7 +20,7 @@
     <% elsif @label %>
       <%= @label %>
     <% else %>
-      <div class="text-black">Popover Content</div>
+      <div class="text-black">Popover Content Popover Content Popover Coner Content Popover Conte Popover Content </div>
     <% end %>
   </div>
 
