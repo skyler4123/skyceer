@@ -1,5 +1,13 @@
 <%= render(IconComponent.new(event_id: 123, klass: "rotate-0 open:rotate-180")) %>
-
-<%= render(ButtonComponent.new(event_id: 123, event_listener: :click, event_action: :toggle)) %>
-
-<%= render(ToggleComponent.new(event_id: 123, toggle_direction: "horizontal")) %>
+<div class="flex flex-row">
+  <%= render(ButtonComponent.new(label: "SKyler", event_id: 123, event_listener: :click, event_action: :toggle)) do |c| %>
+    <% c.with_prepend do %>
+      <%= render(IconComponent.new(name: "moon")) %>
+    <% end %>
+    <% c.with_append do %>
+      <%= render(IconComponent.new(event_id: 123, klass: "rotate-0 open:rotate-180")) %>
+    <% end %>
+  <% end %>
+  <%= render(ToggleComponent.new(event_id: 123, toggle_direction: "horizontal")) %>
+</div>
+<%= render(ToggleComponent.new(event_id: 123, toggle_direction: "vertical")) %>
