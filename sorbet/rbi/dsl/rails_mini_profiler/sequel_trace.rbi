@@ -9,6 +9,7 @@ class RailsMiniProfiler::SequelTrace
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
+  include GeneratedStoredAttributesMethods
 
   private
 
@@ -1234,6 +1235,80 @@ class RailsMiniProfiler::SequelTrace
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedStoredAttributesMethods
+    sig { returns(T.untyped) }
+    def binds; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def binds=(value); end
+
+    sig { returns(T.untyped) }
+    def binds_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def binds_change; end
+
+    sig { returns(T::Boolean) }
+    def binds_changed?; end
+
+    sig { returns(T.untyped) }
+    def binds_was; end
+
+    sig { returns(T.untyped) }
+    def name; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def name=(value); end
+
+    sig { returns(T.untyped) }
+    def name_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def name_change; end
+
+    sig { returns(T::Boolean) }
+    def name_changed?; end
+
+    sig { returns(T.untyped) }
+    def name_was; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_binds; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_binds?; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_name; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_name?; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_sql; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_sql?; end
+
+    sig { returns(T.untyped) }
+    def sql; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def sql=(value); end
+
+    sig { returns(T.untyped) }
+    def sql_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def sql_change; end
+
+    sig { returns(T::Boolean) }
+    def sql_changed?; end
+
+    sig { returns(T.untyped) }
+    def sql_was; end
   end
 
   class PrivateAssociationRelation < ::ActiveRecord::AssociationRelation

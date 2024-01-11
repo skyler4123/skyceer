@@ -9,6 +9,7 @@ class RailsMiniProfiler::ControllerTrace
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
+  include GeneratedStoredAttributesMethods
 
   private
 
@@ -1234,6 +1235,56 @@ class RailsMiniProfiler::ControllerTrace
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedStoredAttributesMethods
+    sig { returns(T.untyped) }
+    def db_runtime; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def db_runtime=(value); end
+
+    sig { returns(T.untyped) }
+    def db_runtime_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def db_runtime_change; end
+
+    sig { returns(T::Boolean) }
+    def db_runtime_changed?; end
+
+    sig { returns(T.untyped) }
+    def db_runtime_was; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_db_runtime; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_db_runtime?; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_view_runtime; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_view_runtime?; end
+
+    sig { returns(T.untyped) }
+    def view_runtime; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def view_runtime=(value); end
+
+    sig { returns(T.untyped) }
+    def view_runtime_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def view_runtime_change; end
+
+    sig { returns(T::Boolean) }
+    def view_runtime_changed?; end
+
+    sig { returns(T.untyped) }
+    def view_runtime_was; end
   end
 
   class PrivateAssociationRelation < ::ActiveRecord::AssociationRelation

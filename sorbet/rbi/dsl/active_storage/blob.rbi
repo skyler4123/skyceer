@@ -10,6 +10,7 @@ class ActiveStorage::Blob
   extend CommonRelationMethods
   extend GeneratedRelationMethods
   include GeneratedSecureTokenMethods
+  include GeneratedStoredAttributesMethods
 
   sig { returns(ActiveStorage::Attached::One) }
   def preview_image; end
@@ -764,16 +765,16 @@ class ActiveStorage::Blob
     sig { void }
     def filename_will_change!; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def id; end
 
-    sig { params(value: T.untyped).returns(T.untyped) }
+    sig { params(value: ::String).returns(::String) }
     def id=(value); end
 
     sig { returns(T::Boolean) }
     def id?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def id_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -782,28 +783,28 @@ class ActiveStorage::Blob
     sig { returns(T::Boolean) }
     def id_came_from_user?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_change; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_change_to_be_saved; end
 
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def id_in_database; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def id_previous_change; end
 
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def id_previously_was; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::String)) }
     def id_was; end
 
     sig { void }
@@ -956,7 +957,7 @@ class ActiveStorage::Blob
     sig { returns(T::Boolean) }
     def saved_change_to_filename?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_id; end
 
     sig { returns(T::Boolean) }
@@ -1190,6 +1191,80 @@ class ActiveStorage::Blob
   module GeneratedSecureTokenMethods
     sig { returns(T::Boolean) }
     def regenerate_key; end
+  end
+
+  module GeneratedStoredAttributesMethods
+    sig { returns(T.untyped) }
+    def analyzed; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def analyzed=(value); end
+
+    sig { returns(T.untyped) }
+    def analyzed_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def analyzed_change; end
+
+    sig { returns(T::Boolean) }
+    def analyzed_changed?; end
+
+    sig { returns(T.untyped) }
+    def analyzed_was; end
+
+    sig { returns(T.untyped) }
+    def composed; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def composed=(value); end
+
+    sig { returns(T.untyped) }
+    def composed_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def composed_change; end
+
+    sig { returns(T::Boolean) }
+    def composed_changed?; end
+
+    sig { returns(T.untyped) }
+    def composed_was; end
+
+    sig { returns(T.untyped) }
+    def identified; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def identified=(value); end
+
+    sig { returns(T.untyped) }
+    def identified_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def identified_change; end
+
+    sig { returns(T::Boolean) }
+    def identified_changed?; end
+
+    sig { returns(T.untyped) }
+    def identified_was; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_analyzed; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_analyzed?; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_composed; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_composed?; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_identified; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_identified?; end
   end
 
   class PrivateAssociationRelation < ::ActiveRecord::AssociationRelation

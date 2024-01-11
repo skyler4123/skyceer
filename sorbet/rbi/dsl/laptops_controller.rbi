@@ -24,6 +24,8 @@ class LaptopsController
     include ::Pagy::UrlHelpers
     include ::Pagy::Frontend
     include ::ApplicationHelper
+    include ::AdminsHelper
+    include ::ComponentsHelper
     include ::DemosHelper
     include ::ImagesHelper
     include ::PreviewHelper

@@ -9,6 +9,12 @@ module GeneratedUrlHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def admin_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def admins_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def api_user_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -51,10 +57,19 @@ module GeneratedUrlHelpersModule
   def comments_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def component_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def components_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def demo_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def demos_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_admin_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_api_user_url(*args); end
@@ -76,6 +91,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def edit_comment_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_component_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_demo_url(*args); end
@@ -105,6 +123,9 @@ module GeneratedUrlHelpersModule
   def laptops_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def new_admin_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def new_api_user_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -124,6 +145,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_comment_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_component_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_demo_url(*args); end
@@ -235,6 +259,12 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def root_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def rswag_api_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def rswag_ui_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def sidekiq_web_url(*args); end

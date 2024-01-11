@@ -9,6 +9,7 @@ class RailsMiniProfiler::RenderTemplateTrace
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
+  include GeneratedStoredAttributesMethods
 
   private
 
@@ -1239,6 +1240,32 @@ class RailsMiniProfiler::RenderTemplateTrace
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedStoredAttributesMethods
+    sig { returns(T.untyped) }
+    def identifier; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def identifier=(value); end
+
+    sig { returns(T.untyped) }
+    def identifier_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def identifier_change; end
+
+    sig { returns(T::Boolean) }
+    def identifier_changed?; end
+
+    sig { returns(T.untyped) }
+    def identifier_was; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_identifier; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_identifier?; end
   end
 
   class PrivateAssociationRelation < ::ActiveRecord::AssociationRelation

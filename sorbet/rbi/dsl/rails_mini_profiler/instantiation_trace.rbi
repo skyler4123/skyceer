@@ -9,6 +9,7 @@ class RailsMiniProfiler::InstantiationTrace
   include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
+  include GeneratedStoredAttributesMethods
 
   private
 
@@ -1239,6 +1240,56 @@ class RailsMiniProfiler::InstantiationTrace
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedStoredAttributesMethods
+    sig { returns(T.untyped) }
+    def class_name; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def class_name=(value); end
+
+    sig { returns(T.untyped) }
+    def class_name_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def class_name_change; end
+
+    sig { returns(T::Boolean) }
+    def class_name_changed?; end
+
+    sig { returns(T.untyped) }
+    def class_name_was; end
+
+    sig { returns(T.untyped) }
+    def record_count; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def record_count=(value); end
+
+    sig { returns(T.untyped) }
+    def record_count_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def record_count_change; end
+
+    sig { returns(T::Boolean) }
+    def record_count_changed?; end
+
+    sig { returns(T.untyped) }
+    def record_count_was; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_class_name; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_class_name?; end
+
+    sig { returns(T.untyped) }
+    def saved_change_to_record_count; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_record_count?; end
   end
 
   class PrivateAssociationRelation < ::ActiveRecord::AssociationRelation
