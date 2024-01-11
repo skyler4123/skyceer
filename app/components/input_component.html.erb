@@ -1,5 +1,8 @@
 <%= tag.div(class: " hidden ", data: {
-  controller: "input-component",
+  controller: @controller,
+  action: @controller_action,
+  input_component_event_value: @event,
+
   input_component_accept_value: @accept,
   input_component_alt_value: @alt,
   input_component_autocomplete_value: @autocomplete,

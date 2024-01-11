@@ -1,5 +1,8 @@
-<%= tag.div(class: 'hidden ', data: {
-  controller: "switch-component",
+<%= tag.div(id: @id, class: 'hidden ', data: {
+  controller: @controller,
+  action: @controller_action,
+  switch_component_event_value: @event,
+
   switch_component_klass_value: @klass,
   switch_component_switch_class_value: @switch_class,
   switch_component_klass_default_value: @klass_default,

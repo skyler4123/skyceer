@@ -5,9 +5,7 @@ export default class extends Controller {
   static targets = ["template", 'content', 'hidden', "button", "link"]
   static values = {
     isOpen: { type: Boolean, default: true },
-    eventAction: { type: String },
-    eventListener: { type: String },
-    eventId: { type: String },
+    event: { type: Object },
 
     label: { type: String, default: "Button" },
     url: { type: String },
@@ -37,7 +35,7 @@ export default class extends Controller {
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
-    this.dispatch('dispatch', { detail: { payload: { id: this.element.id, action: "complete", controller: this } } })
+    // this.dispatch('dispatch', { detail: { payload: { id: this.element.id, action: "complete", controller: this } } })
   }
 
   initializeHTML() {
@@ -54,13 +52,13 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    if (!this.eventListenerValue) { return }
+    if (!this.eventValue) { return }
 
-    if (this.eventListenerValue === 'click') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventActionValue}`
+    if (this.eventValue.listener === 'click') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
     }
-    if (this.eventListenerValue === 'hover') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventActionValue} mouseleave->${this.identifier}#${this.eventActionValue}`
+    if (this.eventValue.listener === 'hover') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
     }
   }
 
@@ -88,16 +86,34 @@ export default class extends Controller {
 
   toggle(event) {
     this.isOpenValue = !this.isOpenValue
+    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
     event.stopPropagation()
   }
 
   open(event) {
     this.isOpenValue = true
+    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
     event.stopPropagation()
   }
 
   close(event) {
     this.isOpenValue = false
+    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
+    event.stopPropagation()
+  }
+
+  switch(event) {
+    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
+    event.stopPropagation()
+  }
+
+  tab(event) {
+    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
+    event.stopPropagation()
+  }
+
+  copy(event) {
+    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
     event.stopPropagation()
   }
 
@@ -106,10 +122,6 @@ export default class extends Controller {
       this.element.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
-    }
-
-    if (typeof previousValue !== 'undefined') {
-      this.dispatch('dispatch', { detail: { payload: { id: this.eventIdValue, action: this.eventActionValue, controller: this } } })
     }
   }
 

@@ -1,11 +1,7 @@
-<% event_id = SecureRandom.uuid %>
-
 <%= tag.div(id: @id, class: "", data: {
   controller: @controller,
   action: @controller_action,
-  modal_component_event_action_value: @event_action,
-  modal_component_event_listener_value: @event_listener,
-  modal_component_event_id_value: @event_id || event_id,
+  modal_component_event_value: @event,
 
   modal_component_klass_value: @klass,
   modal_component_background_class_value: @background_class,
@@ -15,7 +11,7 @@
   modal_component_content_class_default_value: @defaul_content_class,
   **@rest_data_attributes
   }) do %>
-  <%= render(ButtonComponent.new(label: "", event_id: @event_id || event_id, event_listener: :click, action: :toggle, modal_component_target: "background")) %>
+  <%= render(ButtonComponent.new(label: "", event: @event, modal_component_target: "background")) %>
   
   <div data-modal-component-target="content">
     <%= content? ? content : "Modal Content here! " %>

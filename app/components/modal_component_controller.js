@@ -3,18 +3,16 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ['background', 'content']
   static values = {
-    isOpen: { type: Boolean, default: true },
-    eventAction: { type: String },
-    eventListener: { type: String },
-    eventId: { type: String },
+    isOpen: { type: Boolean, default: false },
+    event: { type: Object },
 
     klass: { type: String, default: '' },
     backgroundClass: { type: String, default: '' },
     contentClass: { type: String, default: '' },
 
-    klassDefault: { type: String, default: 'absolute hidden open:flex' },
+    klassDefault: { type: String, default: 'fixed top-0 hidden open:flex' },
     backgroundClassDefault: { type: String, default: 'w-screen h-screen bg-gray-300/50' },
-    contentClassDefault: { type: String, default: 'absolute flex justify-center items-center w-fit h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' },
+    contentClassDefault: { type: String, default: 'absolute z-30 flex justify-center items-center w-fit h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' },
   }
 
   initialize() {
@@ -36,41 +34,39 @@ export default class extends Controller {
 
   initializeAction() {
     this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    if (!this.eventListenerValue) { return }
+    if (!this.eventValue) { return }
 
-    if (this.eventListenerValue === 'click') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventActionValue}`
-    }
-    if (this.eventListenerValue === 'hover') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventActionValue} mouseleave->${this.identifier}#${this.eventActionValue}`
-    }
+    // if (this.eventValue.listener === 'click') {
+    //   this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
+    // }
+    // if (this.eventValue.listener === 'hover') {
+    //   this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
+    // }
   }
 
   globalDispatch({ detail: { payload } }) {
-    if (this.eventIdValue === payload.id) {
-      if (payload.action === "toggle") { this.toggle() }
-      if (payload.action === "open") { this.open() }
-      if (payload.action === "close") { this.close() }
+    if (this.eventValue.id === payload.event.id) {
+      eval(`this.${payload.event.action}(payload)`)
     }
   }
 
   toggle(event) {
     this.isOpenValue = !this.isOpenValue
-    if (event) {
+    if (event.target) {
       event.stopPropagation()
     }
   }
 
   open(event) {
     this.isOpenValue = true
-    if (event) {
+    if (event.target) {
       event.stopPropagation()
     }
   }
 
   close(event) {
     this.isOpenValue = false
-    if (event) {
+    if (event.target) {
       event.stopPropagation()
     }
   }

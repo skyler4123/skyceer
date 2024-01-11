@@ -4,9 +4,7 @@ export default class extends Controller {
   static targets = ["content", "grid"]
   static values = {
     isOpen: { type: Boolean, default: false },
-    eventAction: { type: String },
-    eventListener: { type: String },
-    eventId: { type: String },
+    event: { type: Object },
 
     toggleDirection: { type: String, default: "vertical" },
 
@@ -39,11 +37,11 @@ export default class extends Controller {
   initializeDefaultClass() {
     if (this.toggleDirectionValue === "vertical") {
       this.klassDefaultValue = "flex flex-col"
-      this.contentClassDefaultValue = "grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-200 ease-in-out overflow-hidden"
+      this.contentClassDefaultValue = "grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-1000 ease-in-out overflow-hidden"
     }
     if (this.toggleDirectionValue === "horizontal") {
       this.klassDefaultValue = "flex flex-row"
-      this.contentClassDefaultValue = "grid grid-cols-[0fr] open:grid-cols-[1fr] transition-all duration-200 ease-in-out overflow-hidden"
+      this.contentClassDefaultValue = "grid grid-cols-[0fr] grid-rows-[0fr] open:grid-rows-[1fr] open:grid-cols-[1fr] transition-all duration-1000 ease-in-out overflow-hidden"
     }
   }
   initializeClass() {
@@ -53,41 +51,39 @@ export default class extends Controller {
   }
   initializeAction() {
     this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    if (!this.eventListenerValue) { return }
+    if (!this.eventValue) { return }
 
-    if (this.eventListenerValue === 'click') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventActionValue}`
+    if (this.eventValue.listener === 'click') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
     }
-    if (this.eventListenerValue === 'hover') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventActionValue} mouseleave->${this.identifier}#${this.eventActionValue}`
+    if (this.eventValue.listener === 'hover') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
     }
   }
 
   globalDispatch({ detail: { payload } }) {
-    if (this.eventIdValue === payload.id) {
-      if (payload.action === "toggle") { this.toggle() }
-      if (payload.action === "open") { this.open() }
-      if (payload.action === "close") { this.close() }
+    if (this.eventValue.id === payload.event.id) {
+      eval(`this.${payload.event.action}(payload)`)
     }
   }
 
   toggle(event) {
     this.isOpenValue = !this.isOpenValue
-    if (event) {
+    if (event.target) {
       event.stopPropagation()
     }
   }
 
   open(event) {
     this.isOpenValue = true
-    if (event) {
+    if (event.target) {
       event.stopPropagation()
     }
   }
 
   close(event) {
     this.isOpenValue = false
-    if (event) {
+    if (event.target) {
       event.stopPropagation()
     }
   }

@@ -5,6 +5,11 @@ class InputComponent < ViewComponent::Base
   renders_many :appends
 
   def initialize(
+    controller: nil,
+    controller_action: nil,
+    event: nil,
+    id: nil,
+
     accept: nil,
     alt: nil,
     autocomplete: nil,
@@ -48,6 +53,11 @@ class InputComponent < ViewComponent::Base
     format_options: nil,
     **rest_data_attributes
   )
+    @controller = "input-component" + ' ' + controller.to_s
+    @controller_action = controller_action
+    @event = event
+    @id = id
+
     @accept = accept
     @alt = alt
     @autocomplete = autocomplete

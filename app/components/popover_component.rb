@@ -4,9 +4,7 @@ class PopoverComponent < ViewComponent::Base
   def initialize(
     controller: nil,
     controller_action: nil,
-    event_action: nil,
-    event_listener: nil,
-    event_id: nil,
+    event: nil,
     id: nil,
 
     label: nil,
@@ -20,9 +18,7 @@ class PopoverComponent < ViewComponent::Base
   )
     @controller = "popover-component" + ' ' + controller.to_s
     @controller_action = controller_action
-    @event_action = event_action
-    @event_listener = event_listener
-    @event_id = event_id
+    @event = event
     @id = id
 
     @label = label

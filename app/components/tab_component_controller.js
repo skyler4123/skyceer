@@ -1,25 +1,24 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["content"]
+  static targets = ['tab']
   static values = {
-    isOpen: { type: Boolean, default: false },
+    isOpen: { type: Boolean, default: true },
     event: { type: Object },
 
-    position: { type: String, default: "left" },
-    closable: { type: Boolean, default: true },
+    showIndex: { type: Number, default: 0 },
 
-    klass: { type: String },
-    contentClass: { type: String },
-    klassDefault: { type: String },
-    contentClassDefault: { type: String },
+    klass: { type: String, default: "" },
+    tabClass: { type: String, default: "" },
+    klassDefault: { type: String, default: "" },
+    tabClassDefault: { type: String, default: "hidden open:flex cursor-pointer" },
+
   }
   initialize() {
     this.initializeID()
-    this.initializeDefaultClass()
     this.initializeClass()
     this.initializeAction()
-
+    
     this.initializeComplete()
   }
   initializeID() {
@@ -31,18 +30,11 @@ export default class extends Controller {
     this.element.classList.remove('hidden')
   }
 
-  initializeDefaultClass() {
-    if (this.positionValue === "left") {
-      this.klassValue = this.klassValue || " w-1/3 h-5/6 bg-gray-200 rounded-lg text-black shadow-lg shadow-gray-500/50 open:translate-x-0 open:left-2 p-4"
-      this.contentClassValue = this.contentClassValue || " "
-      this.klassDefaultValue = this.klassDefaultValue || " fixed top-1/2 -left-1/2 z-20 -translate-x-full -translate-y-1/2 duration-200 ease-in-out"
-      this.contentClassDefaultValue = this.contentClassDefaultValue || " w-full h-full flex justify-center items-center"
-    }
-  }
-
   initializeClass() {
     this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
-    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
+    this.tabTargets.forEach((target) => {
+      target.className = target.className + ' ' + this.tabClassDefaultValue + ' ' + this.tabClassValue
+    })
   }
 
   initializeAction() {
@@ -91,7 +83,18 @@ export default class extends Controller {
       this.element.removeAttribute('open')
     }
   }
-  
+
+  tab(payload) {
+    this.showIndexValue = payload.event.value
+  }
+
+  showIndexValueChanged(value, previousValue) {
+    this.tabTargets.forEach((target) => {
+      target.removeAttribute('open')
+    })
+    this.tabTargets[this.showIndexValue].setAttribute('open', '')
+  }
+
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

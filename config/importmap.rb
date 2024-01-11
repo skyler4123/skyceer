@@ -2,7 +2,7 @@
 
 pin "application", preload: true
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
-pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
+pin "@hotwired/stimulus", to: "https://ga.jspm.io/npm:@hotwired/stimulus@3.2.2/dist/stimulus.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/components", under: "controllers", to: "components"
@@ -25,3 +25,8 @@ pin "morphdom", to: "https://ga.jspm.io/npm:morphdom@2.7.1/dist/morphdom-esm.js"
 pin "cleave.js", to: "https://ga.jspm.io/npm:cleave.js@1.6.0/dist/cleave.js"
 pin "flatpickr/dist/l10n/ru.js", to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/ru.js"
 pin "flatpickr/dist/l10n/ja.js", to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/ja.js"
+pin "stimulus-use", to: "https://ga.jspm.io/npm:stimulus-use@0.52.2/dist/index.js"
+pin "apexcharts", to: "https://ga.jspm.io/npm:apexcharts@3.45.1/dist/apexcharts.common.js"
+pin "@toast-ui/calendar", to: "https://ga.jspm.io/npm:@toast-ui/calendar@2.1.3/dist/toastui-calendar.mjs"
+pin "tui-date-picker", to: "https://ga.jspm.io/npm:tui-date-picker@4.3.3/dist/tui-date-picker.js"
+pin "tui-time-picker", to: "https://ga.jspm.io/npm:tui-time-picker@2.1.6/dist/tui-time-picker.js"

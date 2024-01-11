@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class SwitchComponent < ViewComponent::Base
-  renders_many :switches
+class TabComponent < ViewComponent::Base
+  renders_many :tabs
   
   def initialize(
     controller: nil,
@@ -10,20 +10,20 @@ class SwitchComponent < ViewComponent::Base
     id: nil,
 
     klass: nil,
-    switch_class: nil,
+    tab_class: nil,
     klass_default: nil,
-    switch_class_default: nil,
+    tab_class_default: nil,
     **rest_data_attributes
   )
-    @controller = "switch-component" + ' ' + controller.to_s
+    @controller = "tab-component" + ' ' + controller.to_s
     @controller_action = controller_action
     @event = event
     @id = id
 
     @klass = klass
     @klass_default = klass_default
-    @switch_class = switch_class
-    @switch_class_default = switch_class_default
+    @tab_class = tab_class
+    @tab_class_default = tab_class_default
     @rest_data_attributes = rest_data_attributes
   end
 end

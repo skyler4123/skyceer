@@ -11,42 +11,17 @@
 
     <%= render(Hr::DefaultComponent.new) %>
 
-    <%= render(Hr::TextComponent.new(label: "ButtonComponent")) %>
-    <%= render(ButtonComponent.new(label: "Custome Button")) do |c| %>
-      <% c.with_append do %>
-        <%= render(IconComponent.new(name: 'code-bracket')) %>
-      <% end %>
+    <%= render(Hr::TextComponent.new(label: "ToggleComponent")) %>
+    <% toggle_event_id = 'test_toggle' %>
+    <%= render(ButtonComponent.new(event: { id: toggle_event_id, listener: :hover, action: :toggle })) %>
+    <%= render(ButtonComponent.new(event: { id: toggle_event_id, listener: :click, action: :toggle })) %>
+    <%= render(ToggleComponent.new(event: { id: toggle_event_id })) do %>
+      <div>Test Toggle Component</div>
     <% end %>
-
-    <%= render(Hr::TextComponent.new(label: "ButtonComponent Default")) %>
-    <%= render(ButtonComponent.new) %>
-
-    <%= render(Hr::TextComponent.new(label: "IconComponent")) %>
-    <%= render(IconComponent.new) %>
-    <%= render(IconComponent.new(name: 'star')) %>
-
-    <%= render(Hr::TextComponent.new(label: "TextComponent")) %>
-    <%= render(TextComponent.new) %>
-    <%= render(TextComponent.new(label: "Price", language_key: :price)) %>
-
-    <%= render(Hr::TextComponent.new(label: "AccordionComponent")) %>
-    <%= render(Accordion::GroupComponent.new) do |c| %>
-      <% c.with_separator do %>
-        <%= render(Hr::DefaultComponent.new) %>
-      <% end %>
-      <% c.with_accordion do %>
-        <%= render(AccordionComponent.new) %>
-      <% end %>
-      <% c.with_accordion do %>
-        <%= render(AccordionComponent.new(position: :top)) %>
-      <% end %>
-      <% c.with_accordion do %>
-        <%= render(AccordionComponent.new(position: :right)) %>
-      <% end %>
-      <% c.with_accordion do %>
-        <%= render(AccordionComponent.new(position: :left)) %>
-      <% end %>
+    <%= render(ToggleComponent.new(event_id: toggle_event_id, toggle_direction: :horizontal)) do %>
+      <div class="text-nowrap overflow-auto">New Yorkers are facing the winter chill with less warmth this year as the city's most revered soup stand unexpectedly shutters, following a series of events that have left the community puzzled.</div>
     <% end %>
+    <%= render(IconComponent.new(name: "code-bracket")) %>
 
     <%= render(Hr::TextComponent.new(label: "Tab::DefaultComponent")) %>
     <%= render(Tab::DefaultComponent.new) do |c| %>
@@ -63,41 +38,34 @@
         <div>Body 4</div>
       <% end %>
     <% end %>
+    <%= render(IconComponent.new(name: "code-bracket")) %>
 
     <%= render(Hr::TextComponent.new(label: "Table::DemoComponent")) %>
     <%= render(Table::DemoComponent.new) %>
 
     <%= render(Hr::TextComponent.new(label: "Popover::DefaultComponent")) %>
-    <%= render(ButtonComponent.new(toggle_type: :toggle, event_listener: :click)) do |c| %>
+    <% popover_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(event: { action: :toggle, listener: :hover, id: popover_event_id })) do |c| %>
       <% c.with_hidden do %>
-        <%= render(PopoverComponent.new(position: :right_center)) %>
-      <% end %>
-    <% end %>
-    <%= render(ButtonComponent.new(toggle_type: :toggle, event_listener: :hover)) do |c| %>
-      <% c.with_hidden do %>
-        <%= render(PopoverComponent.new(position: :left_bottom)) %>
+        <%= render(PopoverComponent.new(position: :right_center, event: { id: popover_event_id })) %>
       <% end %>
     <% end %>
 
     <%= render(Hr::TextComponent.new(label: "Modal::DefaultComponent")) %>
-    <%= render(ButtonComponent.new) do |c| %>
-      <% c.with_hidden do %>
-        <%= render(ModalComponent.new) %>
-      <% end %>
+    <% modal_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: 'Test Modal', event: { id: modal_event_id, action: :toggle, listener: :click })) %>
+    <%= render(ModalComponent.new(event: { id: modal_event_id, action: :toggle, listener: :click })) do %>
+      <div>Executing JavaScript from a string is an BIG security risk.
+        With eval(), malicious code can run inside your application without permission.
+        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
+      </div>
     <% end %>
 
-    <%= render(Hr::TextComponent.new(label: "Button::ToggleComponent")) %>
-    <%= render(BoxComponent.new) do %>
-      <div>ToggleComponent for this BoxComponent</div>
-      <%= render(ButtonComponent.new) do |c| %>
-        <% c.with_append do %>
-          <%= render(ToggleComponent.new(target_controller_name: 'box-component')) %>
-        <% end %>
-      <% end %>
-    <% end %>
+
 
     <%= render(Hr::TextComponent.new(label: "SwitchComponent")) %>
-    <%= render(SwitchComponent.new) do |c| %>
+    <% switch_event_id = SecureRandom.uuid %>
+    <%= render(SwitchComponent.new(event: { listener: :click, action: :switch, id: switch_event_id })) do |c| %>
       <% c.with_switch do %>
         <%= render(IconComponent.new(name: "link")) %>
       <% end %>
@@ -114,23 +82,41 @@
         <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
       <% end %>
     <% end %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :switch, id: switch_event_id })) %>
 
-    <%= render(Hr::TextComponent.new(label: "ToastComponent")) %>
-    <%= render(ButtonComponent.new(label: "Open Toast")) do |c| %>
-      <% c.with_hidden do %>
-        <%= render(ToastComponent.new) do %>
-          <div>Test ToastComponent </div>
-          <%= render(ToggleComponent.new) %>
-        <% end %>
+    <%= render(Hr::TextComponent.new(label: "TabComponent")) %>
+    <% tab_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :tab, id: tab_event_id, value: 0 })) %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :tab, id: tab_event_id, value: 1 })) %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :tab, id: tab_event_id, value: 2 })) %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :tab, id: tab_event_id, value: 3 })) %>
+    <%= render(TabComponent.new(event: { id: tab_event_id })) do |c| %>
+      <% c.with_tab do %>
+        <%= render(IconComponent.new(name: "link")) %>
+      <% end %>
+      <% c.with_tab do %>
+        <%= render(IconComponent.new(name: "check-circle", svg_class: "w-5 h-6 text-green-500")) %>
+      <% end %>
+      <% c.with_tab do %>
+        <%= render(IconComponent.new(name: "spinner", type: :animation)) %>
+      <% end %>
+      <% c.with_tab do %>
+        <%= render(IconComponent.new(name: "star", svg_class: "w-5 h-6 text-sky-800")) %>
+      <% end %>
+      <% c.with_tab do %>
+        <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
       <% end %>
     <% end %>
-    <%= render(ButtonComponent.new(label: 'Toggle Toast', toggle_type: "toggle")) do |c| %>
-      <% c.with_hidden do %>
-        <%= render(ToastComponent.new) do %>
-          <div>Test ToastComponent </div>
-          <%= render(ToggleComponent.new(type: "toggle")) %>
-        <% end %>
-      <% end %>
+
+
+    <%= render(Hr::TextComponent.new(label: "ToastComponent")) %>
+    <% toast_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: 'Toggle Toast', event: { id: toast_event_id, action: :toggle, listener: :click })) %>
+    <%= render(ToastComponent.new(event: { id: toast_event_id })) do %>
+      <div>Executing JavaScript from a string is an BIG security risk.
+        With eval(), malicious code can run inside your application without permission.
+        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
+      </div>
     <% end %>
 
     <%= render(Hr::TextComponent.new(label: "ListComponent")) %>

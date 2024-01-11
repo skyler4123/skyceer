@@ -1,0 +1,17 @@
+<%= tag.div(id: @id, class: 'hidden ', data: {
+  controller: @controller,
+  action: @controller_action,
+  tab_component_event_value: @event,
+
+  tab_component_klass_value: @klass,
+  tab_component_tab_class_value: @tab_class,
+  tab_component_klass_default_value: @klass_default,
+  tab_component_tab_class_default_value: @tab_class_default,
+  **@rest_data_attributes
+}) do %>
+  <% tabs.each do |tab| %>
+    <div data-tab-component-target="tab">
+      <%= tab %>  
+    </div>
+  <% end %>
+<% end %>

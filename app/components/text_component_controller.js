@@ -5,9 +5,7 @@ export default class extends Controller {
   static targets = ["template"]
   static values = {
     isOpen: { type: Boolean, default: true },
-    eventAction: { type: String },
-    eventListener: { type: String },
-    eventId: { type: String },
+    event: { type: Object },
 
     label: { type: String, default: "Sample Text" },
     languageName: { type: String, default: "english" },
@@ -47,41 +45,39 @@ export default class extends Controller {
   
   initializeAction() {
     this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    if (!this.eventListenerValue) { return }
+    if (!this.eventValue) { return }
 
-    if (this.eventListenerValue === 'click') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventActionValue}`
+    if (this.eventValue.listener === 'click') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
     }
-    if (this.eventListenerValue === 'hover') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventActionValue} mouseleave->${this.identifier}#${this.eventActionValue}`
+    if (this.eventValue.listener === 'hover') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
     }
   }
 
   globalDispatch({ detail: { payload } }) {
-    if (this.eventIdValue === payload.id) {
-      if (payload.action === "toggle") { this.toggle() }
-      if (payload.action === "open") { this.open() }
-      if (payload.action === "close") { this.close() }
+    if (this.eventValue.id === payload.event.id) {
+      eval(`this.${payload.event.action}(payload)`)
     }
   }
 
   toggle(event) {
     this.isOpenValue = !this.isOpenValue
-    if (event) {
+    if (event.target) {
       event.stopPropagation()
     }
   }
 
   open(event) {
     this.isOpenValue = true
-    if (event) {
+    if (event.target) {
       event.stopPropagation()
     }
   }
 
   close(event) {
     this.isOpenValue = false
-    if (event) {
+    if (event.target) {
       event.stopPropagation()
     }
   }

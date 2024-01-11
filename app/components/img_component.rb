@@ -4,9 +4,7 @@ class ImgComponent < ViewComponent::Base
   def initialize(
     controller: nil,
     controller_action: nil,
-    event_action: nil,
-    event_listener: nil,
-    event_id: nil,
+    event: nil,
     id: nil,
 
     src: nil,
@@ -21,9 +19,7 @@ class ImgComponent < ViewComponent::Base
   )
     @controller = "img-component" + ' ' + controller.to_s
     @controller_action = controller_action
-    @event_action = event_action
-    @event_listener = event_listener
-    @event_id = event_id
+    @event = event
     @id = id
 
     @url = url || src

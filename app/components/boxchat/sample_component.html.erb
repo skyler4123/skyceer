@@ -94,7 +94,7 @@
 
       </div>
       <div class="flex flex-row gap-x-1">
-        <%= render(ButtonComponent.new(event_listener: :hover, toggle_type: :toggle)) do |c| %>
+        <%= render(ButtonComponent.new(event: { listener: :hover, action: :toggle })) do |c| %>
           <%= c.with_body { render(IconComponent.new(name: 'plus-circle')) } %>
           <% c.with_hidden do %>
             <%= render(PopoverComponent.new(label: "Open more actions", klass: "w-40", content_class: "text-white bg-black px-2 py-1 bg-opacity-75 rounded-md")) %>
