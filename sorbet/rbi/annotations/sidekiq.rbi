@@ -5,11 +5,11 @@
 # Please run `bin/tapioca annotations` to update it.
 
 class Sidekiq::CLI
-  sig { returns(Sidekiq::CLI) }
-  def self.instance; end
-
   sig { returns(Sidekiq::Launcher) }
   def launcher; end
+
+  sig { returns(Sidekiq::CLI) }
+  def self.instance; end
 end
 
 class Sidekiq::Client
