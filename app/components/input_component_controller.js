@@ -12,6 +12,14 @@ export default class extends Controller {
     isOpen: { type: Boolean, default: true },
     event: { type: Object },
 
+    isAutoSubmit: { type: Boolean, default: true },
+    autoSubmitUrl: { type: String },
+    payload: { type: String },
+    httpMethod: { type: String, default: 'get' },
+    setTimeoutTime: { type: Number, default: 5000 },
+    setTimeoutId: { type: Number },
+
+
     accept: { type: String },
     alt: { type: String },
     autocomplete: { type: String },
@@ -49,9 +57,9 @@ export default class extends Controller {
     klass: { type: String, default: "" },
     contentClass: { type: String, default: "" },
     inputClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "max-w-1/2" },
-    contentClassDefault: { type: String, default: "w-full" },
-    inputClassDefault: { type: String, default: "w-full h-7" },
+    klassDefault: { type: String, default: "" },
+    contentClassDefault: { type: String, default: "" },
+    inputClassDefault: { type: String, default: "" },
 
     formatOptions: { type: Object }
   }
@@ -145,6 +153,7 @@ export default class extends Controller {
 
   initializeAction() {
     this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    this.inputTarget.dataset.action = (this.inputTarget.dataset.action || "") + ' ' + `input->${this.identifier}#input keydown.enter->${this.identifier}#enter` 
     if (!this.eventValue) { return }
 
     if (this.eventValue.listener === 'click') {
@@ -190,6 +199,21 @@ export default class extends Controller {
     }
   }
 
+  input(event) {
+    console.log(event)
+    if (this.isAutoSubmitValue) {
+      clearTimeout(this.setTimeoutIdValue)
+      let timeoutId = setTimeout(() => {
+
+        console.log('Auto submit is on!')
+      }, this.setTimeoutTimeValue)
+      this.setTimeoutIdValue = timeoutId
+    }
+  }
+
+  enter() {
+    console.log('Enter is listened')
+  }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

@@ -1,48 +1,54 @@
-import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template"]
+  static targets = ["content", "grid"]
   static values = {
-    isOpen: { type: Boolean, default: true },
+    isOpen: { type: Boolean, default: false },
     event: { type: Object },
 
-    label: { type: String, default: "Sample Text" },
-    languageName: { type: String, default: "english" },
-    languageKey: { type: String },
+    accordionDirection: { type: String, default: "vertical" },
 
-    klass: { type: String },
-    textClass: { type: String },
+    klass: { type: String, default: "" },
+    contentClass: { type: String, default: '' },
+    gridClass: { type: String, default: '' },
     klassDefault: { type: String },
-    textClassDefault: { type: String }
+    contentClassDefault: { type: String },
+    gridClassDefault: { type: String, default: 'overflow-hidden' },
   }
 
+
   initialize() {
-    this.initializeHTML()
+    this.initializeID()
+    this.initializeDefaultClass()
     this.initializeClass()
     this.initializeAction()
 
     this.initializeComplete()
   }
-
+  initializeID() {
+    if (!this.element.id) {
+      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
+    }
+  }
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
 
-  initializeHTML() {
-    morphdom(this.templateTarget, this.labelValue)
+  initializeDefaultClass() {
+    if (this.accordionDirectionValue === "vertical") {
+      this.klassDefaultValue = "flex flex-col"
+      this.contentClassDefaultValue = "grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-1000 ease-in-out overflow-hidden"
+    }
+    if (this.accordionDirectionValue === "horizontal") {
+      this.klassDefaultValue = "flex flex-row"
+      this.contentClassDefaultValue = "grid grid-cols-[0fr] grid-rows-[0fr] open:grid-rows-[1fr] open:grid-cols-[1fr] transition-all duration-1000 ease-in-out overflow-hidden"
+    }
   }
-
   initializeClass() {
-    this.element.className = this.klassValue
+    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
+    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
+    this.gridTarget.className = this.gridTarget.className + ' ' + this.gridClassDefaultValue + ' ' + this.gridClassValue
   }
-
-  languageNameValueChanged() {
-    if (this.languageKeyValue) {
-      this.element.textContent = this.dictionary()[this.languageNameValue][this.languageKeyValue]
-    } 
-  }
-  
   initializeAction() {
     this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     if (!this.eventValue) { return }
@@ -85,32 +91,14 @@ export default class extends Controller {
   isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
+      this.contentTarget.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
+      this.contentTarget.removeAttribute('open')
     }
   }
 
-  translate(event) {
-    this.languageNameValue = event.event.value
-    if (event.target) {
-      event.stopPropagation()
-    }
-  }
-
-  dictionary() {
-    return {
-      english: {
-        quickstart: "Quickstart",
-        price: "Price"
-      },
-      vietnamese: {
-        quickstart: "Nhanh",
-        price: "Gia ban"
-      },
-      spain: {
-        quickstart: "spain_fast",
-        price: "spain_price"
-      }
-    }
+  connect() {
+    // console.log("Hello, Stimulus!", this.element);
   }
 }

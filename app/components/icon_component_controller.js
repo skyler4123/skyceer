@@ -32,7 +32,6 @@ export default class extends Controller {
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
-    // this.dispatch('dispatch', { detail: { payload: { id: this.element.id, action: "complete", controller: this } } })
   }
 
   initializeHTML() {

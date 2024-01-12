@@ -12,6 +12,6 @@
   **@rest_data_attributes
 }) do %>
   <%= content_tag(@tag, data: { box_component_target: "content" }) do %>
-    <%= content? ? content : "Emplty Box!!!" %>
+    <%= content %>
   <% end %>
 <% end %>

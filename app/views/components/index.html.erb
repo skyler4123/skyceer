@@ -11,14 +11,22 @@
 
     <%= render(Hr::DefaultComponent.new) %>
 
-    <%= render(Hr::TextComponent.new(label: "ToggleComponent")) %>
+    <%= render(ButtonComponent.new(klass: "relative bg-blue-800 text-white p-3 m-10 rounded-md", position_class: 'relative')) do |c| %>
+      <% c.with_append do %>
+        <%= render(BoxComponent.new(klass: "w-4 h-4 bg-green-600 rounded-full", style: { name: :position, position: "top_right" })) do %>
+          <div class="text-xs">12</div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "AccordionComponent")) %>
     <% toggle_event_id = 'test_toggle' %>
     <%= render(ButtonComponent.new(event: { id: toggle_event_id, listener: :hover, action: :toggle })) %>
     <%= render(ButtonComponent.new(event: { id: toggle_event_id, listener: :click, action: :toggle })) %>
-    <%= render(ToggleComponent.new(event: { id: toggle_event_id })) do %>
+    <%= render(AccordionComponent.new(event: { id: toggle_event_id })) do %>
       <div>Test Toggle Component</div>
     <% end %>
-    <%= render(ToggleComponent.new(event_id: toggle_event_id, toggle_direction: :horizontal)) do %>
+    <%= render(AccordionComponent.new(event_id: toggle_event_id, toggle_direction: :horizontal)) do %>
       <div class="text-nowrap overflow-auto">New Yorkers are facing the winter chill with less warmth this year as the city's most revered soup stand unexpectedly shutters, following a series of events that have left the community puzzled.</div>
     <% end %>
     <%= render(IconComponent.new(name: "code-bracket")) %>
@@ -45,7 +53,7 @@
 
     <%= render(Hr::TextComponent.new(label: "Popover::DefaultComponent")) %>
     <% popover_event_id = SecureRandom.uuid %>
-    <%= render(ButtonComponent.new(event: { action: :toggle, listener: :hover, id: popover_event_id })) do |c| %>
+    <%= render(ButtonComponent.new(klass: "relative",event: { action: :toggle, listener: :hover, id: popover_event_id })) do |c| %>
       <% c.with_hidden do %>
         <%= render(PopoverComponent.new(position: :right_center, event: { id: popover_event_id })) %>
       <% end %>
@@ -158,7 +166,64 @@
       dateFormat: "Y-m-d",
     })) %>
 
+    <%= render(Hr::TextComponent.new(label: "Editor::EditorjsComponent")) %>
+    <%= form_with do %>
+      <%= render(Editor::EditorjsComponent.new(object_type: "User")) %>
+    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Chart::ApexComponent")) %>
+    <%= render(Chart::ApexComponent.new(object_type: "User")) %>
+
+    <%= render(Hr::TextComponent.new(label: "Calendar::TuiComponent")) %>
+    <%= render(Calendar::TuiComponent.new(object_type: "User")) %>
+
+    <%= render(Hr::TextComponent.new(label: "CarouselComponent")) %>
+    <%= render(CarouselComponent.new) do %>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
+      </div>
+
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" alt="">
+      </div>
+
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg" alt="">
+      </div>
+
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="">
+      </div>
+    <% end %>
+
+
     <%= render(Hr::TextComponent.new(label: "Boxchat")) %>
     <%= render(Boxchat::SampleComponent.new) %>
+
+
   </div>
 </div>

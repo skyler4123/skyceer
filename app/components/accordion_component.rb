@@ -1,35 +1,35 @@
 # frozen_string_literal: true
 
-class BoxComponent < ViewComponent::Base
-  extend T::Sig
-
+class AccordionComponent < ViewComponent::Base
   def initialize(
     controller: nil,
     controller_action: nil,
     event: nil,
     id: nil,
 
-    tag: :div,
-    style: nil,
+    toggle_direction: nil,
 
     klass: nil,
-    klass_default: nil,
     content_class: nil,
+    grid_class: nil,
+    klass_default: nil,
     content_class_default: nil,
+    grid_class_default: nil,
     **rest_data_attributes
-  )
-    @controller = "box-component" + ' ' + controller.to_s
+    )
+    @controller = "accordion-component" + ' ' + controller.to_s
     @controller_action = controller_action
     @event = event
     @id = id
 
-    @tag = tag
-    @style = style
-
+    @toggle_direction = toggle_direction
+    
     @klass = klass
-    @klass_default = klass_default
     @content_class = content_class
+    @grid_class = grid_class
+    @klass_default = klass_default
     @content_class_default = content_class_default
+    @grid_class_default = grid_class_default
     @rest_data_attributes = rest_data_attributes
   end
 end

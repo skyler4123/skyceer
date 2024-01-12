@@ -1,3 +1,1 @@
-
-    <% modal_event_id = SecureRandom.uuid %>
-  <%= render(ButtonComponent.new(label: 1, id: 1, class: 1, event: { id: modal_event_id, action: :toggle, listener: :click })) %>
+<%= render(Input::ToggleComponent.new) %>

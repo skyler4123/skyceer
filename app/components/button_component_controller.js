@@ -1,4 +1,5 @@
 import morphdom from "morphdom"
+import { useHover, useClickOutside } from 'stimulus-use'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -14,8 +15,8 @@ export default class extends Controller {
     contentClass: { type: String, default: "" },
     buttonClass: { type: String, default: "" },
     linkClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "relative flex justify-center items-center cursor-pointer" },
-    contentClassDefault: { type: String, default: "relative flex justify-center items-center text-center" },
+    klassDefault: { type: String, default: "flex justify-center items-center cursor-pointer" },
+    contentClassDefault: { type: String, default: "flex justify-center items-center text-center" },
     buttonClassDefault: { type: String, default: "flex justify-center items-center" },
     linkClassDefault: { type: String, default: "flex justify-center items-center" }
   }
@@ -28,6 +29,7 @@ export default class extends Controller {
 
     this.initializeComplete()
   }
+
   initializeID() {
     if (!this.element.id) {
       this.element.id = `${this.identifier}-${crypto.randomUUID()}`
@@ -35,7 +37,6 @@ export default class extends Controller {
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
-    // this.dispatch('dispatch', { detail: { payload: { id: this.element.id, action: "complete", controller: this } } })
   }
 
   initializeHTML() {
@@ -125,4 +126,8 @@ export default class extends Controller {
     }
   }
 
+  demo(name = 'skyler') {
+    console.log("Demo success!", name)
+  }
+  
 }

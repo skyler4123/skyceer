@@ -34,7 +34,6 @@ export default class extends Controller {
   initializeTarget() {
     this.switchTargets.forEach((target, index) => {
       target.setAttribute(`data-${this.identifier}-show-index-param`, (index + 1) % this.switchTargets.length)
-      console.log(this.eventValue)
       if (!this.eventValue) { return }
 
       if (this.eventValue.listener === 'click') {

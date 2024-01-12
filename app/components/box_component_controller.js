@@ -6,7 +6,7 @@ export default class extends Controller {
     isOpen: { type: Boolean, default: true },
     event: { type: Object },
 
-    style: { type: Object }, // { name: "badge", border: "pill", color: "blue" }
+    style: { type: Object }, // { name: "badge"/"alert/"position", border: "pill", color: "blue", position: "top_right" }
 
     klass: { type: String, default: "" },
     klassDefault: { type: String, default: "" },
@@ -31,10 +31,12 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    if (this.styleValue) {
-      this.klassDefaultValue = this.klassDefault()[this.styleValue.name][this.styleValue.border][this.styleValue.color] || ""
+    if (this.styleValue.name === 'badge' || this.styleValue.name === 'alert') {
+      this.klassDefaultValue = this.klassDefaultValue + ' ' + (this.klassDefault()[this.styleValue.name][this.styleValue.border][this.styleValue.color] || "")
     }
-    this.klassDefaultValue = 
+    if (this.styleValue.name === "position") {
+      this.klassDefaultValue = this.klassDefaultValue + ' ' + (this.klassDefault()[this.styleValue.name][this.styleValue.position] || "")
+    }
     this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
     this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
   }
@@ -44,7 +46,6 @@ export default class extends Controller {
   }
 
   globalDispatch({ detail: { payload } }) {
-    console.log('hahaha', payload)
     if (this.eventValue.id === payload.event.id) {
       eval(`this.${payload.event.action}(payload)`)
     }
@@ -122,6 +123,12 @@ export default class extends Controller {
           yellow: "flex items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800",
           dark: "flex items-center p-4 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600",
         },
+      },
+      position: {
+        'top_right': 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
+        'top_left': 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
+        'bottom_right': 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
+        'bottom_left': 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2',
       }
     }
   }
