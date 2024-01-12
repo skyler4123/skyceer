@@ -2,7 +2,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template", "content", "input"]
+  static targets = ["template", "content", "input", "toggle"]
   static values = {
     isOpen: { type: Boolean, default: true },
     event: { type: Object },
@@ -17,17 +17,13 @@ export default class extends Controller {
     name: { type: String },
 
     klass: { type: String, default: "" },
-    contentClass: { type: String, default: "" },
-    inputClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "" },
-    contentClassDefault: { type: String, default: "" },
-    inputClassDefault: { type: String, default: "" },
+    toggleClass: { type: String, default: "" },
+    klassDefault: { type: String, default: "relative inline-flex items-center cursor-pointer" },
+    toggleClassDefault: { type: String, default: "w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" },
   }
   initialize() {
     this.initializeID()
-    this.initializeHTML()
     this.initializeClass()
-    this.initializeFormat()
     this.initializeAction()
     
     this.initializeComplete()
@@ -47,68 +43,7 @@ export default class extends Controller {
 
   initializeClass() {
     this.element.className = this.element.className + ' ' + this.klassValue + ' ' + this.klassDefaultValue
-    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
-    this.inputTarget.className = this.inputTarget.className + ' ' + this.inputClassDefaultValue + ' ' + this.inputClassValue
-  }
-
-  initializeFormat() {
-    const timeTypes = ['date', 'datetime-local', 'month', 'time', 'week']
-    if (timeTypes.includes(this.typeValue)) {
-      flatpickr.l10ns.default.firstDayOfWeek = 1
-      flatpickr(this.inputTarget, this.formatOptionsValue)
-      return
-    }
-    var cleave = new Cleave(this.inputTarget, this.formatOptionsValue);
-  }
-
-  templateHTML() {
-    if (this.templateTarget.content.childElementCount === 0) {
-      return this.labelValue
-    } else {
-      return this.templateTarget.innerHTML
-    }
-  }
-  
-  initHTML() {
-    return `
-      <input
-        ${this.acceptValue ? `accept="${this.acceptValue}"` : ""}
-        ${this.altValue ? `alt="${this.altValue}"` : ""}
-        ${this.autocompleteValue ? `autocomplete="${this.autocompleteValue}"` : ""}
-        ${this.autofocusValue ? `autofocus="${this.autofocusValue}"` : ""}
-        ${this.checkedValue ? `checked` : ""}
-        ${this.dirnameValue ? `dirname="${this.dirnameValue}"` : ""}
-        ${this.disabledValue ? `disabled` : ""}
-        ${this.formValue ? `form="${this.formValue}"` : ""}
-        ${this.formeventActionValue ? `formaction="${this.formeventActionValue}"` : ""}
-        ${this.formenctypeValue ? `formenctype="${this.formenctypeValue}"` : ""}
-        ${this.formmethodValue ? `formmethod="${this.formmethodValue}"` : ""}
-        ${this.formnovalidateValue ? `formnovalidate="${this.formnovalidateValue}"` : ""}
-        ${this.formtargetValue ? `formtarget="${this.formtargetValue}"` : ""}
-        ${this.heightValue ? `height="${this.heightValue}"` : ""}
-        ${this.listValue ? `list="${this.listValue}"` : ""}
-        ${this.maxValue ? `max="${this.maxValue}"` : ""}
-        ${this.maxlengthValue ? `maxlength="${this.maxlengthValue}"` : ""}
-        ${this.minValue ? `min="${this.minValue}"` : ""}
-        ${this.minlengthValue ? `minlength="${this.minlengthValue}"` : ""}
-        ${this.multipleValue ? `multiple="${this.multipleValue}"` : ""}
-        ${this.nameValue ? `name="${this.nameValue}"` : ""}
-        ${this.patternValue ? `pattern="${this.patternValue}"` : ""}
-        ${this.placeholderValue ? `placeholder="${this.placeholderValue}"` : ""}
-        ${this.popovertargetValue ? `popovertarget="${this.popovertargetValue}"` : ""}
-        ${this.popovertargeteventActionValue ? `popovertargetaction="${this.popovertargeteventActionValue}"` : ""}
-        ${this.readonlyValue ? `readonly` : ""}
-        ${this.requiredValue ? `required` : ""}
-        ${this.sizeValue ? `size="${this.sizeValue}"` : ""}
-        ${this.srcValue ? `src="${this.srcValue}"` : ""}
-        ${this.stepValue ? `step="${this.stepValue}"` : ""}
-        ${this.typeValue ? `type="${this.typeValue}"` : ""}
-        ${this.valueValue ? `value="${this.valueValue}"` : ""}
-        ${this.widthValue ? `width="${this.widthValue}"` : ""}
-
-        data-${this.identifier}-target="input"
-      >
-    `
+    this.toggleTarget.className = this.toggleTarget.className + ' ' + this.toggleClassDefaultValue + ' ' + this.toggleClassValue
   }
 
   initializeAction() {
@@ -160,7 +95,7 @@ export default class extends Controller {
   }
 
   input(event) {
-    console.log(event)
+    console.log(event, this.inputTarget.checked)
     if (this.isAutoSubmitValue) {
       clearTimeout(this.setTimeoutIdValue)
       let timeoutId = setTimeout(() => {
@@ -171,9 +106,6 @@ export default class extends Controller {
     }
   }
 
-  enter() {
-    console.log('Enter is listened')
-  }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

@@ -19,6 +19,8 @@
       <% end %>
     <% end %>
 
+    <%= render(Input::ToggleComponent.new(name: :email)) %>
+    
     <%= render(Hr::TextComponent.new(label: "AccordionComponent")) %>
     <% toggle_event_id = 'test_toggle' %>
     <%= render(ButtonComponent.new(event: { id: toggle_event_id, listener: :hover, action: :toggle })) %>
