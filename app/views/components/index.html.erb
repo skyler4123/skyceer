@@ -13,7 +13,7 @@
 
     <%= render(ButtonComponent.new(klass: "relative bg-blue-800 text-white p-3 m-10 rounded-md", position_class: 'relative')) do |c| %>
       <% c.with_append do %>
-        <%= render(BoxComponent.new(klass: "w-4 h-4 bg-green-600 rounded-full", style: { name: :position, position: "top_right" })) do %>
+        <%= render(BoxComponent.new(klass: "w-4 h-4 bg-green-600 rounded-full", position: "top_right")) do %>
           <div class="text-xs">12</div>
         <% end %>
       <% end %>

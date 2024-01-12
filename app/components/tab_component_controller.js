@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['tab']
+  static targets = ['content', 'tab']
   static values = {
     isOpen: { type: Boolean, default: true },
     event: { type: Object },
@@ -9,9 +9,11 @@ export default class extends Controller {
     showIndex: { type: Number, default: 0 },
 
     klass: { type: String, default: "" },
+    contentClass: { type: String, default: "" },
     tabClass: { type: String, default: "" },
     klassDefault: { type: String, default: "" },
-    tabClassDefault: { type: String, default: "hidden open:flex cursor-pointer" },
+    contentClassDefault: { type: String, default: "" },
+    tabClassDefault: { type: String, default: "hidden open:flex" },
 
   }
   initialize() {
@@ -32,6 +34,7 @@ export default class extends Controller {
 
   initializeClass() {
     this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
+    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
     this.tabTargets.forEach((target) => {
       target.className = target.className + ' ' + this.tabClassDefaultValue + ' ' + this.tabClassValue
     })

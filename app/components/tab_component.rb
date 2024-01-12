@@ -10,8 +10,10 @@ class TabComponent < ViewComponent::Base
     id: nil,
 
     klass: nil,
+    content_class: nil,
     tab_class: nil,
     klass_default: nil,
+    content_class_default: nil,
     tab_class_default: nil,
     **rest_data_attributes
   )
@@ -21,8 +23,10 @@ class TabComponent < ViewComponent::Base
     @id = id
 
     @klass = klass
-    @klass_default = klass_default
+    @content_class = content_class
     @tab_class = tab_class
+    @klass_default = klass_default
+    @content_class_default = content_class_default
     @tab_class_default = tab_class_default
     @rest_data_attributes = rest_data_attributes
   end

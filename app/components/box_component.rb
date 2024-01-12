@@ -11,6 +11,7 @@ class BoxComponent < ViewComponent::Base
 
     tag: :div,
     style: nil,
+    position: nil,
 
     klass: nil,
     klass_default: nil,
@@ -25,6 +26,7 @@ class BoxComponent < ViewComponent::Base
 
     @tag = tag
     @style = style
+    @position = position
 
     @klass = klass
     @klass_default = klass_default
