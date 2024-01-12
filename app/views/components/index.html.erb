@@ -20,7 +20,7 @@
     <% end %>
 
     <%= render(Input::ToggleComponent.new(name: :email)) %>
-    
+
     <%= render(Hr::TextComponent.new(label: "AccordionComponent")) %>
     <% toggle_event_id = 'test_toggle' %>
     <%= render(ButtonComponent.new(event: { id: toggle_event_id, listener: :hover, action: :toggle })) %>
@@ -30,23 +30,6 @@
     <% end %>
     <%= render(AccordionComponent.new(event_id: toggle_event_id, toggle_direction: :horizontal)) do %>
       <div class="text-nowrap overflow-auto">New Yorkers are facing the winter chill with less warmth this year as the city's most revered soup stand unexpectedly shutters, following a series of events that have left the community puzzled.</div>
-    <% end %>
-    <%= render(IconComponent.new(name: "code-bracket")) %>
-
-    <%= render(Hr::TextComponent.new(label: "Tab::DefaultComponent")) %>
-    <%= render(Tab::DefaultComponent.new) do |c| %>
-      <% c.with_headers do %>
-        <div>Header 1</div>
-        <div>Header 2</div>
-        <div>Header 3</div>
-        <div>Header 4</div>
-      <% end %>
-      <% c.with_bodies do %>
-        <div>Body 1</div>
-        <div>Body 2</div>
-        <div>Body 3</div>
-        <div>Body 4</div>
-      <% end %>
     <% end %>
     <%= render(IconComponent.new(name: "code-bracket")) %>
 
