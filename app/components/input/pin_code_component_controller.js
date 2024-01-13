@@ -1,69 +1,69 @@
 import morphdom from "morphdom";
 import { Controller } from "@hotwired/stimulus";
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-const outletHelper = ['helper']
-const targetHelper = ['template']
 export default class extends Controller {
-  initialize() {
-    this.initializeOutlet()
-  }
-  initializeOutlet() {
-    this.element.setAttribute(`data-${this.identifier}-helper-outlet`, "body")
-  }
-  helperOutletConnected() {
-    this.helperOutlet.initTarget(this)
-    this.helperOutlet.initValue(this)
-    this.helperOutlet.initHTML(this)
-    this.initializeFunction()
-    this.helperOutlet.initComplete(this)
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  static outlets = [...outletHelper]
-  static targets = [...targetHelper, "input", 'inputForm']
+  static targets = ["template", "content", "input", "cell"]
   static values = {
-    inputIndex: { type: Number, default: 0 },
-    inputName: { type: String, default: 'default_name' },
-    input: { type: String }
+    index: { type: Number, default: 0 },
+    name: { type: String, default: 'default_name' },
+    value: { type: String }
   }
-  initializeFunction() {
+  initialize() {
+    this.initializeID()
+    this.initializeHTML()
+    // this.initializeClass()
+    // this.initializeAction()
+    
+    this.initializeComplete()
+  }
+  initializeID() {
+    if (!this.element.id) {
+      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
+    }
+  }
+  initializeComplete() {
+    this.element.classList.remove('hidden')
+  }
 
+  initializeHTML() {
+    morphdom(this.templateTarget, this.initHTML())
   }
   focusNext(event) {
     if (event.currentTarget.value.length === 0) { return }
 
-    const index = this.inputTargets.indexOf(event.currentTarget)
-    this.inputIndexValue = index
+    const index = this.cellTargets.indexOf(event.currentTarget)
+    this.indexValue = index
   }
-  inputIndexValueChanged(value, previousValue) {
+  indexValueChanged(value, previousValue) {
     if (previousValue === undefined) { return }
 
-    const nextInputIndex = this.inputIndexValue + 1
-    this.inputTargets[nextInputIndex]?.focus()
-    const currentInput = this.inputTargets.map((input) => { return input.value }).join('')
-    this.inputFormTarget.setAttribute('value', currentInput)
+    const nextInputIndex = this.indexValue + 1
+    this.cellTargets[nextInputIndex]?.focus()
+    const currentInput = this.cellTargets.map((input) => { return input.value }).join('')
+    this.inputTarget.setAttribute('value', currentInput)
+    this.valueValue = currentInput
   }
   initHTML() {
     return `
     <div class="flex mb-2 space-x-2 rtl:space-x-reverse">
-      <input class='hidden' name="${this.inputNameValue}" type="text" data-${this.identifier}-target="inputForm">
+      <input class='hidden' name="${this.nameValue}" type="text" data-${this.identifier}-target="input">
       <div>
-          <input data-${this.identifier}-target="input" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+          <input data-${this.identifier}-target="cell" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
       </div>
       <div>
-          <input data-${this.identifier}-target="input" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+          <input data-${this.identifier}-target="cell" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
       </div>
       <div>
-          <input data-${this.identifier}-target="input" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+          <input data-${this.identifier}-target="cell" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
       </div>
       <div>
-          <input data-${this.identifier}-target="input" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+          <input data-${this.identifier}-target="cell" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
       </div>
       <div>
-          <input data-${this.identifier}-target="input" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+          <input data-${this.identifier}-target="cell" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
       </div>
       <div>
-          <input data-${this.identifier}-target="input" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+          <input data-${this.identifier}-target="cell" data-action="keyup->${this.identifier}#focusNext" type="text" maxlength="1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
       </div>
     </div>
     `
