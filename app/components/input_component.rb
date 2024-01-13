@@ -50,6 +50,8 @@ class InputComponent < ViewComponent::Base
     content_class_default: nil,
     input_class: nil,
     input_class_default: nil,
+    label: nil,
+    is_floating_label: nil,
     format_options: nil,
     **rest_data_attributes
   )
@@ -98,6 +100,8 @@ class InputComponent < ViewComponent::Base
     @content_class_default = content_class_default
     @input_class = input_class
     @input_class_default = input_class_default
+    @label = label
+    @is_floating_label = is_floating_label
     @format_options = format_options
     @rest_data_attributes = rest_data_attributes
   end

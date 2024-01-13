@@ -43,6 +43,8 @@
   input_component_content_class_default_value: @content_class_default,
   input_component_input_class_value: @input_class,
   input_component_input_class_default_value: @input_class_default,
+  input_component_label_value: @label,
+  input_component_is_floating_label_value: @is_floating_label,
   input_component_format_options_value: @format_options,
   **@rest_data_attributes
 }) do %>
@@ -52,10 +54,8 @@
     <% end %>
   <% end %>
 
-  <div data-input-component-target="content">
-    <template data-input-component-target="template">
-    </template>
-  </div>
+  <template data-input-component-target="template">
+  </template>
 
   <% if appends? %>
     <% appends.each do |append| %>
