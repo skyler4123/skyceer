@@ -66,7 +66,7 @@ export default class extends Controller {
     inputClassDefault: { type: String, default: "" },
 
     label: { type: String },
-    isFloatingLabel: { type: Boolean, default: true },
+    isFloatingLabel: { type: Boolean, default: false },
     formatOptions: { type: Object }
   }
   initialize() {

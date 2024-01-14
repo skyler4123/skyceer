@@ -20,7 +20,7 @@
     <% end %>
 
     <%= render(Input::ToggleComponent.new(name: :email)) %>
-
+    <%= render(InputComponent.new(label: "Test Floating Label")) %>
     <%= render(Hr::TextComponent.new(label: "AccordionComponent")) %>
     <% accordion_event_id = 'test_toggle' %>
     <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :hover, action: :toggle })) %>
