@@ -31,5 +31,7 @@ class Input::ToggleComponent < ViewComponent::Base
     @toggle_class = toggle_class
     @toggle_class_default = toggle_class_default
     @rest_data_attributes = rest_data_attributes
+    
+    @event[:action] = @event[:action].camelize(:lower) if @event[:action]
   end
 end

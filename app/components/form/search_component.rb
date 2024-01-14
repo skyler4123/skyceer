@@ -23,5 +23,7 @@ class Form::SearchComponent < ViewComponent::Base
     @content_class = content_class
     @content_class_default = content_class_default
     @rest_data_attributes = rest_data_attributes
+    
+    @event[:action] = @event[:action].camelize(:lower) if @event[:action]
   end
 end

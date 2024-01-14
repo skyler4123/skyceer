@@ -28,5 +28,7 @@ class TextComponent < ViewComponent::Base
     @klass_default = klass_default
     @text_class_default = text_class_default
     @rest_data_attributes = rest_data_attributes
+    
+    @event[:action] = @event[:action].camelize(:lower) if @event[:action]
   end
 end

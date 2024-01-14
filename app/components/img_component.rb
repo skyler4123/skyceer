@@ -30,5 +30,7 @@ class ImgComponent < ViewComponent::Base
     @klass_default = klass_default
     @img_class_default = img_class_default
     @rest_data_attributes = rest_data_attributes
+    
+    @event[:action] = @event[:action].camelize(:lower) if @event[:action]
   end
 end

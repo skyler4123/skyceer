@@ -1,6 +1,3 @@
 <div>gjkasdk</div>
-<%= render(ButtonComponent.new(url: '#')) do |c| %>
-  <% c.with_body do %>
-    <div>Test Test</div>
-  <% end %>
-<% end %>
+<%= render(ButtonComponent.new(url: '#', event: { id: 123 })) %>
+<%= render(ButtonComponent.new(label: 'copy', event: { id: 123, listener: :click, action: :copyLink })) %>

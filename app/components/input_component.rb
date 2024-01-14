@@ -104,5 +104,7 @@ class InputComponent < ViewComponent::Base
     @is_floating_label = is_floating_label
     @format_options = format_options
     @rest_data_attributes = rest_data_attributes
+    
+    @event[:action] = @event[:action].camelize(:lower) if @event[:action]
   end
 end

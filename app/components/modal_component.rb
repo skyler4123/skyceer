@@ -27,5 +27,7 @@ class ModalComponent < ViewComponent::Base
     @defaul_background_class = defaul_background_class
     @defaul_content_class = defaul_content_class
     @rest_data_attributes = rest_data_attributes
+    
+    @event[:action] = @event[:action].camelize(:lower) if @event[:action]
   end
 end

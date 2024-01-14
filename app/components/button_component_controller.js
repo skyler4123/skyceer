@@ -53,6 +53,7 @@ export default class extends Controller {
   }
 
   initializeAction() {
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     if (!this.eventValue) { return }
 
     if (this.eventValue.listener === 'click') {
@@ -85,6 +86,12 @@ export default class extends Controller {
     `
   }
 
+  globalDispatch({ detail: { payload } }) {
+    if (this.eventValue.id === payload.event.id) {
+      eval(`this.${payload.event.action}(payload)`)
+    }
+  }
+
   toggle(event) {
     this.isOpenValue = !this.isOpenValue
     this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
@@ -113,8 +120,9 @@ export default class extends Controller {
     event.stopPropagation()
   }
 
-  copy(event) {
-    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
+  copyLink(event) {
+    console.log(event)
+    // this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
     event.stopPropagation()
   }
 

@@ -25,5 +25,7 @@ class SwitchComponent < ViewComponent::Base
     @switch_class = switch_class
     @switch_class_default = switch_class_default
     @rest_data_attributes = rest_data_attributes
+    
+    @event[:action] = @event[:action].camelize(:lower) if @event[:action]
   end
 end
