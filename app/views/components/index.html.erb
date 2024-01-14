@@ -22,13 +22,13 @@
     <%= render(Input::ToggleComponent.new(name: :email)) %>
 
     <%= render(Hr::TextComponent.new(label: "AccordionComponent")) %>
-    <% toggle_event_id = 'test_toggle' %>
-    <%= render(ButtonComponent.new(event: { id: toggle_event_id, listener: :hover, action: :toggle })) %>
-    <%= render(ButtonComponent.new(event: { id: toggle_event_id, listener: :click, action: :toggle })) %>
-    <%= render(AccordionComponent.new(event: { id: toggle_event_id })) do %>
+    <% accordion_event_id = 'test_toggle' %>
+    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :hover, action: :toggle })) %>
+    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle })) %>
+    <%= render(AccordionComponent.new(event: { id: accordion_event_id })) do %>
       <div>Test Toggle Component</div>
     <% end %>
-    <%= render(AccordionComponent.new(event_id: toggle_event_id, toggle_direction: :horizontal)) do %>
+    <%= render(AccordionComponent.new(event_id: accordion_event_id, toggle_direction: :horizontal)) do %>
       <div class="text-nowrap overflow-auto">New Yorkers are facing the winter chill with less warmth this year as the city's most revered soup stand unexpectedly shutters, following a series of events that have left the community puzzled.</div>
     <% end %>
     <%= render(IconComponent.new(name: "code-bracket")) %>
@@ -111,6 +111,16 @@
         With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
       </div>
     <% end %>
+
+<% copy_text_event_id = SecureRandom.uuid %>
+<%= render(ButtonComponent.new(label: "Test Copy Text and Link", url: '#copy_link_success', event: { id: copy_text_event_id })) %>
+<%= render(ButtonComponent.new(label: 'Copy Text', event: { id: copy_text_event_id, listener: :click, action: :copy_text })) %>
+
+
+<% copy_link_event_id = SecureRandom.uuid %>
+<%= render(ButtonComponent.new(label: "Test Copy Text and Link", url: '#copy_link_success', event: { id: copy_link_event_id })) %>
+<%= render(ButtonComponent.new(label: 'Copy Link', event: { id: copy_link_event_id, listener: :click, action: :copy_link })) %>
+
 
     <%= render(Hr::TextComponent.new(label: "ListComponent")) %>
     <%= render(ListComponent.new) do %>

@@ -31,6 +31,8 @@ class ImgComponent < ViewComponent::Base
     @img_class_default = img_class_default
     @rest_data_attributes = rest_data_attributes
     
-    @event[:action] = @event[:action].to_s.camelize(:lower) if @event[:action]
+    if @event && @event[:action]
+      @event[:action] = @event[:action].to_s.camelize(:lower) 
+    end
   end
 end

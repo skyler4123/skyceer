@@ -1,3 +1,6 @@
-<div>gjkasdk</div>
-<%= render(ButtonComponent.new(url: '#', event: { id: 123 })) %>
-<%= render(ButtonComponent.new(label: 'copy', event: { id: 123, listener: :click, action: :copy_link })) %>
+    <% accordion_event_id = 'test_toggle' %>
+    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :hover, action: :toggle })) %>
+    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle })) %>
+    <%= render(AccordionComponent.new(event: { id: accordion_event_id })) do %>
+      <div>Test Toggle Component</div>
+    <% end %>

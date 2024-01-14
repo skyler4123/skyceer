@@ -87,7 +87,7 @@ export default class extends Controller {
   }
 
   globalDispatch({ detail: { payload } }) {
-    if (this.eventValue.id === payload.event.id) {
+    if (this.eventValue.id === payload.event.id && this.element.id !== payload.controller.element.id) {
       eval(`this.${payload.event.action}(payload)`)
     }
   }
