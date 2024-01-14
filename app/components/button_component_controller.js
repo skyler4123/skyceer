@@ -53,14 +53,15 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    if (!this.eventValue) { return }
-
-    if (this.eventValue.listener === 'click') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
-    }
-    if (this.eventValue.listener === 'hover') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
+    if (this.eventValue?.listener) {
+      if (this.eventValue.listener === 'click') {
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
+      }
+      if (this.eventValue.listener === 'hover') {
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
+      }
+    } else {
+      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }
   }
 

@@ -37,11 +37,11 @@ export default class extends Controller {
   initializeDefaultClass() {
     if (this.accordionDirectionValue === "vertical") {
       this.klassDefaultValue = "flex flex-col"
-      this.contentClassDefaultValue = "grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-1000 ease-in-out overflow-hidden"
+      this.contentClassDefaultValue = "grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-200 ease-in-out overflow-hidden"
     }
     if (this.accordionDirectionValue === "horizontal") {
       this.klassDefaultValue = "flex flex-row"
-      this.contentClassDefaultValue = "grid grid-cols-[0fr] grid-rows-[0fr] open:grid-rows-[1fr] open:grid-cols-[1fr] transition-all duration-1000 ease-in-out overflow-hidden"
+      this.contentClassDefaultValue = "grid grid-cols-[0fr] grid-rows-[0fr] open:grid-rows-[1fr] open:grid-cols-[1fr] transition-all duration-200 ease-in-out overflow-hidden"
     }
   }
   initializeClass() {
