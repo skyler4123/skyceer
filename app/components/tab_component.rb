@@ -30,6 +30,6 @@ class TabComponent < ViewComponent::Base
     @tab_class_default = tab_class_default
     @rest_data_attributes = rest_data_attributes
     
-    @event[:action] = @event[:action].camelize(:lower) if @event[:action]
+    @event[:action] = @event[:action].to_s.camelize(:lower) if @event[:action]
   end
 end

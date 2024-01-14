@@ -28,6 +28,6 @@ class ModalComponent < ViewComponent::Base
     @defaul_content_class = defaul_content_class
     @rest_data_attributes = rest_data_attributes
     
-    @event[:action] = @event[:action].camelize(:lower) if @event[:action]
+    @event[:action] = @event[:action].to_s.camelize(:lower) if @event[:action]
   end
 end
