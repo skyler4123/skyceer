@@ -95,35 +95,63 @@ export default class extends Controller {
   toggle(event) {
     this.isOpenValue = !this.isOpenValue
     this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    event.stopPropagation()
+    if (event.target) {
+      event.stopPropagation()
+    }
   }
 
   open(event) {
     this.isOpenValue = true
     this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    event.stopPropagation()
+    if (event.target) {
+      event.stopPropagation()
+    }
   }
 
   close(event) {
     this.isOpenValue = false
     this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    event.stopPropagation()
+    if (event.target) {
+      event.stopPropagation()
+    }
   }
 
   switch(event) {
     this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    event.stopPropagation()
+    if (event.target) {
+      event.stopPropagation()
+    }
   }
 
   tab(event) {
     this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    event.stopPropagation()
+    if (event.target) {
+      event.stopPropagation()
+    }
   }
 
   copyLink(event) {
-    console.log(event)
-    // this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    event.stopPropagation()
+    if (event.target) {
+      this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
+      event.stopPropagation()
+      return
+    }
+    if (event.event) {
+      if (event.controller.element.id !== this.element.id)
+      window.navigator.clipboard.writeText(this.urlValue)
+    }
+  }
+
+  copyText(event) {
+    if (event.target) {
+      this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
+      event.stopPropagation()
+      return
+    }
+    if (event.event) {
+      if (event.controller.element.id !== this.element.id)
+      window.navigator.clipboard.writeText(this.element.innerText)
+    }
   }
 
   isOpenValueChanged(value, previousValue) {
