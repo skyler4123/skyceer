@@ -1,7 +1,7 @@
 # typed: false
 
 class BlogUser
-  extend T::Sig
+
 
   include Mongoid::Document
   include Mongoid::Timestamps

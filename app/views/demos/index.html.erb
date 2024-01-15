@@ -1,9 +1,30 @@
-    <% accordion_event_id = SecureRandom.uuid %>
+<% accordion_event_id = SecureRandom.uuid %>
 
-    <%= render(ButtonComponent) %>
-    <%= render(AccordionComponent.new(event: { id: accordion_event_id }, accordion_direction: :horizontal)) do %>
-      <div>Test Toggle Component</div>
-    <% end %>
+<div class="flex flex-row w-full">
+  <%= render(ButtonComponent.new(id: '123',event: { id: accordion_event_id, listener: :hover, action: :toggle }, button_class: "flex-col")) do %>
+    <div class="flex flex-row bg-green-500">
+      <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
+      <%= render(AccordionComponent.new(event: { id: accordion_event_id }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
+        <div>Test Toggle Component</div>
+      <% end %>
+    </div>
+    <div class="flex flex-row bg-green-500">
+      <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
+      <%= render(AccordionComponent.new(event: { id: accordion_event_id }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
+        <div>Test Toggle Component</div>
+      <% end %>
+    </div>
+    <div class="flex flex-row bg-green-500">
+      <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
+      <%= render(AccordionComponent.new(event: { id: accordion_event_id }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
+        <div>Test Toggle Component</div>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="bg-red-500 grow">
+    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle, block: true })) %>
+    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle, block: false })) %>
+    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle, block: :toggle })) %>
 
-    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle })) %>
-
+  </div>
+</div>

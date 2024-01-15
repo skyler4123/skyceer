@@ -37,11 +37,16 @@
 
     <%= render(Hr::TextComponent.new(label: "Box Component")) %>
     <% box_event_id = SecureRandom.uuid %>
-    <%= render(ButtonComponent.new(event: { id: box_event_id, listener: :click, action: :toggle })) %>
+    <%= render(ButtonComponent.new(label: 'Button to Show/Hide Box', event: { id: box_event_id, listener: :click, action: :toggle })) %>
     <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :badge, border: :bordered, color: :red }, content_class: "text-white")) %>
     <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :badge, border: :pill, color: :green })) %>
     <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :badge, border: :none, color: :yellow })) %>
-    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :alert, border: :bordered, color: :red })) %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :alert, border: :bordered, color: :red }, klass: 'relative')) do %>
+      <div>Box with a small-box</div>
+      <div>Box with a small-box</div>
+      <div>Box with a small-box</div>
+      <%= render(BoxComponent.new(klass: "w-4 h-4 bg-green-600 rounded-full", position: :top_right)) { '' } %>
+    <% end %>
     <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :alert, border: :none, color: :yellow })) %>
 
     <%= render(Hr::TextComponent.new(label: "Button Component With Copy Text and Link")) %>

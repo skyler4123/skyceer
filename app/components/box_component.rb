@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class BoxComponent < ViewComponent::Base
-  extend T::Sig
+
+  renders_many :prepends
+  renders_many :appends
+  renders_one :body
+  renders_many :hiddens
 
   def initialize(
     controller: nil,

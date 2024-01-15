@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ButtonComponent < ViewComponent::Base
-  extend T::Sig
 
   renders_many :prepends
   renders_many :appends

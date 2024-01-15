@@ -4,6 +4,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   initialize() {
     const options = {
+      usageStatistics: false,
       defaultView: 'month',
       timezone: {
         zones: [

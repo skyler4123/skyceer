@@ -1,7 +1,7 @@
 # typed: true
 
 module JsonWebToken
-  extend T::Sig
+
 
   JWT_EXPIRATION = ENV.fetch('JWT_EXPIRATION', '5')
   JWT_SECRET = ENV.fetch('JWT_SECRET', 'secret')
