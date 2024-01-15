@@ -4,6 +4,7 @@ class IconComponent < ViewComponent::Base
   def initialize(
     controller: nil,
     controller_action: nil,
+    is_open: nil,
     event: nil,
     id: nil,
 
@@ -19,6 +20,7 @@ class IconComponent < ViewComponent::Base
   )
     @controller = "icon-component" + ' ' + controller.to_s
     @controller_action = controller_action
+    @is_open = is_open
     @event = event
     @id = id
     

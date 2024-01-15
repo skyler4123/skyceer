@@ -19,9 +19,9 @@ export default class extends Controller {
     `
   }
 
-  reducer({ detail: { payload } }) {
-    console.log(payload)
-    this.dispatch('dispatch', { detail: { payload: payload } })
+  reducer({ detail: { event } }) {
+    console.log(event)
+    this.dispatch('dispatch', { detail: { event: event } })
   }
 
   connect() {

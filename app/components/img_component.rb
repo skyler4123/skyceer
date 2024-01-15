@@ -4,6 +4,7 @@ class ImgComponent < ViewComponent::Base
   def initialize(
     controller: nil,
     controller_action: nil,
+    is_open: nil,
     event: nil,
     id: nil,
 
@@ -19,6 +20,7 @@ class ImgComponent < ViewComponent::Base
   )
     @controller = "img-component" + ' ' + controller.to_s
     @controller_action = controller_action
+    @is_open = is_open
     @event = event
     @id = id
 

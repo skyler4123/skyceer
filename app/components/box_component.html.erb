@@ -1,6 +1,7 @@
 <%= content_tag(@tag, id: @id, class: "hidden", data: {
   controller: @controller,
   action: @controller_action,
+  box_component_is_open_value: @is_open,
   box_component_event_value: @event,
 
   box_component_style_value: @style,
@@ -13,6 +14,6 @@
   **@rest_data_attributes
 }) do %>
   <%= content_tag(@tag, data: { box_component_target: "content" }) do %>
-    <%= content %>
+    <%= content ? content : "Box with empty content!" %>
   <% end %>
 <% end %>

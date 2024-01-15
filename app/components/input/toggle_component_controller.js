@@ -6,6 +6,8 @@ export default class extends Controller {
   static values = {
     isOpen: { type: Boolean, default: true },
     event: { type: Object },
+    canSendGlobalDispatch: { type: Boolean, default: false },
+    canReceiveGlobalDispatch: { type: Boolean, default: false },
 
     isAutoSubmit: { type: Boolean, default: true },
     autoSubmitUrl: { type: String },
@@ -72,29 +74,32 @@ export default class extends Controller {
     this.element.dataset.action = (this.element.dataset.action || "") + ' ' + `click->${this.identifier}#toggle` 
   }
 
-  globalDispatch({ detail: { payload } }) {
-    if (this.eventValue.id === payload.event.id) {
-      eval(`this.${payload.event.action}(payload)`)
+  globalDispatch({ detail: { event } }) {
+    if (this.eventValue.id === event.id && this.element.id !== event.controller.element.id) {
+      eval(`this.${event.action}(event)`)
     }
   }
 
   toggle(event) {
     this.isOpenValue = !this.isOpenValue
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }
 
   open(event) {
     this.isOpenValue = true
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }
 
   close(event) {
     this.isOpenValue = false
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }

@@ -21,6 +21,7 @@ pin "@editorjs/image", to: "https://ga.jspm.io/npm:@editorjs/image@2.8.1/dist/bu
 pin "@editorjs/checklist", to: "https://ga.jspm.io/npm:@editorjs/checklist@1.5.0/dist/bundle.js"
 pin "@editorjs/embed", to: "https://ga.jspm.io/npm:@editorjs/embed@2.5.3/dist/bundle.js"
 pin "@editorjs/quote", to: "https://ga.jspm.io/npm:@editorjs/quote@2.5.0/dist/bundle.js"
+pin "@editorjs/table", to: "https://cdn.jsdelivr.net/npm/@editorjs/table@2.3.0/dist/table.mjs"
 pin "morphdom", to: "https://ga.jspm.io/npm:morphdom@2.7.1/dist/morphdom-esm.js"
 pin "cleave.js", to: "https://ga.jspm.io/npm:cleave.js@1.6.0/dist/cleave.js"
 pin "flatpickr/dist/l10n/ru.js", to: "https://ga.jspm.io/npm:flatpickr@4.6.13/dist/l10n/ru.js"

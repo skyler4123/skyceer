@@ -4,6 +4,7 @@ class ListComponent < ViewComponent::Base
   def initialize(
     controller: nil,
     controller_action: nil,
+    is_open: nil,
     event: nil,
     id: nil,
 
@@ -15,6 +16,7 @@ class ListComponent < ViewComponent::Base
   )
     @controller = "list-component" + ' ' + controller.to_s
     @controller_action = controller_action
+    @is_open = is_open
     @event = event
     @id = id
     

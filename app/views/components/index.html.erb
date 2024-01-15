@@ -9,46 +9,67 @@
 
   <div id="components" class="flex flex-col justify-center items-center min-w-full pb-4">
 
-    <%= render(Hr::DefaultComponent.new) %>
+    <%= render(Hr::DefaultComponent.new(label: 'Button Component')) %>
+    <%= render(ButtonComponent.new(label: "Normal Button with Dispatch", event: { id: "unique random", listener: :click, action: :toggle })) %>
+    <%= render(ButtonComponent.new(label: "Normal Button with Dispatch", event: { id: "unique random", listener: :click, action: :toggle }, is_open: false)) %>
 
-    <%= render(ButtonComponent.new(klass: "relative bg-blue-800 text-white p-3 m-10 rounded-md", position_class: 'relative')) do |c| %>
-      <% c.with_append do %>
-        <%= render(BoxComponent.new(klass: "w-4 h-4 bg-green-600 rounded-full", position: "top_right")) do %>
-          <div class="text-xs">12</div>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render(Hr::DefaultComponent.new(label: 'Icon Component')) %>
+    <% icon_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(event: { id: icon_event_id, listener: :click, action: :toggle })) %>
+    <%= render(IconComponent.new(event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :animation, name: :spinner, event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :logo, name: :github, event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :outline, name: "code-bracket", event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :solid, name: "code-bracket", event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :mini, name: "code-bracket", event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :micro, name: "code-bracket", event: { id: icon_event_id })) %>
 
-    <%= render(Input::ToggleComponent.new(name: :email)) %>
-    <%= render(InputComponent.new(label: "Test Floating Label")) %>
-    <%= render(Hr::TextComponent.new(label: "AccordionComponent")) %>
-    <% accordion_event_id = 'test_toggle' %>
-    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :hover, action: :toggle })) %>
+
+    <%= render(Hr::DefaultComponent.new(label: 'Accordion Component')) %>
+    <% accordion_event_id = SecureRandom.uuid %>
     <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle })) %>
     <%= render(AccordionComponent.new(event: { id: accordion_event_id })) do %>
       <div>Test Toggle Component</div>
     <% end %>
-    <%= render(AccordionComponent.new(event_id: accordion_event_id, toggle_direction: :horizontal)) do %>
-      <div class="text-nowrap overflow-auto">New Yorkers are facing the winter chill with less warmth this year as the city's most revered soup stand unexpectedly shutters, following a series of events that have left the community puzzled.</div>
+    <%= render(AccordionComponent.new(event: { id: accordion_event_id }, accordion_direction: :horizontal)) do %>
+      <div>Test Toggle Component</div>
     <% end %>
-    <%= render(IconComponent.new(name: "code-bracket")) %>
+
+    <%= render(Hr::TextComponent.new(label: "Box Component")) %>
+    <% box_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(event: { id: box_event_id, listener: :click, action: :toggle })) %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :badge, border: :bordered, color: :red }, content_class: "text-white")) %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :badge, border: :pill, color: :green })) %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :badge, border: :none, color: :yellow })) %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :alert, border: :bordered, color: :red })) %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :alert, border: :none, color: :yellow })) %>
+
+    <%= render(Hr::TextComponent.new(label: "Button Component With Copy Text and Link")) %>
+    <% copy_link_text_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: "Target Link", url: '#copy_link_success', event: { id: copy_link_text_event_id })) %>
+    <%= render(ButtonComponent.new(label: 'Press To Copy Link', event: { id: copy_link_text_event_id, listener: :click, action: :copy_link })) %>
+    <%= render(ButtonComponent.new(label: 'Press To Copy Text', event: { id: copy_link_text_event_id, listener: :click, action: :copy_text })) %>
 
     <%= render(Hr::TextComponent.new(label: "Table::DemoComponent")) %>
     <%= render(Table::DemoComponent.new) %>
 
     <%= render(Hr::TextComponent.new(label: "Popover::DefaultComponent")) %>
     <% popover_event_id = SecureRandom.uuid %>
-    <%= render(ButtonComponent.new(klass: "relative",event: { action: :toggle, listener: :hover, id: popover_event_id })) do |c| %>
+    <%= render(ButtonComponent.new(klass: "relative",event: { action: :toggle, listener: :click, id: popover_event_id })) do |c| %>
       <% c.with_hidden do %>
         <%= render(PopoverComponent.new(position: :right_center, event: { id: popover_event_id })) %>
       <% end %>
     <% end %>
 
-    <%= render(Hr::TextComponent.new(label: "Modal::DefaultComponent")) %>
+    <%= render(Input::ToggleComponent.new(name: :email)) %>
+    <%= render(InputComponent.new(label: "Test Floating Label", is_floating_label: true)) %>
+    <%= render(InputComponent.new(label: "Test Floating Label")) %>
+
     <% modal_event_id = SecureRandom.uuid %>
     <%= render(ButtonComponent.new(label: 'Test Modal', event: { id: modal_event_id, action: :toggle, listener: :click })) %>
-    <%= render(ModalComponent.new(event: { id: modal_event_id, action: :toggle, listener: :click })) do %>
-      <div>Executing JavaScript from a string is an BIG security risk.
+    <%= render(ModalComponent.new(event: { id: modal_event_id })) do %>
+      <div>
+        Executing JavaScript from a string is an BIG security risk.
         With eval(), malicious code can run inside your application without permission.
         With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
       </div>
@@ -56,9 +77,14 @@
 
 
 
+
+
+
+
     <%= render(Hr::TextComponent.new(label: "SwitchComponent")) %>
     <% switch_event_id = SecureRandom.uuid %>
-    <%= render(SwitchComponent.new(event: { listener: :click, action: :switch, id: switch_event_id })) do |c| %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :switch, id: switch_event_id })) %>
+    <%= render(SwitchComponent.new(event: { id: switch_event_id })) do |c| %>
       <% c.with_switch do %>
         <%= render(IconComponent.new(name: "link")) %>
       <% end %>
@@ -75,7 +101,24 @@
         <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
       <% end %>
     <% end %>
-    <%= render(ButtonComponent.new(event: { listener: :click, action: :switch, id: switch_event_id })) %>
+
+    <%= render(SwitchComponent.new(event: { listener: :click, action: :switch })) do |c| %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "link")) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "check-circle", svg_class: "w-5 h-6 text-green-500")) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "spinner", type: :animation)) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "star", svg_class: "w-5 h-6 text-sky-800")) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
+      <% end %>
+    <% end %>
 
     <%= render(Hr::TextComponent.new(label: "TabComponent")) %>
     <% tab_event_id = SecureRandom.uuid %>
@@ -101,7 +144,6 @@
       <% end %>
     <% end %>
 
-
     <%= render(Hr::TextComponent.new(label: "ToastComponent")) %>
     <% toast_event_id = SecureRandom.uuid %>
     <%= render(ButtonComponent.new(label: 'Toggle Toast', event: { id: toast_event_id, action: :toggle, listener: :click })) %>
@@ -111,16 +153,6 @@
         With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
       </div>
     <% end %>
-
-<% copy_text_event_id = SecureRandom.uuid %>
-<%= render(ButtonComponent.new(label: "Test Copy Text and Link", url: '#copy_link_success', event: { id: copy_text_event_id })) %>
-<%= render(ButtonComponent.new(label: 'Copy Text', event: { id: copy_text_event_id, listener: :click, action: :copy_text })) %>
-
-
-<% copy_link_event_id = SecureRandom.uuid %>
-<%= render(ButtonComponent.new(label: "Test Copy Text and Link", url: '#copy_link_success', event: { id: copy_link_event_id })) %>
-<%= render(ButtonComponent.new(label: 'Copy Link', event: { id: copy_link_event_id, listener: :click, action: :copy_link })) %>
-
 
     <%= render(Hr::TextComponent.new(label: "ListComponent")) %>
     <%= render(ListComponent.new) do %>
@@ -214,11 +246,6 @@
           <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="">
       </div>
     <% end %>
-
-
-    <%= render(Hr::TextComponent.new(label: "Boxchat")) %>
-    <%= render(Boxchat::SampleComponent.new) %>
-
 
   </div>
 </div>

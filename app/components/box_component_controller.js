@@ -5,6 +5,8 @@ export default class extends Controller {
   static values = {
     isOpen: { type: Boolean, default: true },
     event: { type: Object },
+    canSendGlobalDispatch: { type: Boolean, default: false },
+    canReceiveGlobalDispatch: { type: Boolean, default: false },
 
     style: { type: Object }, // { name: "badge"/"alert/"position", border: "pill", color: "blue" }
     position: { type: String },
@@ -43,12 +45,34 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    if (this.eventValue?.id && this.eventValue?.listener && this.eventValue?.action) {
+      this.canSendGlobalDispatchValue = true
+    }
+    if (this.eventValue?.id && !this.eventValue?.listener && !this.eventValue?.action) {
+      this.canReceiveGlobalDispatchValue = true
+    }
   }
 
-  globalDispatch({ detail: { payload } }) {
-    if (this.eventValue.id === payload.event.id) {
-      eval(`this.${payload.event.action}(payload)`)
+  canSendGlobalDispatchValueChanged(value, previousValue) {
+    if (this.canSendGlobalDispatchValue) {
+      if (this.eventValue.listener === 'click') {
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
+      }
+      if (this.eventValue.listener === 'hover') {
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
+      }
+    }
+  }
+
+  canReceiveGlobalDispatchValueChanged() {
+    if (this.canReceiveGlobalDispatchValue) {
+      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    }
+  }
+
+  globalDispatch({ detail: { event } }) {
+    if (this.eventValue.id === event.id && this.element.id !== event.controller.element.id) {
+      eval(`this.${event.action}(event)`)
     }
   }
 
@@ -78,7 +102,7 @@ export default class extends Controller {
   klassDefault() {
     return {
       badge: {
-        default: {
+        none: {
           blue: "bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300",
           dark: "bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300",
           red: "bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300",
@@ -110,7 +134,7 @@ export default class extends Controller {
         }
       },
       alert: {
-        default: {
+        none: {
           blue: "p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400",
           red: "p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400",
           green: "p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400",
@@ -129,16 +153,16 @@ export default class extends Controller {
   }
   positionClass() {
     return {
-      'top_right': 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
-      'bottom_center': 'absolute bottom-0 right-1/2 translate-x-1/2 translate-y-1/2',
-      'top_center': 'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2',
+      'topRight': 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
+      'bottomCenter': 'absolute bottom-0 right-1/2 translate-x-1/2 translate-y-1/2',
+      'topCenter': 'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2',
 
-      'left_center': 'absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2',
+      'leftCenter': 'absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2',
 
-      'right_center': 'absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2',
-      'top_left': 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
-      'bottom_right': 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
-      'bottom_left': 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2'
+      'rightCenter': 'absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2',
+      'topLeft': 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
+      'bottomRight': 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
+      'bottomLeft': 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2'
     }
   }
 }

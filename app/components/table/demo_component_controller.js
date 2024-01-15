@@ -28,7 +28,7 @@ export default class extends Controller {
   }
 
   initializeTarget() {
-    this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
+    // this.element.querySelector('template').setAttribute(`data-${this.identifier}-target`, 'template')
   }
 
   initializeHTML() {

@@ -1,6 +1,7 @@
 <%= tag.div(id: @id, class: "", data: {
   controller: @controller,
   action: @controller_action,
+  modal_component_is_open_value: @is_open,
   modal_component_event_value: @event,
 
   modal_component_klass_value: @klass,
@@ -11,8 +12,7 @@
   modal_component_content_class_default_value: @defaul_content_class,
   **@rest_data_attributes
   }) do %>
-  <%= render(ButtonComponent.new(label: "", event: @event, modal_component_target: "background")) %>
-  
+  <div data-modal-component-target="background"></div>
   <div data-modal-component-target="content">
     <%= content? ? content : "Modal Content here! " %>
   </div>

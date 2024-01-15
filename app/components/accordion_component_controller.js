@@ -3,8 +3,10 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["content", "grid"]
   static values = {
-    isOpen: { type: Boolean, default: false },
+    isOpen: { type: Boolean, default: true },
     event: { type: Object },
+    canSendGlobalDispatch: { type: Boolean, default: false },
+    canReceiveGlobalDispatch: { type: Boolean, default: false },
 
     accordionDirection: { type: String, default: "vertical" },
 
@@ -50,40 +52,57 @@ export default class extends Controller {
     this.gridTarget.className = this.gridTarget.className + ' ' + this.gridClassDefaultValue + ' ' + this.gridClassValue
   }
   initializeAction() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    if (!this.eventValue) { return }
-
-    if (this.eventValue.listener === 'click') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
+    if (this.eventValue?.id && this.eventValue?.listener && this.eventValue?.action) {
+      this.canSendGlobalDispatchValue = true
     }
-    if (this.eventValue.listener === 'hover') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
+    if (this.eventValue?.id && !this.eventValue?.listener && !this.eventValue?.action) {
+      this.canReceiveGlobalDispatchValue = true
     }
   }
 
-  globalDispatch({ detail: { payload } }) {
-    if (this.eventValue.id === payload.event.id) {
-      eval(`this.${payload.event.action}(payload)`)
+  canSendGlobalDispatchValueChanged(value, previousValue) {
+    if (this.canSendGlobalDispatchValue) {
+      if (this.eventValue.listener === 'click') {
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
+      }
+      if (this.eventValue.listener === 'hover') {
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
+      }
+    }
+  }
+
+  canReceiveGlobalDispatchValueChanged() {
+    if (this.canReceiveGlobalDispatchValue) {
+      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    }
+  }
+
+  globalDispatch({ detail: { event } }) {
+    if (this.eventValue.id === event.id && this.element.id !== event.controller.element.id) {
+      eval(`this.${event.action}(event)`)
     }
   }
 
   toggle(event) {
     this.isOpenValue = !this.isOpenValue
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }
 
   open(event) {
     this.isOpenValue = true
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }
 
   close(event) {
     this.isOpenValue = false
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }

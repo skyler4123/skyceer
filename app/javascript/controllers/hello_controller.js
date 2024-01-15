@@ -6,7 +6,7 @@ export default class extends Controller {
     this.element.dataset.action = (this.element.dataset.action || "") + ' ' + `global:dispatch@window->${this.identifier}#globalDispatch`
   }
 
-  globalDispatch({ detail: { payload } }) {
+  globalDispatch({ detail: { event } }) {
     if (this.element.id != payload.id) { return }
     eval(`this.${payload.action}(payload)`)
   }

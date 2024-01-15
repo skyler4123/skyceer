@@ -7,6 +7,8 @@ export default class extends Controller {
   static values = {
     isOpen: { type: Boolean, default: true },
     event: { type: Object },
+    canSendGlobalDispatch: { type: Boolean, default: false },
+    canReceiveGlobalDispatch: { type: Boolean, default: false },
 
     label: { type: String, default: "Button" },
     url: { type: String },
@@ -18,7 +20,7 @@ export default class extends Controller {
     klassDefault: { type: String, default: "flex justify-center items-center cursor-pointer" },
     contentClassDefault: { type: String, default: "flex justify-center items-center text-center" },
     buttonClassDefault: { type: String, default: "flex justify-center items-center" },
-    linkClassDefault: { type: String, default: "flex justify-center items-center" }
+    linkClassDefault: { type: String, default: "flex justify-center items-center" },
   }
 
   initialize() {
@@ -53,14 +55,27 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    if (this.eventValue?.listener) {
+    if (this.eventValue?.id && this.eventValue?.listener && this.eventValue?.action) {
+      this.canSendGlobalDispatchValue = true
+    }
+    if (this.eventValue?.id && !this.eventValue?.listener && !this.eventValue?.action) {
+      this.canReceiveGlobalDispatchValue = true
+    }
+  }
+
+  canSendGlobalDispatchValueChanged(value, previousValue) {
+    if (this.canSendGlobalDispatchValue) {
       if (this.eventValue.listener === 'click') {
         this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
       }
       if (this.eventValue.listener === 'hover') {
         this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
       }
-    } else {
+    }
+  }
+
+  canReceiveGlobalDispatchValueChanged() {
+    if (this.canReceiveGlobalDispatchValue) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }
   }
@@ -87,70 +102,66 @@ export default class extends Controller {
     `
   }
 
-  globalDispatch({ detail: { payload } }) {
-    if (this.eventValue.id === payload.event.id && this.element.id !== payload.controller.element.id) {
-      eval(`this.${payload.event.action}(payload)`)
+  globalDispatch({ detail: { event } }) {
+    if (this.eventValue.id === event.id && this.element.id !== event.controller.element.id) {
+      eval(`this.${event.action}(event)`)
     }
   }
 
   toggle(event) {
     this.isOpenValue = !this.isOpenValue
-    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }
 
   open(event) {
     this.isOpenValue = true
-    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }
 
   close(event) {
     this.isOpenValue = false
-    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }
 
   switch(event) {
-    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }
 
   tab(event) {
-    this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
-    if (event.target) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
     }
   }
 
   copyLink(event) {
-    if (event.target) {
-      this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
-      return
     }
-    if (event.event) {
-      if (event.controller.element.id !== this.element.id)
+    if (this.canReceiveGlobalDispatchValue) {
       window.navigator.clipboard.writeText(this.urlValue)
     }
   }
 
   copyText(event) {
-    if (event.target) {
-      this.dispatch('dispatch', { detail: { payload: { event: this.eventValue, controller: this } } })
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
-      return
     }
-    if (event.event) {
-      if (event.controller.element.id !== this.element.id)
+    if (this.canReceiveGlobalDispatchValue) {
       window.navigator.clipboard.writeText(this.element.innerText)
     }
   }

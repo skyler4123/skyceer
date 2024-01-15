@@ -1,6 +1,9 @@
-    <% accordion_event_id = 'test_toggle' %>
-    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :hover, action: :toggle })) %>
-    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle })) %>
-    <%= render(AccordionComponent.new(event: { id: accordion_event_id })) do %>
+    <% accordion_event_id = SecureRandom.uuid %>
+
+    <%= render(ButtonComponent) %>
+    <%= render(AccordionComponent.new(event: { id: accordion_event_id }, accordion_direction: :horizontal)) do %>
       <div>Test Toggle Component</div>
     <% end %>
+
+    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle })) %>
+

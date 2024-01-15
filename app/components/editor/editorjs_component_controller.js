@@ -8,6 +8,7 @@ import List from '@editorjs/list';
 import Checklist from '@editorjs/checklist';
 import Embed from '@editorjs/embed';
 import Quote from '@editorjs/quote';
+import Table from '@editorjs/table';
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -71,6 +72,7 @@ export default class extends Controller {
           }
         },
         quote: Quote,
+        table: Table,
       }
     });
     if (!this.recordIdValue) { 

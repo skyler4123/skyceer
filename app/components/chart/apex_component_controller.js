@@ -6,6 +6,8 @@ export default class extends Controller {
   static values = {
     isOpen: { type: Boolean, default: true },
     event: { type: Object },
+    canSendGlobalDispatch: { type: Boolean, default: false },
+    canReceiveGlobalDispatch: { type: Boolean, default: false },
 
     chartOptions: { type: Object },
   }

@@ -4,10 +4,11 @@ class AccordionComponent < ViewComponent::Base
   def initialize(
     controller: nil,
     controller_action: nil,
+    is_open: nil,
     event: nil,
     id: nil,
 
-    toggle_direction: nil,
+    accordion_direction: nil,
 
     klass: nil,
     content_class: nil,
@@ -19,10 +20,11 @@ class AccordionComponent < ViewComponent::Base
     )
     @controller = "accordion-component" + ' ' + controller.to_s
     @controller_action = controller_action
+    @is_open = is_open
     @event = event
     @id = id
 
-    @toggle_direction = toggle_direction
+    @accordion_direction = accordion_direction
     
     @klass = klass
     @content_class = content_class
