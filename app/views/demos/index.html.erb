@@ -1,30 +1,9 @@
-<% accordion_event_id = SecureRandom.uuid %>
-
-<div class="flex flex-row w-full">
-  <%= render(ButtonComponent.new(id: '123',event: { id: accordion_event_id, listener: :hover, action: :toggle }, button_class: "flex-col")) do %>
-    <div class="flex flex-row bg-green-500">
-      <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
-      <%= render(AccordionComponent.new(event: { id: accordion_event_id }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
-        <div>Test Toggle Component</div>
-      <% end %>
-    </div>
-    <div class="flex flex-row bg-green-500">
-      <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
-      <%= render(AccordionComponent.new(event: { id: accordion_event_id }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
-        <div>Test Toggle Component</div>
-      <% end %>
-    </div>
-    <div class="flex flex-row bg-green-500">
-      <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
-      <%= render(AccordionComponent.new(event: { id: accordion_event_id }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
-        <div>Test Toggle Component</div>
-      <% end %>
-    </div>
+<%= render(InputComponent.new(label: "text select component", type: :select)) do |c| %>
+  <% c.with_option do %>
+      <option selected>Choose a country</option>
+      <option value="US">United States</option>
+      <option value="CA">Canada</option>
+      <option value="FR">France</option>
+      <option value="DE">Germany</option>
   <% end %>
-  <div class="bg-red-500 grow">
-    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle, block: true })) %>
-    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle, block: false })) %>
-    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle, block: :toggle })) %>
-
-  </div>
-</div>
+<% end %>

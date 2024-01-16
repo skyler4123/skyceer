@@ -3,6 +3,7 @@
 class InputComponent < ViewComponent::Base
   renders_many :prepends
   renders_many :appends
+  renders_one :option
 
   def initialize(
     controller: nil,
@@ -46,11 +47,16 @@ class InputComponent < ViewComponent::Base
     width: nil,
     
     klass: nil,
-    klass_default: nil,
     content_class: nil,
-    content_class_default: nil,
     input_class: nil,
+    select_class: nil,
+    option_class: nil,
+    klass_default: nil,
+    content_class_default: nil,
     input_class_default: nil,
+    select_class_default: nil,
+    option_class_default: nil,
+
     label: nil,
     is_floating_label: nil,
     format_options: nil,
@@ -97,11 +103,16 @@ class InputComponent < ViewComponent::Base
     @width = width
 
     @klass = klass
-    @klass_default = klass_default
     @content_class = content_class
-    @content_class_default = content_class_default
     @input_class = input_class
+    @select_class = select_class
+    @option_class = option_class
+    @klass_default = klass_default
+    @content_class_default = content_class_default
     @input_class_default = input_class_default
+    @select_class_default = select_class_default
+    @option_class_default = option_class_default
+
     @label = label
     @is_floating_label = is_floating_label
     @format_options = format_options

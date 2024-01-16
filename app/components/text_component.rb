@@ -3,6 +3,7 @@
 class TextComponent < ViewComponent::Base
   renders_one :before
   renders_one :after
+  renders_one :editor
 
   def initialize(
     controller: nil,

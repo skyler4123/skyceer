@@ -16,11 +16,11 @@ export default class extends Controller {
     klass: { type: String, default: "" },
     contentClass: { type: String, default: "" },
     buttonClass: { type: String, default: "" },
-    linkClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "flex justify-center items-center cursor-pointer" },
-    contentClassDefault: { type: String, default: "flex justify-center items-center text-center" },
-    buttonClassDefault: { type: String, default: "flex justify-center items-center" },
-    linkClassDefault: { type: String, default: "flex justify-center items-center" },
+    linkClass: { type: String, default: "flex-col" },
+    klassDefault: { type: String, default: "flex cursor-pointer" },
+    contentClassDefault: { type: String, default: "flex" },
+    buttonClassDefault: { type: String, default: "flex" },
+    linkClassDefault: { type: String, default: "flex" },
   }
 
   initialize() {
@@ -92,10 +92,9 @@ export default class extends Controller {
     return `
       <button
         type="button"
-        class="${this.buttonClassValue}"
         data-${this.identifier}-target="button"
       >
-        ${this.urlValue ? `<a href="${this.urlValue}" class="${this.linkClassValue}" data-${this.identifier}-target="link">` : ""}
+        ${this.urlValue ? `<a href="${this.urlValue}" data-${this.identifier}-target="link">` : ""}
           ${this.templateHTML()}
         ${this.urlValue ? '</a>' : ''}
       </button>

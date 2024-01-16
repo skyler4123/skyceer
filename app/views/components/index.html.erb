@@ -45,7 +45,7 @@
       <div>Box with a small-box</div>
       <div>Box with a small-box</div>
       <div>Box with a small-box</div>
-      <%= render(BoxComponent.new(klass: "w-4 h-4 bg-green-600 rounded-full", position: :top_right)) { '' } %>
+      <%= render(BoxComponent.new(klass: "w-4 h-4 bg-green-600 rounded-full animate-ping", position: :top_right)) { '' } %>
     <% end %>
     <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :alert, border: :none, color: :yellow })) %>
 
@@ -251,6 +251,55 @@
           <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="">
       </div>
     <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Button with block event")) %>
+    <% accordion_with_interval_timeout_event_id = SecureRandom.uuid %>
+    <div class="flex flex-row w-full">
+      <%= render(ButtonComponent.new(id: '123',event: { id: accordion_with_interval_timeout_event_id, listener: :hover, action: :toggle }, button_class: "flex-col")) do %>
+        <div class="flex flex-row bg-green-500">
+          <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
+          <%= render(AccordionComponent.new(event: { id: accordion_with_interval_timeout_event_id }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
+            <div>Test Toggle Component</div>
+          <% end %>
+        </div>
+        <div class="flex flex-row bg-green-500">
+          <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
+          <%= render(AccordionComponent.new(event: { id: accordion_with_interval_timeout_event_id, timeout: 200, interval: 3 }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
+            <div>Test Toggle Component</div>
+          <% end %>
+        </div>
+        <div class="flex flex-row bg-green-500">
+          <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
+          <%= render(AccordionComponent.new(event: { id: accordion_with_interval_timeout_event_id }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
+            <div>Test Toggle Component</div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="bg-red-500 grow">
+        <%= render(ButtonComponent.new(event: { id: accordion_with_interval_timeout_event_id, listener: :click, action: :open, block: :hover })) %>
+        <%= render(ButtonComponent.new(event: { id: accordion_with_interval_timeout_event_id, listener: :click, action: :close, block: false })) %>
+        <%= render(ButtonComponent.new(event: { id: accordion_with_interval_timeout_event_id, listener: :click, action: :toggle })) %>
+      </div>
+    </div>
+
+    <%= render(Hr::TextComponent.new(label: "Text with editor")) %>
+    <%= render(TextComponent.new(label: "text to test")) do |c| %>
+      <% c.with_editor do %>
+        <%= render(InputComponent.new) %>
+      <% end %>
+    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Select Component")) %>
+    <%= render(InputComponent.new(label: "text select component", type: :select)) do |c| %>
+      <% c.with_option do %>
+          <option selected>Choose a country</option>
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+      <% end %>
+    <% end %>
+
 
   </div>
 </div>

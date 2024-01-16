@@ -8,7 +8,7 @@ import { useHover, useClickOutside } from 'stimulus-use'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template", "content", "label", "input"]
+  static targets = ["template", "content", "label", "input", "select", "option"]
   static values = {
     isOpen: { type: Boolean, default: true },
     event: { type: Object },
@@ -62,10 +62,14 @@ export default class extends Controller {
     contentClass: { type: String, default: "" },
     labelClass: { type: String, default: "" },
     inputClass: { type: String, default: "" },
+    selectClass: { type: String, default: "" },
+    optionClass: { type: String, default: "" },
     klassDefault: { type: String, default: "" },
     contentClassDefault: { type: String, default: "" },
     labelClassDefault: { type: String, default: "" },
     inputClassDefault: { type: String, default: "" },
+    selectClassDefault: { type: String, default: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" },
+    optionClassDefault: { type: String, default: "" },
 
     label: { type: String },
     isFloatingLabel: { type: Boolean, default: false },
@@ -99,7 +103,17 @@ export default class extends Controller {
     if (this.labelValue) {
       this.labelTarget.className = this.labelTarget.className + ' ' + this.labelClassDefaultValue + ' ' + this.labelClassValue
     }
-    this.inputTarget.className = this.inputTarget.className + ' ' + this.inputClassDefaultValue + ' ' + this.inputClassValue
+    if (this.hasInputTarget) {
+      this.inputTarget.className = this.inputTarget.className + ' ' + this.inputClassDefaultValue + ' ' + this.inputClassValue
+    }
+    if (this.hasSelectTarget) {
+      this.selectTarget.className = this.selectTarget.className + ' ' + this.selectClassDefaultValue + ' ' + this.selectClassValue
+    }
+    if (this.hasOptionTarget) {
+      this.optionTargets.forEach((target) => {
+        target.className = target.className + ' ' + this.optionClassDefaultValue + ' ' + this.optionClassValue
+      })
+    }
     if (this.labelValue && this.isFloatingLabelValue) {
       this.contentTarget.className = this.contentTarget.className + ' ' + 'relative'
       this.labelTarget.className = this.labelTarget.className + ' ' + 'absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-in-out bg-white'
@@ -113,7 +127,9 @@ export default class extends Controller {
       flatpickr(this.inputTarget, this.formatOptionsValue)
       return
     }
-    var cleave = new Cleave(this.inputTarget, this.formatOptionsValue);
+    if (this.hasInputTarget) {
+      var cleave = new Cleave(this.inputTarget, this.formatOptionsValue);
+    }
   }
 
   templateHTML() {
@@ -125,6 +141,17 @@ export default class extends Controller {
   }
   
   initHTML() {
+    if (this.typeValue === 'select') {
+      return `
+        <div data-${this.identifier}-target="content">
+          ${this.labelValue ? `<label data-${this.identifier}-target="label">${this.labelValue}</label>` : ''}
+          <select data-${this.identifier}-target="select" name="${this.nameValue}">
+            ${this.templateHTML()}
+          </select>
+        </div
+
+      `
+    }
     return `
       <div data-${this.identifier}-target="content">
         ${this.labelValue ? `<label data-${this.identifier}-target="label">${this.labelValue}</label>` : ''}
@@ -251,12 +278,16 @@ export default class extends Controller {
       if (this.labelValue) {
         this.labelTarget.setAttribute('open', '')
       }
-      this.inputTarget.setAttribute('open', '')
+      if (this.hasInputTarget) {
+        this.inputTarget.setAttribute('open', '')
+      }
     } else {
-      if (this.labelValue && !this.inputTarget.value) {
+      if (this.labelValue && this.hasInputTarget && !this.inputTarget.value) {
         this.labelTarget.removeAttribute('open')
       }
-      this.inputTarget.removeAttribute('open')
+      if (this.hasInputTarget) {
+        this.inputTarget.removeAttribute('open')
+      }
     }
   }
 

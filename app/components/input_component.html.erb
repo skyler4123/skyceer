@@ -39,10 +39,16 @@
   input_component_width_value: @width,
   
   input_component_klass_value: @klass,
-  input_component_klass_default_value: @klass_default,
   input_component_content_class_value: @content_class,
-  input_component_content_class_default_value: @content_class_default,
   input_component_input_class_value: @input_class,
+  input_component_select_class_value: @select_class,
+  input_component_option_class_value: @option_class,
+  input_component_klass_default_value: @klass_default,
+  input_component_content_class_default_value: @content_class_default,
+  input_component_input_class_default_value: @input_class_default,
+  input_component_select_class_default_value: @select_clas_defaults,
+  input_component_option_class_default_value: @option_clas_defaults,
+
   input_component_input_class_default_value: @input_class_default,
   input_component_label_value: @label,
   input_component_is_floating_label_value: @is_floating_label,
@@ -56,6 +62,9 @@
   <% end %>
 
   <template data-input-component-target="template">
+    <% if option? %>
+      <%= option %>
+    <% end %>
   </template>
 
   <% if appends? %>

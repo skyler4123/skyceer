@@ -2,12 +2,14 @@ import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template"]
+  static targets = ["text", 'editor', 'input']
   static values = {
     isOpen: { type: Boolean, default: true },
     event: { type: Object },
     canSendGlobalDispatch: { type: Boolean, default: false },
     canReceiveGlobalDispatch: { type: Boolean, default: false },
+    canEdit: { type: Boolean, default: true },
+    isOpenEditor: { type: Boolean, default: false },
 
     label: { type: String, default: "Sample Text" },
     languageName: { type: String, default: "english" },
@@ -15,12 +17,15 @@ export default class extends Controller {
 
     klass: { type: String },
     textClass: { type: String },
+    editorClass: { type: String },
     klassDefault: { type: String },
-    textClassDefault: { type: String }
+    textClassDefault: { type: String, default: 'hidden open:flex' },
+    editorClassDefault: { type: String, default: 'hidden open:flex' }
   }
 
   initialize() {
     this.initializeHTML()
+    this.initializeTarget()
     this.initializeClass()
     this.initializeAction()
 
@@ -32,16 +37,32 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    morphdom(this.templateTarget, this.labelValue)
+    this.textTarget.textContent = this.labelValue
+  }
+
+  initializeTarget() {
+    if (this.hasEditorTarget) {
+      setTimeout(() => {
+        this.editorTarget.querySelector('input').setAttribute(`data-${this.identifier}-target`, 'input')
+        this.inputTarget.value = this.labelValue
+      }, 500)
+    }
   }
 
   initializeClass() {
-    this.element.className = this.klassValue
+    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
+    this.textTarget.className = this.textTarget.className + ' ' + this.textClassDefaultValue + ' ' + this.textClassValue
+    this.editorTarget.className = this.editorTarget.className + ' ' + this.editorClassDefaultValue + ' ' + this.editorClassValue
+
+  }
+
+  labelValueChanged() {
+    this.initializeHTML()
   }
 
   languageNameValueChanged() {
     if (this.languageKeyValue) {
-      this.element.textContent = this.dictionary()[this.languageNameValue][this.languageKeyValue]
+      this.labelValue = this.dictionary()[this.languageNameValue][this.languageKeyValue]
     } 
   }
   
@@ -104,8 +125,10 @@ export default class extends Controller {
   isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
+      this.textTarget.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
+      this.textTarget.removeAttribute('open')
     }
   }
 
@@ -114,6 +137,19 @@ export default class extends Controller {
     if (this.canSendGlobalDispatchValue) {
       this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
+    }
+  }
+
+  isOpenEditorValueChanged(value, previousValue) {
+    if (previousValue === undefined) { return }
+
+    if (this.isOpenEditorValue) {
+      this.textTarget.removeAttribute('open')
+      this.editorTarget.setAttribute('open', '')
+    } else {
+      this.labelValue = this.inputTarget.value
+      this.editorTarget.removeAttribute('open', '')
+      this.textTarget.setAttribute('open', '')
     }
   }
 

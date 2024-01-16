@@ -2,11 +2,12 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static values = {
-    eventIdBlocked: { type: Array, default: [] }
+    event: { type: Object },
   }
   
   initialize() {
     this.element.dataset.action = (this.element.dataset.action || "") + `
+    accordion-component:dispatch->${this.identifier}#reducer
     box-component:dispatch->${this.identifier}#reducer
     button-component:dispatch->${this.identifier}#reducer
     icon-component:dispatch->${this.identifier}#reducer
@@ -18,61 +19,68 @@ export default class extends Controller {
     switch-component:dispatch->${this.identifier}#reducer
     text-component:dispatch->${this.identifier}#reducer
     toast-component:dispatch->${this.identifier}#reducer
-    toggle-component:dispatch->${this.identifier}#reducer
     `
   }
 
   reducer({ detail: { event } }) {
-    console.log(event)
 
-    if (event.block === true) {
-      this.dispatchGlobal(event)
-      this.blockEvent(event)
+    if (event.action === 'initialize') {
+      if (this.eventValue[event.id]) { return }
+      console.log(event)
+      const newEventObject = this.eventValue
+      newEventObject[event.id] = { block: event.block, interval: event.interval, timeout: event.timeout }
+      this.eventValue = { ...this.eventValue, ...newEventObject }
       return
     }
 
-    if (event.block === false) {
-      this.dispatchGlobal(event)
-      this.releaseEvent(event)
-      return
+    if (!(event.block === undefined)) {
+      const newEventObject = this.eventValue
+      const newBlock = event.block
+      newEventObject[event.id] = { ...newEventObject[event.id], block: newBlock }
+      this.eventValue = { ...this.eventValue, ...newEventObject }
     }
 
-    if (event.block === 'toggle') {
+    if (event.action) {
       this.dispatchGlobal(event)
-      this.toggleEvent(event)
-      return
-    }
-    
-    if (!this.eventIdBlockedValue.includes(event.id)) {
-      this.dispatchGlobal(event)
-      return
     }
   }
 
   dispatchGlobal(event) {
-    this.dispatch('dispatch', { detail: { event: event } })
+    if (this.eventValue[event.id]?.interval > 0 || this.eventValue[event.id]?.interval === undefined ) {
+      if (this.eventValue[event.id]?.block === true || this.eventValue[event.id]?.block === event.listener || this.eventValue[event.id]?.block === event.action) { return }
+
+      const timeout = this.eventValue[event.id]?.timeout || 0
+      setTimeout(() => {
+        this.dispatch('dispatch', { detail: { event: event } })
+        console.log(event)
+      }, timeout)
+      this.decreaseInterval(event)
+    }
+
+
+  }
+
+  decreaseInterval(event) {
+    if (this.eventValue[event.id]?.interval) {
+      const newEventObject = this.eventValue
+      const newInterval = Math.max(newEventObject[event.id].interval - 1, 0)
+      newEventObject[event.id] = { ...newEventObject[event.id], interval: newInterval }
+      this.eventValue = { ...this.eventValue, ...newEventObject }
+    }
   }
 
   blockEvent(event) {
-    if (this.eventIdBlockedValue.indexOf(event.id) === -1) {
-      this.eventIdBlockedValue = [...this.eventIdBlockedValue, event.id]
-    }
+    this.eventValue[event.id].block = true
   }
 
   releaseEvent(event) {
-    const blockArray = this.eventIdBlockedValue;
-    const blockIndex = blockArray.indexOf(event.id);
-    const x = blockArray.splice(blockIndex, 1);
-    this.eventIdBlockedValue = blockArray
+    this.eventValue[event.id].block = false
   }
 
   toggleEvent(event) {
-    if (this.eventIdBlockedValue.indexOf(event.id) === -1) {
-      this.blockEvent(event)
-    } else {
-      this.releaseEvent(event)
-    }
+    this.eventValue[event.id].block = !this.eventValue[event.id].block
   }
+
 
   connect() {
     // console.log("Hello, Stimulus!", this.element);

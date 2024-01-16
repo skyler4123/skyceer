@@ -24,6 +24,7 @@ export default class extends Controller {
     this.initializeDefaultClass()
     this.initializeClass()
     this.initializeAction()
+    this.initializeEvent()
 
     this.initializeComplete()
   }
@@ -51,12 +52,19 @@ export default class extends Controller {
     this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
     this.gridTarget.className = this.gridTarget.className + ' ' + this.gridClassDefaultValue + ' ' + this.gridClassValue
   }
+
   initializeAction() {
     if (this.eventValue?.id && this.eventValue?.listener && this.eventValue?.action) {
       this.canSendGlobalDispatchValue = true
     }
     if (this.eventValue?.id && !this.eventValue?.listener && !this.eventValue?.action) {
       this.canReceiveGlobalDispatchValue = true
+    }
+  }
+
+  initializeEvent() {
+    if (this.eventValue.id) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, action: 'initialize' } } })
     }
   }
 
