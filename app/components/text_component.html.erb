@@ -13,10 +13,12 @@
   text_component_text_class_default_value: @text_class_default,
   **@rest_data_attributes
 }) do %>
-  <%if editor? %>
-    <div data-text-component-target="editor">
-      <%= editor %>
-    </div>
-  <% end %>
-  <div data-text-component-target="text"></div>
+  <div data-text-component-target="content">
+    <%if editor? %>
+      <div data-text-component-target="editor">
+        <%= editor %>
+      </div>
+    <% end %>
+    <div data-text-component-target="text"></div>
+  </div>
 <% end %>
