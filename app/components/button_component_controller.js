@@ -6,6 +6,8 @@ export default class extends Controller {
   static targets = ["template", 'content', 'hidden', "button", "link"]
   static values = {
     isOpen: { type: Boolean, default: true },
+    isDisabled: { type: Boolean, default: false },
+    isFocus: { type: Boolean, default: false },
     event: { type: Object },
     canSendGlobalDispatch: { type: Boolean, default: false },
     canReceiveGlobalDispatch: { type: Boolean, default: false },
@@ -16,8 +18,8 @@ export default class extends Controller {
     klass: { type: String, default: "" },
     contentClass: { type: String, default: "" },
     buttonClass: { type: String, default: "" },
-    linkClass: { type: String, default: "flex-col" },
-    klassDefault: { type: String, default: "flex cursor-pointer" },
+    linkClass: { type: String, default: "" },
+    klassDefault: { type: String, default: "flex" },
     contentClassDefault: { type: String, default: "flex" },
     buttonClassDefault: { type: String, default: "flex" },
     linkClassDefault: { type: String, default: "flex" },
@@ -81,7 +83,7 @@ export default class extends Controller {
   }
 
   templateHTML() {
-    if (this.templateTarget.content.childElementCount === 0) {
+    if (this.templateTarget.content?.childElementCount === 0) {
       return this.labelValue
     } else {
       return this.templateTarget.innerHTML

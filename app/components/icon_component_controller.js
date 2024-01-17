@@ -2,9 +2,9 @@ import morphdom from "morphdom"
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['template', 'svg']
+  static targets = ['template', 'content', 'svg']
   static values = {
-    isOpen: { type: Boolean, default: false },
+    isOpen: { type: Boolean, default: true },
     event: { type: Object },
     canSendGlobalDispatch: { type: Boolean, default: false },
     canReceiveGlobalDispatch: { type: Boolean, default: false },
@@ -12,9 +12,12 @@ export default class extends Controller {
     name: { type: String, default: 'star' },
     type: { type: String, default: 'outline' },
     svgHtml: { type: String },
+
     klass: { type: String },
+    contentClass: { type: String, default: "" },
     svgClass: { type: String, default: 'w-5 h-5' },
     klassDefault: { type: String, default: "w-fit h-fit flex justify-center items-center transition-all duration-200 ease-in-out" },
+    contentClassDefault: { type: String, default: "" },
     svgClassDefault: { type: String }
   }
 
@@ -48,6 +51,7 @@ export default class extends Controller {
   }
   initializeClass() {
     this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
+    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
     if (!this.svgHtmlValue && this.typeValue !== "animation") {
       this.svgTarget.classList = this.svgClassDefaultValue + ' ' + this.svgClassValue
     }
@@ -112,8 +116,12 @@ export default class extends Controller {
   isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
+      this.contentTarget.setAttribute('open', '')
+      this.svgTarget.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
+      this.contentTarget.removeAttribute('open')
+      this.svgTarget.removeAttribute('open')
     }
   }
   

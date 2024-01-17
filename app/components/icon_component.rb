@@ -13,8 +13,10 @@ class IconComponent < ViewComponent::Base
     svg_html: nil,
 
     klass: nil,
+    content_class: nil,
     svg_class: nil,
     klass_default: nil,
+    content_class_default: nil,
     svg_class_default: nil,
     **rest_data_attributes
   )
@@ -29,9 +31,11 @@ class IconComponent < ViewComponent::Base
     @svg_html = svg_html
 
     @klass = klass
+    @content_class = content_class
     @svg_class = svg_class
     @klass_default = klass_default
     @svg_class_default = svg_class_default
+    @content_class_default = content_class_default
     @rest_data_attributes = rest_data_attributes
     
     if @event && @event[:action]

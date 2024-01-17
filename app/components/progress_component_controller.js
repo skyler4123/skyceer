@@ -13,18 +13,17 @@ export default class extends Controller {
 
     klass: { type: String, default: "" },
     contentClass: { type: String, default: "" },
-    backgroundClass: { type: String, default: "" },
-    percentageClass: { type: String, default: "" },
+    backgroundClass: { type: String, default: "rounded-full bg-gray-200" },
+    percentageClass: { type: String, default: "bg-blue-600 dark:bg-gray-700 text-xs font-medium text-blue-100 rounded-full" },
     klassDefault: { type: String, default: "w-1/3" },
-    contentClassDefault: { type: String, default: "" },
-    backgroundClassDefault: { type: String, default: "" },
-    percentageClassDefault: { type: String, default: "" },
+    contentClassDefault: { type: String, default: "w-full" },
+    backgroundClassDefault: { type: String, default: "w-full" },
+    percentageClassDefault: { type: String, default: "text-center p-0.5 leading-none duration-500 ease-in-out" },
   }
 
   initialize() {
     this.initializeHTML()
     this.initializeClass()
-    // this.initializeAction()
 
     this.initializeComplete()
     setInterval(() => {
@@ -46,23 +45,27 @@ export default class extends Controller {
 
   initHTML() {
     return `
-    <div data-${this.identifier}-target="content" class="w-full">
-      <div data-${this.identifier}-target="background" class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-        <div data-${this.identifier}-target="percentage" class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full duration-300 ease-in-out" style="width: ${this.percentageValue}">
-          ${this.isShowPercentageValue ? this.percentageValue : ''}
+      <div data-${this.identifier}-target="content">
+        <div data-${this.identifier}-target="background">
+          <div data-${this.identifier}-target="percentage" style="width: ${this.percentageValue}">
+            ${this.isShowPercentageValue ? this.percentageValue : ''}
+          </div>
         </div>
       </div>
-    <?div>
-
     `
   }
 
   initializeClass() {
     this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
+    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
+    this.backgroundTarget.className = this.backgroundTarget.className + ' ' + this.backgroundClassDefaultValue + ' ' + this.backgroundClassValue
+    this.percentageTarget.className = this.percentageTarget.className + ' ' + this.percentageClassDefaultValue + ' ' + this.percentageClassValue
   }
 
   percentageValueChanged() {
     this.percentageTarget.style.width = this.percentageValue
-    this.percentageTarget.textContent = this.percentageValue
+    if (this.isShowPercentageValue) {
+      this.percentageTarget.textContent = this.percentageValue
+    }
   }
 }

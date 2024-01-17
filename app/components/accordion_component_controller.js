@@ -44,7 +44,7 @@ export default class extends Controller {
     }
     if (this.accordionDirectionValue === "horizontal") {
       this.klassDefaultValue = "flex flex-row overflow-hidden"
-      this.contentClassDefaultValue = "grid grid-cols-[0fr] open:grid-rows-[1fr] open:grid-cols-[1fr] transition-all duration-200 ease-in-out overflow-hidden"
+      this.contentClassDefaultValue = "whitespace-nowrap grid grid-cols-[0fr] open:grid-rows-[1fr] open:grid-cols-[1fr] transition-all duration-200 ease-in-out overflow-hidden"
     }
   }
   initializeClass() {

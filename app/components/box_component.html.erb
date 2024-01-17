@@ -13,19 +13,26 @@
   box_component_content_class_default_value: @content_class_default,
   **@rest_data_attributes
 }) do %>
+  <%= content_tag(@tag, data: { box_component_target: "content" }) do %>
     <% if prepends? %>
       <% prepends.each do |prepend| %>
         <%= prepend %>
       <% end %>
     <% end %>
 
-  <%= content_tag(@tag, data: { box_component_target: "content" }) do %>
     <% if content %>
       <%= content %>
     <% elsif body? %>
       <%= body %>
     <% else %>
       Box with empty content!
+    <% end %>
+
+
+    <% if appends? %>
+      <% appends.each do |append| %>
+        <%= append %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

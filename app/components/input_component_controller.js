@@ -133,7 +133,7 @@ export default class extends Controller {
   }
 
   templateHTML() {
-    if (this.templateTarget.content.childElementCount === 0) {
+    if (this.templateTarget.content?.childElementCount === 0) {
       return this.labelValue
     } else {
       return this.templateTarget.innerHTML
@@ -149,7 +149,6 @@ export default class extends Controller {
             ${this.templateHTML()}
           </select>
         </div
-
       `
     }
     return `
@@ -206,12 +205,15 @@ export default class extends Controller {
     if (this.isFloatingLabelValue) {
       this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
     }
+    if (this.eventValue.action === 'remember') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${this.eventValue.listener}->${this.identifier}#${this.eventValue.action}`
+    }
   }
 
   canSendGlobalDispatchValueChanged(value, previousValue) {
     if (this.canSendGlobalDispatchValue) {
       if (this.eventValue.listener === 'click') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${this.eventValue.listener}->${this.identifier}#${this.eventValue.action}`
       }
       if (this.eventValue.listener === 'hover') {
         this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
@@ -300,6 +302,13 @@ export default class extends Controller {
         console.log('Auto submit is on!')
       }, this.setTimeoutTimeValue)
       this.setTimeoutIdValue = timeoutId
+    }
+  }
+
+  remember(event) {
+    if (this.canSendGlobalDispatchValue) {
+      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
+      event.stopPropagation()
     }
   }
 

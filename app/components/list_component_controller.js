@@ -14,7 +14,6 @@ export default class extends Controller {
     sortable: { type: Boolean, default: true },
     sortableOptions: { type: Object, default: { animation: 1000 } },
 
-    // Classes
     klass: { type: String, default: "" },
     contentClass: { type: String, default: "" },
     itemsClass: { type: String, default: "" },
@@ -62,7 +61,7 @@ export default class extends Controller {
   }
 
   templateHTML() {
-    if (this.templateTarget.content.childElementCount === 0) {
+    if (this.templateTarget.content?.childElementCount === 0) {
       return `<li>Emplty Content 1</li><li>Emplty Content 2</li>`
     } else {
       return this.templateTarget.innerHTML

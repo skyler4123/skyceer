@@ -19,6 +19,7 @@ export default class extends Controller {
     switch-component:dispatch->${this.identifier}#reducer
     text-component:dispatch->${this.identifier}#reducer
     toast-component:dispatch->${this.identifier}#reducer
+    form--remember-me-component:dispatch->${this.identifier}#reducer
     `
   }
 

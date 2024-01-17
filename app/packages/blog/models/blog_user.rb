@@ -11,7 +11,6 @@ class BlogUser
   # belongs_to :user, dependent: :destroy
   has_many :blogs, dependent: :destroy
   
-  sig {returns(ActiveRecord::Relation)}
   def user
     User.where(id: self.user_id)
   end

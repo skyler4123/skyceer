@@ -12,9 +12,9 @@ export default class extends Controller {
     position: { type: String },
 
     klass: { type: String, default: "" },
-    klassDefault: { type: String, default: "" },
+    klassDefault: { type: String, default: "flex" },
     contentClass: { type: String, default: "" },
-    contentClassDefault: { type: String, default: "" }
+    contentClassDefault: { type: String, default: "flex" }
   }
 
   initialize() {

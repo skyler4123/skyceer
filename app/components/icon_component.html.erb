@@ -9,10 +9,14 @@
   icon_component_svg_html_value: @svg_html,
 
   icon_component_klass_value: @klass,
+  icon_component_content_class_value: @content_class,
   icon_component_svg_class_value: @svg_class,
   icon_component_klass_default_value: @klass_default,
+  icon_component_content_class_default_value: @content_class_default,
   icon_component_svg_class_default_value: @svg_class_default,
   **@rest_data_attributes
 } ) do %>
-  <template data-icon-component-target="template"></template>
+  <div data-icon-component-target="content">
+    <template data-icon-component-target="template"></template>
+  </div>
 <% end %>

@@ -301,5 +301,24 @@
     <% end %>
 
 
+    <%= render(ProgressComponent.new) %>
+    <%= render(MockupComponent.new) %>
+    <%= render(SkeletonComponent.new) %>
+
+
+
+
+    <form>
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" name="fname"><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" name="lname">
+      <%= render(InputComponent.new(name: 'skyler_name', event: { id: 'remember_me', listener: :input, action: :remember })) %>
+    </form>
+
+    <%= render(Form::RememberMeComponent.new) %>
+
+
+
   </div>
 </div>

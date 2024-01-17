@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MockupComponent < ViewComponent::Base
+class SkeletonComponent < ViewComponent::Base
   def initialize(
     controller: nil,
     controller_action: nil,
@@ -16,7 +16,7 @@ class MockupComponent < ViewComponent::Base
     tab_class_default: nil,
     **rest_data_attributes
   )
-    @controller = "mockup-component" + ' ' + controller.to_s
+    @controller = "skeleton-component" + ' ' + controller.to_s
     @controller_action = controller_action
     @is_open = is_open
     @event = event

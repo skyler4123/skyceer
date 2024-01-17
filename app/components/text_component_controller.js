@@ -52,8 +52,9 @@ export default class extends Controller {
   initializeClass() {
     this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
     this.textTarget.className = this.textTarget.className + ' ' + this.textClassDefaultValue + ' ' + this.textClassValue
-    this.editorTarget.className = this.editorTarget.className + ' ' + this.editorClassDefaultValue + ' ' + this.editorClassValue
-
+    if (this.hasEditorTarget) {
+      this.editorTarget.className = this.editorTarget.className + ' ' + this.editorClassDefaultValue + ' ' + this.editorClassValue
+    }
   }
 
   labelValueChanged() {
