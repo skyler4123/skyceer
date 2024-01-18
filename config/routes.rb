@@ -5,26 +5,17 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
-  resources :components
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   mount RailsMiniProfiler::Engine => '/rails_mini_profiler'
-  resources :chat_rooms
-  resources :chat_messages
-  resources :chat_users
   resources :demos
   post 'images/upload_by_file'
   post 'images/upload_by_url'
   mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
   
   # MongoDB 
-  resources :blogs
-  resources :blog_users
 
   # PostgreSQL
-  resources :laptops
-  resources :comments
-  resources :posts
   get 'signin', to: 'sessions#new'
   post 'signin', to: 'sessions#create'
   delete 'signout', to: 'sessions#destroy'
@@ -37,6 +28,5 @@ Rails.application.routes.draw do
   root "demos#index"
 
   namespace :api do
-    resources :users
-  end
+    end
 end

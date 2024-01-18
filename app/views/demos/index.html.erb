@@ -1,127 +1,324 @@
-<%= render(BoxComponent.new(
-  klass: 'w-full',
-  content_class: 'flex-col bg-gray-100 border border-gray-300 w-full'
-)) do %>
-  <div class="flex flex-row">
-    <%= render(IconComponent.new(name: :newspaper)) %>
-    <div>To Do List</div>
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Components</h1>
   </div>
-  <div>
-    <%= render(ListComponent.new) do %>
-      <li class="flex flex-row">
-        <% button_list_1 = SecureRandom.uuid %>
-        <%= render(ButtonComponent.new(
-          button_class: 'flex-row w-full cursor-default justify-between items-center',
-          event: { id: button_list_1, listener: :hover, action: :toggle },
-          )) do %>
-            <div class="flex flex-row">
-              <%= render(IconComponent.new(name: 'bars-3')) %>
-              <%= render(InputComponent.new(type: :checkbox)) %>
-              <%= render(TextComponent.new(label: 'Design a nice theme')) %>
-              <%= render(BoxComponent.new(content_class: 'flex-row', style: { name: :badge, border: :none, color: :red })) do |c| %>
-                <% c.with_prepend do %>
-                  <%= render(IconComponent.new(name: :clock)) %>
-                <% end %>
-                <% c.with_body do %>
-                  <%= render(TextComponent.new(label: '2 mins')) %>
-                <% end %>
-              <% end %>
-            </div>
-          <%= render(ButtonComponent.new) do %>
-            <%= render(IconComponent.new(name: 'pencil-square', content_class: 'text-red-500 open:hidden', event: { id: button_list_1 })) %>
-          <% end %>
-        <% end %>
-      </li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
+
+  <div id="components" class="flex flex-col justify-center items-center min-w-full pb-4">
+
+    <%= render(Hr::DefaultComponent.new(label: 'Button Component')) %>
+    <%= render(ButtonComponent.new(label: "Normal Button with Dispatch", event: { id: "unique random", listener: :click, action: :toggle })) %>
+    <%= render(ButtonComponent.new(label: "Normal Button with Dispatch", event: { id: "unique random", listener: :click, action: :toggle }, is_open: false)) %>
+
+    <%= render(Hr::DefaultComponent.new(label: 'Icon Component')) %>
+    <% icon_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(event: { id: icon_event_id, listener: :click, action: :toggle })) %>
+    <%= render(IconComponent.new(event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :animation, name: :spinner, event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :logo, name: :github, event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :outline, name: "code-bracket", event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :solid, name: "code-bracket", event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :mini, name: "code-bracket", event: { id: icon_event_id })) %>
+    <%= render(IconComponent.new(type: :micro, name: "code-bracket", event: { id: icon_event_id })) %>
+
+
+    <%= render(Hr::DefaultComponent.new(label: 'Accordion Component')) %>
+    <% accordion_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(event: { id: accordion_event_id, listener: :click, action: :toggle })) %>
+    <%= render(AccordionComponent.new(event: { id: accordion_event_id })) do %>
+      <div>Test Toggle Component</div>
     <% end %>
-  </div>
-  <div>
-    <%= render(ButtonComponent.new(label: "Add item",
-      content_class: 'bg-blue-600 rounded-md text-white p-2.5 active:bg-blue-700',
-    )) do |c| %>
-      <% c.with_prepend do %>
-        <%= render(IconComponent.new(name: :plus)) %>
+    <%= render(AccordionComponent.new(event: { id: accordion_event_id }, accordion_direction: :horizontal)) do %>
+      <div>Test Toggle Component</div>
+    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Box Component")) %>
+    <% box_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: 'Button to Show/Hide Box', event: { id: box_event_id, listener: :click, action: :toggle })) %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :badge, border: :bordered, color: :red }, content_class: "text-white")) %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :badge, border: :pill, color: :green })) %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :badge, border: :none, color: :yellow })) %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :alert, border: :bordered, color: :red }, klass: 'relative')) do %>
+      <div>Box with a small-box</div>
+      <div>Box with a small-box</div>
+      <div>Box with a small-box</div>
+      <%= render(BoxComponent.new(klass: "w-4 h-4 bg-green-600 rounded-full animate-ping", position: :top_right)) { '' } %>
+    <% end %>
+    <%= render(BoxComponent.new(event: { id: box_event_id }, style: { name: :alert, border: :none, color: :yellow })) %>
+
+    <%= render(Hr::TextComponent.new(label: "Button Component With Copy Text and Link")) %>
+    <% copy_link_text_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: "Target Link", url: '#copy_link_success', event: { id: copy_link_text_event_id })) %>
+    <%= render(ButtonComponent.new(label: 'Press To Copy Link', event: { id: copy_link_text_event_id, listener: :click, action: :copy_link })) %>
+    <%= render(ButtonComponent.new(label: 'Press To Copy Text', event: { id: copy_link_text_event_id, listener: :click, action: :copy_text })) %>
+
+    <%= render(Hr::TextComponent.new(label: "Table::DemoComponent")) %>
+    <%= render(Table::DemoComponent.new) %>
+
+    <%= render(Hr::TextComponent.new(label: "Popover::DefaultComponent")) %>
+    <% popover_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(klass: "relative",event: { action: :toggle, listener: :click, id: popover_event_id })) do |c| %>
+      <% c.with_hidden do %>
+        <%= render(PopoverComponent.new(position: :right_center, event: { id: popover_event_id })) %>
       <% end %>
     <% end %>
-  </div>
-<% end %>
+
+    <%= render(Input::ToggleComponent.new(name: :email)) %>
+    <%= render(InputComponent.new(label: "Test Floating Label", is_floating_label: true)) %>
+    <%= render(InputComponent.new(label: "Test Floating Label")) %>
+
+    <% modal_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: 'Test Modal', event: { id: modal_event_id, action: :toggle, listener: :click })) %>
+    <%= render(ModalComponent.new(event: { id: modal_event_id })) do %>
+      <div>
+        Executing JavaScript from a string is an BIG security risk.
+        With eval(), malicious code can run inside your application without permission.
+        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
+      </div>
+    <% end %>
 
 
 
-</div>
 
 
 
 
+    <%= render(Hr::TextComponent.new(label: "SwitchComponent")) %>
+    <% switch_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :switch, id: switch_event_id })) %>
+    <%= render(SwitchComponent.new(event: { id: switch_event_id })) do |c| %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "link")) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "check-circle", svg_class: "w-5 h-6 text-green-500")) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "spinner", type: :animation)) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "star", svg_class: "w-5 h-6 text-sky-800")) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
+      <% end %>
+    <% end %>
 
-<div class="flex flex-row justify-between w-full">
+    <%= render(SwitchComponent.new(event: { listener: :click, action: :switch })) do |c| %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "link")) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "check-circle", svg_class: "w-5 h-6 text-green-500")) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "spinner", type: :animation)) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "star", svg_class: "w-5 h-6 text-sky-800")) %>
+      <% end %>
+      <% c.with_switch do %>
+        <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
+      <% end %>
+    <% end %>
 
+    <%= render(Hr::TextComponent.new(label: "TabComponent")) %>
+    <% tab_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :tab, id: tab_event_id, value: 0 })) %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :tab, id: tab_event_id, value: 1 })) %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :tab, id: tab_event_id, value: 2 })) %>
+    <%= render(ButtonComponent.new(event: { listener: :click, action: :tab, id: tab_event_id, value: 3 })) %>
+    <%= render(TabComponent.new(event: { id: tab_event_id })) do |c| %>
+      <% c.with_tab do %>
+        <%= render(IconComponent.new(name: "link")) %>
+      <% end %>
+      <% c.with_tab do %>
+        <%= render(IconComponent.new(name: "check-circle", svg_class: "w-5 h-6 text-green-500")) %>
+      <% end %>
+      <% c.with_tab do %>
+        <%= render(IconComponent.new(name: "spinner", type: :animation)) %>
+      <% end %>
+      <% c.with_tab do %>
+        <%= render(IconComponent.new(name: "star", svg_class: "w-5 h-6 text-sky-800")) %>
+      <% end %>
+      <% c.with_tab do %>
+        <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
+      <% end %>
+    <% end %>
 
-<button data-button-component-target="button" type="button" class=" flex flex-row w-full cursor-default justify-between items-center">
-        
-          
-        
-            <div class="flex flex-row">
-              <div class="w-fit h-fit flex justify-center items-center transition-all duration-200 ease-in-out" data-controller="icon-component " data-icon-component-name-value="bars-3" id="icon-component-8401d6af-1cc6-4c29-9082-00145f31e6af" open="">
-  <div data-icon-component-target="content" class="  " open="">
-    <svg class=" w-5 h-5" data-slot="icon" aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-icon-component-target="svg" open="">  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path></svg>
-  </div>
-</div>
-              <div class="" data-controller="input-component " data-input-component-type-value="checkbox" id="input-component-f9009f30-63bc-42ab-9119-7bd9cebb280a" open="">
+    <%= render(Hr::TextComponent.new(label: "ToastComponent")) %>
+    <% toast_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: 'Toggle Toast', event: { id: toast_event_id, action: :toggle, listener: :click })) %>
+    <%= render(ToastComponent.new(event: { id: toast_event_id })) do %>
+      <div>Executing JavaScript from a string is an BIG security risk.
+        With eval(), malicious code can run inside your application without permission.
+        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
+      </div>
+    <% end %>
 
-  <div data-input-component-target="content" class="  ">
-        
-        <input type="checkbox" data-input-component-target="input" class="  " value="">
+    <%= render(Hr::TextComponent.new(label: "ListComponent")) %>
+    <%= render(ListComponent.new) do %>
+      <li>Coffee</li>
+      <li>Tea</li>
+      <li>Milk</li>
+    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "InputComponent")) %>
+    <%= render(InputComponent.new(format_options: { date: true, delimiter: '-', datePattern: ['Y', 'm', 'd'] })) do |c| %>
+      <% c.with_prepend do %>
+        <%= render(IconComponent.new) %>
+      <% end %>
+      <% c.with_append do %>
+        <%= render(IconComponent.new) %>
+      <% end %>
+    <% end %>
+    <%= render(InputComponent.new(format_options: {     time: true,
+        timePattern: ['h', 'm', 's'] })) do |c| %>
+      <% c.with_prepend do %>
+        <%= render(IconComponent.new(name: 'star')) %>
+      <% end %>
+      <% c.with_append do %>
+        <%= render(IconComponent.new(name: 'moon')) %>
+      <% end %>
+    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Input with CleaveJS")) %>
+    <%= render(InputComponent.new(type: :text, format_options: {
+      date: true,
+      delimiter: '-',
+      datePattern: ['Y', 'm', 'd']
+    })) %>
+
+    <%= render(Hr::TextComponent.new(label: "Input with FlatpickJS")) %>
+    <%= render(InputComponent.new(type: :date, format_options: {
+      mode: "range",
+      dateFormat: "Y-m-d",
+    })) %>
+
+    <%= render(Hr::TextComponent.new(label: "Editor::EditorjsComponent")) %>
+    <%= form_with do %>
+      <%= render(Editor::EditorjsComponent.new(object_type: "User")) %>
+    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Chart::ApexComponent")) %>
+    <%= render(Chart::ApexComponent.new(object_type: "User")) %>
+
+    <%= render(Hr::TextComponent.new(label: "Calendar::TuiComponent")) %>
+    <%= render(Calendar::TuiComponent.new(object_type: "User")) %>
+
+    <%= render(Hr::TextComponent.new(label: "CarouselComponent")) %>
+    <%= render(CarouselComponent.new) do %>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
       </div>
 
-</div>
-              <div class="" data-controller="text-component " data-text-component-label-value="Design a nice theme" open="">
-  <div data-text-component-target="content">
-    <div data-text-component-target="text" class=" hidden open:flex " open="">Design a nice theme</div>
-  </div>
-</div>
-              <div class="flex bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300" data-controller="box-component " data-box-component-style-value="{&quot;name&quot;:&quot;badge&quot;,&quot;border&quot;:&quot;none&quot;,&quot;color&quot;:&quot;red&quot;}" data-box-component-content-class-value="flex-row" id="box-component-68ea0dd1-f0c8-4bd4-824f-2f7394a8e03f" data-box-component-klass-default-value="flex bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-  <div data-box-component-target="content" class=" flex flex-row">
-                          <div class="w-fit h-fit flex justify-center items-center transition-all duration-200 ease-in-out" data-controller="icon-component " data-icon-component-name-value="clock" id="icon-component-ccb393e9-32af-4065-b678-3434b728df3a" open="">
-  <div data-icon-component-target="content" class="  " open="">
-    <svg class=" w-5 h-5" data-slot="icon" aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-icon-component-target="svg" open="">  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
-  </div>
-</div>
-
-
-                        <div class="" data-controller="text-component " data-text-component-label-value="2 mins" open="">
-  <div data-text-component-target="content">
-    <div data-text-component-target="text" class=" hidden open:flex " open="">2 mins</div>
-  </div>
-</div>
-
-
-
-</div></div>            </div>
-          <div class="flex" data-controller="button-component " id="button-component-3473bce7-3b00-40e9-aca0-31097074641d" open="">
-  <div data-button-component-target="content" class=" flex ">
-
-    <button data-button-component-target="button" type="button" class=" flex ">
-        
-          
-        
-            <div class="w-fit h-fit flex justify-center items-center transition-all duration-200 ease-in-out" data-controller="icon-component " data-icon-component-event-value="{&quot;id&quot;:&quot;36806a68-8ddf-441a-a927-ad771647db31&quot;}" data-icon-component-name-value="pencil-square" data-icon-component-content-class-value="text-red-500 open:hidden" id="icon-component-05918617-e217-44b7-8a5f-61c6fbb9496d" data-icon-component-can-receive-global-dispatch-value="true" data-action=" global:dispatch@window->icon-component#globalDispatch" data-icon-component-is-open-value="true" open="">
-  <div data-icon-component-target="content" class="  text-red-500" open="">
-    <svg class=" w-5 h-5" data-slot="icon" aria-hidden="true" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" data-icon-component-target="svg" open="">  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"></path></svg>
-  </div>
-</div>
-
-    
-        
-      </button>
-
-</div>
-</div>
-    
-        
-      </button>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
       </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" alt="">
+      </div>
+
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg" alt="">
+      </div>
+
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="">
+      </div>
+    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Button with block event")) %>
+    <% accordion_with_interval_timeout_event_id = SecureRandom.uuid %>
+    <div class="flex flex-row w-full">
+      <%= render(ButtonComponent.new(id: '123',event: { id: accordion_with_interval_timeout_event_id, listener: :hover, action: :toggle }, button_class: "flex-col")) do %>
+        <div class="flex flex-row bg-green-500">
+          <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
+          <%= render(AccordionComponent.new(event: { id: accordion_with_interval_timeout_event_id }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
+            <div>Test Toggle Component</div>
+          <% end %>
+        </div>
+        <div class="flex flex-row bg-green-500">
+          <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
+          <%= render(AccordionComponent.new(event: { id: accordion_with_interval_timeout_event_id, timeout: 200, interval: 3 }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
+            <div>Test Toggle Component</div>
+          <% end %>
+        </div>
+        <div class="flex flex-row bg-green-500">
+          <%= render(IconComponent.new(type: :logo, name: :youtube)) %>
+          <%= render(AccordionComponent.new(event: { id: accordion_with_interval_timeout_event_id }, accordion_direction: :horizontal, klass: "h-5", is_open: false)) do %>
+            <div>Test Toggle Component</div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="bg-red-500 grow">
+        <%= render(ButtonComponent.new(event: { id: accordion_with_interval_timeout_event_id, listener: :click, action: :open, block: :hover })) %>
+        <%= render(ButtonComponent.new(event: { id: accordion_with_interval_timeout_event_id, listener: :click, action: :close, block: false })) %>
+        <%= render(ButtonComponent.new(event: { id: accordion_with_interval_timeout_event_id, listener: :click, action: :toggle })) %>
+      </div>
+    </div>
+
+    <%= render(Hr::TextComponent.new(label: "Text with editor")) %>
+    <%= render(TextComponent.new(label: "text to test")) do |c| %>
+      <% c.with_editor do %>
+        <%= render(InputComponent.new) %>
+      <% end %>
+    <% end %>
+
+    <%= render(Hr::TextComponent.new(label: "Select Component")) %>
+    <%= render(InputComponent.new(label: "text select component", type: :select)) do |c| %>
+      <% c.with_option do %>
+          <option selected>Choose a country</option>
+          <option value="US">United States</option>
+          <option value="CA">Canada</option>
+          <option value="FR">France</option>
+          <option value="DE">Germany</option>
+      <% end %>
+    <% end %>
+
+
+    <%= render(ProgressComponent.new) %>
+    <%= render(MockupComponent.new) %>
+    <%= render(SkeletonComponent.new) %>
+
+
+
+
+    <form>
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" name="fname"><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" name="lname">
+      <%= render(InputComponent.new(name: 'skyler_name', event: { id: 'remember_me', listener: :input, action: :remember })) %>
+    </form>
+
+    <%= render(Form::RememberMeComponent.new) %>
+
+
+
+  </div>
+</div>
