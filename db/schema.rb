@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_09_074137) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_18_144821) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -43,26 +43,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_09_074137) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "content"
-    t.uuid "user_id", null: false
-    t.uuid "post_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
-  create_table "components", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "demos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "string"
     t.text "text"
@@ -76,31 +56,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_09_074137) do
     t.json "json"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "laptops", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.string "brand"
-    t.string "model"
-    t.decimal "unit_price"
-    t.integer "quantity"
-    t.integer "color"
-    t.integer "hard_disk"
-    t.string "cpu"
-    t.string "ram"
-    t.string "os"
-    t.string "graphic_card"
-    t.float "screen_size"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "content"
-    t.uuid "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "rmp_flamegraphs", force: :cascade do |t|
@@ -145,21 +100,27 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_09_074137) do
     t.index ["rmp_profiled_request_id"], name: "index_rmp_traces_on_rmp_profiled_request_id"
   end
 
-  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.string "refresh_token"
-    t.string "provider"
-    t.string "uid"
+  create_table "sessions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "user_agent"
+    t.string "ip_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.boolean "verified", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "posts"
-  add_foreign_key "comments", "users"
-  add_foreign_key "posts", "users"
   add_foreign_key "rmp_flamegraphs", "rmp_profiled_requests"
   add_foreign_key "rmp_traces", "rmp_profiled_requests"
+  add_foreign_key "sessions", "users"
 end
