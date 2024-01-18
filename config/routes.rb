@@ -5,7 +5,6 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
-  resources :admins
   resources :components
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
