@@ -81,11 +81,6 @@ gem "graphwerk"
 gem "dotenv-rails"
 gem "view_component"
 gem "faker"
-gem "webrick"
-gem "dalli"
-gem 'sorbet', :group => :development
-gem 'sorbet-runtime'
-gem 'tapioca', require: false, :group => :development
 gem "jwt"
 gem "em-websocket"
 gem "sidekiq"
