@@ -31,3 +31,4 @@ pin "apexcharts", to: "https://ga.jspm.io/npm:apexcharts@3.45.1/dist/apexcharts.
 pin "@toast-ui/calendar", to: "https://ga.jspm.io/npm:@toast-ui/calendar@2.1.3/dist/toastui-calendar.mjs"
 pin "tui-date-picker", to: "https://ga.jspm.io/npm:tui-date-picker@4.3.3/dist/tui-date-picker.js"
 pin "tui-time-picker", to: "https://ga.jspm.io/npm:tui-time-picker@2.1.6/dist/tui-time-picker.js"
+pin "tailwind-merge" # @2.2.0

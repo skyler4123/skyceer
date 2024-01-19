@@ -1,5 +1,5 @@
 class DemosController < ApplicationController
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate
   before_action :set_demo, only: %i[ show edit update destroy ]
 
   # GET /demos or /demos.json

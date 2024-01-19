@@ -1,8 +1,23 @@
 <%= render(ButtonComponent.new(
-  id: nil,
-  action: nil,
-  options: {
-    action: nil,
-    event: { id:, listener: [], action: [] }
-  }
-)) %>
+  controller: 'controller-2',
+  variant: :primary,
+  actions: 'action->controller#method',
+  events: [
+    { id: '123', listener: :click, action: :toggle },
+    { id: '456', listener: :hover, action: :open, prevent_default: true, stop_propagation: true }],
+  test: true
+)) do |c| %>
+  <% c.with_prepend do %>
+    <%= render(IconComponent.new(name: :moon)) %>
+  <% end %>
+
+  <% c.with_body do %>
+    <%= render(IconComponent.new) %>
+  <% end %>
+
+  <% c.with_append do %>
+    <%= render(IconComponent.new(name: :sun)) %>
+  <% end %>
+<% end %>
+
+

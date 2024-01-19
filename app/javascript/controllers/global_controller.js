@@ -7,43 +7,31 @@ export default class extends Controller {
   
   initialize() {
     this.element.dataset.action = (this.element.dataset.action || "") + `
-    accordion-component:dispatch->${this.identifier}#reducer
-    box-component:dispatch->${this.identifier}#reducer
-    button-component:dispatch->${this.identifier}#reducer
-    icon-component:dispatch->${this.identifier}#reducer
-    img-component:dispatch->${this.identifier}#reducer
-    input-component:dispatch->${this.identifier}#reducer
-    list-component:dispatch->${this.identifier}#reducer
-    modal-component:dispatch->${this.identifier}#reducer
-    popover-component:dispatch->${this.identifier}#reducer
-    switch-component:dispatch->${this.identifier}#reducer
-    text-component:dispatch->${this.identifier}#reducer
-    toast-component:dispatch->${this.identifier}#reducer
-    form--remember-me-component:dispatch->${this.identifier}#reducer
+      button-component:dispatch->${this.identifier}#reducer
     `
   }
 
   reducer({ detail: { event } }) {
+    console.log(event)
+    // if (event.action === 'initialize') {
+    //   if (this.eventValue[event.id]) { return }
+    //   console.log(event)
+    //   const newEventObject = this.eventValue
+    //   newEventObject[event.id] = { block: event.block, interval: event.interval, timeout: event.timeout }
+    //   this.eventValue = { ...this.eventValue, ...newEventObject }
+    //   return
+    // }
 
-    if (event.action === 'initialize') {
-      if (this.eventValue[event.id]) { return }
-      console.log(event)
-      const newEventObject = this.eventValue
-      newEventObject[event.id] = { block: event.block, interval: event.interval, timeout: event.timeout }
-      this.eventValue = { ...this.eventValue, ...newEventObject }
-      return
-    }
+    // if (!(event.block === undefined)) {
+    //   const newEventObject = this.eventValue
+    //   const newBlock = event.block
+    //   newEventObject[event.id] = { ...newEventObject[event.id], block: newBlock }
+    //   this.eventValue = { ...this.eventValue, ...newEventObject }
+    // }
 
-    if (!(event.block === undefined)) {
-      const newEventObject = this.eventValue
-      const newBlock = event.block
-      newEventObject[event.id] = { ...newEventObject[event.id], block: newBlock }
-      this.eventValue = { ...this.eventValue, ...newEventObject }
-    }
-
-    if (event.action) {
-      this.dispatchGlobal(event)
-    }
+    // if (event.action) {
+    //   this.dispatchGlobal(event)
+    // }
   }
 
   dispatchGlobal(event) {

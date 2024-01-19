@@ -1,30 +1,12 @@
-<%= tag.div(id: @id, class: 'hidden ', data: {
-  controller: @controller,
-  action: @controller_action,
-  button_component_is_open_value: @is_open,
-  button_component_event_value: @event,
-
-  button_component_label_value: @label,
-  button_component_url_value: @url,
-
-  button_component_klass_value: @klass,
-  button_component_content_class_value: @content_class,
-  button_component_button_class_value: @button_class,
-  button_component_link_class_value: @link_class,
-  button_component_klass_default_value: @klass_default,
-  button_component_content_class_default_value: @content_class_default,
-  button_component_button_class_default_value: @button_class_default,
-  button_component_link_class_default_value: @link_class_default,
-  **@rest_data_attributes
-  }) do %>
-  <%= tag.div(data: { button_component_target: "content", action: @action }) do %>
+<div class="hidden" data-controller="<%= @controller %>" data-button-component-options-value="<%= @options %>">
+  <div data-button-component-target="content">
     <% if prepends? %>
       <% prepends.each do |prepend| %>
         <%= prepend %>
       <% end %>
     <% end %>
 
-    <template data-button-component-target="template">
+    <button data-button-component-target="button">
       <% if content %>
         <%= content %>
       <% elsif body? %>
@@ -32,14 +14,14 @@
       <% else %>
         <%= @label %>
       <% end %>
-    </template>
+    </button>
 
     <% if appends? %>
       <% appends.each do |append| %>
         <%= append %>
       <% end %>
     <% end %>
-  <% end %>
+  </div>
 
   <% if hiddens? %>
     <%= tag.div(data: { button_component_target: "hidden" }) do %>
@@ -48,4 +30,4 @@
       <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>
