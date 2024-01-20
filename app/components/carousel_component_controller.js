@@ -1,27 +1,25 @@
+import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['content', 'carousel']
+  static targets = ['carousel']
   static values = {
-    isOpen: { type: Boolean, default: true },
-    event: { type: Object },
-    canSendGlobalDispatch: { type: Boolean, default: false },
-    canReceiveGlobalDispatch: { type: Boolean, default: false },
-
-    klass: { type: String, default: "" },
-    contentClass: { type: String, default: "" },
-    carouselClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "h-96 w-[600px]" },
-    contentClassDefault: { type: String, default: "flex flex-row w-full h-full rounded-lg items-center overflow-y-auto scroll-smooth snap-x snap-mandatory no-scrollbar" },
-    carouselClassDefault: { type: String, default: "flex-shrink-0 w-[300px] h-full snap-start snap-always" }
+    options: { type: Object },
+    isOpen: { type: Boolean },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean },
   }
 
   initialize() {
     this.initializeID()
     this.initializeTarget()
     this.initializeClass()
+    this.initializeAction()
 
     this.initializeComplete()
+  }
+  connect() {
+    if (this.isTest) { console.log(this) }
   }
   initializeID() {
     if (!this.element.id) {
@@ -31,33 +29,75 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get carouselClass() {
+    return this.optionsValue.carouselClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.test
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
 
   initializeTarget() {
-    Array.from(this.contentTarget.children).forEach((target) => {
+    Array.from(this.element.children).forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, "carousel")
     })
   }
-
   initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
-    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
+    this.element.className = twMerge("h-96 w-[600px] flex flex-row rounded-lg items-center overflow-y-auto scroll-smooth snap-x snap-mandatory no-scrollbar", this.klass)
     this.carouselTargets.forEach((target) => {
-      target.className = target.className + ' ' + this.carouselClassDefaultValue + ' ' + this.carouselClassValue
+      target.className = twMerge("flex-shrink-0 w-[300px] h-full snap-start snap-always", this.carouselClass)
     })
   }
 
+  initializeAction() {
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+  }
+
+  globalDispatch({ detail: { event } }) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
+      eval(`this.${event.action}(event)`)
+    }
+  }
+
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+
+  open() {
+    this.isOpenValue = true
+  }
+
+  close() {
+    this.isOpenValue = false
+  }
+
+  isOpenValueChanged(value, previousValue) {
+    if (this.isOpenValue) {
+      this.element.setAttribute('open', '')
+    } else {
+      this.element.removeAttribute('open')
+    }
+  }
+
   scrollBack() {
-    this.sidesTarget.scrollBy(-1, 0)
+    this.element.scrollBy(-1, 0)
   }
 
   scrollForward() {
-    if (this.sidesTarget.scrollLeft == this.sidesTarget.scrollLeftMax) {
-      this.sidesTarget.scrollTo(0, 0)
+    if (this.element.scrollLeft == this.element.scrollLeftMax) {
+      this.element.scrollTo(0, 0)
     }
-    this.sidesTarget.scrollBy(1, 0)
-
-  }
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
+    this.element.scrollBy(1, 0)
   }
 }

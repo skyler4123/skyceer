@@ -1,10 +1,43 @@
-    <% copy_link_event_id = SecureRandom.uuid %>
-    <%= button(test: true, event: { id: copy_link_event_id, listener: :click, action: :copy_link }) %>
-    <%= render(LinkComponent.new(label: "Test Copy Link", url: '/#', test: true, event: { id: copy_link_event_id })) %>
+    <% box_event_id = SecureRandom.uuid %>
+    <%= button(test: true, event: { id: box_event_id, listener: :click, action: :toggle }) %>
+    <%= render(CarouselComponent.new(test: true)) do %>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
+      </div>
 
-    <% accordion_event_id = SecureRandom.uuid %>
-    <%= button(event: { id: accordion_event_id, listener: :click, action: :toggle }) %>
-    <%= render(AccordionComponent.new(test: true, orientation: :horizontal, event: { id: accordion_event_id })) do %>
-      <div>kjhjk lkjlkj kjlkj kjlk </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" alt="">
+      </div>
+
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg" alt="">
+      </div>
+
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="">
+      </div>
     <% end %>
-

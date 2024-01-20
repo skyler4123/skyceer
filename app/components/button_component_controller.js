@@ -145,5 +145,17 @@ export default class extends Controller {
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('copyText'), controller: this } } })
     if (this.isStopPropagation('copyText')) { event.stopPropagation() }
   }
-  
+
+  scrollBack(event) {
+    if (this.isPreventDefault('scrollBack')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollBack'), controller: this } } })
+    if (this.isStopPropagation('scrollBack')) { event.stopPropagation() }
+  }
+
+  scrollForward(event) {
+    if (this.isPreventDefault('scrollForward')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollForward'), controller: this } } })
+    if (this.isStopPropagation('scrollForward')) { event.stopPropagation() }
+  }
+
 }
