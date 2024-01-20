@@ -30,23 +30,23 @@ export default class extends Controller {
     // }
 
     // if (event.action) {
-    //   this.dispatchGlobal(event)
+      this.dispatchGlobal(event)
     // }
   }
 
   dispatchGlobal(event) {
-    if (this.eventValue[event.id]?.interval > 0 || this.eventValue[event.id]?.interval === undefined ) {
-      if (this.eventValue[event.id]?.block === true || this.eventValue[event.id]?.block === event.listener || this.eventValue[event.id]?.block === event.action) { return }
+    // if (this.eventValue[event.id]?.interval > 0 || this.eventValue[event.id]?.interval === undefined ) {
+    //   if (this.eventValue[event.id]?.block === true || this.eventValue[event.id]?.block === event.listener || this.eventValue[event.id]?.block === event.action) { return }
 
-      const timeout = this.eventValue[event.id]?.timeout || 0
-      setTimeout(() => {
-        this.dispatch('dispatch', { detail: { event: event } })
-        console.log(event)
-      }, timeout)
-      this.decreaseInterval(event)
-    }
+    //   const timeout = this.eventValue[event.id]?.timeout || 0
+    //   setTimeout(() => {
+    //     this.dispatch('dispatch', { detail: { event: event } })
+    //     console.log(event)
+    //   }, timeout)
+    //   this.decreaseInterval(event)
+    // }
 
-
+    this.dispatch('dispatch', { detail: { event: event } })
   }
 
   decreaseInterval(event) {

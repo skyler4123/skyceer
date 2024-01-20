@@ -8,6 +8,12 @@ class ButtonComponent < ViewComponent::Base
 
   def initialize( controller: nil, **options)
     @controller = "button-component" + ' ' + controller.to_s
+    if options[:event] 
+      options[:events] = [options[:event]]
+      options.delete(:event)
+    end
+    options[:events].each { |event| event[:action] = event[:action].to_s.camelize(:lower).to_sym }
+    
     @options = options.to_json
   end
 end

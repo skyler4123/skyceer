@@ -1,23 +1,8 @@
-<%= render(ButtonComponent.new(
-  controller: 'controller-2',
-  variant: :primary,
-  actions: 'action->controller#method',
-  events: [
-    { id: '123', listener: :click, action: :toggle },
-    { id: '456', listener: :hover, action: :open, prevent_default: true, stop_propagation: true }],
-  test: true
-)) do |c| %>
-  <% c.with_prepend do %>
-    <%= render(IconComponent.new(name: :moon)) %>
-  <% end %>
+<% accordion_event_id = SecureRandom.uuid %>
+<%= button(test: true, event: { id: accordion_event_id, listener: :click, action: :copy_link }) %>
 
-  <% c.with_body do %>
-    <%= render(IconComponent.new) %>
-  <% end %>
+<%= render(AccordionComponent.new) do %>
 
-  <% c.with_append do %>
-    <%= render(IconComponent.new(name: :sun)) %>
-  <% end %>
 <% end %>
 
 

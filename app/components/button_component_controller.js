@@ -6,17 +6,20 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ['content', 'button', 'hidden']
   static values = {
-    options: { type: Object }
+    options: { type: Object },
+    isOpen: { type: Boolean },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean },
   }
 
   initialize() {
     this.initializeID()
+    this.initializeHTML()
     this.initializeClass()
     this.initializeAction()
 
     this.initializeComplete()
   }
-
   initializeID() {
     if (!this.element.id) {
       this.element.id = `${this.identifier}-${crypto.randomUUID()}`
@@ -25,14 +28,22 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-
+  get id() {
+    return this.element.id
+  }
+  get label() {
+    return this.optionsValue.label
+  }
   get isTest() {
     return this.optionsValue.test
   }
   get events() {
     return this.optionsValue.events
   }
-  get action() {
+  get eventIds() {
+    return this.events.map((event) => (event.id))
+  }
+  get actions() {
     return this.optionsValue.actions
   }
   isPreventDefault(action) {
@@ -55,16 +66,19 @@ export default class extends Controller {
   get variant() {
     return this.variants()[this.optionsValue.variant]
   }
-
+  initializeHTML() {
+    if (this.buttonTarget.childElementCount === 0) { this.buttonTarget.textContent = this.label }
+  }
   initializeClass() {
-    console.log(this.variant)
     this.element.className = twMerge(this.element.className, this.optionsValue.klass)
     this.contentTarget.className = twMerge(this.contentTarget.className, this.variant, this.optionsValue.contentClass)
     this.buttonTarget.className = twMerge(this.buttonTarget.className, this.optionsValue.buttonClass)
   }
 
   initializeAction() {
-    this.element.dataset.action = this.element.dataset.action + ' ' + this.action
+    if (!this.events) { return }
+
+    this.element.dataset.action = (this.element.dataset.action || '') + ' ' + this.actions
     this.events.forEach((event) => {
       if (event.listener === 'hover') {
         this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`

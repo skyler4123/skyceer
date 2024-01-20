@@ -1,0 +1,25 @@
+<div class="hidden" data-controller="<%= @controller %>" data-link-component-options-value="<%= @options %>">
+  <div data-link-component-target="content">
+    <% if prepends? %>
+      <% prepends.each do |prepend| %>
+        <%= prepend %>
+      <% end %>
+    <% end %>
+
+    <a data-link-component-target="link">
+      <% if content %>
+        <%= content %>
+      <% elsif body? %>
+        <%= body %>
+      <% else %>
+        <%= @label %>
+      <% end %>
+    </a>
+
+    <% if appends? %>
+      <% appends.each do |append| %>
+        <%= append %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

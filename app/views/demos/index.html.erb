@@ -9,6 +9,53 @@
 
   <div id="components" class="flex flex-col justify-center items-center min-w-full pb-4">
 
+
+    <% copy_link_event_id = SecureRandom.uuid %>
+    <%= button(test: true, event: { id: copy_link_event_id, listener: :click, action: :copy_link }) %>
+    <%= render(LinkComponent.new(label: "Test Copy Link", url: '/#', test: true, event: { id: copy_link_event_id })) %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <%= render(Hr::DefaultComponent.new(label: 'Button Component')) %>
     <%= render(ButtonComponent.new(label: "Normal Button with Dispatch", event: { id: "unique random", listener: :click, action: :toggle })) %>
     <%= render(ButtonComponent.new(label: "Normal Button with Dispatch", event: { id: "unique random", listener: :click, action: :toggle }, is_open: false)) %>
@@ -317,6 +364,29 @@
     </form>
 
     <%= render(Form::RememberMeComponent.new) %>
+
+<%= render(ButtonComponent.new(
+  controller: 'controller-2',
+  variant: :primary,
+  actions: 'action->controller#method',
+  events: [
+    { id: '123', listener: :click, action: :toggle },
+    { id: '456', listener: :hover, action: :open, prevent_default: true, stop_propagation: true }],
+  test: true
+)) do |c| %>
+  <% c.with_prepend do %>
+    <%= render(IconComponent.new(name: :moon)) %>
+  <% end %>
+
+  <% c.with_body do %>
+    <%= render(IconComponent.new) %>
+  <% end %>
+
+  <% c.with_append do %>
+    <%= render(IconComponent.new(name: :sun)) %>
+  <% end %>
+<% end %>
+
 
 
 

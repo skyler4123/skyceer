@@ -9,10 +9,8 @@
     <button data-button-component-target="button">
       <% if content %>
         <%= content %>
-      <% elsif body? %>
+      <%else body? %>
         <%= body %>
-      <% else %>
-        <%= @label %>
       <% end %>
     </button>
 
@@ -24,10 +22,8 @@
   </div>
 
   <% if hiddens? %>
-    <%= tag.div(data: { button_component_target: "hidden" }) do %>
-      <% hiddens.each do |hidden| %>
-        <%= hidden %>
-      <% end %>
+    <% hiddens.each do |hidden| %>
+      <%= hidden %>
     <% end %>
   <% end %>
 </div>
