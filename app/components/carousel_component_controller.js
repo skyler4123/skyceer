@@ -39,7 +39,7 @@ export default class extends Controller {
     return this.element.id
   }
   get isTest() {
-    return this.optionsValue.test
+    return this.optionsValue.isTest
   }
   get event() {
     return this.optionsValue.event

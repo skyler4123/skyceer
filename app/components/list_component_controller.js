@@ -1,36 +1,26 @@
-import morphdom from "morphdom"
+import { twMerge } from 'tailwind-merge'
 import Sortable from 'sortablejs';
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['content', 'template', 'items', 'item']
+  static targets = ['li']
   static values = {
-    isOpen: { type: Boolean, default: true },
-    event: { type: Object },
-    canSendGlobalDispatch: { type: Boolean, default: false },
-    canReceiveGlobalDispatch: { type: Boolean, default: false },
-
-    type: { type: String, default: 'ol' },
-    sortable: { type: Boolean, default: true },
-    sortableOptions: { type: Object, default: { animation: 1000 } },
-
-    klass: { type: String, default: "" },
-    contentClass: { type: String, default: "" },
-    itemsClass: { type: String, default: "" },
-    itemClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "" },
-    contentClassDefault: { type: String, default: "" },
-    itemsClassDefault: { type: String, default: "" },
-    itemClassDefault: { type: String, default: "" }
+    options: { type: Object },
+    isOpen: { type: Boolean },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean },
   }
 
   initialize() {
     this.initializeID()
-    this.initializeHTML()
+    this.initializeTarget()
     this.initializeClass()
     this.initializeAction()
 
     this.initializeComplete()
+  }
+  connect() {
+    if (this.isTest) { console.log(this) }
   }
   initializeID() {
     if (!this.element.id) {
@@ -40,107 +30,76 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get liClass() {
+    return this.optionsValue.liClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get isSortable() {
+    return this.optionsValue.isSortable
+  }
+  get sortableOptions() {
+    return this.optionsValue.sortableOptions
+  }
 
-  initializeHTML() {
-    morphdom(this.templateTarget, this.initHTML())
+  initializeTarget() {
     this.element.querySelectorAll('li').forEach((target) => {
-      target.setAttribute(`data-${this.identifier}-target`, 'item')
+      target.setAttribute(`data-${this.identifier}-target`, 'li')
     })
-    if (this.sortableValue) {
-      Sortable.create(this.itemsTarget, this.sortableOptionsValue)
-    }
   }
 
   initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
-    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
-    this.itemsTarget.className = this.itemsTarget.className + ' ' + this.itemsClassDefaultValue + ' ' + this.itemsClassValue
-    this.itemTargets.forEach((target) => {
-      target.className = target.className + ' ' + this.itemClassDefaultValue + ' ' + this.itemClassValue
+    this.element.className = twMerge(this.klass)
+    this.liTargets.forEach((target) => {
+      target.className = twMerge(this.liClass)
     })
   }
 
-  templateHTML() {
-    if (this.templateTarget.content?.childElementCount === 0) {
-      return `<li>Emplty Content 1</li><li>Emplty Content 2</li>`
-    } else {
-      return this.templateTarget.innerHTML
-    }
-  }
-
-  initHTML() {
-    return `
-      <${this.typeValue} data-${this.identifier}-target="items">
-        ${this.templateHTML()}
-      </${this.typeValue}>
-    `
-  }
-
   initializeAction() {
-    if (this.eventValue?.id && this.eventValue?.listener && this.eventValue?.action) {
-      this.canSendGlobalDispatchValue = true
-    }
-    if (this.eventValue?.id && !this.eventValue?.listener && !this.eventValue?.action) {
-      this.canReceiveGlobalDispatchValue = true
-    }
-  }
-
-  canSendGlobalDispatchValueChanged(value, previousValue) {
-    if (this.canSendGlobalDispatchValue) {
-      if (this.eventValue.listener === 'click') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
-      }
-      if (this.eventValue.listener === 'hover') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
-      }
-    }
-  }
-
-  canReceiveGlobalDispatchValueChanged() {
-    if (this.canReceiveGlobalDispatchValue) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    if (this.isSortable) {
+      Sortable.create(this.element, this.sortableOptions)
     }
   }
 
   globalDispatch({ detail: { event } }) {
-    if (this.eventValue.id === event.id && this.element.id !== event.controller.element.id) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
       eval(`this.${event.action}(event)`)
     }
   }
 
-  toggle(event) {
+  toggle() {
     this.isOpenValue = !this.isOpenValue
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  open(event) {
+  open() {
     this.isOpenValue = true
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  close(event) {
+  close() {
     this.isOpenValue = false
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
   isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
+      this.liTarget.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
+      this.liTarget.removeAttribute('open')
     }
-  }
-  
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
   }
 }

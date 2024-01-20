@@ -11,18 +11,18 @@
 
 
     <% copy_link_event_id = SecureRandom.uuid %>
-    <%= button(test: true, event: { id: copy_link_event_id, listener: :click, action: :copy_link }) %>
-    <%= render(LinkComponent.new(label: "Test Copy Link", url: '/#', test: true, event: { id: copy_link_event_id })) %>
+    <%= button(is_test: true, event: { id: copy_link_event_id, listener: :click, action: :copy_link }) %>
+    <%= render(LinkComponent.new(label: "Test Copy Link", url: '/#', is_test: true, event: { id: copy_link_event_id })) %>
 
     <% accordion_event_id = SecureRandom.uuid %>
     <%= button(event: { id: accordion_event_id, listener: :click, action: :toggle }) %>
-    <%= render(AccordionComponent.new(test: true, orientation: :horizontal, event: { id: accordion_event_id })) do %>
+    <%= render(AccordionComponent.new(is_test: true, orientation: :horizontal, event: { id: accordion_event_id })) do %>
       <div>kjhjk lkjlkj kjlkj kjlk </div>
     <% end %>
 
     <% carousel_event_id = SecureRandom.uuid %>
-    <%= button(test: true, event: { id: carousel_event_id, listener: :click, action: :scrollForward }) %>
-    <%= render(CarouselComponent.new(test: true, event: { id: carousel_event_id })) do %>
+    <%= button(is_test: true, event: { id: carousel_event_id, listener: :click, action: :scrollForward }) %>
+    <%= render(CarouselComponent.new(is_test: true, event: { id: carousel_event_id })) do %>
       <div>
           <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
       </div>
@@ -65,15 +65,19 @@
     <% end %>
 
     <% icon_event_id = SecureRandom.uuid %>
-    <%= button(test: true, event: { id: icon_event_id, listener: :click, action: :rotate }) %>
-    <%= render(IconComponent.new(test: true, event: { id: icon_event_id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out")) %>
-    <%= render(IconComponent.new(test: true, type: :logo, name: :github, event: { id: icon_event_id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out")) %>
+    <%= button(is_test: true, event: { id: icon_event_id, listener: :click, action: :rotate }) %>
+    <%= render(IconComponent.new(is_test: true, event: { id: icon_event_id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out")) %>
+    <%= render(IconComponent.new(is_test: true, type: :logo, name: :github, event: { id: icon_event_id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out")) %>
 
     <% img_event_id = SecureRandom.uuid %>
-    <%= button(test: true, event: { id: img_event_id, listener: :click, action: :rotate }) %>
-    <%= render(ImgComponent.new(test: true, event: { id: img_event_id }, img_class: "w-40 h-40 open:animate-spin", url: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg")) %>
+    <%= button(is_test: true, event: { id: img_event_id, listener: :click, action: :rotate }) %>
+    <%= render(ImgComponent.new(is_test: true, event: { id: img_event_id }, img_class: "w-40 h-40 open:animate-spin", url: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg")) %>
 
-
+    <%= render(ListComponent.new(is_test: true, is_sortable: true)) do %>
+      <li>Coffee</li>
+      <li>Tea</li>
+      <li>Milk</li>
+    <% end %>
 
 
 
@@ -428,7 +432,7 @@
   events: [
     { id: '123', listener: :click, action: :toggle },
     { id: '456', listener: :hover, action: :open, prevent_default: true, stop_propagation: true }],
-  test: true
+  is_test: true
 )) do |c| %>
   <% c.with_prepend do %>
     <%= render(IconComponent.new(name: :moon)) %>

@@ -16,6 +16,7 @@ class ButtonComponent < ViewComponent::Base
       event[:action] = event[:action].to_s.camelize(:lower).to_sym
       event.keys.each {|key| options[key.to_s.camelize(:lower).to_sym] = options.delete(key)}
     end
+    options.keys.each {|key| options[key.to_s.camelize(:lower).to_sym] = options.delete(key)}
     @options = options.to_json
   end
 end

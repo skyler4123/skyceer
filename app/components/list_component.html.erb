@@ -1,18 +1,3 @@
-<%= tag.div(id: @id, class: ' hidden ', data: {
-  controller: @controller,
-  action: @controller_action,
-  list_component_is_open_value: @is_open,
-  list_component_event_value: @event,
-
-  list_component_klass_value: @klass,
-  list_component_content_class_value: @content_class,
-  list_component_klass_default_value: @klass_default,
-  list_component_content_class_default_value: @content_class_default,
-  **@rest_data_attributes
-}) do %>
-
-  <div data-list-component-target="content">
-    <template data-list-component-target="template"><%= content %></template>
-  </div>
-  
-<% end %>
+<<%= @tag %> class="hidden" data-controller="<%= @controller %>" data-list-component-options-value="<%= @options %>">
+  <%= content %>
+</<%= @tag %>>
