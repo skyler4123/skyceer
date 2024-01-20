@@ -1,7 +1,3 @@
 <% img_event_id = SecureRandom.uuid %>
 <%= button(is_test: true, event: { id: img_event_id, listener: :click, action: :rotate }) %>
-<%= render(ListComponent.new(is_test: true, is_sortable: true)) do %>
-  <li>Coffee</li>
-  <li>Tea</li>
-  <li>Milk</li>
-<% end %>
+<%= render(MockupComponent.new) %>
