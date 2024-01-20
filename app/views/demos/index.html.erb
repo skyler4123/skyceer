@@ -69,6 +69,9 @@
     <%= render(IconComponent.new(test: true, event: { id: icon_event_id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out")) %>
     <%= render(IconComponent.new(test: true, type: :logo, name: :github, event: { id: icon_event_id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out")) %>
 
+    <% img_event_id = SecureRandom.uuid %>
+    <%= button(test: true, event: { id: img_event_id, listener: :click, action: :rotate }) %>
+    <%= render(ImgComponent.new(test: true, event: { id: img_event_id }, img_class: "w-40 h-40 open:animate-spin", url: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg")) %>
 
 
 
