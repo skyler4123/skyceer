@@ -95,9 +95,16 @@ export default class extends Controller {
   }
 
   scrollForward() {
-    if (this.element.scrollLeft == this.element.scrollLeftMax) {
-      this.element.scrollTo(0, 0)
+    if ((this.element.scrollLeft + this.element.offsetWidth + 1) > this.element.scrollWidth) {
+      this.scrollStart()
+      return
     }
     this.element.scrollBy(1, 0)
+  }
+  scrollStart() {
+    this.element.scrollTo(0, 0)
+  }
+  scrollEnd() {
+    this.element.scrollTo(this.element.scrollWidth, this.element.scrollHeight)
   }
 }

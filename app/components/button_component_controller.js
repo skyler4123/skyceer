@@ -158,4 +158,9 @@ export default class extends Controller {
     if (this.isStopPropagation('scrollForward')) { event.stopPropagation() }
   }
 
+  rotate(event) {
+    if (this.isPreventDefault('rotate')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rotate'), controller: this } } })
+    if (this.isStopPropagation('rotate')) { event.stopPropagation() }
+  }
 }
