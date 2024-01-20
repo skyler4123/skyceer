@@ -1,3 +1,9 @@
-    <% img_event_id = SecureRandom.uuid %>
-    <%= button(test: true, event: { id: img_event_id, listener: :click, action: :rotate }) %>
-    <%= render(ImgComponent.new(test: true, event: { id: img_event_id }, img_class: "w-40 h-40 open:animate-spin", url: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg")) %>
+<% img_event_id = SecureRandom.uuid %>
+<%= button(test: true, event: { id: img_event_id, listener: :click, action: :rotate }) %>
+<%= render(InputComponent.new(test: true, label: "Label Test", type: :text, name: :name, is_floating_label: :true,
+  format_options: {
+  date: true,
+  delimiter: '-',
+  datePattern: ['Y', 'm', 'd']
+  }))
+%>

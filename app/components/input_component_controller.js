@@ -1,3 +1,4 @@
+import { twMerge } from 'tailwind-merge'
 import morphdom from "morphdom"
 import Cleave from "cleave.js"
 import dayjs from "dayjs"
@@ -8,81 +9,26 @@ import { useHover, useClickOutside } from 'stimulus-use'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template", "content", "label", "input", "select", "option"]
+  static targets = ['label', 'input', 'select', 'option']
   static values = {
-    isOpen: { type: Boolean, default: true },
-    event: { type: Object },
-    canSendGlobalDispatch: { type: Boolean, default: false },
-    canReceiveGlobalDispatch: { type: Boolean, default: false },
-    isFocus: { type: Boolean, default: false },
-
-    isAutoSubmit: { type: Boolean, default: true },
-    autoSubmitUrl: { type: String },
-    payload: { type: String },
-    httpMethod: { type: String, default: 'get' },
-    setTimeoutTime: { type: Number, default: 5000 },
-    setTimeoutId: { type: Number },
-
-
-    accept: { type: String },
-    alt: { type: String },
-    autocomplete: { type: String },
-    autofocus: { type: String },
-    checked: { type: Boolean },
-    dirname: { type: String },
-    disabled: { type: Boolean },
-    form: { type: String },
-    formaction: { type: String },
-    formenctype: { type: String },
-    formmethod: { type: String },
-    formnovalidate: { type: String },
-    formtarget: { type: String },
-    height: { type: String },
-    list: { type: String },
-    max: { type: String },
-    maxlength: { type: String },
-    min: { type: String },
-    minlength: { type: String },
-    multiple: { type: String },
-    name: { type: String },
-    pattern: { type: String },
-    placeholder: { type: String },
-    popovertarget: { type: String },
-    popovertargetaction: { type: String },
-    readonly: { type: Boolean },
-    required: { type: Boolean },
-    size: { type: String },
-    src: { type: String },
-    step: { type: String },
-    type: { type: String, default: "text" },
-    value: { type: String },
-    width: { type: String },
-
-    klass: { type: String, default: "" },
-    contentClass: { type: String, default: "" },
-    labelClass: { type: String, default: "" },
-    inputClass: { type: String, default: "" },
-    selectClass: { type: String, default: "" },
-    optionClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "" },
-    contentClassDefault: { type: String, default: "" },
-    labelClassDefault: { type: String, default: "" },
-    inputClassDefault: { type: String, default: "" },
-    selectClassDefault: { type: String, default: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" },
-    optionClassDefault: { type: String, default: "" },
-
-    label: { type: String },
-    isFloatingLabel: { type: Boolean, default: false },
-    formatOptions: { type: Object }
+    options: { type: Object },
+    isOpen: { type: Boolean },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean },
   }
+
   initialize() {
     this.initializeID()
     this.initializeHTML()
     this.initializeClass()
     this.initializeFormat()
     this.initializeAction()
-    
+
     this.initializeComplete()
+  }
+  connect() {
+    if (this.isTest) { console.log(this) }
+    useClickOutside(this)
   }
   initializeID() {
     if (!this.element.id) {
@@ -94,197 +40,101 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    morphdom(this.templateTarget, this.initHTML())
+    this.element.innerHTML = this.initHTML()
   }
 
   initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassValue + ' ' + this.klassDefaultValue
-    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
-    if (this.labelValue) {
-      this.labelTarget.className = this.labelTarget.className + ' ' + this.labelClassDefaultValue + ' ' + this.labelClassValue
+    this.element.className = twMerge(this.klass)
+    if (this.hasLabelTaget) {
+      this.labelTarget.className = twMerge(this.labelClass)
     }
     if (this.hasInputTarget) {
-      this.inputTarget.className = this.inputTarget.className + ' ' + this.inputClassDefaultValue + ' ' + this.inputClassValue
+      this.inputTarget.className = twMerge(this.inputClass)
     }
     if (this.hasSelectTarget) {
-      this.selectTarget.className = this.selectTarget.className + ' ' + this.selectClassDefaultValue + ' ' + this.selectClassValue
+      this.selectTarget.className = twMerge(this.selectClass)
+      this.optionTarget.className = twMerge(this.optionClass)
     }
-    if (this.hasOptionTarget) {
-      this.optionTargets.forEach((target) => {
-        target.className = target.className + ' ' + this.optionClassDefaultValue + ' ' + this.optionClassValue
-      })
-    }
-    if (this.labelValue && this.isFloatingLabelValue) {
-      this.contentTarget.className = this.contentTarget.className + ' ' + 'relative'
-      this.labelTarget.className = this.labelTarget.className + ' ' + 'absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white'
+    if (this.isFloatingLabel) {
+      this.element.className = twMerge('relative', this.element.className)
+      this.labelTarget.className = twMerge('absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white', this.labelTarget.className )
     }
   }
 
   initializeFormat() {
+    if (!this.formatOptions) { return }
+
     const timeTypes = ['date', 'datetime-local', 'month', 'time', 'week']
-    if (timeTypes.includes(this.typeValue)) {
+    if (timeTypes.includes(this.type)) {
       flatpickr.l10ns.default.firstDayOfWeek = 1
-      flatpickr(this.inputTarget, this.formatOptionsValue)
+      flatpickr(this.inputTarget, this.formatOptions)
       return
     }
     if (this.hasInputTarget) {
-      var cleave = new Cleave(this.inputTarget, this.formatOptionsValue);
-    }
-  }
-
-  templateHTML() {
-    if (this.templateTarget.content?.childElementCount === 0) {
-      return this.labelValue
-    } else {
-      return this.templateTarget.innerHTML
+      var cleave = new Cleave(this.inputTarget, this.formatOptions);
+      return
     }
   }
   
-  initHTML() {
-    if (this.typeValue === 'select') {
-      return `
-        <div data-${this.identifier}-target="content">
-          ${this.labelValue ? `<label data-${this.identifier}-target="label">${this.labelValue}</label>` : ''}
-          <select data-${this.identifier}-target="select" name="${this.nameValue}">
-            ${this.templateHTML()}
-          </select>
-        </div
-      `
-    }
-    return `
-      <div data-${this.identifier}-target="content">
-        ${this.labelValue ? `<label data-${this.identifier}-target="label">${this.labelValue}</label>` : ''}
-        <input
-          ${this.acceptValue ? `accept="${this.acceptValue}"` : ""}
-          ${this.altValue ? `alt="${this.altValue}"` : ""}
-          ${this.autocompleteValue ? `autocomplete="${this.autocompleteValue}"` : ""}
-          ${this.autofocusValue ? `autofocus="${this.autofocusValue}"` : ""}
-          ${this.checkedValue ? `checked` : ""}
-          ${this.dirnameValue ? `dirname="${this.dirnameValue}"` : ""}
-          ${this.disabledValue ? `disabled` : ""}
-          ${this.formValue ? `form="${this.formValue}"` : ""}
-          ${this.formeventActionValue ? `formaction="${this.formeventActionValue}"` : ""}
-          ${this.formenctypeValue ? `formenctype="${this.formenctypeValue}"` : ""}
-          ${this.formmethodValue ? `formmethod="${this.formmethodValue}"` : ""}
-          ${this.formnovalidateValue ? `formnovalidate="${this.formnovalidateValue}"` : ""}
-          ${this.formtargetValue ? `formtarget="${this.formtargetValue}"` : ""}
-          ${this.heightValue ? `height="${this.heightValue}"` : ""}
-          ${this.listValue ? `list="${this.listValue}"` : ""}
-          ${this.maxValue ? `max="${this.maxValue}"` : ""}
-          ${this.maxlengthValue ? `maxlength="${this.maxlengthValue}"` : ""}
-          ${this.minValue ? `min="${this.minValue}"` : ""}
-          ${this.minlengthValue ? `minlength="${this.minlengthValue}"` : ""}
-          ${this.multipleValue ? `multiple="${this.multipleValue}"` : ""}
-          ${this.nameValue ? `name="${this.nameValue}"` : ""}
-          ${this.patternValue ? `pattern="${this.patternValue}"` : ""}
-          ${this.placeholderValue ? `placeholder="${this.placeholderValue}"` : ""}
-          ${this.popovertargetValue ? `popovertarget="${this.popovertargetValue}"` : ""}
-          ${this.popovertargeteventActionValue ? `popovertargetaction="${this.popovertargeteventActionValue}"` : ""}
-          ${this.readonlyValue ? `readonly` : ""}
-          ${this.requiredValue ? `required` : ""}
-          ${this.sizeValue ? `size="${this.sizeValue}"` : ""}
-          ${this.srcValue ? `src="${this.srcValue}"` : ""}
-          ${this.stepValue ? `step="${this.stepValue}"` : ""}
-          ${this.typeValue ? `type="${this.typeValue}"` : ""}
-          ${this.valueValue ? `value="${this.valueValue}"` : ""}
-          ${this.widthValue ? `width="${this.widthValue}"` : ""}
-
-          data-${this.identifier}-target="input"
-        >
-      </div>
-    `
-  }
-
   initializeAction() {
-    if (this.eventValue?.id && this.eventValue?.listener && this.eventValue?.action) {
-      this.canSendGlobalDispatchValue = true
-    }
-    if (this.eventValue?.id && !this.eventValue?.listener && !this.eventValue?.action) {
-      this.canReceiveGlobalDispatchValue = true
-    }
-    if (this.isFloatingLabelValue) {
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    if (this.isFloatingLabel) {
       this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
-    }
-    if (this.eventValue.action === 'remember') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${this.eventValue.listener}->${this.identifier}#${this.eventValue.action}`
-    }
-  }
-
-  canSendGlobalDispatchValueChanged(value, previousValue) {
-    if (this.canSendGlobalDispatchValue) {
-      if (this.eventValue.listener === 'click') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${this.eventValue.listener}->${this.identifier}#${this.eventValue.action}`
-      }
-      if (this.eventValue.listener === 'hover') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
-      }
-    }
-  }
-
-  canReceiveGlobalDispatchValueChanged() {
-    if (this.canReceiveGlobalDispatchValue) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }
   }
 
   globalDispatch({ detail: { event } }) {
-    if (this.eventValue.id === event.id && this.element.id !== event.controller.element.id) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
       eval(`this.${event.action}(event)`)
     }
   }
 
-  toggle(event) {
+  toggle() {
     this.isOpenValue = !this.isOpenValue
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  open(event) {
+  open() {
     this.isOpenValue = true
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  close(event) {
+  close() {
     this.isOpenValue = false
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
   isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
+      this.labelTarget.setAttribute('open', '')
+      this.inputTarget.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
+      this.labelTarget.removeAttribute('open')
+      this.inputTarget.removeAttribute('open')
     }
   }
 
   focus() {
     this.isFocusValue = true
     this.element.dataset.action = this.element.dataset.action + ' ' + `${this.identifier}:click:outside->${this.identifier}#focusOut`
+    this.element.dataset.action = this.element.dataset.action.replace(`click->${this.identifier}#focus`, '')
   }
 
   focusOut() {
     this.isFocusValue = false
+    this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
     this.element.dataset.action = this.element.dataset.action.replace(`${this.identifier}:click:outside->${this.identifier}#focusOut`, '')
   }
 
   isFocusValueChanged(value, previousValue) {
     if (this.isFocusValue) {
-      if (this.labelValue) {
+      if (this.label) {
         this.labelTarget.setAttribute('open', '')
       }
       if (this.hasInputTarget) {
         this.inputTarget.setAttribute('open', '')
       }
     } else {
-      if (this.labelValue && this.hasInputTarget && !this.inputTarget.value) {
+      if (this.label && this.hasInputTarget && !this.inputTarget.value) {
         this.labelTarget.removeAttribute('open')
       }
       if (this.hasInputTarget) {
@@ -293,35 +143,215 @@ export default class extends Controller {
     }
   }
 
-  input(event) {
-    console.log(event)
-    if (this.isAutoSubmitValue) {
-      clearTimeout(this.setTimeoutIdValue)
-      let timeoutId = setTimeout(() => {
-
-        console.log('Auto submit is on!')
-      }, this.setTimeoutTimeValue)
-      this.setTimeoutIdValue = timeoutId
+  initHTML() {
+    if (this.type === 'select') {
+      return `
+        ${this.label ? `<label data-${this.identifier}-target="label">${this.label}</label>` : ''}
+        <select data-${this.identifier}-target="select" name="${this.name}">
+          ${this.templateHTML()}
+        </select>
+      `
     }
+    return `
+        ${this.label ? `<label data-${this.identifier}-target="label">${this.label}</label>` : ''}
+        <input
+          ${this.accept ? `accept="${this.accept}"` : ""}
+          ${this.alt ? `alt="${this.alt}"` : ""}
+          ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ""}
+          ${this.autofocus ? `autofocus="${this.autofocus}"` : ""}
+          ${this.checked ? `checked` : ""}
+          ${this.dirname ? `dirname="${this.dirname}"` : ""}
+          ${this.disabled ? `disabled` : ""}
+          ${this.form ? `form="${this.form}"` : ""}
+          ${this.formeventAction ? `formaction="${this.formeventAction}"` : ""}
+          ${this.formenctype ? `formenctype="${this.formenctype}"` : ""}
+          ${this.formmethod ? `formmethod="${this.formmethod}"` : ""}
+          ${this.formnovalidate ? `formnovalidate="${this.formnovalidate}"` : ""}
+          ${this.formtarget ? `formtarget="${this.formtarget}"` : ""}
+          ${this.height ? `height="${this.height}"` : ""}
+          ${this.list ? `list="${this.list}"` : ""}
+          ${this.max ? `max="${this.max}"` : ""}
+          ${this.maxlength ? `maxlength="${this.maxlength}"` : ""}
+          ${this.min ? `min="${this.min}"` : ""}
+          ${this.minlength ? `minlength="${this.minlength}"` : ""}
+          ${this.multiple ? `multiple="${this.multiple}"` : ""}
+          ${this.name ? `name="${this.name}"` : ""}
+          ${this.pattern ? `pattern="${this.pattern}"` : ""}
+          ${this.placeholder ? `placeholder="${this.placeholder}"` : ""}
+          ${this.popovertarget ? `popovertarget="${this.popovertarget}"` : ""}
+          ${this.popovertargeteventAction ? `popovertargetaction="${this.popovertargeteventAction}"` : ""}
+          ${this.readonly ? `readonly` : ""}
+          ${this.required ? `required` : ""}
+          ${this.size ? `size="${this.size}"` : ""}
+          ${this.src ? `src="${this.src}"` : ""}
+          ${this.step ? `step="${this.step}"` : ""}
+          ${this.type ? `type="${this.type}"` : ""}
+          ${this.value ? `value="${this.value}"` : ""}
+          ${this.width ? `width="${this.width}"` : ""}
+
+          data-${this.identifier}-target="input"
+        >
+    `
   }
 
-  remember(event) {
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.test
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get labelClass() {
+    return this.optionsValue.labelClass
+  }
+  get inputClass() {
+    return this.optionsValue.inputClass
+  }
+  get selectClass() {
+    return this.optionsValue.selectClass
+  }
+  get optionClass() {
+    return this.optionsValue.optionClass
+  }
+  get label() {
+    return this.optionsValue.label
+  }
+  get isFloatingLabel() {
+    return this.optionsValue.isFloatingLabel
+  }
+  get formatOptions() {
+    return this.optionsValue.formatOptions
+  }
+  get isAutoSubmit() {
+    return this.optionsValue.isAutoSubmit
+  }
+  get autoSubmitUrl() {
+    return this.optionsValue.autoSubmitUrl
+  }
+  get payloadAutoSubmit() {
+    return this.optionsValue.payloadAutoSubmit
+  }
+  get httpMethodAutoSubmit() {
+    return this.optionsValue.httpMethodAutoSubmit
+  }
+  get setTimeoutAutoSubmit() {
+    return this.optionsValue.setTimeoutAutoSubmit
+  }
+  get setTimeoutAutoSubmitId() {
+    return this.optionsValue.setTimeoutAutoSubmitId
   }
 
-  enter() {
-    console.log('Enter is listened')
+
+
+
+
+  get accept() {
+    return this.optionsValue.accept
   }
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
-    useClickOutside(this)
+  get alt() {
+    return this.optionsValue.alt
+  }
+  get autocomplete() {
+    return this.optionsValue.autocomplete
+  }
+  get autofocus() {
+    return this.optionsValue.autofocus
+  }
+  get checked() {
+    return this.optionsValue.checked
+  }
+  get dirname() {
+    return this.optionsValue.dirname
+  }
+  get disabled() {
+    return this.optionsValue.disabled
+  }
+  get form() {
+    return this.optionsValue.form
+  }
+  get formaction() {
+    return this.optionsValue.formaction
+  }
+  get formenctype() {
+    return this.optionsValue.formenctype
+  }
+  get formmethod() {
+    return this.optionsValue.formmethod
+  }
+  get formnovalidate() {
+    return this.optionsValue.formnovalidate
+  }
+  get formtarget() {
+    return this.optionsValue.formtarget
+  }
+  get height() {
+    return this.optionsValue.height
+  }
+  get list() {
+    return this.optionsValue.list
+  }
+  get max() {
+    return this.optionsValue.max
+  }
+  get maxlength() {
+    return this.optionsValue.maxlength
+  }
+  get min() {
+    return this.optionsValue.min
+  }
+  get minlength() {
+    return this.optionsValue.minlength
+  }
+  get multiple() {
+    return this.optionsValue.multiple
+  }
+  get name() {
+    return this.optionsValue.name
+  }
+  get pattern() {
+    return this.optionsValue.pattern
+  }
+  get placeholder() {
+    return this.optionsValue.placeholder
+  }
+  get popovertarget() {
+    return this.optionsValue.popovertarget
+  }
+  get popovertargetaction() {
+    return this.optionsValue.popovertargetaction
+  }
+  get readonly() {
+    return this.optionsValue.readonly
+  }
+  get required() {
+    return this.optionsValue.required
+  }
+  get size() {
+    return this.optionsValue.size
+  }
+  get src() {
+    return this.optionsValue.src
+  }
+  get step() {
+    return this.optionsValue.step
+  }
+  get type() {
+    return this.optionsValue.type
+  }
+  get value() {
+    return this.optionsValue.value
+  }
+  get width() {
+    return this.optionsValue.width
   }
 
-  // clickOutside(event) {
-  //   // example to close a modal
-  //   console.log("click outside")
-  // }
+
 }
