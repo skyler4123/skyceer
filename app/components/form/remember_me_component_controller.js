@@ -17,7 +17,7 @@ export default class extends Controller {
     klassDefault: { type: String, default: "w-1/3" },
     contentClassDefault: { type: String, default: "w-full" },
     backgroundClassDefault: { type: String, default: "w-full" },
-    percentageClassDefault: { type: String, default: "text-center p-0.5 leading-none duration-500 ease-in-out" },
+    percentageClassDefault: { type: String, default: "text-center p-0.5 leading-none duration-500 ease-out" },
   }
 
   initialize() {

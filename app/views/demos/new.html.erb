@@ -1,8 +1,10 @@
-<% accordion_event_id = SecureRandom.uuid %>
-<%= button(test: true, event: { id: accordion_event_id, listener: :click, action: :copy_link }) %>
+    <% copy_link_event_id = SecureRandom.uuid %>
+    <%= button(test: true, event: { id: copy_link_event_id, listener: :click, action: :copy_link }) %>
+    <%= render(LinkComponent.new(label: "Test Copy Link", url: '/#', test: true, event: { id: copy_link_event_id })) %>
 
-<%= render(AccordionComponent.new) do %>
-
-<% end %>
-
+    <% accordion_event_id = SecureRandom.uuid %>
+    <%= button(event: { id: accordion_event_id, listener: :click, action: :toggle }) %>
+    <%= render(AccordionComponent.new(test: true, orientation: :horizontal, event: { id: accordion_event_id })) do %>
+      <div>kjhjk lkjlkj kjlkj kjlk </div>
+    <% end %>
 

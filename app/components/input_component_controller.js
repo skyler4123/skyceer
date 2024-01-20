@@ -116,7 +116,7 @@ export default class extends Controller {
     }
     if (this.labelValue && this.isFloatingLabelValue) {
       this.contentTarget.className = this.contentTarget.className + ' ' + 'relative'
-      this.labelTarget.className = this.labelTarget.className + ' ' + 'absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-in-out bg-white'
+      this.labelTarget.className = this.labelTarget.className + ' ' + 'absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white'
     }
   }
 

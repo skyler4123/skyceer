@@ -1,6 +1,4 @@
-import morphdom from "morphdom"
 import { twMerge } from 'tailwind-merge'
-import { useHover, useClickOutside } from 'stimulus-use'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -17,9 +15,11 @@ export default class extends Controller {
     this.initializeHTML()
     this.initializeClass()
     this.initializeAction()
-    this.initializeAttribute()
 
     this.initializeComplete()
+  }
+  connect() {
+    if (this.isTest) { console.log(this) }
   }
   initializeID() {
     if (!this.element.id) {
@@ -50,6 +50,7 @@ export default class extends Controller {
 
   initializeHTML() {
     if (this.linkTarget.childElementCount === 0) { this.linkTarget.textContent = this.label }
+    this.linkTarget.href = this.url
   }
   initializeClass() {
     this.element.className = twMerge(this.element.className, this.optionsValue.klass)
@@ -59,10 +60,6 @@ export default class extends Controller {
 
   initializeAction() {
     this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-  }
-
-  initializeAttribute() {
-    this.linkTarget.href = this.url
   }
 
   globalDispatch({ detail: { event } }) {
@@ -93,12 +90,6 @@ export default class extends Controller {
 
   copyLink() {
     window.navigator.clipboard.writeText(this.url)
-  }
-
-  connect() {
-    if (this.isTest) {
-      console.log(this)
-    }
   }
   
 }

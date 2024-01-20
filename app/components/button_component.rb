@@ -12,8 +12,10 @@ class ButtonComponent < ViewComponent::Base
       options[:events] = [options[:event]]
       options.delete(:event)
     end
-    options[:events].each { |event| event[:action] = event[:action].to_s.camelize(:lower).to_sym }
-    
+    options[:events].each do |event|
+      event[:action] = event[:action].to_s.camelize(:lower).to_sym
+      event.keys.each {|key| options[key.to_s.camelize(:lower).to_sym] = options.delete(key)}
+    end
     @options = options.to_json
   end
 end

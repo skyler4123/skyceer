@@ -16,7 +16,7 @@ export default class extends Controller {
     klass: { type: String },
     contentClass: { type: String, default: "" },
     svgClass: { type: String, default: 'w-5 h-5' },
-    klassDefault: { type: String, default: "w-fit h-fit flex justify-center items-center transition-all duration-200 ease-in-out" },
+    klassDefault: { type: String, default: "w-fit h-fit flex justify-center items-center transition-all duration-200 ease-out" },
     contentClassDefault: { type: String, default: "" },
     svgClassDefault: { type: String }
   }

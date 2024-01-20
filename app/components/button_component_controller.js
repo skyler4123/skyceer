@@ -20,6 +20,9 @@ export default class extends Controller {
 
     this.initializeComplete()
   }
+  connect() {
+    if (this.isTest) { console.log(this) }
+  }
   initializeID() {
     if (!this.element.id) {
       this.element.id = `${this.identifier}-${crypto.randomUUID()}`
@@ -27,6 +30,15 @@ export default class extends Controller {
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
+  }
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get contentClass() {
+    return this.optionsValue.contentClass
+  }
+  get buttonClass() {
+    return this.optionsValue.buttonClass
   }
   get id() {
     return this.element.id
@@ -47,10 +59,10 @@ export default class extends Controller {
     return this.optionsValue.actions
   }
   isPreventDefault(action) {
-    return this.eventWithAction(action).prevent_default
+    return this.eventWithAction(action).preventDefault
   }
   isStopPropagation(action) {
-    return this.eventWithAction(action).stop_propagation
+    return this.eventWithAction(action).stopPropagation
   }
 
   variants() {
@@ -70,9 +82,9 @@ export default class extends Controller {
     if (this.buttonTarget.childElementCount === 0) { this.buttonTarget.textContent = this.label }
   }
   initializeClass() {
-    this.element.className = twMerge(this.element.className, this.optionsValue.klass)
-    this.contentTarget.className = twMerge(this.contentTarget.className, this.variant, this.optionsValue.contentClass)
-    this.buttonTarget.className = twMerge(this.buttonTarget.className, this.optionsValue.buttonClass)
+    this.element.className = twMerge(this.element.className, this.klass)
+    this.contentTarget.className = twMerge(this.contentTarget.className, this.variant, this.contentClass)
+    this.buttonTarget.className = twMerge(this.buttonTarget.className, this.buttonClass)
   }
 
   initializeAction() {
@@ -132,12 +144,6 @@ export default class extends Controller {
     if (this.isPreventDefault('copyText')) { event.preventDefault() }
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('copyText'), controller: this } } })
     if (this.isStopPropagation('copyText')) { event.stopPropagation() }
-  }
-
-  connect() {
-    if (this.isTest) {
-      console.log(this)
-    }
   }
   
 }

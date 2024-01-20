@@ -27,7 +27,7 @@ export default class extends Controller {
     klassDefault: { type: String, default: "" },
     contentClassDefault: { type: String, default: "cursor-pointer" },
     toggleClassDefault: { type: String, default: "relative w-11 h-6 rounded-full" },
-    sliderClassDefault: { type: String, default: "absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 open:translate-x-full duration-200 ease-in-out" },
+    sliderClassDefault: { type: String, default: "absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 open:translate-x-full duration-200 ease-out" },
   }
   initialize() {
     this.initializeID()
