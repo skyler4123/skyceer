@@ -55,7 +55,7 @@ export default class extends Controller {
       this.selectTarget.className = twMerge(this.selectTarget.className, this.selectClass)
       this.optionTarget.className = twMerge(this.optionTarget.className, this.optionClass)
     }
-    if (this.isFloatingLabel) {
+    if (this.isFloatingLabel && this.hasLabelTaget) {
       this.element.className = twMerge('relative', this.element.className)
       this.labelTarget.className = twMerge('absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white', this.labelTarget.className )
     }
@@ -77,7 +77,9 @@ export default class extends Controller {
   }
   
   initializeAction() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    if (this.event) {
+      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    }
     if (this.isFloatingLabel) {
       this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
     }
@@ -104,11 +106,15 @@ export default class extends Controller {
   isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
-      this.labelTarget.setAttribute('open', '')
+      if (this.hasLabelTaget) {
+        this.labelTarget.setAttribute('open', '')
+      }
       this.inputTarget.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
-      this.labelTarget.removeAttribute('open')
+      if (this.hasLabelTaget) {
+        this.labelTarget.removeAttribute('open')
+      }
       this.inputTarget.removeAttribute('open')
     }
   }

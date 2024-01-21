@@ -70,7 +70,9 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    if (this.event) {
+      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    }
     this.element.dataset.action = (this.element.dataset.action || "") + ' ' + `click->${this.identifier}#toggle` 
   }
 

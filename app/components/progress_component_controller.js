@@ -73,9 +73,9 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    if (!this.event) { return }
-    
-    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    if (this.event) {
+      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    }
   }
 
   globalDispatch({ detail: { event } }) {
@@ -113,7 +113,7 @@ export default class extends Controller {
   }
 
   percentageValueChanged(value, previousValue) {
-    if (previousValue === undefined) { return }
+    if (previousValue === undefined || previousValue === '') { return }
 
     this.percentageTarget.style.width = `${this.percentageValue}%`
     if (this.isShowPercentage) {

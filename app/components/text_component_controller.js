@@ -1,140 +1,126 @@
-import morphdom from "morphdom"
+import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["text", 'editor', 'input']
+  static targets = ["text", "editor"]
   static values = {
-    isOpen: { type: Boolean, default: true },
-    event: { type: Object },
-    canSendGlobalDispatch: { type: Boolean, default: false },
-    canReceiveGlobalDispatch: { type: Boolean, default: false },
-    canEdit: { type: Boolean, default: true },
-    isOpenEditor: { type: Boolean, default: false },
-
-    label: { type: String, default: "Sample Text" },
-    languageName: { type: String, default: "english" },
-    languageKey: { type: String },
-
-    klass: { type: String },
-    textClass: { type: String },
-    editorClass: { type: String },
-    klassDefault: { type: String },
-    textClassDefault: { type: String, default: 'hidden open:flex' },
-    editorClassDefault: { type: String, default: 'hidden open:flex' }
+    options: { type: Object },
+    isOpen: { type: Boolean, default: false },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean },
+    label: { type: String },
+    isOpenEditor: { type: Boolean },
+    language: { type: String }
   }
 
   initialize() {
+    this.initializeID()
+    this.initializeValue()
     this.initializeHTML()
-    this.initializeTarget()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }
-
+  connect() {
+    if (this.isTest) { console.log(this) }
+  }
+  initializeID() {
+    if (!this.element.id) {
+      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
+    }
+  }
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-
-  initializeHTML() {
-    this.textTarget.textContent = this.labelValue
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get textClass() {
+    return this.optionsValue.textClass
+  }
+  get editorClass() {
+    return this.optionsValue.editorClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get languageKey() {
+    return this.optionsValue.languageKey || this.labelValue
   }
 
-  initializeTarget() {
-    if (this.hasEditorTarget) {
-      setTimeout(() => {
-        this.editorTarget.querySelector('input').setAttribute(`data-${this.identifier}-target`, 'input')
-        this.inputTarget.value = this.labelValue
-      }, 500)
-    }
+  initializeValue() {
+    this.labelValue = this.optionsValue.label
+    this.languageValue = this.optionsValue.language || "english"
+  }
+
+  initializeHTML() {
+    this.textTarget.innerText = this.labelValue
   }
 
   initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
-    this.textTarget.className = this.textTarget.className + ' ' + this.textClassDefaultValue + ' ' + this.textClassValue
+    this.element.className = twMerge(this.element.className, this.klass)
+    this.textTarget.className = twMerge(this.textTarget.className, this.textClass)
     if (this.hasEditorTarget) {
-      this.editorTarget.className = this.editorTarget.className + ' ' + this.editorClassDefaultValue + ' ' + this.editorClassValue
+      this.editorTarget.className = twMerge(this.editorTarget.className, this.editorClass)
     }
   }
 
-  labelValueChanged() {
-    this.initializeHTML()
-  }
-
-  languageNameValueChanged() {
-    if (this.languageKeyValue) {
-      this.labelValue = this.dictionary()[this.languageNameValue][this.languageKeyValue]
-    } 
-  }
-  
   initializeAction() {
-    if (this.eventValue?.id && this.eventValue?.listener && this.eventValue?.action) {
-      this.canSendGlobalDispatchValue = true
-    }
-    if (this.eventValue?.id && !this.eventValue?.listener && !this.eventValue?.action) {
-      this.canReceiveGlobalDispatchValue = true
-    }
-  }
-
-  canSendGlobalDispatchValueChanged(value, previousValue) {
-    if (this.canSendGlobalDispatchValue) {
-      if (this.eventValue.listener === 'click') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
-      }
-      if (this.eventValue.listener === 'hover') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
-      }
-    }
-  }
-
-  canReceiveGlobalDispatchValueChanged() {
-    if (this.canReceiveGlobalDispatchValue) {
+    if (this.event) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }
   }
 
   globalDispatch({ detail: { event } }) {
-    if (this.eventValue.id === event.id && this.element.id !== event.controller.element.id) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
       eval(`this.${event.action}(event)`)
     }
   }
 
-  toggle(event) {
+  toggle() {
     this.isOpenValue = !this.isOpenValue
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  open(event) {
+  open() {
     this.isOpenValue = true
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  close(event) {
+  close() {
     this.isOpenValue = false
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
   isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
-      this.textTarget.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
-      this.textTarget.removeAttribute('open')
     }
   }
 
+  labelValueChanged(value, previousValue) {
+    if (previousValue === undefined || previousValue === '') { return }
+
+    this.textTarget.innerHTML = this.labelValue
+  }
+
+  languageValueChanged(value, previousValue) {
+    if (previousValue === undefined || previousValue === '') { return }
+    
+    this.labelValue = this.dictionary()[this.languageKey][this.languageValue]
+  }
+
   translate(event) {
-    this.languageNameValue = event.event.value
+    this.languageNameValue = event.value
     if (this.canSendGlobalDispatchValue) {
       this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
       event.stopPropagation()
@@ -142,7 +128,7 @@ export default class extends Controller {
   }
 
   isOpenEditorValueChanged(value, previousValue) {
-    if (previousValue === undefined) { return }
+    if (previousValue === undefined || previousValue === '') { return }
 
     if (this.isOpenEditorValue) {
       this.textTarget.removeAttribute('open')
@@ -156,17 +142,17 @@ export default class extends Controller {
 
   dictionary() {
     return {
-      english: {
-        quickstart: "Quickstart",
-        price: "Price"
+      'Price': {
+        'english': 'Price',
+        'vietnam': 'Gia ca'
       },
-      vietnamese: {
-        quickstart: "Nhanh",
-        price: "Gia ban"
+      'Car': {
+        'english': 'Car',
+        'vietnam': 'Xe hoi'
       },
-      spain: {
-        quickstart: "spain_fast",
-        price: "spain_price"
+      'Teacher': {
+        'english': 'Teacher',
+        'vietnam': 'Giao Vien'
       }
     }
   }

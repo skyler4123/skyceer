@@ -78,7 +78,7 @@ export default class extends Controller {
   }
 
   isCheckedValueChanged(value, previousValue) {
-    if (previousValue === undefined) {
+    if (previousValue === undefined || previousValue === '') {
       setTimeout(() => {
         this.syncFromLocalStorage()
       }, 500)

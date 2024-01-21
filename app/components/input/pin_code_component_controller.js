@@ -35,7 +35,7 @@ export default class extends Controller {
     this.indexValue = index
   }
   indexValueChanged(value, previousValue) {
-    if (previousValue === undefined) { return }
+    if (previousValue === undefined || previousValue === '') { return }
 
     const nextInputIndex = this.indexValue + 1
     this.cellTargets[nextInputIndex]?.focus()
