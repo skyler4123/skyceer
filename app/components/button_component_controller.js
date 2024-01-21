@@ -22,6 +22,7 @@ export default class extends Controller {
   }
   connect() {
     if (this.isTest) { console.log(this) }
+    useClickOutside(this)
   }
   initializeID() {
     if (!this.element.id) {
@@ -186,5 +187,19 @@ export default class extends Controller {
     if (this.isPreventDefault('tabBack')) { event.preventDefault() }
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabBack'), controller: this } } })
     if (this.isStopPropagation('tabBack')) { event.stopPropagation() }
+  }
+
+  openEditor(event) {
+    if (this.isPreventDefault('openEditor')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('openEditor'), controller: this } } })
+    if (this.isStopPropagation('openEditor')) { event.stopPropagation() }
+
+    this.element.dataset.action = this.element.dataset.action + ` ${this.identifier}:click:outside->${this.identifier}#closeEditor`
+  }
+
+  closeEditor(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('openEditor'), action: 'closeEditor', controller: this } } })
+
+    this.element.dataset.action = this.element.dataset.action.replace(`${this.identifier}:click:outside->${this.identifier}#closeEditor`, '')
   }
 }

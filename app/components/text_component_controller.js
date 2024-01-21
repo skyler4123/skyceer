@@ -135,6 +135,14 @@ export default class extends Controller {
     this.languageValue = event.value
   }
 
+  openEditor() {
+    this.isOpenEditorValue = true
+  }
+
+  closeEditor() {
+    this.isOpenEditorValue = false
+  }
+
   isOpenEditorValueChanged(value, previousValue) {
     if (previousValue === undefined || previousValue === '') { return }
 

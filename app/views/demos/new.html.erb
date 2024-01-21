@@ -1,6 +1,8 @@
 <% text_event_id = SecureRandom.uuid %>
-<%= render(TextComponent.new(label: "Price", is_test: true, event: { id: text_event_id })) do |c| %>
-  <% c.with_editor do %>
-    <%= render(InputComponent.new) %>
+<%= render(ButtonComponent.new(event: { id: text_event_id, listener: :dblclick, action: :open_editor })) do %>
+  <%= render(TextComponent.new(label: "Price", is_test: true, event: { id: text_event_id })) do |c| %>
+    <% c.with_editor do %>
+      <%= render(InputComponent.new) %>
+    <% end %>
   <% end %>
 <% end %>
