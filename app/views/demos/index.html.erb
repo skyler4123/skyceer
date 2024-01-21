@@ -127,7 +127,14 @@
       <% end %>
     <% end %>
 
-
+    <% toast_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: 'Toggle Toast', event: { id: toast_event_id, action: :toggle, listener: :click })) %>
+    <%= render(ToastComponent.new(event: { id: toast_event_id }, position: :bottom)) do %>
+      <div>Executing JavaScript from a string is an BIG security risk.
+        With eval(), malicious code can run inside your application without permission.
+        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
+      </div>
+    <% end %>
 
 
 

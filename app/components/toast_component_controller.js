@@ -1,28 +1,23 @@
+import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["content"]
   static values = {
+    options: { type: Object },
     isOpen: { type: Boolean, default: false },
-    event: { type: Object },
-    canSendGlobalDispatch: { type: Boolean, default: false },
-    canReceiveGlobalDispatch: { type: Boolean, default: false },
-
-    position: { type: String, default: "left" },
-    closable: { type: Boolean, default: true },
-
-    klass: { type: String },
-    contentClass: { type: String },
-    klassDefault: { type: String },
-    contentClassDefault: { type: String },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean }
   }
+
   initialize() {
     this.initializeID()
-    this.initializeDefaultClass()
     this.initializeClass()
     this.initializeAction()
 
     this.initializeComplete()
+  }
+  connect() {
+    if (this.isTest) { console.log(this) }
   }
   initializeID() {
     if (!this.element.id) {
@@ -32,75 +27,51 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-
-  initializeDefaultClass() {
-    if (this.positionValue === "left") {
-      this.klassValue = this.klassValue || " w-1/3 h-5/6 bg-gray-200 rounded-lg text-black shadow-lg shadow-gray-500/50 open:translate-x-0 open:left-2 p-4"
-      this.contentClassValue = this.contentClassValue || " "
-      this.klassDefaultValue = this.klassDefaultValue || " fixed top-1/2 -left-1/2 z-20 -translate-x-full -translate-y-1/2 duration-200 ease-out"
-      this.contentClassDefaultValue = this.contentClassDefaultValue || " w-full h-full flex justify-center items-center"
-    }
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get position() {
+    return this.optionsValue.position || 'left'
   }
 
   initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
-    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
+    this.element.className = twMerge('w-1/3 h-5/6 bg-gray-200 rounded-lg text-black shadow-lg shadow-gray-500/50', this.element.className, this.positionClass()[this.position], this.klass)
   }
 
   initializeAction() {
-    if (this.eventValue?.id && this.eventValue?.listener && this.eventValue?.action) {
-      this.canSendGlobalDispatchValue = true
-    }
-    if (this.eventValue?.id && !this.eventValue?.listener && !this.eventValue?.action) {
-      this.canReceiveGlobalDispatchValue = true
-    }
-  }
-
-  canSendGlobalDispatchValueChanged(value, previousValue) {
-    if (this.canSendGlobalDispatchValue) {
-      if (this.eventValue.listener === 'click') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
-      }
-      if (this.eventValue.listener === 'hover') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
-      }
-    }
-  }
-
-  canReceiveGlobalDispatchValueChanged() {
-    if (this.canReceiveGlobalDispatchValue) {
+    if (this.event) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }
   }
 
   globalDispatch({ detail: { event } }) {
-    if (this.eventValue.id === event.id && this.element.id !== event.controller.element.id) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
       eval(`this.${event.action}(event)`)
     }
   }
 
-  toggle(event) {
+  toggle() {
     this.isOpenValue = !this.isOpenValue
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  open(event) {
+  open() {
     this.isOpenValue = true
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  close(event) {
+  close() {
     this.isOpenValue = false
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
   isOpenValueChanged(value, previousValue) {
@@ -110,8 +81,13 @@ export default class extends Controller {
       this.element.removeAttribute('open')
     }
   }
-  
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
+
+  positionClass() {
+    return {
+      'left': 'fixed top-1/2 -left-1/2 z-20 -translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:left-2 p-4',
+      'right': 'fixed top-1/2 -right-1/2 z-20 translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:right-2 p-4',
+      'top': 'fixed -top-1/2 right-1/2 z-20 -translate-x-1/2 -translate-y-full duration-200 ease-out open:translate-y-0 open:top-2 p-4',
+      'bottom': 'fixed -bottom-1/2 right-1/2 z-20 -translate-x-1/2 translate-y-full duration-200 ease-out open:translate-y-0 open:bottom-2 p-4',
+    }
   }
 }
