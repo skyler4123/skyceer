@@ -8,7 +8,6 @@ export default class extends Controller {
     isOpen: { type: Boolean, default: false },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
-    percentage: { type: Number }
   }
 
   initialize() {
