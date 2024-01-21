@@ -1,9 +1,8 @@
-    <% modal_event_id = SecureRandom.uuid %>
-    <%= render(ButtonComponent.new(label: 'Test Modal', event: { id: modal_event_id, action: :open, listener: :click })) %>
-    <%= render(ModalComponent.new(event: { id: modal_event_id })) do %>
-      <div class="">
-        Executing JavaScript from a string is an BIG security risk.
-        With eval(), malicious code can run inside your application without permission.
-        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
-      </div>
+    <% popover_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: popover_event_id })) do |c| %>
+      <% c.with_append do %>
+        <%= render(PopoverComponent.new(is_test: true, position: :right_center, event: { id: popover_event_id })) do %>
+          <div>hkj o;o jygn sa dukh khga ag knjyf </div>
+        <% end %>
+      <% end %>
     <% end %>

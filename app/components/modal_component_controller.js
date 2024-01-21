@@ -50,12 +50,6 @@ export default class extends Controller {
     return this.event.id
   }
 
-  initializeTarget() {
-    this.element.querySelectorAll('li').forEach((target) => {
-      target.setAttribute(`data-${this.identifier}-target`, 'li')
-    })
-  }
-
   initializeClass() {
     this.element.className = twMerge("fixed top-0 hidden open:flex animate-fade-in", this.klass)
     this.backgroundTarget.className = twMerge('w-screen h-screen bg-gray-300/50 cursor-pointer', this.backgroundClass)
