@@ -54,7 +54,7 @@ export default class extends Controller {
     })
   }
   initializeClass() {
-    this.element.className = twMerge("h-96 w-[600px] flex flex-row rounded-lg items-center overflow-y-auto scroll-smooth snap-x snap-mandatory no-scrollbar", this.klass)
+    this.element.className = twMerge(this.element.className , "h-96 w-[600px] flex flex-row rounded-lg items-center overflow-y-auto scroll-smooth snap-x snap-mandatory no-scrollbar", this.klass)
     this.carouselTargets.forEach((target) => {
       target.className = twMerge("flex-shrink-0 w-[300px] h-full snap-start snap-always", this.carouselClass)
     })

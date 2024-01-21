@@ -62,9 +62,9 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = twMerge(this.klass)
+    this.element.className = twMerge(this.element.className, this.klass)
     this.liTargets.forEach((target) => {
-      target.className = twMerge(this.liClass)
+      target.className = twMerge(target.className, this.liClass)
     })
   }
 

@@ -98,6 +98,75 @@
       <% end %>
     <% end %>
 
+    <% percentage_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: "Test Button", event: { action: :change_percentage, value: 95, listener: :click, id: percentage_event_id })) %>
+    <%= render(ProgressComponent.new(is_test: true, is_show_percentage: true, percentage: 45, event: { id: percentage_event_id }, percentage_class: 'bg-green-500')) %>
+
+    <%= render(SkeletonComponent.new()) %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

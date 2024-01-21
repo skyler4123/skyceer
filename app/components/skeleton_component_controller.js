@@ -1,27 +1,27 @@
-import morphdom from "morphdom"
+import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template", "skeleton", "content"]
+  static targets = ["skeleton"]
   static values = {
-    isOpen: { type: Boolean, default: true },
-    event: { type: Object },
-    canSendGlobalDispatch: { type: Boolean, default: false },
-    canReceiveGlobalDispatch: { type: Boolean, default: false },
-    name: { type: String, default: "default" },
-
-    klass: { type: String, default: "" },
-    contentClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "" },
-    contentClassDefault: { type: String, default: "" },
+    options: { type: Object },
+    isOpen: { type: Boolean, default: false },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean },
+    percentage: { type: Number }
   }
 
   initialize() {
     this.initializeID()
+    this.initializeValue()
     this.initializeHTML()
     this.initializeClass()
+    this.initializeAction()
 
     this.initializeComplete()
+  }
+  connect() {
+    if (this.isTest) { console.log(this) }
   }
   initializeID() {
     if (!this.element.id) {
@@ -31,20 +31,64 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get name() {
+    return this.optionsValue.name || "default"
+  }
+
+  initializeValue() {
+    this.percentageValue = this.optionsValue.percentage
+  }
 
   initializeHTML() {
-    morphdom(this.templateTarget, this.initHTML()[this.nameValue])
+    this.element.innerHTML = this.initHTML()[this.name]
   }
 
   initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
+    this.element.className = twMerge(this.element.className, this.klass)
   }
 
-  templateHTML() {
-    if (this.templateTarget.content?.childElementCount === 0) {
-      return false
+  initializeAction() {
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+  }
+
+  globalDispatch({ detail: { event } }) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
+      eval(`this.${event.action}(event)`)
+    }
+  }
+
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+
+  open() {
+    this.isOpenValue = true
+  }
+
+  close() {
+    this.isOpenValue = false
+  }
+
+  isOpenValueChanged(value, previousValue) {
+    if (this.isOpenValue) {
+      this.element.setAttribute('open', '')
     } else {
-      return this.templateTarget.innerHTML
+      this.element.removeAttribute('open')
     }
   }
 
@@ -219,8 +263,4 @@ export default class extends Controller {
       `
     }
   }
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
-  }
-
 }

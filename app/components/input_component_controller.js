@@ -44,16 +44,16 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = twMerge(this.klass)
+    this.element.className = twMerge(this.element.className , this.klass)
     if (this.hasLabelTaget) {
-      this.labelTarget.className = twMerge(this.labelClass)
+      this.labelTarget.className = twMerge(this.labelTarget.className, this.labelClass)
     }
     if (this.hasInputTarget) {
-      this.inputTarget.className = twMerge(this.inputClass)
+      this.inputTarget.className = twMerge(this.inputTarget.className, this.inputClass)
     }
     if (this.hasSelectTarget) {
-      this.selectTarget.className = twMerge(this.selectClass)
-      this.optionTarget.className = twMerge(this.optionClass)
+      this.selectTarget.className = twMerge(this.selectTarget.className, this.selectClass)
+      this.optionTarget.className = twMerge(this.optionTarget.className, this.optionClass)
     }
     if (this.isFloatingLabel) {
       this.element.className = twMerge('relative', this.element.className)

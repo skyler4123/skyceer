@@ -71,7 +71,7 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = twMerge(this.klass)
+    this.element.className = twMerge(this.element.className , this.klass)
     this.svgTarget.classList = twMerge(this.svgTarget.classList, this.svgClass)
   }
 

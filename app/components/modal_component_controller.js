@@ -51,9 +51,9 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = twMerge("fixed top-0 hidden open:flex animate-fade-in", this.klass)
-    this.backgroundTarget.className = twMerge('w-screen h-screen bg-gray-300/50 cursor-pointer', this.backgroundClass)
-    this.contentTarget.className = twMerge('absolute z-30 flex justify-center items-center w-fit h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2', this.contentClass)
+    this.element.className = twMerge("fixed top-0 hidden open:flex animate-fade-in", this.element.className , this.klass)
+    this.backgroundTarget.className = twMerge('w-screen h-screen bg-gray-300/50 cursor-pointer', this.backgroundTarget.className, this.backgroundClass)
+    this.contentTarget.className = twMerge('absolute z-30 flex justify-center items-center w-fit h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2', this.contentTarget.className, this.contentClass)
   }
 
   initializeAction() {

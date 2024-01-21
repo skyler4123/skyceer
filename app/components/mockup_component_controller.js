@@ -42,11 +42,14 @@ export default class extends Controller {
     return this.event.id
   }
   get name() {
-    return this.optionsValue.name || 'iphone-12'
+    return this.optionsValue.name
+  }
+  get deviceName() {
+    return this.optionsValue.deviceName
   }
 
   initializeHTML() {
-    this.element.innerHTML = this.initHTML()[this.name]
+    this.element.innerHTML = this.initHTML()[this.deviceName || this.name || "iphone-12"]
   }
 
   initializeAction() {

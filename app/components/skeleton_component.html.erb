@@ -1,7 +1,2 @@
-<%= tag.div(id: @id, class: 'hidden', data: {
-  controller: @controller
-}) do %>
-  <template data-skeleton-component-target="template">
-    <%= content %>
-  </template>
-<% end %>
+<div class="hidden" data-controller="<%= @controller %>" data-skeleton-component-options-value="<%= @options %>">
+</div>

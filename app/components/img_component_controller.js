@@ -59,8 +59,8 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = twMerge(this.klass)
-    this.imgTarget.className = twMerge(this.imgClass)
+    this.element.className = twMerge(this.element.className ,this.klass)
+    this.imgTarget.className = twMerge(this.imgTarget.className, this.imgClass)
   }
 
   initializeAction() {
