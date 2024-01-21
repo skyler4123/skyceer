@@ -2,14 +2,14 @@ import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["text", "editor"]
+  static targets = ["text", "editor", "input"]
   static values = {
     options: { type: Object },
     isOpen: { type: Boolean, default: false },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
     label: { type: String },
-    isOpenEditor: { type: Boolean },
+    isOpenEditor: { type: Boolean, default: false },
     language: { type: String }
   }
 
@@ -17,8 +17,9 @@ export default class extends Controller {
     this.initializeID()
     this.initializeValue()
     this.initializeHTML()
-    // this.initializeClass()
-    // this.initializeAction()
+    this.initializeTarget()
+    this.initializeClass()
+    this.initializeAction()
 
     this.initializeComplete()
   }
@@ -41,6 +42,9 @@ export default class extends Controller {
   }
   get editorClass() {
     return this.optionsValue.editorClass
+  }
+  get inputClass() {
+    return this.optionsValue.inputClass
   }
   get id() {
     return this.element.id
@@ -65,13 +69,21 @@ export default class extends Controller {
 
   initializeHTML() {
     this.textTarget.innerText = this.labelValue
+    this.textTarget.setAttribute('open', '')
+  }
+
+  initializeTarget() {
+    if (this.hasEditorTarget) {
+      this.editorTarget.querySelector('input').setAttribute(`data-${this.identifier}-target`, 'input')
+    }
   }
 
   initializeClass() {
     this.element.className = twMerge(this.element.className, this.klass)
-    this.textTarget.className = twMerge(this.textTarget.className, this.textClass)
+    this.textTarget.className = twMerge('hidden open:flex', this.textTarget.className, this.textClass)
     if (this.hasEditorTarget) {
-      this.editorTarget.className = twMerge(this.editorTarget.className, this.editorClass)
+      this.editorTarget.className = twMerge('hidden open:flex', this.editorTarget.className, this.editorClass)
+      this.inputTarget.className = twMerge(this.inputTarget.className, this.inputClass)
     }
   }
 
@@ -120,17 +132,14 @@ export default class extends Controller {
   }
 
   translate(event) {
-    this.languageNameValue = event.value
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
+    this.languageValue = event.value
   }
 
   isOpenEditorValueChanged(value, previousValue) {
     if (previousValue === undefined || previousValue === '') { return }
 
     if (this.isOpenEditorValue) {
+      this.inputTarget.value = this.labelValue
       this.textTarget.removeAttribute('open')
       this.editorTarget.setAttribute('open', '')
     } else {
