@@ -89,7 +89,14 @@
       </div>
     <% end %>
 
-
+    <% popover_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: popover_event_id })) do |c| %>
+      <% c.with_append do %>
+        <%= render(PopoverComponent.new(is_test: true, position: :right_center, event: { id: popover_event_id })) do %>
+          <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
+        <% end %>
+      <% end %>
+    <% end %>
 
 
 

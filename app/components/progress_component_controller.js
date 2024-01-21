@@ -1,34 +1,27 @@
-import morphdom from "morphdom"
+import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["template", 'content', 'background', 'percentage']
+  static targets = ["percentage"]
   static values = {
-    isOpen: { type: Boolean, default: true },
-    event: { type: Object },
-    canSendGlobalDispatch: { type: Boolean, default: false },
-    canReceiveGlobalDispatch: { type: Boolean, default: false },
-    percentage: { type: String, default: "17%" },
-    isShowPercentage: { type: Boolean, default: true },
-
-    klass: { type: String, default: "" },
-    contentClass: { type: String, default: "" },
-    backgroundClass: { type: String, default: "rounded-full bg-gray-200" },
-    percentageClass: { type: String, default: "bg-blue-600 dark:bg-gray-700 text-xs font-medium text-blue-100 rounded-full" },
-    klassDefault: { type: String, default: "w-1/3" },
-    contentClassDefault: { type: String, default: "w-full" },
-    backgroundClassDefault: { type: String, default: "w-full" },
-    percentageClassDefault: { type: String, default: "text-center p-0.5 leading-none duration-500 ease-out" },
+    options: { type: Object },
+    isOpen: { type: Boolean, default: false },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean },
+    percentage: { type: Number }
   }
 
   initialize() {
+    this.initializeID()
+    this.initializeValue()
     this.initializeHTML()
     this.initializeClass()
+    this.initializeAction()
 
     this.initializeComplete()
-    setInterval(() => {
-      this.percentageValue = `${Math.floor(Math.random() * 101)}%`
-    }, 500)
+  }
+  connect() {
+    if (this.isTest) { console.log(this) }
   }
   initializeID() {
     if (!this.element.id) {
@@ -38,34 +31,95 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get backgroundClass() {
+    return this.optionsValue.backgroundClass
+  }
+  get percentageClass() {
+    return this.optionsValue.percentageClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get isShowPercentage() {
+    this.optionsValue.isShowPercentage
+  }
+  get orientation() {
+    return this.optionsValue.orientation || "vertical"
+  }
+  
+  initializeValue() {
+    this.percentageValue = this.optionsValue.percentage
+  }
 
   initializeHTML() {
-    morphdom(this.templateTarget, this.initHTML())
+    this.element.innerHTML = this.initHTML()
+  }
+
+  initializeClass() {
+    this.element.className = twMerge("w-1/2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700", this.element.className, this.klass, this.backgroundClass)
+    this.percentageTarget.className = twMerge("bg-blue-600 h-2.5 rounded-full text-center p-0.5 leading-none duration-500 ease-out", this.percentageTarget.className, this.percentageClass)
+  }
+
+  initializeAction() {
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+  }
+
+  globalDispatch({ detail: { event } }) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
+      eval(`this.${event.action}(event)`)
+    }
+  }
+
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+
+  open() {
+    this.isOpenValue = true
+  }
+
+  close() {
+    this.isOpenValue = false
+  }
+
+  isOpenValueChanged(value, previousValue) {
+    if (this.isOpenValue) {
+      this.element.setAttribute('open', '')
+    } else {
+      this.element.removeAttribute('open')
+    }
   }
 
   initHTML() {
     return `
-      <div data-${this.identifier}-target="content">
-        <div data-${this.identifier}-target="background">
-          <div data-${this.identifier}-target="percentage" style="width: ${this.percentageValue}">
-            ${this.isShowPercentageValue ? this.percentageValue : ''}
-          </div>
-        </div>
+      <div data-${this.identifier}-target="percentage" style="width: ${this.percentageValue}%">
+        ${this.isShowPercentage ? this.percentageValue : ''}
       </div>
     `
   }
 
-  initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
-    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
-    this.backgroundTarget.className = this.backgroundTarget.className + ' ' + this.backgroundClassDefaultValue + ' ' + this.backgroundClassValue
-    this.percentageTarget.className = this.percentageTarget.className + ' ' + this.percentageClassDefaultValue + ' ' + this.percentageClassValue
-  }
+  percentageValueChanged(value, previousValue) {
+    if (previousValue === undefined) { return }
 
-  percentageValueChanged() {
-    this.percentageTarget.style.width = this.percentageValue
-    if (this.isShowPercentageValue) {
+    this.percentageTarget.style.width = `${this.percentageValue}%`
+    if (this.isShowPercentage) {
       this.percentageTarget.textContent = this.percentageValue
     }
+  }
+
+  changePercentage(event) {
+    this.percentageValue = event.value
   }
 }

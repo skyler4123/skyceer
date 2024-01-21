@@ -90,7 +90,7 @@ export default class extends Controller {
   initializeAction() {
     if (!this.events) { return }
 
-    this.element.dataset.action = (this.element.dataset.action || '') + ' ' + this.actions
+    this.element.dataset.action = (this.element.dataset.action || '') + ' ' + (this.actions || '')
     this.events.forEach((event) => {
       if (event.listener === 'hover') {
         this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
@@ -162,5 +162,11 @@ export default class extends Controller {
     if (this.isPreventDefault('rotate')) { event.preventDefault() }
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rotate'), controller: this } } })
     if (this.isStopPropagation('rotate')) { event.stopPropagation() }
+  }
+
+  changePercentage(event) {
+    if (this.isPreventDefault('changePercentage')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('changePercentage'), controller: this } } })
+    if (this.isStopPropagation('changePercentage')) { event.stopPropagation() }
   }
 }
