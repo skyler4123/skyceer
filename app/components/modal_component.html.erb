@@ -1,19 +1,6 @@
-<%= tag.div(id: @id, class: "", data: {
-  controller: @controller,
-  action: @controller_action,
-  modal_component_is_open_value: @is_open,
-  modal_component_event_value: @event,
-
-  modal_component_klass_value: @klass,
-  modal_component_background_class_value: @background_class,
-  modal_component_content_class_value: @content_class,
-  modal_component_klass_default_value: @defaul_klass,
-  modal_component_background_class_default_value: @defaul_background_class,
-  modal_component_content_class_default_value: @defaul_content_class,
-  **@rest_data_attributes
-  }) do %>
+<div class="hidden" data-controller="<%= @controller %>" data-modal-component-options-value="<%= @options %>">
   <div data-modal-component-target="background"></div>
   <div data-modal-component-target="content">
-    <%= content? ? content : "Modal Content here! " %>
+    <%= content %>
   </div>
-<% end %>
+</div>

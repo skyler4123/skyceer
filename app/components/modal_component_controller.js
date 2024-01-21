@@ -1,102 +1,99 @@
+import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ['background', 'content']
   static values = {
+    options: { type: Object },
     isOpen: { type: Boolean, default: false },
-    event: { type: Object },
-    canSendGlobalDispatch: { type: Boolean, default: false },
-    canReceiveGlobalDispatch: { type: Boolean, default: false },
-
-    klass: { type: String, default: '' },
-    backgroundClass: { type: String, default: '' },
-    contentClass: { type: String, default: '' },
-
-    klassDefault: { type: String, default: 'fixed top-0 hidden open:flex' },
-    backgroundClassDefault: { type: String, default: 'w-screen h-screen bg-gray-300/50 cursor-pointer' },
-    contentClassDefault: { type: String, default: 'absolute z-30 flex justify-center items-center w-fit h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean },
   }
 
   initialize() {
     this.initializeID()
-    this.initializeAction()
     this.initializeClass()
+    this.initializeAction()
+
+    this.initializeComplete()
+  }
+  connect() {
+    if (this.isTest) { console.log(this) }
   }
   initializeID() {
     if (!this.element.id) {
       this.element.id = `${this.identifier}-${crypto.randomUUID()}`
     }
   }
+  initializeComplete() {
+    // this.element.classList.remove('hidden')
+  }
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get backgroundClass() {
+    return this.optionsValue.backgroundClass
+  }
+  get contentClass() {
+    return this.optionsValue.contentClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+
+  initializeTarget() {
+    this.element.querySelectorAll('li').forEach((target) => {
+      target.setAttribute(`data-${this.identifier}-target`, 'li')
+    })
+  }
 
   initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
-    this.backgroundTarget.className = this.backgroundTarget.className  + ' ' + this.backgroundClassDefaultValue + ' ' + this.backgroundClassValue
-    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
+    this.element.className = twMerge("fixed top-0 hidden open:flex animate-fade-in", this.klass)
+    this.backgroundTarget.className = twMerge('w-screen h-screen bg-gray-300/50 cursor-pointer', this.backgroundClass)
+    this.contentTarget.className = twMerge('absolute z-30 flex justify-center items-center w-fit h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2', this.contentClass)
   }
 
   initializeAction() {
-    if (this.eventValue?.id && this.eventValue?.listener && this.eventValue?.action) {
-      this.canSendGlobalDispatchValue = true
-    }
-    if (this.eventValue?.id && !this.eventValue?.listener && !this.eventValue?.action) {
-      this.canReceiveGlobalDispatchValue = true
-    }
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     this.backgroundTarget.dataset.action = (this.backgroundTarget.dataset.action || '') + ' ' + `click->${this.identifier}#close`
   }
 
-  canSendGlobalDispatchValueChanged(value, previousValue) {
-    if (this.canSendGlobalDispatchValue) {
-      if (this.eventValue.listener === 'click') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
-      }
-      if (this.eventValue.listener === 'hover') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
-      }
-    }
-  }
-
-  canReceiveGlobalDispatchValueChanged() {
-    if (this.canReceiveGlobalDispatchValue) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    }
-  }
-
   globalDispatch({ detail: { event } }) {
-    if (this.eventValue.id === event.id) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
       eval(`this.${event.action}(event)`)
     }
   }
 
-  toggle(event) {
+  toggle() {
     this.isOpenValue = !this.isOpenValue
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  open(event) {
+  open() {
     this.isOpenValue = true
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  close(event) {
+  close() {
     this.isOpenValue = false
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
   isOpenValueChanged(value, previousValue) {
     if (this.isOpenValue) {
       this.element.setAttribute('open', '')
+      this.backgroundTarget.setAttribute('open', '')
+      this.contentTarget.setAttribute('open', '')
     } else {
       this.element.removeAttribute('open')
+      this.backgroundTarget.removeAttribute('open')
+      this.contentTarget.removeAttribute('open')
     }
   }
-
 }
