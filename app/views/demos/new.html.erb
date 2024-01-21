@@ -1,0 +1,13 @@
+    <% tab_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: "Tab Next", event: { id: tab_event_id, action: :tab_next, listener: :click })) %>
+    <%= render(ButtonComponent.new(label: "Tab Back", event: { id: tab_event_id, action: :tab_back, listener: :click })) %>
+    <%= render(ButtonComponent.new(label: "Tab to 4rd Item", event: { id: tab_event_id, action: :tab, value: 4, listener: :click })) %>
+    <%= render(ButtonComponent.new(event: { id: tab_event_id, action: :tab_next, listener: :click })) do %>
+      <%= render(TabComponent.new(is_test: true, event: { id: tab_event_id })) do |c| %>
+        <%= render(IconComponent.new(name: "link")) %>
+        <%= render(IconComponent.new(name: "check-circle", svg_class: "w-5 h-6 text-green-500")) %>
+        <%= render(IconComponent.new(name: "spinner", type: :animation)) %>
+        <%= render(IconComponent.new(name: "star", svg_class: "w-5 h-6 text-sky-800")) %>
+        <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
+      <% end %>
+    <% end %>

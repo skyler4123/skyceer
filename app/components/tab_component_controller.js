@@ -1,29 +1,26 @@
+import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['content', 'tab']
+  static targets = ["tab"]
   static values = {
-    isOpen: { type: Boolean, default: true },
-    event: { type: Object },
-    canSendGlobalDispatch: { type: Boolean, default: false },
-    canReceiveGlobalDispatch: { type: Boolean, default: false },
-
-    showIndex: { type: Number, default: 0 },
-
-    klass: { type: String, default: "" },
-    contentClass: { type: String, default: "" },
-    tabClass: { type: String, default: "" },
-    klassDefault: { type: String, default: "" },
-    contentClassDefault: { type: String, default: "" },
-    tabClassDefault: { type: String, default: "hidden open:flex" },
-
+    options: { type: Object },
+    isOpen: { type: Boolean, default: false },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean },
+    tabIndex: { type: Number }
   }
+
   initialize() {
     this.initializeID()
+    this.initializeTarget()
     this.initializeClass()
     this.initializeAction()
-    
+
     this.initializeComplete()
+  }
+  connect() {
+    if (this.isTest) { console.log(this) }
   }
   initializeID() {
     if (!this.element.id) {
@@ -33,69 +30,63 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get tabClass() {
+    return this.optionsValue.tabClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get maxIndex() {
+    return this.tabTargets.length - 1
+  }
+
+  initializeTarget() {
+    Array.from(this.element.children).forEach((target) => {
+      target.setAttribute(`data-${this.identifier}-target`, 'tab')
+    })
+  }
 
   initializeClass() {
-    this.element.className = this.element.className + ' ' + this.klassDefaultValue + ' ' + this.klassValue
-    this.contentTarget.className = this.contentTarget.className + ' ' + this.contentClassDefaultValue + ' ' + this.contentClassValue
+    this.element.className = twMerge(this.element.className, this.klass)
     this.tabTargets.forEach((target) => {
-      target.className = target.className + ' ' + this.tabClassDefaultValue + ' ' + this.tabClassValue
+      target.className = twMerge('hidden open:flex', target.className, this.tabClass)
     })
   }
 
   initializeAction() {
-    if (this.eventValue?.id && this.eventValue?.listener && this.eventValue?.action) {
-      this.canSendGlobalDispatchValue = true
-    }
-    if (this.eventValue?.id && !this.eventValue?.listener && !this.eventValue?.action) {
-      this.canReceiveGlobalDispatchValue = true
-    }
-  }
-
-  canSendGlobalDispatchValueChanged(value, previousValue) {
-    if (this.canSendGlobalDispatchValue) {
-      if (this.eventValue.listener === 'click') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#${this.eventValue.action}`
-      }
-      if (this.eventValue.listener === 'hover') {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `mouseenter->${this.identifier}#${this.eventValue.action} mouseleave->${this.identifier}#${this.eventValue.action}`
-      }
-    }
-  }
-
-  canReceiveGlobalDispatchValueChanged() {
-    if (this.canReceiveGlobalDispatchValue) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    }
+    if (!this.event) { return }
+    
+    this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
   }
 
   globalDispatch({ detail: { event } }) {
-    if (this.eventValue.id === event.id && this.element.id !== event.controller.element.id) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
       eval(`this.${event.action}(event)`)
     }
   }
 
-  toggle(event) {
+  toggle() {
     this.isOpenValue = !this.isOpenValue
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  open(event) {
+  open() {
     this.isOpenValue = true
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
-  close(event) {
+  close() {
     this.isOpenValue = false
-    if (this.canSendGlobalDispatchValue) {
-      this.dispatch('dispatch', { detail: { event: { ...this.eventValue, controller: this } } })
-      event.stopPropagation()
-    }
   }
 
   isOpenValueChanged(value, previousValue) {
@@ -107,17 +98,29 @@ export default class extends Controller {
   }
 
   tab(event) {
-    this.showIndexValue = event.value
+    this.tabIndexValue = event.value
   }
 
-  showIndexValueChanged(value, previousValue) {
+  tabNext() {
+    if (this.tabIndexValue === this.maxIndex) {
+      this.tabIndexValue = 0
+    } else {
+      this.tabIndexValue = this.tabIndexValue + 1
+    }
+  }
+
+  tabBack() {
+    if (this.tabIndexValue === 0) {
+      this.tabIndexValue = this.maxIndex
+    } else {
+      this.tabIndexValue = this.tabIndexValue - 1
+    }
+  }
+
+  tabIndexValueChanged(value, previousValue) {
     this.tabTargets.forEach((target) => {
       target.removeAttribute('open')
     })
-    this.tabTargets[this.showIndexValue].setAttribute('open', '')
-  }
-
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
+    this.tabTargets[this.tabIndexValue].setAttribute('open', '')
   }
 }

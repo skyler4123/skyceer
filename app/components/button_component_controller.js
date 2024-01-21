@@ -169,4 +169,22 @@ export default class extends Controller {
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('changePercentage'), controller: this } } })
     if (this.isStopPropagation('changePercentage')) { event.stopPropagation() }
   }
+
+  tab(event) {
+    if (this.isPreventDefault('tab')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tab'), controller: this } } })
+    if (this.isStopPropagation('tab')) { event.stopPropagation() }
+  }
+
+  tabNext(event) {
+    if (this.isPreventDefault('tabNext')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabNext'), controller: this } } })
+    if (this.isStopPropagation('tabNext')) { event.stopPropagation() }
+  }
+
+  tabBack(event) {
+    if (this.isPreventDefault('tabBack')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabBack'), controller: this } } })
+    if (this.isStopPropagation('tabBack')) { event.stopPropagation() }
+  }
 }

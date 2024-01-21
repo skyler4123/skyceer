@@ -61,6 +61,8 @@ export default class extends Controller {
   }
 
   initializeAction() {
+    if (!this.event) { return }
+    
     this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
   }
 
