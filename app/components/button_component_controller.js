@@ -4,7 +4,7 @@ import { useHover, useClickOutside } from 'stimulus-use'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['content', 'button', 'hidden']
+  static targets = ['button', 'hidden']
   static values = {
     options: { type: Object },
     isOpen: { type: Boolean },
@@ -34,9 +34,6 @@ export default class extends Controller {
   }
   get klass() {
     return this.optionsValue.klass
-  }
-  get contentClass() {
-    return this.optionsValue.contentClass
   }
   get buttonClass() {
     return this.optionsValue.buttonClass
@@ -84,7 +81,6 @@ export default class extends Controller {
   }
   initializeClass() {
     this.element.className = twMerge(this.element.className, this.klass)
-    this.contentTarget.className = twMerge(this.contentTarget.className, this.variant, this.contentClass)
     this.buttonTarget.className = twMerge(this.buttonTarget.className, this.buttonClass)
   }
 

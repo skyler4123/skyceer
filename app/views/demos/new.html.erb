@@ -1,8 +1,19 @@
-    <% toast_event_id = SecureRandom.uuid %>
-    <%= render(ButtonComponent.new(label: 'Toggle Toast', event: { id: toast_event_id, action: :toggle, listener: :click })) %>
-    <%= render(ToastComponent.new(event: { id: toast_event_id }, position: :bottom)) do %>
-      <div>Executing JavaScript from a string is an BIG security risk.
-        With eval(), malicious code can run inside your application without permission.
-        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
-      </div>
+<form action="/action_page.php">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <%= render(InputComponent.new) %>
+  <input type="submit" value="Submit">
+
+  <% remember_me_event_id = SecureRandom.uuid %>
+  <%= render(ButtonComponent.new(button_class: "hidden", events: [ { id: remember_me_event_id, action: :toggle, listener: :click }])) do |c| %>
+    <%= c.with_body {} %>
+    <% c.with_append do %>
+      <%= render(BoxComponent.new(klass: "relative w-11 h-6 rounded-full bg-gray-200 open:bg-blue-600 group cursor-pointer", event: { id: remember_me_event_id }, is_open: true)) do %>
+        <div class="bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 group-open:translate-x-full duration-200 ease-out"></div>
+      <% end %>
     <% end %>
+  <% end %>
+</form> 
+

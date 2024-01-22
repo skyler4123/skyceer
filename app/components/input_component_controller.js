@@ -15,6 +15,7 @@ export default class extends Controller {
     isOpen: { type: Boolean },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
+    isRememberMe: { type: Boolean, default: false }
   }
 
   initialize() {
@@ -146,6 +147,19 @@ export default class extends Controller {
       if (this.hasInputTarget) {
         this.inputTarget.removeAttribute('open')
       }
+    }
+  }
+
+  rememberMe(event) {
+    this.rememberMeName = event.value
+  }
+  
+  isRememberMeValueChanged(value, previousValue) {
+    if (this.isRememberMeValue) {
+      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ' ' + `change->${this.identifier}#rememberMe`
+    } else {
+      this.inputTarget.dataset.action = this.inputTarget.dataset.action.replace(`change->${this.identifier}#rememberMe`, '')
+
     }
   }
 

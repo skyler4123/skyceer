@@ -12,6 +12,7 @@ export default class extends Controller {
 
   initialize() {
     this.initializeID()
+    this.initializeValue()
     this.initializeClass()
     this.initializeAction()
 
@@ -42,6 +43,12 @@ export default class extends Controller {
   }
   get eventId() {
     return this.event.id
+  }
+
+  initializeValue() {
+    if (typeof this.optionsValue.isOpen != "undefined") {
+      this.isOpenValue = this.optionsValue.isOpen
+    }
   }
 
   initializeClass() {

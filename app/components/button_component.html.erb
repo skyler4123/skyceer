@@ -1,5 +1,4 @@
 <div class="hidden" data-controller="<%= @controller %>" data-button-component-options-value="<%= @options %>">
-  <div data-button-component-target="content">
     <% if prepends? %>
       <% prepends.each do |prepend| %>
         <%= prepend %>
@@ -19,11 +18,4 @@
         <%= append %>
       <% end %>
     <% end %>
-  </div>
-
-  <% if hiddens? %>
-    <% hiddens.each do |hidden| %>
-      <%= hidden %>
-    <% end %>
-  <% end %>
 </div>

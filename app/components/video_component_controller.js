@@ -31,6 +31,9 @@ export default class extends Controller {
   get klass() {
     return this.optionsValue.klass
   }
+  get videoClass() {
+    return this.optionsValue.videoClass
+  }
   get id() {
     return this.element.id
   }
@@ -43,15 +46,46 @@ export default class extends Controller {
   get eventId() {
     return this.event.id
   }
+  get isControl() {
+    return this.optionsValue.isControl || true
+  }
+  get isAutoplay() {
+    return this.optionsValue.isAutoplay || false
+  }
+  get isMuted() {
+    return this.optionsValue.isMuted || false
+  }
+  get src() {
+    return this.optionsValue.src
+  }
+  get url() {
+    return this.optionsValue.url || this.src || 'https://flowbite.com/docs/videos/flowbite.mp4'
+  }
+  get type() {
+    return this.optionsValue.type || 'video/mp4'
+  }
 
+
+  initializeHTML() {
+    this.element.innerHTML = this.initHTML()
+  }
 
   initializeClass() {
-    this.element.className = twMerge('w-1/3 h-5/6 bg-gray-200 rounded-lg text-black shadow-lg shadow-gray-500/50', this.element.className, this.positionClass()[this.position], this.klass)
+    this.element.className = twMerge('w-full', this.element.className, this.klass)
   }
 
   initializeAction() {
     if (this.event) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    }
+    if (this.isControl) {
+      this.element.setAttribute('controls', '')
+    }
+    if (this.isAutoplay) {
+      this.element.setAttribute('autoplay', '')
+    }
+    if (this.isMuted) {
+      this.element.setAttribute('muted', '')
     }
   }
 
@@ -81,12 +115,9 @@ export default class extends Controller {
     }
   }
 
-  positionClass() {
-    return {
-      'left': 'fixed top-1/2 -left-1/2 z-20 -translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:left-2 p-4',
-      'right': 'fixed top-1/2 -right-1/2 z-20 translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:right-2 p-4',
-      'top': 'fixed -top-1/2 right-1/2 z-20 -translate-x-1/2 -translate-y-full duration-200 ease-out open:translate-y-0 open:top-2 p-4',
-      'bottom': 'fixed -bottom-1/2 right-1/2 z-20 -translate-x-1/2 translate-y-full duration-200 ease-out open:translate-y-0 open:bottom-2 p-4',
-    }
+  initHTML() {
+    return `
+      <source src="${this.url}" type="${this.type}">
+    `
   }
 }
