@@ -15,12 +15,13 @@ export default class extends Controller {
     isOpen: { type: Boolean },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
-    isRememberMe: { type: Boolean, default: false }
+    isRememberMe: { type: Boolean }
   }
 
   initialize() {
     this.initializeID()
     this.initializeHTML()
+    this.initializeTarget()
     this.initializeClass()
     this.initializeFormat()
     this.initializeAction()
@@ -42,6 +43,14 @@ export default class extends Controller {
 
   initializeHTML() {
     this.element.innerHTML = this.initHTML()
+  }
+
+  initializeTarget() {
+    if (this.hasSelectTarget) {
+      this.selectTarget.querySelectorAll('option').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'option')
+      })
+    }
   }
 
   initializeClass() {
@@ -116,7 +125,9 @@ export default class extends Controller {
       if (this.hasLabelTaget) {
         this.labelTarget.removeAttribute('open')
       }
-      this.inputTarget.removeAttribute('open')
+      if (this.hasInputTarget) {
+        this.inputTarget.removeAttribute('open')
+      }
     }
   }
 
@@ -180,11 +191,20 @@ export default class extends Controller {
 
     if (this.isRememberMeValue) {
       this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ' ' + this.actionToSaveToLocal
-      this.syncFromLocal()
+      if (!this.isInitializedSyncFromLocal) {
+        this.syncFromLocal()
+        this.initializedSyncFromLocal = true
+      } else {
+        this.saveToLocal()
+      }
     } else {
       this.inputTarget.dataset.action = this.inputTarget.dataset.action?.replace(this.actionToSaveToLocal, '')
       this.clearLocal()    
     }
+  }
+
+  contentHTML() {
+    return this.element.innerHTML
   }
 
   initHTML() {
@@ -192,7 +212,7 @@ export default class extends Controller {
       return `
         ${this.label ? `<label data-${this.identifier}-target="label">${this.label}</label>` : ''}
         <select data-${this.identifier}-target="select" name="${this.name}">
-          ${this.templateHTML()}
+          ${this.contentHTML()}
         </select>
       `
     }
@@ -306,6 +326,12 @@ export default class extends Controller {
   }
   get actionToSaveToLocal() {
     return `input->${this.identifier}#saveToLocal`
+  }
+  get isInitializedSyncFromLocal() {
+    return this.initializedSyncFromLocal
+  }
+  set isInitializedSyncFromLocal(value) {
+    this.initializedSyncFromLocal = value
   }
 
 

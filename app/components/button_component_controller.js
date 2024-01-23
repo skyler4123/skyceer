@@ -89,38 +89,25 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    if (!this.events) { return }
-
     this.element.dataset.action = (this.element.dataset.action || '') + ' ' + (this.actions || '')
-    // this.events.forEach((event) => {
-    //   if (event.listener === 'hover') {
-    //     this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
-    //     return
-    //   }
-    //   this.element.dataset.action = this.element.dataset.action + ' ' + `${event.listener}->${this.identifier}#${event.action}`
-    // })
-    this.events.forEach((event) => {
-      if (event.listener === 'hover') {
-        this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#dispatchGlobal mouseleave->${this.identifier}#dispatchGlobal`
-        return
-      }
-      this.element.dataset.action = this.element.dataset.action + ' ' + `${event.listener}->${this.identifier}#dispatchGlobal`
-    })
-    if (this.isRememberMe) {
-      setTimeout(() => {
-        this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggleRememberMe'), controller: this } } })
-      }, 500)
+    if (this.events) {
+      this.events.forEach((event) => {
+        if (event.initialize) {
+          setTimeout(() => {
+            this.dispatch('dispatch', { detail: { event: { ...event, controller: this } } })
+          }, 500)
+        }
+        if (event.listener === 'hover') {
+          this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
+        } else {
+          this.element.dataset.action = this.element.dataset.action + ' ' + `${event.listener}->${this.identifier}#${event.action}`
+        }
+      })
     }
   }
 
   eventWithAction(action) {
     return this.events.find(event => event.action === action)
-  }
-
-  dispatchGlobal(event) {
-    this.events.forEach((event) => {
-      this.dispatch('dispatch', { detail: { event: { ...event, controller: this } } })
-    })
   }
 
   toggle(event) {
@@ -219,5 +206,11 @@ export default class extends Controller {
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('openEditor'), action: 'closeEditor', controller: this } } })
 
     this.element.dataset.action = this.element.dataset.action.replace(`${this.identifier}:click:outside->${this.identifier}#closeEditor`, '')
+  }
+
+  toggleRememberMe(event) {
+    if (this.isPreventDefault('toggleRememberMe')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggleRememberMe'), controller: this } } })
+    if (this.isStopPropagation('toggleRememberMe')) { event.stopPropagation() }
   }
 }
