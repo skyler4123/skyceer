@@ -12,6 +12,7 @@ export default class extends Controller {
 
   initialize() {
     this.initializeID()
+    this.initializeHTML()
     this.initializeValue()
     this.initializeClass()
     this.initializeAction()
@@ -57,6 +58,12 @@ export default class extends Controller {
     return this.optionsValue.color
   }
 
+  initializeHTML() {
+    if (this.type === 'toggle') {
+      this.element.innerHTML = this.initHTML[this.type]
+    }
+  }
+
   initializeValue() {
     if (typeof this.optionsValue.isOpen != "undefined") {
       this.isOpenValue = this.optionsValue.isOpen
@@ -65,10 +72,13 @@ export default class extends Controller {
 
   initializeClass() {
     if (this.position) {
-      this.element.className = twMerge(this.element.className, this.positionClass()[this.position])
+      this.element.className = twMerge(this.element.className, this.positionClass[this.position])
     }
-    if (this.type) {
-      this.element.className = twMerge(this.element.className, this.typeClass()[this.type][this.border][this.color])
+    if (this.type === 'badge' || this.type === 'alert') {
+      this.element.className = twMerge(this.element.className, this.typeClass[this.type][this.border][this.color])
+    }
+    if (this.type === 'toggle') {
+      this.element.className = twMerge(this.element.className, this.typeClass[this.type])
     }
     this.element.className = twMerge(this.element.className, this.klass)
   }
@@ -105,7 +115,14 @@ export default class extends Controller {
     }
   }
 
-  typeClass() {
+  get initHTML() {
+    return {
+      toggle: `
+        <div data-${this.identifier}-target="slider" class="bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 group-open:translate-x-full duration-200 ease-out"></div>
+      `
+    }
+  }
+  get typeClass() {
     return {
       badge: {
         default: {
@@ -154,11 +171,12 @@ export default class extends Controller {
           yellow: "flex items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800",
           dark: "flex items-center p-4 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600",
         },
-      }
+      },
+      toggle: "bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full group"
     }
   }
 
-  positionClass() {
+  get positionClass() {
     return {
       'topRight': 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
       'rightTop': 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',

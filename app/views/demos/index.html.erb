@@ -159,9 +159,15 @@
       <% end %>
     <% end %>
 
+    <%= render(InputComponent.new(label: "text select component", type: :select)) do %>
+        <option selected>Choose a country</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="FR">France</option>
+        <option value="DE">Germany</option>
+    <% end %>
 
-
-
+    <%= render(BoxComponent.new(type: :toggle, is_test: true)) %>
 
 
 
