@@ -1,19 +1,7 @@
-<form action="/action_page.php">
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
-  <%= render(InputComponent.new) %>
-  <input type="submit" value="Submit">
+<% remember_me_event_id = SecureRandom.uuid %>
+  <%= render(InputComponent.new(event: { id: remember_me_event_id }, name: 'email', is_test: true)) %>
+  <%= render(InputComponent.new(event: { id: remember_me_event_id }, name: 'password')) %>
+  <%= render(InputComponent.new(event: { id: remember_me_event_id }, name: 'phone', is_test: true)) %>
 
-  <% remember_me_event_id = SecureRandom.uuid %>
-  <%= render(ButtonComponent.new(button_class: "hidden", events: [ { id: remember_me_event_id, action: :toggle, listener: :click }])) do |c| %>
-    <%= c.with_body {} %>
-    <% c.with_append do %>
-      <%= render(BoxComponent.new(klass: "relative w-11 h-6 rounded-full bg-gray-200 open:bg-blue-600 group cursor-pointer", event: { id: remember_me_event_id }, is_open: true)) do %>
-        <div class="bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 group-open:translate-x-full duration-200 ease-out"></div>
-      <% end %>
-    <% end %>
-  <% end %>
-</form> 
 
+<%= render(ButtonComponent.new(is_test: true, is_remember_me: true, label: "Test Global", event: { id: remember_me_event_id, listener: :click, action: :toggle_remember_me })) %>

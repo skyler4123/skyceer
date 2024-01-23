@@ -150,16 +150,40 @@ export default class extends Controller {
     }
   }
 
-  rememberMe(event) {
-    this.rememberMeName = event.value
+  toggleRememberMe() {
+    this.isRememberMeValue = !this.isRememberMeValue
+  }
+
+  rememberMe() {
+    this.isRememberMeValue = true
+  }
+
+  forgetMe() {
+    this.isRememberMeValue = false
   }
   
-  isRememberMeValueChanged(value, previousValue) {
-    if (this.isRememberMeValue) {
-      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ' ' + `change->${this.identifier}#rememberMe`
-    } else {
-      this.inputTarget.dataset.action = this.inputTarget.dataset.action.replace(`change->${this.identifier}#rememberMe`, '')
+  saveToLocal() {
+    const remmemberMeData = { ...this.localData, [this.name]: this.currentValue }
+    localStorage.setItem(this.rememberMeName, JSON.stringify(remmemberMeData))
+  }
 
+  clearLocal() {
+    localStorage.setItem(this.rememberMeName, '')
+  }
+
+  syncFromLocal() {
+    this.currentValue = this.localData[this.name] || ''
+  }
+
+  isRememberMeValueChanged(value, previousValue) {
+    if (previousValue === undefined) { return }
+
+    if (this.isRememberMeValue) {
+      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ' ' + this.actionToSaveToLocal
+      this.syncFromLocal()
+    } else {
+      this.inputTarget.dataset.action = this.inputTarget.dataset.action?.replace(this.actionToSaveToLocal, '')
+      this.clearLocal()    
     }
   }
 
@@ -268,11 +292,29 @@ export default class extends Controller {
   get setTimeoutAutoSubmitId() {
     return this.optionsValue.setTimeoutAutoSubmitId
   }
+  get rememberMeName() {
+    return this.optionsValue.rememberMeName || 'rememberMe'
+  }
+  get localData() {
+    return JSON.parse(localStorage.getItem(this.rememberMeName) || '{}')
+  }
+  get currentValue() {
+    return this.inputTarget.value
+  }
+  set currentValue(value) {
+    this.inputTarget.value = value
+  }
+  get actionToSaveToLocal() {
+    return `input->${this.identifier}#saveToLocal`
+  }
 
 
 
 
 
+
+
+  // Attributes or input
   get accept() {
     return this.optionsValue.accept
   }

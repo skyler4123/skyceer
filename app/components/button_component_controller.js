@@ -56,6 +56,10 @@ export default class extends Controller {
   get actions() {
     return this.optionsValue.actions
   }
+  get isRememberMe() {
+    return this.optionsValue.isRememberMe || false
+  }
+
   isPreventDefault(action) {
     return this.eventWithAction(action).preventDefault
   }
@@ -88,17 +92,35 @@ export default class extends Controller {
     if (!this.events) { return }
 
     this.element.dataset.action = (this.element.dataset.action || '') + ' ' + (this.actions || '')
+    // this.events.forEach((event) => {
+    //   if (event.listener === 'hover') {
+    //     this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
+    //     return
+    //   }
+    //   this.element.dataset.action = this.element.dataset.action + ' ' + `${event.listener}->${this.identifier}#${event.action}`
+    // })
     this.events.forEach((event) => {
       if (event.listener === 'hover') {
-        this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
+        this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#dispatchGlobal mouseleave->${this.identifier}#dispatchGlobal`
         return
       }
-      this.element.dataset.action = this.element.dataset.action + ' ' + `${event.listener}->${this.identifier}#${event.action}`
+      this.element.dataset.action = this.element.dataset.action + ' ' + `${event.listener}->${this.identifier}#dispatchGlobal`
     })
+    if (this.isRememberMe) {
+      setTimeout(() => {
+        this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggleRememberMe'), controller: this } } })
+      }, 500)
+    }
   }
 
   eventWithAction(action) {
     return this.events.find(event => event.action === action)
+  }
+
+  dispatchGlobal(event) {
+    this.events.forEach((event) => {
+      this.dispatch('dispatch', { detail: { event: { ...event, controller: this } } })
+    })
   }
 
   toggle(event) {
