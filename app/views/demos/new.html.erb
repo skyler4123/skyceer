@@ -1,5 +1,4 @@
-      <%= render(BoxComponent.new(is_open: false, klass: "bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full group")) do %>
-        <div class="bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 group-open:translate-x-full duration-200 ease-out"></div>
-      <% end %>
-
-      <%= render(BoxComponent.new(type: :toggle, is_test: true)) %>
+<% change_number_event_id = SecureRandom.uuid %>
+<%= render(TextComponent.new(label: '12', is_test: true, event: { id: change_number_event_id })) %>
+<%= render(ButtonComponent.new(label: "Increase", event: { id: change_number_event_id, listener: :click, action: :increase, value: 3 })) %>
+<%= render(ButtonComponent.new(label: "Decrease", event: { id: change_number_event_id, listener: :click, action: :decrease, value: 4 })) %>

@@ -213,4 +213,16 @@ export default class extends Controller {
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggleRememberMe'), controller: this } } })
     if (this.isStopPropagation('toggleRememberMe')) { event.stopPropagation() }
   }
+
+  increase(event) {
+    if (this.isPreventDefault('increase')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('increase'), controller: this } } })
+    if (this.isStopPropagation('increase')) { event.stopPropagation() }
+  }
+
+  decrease(event) {
+    if (this.isPreventDefault('decrease')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('decrease'), controller: this } } })
+    if (this.isStopPropagation('decrease')) { event.stopPropagation() }
+  }
 }

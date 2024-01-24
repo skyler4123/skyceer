@@ -157,6 +157,14 @@ export default class extends Controller {
     }
   }
 
+  increase(event) {
+    this.labelValue = Number(this.labelValue) + Number(event.value)
+  }
+
+  decrease(event) {
+    this.labelValue = Number(this.labelValue) - Number(event.value)
+  }
+
   dictionary() {
     return {
       'Price': {
