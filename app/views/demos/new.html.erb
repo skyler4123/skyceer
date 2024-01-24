@@ -1,4 +1,6 @@
-<% change_number_event_id = SecureRandom.uuid %>
-<%= render(TextComponent.new(label: '12', event: { id: change_number_event_id })) %>
-<%= render(ButtonComponent.new(label: "Increase", event: { id: change_number_event_id, listener: :click, action: :increase, value: 3 })) %>
-<%= render(ButtonComponent.new(controller: 'hello', label: "Decrease", event: { id: change_number_event_id, listener: :click, action: :decrease, value: 4 })) %>
+<%= render(IconComponent.new) %>
+<%= render(HrComponent.new) %>
+<%= render(IconComponent.new) %>
+<%= render(HrComponent.new(is_test: true)) do %>
+  <div>Test HR Component</div>
+<% end %>

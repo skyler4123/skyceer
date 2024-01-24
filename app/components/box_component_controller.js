@@ -178,19 +178,18 @@ export default class extends Controller {
 
   get positionClass() {
     return {
-      'topRight': 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
-      'rightTop': 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
-      'topLeft': 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
-      'leftTop': 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
-      'bottomRight': 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
-      'rightBottom': 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
-      'bottomLeft': 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2',
-      'leftBottom': 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2',
-      'topCenter': 'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2',
-      'bottomCenter': 'absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2',
-      'rightCenter': 'absolute bottom-0 right-0 top-1/2 translate-x-1/2 -translate-y-1/2',
-      'leftCenter': 'absolute bottom-0 left-0 top-1/2 -translate-x-1/2 -translate-y-1/2',
-
+      topRight: 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
+      rightTop: 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
+      topLeft: 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
+      leftTop: 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
+      bottomRight: 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
+      rightBottom: 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
+      bottomLeft: 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2',
+      leftBottom: 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2',
+      topCenter: 'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2',
+      bottomCenter: 'absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2',
+      rightCenter: 'absolute bottom-0 right-0 top-1/2 translate-x-1/2 -translate-y-1/2',
+      leftCenter: 'absolute bottom-0 left-0 top-1/2 -translate-x-1/2 -translate-y-1/2',
     }
   }
 
