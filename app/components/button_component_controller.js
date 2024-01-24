@@ -225,4 +225,8 @@ export default class extends Controller {
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('decrease'), controller: this } } })
     if (this.isStopPropagation('decrease')) { event.stopPropagation() }
   }
+
+  upToTop() {
+    document.scrollingElement.scrollTo(0, 0)
+  }
 }
