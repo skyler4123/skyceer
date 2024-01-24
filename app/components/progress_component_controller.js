@@ -64,7 +64,7 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    this.element.innerHTML = this.initHTML()
+    this.element.innerHTML = this.initHTML
   }
 
   initializeClass() {
@@ -104,7 +104,7 @@ export default class extends Controller {
     }
   }
 
-  initHTML() {
+  get initHTML() {
     return `
       <div data-${this.identifier}-target="percentage" style="width: ${this.percentageValue}%">
         ${this.isShowPercentage ? this.percentageValue : ''}

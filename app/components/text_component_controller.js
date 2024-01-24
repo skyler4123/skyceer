@@ -128,7 +128,7 @@ export default class extends Controller {
   languageValueChanged(value, previousValue) {
     if (previousValue === undefined || previousValue === '') { return }
     
-    this.labelValue = this.dictionary()[this.languageKey][this.languageValue]
+    this.labelValue = this.dictionary[this.languageKey][this.languageValue]
   }
 
   translate(event) {
@@ -165,7 +165,7 @@ export default class extends Controller {
     this.labelValue = Number(this.labelValue) - Number(event.value)
   }
 
-  dictionary() {
+  get dictionary() {
     return {
       'Price': {
         'english': 'Price',

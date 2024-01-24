@@ -26,7 +26,7 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    morphdom(this.templateTarget, this.initHTML())
+    morphdom(this.templateTarget, this.initHTML)
   }
   focusNext(event) {
     if (event.currentTarget.value.length === 0) { return }
@@ -43,7 +43,7 @@ export default class extends Controller {
     this.inputTarget.setAttribute('value', currentInput)
     this.valueValue = currentInput
   }
-  initHTML() {
+  get initHTML() {
     return `
     <div class="flex mb-2 space-x-2 rtl:space-x-reverse">
       <input class='hidden' name="${this.nameValue}" type="text" data-${this.identifier}-target="input">

@@ -49,7 +49,7 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    this.element.innerHTML = this.initHTML()[this.deviceName || this.name || "iphone-12"]
+    this.element.innerHTML = this.initHTML[this.deviceName || this.name || "iphone-12"]
   }
 
   initializeAction() {
@@ -84,7 +84,7 @@ export default class extends Controller {
     }
   }
 
-  initHTML() {
+  get initHTML() {
     return {
       'iphone-12': `
         <div data-${this.identifier}-target="mockup" class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px]">

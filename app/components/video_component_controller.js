@@ -67,7 +67,7 @@ export default class extends Controller {
 
 
   initializeHTML() {
-    this.element.innerHTML = this.initHTML()
+    this.element.innerHTML = this.initHTML
   }
 
   initializeClass() {
@@ -115,7 +115,7 @@ export default class extends Controller {
     }
   }
 
-  initHTML() {
+  get initHTML() {
     return `
       <source src="${this.url}" type="${this.type}">
     `

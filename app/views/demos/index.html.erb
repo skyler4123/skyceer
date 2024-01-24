@@ -10,6 +10,13 @@
   <div id="components" class="flex flex-col justify-center items-center min-w-full pb-4">
 
 
+    <%= render(IconComponent.new) %>
+    <%= render(HrComponent.new) %>
+    <%= render(IconComponent.new) %>
+    <%= render(HrComponent.new(is_test: true)) do %>
+      <div>Test HR Component</div>
+    <% end %>
+
     <% copy_link_event_id = SecureRandom.uuid %>
     <%= button(is_test: true, event: { id: copy_link_event_id, listener: :click, action: :copy_link }) %>
     <%= render(LinkComponent.new(label: "Test Copy Link", url: '/#', is_test: true, event: { id: copy_link_event_id })) %>

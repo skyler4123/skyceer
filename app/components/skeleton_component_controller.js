@@ -54,7 +54,7 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    this.element.innerHTML = this.initHTML()[this.name]
+    this.element.innerHTML = this.initHTML[this.name]
   }
 
   initializeClass() {
@@ -93,7 +93,7 @@ export default class extends Controller {
     }
   }
 
-  initHTML() {
+  get initHTML() {
     return {
       'default': `
         <div data-${this.identifier}-target="skeleton" role="status" class="max-w-sm animate-pulse">

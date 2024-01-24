@@ -33,9 +33,9 @@ export default class extends Controller {
 
   initializeHTML() {
     if (this.hasTemplateTarget) {
-      morphdom(this.templateTarget, this.initHTML())
+      morphdom(this.templateTarget, this.initHTML)
     } else {
-      morphdom(this.tableTarget, this.initHTML())
+      morphdom(this.tableTarget, this.initHTML)
     }
   }
 
@@ -43,7 +43,7 @@ export default class extends Controller {
     this.element.className = this.klassValue
   }
 
-  initHTML() {
+  get initHTML() {
     return `
       <table class="${this.tableClassValue}" data-${this.identifier}-target="table">
         <thead class="${this.headClassValue}" data-${this.identifier}-target="headers">

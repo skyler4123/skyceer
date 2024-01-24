@@ -42,7 +42,7 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    this.element.innerHTML = this.initHTML()
+    this.element.innerHTML = this.initHTML
   }
 
   initializeTarget() {
@@ -203,16 +203,12 @@ export default class extends Controller {
     }
   }
 
-  contentHTML() {
-    return this.element.innerHTML
-  }
-
-  initHTML() {
+  get initHTML() {
     if (this.type === 'select') {
       return `
         ${this.label ? `<label data-${this.identifier}-target="label">${this.label}</label>` : ''}
         <select data-${this.identifier}-target="select" name="${this.name}">
-          ${this.contentHTML()}
+          ${this.element.innerHTML}
         </select>
       `
     }

@@ -47,7 +47,7 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = twMerge('w-1/3 h-5/6 bg-gray-200 rounded-lg text-black shadow-lg shadow-gray-500/50', this.element.className, this.positionClass()[this.position], this.klass)
+    this.element.className = twMerge('w-1/3 h-5/6 bg-gray-200 rounded-lg text-black shadow-lg shadow-gray-500/50', this.element.className, this.positionClass[this.position], this.klass)
   }
 
   initializeAction() {
@@ -82,7 +82,7 @@ export default class extends Controller {
     }
   }
 
-  positionClass() {
+  get positionClass() {
     return {
       'left': 'fixed top-1/2 -left-1/2 z-20 -translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:left-2 p-4',
       'right': 'fixed top-1/2 -right-1/2 z-20 translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:right-2 p-4',

@@ -47,7 +47,7 @@ export default class extends Controller {
   }
   
   initializeClass() {
-    this.element.className = twMerge(this.positionClass()[this.position], this.element.className, this.klass)
+    this.element.className = twMerge(this.positionClass[this.position], this.element.className, this.klass)
   }
 
   initializeAction() {
@@ -82,7 +82,7 @@ export default class extends Controller {
     }
   }
 
-  positionClass() {
+  get positionClass() {
     return {
       'bottomLeft': 'open:flex absolute justify-center items-center left-0 bottom-0 translate-y-full py-2',
       'bottomCenter': 'open:flex absolute justify-center items-center right-1/2 bottom-0 translate-y-full translate-x-1/2 py-2',

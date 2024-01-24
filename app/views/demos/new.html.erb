@@ -1,6 +1,179 @@
 <%= render(IconComponent.new) %>
-<%= render(HrComponent.new) %>
-<%= render(IconComponent.new) %>
-<%= render(HrComponent.new(is_test: true)) do %>
-  <div>Test HR Component</div>
-<% end %>
+    <%= render(HrComponent.new) %>
+    <%= render(IconComponent.new) %>
+    <%= render(HrComponent.new(is_test: true)) do %>
+      <div>Test HR Component</div>
+    <% end %>
+
+    <% copy_link_event_id = SecureRandom.uuid %>
+    <%= button(is_test: true, event: { id: copy_link_event_id, listener: :click, action: :copy_link }) %>
+    <%= render(LinkComponent.new(label: "Test Copy Link", url: '/#', is_test: true, event: { id: copy_link_event_id })) %>
+
+    <% accordion_event_id = SecureRandom.uuid %>
+    <%= button(event: { id: accordion_event_id, listener: :click, action: :toggle }) %>
+    <%= render(AccordionComponent.new(is_test: true, orientation: :horizontal, event: { id: accordion_event_id })) do %>
+      <div>kjhjk lkjlkj kjlkj kjlk </div>
+    <% end %>
+
+    <% carousel_event_id = SecureRandom.uuid %>
+    <%= button(is_test: true, event: { id: carousel_event_id, listener: :click, action: :scrollForward }) %>
+    <%= render(CarouselComponent.new(is_test: true, event: { id: carousel_event_id })) do %>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
+      </div>
+
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" alt="">
+      </div>
+
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg" alt="">
+      </div>
+
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="">
+      </div>
+    <% end %>
+
+    <% icon_event_id = SecureRandom.uuid %>
+    <%= button(is_test: true, event: { id: icon_event_id, listener: :click, action: :rotate }) %>
+    <%= render(IconComponent.new(is_test: true, event: { id: icon_event_id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out")) %>
+    <%= render(IconComponent.new(is_test: true, type: :logo, name: :github, event: { id: icon_event_id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out")) %>
+
+    <% img_event_id = SecureRandom.uuid %>
+    <%= button(is_test: true, event: { id: img_event_id, listener: :click, action: :rotate }) %>
+    <%= render(ImgComponent.new(is_test: true, event: { id: img_event_id }, img_class: "w-40 h-40 open:animate-spin", url: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg")) %>
+
+    <%= render(ListComponent.new(is_test: true, is_sortable: true)) do %>
+      <li>Coffee</li>
+      <li>Tea</li>
+      <li>Milk</li>
+    <% end %>
+
+    <% modal_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: 'Test Modal', event: { id: modal_event_id, action: :open, listener: :click })) %>
+    <%= render(ModalComponent.new(event: { id: modal_event_id })) do %>
+      <div class="">
+        Executing JavaScript from a string is an BIG security risk.
+        With eval(), malicious code can run inside your application without permission.
+        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
+      </div>
+    <% end %>
+
+    <% popover_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: popover_event_id })) do |c| %>
+      <% c.with_append do %>
+        <%= render(PopoverComponent.new(is_test: true, position: :right_center, event: { id: popover_event_id })) do %>
+          <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% percentage_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: "Test Button", event: { action: :change_percentage, value: 95, listener: :click, id: percentage_event_id })) %>
+    <%= render(ProgressComponent.new(is_test: true, is_show_percentage: true, percentage: 45, event: { id: percentage_event_id }, percentage_class: 'bg-green-500')) %>
+
+    <%= render(SkeletonComponent.new()) %>
+
+    <% tab_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: "Tab Next", event: { id: tab_event_id, action: :tab_next, listener: :click })) %>
+    <%= render(ButtonComponent.new(label: "Tab Back", event: { id: tab_event_id, action: :tab_back, listener: :click })) %>
+    <%= render(ButtonComponent.new(label: "Tab to 4rd Item", event: { id: tab_event_id, action: :tab, value: 4, listener: :click })) %>
+    <%= render(ButtonComponent.new(event: { id: tab_event_id, action: :tab_next, listener: :click })) do %>
+      <%= render(TabComponent.new(is_test: true, event: { id: tab_event_id })) do |c| %>
+        <%= render(IconComponent.new(name: "link")) %>
+        <%= render(IconComponent.new(name: "check-circle", svg_class: "w-5 h-6 text-green-500")) %>
+        <%= render(IconComponent.new(name: "spinner", type: :animation)) %>
+        <%= render(IconComponent.new(name: "star", svg_class: "w-5 h-6 text-sky-800")) %>
+        <%= render(IconComponent.new(name: "sun", svg_class: "w-5 h-6 text-yellow-500")) %>
+      <% end %>
+    <% end %>
+
+    <% text_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(event: { id: text_event_id, listener: :dblclick, action: :open_editor })) do %>
+      <%= render(TextComponent.new(label: "Price", is_test: true, event: { id: text_event_id })) do |c| %>
+        <% c.with_editor do %>
+          <%= render(InputComponent.new) %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% toast_event_id = SecureRandom.uuid %>
+    <%= render(ButtonComponent.new(label: 'Toggle Toast', event: { id: toast_event_id, action: :toggle, listener: :click })) %>
+    <%= render(ToastComponent.new(event: { id: toast_event_id }, position: :bottom)) do %>
+      <div>Executing JavaScript from a string is an BIG security risk.
+        With eval(), malicious code can run inside your application without permission.
+        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
+      </div>
+    <% end %>
+
+    <%= render(VideoComponent.new) %>
+
+    <% remember_me_event_id = SecureRandom.uuid %>
+    <% toggle_button_event_id = SecureRandom.uuid %>
+    <%= render(InputComponent.new(event: { id: remember_me_event_id }, name: 'email', is_test: true)) %>
+    <%= render(InputComponent.new(event: { id: remember_me_event_id }, name: 'password')) %>
+    <%= render(InputComponent.new(event: { id: remember_me_event_id }, name: 'phone', is_test: true)) %>
+    <%= render(ButtonComponent.new(label: "Test Global",
+      events: [{ id: remember_me_event_id, listener: :click, action: :toggle_remember_me, initialize: true },
+              { id: toggle_button_event_id, listener: :click, action: :toggle, initialize: true }]
+      )) do %>
+      <%= render(BoxComponent.new(is_open: false, event: { id: toggle_button_event_id }, klass: "bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full group")) do %>
+        <div class="bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 group-open:translate-x-full duration-200 ease-out"></div>
+      <% end %>
+    <% end %>
+
+    <%= render(BoxComponent.new(is_test: true, type: :alert, border: :bordered, color: :blue, klass: 'relative')) do %>
+      <div>Test Box Component with styles</div>
+      <%= render(BoxComponent.new(klass: 'w-fit h-fit', position: :left_center)) do %>
+        <%= render(BoxComponent.new(klass: 'w-4 h-4 bg-green-500 rounded-full animate-ping')) %>
+      <% end %>
+    <% end %>
+
+    <%= render(InputComponent.new(label: "text select component", type: :select)) do %>
+        <option selected>Choose a country</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="FR">France</option>
+        <option value="DE">Germany</option>
+    <% end %>
+
+    <%= render(BoxComponent.new(type: :toggle, is_test: true)) %>
+
+    <% change_number_event_id = SecureRandom.uuid %>
+    <%= render(TextComponent.new(label: '12', is_test: true, event: { id: change_number_event_id })) %>
+    <%= render(ButtonComponent.new(label: "Increase", event: { id: change_number_event_id, listener: :click, action: :increase, value: 3 })) %>
+    <%= render(ButtonComponent.new(label: "Decrease", event: { id: change_number_event_id, listener: :click, action: :decrease, value: 4 })) %>
+
+
+
+
+
+
+
+
+

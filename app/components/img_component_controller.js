@@ -55,7 +55,7 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    this.element.innerHTML = this.initHTML()
+    this.element.innerHTML = this.initHTML
   }
 
   initializeClass() {
@@ -99,7 +99,7 @@ export default class extends Controller {
   rotate() {
     this.isOpenValue = !this.isOpenValue
   }
-  initHTML() {
+  get initHTML() {
     return `
       <img data-${this.identifier}-target="img" src="${this.url}" alt="${this.alt}">
     `
