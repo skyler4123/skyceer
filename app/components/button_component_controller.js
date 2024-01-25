@@ -13,6 +13,7 @@ export default class extends Controller {
   }
 
   initialize() {
+    this.initializeCamelCase()
     this.initializeID()
     this.initializeHTML()
     this.initializeClass()
@@ -281,13 +282,24 @@ export default class extends Controller {
         }), {})
       })
     }
-    if(options.events) {
+    if (options.events) {
       options.events = options.events.map((event) => {
-        return Object.keys(event).reduce((result, key) => ({
-          ...result,
-          [this.camalize(key)]: this.camalize(event[key])
-        }), {})
+        return Object.keys(event).reduce((result, key) => {
+          if (key === 'id') {
+            return {
+              ...result,
+              [this.camalize(key)]: event[key]
+            }
+          }
+          return {
+            ...result,
+            [this.camalize(key)]: this.camalize(event[key])
+          }
+        }, {})
       })
+    }
+    if (options.position) {
+      options.position = this.camalize(options.position)
     }
     this.optionsValue = options
   }

@@ -10,6 +10,7 @@ export default class extends Controller {
   }
 
   initialize() {
+    this.initializeCamelCase()
     this.initializeID()
     this.initializeClass()
     this.initializeAction()
@@ -88,6 +89,49 @@ export default class extends Controller {
       'right': 'fixed top-1/2 -right-1/2 z-20 translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:right-2 p-4',
       'top': 'fixed -top-1/2 right-1/2 z-20 -translate-x-1/2 -translate-y-full duration-200 ease-out open:translate-y-0 open:top-2 p-4',
       'bottom': 'fixed -bottom-1/2 right-1/2 z-20 -translate-x-1/2 translate-y-full duration-200 ease-out open:translate-y-0 open:bottom-2 p-4',
+    }
+  }
+
+  initializeCamelCase() {
+    let options = this.optionsValue
+    options = Object.keys(options).reduce((result, key) => ({
+      ...result,
+      [this.camalize(key)]: options[key]
+    }), {})
+    if (options.actions) {
+      options.actions = options.actions.map((action) => {
+        return Object.keys(action).reduce((result, key) => ({
+          ...result,
+          [this.camalize(key)]: this.camalize(action[key])
+        }), {})
+      })
+    }
+    if (options.events) {
+      options.events = options.events.map((event) => {
+        return Object.keys(event).reduce((result, key) => {
+          if (key === 'id') {
+            return {
+              ...result,
+              [this.camalize(key)]: event[key]
+            }
+          }
+          return {
+            ...result,
+            [this.camalize(key)]: this.camalize(event[key])
+          }
+        }, {})
+      })
+    }
+    if (options.position) {
+      options.position = this.camalize(options.position)
+    }
+    this.optionsValue = options
+  }
+  camalize(str) {
+    if (typeof str === 'string' || str instanceof String) {
+      return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+    } else {
+      return str
     }
   }
 }

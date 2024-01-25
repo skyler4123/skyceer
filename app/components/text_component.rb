@@ -6,7 +6,7 @@ class TextComponent < ViewComponent::Base
   def initialize( controller: nil, tag: :div, **options)
     @controller = "text-component" + ' ' + controller.to_s
     @tag = tag
-    options.keys.each {|key| options[key.to_s.camelize(:lower).to_sym] = options.delete(key)}
+    # options.keys.each {|key| options[key.to_s.camelize(:lower).to_sym] = options.delete(key)}
     raise ArgumentError unless options[:label]
     @options = options.to_json
   end
