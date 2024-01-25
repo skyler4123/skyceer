@@ -26,27 +26,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get name() {
-    return this.optionsValue.name
-  }
-  get deviceName() {
-    return this.optionsValue.deviceName
-  }
 
   initializeHTML() {
     this.element.innerHTML = this.initHTML[this.deviceName || this.name || "iphone-12"]
@@ -84,6 +63,27 @@ export default class extends Controller {
     }
   }
 
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get name() {
+    return this.optionsValue.name
+  }
+  get deviceName() {
+    return this.optionsValue.deviceName
+  }
   get initHTML() {
     return {
       'iphone-12': `

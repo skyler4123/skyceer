@@ -4,7 +4,7 @@ import { useHover, useClickOutside } from 'stimulus-use'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['button', 'hidden']
+  static targets = ['button']
   static values = {
     options: { type: Object },
     isOpen: { type: Boolean },
@@ -32,54 +32,14 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get buttonClass() {
-    return this.optionsValue.buttonClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get label() {
-    return this.optionsValue.label
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get events() {
-    return this.optionsValue.events
-  }
-  get eventIds() {
-    return this.events.map((event) => (event.id))
-  }
-  get actions() {
-    return this.optionsValue.actions
-  }
-  get isRememberMe() {
-    return this.optionsValue.isRememberMe || false
-  }
 
   isPreventDefault(action) {
-    return this.eventWithAction(action).preventDefault
+    return this.eventWithAction(action).isPreventDefault
   }
   isStopPropagation(action) {
-    return this.eventWithAction(action).stopPropagation
+    return this.eventWithAction(action).isStopPropagation
   }
 
-  variants() {
-    return {
-      primary: " bg-primary text-primary-foreground hover:bg-primary/80 ",
-      secondary: " bg-secondary text-secondary-foreground hover:bg-secondary/80 ",
-      outline: "  border border-input bg-background hover:bg-accent hover:text-accent-foreground ",
-      ghost: " hover:bg-accent hover:text-accent-foreground  ",
-      destructive: " bg-destructive text-destructive-foreground hover:bg-destructive/90 ",
-    }
-  }
-
-  get variant() {
-    return this.variants()[this.optionsValue.variant]
-  }
   initializeHTML() {
     if (this.buttonTarget.childElementCount === 0) { this.buttonTarget.textContent = this.label }
   }
@@ -89,7 +49,10 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    this.element.dataset.action = (this.element.dataset.action || '') + ' ' + (this.actions || '')
+    // this.element.dataset.action = (this.element.dataset.action || '') + ' ' + (this.actions || '')
+    // this.actions.forEach((action) => {
+    //   this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${OBject.keys(action)[0]}->${this.identifier}#`
+    // })
     if (this.events) {
       this.events.forEach((event) => {
         if (event.initialize) {
@@ -108,6 +71,28 @@ export default class extends Controller {
 
   eventWithAction(action) {
     return this.events.find(event => event.action === action)
+  }
+
+  selfToggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+
+  selfOpen() {
+    this.isOpenValue = true
+  }
+
+  selfClose() {
+    this.isOpenValue = false
+  }
+
+  isOpenValueChanged(value, previousValue) {
+    if (this.isOpenValue) {
+      this.element.setAttribute('open', '')
+      this.buttonTarget.setAttribute('open', '')
+    } else {
+      this.element.removeAttribute('open')
+      this.buttonTarget.removeAttribute('open')
+    }
   }
 
   toggle(event) {
@@ -162,6 +147,12 @@ export default class extends Controller {
     if (this.isPreventDefault('scrollForward')) { event.preventDefault() }
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollForward'), controller: this } } })
     if (this.isStopPropagation('scrollForward')) { event.stopPropagation() }
+  }
+
+  scrollForwardAuto(event) {
+    if (this.isPreventDefault('scrollForwardAuto')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollForwardAuto'), controller: this } } })
+    if (this.isStopPropagation('scrollForwardAuto')) { event.stopPropagation() }
   }
 
   rotate(event) {
@@ -228,5 +219,51 @@ export default class extends Controller {
 
   upToTop() {
     document.scrollingElement.scrollTo(0, 0)
+  }
+
+  rating(event) {
+    if (this.isPreventDefault('rating')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rating'), controller: this } } })
+    if (this.isStopPropagation('rating')) { event.stopPropagation() }
+  }
+
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get buttonClass() {
+    return this.optionsValue.buttonClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get label() {
+    return this.optionsValue.label
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get events() {
+    return this.optionsValue.events
+  }
+  get eventIds() {
+    return this.events.map((event) => (event.id))
+  }
+  get actions() {
+    return this.optionsValue.actions
+  }
+  get isRememberMe() {
+    return this.optionsValue.isRememberMe || false
+  }
+  get variants() {
+    return {
+      primary: " bg-primary text-primary-foreground hover:bg-primary/80 ",
+      secondary: " bg-secondary text-secondary-foreground hover:bg-secondary/80 ",
+      outline: "  border border-input bg-background hover:bg-accent hover:text-accent-foreground ",
+      ghost: " hover:bg-accent hover:text-accent-foreground  ",
+      destructive: " bg-destructive text-destructive-foreground hover:bg-destructive/90 ",
+    }
+  }
+  get variant() {
+    return this.variants[this.optionsValue.variant]
   }
 }

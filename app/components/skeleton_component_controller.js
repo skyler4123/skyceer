@@ -30,24 +30,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get name() {
-    return this.optionsValue.name || "default"
-  }
 
   initializeValue() {
     this.percentageValue = this.optionsValue.percentage
@@ -93,6 +75,24 @@ export default class extends Controller {
     }
   }
 
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get name() {
+    return this.optionsValue.name || "default"
+  }
   get initHTML() {
     return {
       'default': `

@@ -29,24 +29,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get id() {
-    return this.element.id
-  }
-  get label() {
-    return this.optionsValue.label
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get url() {
-    return this.optionsValue.url
-  }
 
   initializeHTML() {
     if (this.linkTarget.childElementCount === 0) { this.linkTarget.textContent = this.label }
@@ -92,6 +74,25 @@ export default class extends Controller {
 
   copyLink() {
     window.navigator.clipboard.writeText(this.url)
+  }
+
+  get id() {
+    return this.element.id
+  }
+  get label() {
+    return this.optionsValue.label
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get url() {
+    return this.optionsValue.url
   }
   
 }

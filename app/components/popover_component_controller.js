@@ -27,24 +27,6 @@ export default class extends Controller {
   initializeComplete() {
     // this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get position() {
-    return this.optionsValue.position
-  }
   
   initializeClass() {
     this.element.className = twMerge(this.positionClass[this.position], this.element.className, this.klass)
@@ -82,6 +64,24 @@ export default class extends Controller {
     }
   }
 
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get position() {
+    return this.optionsValue.position
+  }
   get positionClass() {
     return {
       'bottomLeft': 'open:flex absolute justify-center items-center left-0 bottom-0 translate-y-full py-2',

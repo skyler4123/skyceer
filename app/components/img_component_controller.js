@@ -29,30 +29,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get imgClass() {
-    return this.optionsValue.imgClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get url() {
-    return this.optionsValue.url
-  }
-  get alt() {
-    return this.optionsValue.alt
-  }
 
   initializeHTML() {
     this.element.innerHTML = this.initHTML
@@ -98,6 +74,31 @@ export default class extends Controller {
   }
   rotate() {
     this.isOpenValue = !this.isOpenValue
+  }
+
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get imgClass() {
+    return this.optionsValue.imgClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get url() {
+    return this.optionsValue.url
+  }
+  get alt() {
+    return this.optionsValue.alt
   }
   get initHTML() {
     return `

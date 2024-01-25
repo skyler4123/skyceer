@@ -28,27 +28,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get contentClass() {
-    return this.optionsValue.contentClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get orientation() {
-    return this.optionsValue.orientation || 'vertical'
-  }
 
   initializeClass() {
     if (this.orientation === 'vertical') {
@@ -91,5 +70,27 @@ export default class extends Controller {
     } else {
       this.element.removeAttribute('open')
     }
+  }
+
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get contentClass() {
+    return this.optionsValue.contentClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get orientation() {
+    return this.optionsValue.orientation || 'vertical'
   }
 }

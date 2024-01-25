@@ -30,36 +30,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get liClass() {
-    return this.optionsValue.liClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get isSortable() {
-    return this.optionsValue.isSortable
-  }
-  get sortableOptions() {
-    return this.optionsValue.sortableOptions
-  }
-
-  initializeTarget() {
-    this.element.querySelectorAll('li').forEach((target) => {
-      target.setAttribute(`data-${this.identifier}-target`, 'li')
-    })
-  }
 
   initializeClass() {
     this.element.className = twMerge(this.element.className, this.klass)
@@ -103,5 +73,36 @@ export default class extends Controller {
       this.element.removeAttribute('open')
       this.liTarget.removeAttribute('open')
     }
+  }
+
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get liClass() {
+    return this.optionsValue.liClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get isSortable() {
+    return this.optionsValue.isSortable
+  }
+  get sortableOptions() {
+    return this.optionsValue.sortableOptions
+  }
+
+  initializeTarget() {
+    this.element.querySelectorAll('li').forEach((target) => {
+      target.setAttribute(`data-${this.identifier}-target`, 'li')
+    })
   }
 }

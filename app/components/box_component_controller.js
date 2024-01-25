@@ -2,17 +2,19 @@ import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ['content']
+  static targets = ['item', 'accordion', 'button', 'carousel', 'hr', 'icon', 'img', 'input', 'link', 'list', 'mockup', 'modal', 'popover', 'progress', 'skeleton', 'tab', 'text', 'toast', 'video']
   static values = {
     options: { type: Object },
     isOpen: { type: Boolean },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
+    ratingIndex: { type: Number }
   }
 
   initialize() {
     this.initializeID()
     this.initializeHTML()
+    this.initializeTarget()
     this.initializeValue()
     this.initializeClass()
     this.initializeAction()
@@ -30,33 +32,7 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get position() {
-    return this.optionsValue.position
-  }
-  get type() {
-    return this.optionsValue.type
-  }
-  get border() {
-    return this.optionsValue.border
-  }
-  get color() {
-    return this.optionsValue.color
-  }
+
 
   initializeHTML() {
     if (this.type === 'toggle') {
@@ -67,6 +43,10 @@ export default class extends Controller {
   initializeValue() {
     if (typeof this.optionsValue.isOpen != "undefined") {
       this.isOpenValue = this.optionsValue.isOpen
+    }
+    if (typeof this.optionsValue.ratingIndex != "undefined") {
+      this.isFirstRatingIndexValueChanged = true
+      this.ratingIndexValue = this.optionsValue.ratingIndex
     }
   }
 
@@ -115,6 +95,121 @@ export default class extends Controller {
     }
   }
 
+  rating(event) {
+    this.ratingIndexValue = event.value
+  }
+
+  ratingIndexValueChanged(value, previousValue) {
+    if (previousValue === undefined) { return }
+
+    let timeout = 0
+    if (this.isFirstRatingIndexValueChanged) {
+      timeout = 500
+    }
+    setTimeout(() => {
+      for (let i = 0; i < this.iconTargets.length; i++) {
+        const iconController = this.application.getControllerForElementAndIdentifier(this.iconTargets[i], 'icon-component')
+        if (i <= this.ratingIndexValue) {
+          iconController.open()
+        } else {
+          iconController.close()
+        }
+        this.isFirstRatingIndexValueChanged = false
+      }
+    }, timeout)
+  }
+
+  initializeTarget() {
+    Array.from(this.element.children).forEach((target) => {
+      target.setAttribute(`data-${this.identifier}-target`, "item")
+    })
+    setTimeout(() => {
+      this.element.querySelectorAll('[data-controller*="accordion-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'accordion')
+      })
+      this.element.querySelectorAll('[data-controller*="button-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'button')
+      })
+      this.element.querySelectorAll('[data-controller*="carousel-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'carousel')
+      })
+      this.element.querySelectorAll('[data-controller*="hr-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'hr')
+      })
+      this.element.querySelectorAll('[data-controller*="icon-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'icon')
+      })
+      this.element.querySelectorAll('[data-controller*="img-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'img')
+      })
+      this.element.querySelectorAll('[data-controller*="input-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'input')
+      })
+      this.element.querySelectorAll('[data-controller*="link-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'link')
+      })
+      this.element.querySelectorAll('[data-controller*="list-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'list')
+      })
+      this.element.querySelectorAll('[data-controller*="mockup-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'mockup')
+      })
+      this.element.querySelectorAll('[data-controller*="modal-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'modal')
+      })
+      this.element.querySelectorAll('[data-controller*="popover-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'popover')
+      })
+      this.element.querySelectorAll('[data-controller*="progress-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'progress')
+      })
+      this.element.querySelectorAll('[data-controller*="skeleton-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'skeleton')
+      })
+      this.element.querySelectorAll('[data-controller*="tab-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'tab')
+      })
+      this.element.querySelectorAll('[data-controller*="text-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'text')
+      })
+      this.element.querySelectorAll('[data-controller*="toast-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'toast')
+      })
+      this.element.querySelectorAll('[data-controller*="video-component"]').forEach((target) => {
+        target.setAttribute(`data-${this.identifier}-target`, 'video')
+      })
+
+    }, 500)
+  }
+
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get position() {
+    return this.optionsValue.position
+  }
+  get type() {
+    return this.optionsValue.type
+  }
+  get border() {
+    return this.optionsValue.border
+  }
+  get color() {
+    return this.optionsValue.color
+  }
+  
   get initHTML() {
     return {
       toggle: `

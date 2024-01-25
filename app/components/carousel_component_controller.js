@@ -8,6 +8,7 @@ export default class extends Controller {
     isOpen: { type: Boolean },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
+    intervalId: { type: Number }
   }
 
   initialize() {
@@ -29,24 +30,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get carouselClass() {
-    return this.optionsValue.carouselClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
 
   initializeTarget() {
     Array.from(this.element.children).forEach((target) => {
@@ -63,6 +46,10 @@ export default class extends Controller {
   initializeAction() {
     if (this.event) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    }
+    this.element.dataset.action = (this.element.dataset.action || "") + ` wheel->${this.identifier}#scroll`
+    if (this.timeInterval) {
+      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeInterval)
     }
   }
 
@@ -92,21 +79,94 @@ export default class extends Controller {
     }
   }
 
+  scroll() {
+    if (this.element.scrollLeft === 0) {
+      this.scrollBack()
+    }
+    if ((this.element.scrollLeft + this.element.offsetWidth + 1) > this.element.scrollWidth) {
+      this.scrollForward()
+    }
+
+  }
+
   scrollBack() {
+    if (this.element.scrollLeft === 0) {
+      this.prependCarousel()
+    }
     this.element.scrollBy(-1, 0)
   }
 
   scrollForward() {
     if ((this.element.scrollLeft + this.element.offsetWidth + 1) > this.element.scrollWidth) {
-      this.scrollStart()
-      return
+      if (this.isInfinityScroll) {
+        this.appendCarousel()
+      } else {
+        this.scrollStart()
+        return
+      }
     }
     this.element.scrollBy(1, 0)
   }
+
+  scrollForwardAuto() {
+    if (this.intervalIdValue) {
+      this.intervalIdValue = false
+    } else {
+      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeInterval || 2000)
+    }
+  }
+
   scrollStart() {
     this.element.scrollTo(0, 0)
   }
+
   scrollEnd() {
     this.element.scrollTo(this.element.scrollWidth, this.element.scrollHeight)
+  }
+
+  prependCarousel() {
+    this.carouselTargets.forEach((target, index) => {
+      this.element.insertBefore(target.cloneNode(true), this.element.childNodes[index])
+    })
+  }
+
+  appendCarousel() {
+    this.carouselTargets.forEach((target) => {
+      this.element.appendChild(target.cloneNode(true))
+    })
+  }
+
+  intervalIdValueChanged(value, previousValue) {
+    clearInterval(previousValue)
+  }
+
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get carouselClass() {
+    return this.optionsValue.carouselClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get isInfinityScroll() {
+    if (this.optionsValue.isInfinityScroll === undefined) {
+      return true
+    } else {
+      return this.optionsValue.isInfinityScroll
+    }
+  }
+
+  get timeInterval() {
+    return this.optionsValue.timeInterval
   }
 }

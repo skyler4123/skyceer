@@ -30,24 +30,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get hrClass() {
-    return this.optionsValue.hrClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
 
   initializeHTML() {
     this.element.innerHTML = this.initHTML
@@ -102,5 +84,24 @@ export default class extends Controller {
     } else {
       this.element.removeAttribute('open')
     }
+  }
+
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get hrClass() {
+    return this.optionsValue.hrClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
   }
 }

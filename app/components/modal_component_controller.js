@@ -28,27 +28,6 @@ export default class extends Controller {
   initializeComplete() {
     // this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get backgroundClass() {
-    return this.optionsValue.backgroundClass
-  }
-  get contentClass() {
-    return this.optionsValue.contentClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
 
   initializeClass() {
     this.element.className = twMerge("fixed top-0 hidden open:flex animate-fade-in", this.element.className , this.klass)
@@ -91,5 +70,27 @@ export default class extends Controller {
       this.backgroundTarget.removeAttribute('open')
       this.contentTarget.removeAttribute('open')
     }
+  }
+
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get backgroundClass() {
+    return this.optionsValue.backgroundClass
+  }
+  get contentClass() {
+    return this.optionsValue.contentClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
   }
 }

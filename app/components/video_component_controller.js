@@ -28,43 +28,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get videoClass() {
-    return this.optionsValue.videoClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get isControl() {
-    return this.optionsValue.isControl || true
-  }
-  get isAutoplay() {
-    return this.optionsValue.isAutoplay || false
-  }
-  get isMuted() {
-    return this.optionsValue.isMuted || false
-  }
-  get src() {
-    return this.optionsValue.src
-  }
-  get url() {
-    return this.optionsValue.url || this.src || 'https://flowbite.com/docs/videos/flowbite.mp4'
-  }
-  get type() {
-    return this.optionsValue.type || 'video/mp4'
-  }
-
 
   initializeHTML() {
     this.element.innerHTML = this.initHTML
@@ -115,6 +78,42 @@ export default class extends Controller {
     }
   }
 
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get videoClass() {
+    return this.optionsValue.videoClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get isControl() {
+    return this.optionsValue.isControl || true
+  }
+  get isAutoplay() {
+    return this.optionsValue.isAutoplay || false
+  }
+  get isMuted() {
+    return this.optionsValue.isMuted || false
+  }
+  get src() {
+    return this.optionsValue.src
+  }
+  get url() {
+    return this.optionsValue.url || this.src || 'https://flowbite.com/docs/videos/flowbite.mp4'
+  }
+  get type() {
+    return this.optionsValue.type || 'video/mp4'
+  }
   get initHTML() {
     return `
       <source src="${this.url}" type="${this.type}">

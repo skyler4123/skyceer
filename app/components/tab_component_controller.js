@@ -30,27 +30,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get tabClass() {
-    return this.optionsValue.tabClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get maxIndex() {
-    return this.tabTargets.length - 1
-  }
 
   initializeTarget() {
     Array.from(this.element.children).forEach((target) => {
@@ -122,5 +101,27 @@ export default class extends Controller {
       target.removeAttribute('open')
     })
     this.tabTargets[this.tabIndexValue].setAttribute('open', '')
+  }
+
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get tabClass() {
+    return this.optionsValue.tabClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get maxIndex() {
+    return this.tabTargets.length - 1
   }
 }

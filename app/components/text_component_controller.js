@@ -34,33 +34,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get textClass() {
-    return this.optionsValue.textClass
-  }
-  get editorClass() {
-    return this.optionsValue.editorClass
-  }
-  get inputClass() {
-    return this.optionsValue.inputClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get languageKey() {
-    return this.optionsValue.languageKey || this.labelValue
-  }
 
   initializeValue() {
     this.labelValue = this.optionsValue.label
@@ -165,6 +138,33 @@ export default class extends Controller {
     this.labelValue = Number(this.labelValue) - Number(event.value)
   }
 
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get textClass() {
+    return this.optionsValue.textClass
+  }
+  get editorClass() {
+    return this.optionsValue.editorClass
+  }
+  get inputClass() {
+    return this.optionsValue.inputClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get languageKey() {
+    return this.optionsValue.languageKey || this.labelValue
+  }
   get dictionary() {
     return {
       'Price': {

@@ -31,33 +31,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get backgroundClass() {
-    return this.optionsValue.backgroundClass
-  }
-  get percentageClass() {
-    return this.optionsValue.percentageClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get isShowPercentage() {
-    this.optionsValue.isShowPercentage
-  }
-  get orientation() {
-    return this.optionsValue.orientation || "vertical"
-  }
   
   initializeValue() {
     this.percentageValue = this.optionsValue.percentage
@@ -104,14 +77,6 @@ export default class extends Controller {
     }
   }
 
-  get initHTML() {
-    return `
-      <div data-${this.identifier}-target="percentage" style="width: ${this.percentageValue}%">
-        ${this.isShowPercentage ? this.percentageValue : ''}
-      </div>
-    `
-  }
-
   percentageValueChanged(value, previousValue) {
     if (previousValue === undefined || previousValue === '') { return }
 
@@ -123,5 +88,40 @@ export default class extends Controller {
 
   changePercentage(event) {
     this.percentageValue = event.value
+  }
+
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get backgroundClass() {
+    return this.optionsValue.backgroundClass
+  }
+  get percentageClass() {
+    return this.optionsValue.percentageClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get isShowPercentage() {
+    this.optionsValue.isShowPercentage
+  }
+  get orientation() {
+    return this.optionsValue.orientation || "vertical"
+  }
+  get initHTML() {
+    return `
+      <div data-${this.identifier}-target="percentage" style="width: ${this.percentageValue}%">
+        ${this.isShowPercentage ? this.percentageValue : ''}
+      </div>
+    `
   }
 }

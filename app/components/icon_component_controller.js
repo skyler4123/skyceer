@@ -30,33 +30,6 @@ export default class extends Controller {
   initializeComplete() {
     this.element.classList.remove('hidden')
   }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get svgClass() {
-    return this.optionsValue.svgClass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event.id
-  }
-  get type() {
-    return this.optionsValue.type || "outline"
-  }
-  get name() {
-    return this.optionsValue.name || "star"
-  }
-  get svgHtml() {
-    return this.optionsValue.svgHtml
-  }
 
   initializeHTML() {
     if (this.svgHtml) {
@@ -108,10 +81,39 @@ export default class extends Controller {
       this.svgTarget.removeAttribute('open')
     }
   }
+
   rotate() {
     this.isOpenValue = !this.isOpenValue
   }
 
+  get klass() {
+    return this.optionsValue.klass
+  }
+  get svgClass() {
+    return this.optionsValue.svgClass
+  }
+  get id() {
+    return this.element.id
+  }
+  get isTest() {
+    return this.optionsValue.isTest
+  }
+  get event() {
+    return this.optionsValue.event
+  }
+  get eventId() {
+    return this.event.id
+  }
+  get type() {
+    return this.optionsValue.type || "outline"
+  }
+  get name() {
+    return this.optionsValue.name || "star"
+  }
+  get svgHtml() {
+    return this.optionsValue.svgHtml
+  }
+  
   get initHTML() {
     return {
       animation: {
