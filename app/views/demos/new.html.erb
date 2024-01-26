@@ -1,3 +1,33 @@
-    <% icon_event_id = SecureRandom.uuid %>
-    <%= button(is_test: true, event: { id: icon_event_id, listener: :click, action: :rotate }) %>
-    <%= render(IconComponent.new(is_test: true, event: { id: icon_event_id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out")) %>
+    <% carousel_event_id = SecureRandom.uuid %>
+    <%= button(event: { id: carousel_event_id, listener: :click, action: :scroll_back }) %>
+    <%= button(event: { id: carousel_event_id, listener: :click, action: :scroll_forward }) %>
+    
+    <%= render(CarouselComponent.new(is_test: true, event: { id: carousel_event_id })) do %>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
+      </div>
+    <% end %>
+
+    <%= render(CarouselComponent.new(is_test: true, time_interval: 3000, event: { id: carousel_event_id })) do %>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
+      </div>
+    <% end %>
