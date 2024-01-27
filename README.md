@@ -13,4 +13,4 @@ Rules
 * A component communicate with others via 'Global Event' controller name 'global'. Component A dispatch a event to 'global' then 'global' send that event to every components that listening to them.
 * A component can not dispatch and receive the same event.
 * Only 'ButtonComponent' can dispatch event.
-* When 'ButtonComponent' want to recevive event, the 'action' name must be prefixed by 'self' like 'selfOpen'.
+* When 'ButtonComponent' want to to own its action (not event), the 'action' name must be prefixed by 'self' like 'selfOpen'.
