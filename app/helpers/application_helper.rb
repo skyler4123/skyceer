@@ -7,4 +7,12 @@ module ApplicationHelper
       render(component.new(**kwargs), &block)
     end
   end
+
+  def new_id
+    @id = SecureRandom.uuid
+  end
+
+  def id
+    @id
+  end
 end

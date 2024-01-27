@@ -41,9 +41,11 @@ export default class extends Controller {
 
   initializeClass() {
     this.element.className = twMerge(this.element.className, this.klass)
-    this.tabTargets.forEach((target) => {
-      target.className = twMerge('hidden open:flex', target.className, this.tabClass)
-    })
+    setTimeout(() => {
+      this.tabTargets.forEach((target) => {
+        target.className = twMerge('hidden open:flex', target.className, this.tabClass)
+      })
+    }, 500)
   }
 
   initializeAction() {
