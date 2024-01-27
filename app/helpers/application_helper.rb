@@ -1,9 +1,11 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  Dir.glob('app/components/*.rb').map {|dir| dir.split('/').last.split('.').first}.each do |component_name|
-    define_method(component_name.split('_').first) do |**kwargs, &block|
-      component = component_name.to_s.camelize.constantize
+  Dir.glob('app/components/*.rb').each do |dir|
+    basename = File.basename(dir, '.rb')
+    classname = ActiveSupport::Inflector.camelize(basename)
+    define_method(basename.gsub!('_component', '')) do |**kwargs, &block|
+      component = classname.constantize
       render(component.new(**kwargs), &block)
     end
   end
