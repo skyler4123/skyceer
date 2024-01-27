@@ -1,5 +1,5 @@
 export const Camelize = (optionsObject) => {
-  const CamalizeObject = () => {
+  const camalizeObject = () => {
     let options = optionsObject
     options = Object.keys(options).reduce((result, key) => ({
       ...result,
@@ -42,6 +42,6 @@ export const Camelize = (optionsObject) => {
     }
   }
 
-  return CamalizeObject()
+  return camalizeObject()
 }
 
