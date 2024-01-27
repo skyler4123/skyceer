@@ -182,7 +182,7 @@
         <option value="DE">Germany</option>
     <% end %>
 
-    <%= render(BoxComponent.new(type: :toggle, is_test: true)) %>
+    <%= render(ButtonComponent.new(is_test: true, type: :toggle)) %>
 
     <% change_number_event_id = SecureRandom.uuid %>
     <%= render(TextComponent.new(label: '12', is_test: true, event: { id: change_number_event_id })) %>

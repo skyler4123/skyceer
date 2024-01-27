@@ -47,15 +47,23 @@ export default class extends Controller {
     if (this.buttonTarget.childElementCount === 0) { this.buttonTarget.textContent = this.label }
   }
   initializeClass() {
+    if (this.type === 'toggle') {
+      this.element.className = twMerge(this.element.className, this.defaultClass.toggle.klass)
+      this.buttonTarget.className = twMerge(this.buttonTarget.className, this.defaultClass.toggle.buttonClass)
+    }
     this.element.className = twMerge(this.element.className, this.klass)
     this.buttonTarget.className = twMerge(this.buttonTarget.className, this.buttonClass)
   }
 
   initializeAction() {
-    // this.element.dataset.action = (this.element.dataset.action || '') + ' ' + (this.actions || '')
-    // this.actions.forEach((action) => {
-    //   this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${OBject.keys(action)[0]}->${this.identifier}#`
-    // })
+    if (this.type === 'toggle') {
+      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#selfToggle`
+    }
+    if (this.actions) {
+      this.actions.forEach((action) => {
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${Object.keys(action)[0]}->${this.identifier}#${Object.values(action)[0]}`
+      })
+    }
     if (this.events) {
       this.events.forEach((event) => {
         if (event.initialize) {
@@ -254,8 +262,19 @@ export default class extends Controller {
   get actions() {
     return this.optionsValue.actions
   }
+  get type() {
+    return this.optionsValue.type
+  }
   get isRememberMe() {
     return this.optionsValue.isRememberMe || false
+  }
+  get defaultClass() {
+    return {
+      toggle: {
+        klass: 'bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full cursor-pointer duration-200 ease-out',
+        buttonClass: 'bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 open:translate-x-full duration-200 ease-out'
+      }
+    }
   }
   get variants() {
     return {
