@@ -1,9 +1,9 @@
-<%= text(type: :code, label: "Copy Code") %>
+<% text = "@tailwindcss/forms
+@tailwindcss/aspect-ratio
+@tailwindcss/typography
+@tailwindcss/container-queries
+tailwindcss-animate
+" %>
+<%= text(type: :code, label: text, event_id: 'copy code id') %>
 
 
-<%= button(events: [{ id: "copy code id", listener: :click, action: :tab_next }, { id: new_id, listener: :click, action: :tab_next }]) do %>
-  <%= tab(event_id: id,is_test: true, is_restore: true, klass: 'bg-gray-900 rounded-md text-white w-20 py-1 flex justify-center') do %>
-    <%= text(label: "Copy") %>
-    <%= text(label: "Copied", text_class: 'text-green-500') %>
-  <% end %>
-<% end %>
