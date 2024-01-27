@@ -79,7 +79,7 @@ export default class extends Controller {
     return this.optionsValue.event
   }
   get eventId() {
-    return this.event.id
+    return this.event.id || this.optionsValue.eventId
   }
   get position() {
     return this.optionsValue.position
