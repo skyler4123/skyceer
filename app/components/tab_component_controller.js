@@ -1,3 +1,4 @@
+import morphdom from "morphdom"
 import { twMerge } from 'tailwind-merge'
 import { Camelize } from "./helpers";
 import { Controller } from "@hotwired/stimulus";
@@ -6,7 +7,7 @@ export default class extends Controller {
   static targets = ["tab"]
   static values = {
     options: { type: Object },
-    isOpen: { type: Boolean, default: false },
+    isOpen: { type: Boolean },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
     tabIndex: { type: Number }
@@ -35,23 +36,30 @@ export default class extends Controller {
 
   initializeTarget() {
     Array.from(this.element.children).forEach((target) => {
-      target.setAttribute(`data-${this.identifier}-target`, 'tab')
+      morphdom(target, this.initTarget(target.outerHTML))
+      // target.setAttribute(`data-${this.identifier}-target`, 'tab')
     })
   }
 
   initializeClass() {
     this.element.className = twMerge(this.element.className, this.klass)
-    setTimeout(() => {
-      this.tabTargets.forEach((target) => {
-        target.className = twMerge('hidden open:flex', target.className, this.tabClass)
-      })
-    }, 500)
+    this.tabTargets.forEach((target) => {
+      target.className = twMerge('hidden open:flex', target.className, this.tabClass)
+    })
   }
 
   initializeAction() {
     if (this.eventId) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }
+  }
+
+  initTarget(contentHTML) {
+    return `
+      <div data-${this.identifier}-target="tab">
+        ${contentHTML}
+      </div>
+    `
   }
 
   globalDispatch({ detail: { event } }) {
@@ -105,6 +113,11 @@ export default class extends Controller {
       target.removeAttribute('open')
     })
     this.tabTargets[this.tabIndexValue].setAttribute('open', '')
+    if (this.isRestore && previousValue !== undefined) {
+      setTimeout(() => {
+        this.tabIndexValue = this.restoreIndex
+      }, this.restoreTimeout)
+    }
   }
 
   get klass() {
@@ -128,6 +141,16 @@ export default class extends Controller {
   get maxIndex() {
     return this.tabTargets.length - 1
   }
-
-
+  get isRestore() {
+    if (typeof this.optionsValue.restoreIndex != "undefined" || typeof this.optionsValue.restoreTimeout != "undefined") {
+      return true
+    }
+    return this.optionsValue.isRestore
+  }
+  get restoreIndex() {
+    return this.optionsValue.restoreIndex || 0
+  }
+  get restoreTimeout() {
+    return this.optionsValue.restoreTimeout || 5000
+  }
 }

@@ -6,11 +6,11 @@ export default class extends Controller {
   static targets = ["text", "editor", "input"]
   static values = {
     options: { type: Object },
-    isOpen: { type: Boolean, default: false },
+    isOpen: { type: Boolean },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
     label: { type: String },
-    isOpenEditor: { type: Boolean, default: false },
+    isOpenEditor: { type: Boolean },
     language: { type: String }
   }
 
@@ -45,6 +45,9 @@ export default class extends Controller {
   initializeHTML() {
     this.textTarget.innerText = this.labelValue
     this.textTarget.setAttribute('open', '')
+    // if (this.type === 'code') {
+    //   // TODO
+    // }
   }
 
   initializeTarget() {
@@ -56,6 +59,9 @@ export default class extends Controller {
   }
 
   initializeClass() {
+    // if (this.type === 'code') {
+    //   this.element.className = twMerge(this.element.className, this.defaultClass.code.klass)
+    // }
     this.element.className = twMerge(this.element.className, this.klass)
     this.textTarget.className = twMerge('hidden open:flex', this.textTarget.className, this.textClass)
     if (this.hasEditorTarget) {
@@ -168,9 +174,37 @@ export default class extends Controller {
   get eventId() {
     return this.event?.id || this.optionsValue.eventId
   }
+  get type() {
+    return this.optionsValue.type
+  }
   get languageKey() {
     return this.optionsValue.languageKey || this.labelValue
   }
+  // get defaultClass() {
+  //   return {
+  //     code: {
+  //       klass: 'bg-gray-900 text-white w-1/2 py-2 px-10'
+  //     }
+  //   }
+  // }
+  // get initHTML() {
+  //   return {
+  //     code: `
+  //       <div class="hidden" data-controller="button-component " data-button-component-options-value="{&quot;events&quot;:[{&quot;id&quot;:&quot;a200d0fd-de67-430c-947e-debbb4510759&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;tab_next&quot;}]}">
+  //         <button data-button-component-target="button">
+  //           <div class="hidden" data-controller="tab-component " data-tab-component-options-value="{&quot;event_id&quot;:&quot;a200d0fd-de67-430c-947e-debbb4510759&quot;,&quot;is_test&quot;:true,&quot;is_restore&quot;:true,&quot;klass&quot;:&quot;bg-gray-900 rounded-md text-white px-5&quot;}">
+  //             <div class="hidden" data-controller="text-component " data-text-component-options-value="{&quot;label&quot;:&quot;Copy&quot;}">
+  //               <div data-text-component-target="text"></div>
+  //             </div>
+  //             <div class="hidden" data-controller="text-component " data-text-component-options-value="{&quot;label&quot;:&quot;Copied&quot;,&quot;text_class&quot;:&quot;text-green-500&quot;}">
+  //               <div data-text-component-target="text"></div>
+  //             </div>
+  //           </div>
+  //         </button>
+  //       </div>
+  //     `
+  //   }
+  // }
   get dictionary() {
     return {
       'Price': {
