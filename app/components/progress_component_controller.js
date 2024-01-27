@@ -48,7 +48,7 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    if (this.event) {
+    if (this.eventId) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }
   }
@@ -111,7 +111,7 @@ export default class extends Controller {
     return this.optionsValue.event
   }
   get eventId() {
-    return this.event.id || this.optionsValue.eventId
+    return this.event?.id || this.optionsValue.eventId
   }
   get isShowPercentage() {
     this.optionsValue.isShowPercentage

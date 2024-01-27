@@ -1,5 +1,5 @@
     <% rating_event_id = SecureRandom.uuid %>
-    <%= box(is_test: true, event: { id: rating_event_id }) do %>
+    <%= box(is_test: true, event_id: rating_event_id) do %>
       <%= button(event: { id: rating_event_id, listener: :click, action: :rating, value: 0 }) do %>
         <%= icon(name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
       <% end %>
