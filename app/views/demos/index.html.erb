@@ -183,6 +183,12 @@
     <% end %>
 
     <%= render(ButtonComponent.new(is_test: true, type: :toggle)) %>
+    <%= render(ButtonComponent.new(is_test: true, type: :toggle, klass: 'open:bg-green-500')) %>
+    <%= render(ButtonComponent.new(is_test: true, type: :toggle, klass: 'open:bg-red-500')) %>
+    <%= render(ButtonComponent.new(is_test: true, type: :toggle, is_open: true, klass: 'open:bg-blue-500')) %>
+    <%= render(ButtonComponent.new(is_test: true, type: :toggle, klass: 'open:bg-yellow-500')) %>
+    <%= render(ButtonComponent.new(is_test: true, type: :toggle, klass: 'open:bg-red-500')) %>
+    <%= render(ButtonComponent.new(is_test: true, type: :toggle, klass: 'open:bg-violet-500')) %>
 
     <% change_number_event_id = SecureRandom.uuid %>
     <%= render(TextComponent.new(label: '12', is_test: true, event: { id: change_number_event_id })) %>

@@ -20,6 +20,7 @@ export default class extends Controller {
     this.initializeHTML()
     this.initializeClass()
     this.initializeAction()
+    this.initializeValue()
     // Demo()
     this.initializeComplete()
   }
@@ -77,6 +78,12 @@ export default class extends Controller {
           this.element.dataset.action = this.element.dataset.action + ' ' + `${event.listener}->${this.identifier}#${event.action}`
         }
       })
+    }
+  }
+
+  initializeValue() {
+    if (typeof this.optionsValue.isOpen != "undefined") {
+      this.isOpenValue = this.optionsValue.isOpen
     }
   }
 
