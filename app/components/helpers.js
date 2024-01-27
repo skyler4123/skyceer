@@ -1,15 +1,15 @@
 export const Camelize = (optionsObject) => {
-  const camalizeObject = () => {
+  const camelizeObject = () => {
     let options = optionsObject
     options = Object.keys(options).reduce((result, key) => ({
       ...result,
-      [camalize(key)]: options[key]
+      [camelize(key)]: options[key]
     }), {})
     if (options.actions) {
       options.actions = options.actions.map((action) => {
         return Object.keys(action).reduce((result, key) => ({
           ...result,
-          [camalize(key)]: camalize(action[key])
+          [camelize(key)]: camelize(action[key])
         }), {})
       })
     }
@@ -19,22 +19,22 @@ export const Camelize = (optionsObject) => {
           if (key === 'id') {
             return {
               ...result,
-              [camalize(key)]: event[key]
+              [camelize(key)]: event[key]
             }
           }
           return {
             ...result,
-            [camalize(key)]: camalize(event[key])
+            [camelize(key)]: camelize(event[key])
           }
         }, {})
       })
     }
     if (options.position) {
-      options.position = camalize(options.position)
+      options.position = camelize(options.position)
     }
     return options
   }
-  const camalize = (str) => {
+  const camelize = (str) => {
     if (typeof str === 'string' || str instanceof String) {
       return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
     } else {
@@ -42,6 +42,6 @@ export const Camelize = (optionsObject) => {
     }
   }
 
-  return camalizeObject()
+  return camelizeObject()
 }
 

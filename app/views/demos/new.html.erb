@@ -1,4 +1,18 @@
-<%= render(ButtonComponent.new(is_test: true, type: :toggle, klass: 'open:bg-green-500')) %>
-<%= render(LinkComponent.new(label: 'FPT', url: 'https://fptshop.com.vn/may-tinh-xach-tay/lenovo-legion-gaming')) %>
-
-<%= button(is_test: true, type: :toggle, klass: 'open:bg-green-500') %>
+    <% rating_event_id = SecureRandom.uuid %>
+    <%= box(is_test: true, event: { id: rating_event_id }) do %>
+      <%= button(event: { id: rating_event_id, listener: :click, action: :rating, value: 0 }) do %>
+        <%= icon(name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
+      <% end %>
+      <%= button(event: { id: rating_event_id, listener: :click, action: :rating, value: 1 }) do %>
+        <%= icon(name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
+      <% end %>
+      <%= button(event: { id: rating_event_id, listener: :click, action: :rating, value: 2 }) do %>
+        <%= icon(name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
+      <% end %>
+      <%= button(event: { id: rating_event_id, listener: :click, action: :rating, value: 3 }) do %>
+        <%= icon(name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
+      <% end %>
+      <%= button(event: { id: rating_event_id, listener: :click, action: :rating, value: 4 }) do %>
+        <%= icon(name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
+      <% end %>
+    <% end %>
