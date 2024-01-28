@@ -1,11 +1,10 @@
-<% text = "
-document.addEventListener('DOMContentLoaded', (event) => {
+<% text = "document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelectorAll('pre code').forEach((el) => {
     hljs.highlightElement(el);
   });
 });" %>
 
 
-<%= text(type: :code, klass: "h-full w-3/4 m-5", label: text, event_id: 'copy code id') %>
+<%= text(type: :code, klass: "h-full w-3/4", label: text, event_id: 'copy code id') %>
 
 

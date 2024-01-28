@@ -63,7 +63,7 @@ export default class extends Controller {
   initializeClass() {
     if (this.type === 'code') {
       this.element.className = twMerge(this.element.className, this.defaultClass.code.klass)
-      // this.textTarget.className = twMerge('overflow-x-auto flex justify-start', this.textTarget.className)
+      this.textTarget.className = twMerge('overflow-x-auto flex justify-start no-scrollbar', this.textTarget.className)
     }
     this.element.className = twMerge(this.element.className, this.klass)
     this.textTarget.className = twMerge('hidden open:flex', this.textTarget.className, this.textClass)
@@ -193,7 +193,7 @@ export default class extends Controller {
   get defaultClass() {
     return {
       code: {
-        klass: 'flex flex-row bg-gray-900 text-white py-2 px-10 rounded-md'
+        klass: 'flex flex-row gap-x-4 bg-gray-900 text-white py-2 px-4 rounded-md'
       }
     }
   }
