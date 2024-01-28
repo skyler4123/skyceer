@@ -1,9 +1,11 @@
-<% text = "@tailwindcss/forms
-@tailwindcss/aspect-ratio
-@tailwindcss/typography
-@tailwindcss/container-queries
-tailwindcss-animate
-" %>
-<%= text(type: :code, label: text, event_id: 'copy code id') %>
+<% text = "
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll('pre code').forEach((el) => {
+    hljs.highlightElement(el);
+  });
+});" %>
+
+
+<%= text(type: :code, klass: "h-full w-3/4 m-5", label: text, event_id: 'copy code id') %>
 
 

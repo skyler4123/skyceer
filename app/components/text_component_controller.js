@@ -63,6 +63,7 @@ export default class extends Controller {
   initializeClass() {
     if (this.type === 'code') {
       this.element.className = twMerge(this.element.className, this.defaultClass.code.klass)
+      // this.textTarget.className = twMerge('overflow-x-auto flex justify-start', this.textTarget.className)
     }
     this.element.className = twMerge(this.element.className, this.klass)
     this.textTarget.className = twMerge('hidden open:flex', this.textTarget.className, this.textClass)

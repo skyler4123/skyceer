@@ -32,3 +32,4 @@ pin "@toast-ui/calendar", to: "https://ga.jspm.io/npm:@toast-ui/calendar@2.1.3/d
 pin "tui-date-picker", to: "https://ga.jspm.io/npm:tui-date-picker@4.3.3/dist/tui-date-picker.js"
 pin "tui-time-picker", to: "https://ga.jspm.io/npm:tui-time-picker@2.1.6/dist/tui-time-picker.js"
 pin "tailwind-merge" # @2.2.0
+pin "highlight.js", to: "https://ga.jspm.io/npm:highlight.js@11.8.0/es/index.js", preload: true

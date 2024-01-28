@@ -1,3 +1,4 @@
+import hljs from "highlight.js";
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
@@ -9,6 +10,21 @@ export default class extends Controller {
     this.element.dataset.action = (this.element.dataset.action || "") + `
       button-component:dispatch->${this.identifier}#reducer
     `
+  }
+
+  connect() {
+    // console.log("Hello, Stimulus!", this.element);
+    // console.log(hljs)
+    // document.addEventListener('DOMContentLoaded', (event) => {
+    //   document.querySelectorAll('pre code').forEach((el) => {
+    //     hljs.highlightElement(el);
+    //   });
+    // });
+    // setTimeout(() => {
+    //     hljs.highlightAll();
+    // }, 3000)
+    
+
   }
 
   reducer({ detail: { event } }) {
@@ -71,7 +87,5 @@ export default class extends Controller {
   }
 
 
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
-  }
+
 }
