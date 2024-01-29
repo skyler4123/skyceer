@@ -24,8 +24,8 @@
       <%= button(label: "Video", event: { id: id, action: :tab, value: 19, listener: :click }) %>
     </div>
   </div>
-  <div class="w-full flex flex-col items-center">
-    <%= tab(klass: 'flex w-full', event_id: id, tab_class: "open:animate-fade-in justify-center items-center") do %>
+  <div class="w-3/4">
+    <%= tab(klass: 'w-full', event_id: id, tab_class: "") do %>
       <%= render(Views::Components::BasicComponent.new) %>
       <%= render(Views::Components::AccordionComponent.new) %>
       <%= render(Views::Components::BoxComponent.new) %>
