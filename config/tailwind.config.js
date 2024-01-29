@@ -27,7 +27,7 @@ module.exports = {
           '100%': { transform: 'rotate(0.0deg)' },
         },
         'fade-in': {
-          '0%': { visibility: 'hidden', opacity: 0, transform: 'scale(.95)' },
+          '0%': { visibility: 'hidden', opacity: 0, transform: 'scale(.99)' },
           '100%': { visibility: 'visible', opacity: 1, transform: 'scale(1)' },
         },
       },
