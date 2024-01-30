@@ -90,10 +90,13 @@ export default class extends Controller {
     return this.optionsValue.event
   }
   get eventId() {
-    return this.event?.id || this.optionsValue.eventId
+    return this.event?.id || this.optionsValue.eventId || this.parentButtonEventId
   }
-  get parentController() {
-    return this.element.parentNode.closest('[data-controller]')
+  get parentButtonController() {
+    return this.element.parentNode.closest('[data-controller*="button-component"]')
+  }
+  get parentButtonEventId() {
+    return JSON.parse(this.parentButtonController?.dataset.buttonComponentOptionsValue)?.events[0]?.id
   }
   get name() {
     return this.optionsValue.name || "default"

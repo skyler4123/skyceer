@@ -1,14 +1,7 @@
-<%= button(label: 'Test Overlay', klass: "relative w-60 h-40 bg-red-500", event: { id: new_id, action: :toggle, listener: :hover }) do |c| %>
-  <% c.with_append do %>
-    <%= accordion(event_id: id, orientation: :horizontal, klass: 'absolute duration-300 top-0 left-0 ease-in-out') do %>
-      <div class="bg-green-500 w-60 h-40"></div>
-    <% end %>
-  <% end %>
-<% end %>
 
 <%= button(label: 'Test Overlay', klass: "relative w-60 h-40 bg-red-500", event: { id: new_id, action: :toggle, listener: :hover }) do |c| %>
   <% c.with_append do %>
-    <%= accordion(controller: "overlay", event_id: id, orientation: :horizontal, klass: '') do %>
+    <%= accordion(is_test: true, controller: "overlay", orientation: :horizontal, klass: '') do %>
       <div data-overlay-target="overlay" class="bg-green-500"></div>
     <% end %>
   <% end %>
