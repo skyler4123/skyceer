@@ -107,10 +107,16 @@ export default class extends Controller {
     return this.event?.id || this.optionsValue.eventId || this.parentButtonEventId
   }
   get parentButtonController() {
-    return this.element.parentNode.closest('[data-controller*="button-component"]')
+    if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
+      return this.element.parentNode.closest('[data-controller*="button-component"]')
+    } else {
+      return false
+    }
   }
   get parentButtonEventId() {
-    return JSON.parse(this.parentButtonController?.dataset.buttonComponentOptionsValue)?.events[0]?.id
+    if (this.parentButtonController) {
+      return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
+    }
   }
   get type() {
     return this.optionsValue.type || "outline"
