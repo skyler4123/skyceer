@@ -101,6 +101,9 @@ export default class extends Controller {
   get eventId() {
     return this.event?.id || this.optionsValue.eventId
   }
+  get parentController() {
+    return this.element.parentNode.closest('[data-controller]')
+  }
   get isSortable() {
     return this.optionsValue.isSortable
   }
