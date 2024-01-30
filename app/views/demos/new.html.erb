@@ -1,48 +1,15 @@
-
-<div class="flex flex-row w-full">
-  <div class="bg-green-500 min-h-screen w-1/4">
-      <%= button(label: "Basic", event: { id: new_id, action: :tab, value: 0, listener: :click, initialize: true}) %>
-      <%= button(label: "Accordion", event: { id: id, action: :tab, value: 1, listener: :click }) %>
-      <%= button(label: "Box", event: { id: id, action: :tab, value: 2, listener: :click }) %>
-      <%= button(label: "Button", event: { id: id, action: :tab, value: 3, listener: :click }) %>
-      <%= button(label: "Carousel", event: { id: id, action: :tab, value: 4, listener: :click }) %>
-      <%= button(label: "Hr", event: { id: id, action: :tab, value: 5, listener: :click }) %>
-      <%= button(label: "Icon", event: { id: id, action: :tab, value: 6, listener: :click }) %>
-      <%= button(label: "Img", event: { id: id, action: :tab, value: 7, listener: :click }) %>
-      <%= button(label: "Input", event: { id: id, action: :tab, value: 8, listener: :click }) %>
-      <%= button(label: "Link", event: { id: id, action: :tab, value: 9, listener: :click }) %>
-      <%= button(label: "List", event: { id: id, action: :tab, value: 10, listener: :click }) %>
-      <%= button(label: "Mockup", event: { id: id, action: :tab, value: 11, listener: :click }) %>
-      <%= button(label: "Modal", event: { id: id, action: :tab, value: 12, listener: :click }) %>
-      <%= button(label: "Popover", event: { id: id, action: :tab, value: 13, listener: :click }) %>
-      <%= button(label: "Progress", event: { id: id, action: :tab, value: 14, listener: :click }) %>
-      <%= button(label: "Skeleton", event: { id: id, action: :tab, value: 15, listener: :click }) %>
-      <%= button(label: "Tab", event: { id: id, action: :tab, value: 16, listener: :click }) %>
-      <%= button(label: "Text", event: { id: id, action: :tab, value: 17, listener: :click }) %>
-      <%= button(label: "Toast", event: { id: id, action: :tab, value: 18, listener: :click }) %>
-      <%= button(label: "Video", event: { id: id, action: :tab, value: 19, listener: :click }) %>
-    </div>
-    <%= tab(klass: 'w-3/4', event_id: id, tab_class: "") do %>
-      <%= text(type: :code, klass: "w-full", label: Constants::SAMPLE_ERB_CODE, event_id: 'copy code id') %>
-      <%= render(Views::Components::BasicComponent.new) %>
-      <%= render(Views::Components::AccordionComponent.new) %>
-      <%= render(Views::Components::BoxComponent.new) %>
-      <%= render(Views::Components::ButtonComponent.new) %>
-      <%= render(Views::Components::CarouselComponent.new) %>
-      <%= render(Views::Components::HrComponent.new) %>
-      <%= render(Views::Components::IconComponent.new) %>
-      <%= render(Views::Components::ImgComponent.new) %>
-      <%= render(Views::Components::InputComponent.new) %>
-      <%= render(Views::Components::LinkComponent.new) %>
-      <%= render(Views::Components::ListComponent.new) %>
-      <%= render(Views::Components::MockupComponent.new) %>
-      <%= render(Views::Components::ModalComponent.new) %>
-      <%= render(Views::Components::PopoverComponent.new) %>
-      <%= render(Views::Components::ProgressComponent.new) %>
-      <%= render(Views::Components::SkeletonComponent.new) %>
-      <%= render(Views::Components::TabComponent.new) %>
-      <%= render(Views::Components::TextComponent.new) %>
-      <%= render(Views::Components::ToastComponent.new) %>
-      <%= render(Views::Components::VideoComponent.new) %>
+<%= button(label: 'Test Overlay', klass: "relative w-60 h-40 bg-red-500", event: { id: new_id, action: :toggle, listener: :hover }) do |c| %>
+  <% c.with_append do %>
+    <%= accordion(event_id: id, orientation: :horizontal, klass: 'absolute duration-300 top-0 left-0 ease-in-out') do %>
+      <div class="bg-green-500 w-60 h-40"></div>
     <% end %>
-</div>
+  <% end %>
+<% end %>
+
+<%= button(label: 'Test Overlay', klass: "relative w-60 h-40 bg-red-500", event: { id: new_id, action: :toggle, listener: :hover }) do |c| %>
+  <% c.with_append do %>
+    <%= accordion(controller: "overlay", event_id: id, orientation: :horizontal, klass: '') do %>
+      <div data-overlay-target="overlay" class="bg-green-500"></div>
+    <% end %>
+  <% end %>
+<% end %>

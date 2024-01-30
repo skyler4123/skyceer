@@ -205,9 +205,9 @@ export default class extends Controller {
     return {
       code: {
         klass: 'flex flex-row w-full justify-between gap-x-4 bg-[#0D1117] relative rounded-md',
-        textClass: 'flex w-full',
-        preClass: 'flex w-full pr-4',
-        codeClass: 'flex flex-row w-full no-scrollbar rounded-md'
+        textClass: 'w-full',
+        preClass: 'w-full pr-4',
+        codeClass: 'w-full no-scrollbar rounded-md'
       }
     }
   }

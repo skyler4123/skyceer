@@ -25,7 +25,7 @@
     </div>
   </div>
   <div class="w-3/4">
-    <%= tab(klass: 'w-full', event_id: id, tab_class: "") do %>
+    <%= tab(klass: 'w-full flex justify-center', event_id: id, tab_class: "w-full px-4") do %>
       <%= render(Views::Components::BasicComponent.new) %>
       <%= render(Views::Components::AccordionComponent.new) %>
       <%= render(Views::Components::BoxComponent.new) %>
