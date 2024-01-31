@@ -1,1 +1,4 @@
-<%= comparison %>
+<%= button(label: "Test Ratio", event: { action: :change_ratio, value: 95, listener: :click, id: new_id }) %>
+<%= ratio(is_test: true, event_id: id, type: :progress_bar, is_reverse: true, is_show_ratio: true, klass: 'w-64') do %>
+  <div class="w-64 h-40 bg-green-500"></div>
+<% end %>

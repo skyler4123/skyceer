@@ -179,10 +179,10 @@ export default class extends Controller {
     if (this.isStopPropagation('rotate')) { event.stopPropagation() }
   }
 
-  changePercentage(event) {
-    if (this.isPreventDefault('changePercentage')) { event.preventDefault() }
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('changePercentage'), controller: this } } })
-    if (this.isStopPropagation('changePercentage')) { event.stopPropagation() }
+  changeRatio(event) {
+    if (this.isPreventDefault('changeRatio')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('changeRatio'), controller: this } } })
+    if (this.isStopPropagation('changeRatio')) { event.stopPropagation() }
   }
 
   tab(event) {

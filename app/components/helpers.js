@@ -32,6 +32,12 @@ export const Camelize = (optionsObject) => {
     if (options.position) {
       options.position = camelize(options.position)
     }
+    if (options.type) {
+      options.type = camelize(options.type)
+    }
+
+
+
     return options
   }
   const camelize = (str) => {
