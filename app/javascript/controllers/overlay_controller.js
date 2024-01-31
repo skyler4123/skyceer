@@ -5,7 +5,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ['overlay']
   initialize() {
-    console.log("Hello, Stimulus!", this.element);
+    // console.log("Hello, Stimulus!", this.element);
     // this.initializeTarget()
     this.initializeClass()
   }
@@ -21,7 +21,7 @@ export default class extends Controller {
   get defaultClass() {
     return {
       klass: 'absolute duration-300 top-0 left-0 ease-in-out',
-      overlay: 'w-60 h-40'
+      overlay: ''
     }
   }
   get parentController() {

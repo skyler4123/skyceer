@@ -92,7 +92,7 @@ export default class extends Controller {
   }
 
   scrollBack() {
-    if (this.element.scrollLeft === 0) {
+    if (this.element.scrollLeft === 0 && this.isInfinityScroll) {
       this.prependCarousel()
     }
     this.element.scrollBy(-1, 0)

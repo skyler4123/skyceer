@@ -190,7 +190,19 @@ export default class extends Controller {
     if (this.type === 'code') {
       return this.id
     }
-    return this.event?.id || this.optionsValue.eventId
+    return this.event?.id || this.optionsValue.eventId || this.parentButtonEventId
+  }
+  get parentButtonController() {
+    if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
+      return this.element.parentNode.closest('[data-controller*="button-component"]')
+    } else {
+      return false
+    }
+  }
+  get parentButtonEventId() {
+    if (this.parentButtonController) {
+      return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
+    }
   }
   get type() {
     return this.optionsValue.type
