@@ -1,37 +1,21 @@
 import { twMerge } from 'tailwind-merge'
-import { Camelize } from "./helpers";
 import BaseComponentController from './base_component_controller';
 
 export default class extends BaseComponentController {
   static targets = ['item', 'accordion', 'button', 'carousel', 'hr', 'icon', 'img', 'input', 'link', 'list', 'mockup', 'modal', 'popover', 'progress', 'skeleton', 'tab', 'text', 'toast', 'video']
   static values = {
-    options: { type: Object },
-    isOpen: { type: Boolean },
-    isFocus: { type: Boolean },
-    isActive: { type: Boolean },
+    ...super.values,
     ratingIndex: { type: Number }
   }
 
   initialize() {
-    this.optionsValue = Camelize(this.optionsValue)
-    this.initializeID()
+    super.initialize()
     this.initializeTarget()
     this.initializeValue()
     this.initializeClass()
     this.initializeAction()
 
     this.initializeComplete()
-  }
-  connect() {
-    if (this.isTest) { console.log(this) }
-  }
-  initializeID() {
-    if (!this.element.id) {
-      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
-    }
-  }
-  initializeComplete() {
-    this.element.classList.remove('hidden')
   }
 
   initializeValue() {
@@ -55,38 +39,6 @@ export default class extends BaseComponentController {
       this.element.className = twMerge(this.element.className, this.typeClass[this.type])
     }
     this.element.className = twMerge(this.element.className, this.klass)
-  }
-
-  initializeAction() {
-    if (this.eventId) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    }
-  }
-
-  globalDispatch({ detail: { event } }) {
-    if (this.eventId === event.id && this.id !== event.controller.id) {
-      eval(`this.${event.action}(event)`)
-    }
-  }
-
-  toggle() {
-    this.isOpenValue = !this.isOpenValue
-  }
-
-  open() {
-    this.isOpenValue = true
-  }
-
-  close() {
-    this.isOpenValue = false
-  }
-
-  isOpenValueChanged(value, previousValue) {
-    if (this.isOpenValue) {
-      this.element.setAttribute('open', '')
-    } else {
-      this.element.removeAttribute('open')
-    }
   }
 
   rating(event) {

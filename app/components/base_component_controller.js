@@ -1,9 +1,68 @@
+import { twMerge } from 'tailwind-merge'
+import { Camelize } from "./helpers";
 import { Controller } from "@hotwired/stimulus";
 
 export default class BaseComponentController extends Controller {
+  static baseStaticField = 90;
+  static values = {
+    options: { type: Object },
+    isOpen: { type: Boolean },
+    isFocus: { type: Boolean },
+    isActive: { type: Boolean }
+  }
+
   // connect() {
   //   console.log("Hello, Stimulus!", this.element);
   // }
+  initialize() {
+    this.optionsValue = Camelize(this.optionsValue)
+    this.initializeID()
+
+    // this.initializeComplete()
+  }
+  connect() {
+    if (this.isTest) { console.log(this) }
+  }
+  initializeID() {
+    if (!this.element.id) {
+      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
+    }
+  }
+  initializeComplete() {
+    this.element.classList.remove('hidden')
+  }
+
+  initializeAction() {
+    if (this.eventId) {
+      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    }
+  }
+
+  globalDispatch({ detail: { event } }) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
+      eval(`this.${event.action}(event)`)
+    }
+  }
+
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+
+  open() {
+    this.isOpenValue = true
+  }
+
+  close() {
+    this.isOpenValue = false
+  }
+
+  isOpenValueChanged(value, previousValue) {
+    if (this.isOpenValue) {
+      this.element.setAttribute('open', '')
+    } else {
+      this.element.removeAttribute('open')
+    }
+  }
 
   get dir() {
     return this.optionsValue.dir || false
@@ -38,6 +97,9 @@ export default class BaseComponentController extends Controller {
       return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
     }
   }
+  get orientation() {
+    return this.optionsValue.orientation || 'vertical'
+  }
   get position() {
     return this.optionsValue.position
   }
@@ -49,6 +111,16 @@ export default class BaseComponentController extends Controller {
   }
   get color() {
     return this.optionsValue.color
+  }
+  get isInfinityScroll() {
+    if (this.optionsValue.isInfinityScroll === undefined) {
+      return true
+    } else {
+      return this.optionsValue.isInfinityScroll
+    }
+  }
+  get timeInterval() {
+    return this.optionsValue.timeInterval
   }
 
 }

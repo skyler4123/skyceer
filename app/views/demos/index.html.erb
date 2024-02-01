@@ -16,7 +16,8 @@
     <%= hr do %>
       <div>Test HR Component</div>
     <% end %>
-
+    <%= icon %>
+    
     <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_link }) %>
     <%= link(label: "Test Copy Link", url: '/#', event: { id: id }) %>
 
