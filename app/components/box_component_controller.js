@@ -1,8 +1,8 @@
 import { twMerge } from 'tailwind-merge'
 import { Camelize } from "./helpers";
-import { Controller } from "@hotwired/stimulus";
+import BaseComponentController from './base_component_controller';
 
-export default class extends Controller {
+export default class extends BaseComponentController {
   static targets = ['item', 'accordion', 'button', 'carousel', 'hr', 'icon', 'img', 'input', 'link', 'list', 'mockup', 'modal', 'popover', 'progress', 'skeleton', 'tab', 'text', 'toast', 'video']
   static values = {
     options: { type: Object },
@@ -176,49 +176,6 @@ export default class extends Controller {
     }, 500)
   }
 
-  get dir() {
-    return this.optionsValue.dir || false
-  }
-  get klass() {
-    return this.optionsValue.klass
-  }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event?.id || this.optionsValue.eventId || this.parentButtonEventId
-  }
-  get parentButtonController() {
-    if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
-      return this.element.parentNode.closest('[data-controller*="button-component"]')
-    } else {
-      return false
-    }
-  }
-  get parentButtonEventId() {
-    if (this.parentButtonController) {
-      return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
-    }
-  }
-  get position() {
-    return this.optionsValue.position
-  }
-  get type() {
-    return this.optionsValue.type
-  }
-  get border() {
-    return this.optionsValue.border
-  }
-  get color() {
-    return this.optionsValue.color
-  }
-  
   get typeClass() {
     return {
       badge: {
