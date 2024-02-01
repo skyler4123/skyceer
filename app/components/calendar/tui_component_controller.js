@@ -108,6 +108,9 @@ export default class extends Controller {
     this.calendar.createEvents(this.eventsValue)
   }
 
+  get dir() {
+    return this.optionsValue.dir || false
+  }
   get klass() {
     return this.optionsValue.klass
   }

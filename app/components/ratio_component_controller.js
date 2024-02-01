@@ -3,7 +3,7 @@ import { Camelize } from "./helpers";
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["ratio"]
+  static targets = ["ratio", "divider"]
   static values = {
     options: { type: Object },
     isOpen: { type: Boolean, default: false },
@@ -13,7 +13,6 @@ export default class extends Controller {
   }
 
   initialize() {
-    console.log(this)
     this.optionsValue = Camelize(this.optionsValue)
     this.initializeID()
     this.initializeValue()
@@ -41,9 +40,9 @@ export default class extends Controller {
   }
 
   initializeHTML() {
-    this.hasContent = !!this.element.innerHTML.trim()
-    if (this.hasContent) { return }
-
+    if (this.dir) {
+      this.element.setAttribute('dir', this.dir)
+    }
     if (this.type === 'progressBar') {
       this.element.innerHTML = this.initHTML[this.type]
     }
@@ -56,8 +55,13 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = twMerge(this.element.className, this.defaultClass[this.type]?.klass, this.klass, this.backgroundClass)
-    this.ratioTarget.className = twMerge(this.ratioTarget.className, this.defaultClass[this.type]?.ratioClass, this.ratioClass)  
+    if (this.type === 'progressBar') {
+      this.element.className = twMerge(this.element.className, this.defaultClass.progressBar.klass, this.klass, this.backgroundClass)
+      this.ratioTarget.className = twMerge(this.ratioTarget.className, this.defaultClass.progressBar.ratioClass, this.ratioClass)
+      return
+    }
+    this.element.className = twMerge(this.element.className, this.klass, this.backgroundClass)
+    this.ratioTarget.className = twMerge(this.ratioTarget.className, this.ratioClass)  
   }
 
   initializeAction() {
@@ -110,6 +114,9 @@ export default class extends Controller {
     this.ratioValue = event.value
   }
 
+  get dir() {
+    return this.optionsValue.dir || false
+  }
   get klass() {
     return this.optionsValue.klass
   }
@@ -173,6 +180,10 @@ export default class extends Controller {
       progressBar: {
         klass: 'w-1/2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700',
         ratioClass: 'bg-blue-600 h-2.5 rounded-full text-center p-0.5 leading-none duration-500 ease-out'
+      },
+      img: {
+        klass: '',
+        ratioClass: 'object-cover object-left  h-full w-full duration-1000'
       }
     }
   }

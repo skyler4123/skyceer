@@ -31,7 +31,7 @@ export default class extends Controller {
   }
   
   initializeClass() {
-    this.element.className = twMerge(this.positionClass[this.insideOrOutside][this.position], this.element.className, this.klass)
+    this.element.className = twMerge(this.element.className, this.positionClass[this.insideOrOutside][this.position], this.klass)
   }
 
   initializeAction() {
@@ -66,6 +66,9 @@ export default class extends Controller {
     }
   }
 
+  get dir() {
+    return this.optionsValue.dir || false
+  }
   get klass() {
     return this.optionsValue.klass
   }
@@ -92,6 +95,9 @@ export default class extends Controller {
     if (this.parentButtonController) {
       return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
     }
+  }
+  get insideOrOutside() {
+    return this.optionsValue.insideOrOutside || 'outside'
   }
   get position() {
     return this.optionsValue.position
@@ -128,9 +134,6 @@ export default class extends Controller {
       }
 
     }
-  }
-  insideOrOutside() {
-    return this.optionsValue.insideOrOutside || 'outside'
   }
 
 

@@ -158,6 +158,9 @@ export default class extends Controller {
     clearInterval(previousValue)
   }
 
+  get dir() {
+    return this.optionsValue.dir || false
+  }
   get klass() {
     return this.optionsValue.klass
   }

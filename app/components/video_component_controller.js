@@ -32,6 +32,9 @@ export default class extends Controller {
   }
 
   initializeHTML() {
+    if (this.dir) {
+      this.element.setAttribute('dir', this.dir)
+    }
     this.element.innerHTML = this.initHTML
   }
 
@@ -80,6 +83,9 @@ export default class extends Controller {
     }
   }
 
+  get dir() {
+    return this.optionsValue.dir || false
+  }
   get klass() {
     return this.optionsValue.klass
   }

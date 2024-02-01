@@ -33,6 +33,9 @@ export default class extends Controller {
   }
 
   initializeHTML() {
+    if (this.dir) {
+      this.element.setAttribute('dir', this.dir)
+    }
     if (this.linkTarget.childElementCount === 0) { this.linkTarget.textContent = this.label }
     this.linkTarget.href = this.url
   }

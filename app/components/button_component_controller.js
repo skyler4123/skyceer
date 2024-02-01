@@ -45,6 +45,9 @@ export default class extends Controller {
   }
 
   initializeHTML() {
+    if (this.dir) {
+      this.element.setAttribute('dir', this.dir)
+    }
     if (this.buttonTarget.childElementCount === 0) { this.buttonTarget.textContent = this.label }
   }
   initializeClass() {
@@ -245,6 +248,9 @@ export default class extends Controller {
     if (this.isStopPropagation('rating')) { event.stopPropagation() }
   }
 
+  get dir() {
+    return this.optionsValue.dir || false
+  }
   get klass() {
     return this.optionsValue.klass
   }

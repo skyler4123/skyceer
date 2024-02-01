@@ -16,7 +16,8 @@ export default class extends Controller {
     isOpen: { type: Boolean },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
-    isRememberMe: { type: Boolean }
+    isRememberMe: { type: Boolean },
+    input: { type: String }
   }
 
   initialize() {
@@ -44,6 +45,9 @@ export default class extends Controller {
   }
 
   initializeHTML() {
+    if (this.dir) {
+      this.element.setAttribute('dir', this.dir)
+    }
     this.element.innerHTML = this.initHTML
   }
 
@@ -95,6 +99,9 @@ export default class extends Controller {
     if (this.isFloatingLabel) {
       this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
     }
+    if (this.type !== 'select') {
+      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ' ' + `input->${this.identifier}#input`
+    }
   }
 
   globalDispatch({ detail: { event } }) {
@@ -131,6 +138,14 @@ export default class extends Controller {
         this.inputTarget.removeAttribute('open')
       }
     }
+  }
+
+  input() {
+    this.inputValue = this.inputTarget.value
+  }
+
+  inputValueChanged(value, previousValue) {
+    // console.log(this.inputValue)
   }
 
   focus() {
@@ -279,6 +294,9 @@ export default class extends Controller {
     if (this.parentButtonController) {
       return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
     }
+  }
+  get dir() {open
+    return this.optionsValue.dir || false
   }
   get klass() {
     return this.optionsValue.klass

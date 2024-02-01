@@ -32,6 +32,9 @@ export default class extends Controller {
   }
 
   initializeHTML() {
+    if (this.dir) {
+      this.element.setAttribute('dir', this.dir)
+    }
     if (this.hasTemplateTarget) {
       morphdom(this.templateTarget, this.initHTML)
     } else {

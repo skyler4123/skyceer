@@ -26,6 +26,9 @@ export default class extends Controller {
   }
 
   initializeHTML() {
+    if (this.dir) {
+      this.element.setAttribute('dir', this.dir)
+    }
     morphdom(this.templateTarget, this.initHTML)
   }
   focusNext(event) {

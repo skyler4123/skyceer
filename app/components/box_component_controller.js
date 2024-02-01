@@ -176,6 +176,9 @@ export default class extends Controller {
     }, 500)
   }
 
+  get dir() {
+    return this.optionsValue.dir || false
+  }
   get klass() {
     return this.optionsValue.klass
   }

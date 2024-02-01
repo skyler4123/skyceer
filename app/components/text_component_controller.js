@@ -44,6 +44,9 @@ export default class extends Controller {
   }
 
   initializeHTML() {
+    if (this.dir) {
+      this.element.setAttribute('dir', this.dir)
+    }
     if (this.type === 'code') {
       this.textTarget.innerHTML = this.initHTML.code
       this.codeTarget.textContent = this.labelValue
@@ -165,6 +168,9 @@ export default class extends Controller {
     this.labelValue = Number(this.labelValue) - (Number(event.value) || 1)
   }
 
+  get dir() {
+    return this.optionsValue.dir || false
+  }
   get klass() {
     return this.optionsValue.klass
   }

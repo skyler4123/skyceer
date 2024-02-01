@@ -33,6 +33,9 @@ export default class extends Controller {
   }
 
   initializeHTML() {
+    if (this.dir) {
+      this.element.setAttribute('dir', this.dir)
+    }
     this.element.innerHTML = this.initHTML
   }
 
@@ -78,6 +81,9 @@ export default class extends Controller {
     this.isOpenValue = !this.isOpenValue
   }
 
+  get dir() {
+    return this.optionsValue.dir || false
+  }
   get klass() {
     return this.optionsValue.klass
   }
@@ -108,8 +114,11 @@ export default class extends Controller {
       return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
     }
   }
+  get src() {
+    return this.optionsValue.src
+  }
   get url() {
-    return this.optionsValue.url
+    return this.optionsValue.url || this.src || 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg'
   }
   get alt() {
     return this.optionsValue.alt
