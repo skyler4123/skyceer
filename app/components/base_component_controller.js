@@ -70,9 +70,6 @@ export default class BaseComponentController extends Controller {
   get klass() {
     return this.optionsValue.klass
   }
-  get contentClass() {
-    return this.optionsValue.contentClass
-  }
   get id() {
     return this.element.id
   }
@@ -106,12 +103,7 @@ export default class BaseComponentController extends Controller {
   get type() {
     return this.optionsValue.type
   }
-  get border() {
-    return this.optionsValue.border
-  }
-  get color() {
-    return this.optionsValue.color
-  }
+
   get isInfinityScroll() {
     if (this.optionsValue.isInfinityScroll === undefined) {
       return true

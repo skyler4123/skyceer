@@ -128,6 +128,12 @@ export default class extends BaseComponentController {
     }, 500)
   }
 
+  get border() {
+    return this.optionsValue.border
+  }
+  get color() {
+    return this.optionsValue.color
+  }
   get typeClass() {
     return {
       badge: {
