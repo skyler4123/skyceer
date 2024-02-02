@@ -1,12 +1,16 @@
 import { Controller } from "@hotwired/stimulus"
-import { Button } from '../../components/components';
+import { accordion, button } from '../../components/components';
 
 export default class extends Controller {
   initialize() {
-    console.log("Hello, Stimulus!", this.element);
-    this.element.innerHTML = Button({klass: 'w-64 h-40 bg-green-500'}, () => {
-      return `<img class="w-64 h-40 object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">`
+    // console.log("Hello, Stimulus!", this.element);
+    const newHTML = button({label: 'Press Button', events: [{ id: 'test', listener: 'click', action: 'toggle' }]}, () => {
+      return accordion({ event: { id: 'test' } }, () => {
+        return `<div>Test Components at FE</div>`
+      })
     })
+    console.log(newHTML)
+    this.element.innerHTML = newHTML
   }
   
 }
