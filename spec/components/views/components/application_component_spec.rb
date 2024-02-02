@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Views::Components::BasicComponent, type: :component do
+RSpec.describe Views::Components::ApplicationComponent, type: :component do
   pending "add some examples to (or delete) #{__FILE__}"
 
   # it "renders something useful" do
