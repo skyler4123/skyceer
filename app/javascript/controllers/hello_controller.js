@@ -1,4 +1,3 @@
-import * as THREE from 'three';
 import { Controller } from "@hotwired/stimulus"
 import { Button } from '../../components/components';
 

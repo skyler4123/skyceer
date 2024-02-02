@@ -31,7 +31,7 @@ export default class extends ApplicationComponentController {
 
   initializeAction() {
     super.initializeAction()
-    this.element.dataset.action = (this.element.dataset.action || "") + ` wheel->${this.identifier}#scroll`
+    this.element.dataset.action = (this.element.dataset.action || "") + ` wheel->${this.identifier}#scroll:passive`
     if (this.timeInterval) {
       this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeInterval)
     }
