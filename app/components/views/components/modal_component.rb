@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class Views::Components::ModalComponent < ViewComponent::Base
+class Views::Components::ModalComponent < ApplicationComponent
 
 end

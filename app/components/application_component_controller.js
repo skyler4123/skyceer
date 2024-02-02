@@ -1,26 +1,20 @@
-import { twMerge } from 'tailwind-merge'
 import { Camelize } from "./helpers";
 import { Controller } from "@hotwired/stimulus";
 
-export default class extends Controller {
-  static targets = ["percentage"]
+export default class ApplicationComponentController extends Controller {
+  static baseStaticField = 90;
   static values = {
     options: { type: Object },
-    isOpen: { type: Boolean, default: false },
+    isOpen: { type: Boolean },
     isFocus: { type: Boolean },
-    isActive: { type: Boolean },
-    percentage: { type: Number }
+    isActive: { type: Boolean }
   }
 
   initialize() {
     this.optionsValue = Camelize(this.optionsValue)
     this.initializeID()
-    this.initializeValue()
-    this.initializeHTML()
-    this.initializeClass()
-    this.initializeAction()
 
-    this.initializeComplete()
+    // this.initializeComplete()
   }
   connect() {
     if (this.isTest) { console.log(this) }
@@ -32,22 +26,6 @@ export default class extends Controller {
   }
   initializeComplete() {
     this.element.classList.remove('hidden')
-  }
-  
-  initializeValue() {
-    this.percentageValue = this.optionsValue.percentage
-  }
-
-  initializeHTML() {
-    if (this.dir) {
-      this.element.setAttribute('dir', this.dir)
-    }
-    this.element.innerHTML = this.initHTML
-  }
-
-  initializeClass() {
-    this.element.className = twMerge("w-1/2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700", this.element.className, this.klass, this.backgroundClass)
-    this.percentageTarget.className = twMerge("bg-blue-600 h-2.5 rounded-full text-center p-0.5 leading-none duration-500 ease-out", this.percentageTarget.className, this.percentageClass)
   }
 
   initializeAction() {
@@ -82,30 +60,11 @@ export default class extends Controller {
     }
   }
 
-  percentageValueChanged(value, previousValue) {
-    if (previousValue === undefined || previousValue === '') { return }
-
-    this.percentageTarget.style.width = `${this.percentageValue}%`
-    if (this.isShowPercentage) {
-      this.percentageTarget.textContent = this.percentageValue
-    }
-  }
-
-  changePercentage(event) {
-    this.percentageValue = event.value
-  }
-
   get dir() {
     return this.optionsValue.dir || false
   }
   get klass() {
     return this.optionsValue.klass
-  }
-  get backgroundClass() {
-    return this.optionsValue.backgroundClass
-  }
-  get percentageClass() {
-    return this.optionsValue.percentageClass
   }
   get id() {
     return this.element.id
@@ -131,19 +90,8 @@ export default class extends Controller {
       return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
     }
   }
-  get isShowPercentage() {
-    this.optionsValue.isShowPercentage
+  get type() {
+    return this.optionsValue.type
   }
-  get orientation() {
-    return this.optionsValue.orientation || "vertical"
-  }
-  get initHTML() {
-    return `
-      <div data-${this.identifier}-target="percentage" style="width: ${this.percentageValue}%">
-        ${this.isShowPercentage ? this.percentageValue : ''}
-      </div>
-    `
-  }
-
 
 }

@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-class TextComponent < ViewComponent::Base
+class TextComponent < ApplicationComponent
   renders_one :editor
   
   def initialize( controller: nil, tag: :div, **options)
-    @controller = "text-component" + ' ' + controller.to_s
-    @tag = tag
-    # options.keys.each {|key| options[key.to_s.camelize(:lower).to_sym] = options.delete(key)}
+    super
     raise ArgumentError unless options[:label]
-    @options = options.to_json
+    @tag = tag
   end
 end

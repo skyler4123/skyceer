@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class Views::Components::AccordionComponent < ViewComponent::Base
+class Views::Components::AccordionComponent < ApplicationComponent
 
 end

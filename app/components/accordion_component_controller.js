@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge'
-import BaseComponentController from './base_component_controller';
+import ApplicationComponentController from './application_component_controller';
 
-export default class extends BaseComponentController {
+export default class extends ApplicationComponentController {
   static targets = ['content']
   static values = {
     ...super.values,
@@ -25,11 +25,13 @@ export default class extends BaseComponentController {
       this.contentTarget.className = twMerge("overflow-hidden", this.variant, this.optionsValue.contentClass)
     }
   }
-
+  
   get contentClass() {
     return this.optionsValue.contentClass
   }
-
+  get orientation() {
+    return this.optionsValue.orientation || 'vertical'
+  }
 
 
 }

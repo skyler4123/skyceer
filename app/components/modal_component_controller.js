@@ -1,35 +1,21 @@
 import { twMerge } from 'tailwind-merge'
-import { Camelize } from "./helpers";
-import { Controller } from "@hotwired/stimulus";
+import ApplicationComponentController from './application_component_controller';
 
-export default class extends Controller {
+export default class extends ApplicationComponentController {
   static targets = ['background', 'content']
   static values = {
-    options: { type: Object },
+    ...super.values,
     isOpen: { type: Boolean, default: false },
-    isFocus: { type: Boolean },
-    isActive: { type: Boolean },
   }
 
   initialize() {
-    this.optionsValue = Camelize(this.optionsValue)
-    this.initializeID()
+    super.initialize()
     this.initializeClass()
     this.initializeAction()
 
     this.initializeComplete()
   }
-  connect() {
-    if (this.isTest) { console.log(this) }
-  }
-  initializeID() {
-    if (!this.element.id) {
-      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
-    }
-  }
-  initializeComplete() {
-    // this.element.classList.remove('hidden')
-  }
+  initializeComplete() {}
 
   initializeClass() {
     this.element.className = twMerge("fixed top-0 hidden open:flex animate-fade-in", this.element.className , this.klass)
@@ -38,78 +24,27 @@ export default class extends Controller {
   }
 
   initializeAction() {
-    if (this.eventId) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    }
+    super.initializeAction()
     this.backgroundTarget.dataset.action = (this.backgroundTarget.dataset.action || '') + ' ' + `click->${this.identifier}#close`
   }
 
-  globalDispatch({ detail: { event } }) {
-    if (this.eventId === event.id && this.id !== event.controller.id) {
-      eval(`this.${event.action}(event)`)
-    }
-  }
-
-  toggle() {
-    this.isOpenValue = !this.isOpenValue
-  }
-
-  open() {
-    this.isOpenValue = true
-  }
-
-  close() {
-    this.isOpenValue = false
-  }
 
   isOpenValueChanged(value, previousValue) {
+    super.isOpenValueChanged(value, previousValue)
     if (this.isOpenValue) {
-      this.element.setAttribute('open', '')
       this.backgroundTarget.setAttribute('open', '')
       this.contentTarget.setAttribute('open', '')
     } else {
-      this.element.removeAttribute('open')
       this.backgroundTarget.removeAttribute('open')
       this.contentTarget.removeAttribute('open')
     }
   }
 
-  get dir() {
-    return this.optionsValue.dir || false
-  }
-  get klass() {
-    return this.optionsValue.klass
-  }
   get backgroundClass() {
     return this.optionsValue.backgroundClass
   }
   get contentClass() {
     return this.optionsValue.contentClass
   }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event?.id || this.optionsValue.eventId || this.parentButtonEventId
-  }
-  get parentButtonController() {
-    if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
-      return this.element.parentNode.closest('[data-controller*="button-component"]')
-    } else {
-      return false
-    }
-  }
-  get parentButtonEventId() {
-    if (this.parentButtonController) {
-      return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
-    }
-  }
-
 
 }

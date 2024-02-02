@@ -1,4 +1,3 @@
-import { twMerge } from 'tailwind-merge'
 import morphdom from "morphdom"
 import Cleave from "cleave.js"
 import dayjs from "dayjs"
@@ -6,23 +5,19 @@ import flatpickr from "flatpickr"
 import { Russian } from "flatpickr/dist/l10n/ru.js"
 import {  Japanese } from "flatpickr/dist/l10n/ja.js"
 import { useHover, useClickOutside } from 'stimulus-use'
-import { Camelize } from "./helpers";
-import { Controller } from "@hotwired/stimulus";
+import { twMerge } from 'tailwind-merge'
+import ApplicationComponentController from './application_component_controller';
 
-export default class extends Controller {
+export default class extends ApplicationComponentController {
   static targets = ['label', 'input', 'select', 'option']
   static values = {
-    options: { type: Object },
-    isOpen: { type: Boolean },
-    isFocus: { type: Boolean },
-    isActive: { type: Boolean },
+    ...super.values,
     isRememberMe: { type: Boolean },
     input: { type: String }
   }
 
   initialize() {
-    this.optionsValue = Camelize(this.optionsValue)
-    this.initializeID()
+    super.initialize()
     this.initializeHTML()
     this.initializeTarget()
     this.initializeClass()
@@ -30,18 +25,6 @@ export default class extends Controller {
     this.initializeAction()
 
     this.initializeComplete()
-  }
-  connect() {
-    if (this.isTest) { console.log(this) }
-    useClickOutside(this)
-  }
-  initializeID() {
-    if (!this.element.id) {
-      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
-    }
-  }
-  initializeComplete() {
-    this.element.classList.remove('hidden')
   }
 
   initializeHTML() {
@@ -60,7 +43,6 @@ export default class extends Controller {
   }
 
   initializeClass() {
-    this.element.className = twMerge(this.element.className , this.klass)
     if (this.hasLabelTaget) {
       this.labelTarget.className = twMerge(this.labelTarget.className, this.labelClass)
     }
@@ -75,6 +57,11 @@ export default class extends Controller {
       this.element.className = twMerge('relative', this.element.className)
       this.labelTarget.className = twMerge('absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white', this.labelTarget.className )
     }
+    if (this.type === "comparison") {
+      this.element.className = twMerge(this.element.className , this.typeClass.comparison.klass)
+      this.inputTarget.className = twMerge(this.inputTarget.className, this.typeClass.comparison.inputClass)
+    }
+    this.element.className = twMerge(this.element.className , this.klass)
   }
 
   initializeFormat() {
@@ -104,33 +91,14 @@ export default class extends Controller {
     }
   }
 
-  globalDispatch({ detail: { event } }) {
-    if (this.eventId === event.id && this.id !== event.controller.id) {
-      eval(`this.${event.action}(event)`)
-    }
-  }
-
-  toggle() {
-    this.isOpenValue = !this.isOpenValue
-  }
-
-  open() {
-    this.isOpenValue = true
-  }
-
-  close() {
-    this.isOpenValue = false
-  }
-
   isOpenValueChanged(value, previousValue) {
+    super.isOpenValueChanged(value, previousValue)
     if (this.isOpenValue) {
-      this.element.setAttribute('open', '')
       if (this.hasLabelTaget) {
         this.labelTarget.setAttribute('open', '')
       }
       this.inputTarget.setAttribute('open', '')
     } else {
-      this.element.removeAttribute('open')
       if (this.hasLabelTaget) {
         this.labelTarget.removeAttribute('open')
       }
@@ -220,6 +188,14 @@ export default class extends Controller {
     }
   }
 
+  get typeClass() {
+    return {
+      comparison: {
+        klass: 'relative w-[1536px] h-[854px]',
+        inputClass: 'absolute w-full h-full appearance-none bg-inherit [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-1 [&::-webkit-slider-thumb]:h-[854px] [&::-webkit-slider-thumb]:hover:cursor-ew-resize'
+      }
+    }
+  }
   get initHTML() {
     if (this.type === 'select') {
       return `
@@ -227,6 +203,11 @@ export default class extends Controller {
         <select data-${this.identifier}-target="select" name="${this.name}">
           ${this.element.innerHTML}
         </select>
+      `
+    }
+    if (this.type === 'comparison') {
+      return `
+        <input data-${this.identifier}-target="input" type="range" min="0" max="100" value="50">
       `
     }
     return `
@@ -271,36 +252,6 @@ export default class extends Controller {
     `
   }
 
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    return this.event?.id || this.optionsValue.eventId || this.parentButtonEventId
-  }
-  get parentButtonController() {
-    if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
-      return this.element.parentNode.closest('[data-controller*="button-component"]')
-    } else {
-      return false
-    }
-  }
-  get parentButtonEventId() {
-    if (this.parentButtonController) {
-      return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
-    }
-  }
-  get dir() {open
-    return this.optionsValue.dir || false
-  }
-  get klass() {
-    return this.optionsValue.klass
-  }
   get labelClass() {
     return this.optionsValue.labelClass
   }

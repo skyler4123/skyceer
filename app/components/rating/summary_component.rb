@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class Rating::SummaryComponent < ViewComponent::Base
+class Rating::SummaryComponent < ApplicationComponent
 
 end

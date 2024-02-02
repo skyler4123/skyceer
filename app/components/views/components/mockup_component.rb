@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class Views::Components::MockupComponent < ViewComponent::Base
+class Views::Components::MockupComponent < ApplicationComponent
 
 end

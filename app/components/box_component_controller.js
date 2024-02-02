@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge'
-import BaseComponentController from './base_component_controller';
+import ApplicationComponentController from './application_component_controller';
 
-export default class extends BaseComponentController {
+export default class extends ApplicationComponentController {
   static targets = ['item', 'accordion', 'button', 'carousel', 'hr', 'icon', 'img', 'input', 'link', 'list', 'mockup', 'modal', 'popover', 'progress', 'skeleton', 'tab', 'text', 'toast', 'video']
   static values = {
     ...super.values,
@@ -133,6 +133,9 @@ export default class extends BaseComponentController {
   }
   get color() {
     return this.optionsValue.color
+  }
+  get position() {
+    return this.optionsValue.position
   }
   get typeClass() {
     return {

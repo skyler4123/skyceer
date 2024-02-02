@@ -1,23 +1,19 @@
-import { twMerge } from 'tailwind-merge'
-import { Camelize } from "./helpers";
 import hljs from "highlight.js";
-import { Controller } from "@hotwired/stimulus";
+import { twMerge } from 'tailwind-merge'
+import ApplicationComponentController from './application_component_controller';
 
-export default class extends Controller {
+export default class extends ApplicationComponentController {
   static targets = ["text", "editor", "input", "pre", "code"]
   static values = {
-    options: { type: Object },
+    ...super.values,
     isOpen: { type: Boolean, default: true },
-    isFocus: { type: Boolean },
-    isActive: { type: Boolean },
     label: { type: String },
     isOpenEditor: { type: Boolean },
     language: { type: String }
   }
 
   initialize() {
-    this.optionsValue = Camelize(this.optionsValue)
-    this.initializeID()
+    super.initialize()
     this.initializeValue()
     this.initializeHTML()
     this.initializeTarget()
@@ -25,17 +21,6 @@ export default class extends Controller {
     this.initializeAction()
 
     this.initializeComplete()
-  }
-  connect() {
-    if (this.isTest) { console.log(this) }
-  }
-  initializeID() {
-    if (!this.element.id) {
-      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
-    }
-  }
-  initializeComplete() {
-    this.element.classList.remove('hidden')
   }
 
   initializeValue() {
@@ -67,11 +52,11 @@ export default class extends Controller {
 
   initializeClass() {
     if (this.type === 'code') {
-      this.element.className = twMerge(this.element.className, this.defaultClass.code.klass)
+      this.element.className = twMerge(this.element.className, this.typeClass.code.klass)
       // this.textTarget.className = twMerge('overflow-x-auto flex justify-start no-scrollbar', this.textTarget.className)
-      this.textTarget.className = twMerge(this.textTarget.className, this.defaultClass.code.textClass)
-      this.preTarget.className = twMerge(this.preTarget.className, this.defaultClass.code.preClass)
-      this.codeTarget.className = twMerge(this.codeTarget.className, this.defaultClass.code.codeClass)
+      this.textTarget.className = twMerge(this.textTarget.className, this.typeClass.code.textClass)
+      this.preTarget.className = twMerge(this.preTarget.className, this.typeClass.code.preClass)
+      this.codeTarget.className = twMerge(this.codeTarget.className, this.typeClass.code.codeClass)
       hljs.highlightElement(this.codeTarget)
     }
     this.element.className = twMerge(this.element.className, this.klass)
@@ -81,40 +66,6 @@ export default class extends Controller {
         this.editorTarget.className = twMerge('hidden open:flex', this.editorTarget.className, this.editorClass)
         this.inputTarget.className = twMerge(this.inputTarget.className, this.inputClass)  
       }, 500)
-    }
-  }
-
-  initializeAction() {
-    if (this.eventId) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    }
-  }
-
-  globalDispatch({ detail: { event } }) {
-    if (this.eventId === event.id && this.id !== event.controller.id) {
-      eval(`this.${event.action}(event)`)
-    }
-  }
-
-  toggle() {
-    this.isOpenValue = !this.isOpenValue
-  }
-
-  open() {
-    this.isOpenValue = true
-  }
-
-  close() {
-    this.isOpenValue = false
-  }
-
-  isOpenValueChanged(value, previousValue) {
-    if (this.isOpenValue) {
-      this.element.setAttribute('open', '')
-      this.textTarget.setAttribute('open', '')
-    } else {
-      this.element.removeAttribute('open')
-      this.textTarget.removeAttribute('open')
     }
   }
 
@@ -168,12 +119,6 @@ export default class extends Controller {
     this.labelValue = Number(this.labelValue) - (Number(event.value) || 1)
   }
 
-  get dir() {
-    return this.optionsValue.dir || false
-  }
-  get klass() {
-    return this.optionsValue.klass
-  }
   get textClass() {
     return this.optionsValue.textClass
   }
@@ -183,43 +128,13 @@ export default class extends Controller {
   get inputClass() {
     return this.optionsValue.inputClass
   }
-  get id() {
-    return this.element.id
-  }
-  get isTest() {
-    return this.optionsValue.isTest
-  }
-  get event() {
-    return this.optionsValue.event
-  }
-  get eventId() {
-    if (this.type === 'code') {
-      return this.id
-    }
-    return this.event?.id || this.optionsValue.eventId || this.parentButtonEventId
-  }
-  get parentButtonController() {
-    if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
-      return this.element.parentNode.closest('[data-controller*="button-component"]')
-    } else {
-      return false
-    }
-  }
-  get parentButtonEventId() {
-    if (this.parentButtonController) {
-      return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
-    }
-  }
-  get type() {
-    return this.optionsValue.type
-  }
   get codeLanguage() {
     return this.optionsValue.codeLanguage || 'erb'
   }
   get languageKey() {
     return this.optionsValue.languageKey || this.labelValue
   }
-  get defaultClass() {
+  get typeClass() {
     return {
       code: {
         klass: 'flex flex-row w-full justify-between gap-x-4 bg-[#0D1117] relative rounded-md',

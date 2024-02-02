@@ -1,7 +1,0 @@
-<% @klass ||= "fixed flex flex-col content-between gap-y-2 bottom-2 right-2 bg-white rounded-md w-[350px] h-96 border-1 border-gray-300" %>
-
-<%= tag.div(class: @klass, data: @data) do %>
-  <%= render(Boxchat::HeaderComponent.new) %>
-  <%= render(Boxchat::MessagesComponent.new) %>
-  <%= render(Boxchat::FooterComponent.new) %>
-<% end %>

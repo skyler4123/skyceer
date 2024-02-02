@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-class Views::Components::ButtonComponent < ViewComponent::Base
+class Views::Components::ButtonComponent < ApplicationComponent
 
 end

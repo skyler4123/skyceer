@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ButtonComponent < ViewComponent::Base
+class ButtonComponent < ApplicationComponent
   renders_many :prepends
   renders_many :appends
   renders_one :body

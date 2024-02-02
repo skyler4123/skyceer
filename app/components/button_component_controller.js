@@ -1,22 +1,17 @@
 import morphdom from "morphdom"
-import { twMerge } from 'tailwind-merge'
 import { useHover, useClickOutside } from 'stimulus-use'
-import { Camelize } from "./helpers";
-import { Controller } from "@hotwired/stimulus";
 import { Demo } from "../javascript/controllers/demo";
+import { twMerge } from 'tailwind-merge'
+import ApplicationComponentController from './application_component_controller';
 
-export default class extends Controller {
+export default class extends ApplicationComponentController {
   static targets = ['button']
   static values = {
-    options: { type: Object },
-    isOpen: { type: Boolean },
-    isFocus: { type: Boolean },
-    isActive: { type: Boolean },
+    ...super.values,
   }
 
   initialize() {
-    this.optionsValue = Camelize(this.optionsValue)
-    this.initializeID()
+    super.initialize()
     this.initializeHTML()
     this.initializeClass()
     this.initializeAction()
@@ -25,16 +20,8 @@ export default class extends Controller {
     this.initializeComplete()
   }
   connect() {
-    if (this.isTest) { console.log(this) }
+    super.connect()
     useClickOutside(this)
-  }
-  initializeID() {
-    if (!this.element.id) {
-      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
-    }
-  }
-  initializeComplete() {
-    this.element.classList.remove('hidden')
   }
 
   isPreventDefault(action) {
@@ -52,8 +39,8 @@ export default class extends Controller {
   }
   initializeClass() {
     if (this.type === 'toggle') {
-      this.element.className = twMerge(this.element.className, this.defaultClass.toggle.klass)
-      this.buttonTarget.className = twMerge(this.buttonTarget.className, this.defaultClass.toggle.buttonClass)
+      this.element.className = twMerge(this.element.className, this.typeClass.toggle.klass)
+      this.buttonTarget.className = twMerge(this.buttonTarget.className, this.typeClass.toggle.buttonClass)
     }
     this.element.className = twMerge(this.element.className, this.klass)
     this.buttonTarget.className = twMerge(this.buttonTarget.className, this.buttonClass)
@@ -65,7 +52,8 @@ export default class extends Controller {
     }
     if (this.actions) {
       this.actions.forEach((action) => {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${Object.keys(action)[0]}->${this.identifier}#${Object.values(action)[0]}`
+        console.log(action)
+        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${Object.values(action)[0]}->${this.identifier}#${Object.values(action)[1]}`
       })
     }
     if (this.events) {
@@ -248,23 +236,11 @@ export default class extends Controller {
     if (this.isStopPropagation('rating')) { event.stopPropagation() }
   }
 
-  get dir() {
-    return this.optionsValue.dir || false
-  }
-  get klass() {
-    return this.optionsValue.klass
-  }
   get buttonClass() {
     return this.optionsValue.buttonClass
   }
-  get id() {
-    return this.element.id
-  }
   get label() {
     return this.optionsValue.label
-  }
-  get isTest() {
-    return this.optionsValue.isTest
   }
   get events() {
     return this.optionsValue.events
@@ -275,13 +251,10 @@ export default class extends Controller {
   get actions() {
     return this.optionsValue.actions
   }
-  get type() {
-    return this.optionsValue.type
-  }
   get isRememberMe() {
     return this.optionsValue.isRememberMe || false
   }
-  get defaultClass() {
+  get typeClass() {
     return {
       toggle: {
         klass: 'bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full cursor-pointer duration-200 ease-out',

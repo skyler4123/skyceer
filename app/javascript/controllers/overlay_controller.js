@@ -14,11 +14,11 @@ export default class extends Controller {
   // }
 
   initializeClass() {
-    this.element.className = twMerge(this.element.className, this.defaultClass.klass)
-    this.overlayTarget.className = twMerge(this.overlayTarget.className, this.defaultClass.overlay)
+    this.element.className = twMerge(this.element.className, this.typeClass.klass)
+    this.overlayTarget.className = twMerge(this.overlayTarget.className, this.typeClass.overlay)
   }
 
-  get defaultClass() {
+  get typeClass() {
     return {
       klass: 'absolute duration-300 top-0 left-0 ease-in-out',
       overlay: ''

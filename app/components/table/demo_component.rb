@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Table::DemoComponent < ViewComponent::Base
+class Table::DemoComponent < ApplicationComponent
   def initialize(
     klass: nil,
     header: ['header 1', 'header 2', 'header 3'] ,
