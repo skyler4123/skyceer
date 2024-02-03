@@ -9,6 +9,8 @@
   </div>
 
   <div id="chat_users" class="min-w-full">
-    <%= render @chat_users %>
+    <% @chat_users.each do |chat_user| %>
+      <%= render(partial: 'chat_user', locals: { chat_user: chat_user }) %>
+    <% end %>
   </div>
 </div>

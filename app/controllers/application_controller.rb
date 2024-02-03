@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  append_view_path(Dir.glob(Rails.root.join('app/packages/*/views')))
+
   before_action :set_current_request_details
   before_action :authenticate
 
