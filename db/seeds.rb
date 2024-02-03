@@ -5,57 +5,26 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-# return if ENV['RAILS_ENV'] == 'production'
+
+
+
+return if ENV['RAILS_ENV'] == 'production'
 REDIS.set('time', Date.current.to_s)
 User.destroy_all
-Post.destroy_all
-Comment.destroy_all
-Laptop.destroy_all
-BlogUser.destroy_all
-Blog.destroy_all
-ChatUser.destroy_all
-ChatRoom.destroy_all
-ChatMessage.destroy_all
 
 
-# ActiveRecord::Base.transaction do
-  2.times do |n|
+
+ActiveRecord::Base.transaction do
+  10.times do |n|
     User.create(
       email: "email#{n + 1}@gmail.com",
-      password: "password",
-      password_confirmation: "password"
+      password: "password1234",
+      password_confirmation: "password1234",
+      verified: true
     )
   end
-#   15.times do |n|
-#     Post.create(
-#       content: Faker::Quote.famous_last_words,
-#       user: User.all.sample,
-#     )
-#   end
-#   50.times do |n|
-#     Comment.create(
-#       content: Faker::Quote.robin,
-#       user: User.all.sample,
-#       post: Post.all.sample,
-#     )
-#   end
-#   5.times do |n|
-#     Laptop.create(
-#       name: Faker::Commerce.product_name,
-#       brand: Faker::Commerce.brand,
-#       model: Faker::Device.model_name,
-#       unit_price: Faker::Commerce.price,
-#       quantity: Faker::Number.decimal_part(digits: 4),
-#       color: Faker::Commerce.color,
-#       hard_disk: [128, 256, 512, 1024, 2048].sample,
-#       cpu: ["intel", 'amd'].sample,
-#       ram: [1, 2, 4, 8, 16, 32, 64, 128].sample,
-#       os: Faker::Computer.platform,
-#       graphic_card: ["intel", 'ndivia', 'amd'].sample,
-#       screen_size: [13, 14, 15.6, 17].sample,
-#     )
-#   end
-# end
+end
+
 # 15.times do |n|
 #   (Dir.glob("/rails/faker/images/laptop/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
 #     file_name, file_type = file.path.split('/').last.split('.')
@@ -65,8 +34,7 @@ ChatMessage.destroy_all
 
 # MongoDB
 User.all.each do |user|
-  BlogUser.create(
-    nickname: Faker::FunnyName.name,
+  ChatUser.create(
     user_id: user.id,
   )
 end

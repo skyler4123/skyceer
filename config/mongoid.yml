@@ -174,13 +174,13 @@ development:
     # indexes in the background by default. (default: false)
     # background_indexing: false
 
-test:
-  clients:
-    default:
-      database: skyceer_test
-      hosts:
-        - localhost:27017
-      options:
-        read:
-          mode: :primary
-        max_pool_size: 1
+# test:
+#   clients:
+#     default:
+#       database: skyceer_test
+#       hosts:
+#         - localhost:27017
+#       options:
+#         read:
+#           mode: :primary
+#         max_pool_size: 1

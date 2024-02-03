@@ -87,7 +87,8 @@ gem "sidekiq"
 gem "sidekiq-cron"
 # gem 'newrelic_rpm'
 gem "aws-sdk-s3", require: false
-gem 'rails_mini_profiler'
+gem 'rack-mini-profiler', require: false
+gem 'memory_profiler'
 gem 'stackprof'
 gem "mongoid"
 gem 'pagy'

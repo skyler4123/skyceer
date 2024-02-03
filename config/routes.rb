@@ -5,6 +5,7 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :chat_users
   resources :components
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
@@ -20,7 +21,6 @@ Rails.application.routes.draw do
   root "home#index"
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
-  mount RailsMiniProfiler::Engine => '/rails_mini_profiler'
   resources :demos
   post 'images/upload_by_file'
   post 'images/upload_by_url'
