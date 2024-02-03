@@ -37,5 +37,6 @@ module Skyceer
     config.assets.paths << Rails.root.join('app')
     # config.assets.css_compressor = nil
     config.generators.orm :active_record, primary_key_type: :uuid
+    config.mongoid.logger.level = Logger::INFO
   end
 end
