@@ -2,7 +2,7 @@
   <p class="my-5">
     <strong class="block font-medium mb-1">User:</strong>
     <%= chat_conversation.chat_user_ids %>
-    <div>
+    <div id="chat_messages">
       <% chat_conversation.chat_messages.each do |chat_message| %>
         <div>
           <%= chat_message.chat_user_id %>

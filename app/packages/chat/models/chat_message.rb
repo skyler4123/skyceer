@@ -7,4 +7,8 @@ class ChatMessage
 
   embedded_in :chat_conversation
 
+  after_save :live
+  def live
+    Turbo::StreamsChannel.broadcast_append_to("chat_messages", html: ApplicationController.render(TurboStream::ChatMessageComponent.new), target: "chat_messages")
+  end
 end
