@@ -1,0 +1,19 @@
+<div id="<%= dom_id chat_conversation %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= chat_conversation.chat_user_ids %>
+    <div>
+      <% chat_conversation.chat_messages.each do |chat_message| %>
+        <div>
+          <%= chat_message.chat_user_id %>
+          <%= chat_message.content %>
+        </div>
+      <% end %>
+    </div>
+  </p>
+  <% if action_name != "show" %>
+    <%= link_to "Show this chat conversation", chat_conversation, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this chat conversation", edit_chat_conversation_path(chat_conversation), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

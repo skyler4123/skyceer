@@ -5,7 +5,7 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
-  resources :chat_rooms
+  resources :chat_conversations
   resources :chat_messages
   resources :chat_users
   resources :components

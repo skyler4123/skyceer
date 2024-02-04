@@ -11,6 +11,7 @@
 return if ENV['RAILS_ENV'] == 'production'
 REDIS.set('time', Date.current.to_s)
 User.destroy_all
+ChatConversation.destroy_all
 
 
 
@@ -37,6 +38,17 @@ User.all.each do |user|
   ChatUser.create(
     user_id: user.id,
   )
+end
+
+ChatUser.each do |user|
+  ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample))
+end
+
+50.times do |n|
+  # ChatConversation.all.sample.chat_messages << ChatMessage.new(chat_user_id: ChatUser.all.sample.id, content: "content_#{n}")
+  chat_conversation = ChatConversation.all.sample
+  chat_user_id = chat_conversation.chat_user_ids.sample
+  chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
 end
 # 10.times do |n|
 #   Blog.create(

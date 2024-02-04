@@ -1,10 +1,10 @@
-<%= form_with(model: chat_room, class: "contents") do |form| %>
-  <% if chat_room.errors.any? %>
+<%= form_with(model: chat_conversation, class: "contents") do |form| %>
+  <% if chat_conversation.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(chat_room.errors.count, "error") %> prohibited this chat_room from being saved:</h2>
+      <h2><%= pluralize(chat_conversation.errors.count, "error") %> prohibited this chat_conversation from being saved:</h2>
 
       <ul>
-        <% chat_room.errors.each do |error| %>
+        <% chat_conversation.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
