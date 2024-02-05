@@ -1,1 +1,7 @@
-<div>kjhsdaklfj &#x1F600 kjkasc</div>
+    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do |c| %>
+      <% c.with_append do %>
+        <%= popover(type: :emoji) %>
+      <% end %>
+    <% end %>
+
+

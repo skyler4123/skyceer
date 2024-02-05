@@ -1,3 +1,4 @@
+import { Picker } from 'emoji-mart'
 import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
@@ -9,6 +10,7 @@ export default class extends ApplicationComponentController {
 
   initialize() {
     super.initialize()
+    this.initializeHTML()
     this.initializeClass()
     this.initializeAction()
 
@@ -16,6 +18,15 @@ export default class extends ApplicationComponentController {
   }
   initializeComplete() {}
   
+  initializeHTML() {
+    if (this.type === 'emoji') {
+      const pickerOptions = { onEmojiSelect: console.log }
+      const picker = new Picker(pickerOptions)
+    
+      this.element.appendChild(picker)
+    }
+  }
+
   initializeClass() {
     this.element.className = twMerge(this.element.className, this.positionClass[this.insideOrOutside][this.position], this.klass)
   }
@@ -24,7 +35,7 @@ export default class extends ApplicationComponentController {
     return this.optionsValue.insideOrOutside || 'outside'
   }
   get position() {
-    return this.optionsValue.position || 'topCenter'
+    return this.optionsValue.position || 'bottomCenter'
   }
   get positionClass() {
     return {

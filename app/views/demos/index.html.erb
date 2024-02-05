@@ -8,7 +8,7 @@
   </div>
 
   <div id="components" class="flex flex-col justify-center items-center min-w-full pb-4">
-
+    <div>&#x1F44d</div>
 
     <%= icon %>
     <%= hr %>
@@ -251,6 +251,12 @@
         <%= popover do %>
           <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
         <% end %>
+      <% end %>
+    <% end %>
+
+    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do |c| %>
+      <% c.with_append do %>
+        <%= popover(type: :emoji) %>
       <% end %>
     <% end %>
 

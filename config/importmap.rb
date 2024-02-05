@@ -33,3 +33,4 @@ pin "tui-date-picker", to: "https://ga.jspm.io/npm:tui-date-picker@4.3.3/dist/tu
 pin "tui-time-picker", to: "https://ga.jspm.io/npm:tui-time-picker@2.1.6/dist/tui-time-picker.js"
 pin "tailwind-merge" # @2.2.0
 pin "highlight.js", to: "https://ga.jspm.io/npm:highlight.js@11.8.0/es/index.js", preload: true
+pin "emoji-mart" # @5.5.2

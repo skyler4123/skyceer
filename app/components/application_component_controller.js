@@ -87,10 +87,7 @@ export default class ApplicationComponentController extends Controller {
   }
   get parentButtonEventId() {
     if (this.parentButtonController) {
-      setTimeout(() => {
-        return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
-
-      }, 500)
+      return JSON.parse(this.parentButtonController.dataset.buttonComponentOptionsValue).events[0].id
     }
   }
   get type() {
