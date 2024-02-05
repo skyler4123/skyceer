@@ -1,7 +1,4 @@
-<div id="<%= dom_id chat_message %>">
-  <% if action_name != "show" %>
-    <%= link_to "Show this chat message", chat_message, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this chat message", edit_chat_message_path(chat_message), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+<div>
+    <%= chat_message.chat_user_id %>
+    <%= chat_message.content %>
 </div>
