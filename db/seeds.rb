@@ -10,11 +10,12 @@
 
 return if ENV['RAILS_ENV'] == 'production'
 REDIS.set('time', Date.current.to_s)
+
+
+
+
+# APPLICATION PACKAGE
 User.destroy_all
-ChatConversation.destroy_all
-
-
-
 ActiveRecord::Base.transaction do
   10.times do |n|
     User.create(
@@ -26,51 +27,52 @@ ActiveRecord::Base.transaction do
   end
 end
 
+# CALENDAR PACKAGE
+
+
+
+# EDUCATION PACKAGE
+# School.destroy_all
+# Teacher.destroy_all
+# Student.destroy_all
+# ActiveRecord::Base.transaction do
+#   10.times do |n|
+#     School.create(name: "school_#{n}")
+#   end
+#   User.all.each_with_index do |user, index|
+#     teacher_or_student = ['teacher', 'student'].sample
+#     user.teacher.create(name: "teacher_#{index}", school: School.all.sample) if teacher_or_student == 'teacher'
+#     user.student.create(name: "student_#{index}", school: School.all.sample) if teacher_or_student == 'student'
+#   end
+#   School.count*10.times do |n|
+#     SchoolClass.create(name: "school_class_#{n}", school: School.all.sample)
+#     SchoolRoom.create(name: "school_room_#{n}", school: School.all.sample)
+#   end
+# end
+
+# CHAT PACKAGE
+ChatUser.destroy_all
+ChatConversation.destroy_all
+User.all.each do |user|
+  ChatUser.create(
+    user_id: user.id,
+  )
+end
+ChatUser.each do |user|
+  ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample))
+end
+50.times do |n|
+  chat_conversation = ChatConversation.all.sample
+  chat_user_id = chat_conversation.chat_user_ids.sample
+  chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
+end
+
+
 # 15.times do |n|
 #   (Dir.glob("/rails/faker/images/laptop/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
 #     file_name, file_type = file.path.split('/').last.split('.')
 #     Laptop.all.sample.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
 #   end
 # end
-
-# MongoDB
-User.all.each do |user|
-  ChatUser.create(
-    user_id: user.id,
-  )
-end
-
-ChatUser.each do |user|
-  ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample))
-end
-
-50.times do |n|
-  # ChatConversation.all.sample.chat_messages << ChatMessage.new(chat_user_id: ChatUser.all.sample.id, content: "content_#{n}")
-  chat_conversation = ChatConversation.all.sample
-  chat_user_id = chat_conversation.chat_user_ids.sample
-  chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
-end
-# 10.times do |n|
-#   Blog.create(
-#     content: Faker::Quote.matz,
-#     blog_user: BlogUser.all.sample,
-#   )
-# end
-# User.all.each do |user|
-#   ChatUser.create(
-#     user_id: user.id,
-#   )
-# end
-# 10.times do |n|
-#   chat_user_ids = ChatUser.all.take(rand(2..5)).pluck(:id)
-#   chat_room = ChatRoom.create(
-#     chat_user_ids: chat_user_ids
-#   )
-#   10.times do |n|
-#     chat_room.chat_messages << ChatMessage.new(chat_user_id: chat_user_ids.sample, content: "chat message #{n}")
-#   end
-# end
-
-
 
 puts "db:seed done!"

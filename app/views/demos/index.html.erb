@@ -231,8 +231,6 @@
 
     <%= text(type: :code, klass: "w-full", label: Constants::SAMPLE_ERB_CODE, event_id: 'copy code id') %>
 
-    <%= input(type: :comparison, klass: 'bg-green-500')%>
-
     <%= img(type: :avatar, img_class: 'w-10 h-10') %>
 
     <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do |c| %>
@@ -253,17 +251,19 @@
         <% end %>
       <% end %>
     <% end %>
-
+    <%= icon %>
+    <%= icon %>
+    <%= icon %>
     <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do |c| %>
       <% c.with_append do %>
         <%= popover(type: :emoji) %>
       <% end %>
     <% end %>
 
-
-
-
-
+    <%= tui %>
+    <%= apex %>
+    <%= editorjs(object_type: 'User') %>
+    <%= pin_code %>
 
 
 

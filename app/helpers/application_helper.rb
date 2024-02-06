@@ -10,6 +10,15 @@ module ApplicationHelper
     end
   end
 
+  Dir.glob('app/components/lib/*.rb').each do |dir|
+    basename = File.basename(dir, '.rb')
+    classname = ActiveSupport::Inflector.camelize('lib/' + basename)
+    define_method(basename.gsub!('_component', '')) do |**kwargs, &block|
+      component = classname.constantize
+      render(component.new(**kwargs), &block)
+    end
+  end
+
   def new_id
     @id = SecureRandom.uuid
   end

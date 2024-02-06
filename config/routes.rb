@@ -5,6 +5,9 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :calendar_schedules
+  resources :calendar_events
+  resources :calendar_users
   resources :chat_conversations
   resources :chat_messages
   resources :chat_users

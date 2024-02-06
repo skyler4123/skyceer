@@ -191,7 +191,7 @@ export default class extends ApplicationComponentController {
   get typeClass() {
     return {
       comparison: {
-        klass: 'relative w-[1536px] h-[854px]',
+        klass: 'absolute inset-0 w-[1536px] h-[854px]',
         inputClass: 'absolute w-full h-full appearance-none bg-inherit [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-1 [&::-webkit-slider-thumb]:h-[854px] [&::-webkit-slider-thumb]:hover:cursor-ew-resize'
       }
     }
