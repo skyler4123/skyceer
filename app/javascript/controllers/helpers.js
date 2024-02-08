@@ -2,13 +2,13 @@ export const camelizeOptionsValue = (optionsObject) => {
   let options = optionsObject
   options = Object.keys(options).reduce((result, key) => ({
     ...result,
-    [camelize(key)]: options[key]
+    [toCamelCase(key)]: options[key]
   }), {})
   if (options.actions) {
     options.actions = options.actions.map((action) => {
       return Object.keys(action).reduce((result, key) => ({
         ...result,
-        [camelize(key)]: camelize(action[key])
+        [toCamelCase(key)]: toCamelCase(action[key])
       }), {})
     })
   }
@@ -18,47 +18,43 @@ export const camelizeOptionsValue = (optionsObject) => {
         if (key === 'id') {
           return {
             ...result,
-            [camelize(key)]: event[key]
+            [toCamelCase(key)]: event[key]
           }
         }
         return {
           ...result,
-          [camelize(key)]: camelize(event[key])
+          [toCamelCase(key)]: toCamelCase(event[key])
         }
       }, {})
     })
   }
   if (options.position) {
-    options.position = camelize(options.position)
+    options.position = toCamelCase(options.position)
   }
   if (options.type) {
-    options.type = camelize(options.type)
+    options.type = toCamelCase(options.type)
   }
   return options
 }
 
-export const camelize = (str) => {
-  if (typeof str === 'string' || str instanceof String) {
-    return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+export const toCamelCase = (string) => {
+  if (typeof string === 'string' || string instanceof String) {
+    return string.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
   } else {
-    return str
+    return string
   }
 }
 
-export const underscore = (str) => {
-  let underscoreString = str.split('').reduce((result, val) => {
-    if (val === val.toUpperCase()) {
-        result += '_';
-    }
-    return result + val.toLowerCase();
-  }, '');
-  if (underscoreString[0] === '_') { underscoreString = underscoreString.replace(underscoreString[0], '') }
-  return underscoreString
+export const toSnakeCase = (string) => {
+  return string.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
 }
 
-export const underscoreForObjectKey = (object) => {
-  let objectResult = Object.keys(object).reduce((result, key) => ({
+export const snakeCaseForObjectKey = (object) => {
+  let objectResult = Object.keys(object).reduce((result, key) => {
+    return {
     ...result,
-    [underscore(key)]: object(key)
-  }))
+    [toSnakeCase(key)]: object[key]
+    }
+  }, {})
+  return objectResult
 }

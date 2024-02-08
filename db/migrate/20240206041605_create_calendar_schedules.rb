@@ -4,9 +4,9 @@ class CreateCalendarSchedules < ActiveRecord::Migration[7.1]
       t.references :calendar_user, null: false, foreign_key: true, type: :uuid
       t.string :name
       t.string :color
-      t.string :backgroundColor
-      t.string :dragBackgroundColor
-      t.string :borderColor
+      t.string :background_color
+      t.string :drag_background_color
+      t.string :border_color
       
       t.timestamps
     end

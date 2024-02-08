@@ -22,6 +22,7 @@ class CalendarEventsController < ApplicationController
   # POST /calendar_events or /calendar_events.json
   def create
     return
+    
     @calendar_event = CalendarEvent.new(calendar_event_params)
     @calendar_event.calendar_schedule_id = params[:calendarId]
     @calendar_event.save

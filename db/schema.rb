@@ -45,29 +45,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "calendar_schedule_id", null: false
-    t.string "calendarId"
+    t.string "calendar_id"
     t.string "title"
     t.string "body"
-    t.boolean "isAllday"
+    t.boolean "is_allday"
     t.datetime "start"
     t.datetime "end"
-    t.integer "goingDuration"
-    t.integer "comingDuration"
+    t.integer "going_duration"
+    t.integer "coming_duration"
     t.string "location"
     t.text "attendees", default: [], array: true
     t.integer "category"
-    t.string "recurrenceRule"
+    t.string "recurrence_rule"
     t.integer "state"
-    t.boolean "isVisible"
-    t.boolean "isPending"
-    t.boolean "isFocused"
-    t.boolean "isReadOnly"
-    t.boolean "isPrivate"
+    t.boolean "is_visible"
+    t.boolean "is_pending"
+    t.boolean "is_focused"
+    t.boolean "is_readOnly"
+    t.boolean "is_private"
     t.string "color"
-    t.string "backgroundColor"
-    t.string "dragBackgroundColor"
-    t.string "borderColor"
-    t.json "customStyle", default: {}
+    t.string "background_color"
+    t.string "drag_background_color"
+    t.string "border_color"
+    t.json "custom_style", default: {}
     t.text "raw", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -78,9 +78,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
     t.uuid "calendar_user_id", null: false
     t.string "name"
     t.string "color"
-    t.string "backgroundColor"
-    t.string "dragBackgroundColor"
-    t.string "borderColor"
+    t.string "background_color"
+    t.string "drag_background_color"
+    t.string "border_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calendar_user_id"], name: "index_calendar_schedules_on_calendar_user_id"

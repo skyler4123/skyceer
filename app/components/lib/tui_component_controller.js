@@ -77,7 +77,7 @@ export default class extends ApplicationComponentController {
   selectDateTime(event) {}
 
   beforeCreateEvent(event) {
-    Api.calendar_events.post({params: event})
+    Api.calendar_events.post({params: this.snakeCaseForObjectKey(event)})
     this.createEvents([event])
   }
 

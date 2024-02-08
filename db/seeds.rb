@@ -39,9 +39,9 @@ ActiveRecord::Base.transaction do
         calendar_user: calendar_user,
         name: "calendar_schedule_#{n}",
         color: '#' + SecureRandom.hex(3),
-        backgroundColor: '#' + SecureRandom.hex(3),
-        dragBackgroundColor: '#' + SecureRandom.hex(3),
-        borderColor: '#' + SecureRandom.hex(3),
+        background_color: '#' + SecureRandom.hex(3),
+        drag_background_color: '#' + SecureRandom.hex(3),
+        border_color: '#' + SecureRandom.hex(3),
         )
     end
   end
