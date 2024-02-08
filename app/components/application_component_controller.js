@@ -9,7 +9,7 @@ export default class ApplicationComponentController extends ApplicationControlle
   }
 
   initialize() {
-    this.optionsValue = this.camelizeForObject(this.optionsValue)
+    this.optionsValue = this.camelizeOptionsValue(this.optionsValue)
     this.initializeID()
   }
   connect() {
