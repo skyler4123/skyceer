@@ -1,5 +1,4 @@
 import morphdom from "morphdom"
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -26,9 +25,9 @@ export default class extends ApplicationComponentController {
   }
 
   initializeClass() {
-    this.element.className = twMerge(this.element.className, this.klass)
+    this.element.className = this.twMerge(this.element.className, this.klass)
     this.tabTargets.forEach((target) => {
-      target.className = twMerge('hidden open:flex', target.className, this.tabClass)
+      target.className = this.twMerge('hidden open:flex', target.className, this.tabClass)
     })
   }
 

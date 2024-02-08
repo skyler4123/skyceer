@@ -1,8 +1,5 @@
-import { twMerge } from 'tailwind-merge'
-// import { Camelize } from "../helpers";
-import { Controller } from "@hotwired/stimulus"
-
-export default class extends Controller {
+import ApplicationController from './application_controller'
+export default class extends ApplicationController {
   static targets = ['ratio', 'comparison', 'input']
   static values = {
     comparison: { type: Number }

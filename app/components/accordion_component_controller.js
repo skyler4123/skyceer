@@ -1,4 +1,3 @@
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -17,12 +16,12 @@ export default class extends ApplicationComponentController {
 
   initializeClass() {
     if (this.orientation === 'vertical') {
-      this.element.className = twMerge(this.element.className , "grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-200 ease-out overflow-hidden", this.klass)
-      this.contentTarget.className = twMerge("overflow-hidden", this.variant, this.contentClass)
+      this.element.className = this.twMerge(this.element.className , "grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-200 ease-out overflow-hidden", this.klass)
+      this.contentTarget.className = this.twMerge("overflow-hidden", this.variant, this.contentClass)
     }
     if (this.orientation === "horizontal") {
-      this.element.className = twMerge(this.element.className , "whitespace-nowrap grid grid-cols-[0fr] open:grid-rows-[1fr] open:grid-cols-[1fr] transition-all duration-200 ease-out overflow-hidden", this.optionsValue.klass)
-      this.contentTarget.className = twMerge("overflow-hidden", this.variant, this.optionsValue.contentClass)
+      this.element.className = this.twMerge(this.element.className , "whitespace-nowrap grid grid-cols-[0fr] open:grid-rows-[1fr] open:grid-cols-[1fr] transition-all duration-200 ease-out overflow-hidden", this.optionsValue.klass)
+      this.contentTarget.className = this.twMerge("overflow-hidden", this.variant, this.optionsValue.contentClass)
     }
   }
   

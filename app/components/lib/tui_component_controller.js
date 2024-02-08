@@ -71,7 +71,7 @@ export default class extends ApplicationComponentController {
   }
 
   initializeClass() {
-    this.element.className = twMerge(this.element.className)
+    this.element.className = this.twMerge(this.element.className)
   }
 
   selectDateTime(event) {}

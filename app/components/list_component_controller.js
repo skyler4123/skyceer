@@ -1,5 +1,4 @@
 import Sortable from 'sortablejs';
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -24,9 +23,9 @@ export default class extends ApplicationComponentController {
   }
 
   initializeClass() {
-    this.element.className = twMerge(this.element.className, this.klass)
+    this.element.className = this.twMerge(this.element.className, this.klass)
     this.liTargets.forEach((target) => {
-      target.className = twMerge(target.className, this.liClass)
+      target.className = this.twMerge(target.className, this.liClass)
     })
   }
 

@@ -260,29 +260,11 @@
       <% end %>
     <% end %>
 
-    <%= tui %>
     <%= apex %>
     <%= editorjs(object_type: 'User') %>
     <%= pin_code %>
 
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
-<script>
-console.log(axios.isCancel('something'));
-axios.get('https://jsonplaceholder.typicode.com/todos/1')
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-</script>
-
-
-
+    <%= tui(is_test: true, calendars: CalendarUser.first.calendar_schedules) %>
 
 
 

@@ -5,7 +5,6 @@ import flatpickr from "flatpickr"
 import { Russian } from "flatpickr/dist/l10n/ru.js"
 import {  Japanese } from "flatpickr/dist/l10n/ja.js"
 import { useHover, useClickOutside } from 'stimulus-use'
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -44,24 +43,24 @@ export default class extends ApplicationComponentController {
 
   initializeClass() {
     if (this.hasLabelTaget) {
-      this.labelTarget.className = twMerge(this.labelTarget.className, this.labelClass)
+      this.labelTarget.className = this.twMerge(this.labelTarget.className, this.labelClass)
     }
     if (this.hasInputTarget) {
-      this.inputTarget.className = twMerge(this.inputTarget.className, this.inputClass)
+      this.inputTarget.className = this.twMerge(this.inputTarget.className, this.inputClass)
     }
     if (this.hasSelectTarget) {
-      this.selectTarget.className = twMerge(this.selectTarget.className, this.selectClass)
-      this.optionTarget.className = twMerge(this.optionTarget.className, this.optionClass)
+      this.selectTarget.className = this.twMerge(this.selectTarget.className, this.selectClass)
+      this.optionTarget.className = this.twMerge(this.optionTarget.className, this.optionClass)
     }
     if (this.isFloatingLabel && this.hasLabelTaget) {
-      this.element.className = twMerge('relative', this.element.className)
-      this.labelTarget.className = twMerge('absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white', this.labelTarget.className )
+      this.element.className = this.twMerge('relative', this.element.className)
+      this.labelTarget.className = this.twMerge('absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white', this.labelTarget.className )
     }
     if (this.type === "comparison") {
-      this.element.className = twMerge(this.element.className , this.typeClass.comparison.klass)
-      this.inputTarget.className = twMerge(this.inputTarget.className, this.typeClass.comparison.inputClass)
+      this.element.className = this.twMerge(this.element.className , this.typeClass.comparison.klass)
+      this.inputTarget.className = this.twMerge(this.inputTarget.className, this.typeClass.comparison.inputClass)
     }
-    this.element.className = twMerge(this.element.className , this.klass)
+    this.element.className = this.twMerge(this.element.className , this.klass)
   }
 
   initializeFormat() {

@@ -1,4 +1,3 @@
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -29,10 +28,10 @@ export default class extends ApplicationComponentController {
   }
 
   initializeClass() {
-    this.element.className = twMerge(`w-full my-5 ${this.hasContentTarget ? 'relative' : ''}`, this.element.className, this.klass)
-    this.hrTarget.className = twMerge("w-full h-0.5 bg-gray-200 border-0 dark:bg-gray-700", this.hrTarget.className, this.hrClass)
+    this.element.className = this.twMerge(`w-full my-5 ${this.hasContentTarget ? 'relative' : ''}`, this.element.className, this.klass)
+    this.hrTarget.className = this.twMerge("w-full h-0.5 bg-gray-200 border-0 dark:bg-gray-700", this.hrTarget.className, this.hrClass)
     if (this.hasContentTarget) {
-      this.contentTarget.className = twMerge("absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-2", this.contentTarget.className, this.contentClass)
+      this.contentTarget.className = this.twMerge("absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-2", this.contentTarget.className, this.contentClass)
     }
   }
 

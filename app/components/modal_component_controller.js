@@ -1,4 +1,3 @@
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -18,9 +17,9 @@ export default class extends ApplicationComponentController {
   initializeComplete() {}
 
   initializeClass() {
-    this.element.className = twMerge("fixed top-0 hidden open:flex animate-fade-in", this.element.className , this.klass)
-    this.backgroundTarget.className = twMerge('w-screen h-screen bg-gray-300/50 cursor-pointer', this.backgroundTarget.className, this.backgroundClass)
-    this.contentTarget.className = twMerge('absolute z-30 flex justify-center items-center w-fit h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2', this.contentTarget.className, this.contentClass)
+    this.element.className = this.twMerge("fixed top-0 hidden open:flex animate-fade-in", this.element.className , this.klass)
+    this.backgroundTarget.className = this.twMerge('w-screen h-screen bg-gray-300/50 cursor-pointer', this.backgroundTarget.className, this.backgroundClass)
+    this.contentTarget.className = this.twMerge('absolute z-30 flex justify-center items-center w-fit h-fit top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2', this.contentTarget.className, this.contentClass)
   }
 
   initializeAction() {

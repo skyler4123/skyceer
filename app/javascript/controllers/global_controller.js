@@ -1,7 +1,5 @@
-import hljs from "highlight.js";
-import { Controller } from "@hotwired/stimulus";
-
-export default class extends Controller {
+import ApplicationController from './application_controller'
+export default class extends ApplicationController {
   static values = {
     event: { type: Object },
   }

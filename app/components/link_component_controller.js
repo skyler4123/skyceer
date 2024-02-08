@@ -1,4 +1,3 @@
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -24,9 +23,9 @@ export default class extends ApplicationComponentController {
     this.linkTarget.href = this.url
   }
   initializeClass() {
-    this.element.className = twMerge(this.element.className, this.optionsValue.klass)
-    this.contentTarget.className = twMerge(this.contentTarget.className, this.variant, this.optionsValue.contentClass)
-    this.linkTarget.className = twMerge(this.linkTarget.className, this.optionsValue.linkClass)
+    this.element.className = this.twMerge(this.element.className, this.optionsValue.klass)
+    this.contentTarget.className = this.twMerge(this.contentTarget.className, this.variant, this.optionsValue.contentClass)
+    this.linkTarget.className = this.twMerge(this.linkTarget.className, this.optionsValue.linkClass)
   }
 
   copyLink() {

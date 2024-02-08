@@ -1,7 +1,5 @@
 import morphdom from "morphdom"
 import { useHover, useClickOutside } from 'stimulus-use'
-import { Demo } from "../javascript/controllers/demo";
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -39,11 +37,11 @@ export default class extends ApplicationComponentController {
   }
   initializeClass() {
     if (this.type === 'toggle') {
-      this.element.className = twMerge(this.element.className, this.typeClass.toggle.klass)
-      this.buttonTarget.className = twMerge(this.buttonTarget.className, this.typeClass.toggle.buttonClass)
+      this.element.className = this.twMerge(this.element.className, this.typeClass.toggle.klass)
+      this.buttonTarget.className = this.twMerge(this.buttonTarget.className, this.typeClass.toggle.buttonClass)
     }
-    this.element.className = twMerge(this.element.className, this.klass)
-    this.buttonTarget.className = twMerge(this.buttonTarget.className, this.buttonClass)
+    this.element.className = this.twMerge(this.element.className, this.klass)
+    this.buttonTarget.className = this.twMerge(this.buttonTarget.className, this.buttonClass)
   }
 
   initializeAction() {

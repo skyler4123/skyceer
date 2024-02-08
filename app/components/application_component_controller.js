@@ -1,7 +1,6 @@
-import { Camelize } from "../javascript/controllers/helpers";
-import { Controller } from "@hotwired/stimulus";
+import ApplicationController from "../javascript/controllers/application_controller";
 
-export default class ApplicationComponentController extends Controller {
+export default class ApplicationComponentController extends ApplicationController {
   static values = {
     options: { type: Object },
     isOpen: { type: Boolean },
@@ -10,10 +9,8 @@ export default class ApplicationComponentController extends Controller {
   }
 
   initialize() {
-    this.optionsValue = Camelize(this.optionsValue)
+    this.optionsValue = this.camelizeForObject(this.optionsValue)
     this.initializeID()
-
-    // this.initializeComplete()
   }
   connect() {
     if (this.isTest) { console.log(this) }

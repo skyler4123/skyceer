@@ -1,8 +1,6 @@
-import { twMerge } from 'tailwind-merge'
-// import { Camelize } from "../helpers";
-import { Controller } from "@hotwired/stimulus"
+import ApplicationController from './application_controller'
 
-export default class extends Controller {
+export default class extends ApplicationController {
   static targets = ['overlay']
   initialize() {
     // console.log("Hello, Stimulus!", this.element);
@@ -14,8 +12,8 @@ export default class extends Controller {
   // }
 
   initializeClass() {
-    this.element.className = twMerge(this.element.className, this.typeClass.klass)
-    this.overlayTarget.className = twMerge(this.overlayTarget.className, this.typeClass.overlay)
+    this.element.className = this.twMerge(this.element.className, this.typeClass.klass)
+    this.overlayTarget.className = this.twMerge(this.overlayTarget.className, this.typeClass.overlay)
   }
 
   get typeClass() {

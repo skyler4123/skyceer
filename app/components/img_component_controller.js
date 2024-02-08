@@ -1,4 +1,3 @@
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -25,11 +24,11 @@ export default class extends ApplicationComponentController {
 
   initializeClass() {
     if (this.type) {
-      this.element.className = twMerge(this.element.className , this.typeClass[this.type].klass)
-      this.imgTarget.className = twMerge(this.imgTarget.className, this.typeClass[this.type].imgClass)
+      this.element.className = this.twMerge(this.element.className , this.typeClass[this.type].klass)
+      this.imgTarget.className = this.twMerge(this.imgTarget.className, this.typeClass[this.type].imgClass)
     }
-    this.element.className = twMerge(this.element.className ,this.klass)
-    this.imgTarget.className = twMerge(this.imgTarget.className, this.imgClass)
+    this.element.className = this.twMerge(this.element.className ,this.klass)
+    this.imgTarget.className = this.twMerge(this.imgTarget.className, this.imgClass)
   }
 
   isOpenValueChanged(value, previousValue) {

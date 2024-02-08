@@ -1,9 +1,8 @@
 
 import { accordion, button } from '../../components/components';
 import Api from './api';
-import { Controller } from "@hotwired/stimulus"
-
-export default class extends Controller {
+import ApplicationController from './application_controller'
+export default class extends ApplicationController {
   initialize() {
     // console.log("Hello, Stimulus!", this.element);
     // const api = new Api()

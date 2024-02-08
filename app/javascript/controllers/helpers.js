@@ -35,19 +35,28 @@ export const Camelize = (optionsObject) => {
     if (options.type) {
       options.type = camelize(options.type)
     }
-
-
-
     return options
   }
-  const camelize = (str) => {
-    if (typeof str === 'string' || str instanceof String) {
-      return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
-    } else {
-      return str
-    }
-  }
+
 
   return camelizeObject()
 }
 
+export const camelize = (str) => {
+  if (typeof str === 'string' || str instanceof String) {
+    return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+  } else {
+    return str
+  }
+}
+
+export const underscore = (str) => {
+  let underscoreString = str.split('').reduce((result, val) => {
+    if (val === val.toUpperCase()) {
+        result += '_';
+    }
+    return result + val.toLowerCase();
+  }, '');
+  if (underscoreString[0] === '_') { underscoreString = underscoreString.replace(underscoreString[0], '') }
+  return underscoreString
+}

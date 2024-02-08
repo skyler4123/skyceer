@@ -1,4 +1,3 @@
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -30,15 +29,15 @@ export default class extends ApplicationComponentController {
 
   initializeClass() {
     if (this.position) {
-      this.element.className = twMerge(this.element.className, this.positionClass[this.position])
+      this.element.className = this.twMerge(this.element.className, this.positionClass[this.position])
     }
     if (this.type === 'badge' || this.type === 'alert') {
-      this.element.className = twMerge(this.element.className, this.typeClass[this.type][this.border][this.color])
+      this.element.className = this.twMerge(this.element.className, this.typeClass[this.type][this.border][this.color])
     }
     if (this.type === 'toggle') {
-      this.element.className = twMerge(this.element.className, this.typeClass[this.type])
+      this.element.className = this.twMerge(this.element.className, this.typeClass[this.type])
     }
-    this.element.className = twMerge(this.element.className, this.klass)
+    this.element.className = this.twMerge(this.element.className, this.klass)
   }
 
   rating(event) {

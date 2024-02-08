@@ -1,4 +1,3 @@
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -40,12 +39,12 @@ export default class extends ApplicationComponentController {
 
   initializeClass() {
     if (this.type === 'progressBar') {
-      this.element.className = twMerge(this.element.className, this.typeClass.progressBar.klass, this.klass)
-      this.ratioTarget.className = twMerge(this.ratioTarget.className, this.typeClass.progressBar.ratioClass, this.ratioClass)
+      this.element.className = this.twMerge(this.element.className, this.typeClass.progressBar.klass, this.klass)
+      this.ratioTarget.className = this.twMerge(this.ratioTarget.className, this.typeClass.progressBar.ratioClass, this.ratioClass)
       return
     }
-    this.element.className = twMerge(this.element.className, this.klass, this.backgroundClass)
-    this.ratioTarget.className = twMerge(this.ratioTarget.className, this.ratioClass)  
+    this.element.className = this.twMerge(this.element.className, this.klass, this.backgroundClass)
+    this.ratioTarget.className = this.twMerge(this.ratioTarget.className, this.ratioClass)  
   }
 
 

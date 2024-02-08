@@ -1,5 +1,4 @@
 import { Picker } from 'emoji-mart'
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -28,7 +27,7 @@ export default class extends ApplicationComponentController {
   }
 
   initializeClass() {
-    this.element.className = twMerge(this.element.className, this.positionClass[this.insideOrOutside][this.position], this.klass)
+    this.element.className = this.twMerge(this.element.className, this.positionClass[this.insideOrOutside][this.position], this.klass)
   }
 
   get insideOrOutside() {

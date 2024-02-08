@@ -1,5 +1,4 @@
 import hljs from "highlight.js";
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -52,19 +51,19 @@ export default class extends ApplicationComponentController {
 
   initializeClass() {
     if (this.type === 'code') {
-      this.element.className = twMerge(this.element.className, this.typeClass.code.klass)
-      // this.textTarget.className = twMerge('overflow-x-auto flex justify-start no-scrollbar', this.textTarget.className)
-      this.textTarget.className = twMerge(this.textTarget.className, this.typeClass.code.textClass)
-      this.preTarget.className = twMerge(this.preTarget.className, this.typeClass.code.preClass)
-      this.codeTarget.className = twMerge(this.codeTarget.className, this.typeClass.code.codeClass)
+      this.element.className = this.twMerge(this.element.className, this.typeClass.code.klass)
+      // this.textTarget.className = this.twMerge('overflow-x-auto flex justify-start no-scrollbar', this.textTarget.className)
+      this.textTarget.className = this.twMerge(this.textTarget.className, this.typeClass.code.textClass)
+      this.preTarget.className = this.twMerge(this.preTarget.className, this.typeClass.code.preClass)
+      this.codeTarget.className = this.twMerge(this.codeTarget.className, this.typeClass.code.codeClass)
       hljs.highlightElement(this.codeTarget)
     }
-    this.element.className = twMerge(this.element.className, this.klass)
-    this.textTarget.className = twMerge('hidden open:flex', this.textTarget.className, this.textClass)
+    this.element.className = this.twMerge(this.element.className, this.klass)
+    this.textTarget.className = this.twMerge('hidden open:flex', this.textTarget.className, this.textClass)
     if (this.hasEditorTarget) {
       setTimeout(() => {
-        this.editorTarget.className = twMerge('hidden open:flex', this.editorTarget.className, this.editorClass)
-        this.inputTarget.className = twMerge(this.inputTarget.className, this.inputClass)  
+        this.editorTarget.className = this.twMerge('hidden open:flex', this.editorTarget.className, this.editorClass)
+        this.inputTarget.className = this.twMerge(this.inputTarget.className, this.inputClass)  
       }, 500)
     }
   }
