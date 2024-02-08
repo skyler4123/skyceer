@@ -17,7 +17,7 @@ REDIS.set('time', Date.current.to_s)
 # APPLICATION PACKAGE
 User.destroy_all
 ActiveRecord::Base.transaction do
-  10.times do |n|
+  3.times do |n|
     User.create(
       email: "email#{n + 1}@gmail.com",
       password: "password1234",
@@ -28,7 +28,24 @@ ActiveRecord::Base.transaction do
 end
 
 # CALENDAR PACKAGE
-
+CalendarUser.destroy_all
+ActiveRecord::Base.transaction do
+  User.all.each_with_index do |user, index|
+    CalendarUser.create(name: "calendar_user_#{index}", user: user)
+  end
+  CalendarUser.all.each_with_index do |calendar_user|
+    2.times do |n|
+      CalendarSchedule.create(
+        calendar_user: calendar_user,
+        name: "calendar_schedule_#{n}",
+        color: '#' + SecureRandom.hex(3),
+        backgroundColor: '#' + SecureRandom.hex(3),
+        dragBackgroundColor: '#' + SecureRandom.hex(3),
+        borderColor: '#' + SecureRandom.hex(3),
+        )
+    end
+  end
+end
 
 
 # EDUCATION PACKAGE

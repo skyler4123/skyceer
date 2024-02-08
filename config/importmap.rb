@@ -34,3 +34,4 @@ pin "tui-time-picker", to: "https://ga.jspm.io/npm:tui-time-picker@2.1.6/dist/tu
 pin "tailwind-merge" # @2.2.0
 pin "highlight.js", to: "https://ga.jspm.io/npm:highlight.js@11.8.0/es/index.js", preload: true
 pin "emoji-mart" # @5.5.2
+pin "axios", to: "https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js", preload: true

@@ -44,7 +44,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
   end
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "calendar_user_id", null: false
     t.uuid "calendar_schedule_id", null: false
     t.string "calendarId"
     t.string "title"
@@ -73,11 +72,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calendar_schedule_id"], name: "index_calendar_events_on_calendar_schedule_id"
-    t.index ["calendar_user_id"], name: "index_calendar_events_on_calendar_user_id"
   end
 
   create_table "calendar_schedules", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "calendar_user_id", null: false
+    t.string "name"
+    t.string "color"
+    t.string "backgroundColor"
+    t.string "dragBackgroundColor"
+    t.string "borderColor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calendar_user_id"], name: "index_calendar_schedules_on_calendar_user_id"
@@ -127,7 +130,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "calendar_events", "calendar_schedules"
-  add_foreign_key "calendar_events", "calendar_users"
   add_foreign_key "calendar_schedules", "calendar_users"
   add_foreign_key "calendar_users", "users"
   add_foreign_key "sessions", "users"

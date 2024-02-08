@@ -1,8 +1,7 @@
-import { Camelize } from "./helpers";
+import { Camelize } from "../javascript/controllers/helpers";
 import { Controller } from "@hotwired/stimulus";
 
 export default class ApplicationComponentController extends Controller {
-  static baseStaticField = 90;
   static values = {
     options: { type: Object },
     isOpen: { type: Boolean },

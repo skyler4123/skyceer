@@ -1,5 +1,6 @@
 // Docs: https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/calendar.md
 
+import Api from '../../javascript/controllers/api';
 import Calendar from '@toast-ui/calendar';
 import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from '../application_component_controller';
@@ -12,7 +13,6 @@ export default class extends ApplicationComponentController {
 
   initialize() {
     super.initialize()
-    this.initializeStylesheet()
     this.initializeValue()
     this.initializeCalendar()
     this.initializeAction()
@@ -21,17 +21,14 @@ export default class extends ApplicationComponentController {
     this.initializeComplete()
   }
 
-  initializeStylesheet() {
-    document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />')
-    document.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css">')
-  }
-
   initializeValue() {
     this.eventsValue = this.events
   }
   
   initializeCalendar() {
     this.calendar = new Calendar(this.element, this.overideOptions || { ...this.defaultOptions, ...this.options });
+    // this.calendar = new Calendar(this.element, this.options);
+    this.calendar.setCalendars(this.calendars)
   }
 
   initializeAction() {
@@ -78,19 +75,28 @@ export default class extends ApplicationComponentController {
   }
 
   selectDateTime(event) {}
+
   beforeCreateEvent(event) {
+    Api().calendar_events.post({params: event})
     this.createEvents([event])
   }
+
   beforeUpdateEvent(event) {
     this.updateEvent(event.event.id, event.event.calendarId, event.changes)
   }
+
   beforeDeleteEvent(event) {
     this.deleteEvent(event.id, event.calendarId)
   }
+
   afterRenderEvent(event) {}
+
   clickDayName(event) {}
+
   clickEvent(event) {}
+
   clickMoreEventsBtn(event) {}
+
   clickTimezoneCollapseBtn(event) {}
 
   getEvent(eventId, calendarId) {
@@ -167,7 +173,7 @@ export default class extends ApplicationComponentController {
       gridSelection: true,
       timezone: { zones: [] },
       theme: this.DEFAULT_THEME_OPTIONS,
-      calendars: this.calendars,
+      // calendars: this.calendars,
     }
   }
   get DEFAULT_WEEK_OPTIONS() {
@@ -210,7 +216,7 @@ export default class extends ApplicationComponentController {
     }
   }
   get calendars() {
-    return [
+    return this.optionsValue.calendars || this.optionsValue.calendar_schedules || [
       {
         id: 'cal1',
         name: 'Personal',

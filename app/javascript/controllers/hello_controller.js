@@ -1,16 +1,23 @@
-import { Controller } from "@hotwired/stimulus"
+
 import { accordion, button } from '../../components/components';
+import Api from './api';
+import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   initialize() {
     // console.log("Hello, Stimulus!", this.element);
-    const newHTML = button({label: 'Press Button', events: [{ id: 'test', listener: 'click', action: 'toggle' }]}, () => {
-      return accordion({ event: { id: 'test' } }, () => {
-        return `<div>Test Components at FE</div>`
-      })
-    })
-    console.log(newHTML)
-    this.element.innerHTML = newHTML
+    // const api = new Api()
+    // const res = api.calendar_schedules.get({headers: {}})
+
+    // res.then(function (response) {
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // })
+
+    console.log(Api)
+
   }
   
 }
