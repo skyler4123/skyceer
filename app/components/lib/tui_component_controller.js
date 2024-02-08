@@ -1,8 +1,7 @@
 // Docs: https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/calendar.md
 
-import Api from '../../javascript/controllers/api';
+// import Api from '../../javascript/controllers/api';
 import Calendar from '@toast-ui/calendar';
-import { twMerge } from 'tailwind-merge'
 import ApplicationComponentController from '../application_component_controller';
 
 export default class extends ApplicationComponentController {
@@ -77,7 +76,7 @@ export default class extends ApplicationComponentController {
   selectDateTime(event) {}
 
   beforeCreateEvent(event) {
-    Api.calendar_events.post({params: this.snakeCaseForObjectKey(event)})
+    this.Api.calendar_events.post({params: this.snakeCaseForObjectKey(event)})
     this.createEvents([event])
   }
 

@@ -1,7 +1,7 @@
 import { camelizeOptionsValue, toSnakeCase, snakeCaseForObjectKey } from "./helpers"
+import Api from "./api"
 import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus"
-
 export default class ApplicationController extends Controller {
   initialize() {
     // console.log(this)
@@ -23,5 +23,9 @@ export default class ApplicationController extends Controller {
 
   twMerge(...args) {
     return twMerge(...args)
+  }
+
+  get Api() {
+    return this.Api
   }
 }
