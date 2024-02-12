@@ -113,7 +113,8 @@ export default class extends ApplicationComponentController {
   selectDateTime(event) {}
 
   beforeCreateEvent(event) {
-    const response = this.Api.calendar_events.post({params: this.snakeCaseForObjectKey(event)})
+    event = { ...event, isVisible: true }
+    const response = this.Api.calendar_events.post({params: this.snakeCaseForObjectKey(this.convertToUTC(event))})
     response.then((response) => {
       console.log(response)
       this.createEvents([event])
@@ -183,6 +184,12 @@ export default class extends ApplicationComponentController {
   calendarEventsValueChanged(value, previousValue) {
     this.clear()
     this.calendar.createEvents(this.calendarEventsValue)
+  }
+
+  convertToUTC(event) {
+    event.start = event.start.d.d
+    event.end = event.end.d.d
+    return event
   }
 
   get calendarEvents() {
