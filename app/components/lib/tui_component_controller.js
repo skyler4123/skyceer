@@ -23,48 +23,21 @@ export default class extends ApplicationComponentController {
 
   initializeValue() {
     let options = this.optionsValue
-    if (options.calendarSchedules) {
-      options.calendarSchedules = options.calendarSchedules.map((schedule) => {
-        return Object.keys(schedule).reduce((result, key) => {
-          if (key === 'id') {
-            return {
-              ...result,
-              [key]: schedule[key]
-            }
-          }
-          return {
-            ...result,
-            [this.toCamelCase(key)]: schedule[key]
-          }
-        }, {})
-      })
-    }
-    if (options.calendarEvents) {
-      options.calendarEvents = options.calendarEvents.map((event) => {
-        const newEvent = Object.keys(event).reduce((result, key) => {
-          if (key === 'id') {
-            return {
-              ...result,
-              [key]: event[key]
-            }
-          }
-          return {
-            ...result,
-            [this.toCamelCase(key)]: event[key]
-          }
-        }, {})
-        return this.changeObjectKey(newEvent, 'calendarScheduleId', 'calendarId')
-      })
-
-    }
+    options.calendarSchedules = options.calendarSchedules.map((schedule) => {
+      schedule = this.camelCaseForObjectKey(schedule, 'id')
+      return schedule
+    })
+    options.calendarEvents = options.calendarEvents.map((event) => {
+      event = this.camelCaseForObjectKey(event, 'id')
+      return event
+    })
     this.optionsValue = options
     this.calendarEventsValue = this.calendarEvents
   }
   
   initializeCalendar() {
     this.calendar = new Calendar(this.element, this.overideOptions || { ...this.defaultOptions, ...this.options });
-    // this.calendar = new Calendar(this.element, this.options);
-    // this.calendar.setCalendars(this.calendars)
+    this.calendar.setCalendars(this.calendarSchedules)
   }
 
   initializeAction() {
@@ -113,8 +86,7 @@ export default class extends ApplicationComponentController {
   selectDateTime(event) {}
 
   beforeCreateEvent(event) {
-    event = { ...event, isVisible: true }
-    const response = this.Api.calendar_events.post({params: this.snakeCaseForObjectKey(this.convertToUTC(event))})
+    const response = this.Api.calendar_events.post({ params: this.normalizeForBackend(event) })
     response.then((response) => {
       console.log(response)
       this.createEvents([event])
@@ -192,6 +164,18 @@ export default class extends ApplicationComponentController {
     return event
   }
 
+  normalizeForBackend(event) {
+    event = { ...event, isVisible: true, lib: 'tui' }
+    event = this.convertToUTC(event)
+    event = this.snakeCaseForObjectKey(event)
+
+    return event
+  }
+
+  normalizeFromBackend(event) {
+
+  }
+
   get calendarEvents() {
     return this.optionsValue.calendarEvents || [
     // return [
@@ -222,7 +206,7 @@ export default class extends ApplicationComponentController {
       gridSelection: true,
       timezone: { zones: [] },
       theme: this.DEFAULT_THEME_OPTIONS,
-      calendars: this.calendarSchedules,
+      // calendars: this.calendarSchedules,
     }
   }
   get DEFAULT_WEEK_OPTIONS() {

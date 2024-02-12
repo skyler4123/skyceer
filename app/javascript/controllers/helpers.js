@@ -1,31 +1,17 @@
-export const camelizeOptionsValue = (optionsObject) => {
-  let options = optionsObject
-  options = Object.keys(options).reduce((result, key) => ({
-    ...result,
-    [toCamelCase(key)]: options[key]
-  }), {})
+export const camelizeOptionsValue = (object) => {
+  let options = object
+  options = camelCaseForObjectKey(options)
+
   if (options.actions) {
     options.actions = options.actions.map((action) => {
-      return Object.keys(action).reduce((result, key) => ({
-        ...result,
-        [toCamelCase(key)]: toCamelCase(action[key])
-      }), {})
+      action = camelCaseForObjectKeyAndValue(action)
+      return action
     })
   }
   if (options.events) {
     options.events = options.events.map((event) => {
-      return Object.keys(event).reduce((result, key) => {
-        if (key === 'id') {
-          return {
-            ...result,
-            [toCamelCase(key)]: event[key]
-          }
-        }
-        return {
-          ...result,
-          [toCamelCase(key)]: toCamelCase(event[key])
-        }
-      }, {})
+      event = camelCaseForObjectKeyAndValue(event, 'id')
+      return event
     })
   }
   if (options.position) {
@@ -34,45 +20,6 @@ export const camelizeOptionsValue = (optionsObject) => {
   if (options.type) {
     options.type = toCamelCase(options.type)
   }
-
-
-
-  // if (options.calendarSchedules) {
-  //   options.calendarSchedules = options.calendarSchedules.map((schedule) => {
-  //     return Object.keys(schedule).reduce((result, key) => {
-  //       if (key === 'id') {
-  //         return {
-  //           ...result
-  //         }
-  //       }
-  //       return {
-  //         ...result,
-  //         [toCamelCase(key)]: schedule[key]
-  //       }
-  //     }, {})
-  //   })
-  // }
-  // if (options.calendarEvents) {
-  //   options.calendarEvents = options.calendarEvents.map((event) => {
-  //     const newEvent = Object.keys(event).reduce((result, key) => {
-  //       if (key === 'id') {
-  //         return {
-  //           ...result
-  //         }
-  //       }
-  //       return {
-  //         ...result,
-  //         [toCamelCase(key)]: event[key]
-  //       }
-  //     }, {})
-  //     return changeObjectKey(newEvent, 'calendarScheduleId', 'calendarId')
-  //   })
-  // }
-
-
-
-
-
   return options
 }
 
@@ -94,12 +41,67 @@ export const changeObjectKey = (object, oldKey, newKey) => {
   return object
 }
 
-export const snakeCaseForObjectKey = (object) => {
+export const snakeCaseForObjectKey = (object, except) => {
   let objectResult = Object.keys(object).reduce((result, key) => {
+    if (except !== undefined && except.includes(object[key])) {
+      return {
+        ...result,
+        [key]: object[key]
+      }
+    }
     return {
     ...result,
     [toSnakeCase(key)]: object[key]
     }
   }, {})
   return objectResult
+}
+
+export const camelCaseForObjectKey = (object, except) => {
+  let objectResult = Object.keys(object).reduce((result, key) => {
+    if (except !== undefined && except.includes(object[key])) {
+      return {
+        ...result,
+        [key]: object[key]
+      }
+    }
+    return {
+    ...result,
+    [toCamelCase(key)]: object[key]
+    }
+  }, {})
+  return objectResult
+}
+
+export const camelCaseForObjectKeyAndValue = (object, except) => {
+  let objectResult = Object.keys(object).reduce((result, key) => {
+    if (except !== undefined && except.includes(object[key])) {
+      return {
+        ...result,
+        [key]: object[key]
+      }
+    }
+    return {
+    ...result,
+    [toCamelCase(key)]: toCamelCase(object[key])
+    }
+  }, {})
+  return objectResult
+}
+
+export const deleteObjectKey = (object, condition) => {
+  const newObject = object
+  newObject = Object.keys(newObject).reduce((result, key) => {
+    if (object[key] === condition) {
+      return {
+        ...result
+      }
+    } else {
+      return {
+        ...result,
+        [key]: newObject[key]
+      }
+    }
+  }, {})
+  return newObject
 }

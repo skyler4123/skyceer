@@ -71,7 +71,7 @@ class CalendarEventsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def calendar_event_params
       params[:calendar_schedule_id] = params[:calendar_id]
-      params.delete(:calendar_id)
+      params.delete(:lib) if params[:lib]
       params.permit(:calendar_schedule_id, :title, :body, :is_allday, :start, :end, :going_duration, :coming_duration, :location, :attendees, :category, :recurrence_rule, :state, :is_visible, :is_pending, :is_focused, :is_readOnly, :is_private, :color, :background_color, :drag_background_color, :border_color, :custom_style, :raw)
     end
 end

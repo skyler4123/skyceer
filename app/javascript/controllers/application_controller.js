@@ -1,4 +1,4 @@
-import { camelizeOptionsValue, toSnakeCase, snakeCaseForObjectKey, changeObjectKey, toCamelCase } from "./helpers"
+import { camelizeOptionsValue, toSnakeCase, snakeCaseForObjectKey, changeObjectKey, toCamelCase, deleteObjectKey, camelCaseForObjectKey } from "./helpers"
 import Api from "./api"
 import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus"
@@ -14,8 +14,12 @@ export default class ApplicationController extends Controller {
     return camelizeOptionsValue(object)
   }
 
-  snakeCaseForObjectKey(object) {
-    return snakeCaseForObjectKey(object)
+  camelCaseForObjectKey(object, except) {
+    return camelCaseForObjectKey(object, except)
+  }
+
+  snakeCaseForObjectKey(object, except) {
+    return snakeCaseForObjectKey(object, except)
   }
 
   toSnakeCase(string) {
@@ -32,6 +36,10 @@ export default class ApplicationController extends Controller {
 
   changeObjectKey(object, oldKey, newKey) {
     return changeObjectKey(object, oldKey, newKey)
+  }
+
+  deleteObjectKey(object, condition) {
+    return deleteObjectKey(object, condition)
   }
 
   get Api() {
