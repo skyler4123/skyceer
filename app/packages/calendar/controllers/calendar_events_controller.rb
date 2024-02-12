@@ -22,9 +22,12 @@ class CalendarEventsController < ApplicationController
   # POST /calendar_events or /calendar_events.json
   def create
     @calendar_event = CalendarEvent.new(calendar_event_params)
-    @calendar_event.calendar_schedule_id = params[:calendarId]
-    @calendar_event.save
-    return json: {}, status: :ok
+    # @calendar_event.calendar_schedule_id = params[:calendarId]
+    if @calendar_event.save
+      return render json: @calendar_event, status: :created
+    else
+      return render json: @calendar_event.errors, status: :unprocessable_entity
+    end
     # respond_to do |format|
     #   if @calendar_event.save
     #     format.html { redirect_to calendar_event_url(@calendar_event), notice: "Calendar event was successfully created." }
@@ -67,8 +70,8 @@ class CalendarEventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calendar_event_params
-      params[:calendar_schedule_id] = params[:calendarId]
-      params.delete(:calendarId)
-      params.require(:calendar_event).permit(:calendar_schedule_id, :calendarId, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw)
+      params[:calendar_schedule_id] = params[:calendar_id]
+      params.delete(:calendar_id)
+      params.permit(:calendar_schedule_id, :title, :body, :is_allday, :start, :end, :going_duration, :coming_duration, :location, :attendees, :category, :recurrence_rule, :state, :is_visible, :is_pending, :is_focused, :is_readOnly, :is_private, :color, :background_color, :drag_background_color, :border_color, :custom_style, :raw)
     end
 end

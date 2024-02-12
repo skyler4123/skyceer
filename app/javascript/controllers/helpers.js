@@ -34,6 +34,45 @@ export const camelizeOptionsValue = (optionsObject) => {
   if (options.type) {
     options.type = toCamelCase(options.type)
   }
+
+
+
+  // if (options.calendarSchedules) {
+  //   options.calendarSchedules = options.calendarSchedules.map((schedule) => {
+  //     return Object.keys(schedule).reduce((result, key) => {
+  //       if (key === 'id') {
+  //         return {
+  //           ...result
+  //         }
+  //       }
+  //       return {
+  //         ...result,
+  //         [toCamelCase(key)]: schedule[key]
+  //       }
+  //     }, {})
+  //   })
+  // }
+  // if (options.calendarEvents) {
+  //   options.calendarEvents = options.calendarEvents.map((event) => {
+  //     const newEvent = Object.keys(event).reduce((result, key) => {
+  //       if (key === 'id') {
+  //         return {
+  //           ...result
+  //         }
+  //       }
+  //       return {
+  //         ...result,
+  //         [toCamelCase(key)]: event[key]
+  //       }
+  //     }, {})
+  //     return changeObjectKey(newEvent, 'calendarScheduleId', 'calendarId')
+  //   })
+  // }
+
+
+
+
+
   return options
 }
 
@@ -47,6 +86,12 @@ export const toCamelCase = (string) => {
 
 export const toSnakeCase = (string) => {
   return string.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
+}
+
+export const changeObjectKey = (object, oldKey, newKey) => {
+  object[newKey] = object[oldKey]
+  delete(object[oldKey])
+  return object
 }
 
 export const snakeCaseForObjectKey = (object) => {

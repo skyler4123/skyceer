@@ -1,12 +1,13 @@
-import { camelizeOptionsValue, toSnakeCase, snakeCaseForObjectKey } from "./helpers"
+import { camelizeOptionsValue, toSnakeCase, snakeCaseForObjectKey, changeObjectKey, toCamelCase } from "./helpers"
 import Api from "./api"
 import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus"
+
 export default class ApplicationController extends Controller {
   initialize() {
-    // console.log(this)
-    const demo = {calendarId: 12321, fullName: 'sdsa', isTest: true}
-    console.log(this.snakeCaseForObjectKey(demo))
+    console.log(this)
+    // const demo = {calendarId: 12321, fullName: 'sdsa', isTest: true}
+    // console.log(this.snakeCaseForObjectKey(demo))
   }
 
   camelizeOptionsValue(object) {
@@ -21,11 +22,19 @@ export default class ApplicationController extends Controller {
     return toSnakeCase(string)
   }
 
+  toCamelCase(string) {
+    return toCamelCase(string)
+  }
+
   twMerge(...args) {
     return twMerge(...args)
   }
 
+  changeObjectKey(object, oldKey, newKey) {
+    return changeObjectKey(object, oldKey, newKey)
+  }
+
   get Api() {
-    return this.Api
+    return Api
   }
 }

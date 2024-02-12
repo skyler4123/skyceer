@@ -45,7 +45,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "calendar_schedule_id", null: false
-    t.string "calendar_id"
     t.string "title"
     t.string "body"
     t.boolean "is_allday"

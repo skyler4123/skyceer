@@ -7,7 +7,8 @@ import ApplicationComponentController from '../application_component_controller'
 export default class extends ApplicationComponentController {
   static values = {
     ...super.values,
-    events: { type: Array }
+    calendarSchedules: { type: Array },
+    calendarEvents: { type: Array }
   }
 
   initialize() {
@@ -21,13 +22,49 @@ export default class extends ApplicationComponentController {
   }
 
   initializeValue() {
-    this.eventsValue = this.events
+    let options = this.optionsValue
+    if (options.calendarSchedules) {
+      options.calendarSchedules = options.calendarSchedules.map((schedule) => {
+        return Object.keys(schedule).reduce((result, key) => {
+          if (key === 'id') {
+            return {
+              ...result,
+              [key]: schedule[key]
+            }
+          }
+          return {
+            ...result,
+            [this.toCamelCase(key)]: schedule[key]
+          }
+        }, {})
+      })
+    }
+    if (options.calendarEvents) {
+      options.calendarEvents = options.calendarEvents.map((event) => {
+        const newEvent = Object.keys(event).reduce((result, key) => {
+          if (key === 'id') {
+            return {
+              ...result,
+              [key]: event[key]
+            }
+          }
+          return {
+            ...result,
+            [this.toCamelCase(key)]: event[key]
+          }
+        }, {})
+        return this.changeObjectKey(newEvent, 'calendarScheduleId', 'calendarId')
+      })
+
+    }
+    this.optionsValue = options
+    this.calendarEventsValue = this.calendarEvents
   }
   
   initializeCalendar() {
     this.calendar = new Calendar(this.element, this.overideOptions || { ...this.defaultOptions, ...this.options });
     // this.calendar = new Calendar(this.element, this.options);
-    this.calendar.setCalendars(this.calendars)
+    // this.calendar.setCalendars(this.calendars)
   }
 
   initializeAction() {
@@ -76,8 +113,13 @@ export default class extends ApplicationComponentController {
   selectDateTime(event) {}
 
   beforeCreateEvent(event) {
-    this.Api.calendar_events.post({params: this.snakeCaseForObjectKey(event)})
-    this.createEvents([event])
+    const response = this.Api.calendar_events.post({params: this.snakeCaseForObjectKey(event)})
+    response.then((response) => {
+      console.log(response)
+      this.createEvents([event])
+    }).catch(function (error) {
+      console.log(error);
+    })
   }
 
   beforeUpdateEvent(event) {
@@ -138,13 +180,14 @@ export default class extends ApplicationComponentController {
     this.calendar.changeView('day')
   }
 
-  eventsValueChanged(value, previousValue) {
+  calendarEventsValueChanged(value, previousValue) {
     this.clear()
-    this.calendar.createEvents(this.eventsValue)
+    this.calendar.createEvents(this.calendarEventsValue)
   }
 
-  get events() {
-    return this.optionsValue.events || this.optionsValue.calendarEvents || [
+  get calendarEvents() {
+    return this.optionsValue.calendarEvents || [
+    // return [
       {
         id: 'event1',
         calendarId: 'cal2',
@@ -158,7 +201,7 @@ export default class extends ApplicationComponentController {
     return this.optionsValue.overideOptions
   }
   get options() {
-    return this.optionsValue.options || {}
+    return this.optionsValue.options || this.defaultOptions
   }
   get defaultOptions() {
     return {
@@ -172,7 +215,7 @@ export default class extends ApplicationComponentController {
       gridSelection: true,
       timezone: { zones: [] },
       theme: this.DEFAULT_THEME_OPTIONS,
-      // calendars: this.calendars,
+      calendars: this.calendarSchedules,
     }
   }
   get DEFAULT_WEEK_OPTIONS() {
@@ -214,8 +257,8 @@ export default class extends ApplicationComponentController {
       },
     }
   }
-  get calendars() {
-    return this.optionsValue.calendars || this.optionsValue.calendar_schedules || [
+  get calendarSchedules() {
+    return this.optionsValue.calendarSchedules || [
       {
         id: 'cal1',
         name: 'Personal',
