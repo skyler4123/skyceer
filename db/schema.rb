@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "calendar_schedule_id", null: false
+    t.integer "lib"
     t.string "title"
     t.string "body"
     t.boolean "is_allday"
@@ -57,17 +58,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
     t.integer "category"
     t.string "recurrence_rule"
     t.integer "state"
-    t.boolean "is_visible"
-    t.boolean "is_pending"
-    t.boolean "is_focused"
-    t.boolean "is_readOnly"
-    t.boolean "is_private"
-    t.string "color"
-    t.string "background_color"
-    t.string "drag_background_color"
-    t.string "border_color"
+    t.boolean "is_visible", default: true
+    t.boolean "is_pending", default: false
+    t.boolean "is_focused", default: false
+    t.boolean "is_readOnly", default: false
+    t.boolean "is_private", default: false
+    t.string "color", default: "#000"
+    t.string "background_color", default: "#a1b56c"
+    t.string "drag_background_color", default: "#a1b56c"
+    t.string "border_color", default: "#000"
     t.json "custom_style", default: {}
-    t.text "raw", default: [], array: true
+    t.json "raw"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calendar_schedule_id"], name: "index_calendar_events_on_calendar_schedule_id"

@@ -22,7 +22,6 @@ class CalendarEventsController < ApplicationController
   # POST /calendar_events or /calendar_events.json
   def create
     @calendar_event = CalendarEvent.new(calendar_event_params)
-    # @calendar_event.calendar_schedule_id = params[:calendarId]
     if @calendar_event.save
       return render json: @calendar_event, status: :created
     else
@@ -70,8 +69,6 @@ class CalendarEventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calendar_event_params
-      params[:calendar_schedule_id] = params[:calendar_id]
-      params.delete(:lib) if params[:lib]
-      params.permit(:calendar_schedule_id, :title, :body, :is_allday, :start, :end, :going_duration, :coming_duration, :location, :attendees, :category, :recurrence_rule, :state, :is_visible, :is_pending, :is_focused, :is_readOnly, :is_private, :color, :background_color, :drag_background_color, :border_color, :custom_style, :raw)
+      params.require(:calendar_event).permit(:lib, :calendar_schedule_id, :title, :body, :is_allday, :start, :end, :going_duration, :coming_duration, :location, :attendees, :category, :recurrence_rule, :state, :is_visible, :is_pending, :is_focused, :is_readOnly, :is_private, :color, :background_color, :drag_background_color, :border_color, :custom_style, :raw)
     end
 end

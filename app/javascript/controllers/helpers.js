@@ -57,6 +57,22 @@ export const snakeCaseForObjectKey = (object, except) => {
   return objectResult
 }
 
+export const snakeCaseForObjectKeyAndValue = (object, except) => {
+  let objectResult = Object.keys(object).reduce((result, key) => {
+    if (except !== undefined && except.includes(object[key])) {
+      return {
+        ...result,
+        [key]: object[key]
+      }
+    }
+    return {
+    ...result,
+    [toSnakeCase(key)]: toSnakeCase(object[key])
+    }
+  }, {})
+  return objectResult
+}
+
 export const camelCaseForObjectKey = (object, except) => {
   let objectResult = Object.keys(object).reduce((result, key) => {
     if (except !== undefined && except.includes(object[key])) {
@@ -100,6 +116,23 @@ export const deleteObjectKey = (object, condition) => {
       return {
         ...result,
         [key]: newObject[key]
+      }
+    }
+  }, {})
+  return newObject
+}
+
+export const objectOnlyKeys = (object, keys) => {
+  let newObject = object
+  newObject = Object.keys(newObject).reduce((result, key) => {
+    if (keys.includes(key)) {
+      return {
+        ...result,
+        [key]: object[key]
+      }
+    } else {
+      return {
+        ...result
       }
     }
   }, {})

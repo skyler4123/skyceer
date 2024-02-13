@@ -1,1 +1,1 @@
-<%= tui(is_test: true, calendar_schedules: CalendarUser.first.calendar_schedules, calendar_events: [CalendarEvent.all.order(created_at: :asc).last]) %>
+<%= tui(is_test: true, calendar_schedules: CalendarUser.first.calendar_schedules, calendar_events: (CalendarUser.first.calendar_schedules.map {|schedule| schedule.calendar_events}).flatten) %>

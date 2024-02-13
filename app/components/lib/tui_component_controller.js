@@ -1,6 +1,5 @@
 // Docs: https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/calendar.md
 
-// import Api from '../../javascript/controllers/api';
 import Calendar from '@toast-ui/calendar';
 import ApplicationComponentController from '../application_component_controller';
 
@@ -29,10 +28,15 @@ export default class extends ApplicationComponentController {
     })
     options.calendarEvents = options.calendarEvents.map((event) => {
       event = this.camelCaseForObjectKey(event, 'id')
+      event = this.changeObjectKey(event, 'calendarScheduleId', 'calendarId')
+
       return event
     })
     this.optionsValue = options
-    this.calendarEventsValue = this.calendarEvents
+    this.calendarEventsValue = this.calendarEvents.map((event) => {
+      return this.objectOnlyKeys(event, ['id', 'calendarId','title','start','end'])
+    })
+    
   }
   
   initializeCalendar() {
@@ -167,6 +171,7 @@ export default class extends ApplicationComponentController {
   normalizeForBackend(event) {
     event = { ...event, isVisible: true, lib: 'tui' }
     event = this.convertToUTC(event)
+    event = this.changeObjectKey(event, 'calendarId', 'calendarScheduleId')
     event = this.snakeCaseForObjectKey(event)
 
     return event

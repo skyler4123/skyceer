@@ -68,21 +68,21 @@ end
 # end
 
 # CHAT PACKAGE
-ChatUser.destroy_all
-ChatConversation.destroy_all
-User.all.each do |user|
-  ChatUser.create(
-    user_id: user.id,
-  )
-end
-ChatUser.each do |user|
-  ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample))
-end
-50.times do |n|
-  chat_conversation = ChatConversation.all.sample
-  chat_user_id = chat_conversation.chat_user_ids.sample
-  chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
-end
+# ChatUser.destroy_all
+# ChatConversation.destroy_all
+# User.all.each do |user|
+#   ChatUser.create(
+#     user_id: user.id,
+#   )
+# end
+# ChatUser.each do |user|
+#   ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample))
+# end
+# 50.times do |n|
+#   chat_conversation = ChatConversation.all.sample
+#   chat_user_id = chat_conversation.chat_user_ids.sample
+#   chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
+# end
 
 
 # 15.times do |n|
