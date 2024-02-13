@@ -42,5 +42,5 @@ Rails.application.routes.draw do
       get 'education'
     end
   end
-  root "home#index"
+  root "home#education"
 end
