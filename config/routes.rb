@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :chat_messages
   resources :chat_users
   resources :components
+  resources :demos
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   get  "sign_up", to: "registrations#new"
@@ -31,7 +32,6 @@ Rails.application.routes.draw do
   end
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
-  resources :demos
   post 'images/upload_by_file'
   post 'images/upload_by_url'
   mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
