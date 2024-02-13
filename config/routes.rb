@@ -29,7 +29,6 @@ Rails.application.routes.draw do
     resource :email_verification, only: [:show, :create]
     resource :password_reset,     only: [:new, :edit, :create, :update]
   end
-  root "home#index"
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   resources :demos
@@ -38,4 +37,10 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
   # get "/up", to: Proc.new { [200, {}, ["OK"]] }
   get "up" => "rails/health#show", as: :rails_health_check
+  resources :home, only: [:index] do
+    collection do
+      get 'education'
+    end
+  end
+  root "home#index"
 end
