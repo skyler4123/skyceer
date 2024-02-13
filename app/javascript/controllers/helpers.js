@@ -43,7 +43,7 @@ export const changeObjectKey = (object, oldKey, newKey) => {
 
 export const snakeCaseForObjectKey = (object, except) => {
   let objectResult = Object.keys(object).reduce((result, key) => {
-    if (except !== undefined && except.includes(object[key])) {
+    if (except !== undefined && except.includes(key)) {
       return {
         ...result,
         [key]: object[key]
@@ -59,7 +59,7 @@ export const snakeCaseForObjectKey = (object, except) => {
 
 export const snakeCaseForObjectKeyAndValue = (object, except) => {
   let objectResult = Object.keys(object).reduce((result, key) => {
-    if (except !== undefined && except.includes(object[key])) {
+    if (except !== undefined && except.includes(key)) {
       return {
         ...result,
         [key]: object[key]
@@ -75,7 +75,7 @@ export const snakeCaseForObjectKeyAndValue = (object, except) => {
 
 export const camelCaseForObjectKey = (object, except) => {
   let objectResult = Object.keys(object).reduce((result, key) => {
-    if (except !== undefined && except.includes(object[key])) {
+    if (except !== undefined && except.includes(key)) {
       return {
         ...result,
         [key]: object[key]
@@ -91,7 +91,7 @@ export const camelCaseForObjectKey = (object, except) => {
 
 export const camelCaseForObjectKeyAndValue = (object, except) => {
   let objectResult = Object.keys(object).reduce((result, key) => {
-    if (except !== undefined && except.includes(object[key])) {
+    if (except !== undefined && except.includes(key)) {
       return {
         ...result,
         [key]: object[key]
@@ -106,7 +106,7 @@ export const camelCaseForObjectKeyAndValue = (object, except) => {
 }
 
 export const deleteObjectKey = (object, condition) => {
-  const newObject = object
+  let newObject = object
   newObject = Object.keys(newObject).reduce((result, key) => {
     if (object[key] === condition) {
       return {
