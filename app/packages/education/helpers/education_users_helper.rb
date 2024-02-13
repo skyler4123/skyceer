@@ -1,0 +1,2 @@
+module EducationUsersHelper
+end

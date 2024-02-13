@@ -17,7 +17,7 @@ REDIS.set('time', Date.current.to_s)
 # APPLICATION PACKAGE
 User.destroy_all
 ActiveRecord::Base.transaction do
-  3.times do |n|
+  20.times do |n|
     User.create(
       email: "email#{n + 1}@gmail.com",
       password: "password1234",
@@ -49,23 +49,37 @@ end
 
 
 # EDUCATION PACKAGE
-# School.destroy_all
-# Teacher.destroy_all
-# Student.destroy_all
-# ActiveRecord::Base.transaction do
-#   10.times do |n|
-#     School.create(name: "school_#{n}")
-#   end
-#   User.all.each_with_index do |user, index|
-#     teacher_or_student = ['teacher', 'student'].sample
-#     user.teacher.create(name: "teacher_#{index}", school: School.all.sample) if teacher_or_student == 'teacher'
-#     user.student.create(name: "student_#{index}", school: School.all.sample) if teacher_or_student == 'student'
-#   end
-#   School.count*10.times do |n|
-#     SchoolClass.create(name: "school_class_#{n}", school: School.all.sample)
-#     SchoolRoom.create(name: "school_room_#{n}", school: School.all.sample)
-#   end
-# end
+EducationUser.destroy_all
+EducationSchool.destroy_all
+EducationTeacher.destroy_all
+EducationStudent.destroy_all
+EducationRoom.destroy_all
+EducationClass.destroy_all
+
+ActiveRecord::Base.transaction do
+  User.all.each_with_index do |user, index|
+    EducationUser.create(name: "education_user_#{index}", user: user)
+  end
+
+  EducationUser.all.each_with_index do |user, index|
+    if index < 2
+      school = EducationSchool.create(name: "education_school_#{index}", education_user: user)
+      5.times do |n|
+        EducationRoom.create(name: "education_room_#{n}", education_school: school)
+      end
+      5.times do |n|
+        EducationClass.create(name: "education_class_#{n}", education_school: school)
+      end
+    end
+    school = EducationSchool.all.sample
+    if index >=2 && index < 6
+      EducationTeacher.create(name: "education_teacher_#{index}", education_user: user, education_school: school)
+    end
+    if index >= 6
+      EducationStudent.create(name: "education_student_#{index}", education_user: user, education_school: school, education_class: school.education_classes.sample)
+    end
+  end
+end
 
 # CHAT PACKAGE
 # ChatUser.destroy_all
@@ -83,7 +97,6 @@ end
 #   chat_user_id = chat_conversation.chat_user_ids.sample
 #   chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
 # end
-
 
 # 15.times do |n|
 #   (Dir.glob("/rails/faker/images/laptop/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|

@@ -25,4 +25,5 @@ class User < ApplicationRecord
   end
 
   has_one :calendar_user
+  has_one :education_user
 end

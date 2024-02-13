@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_13_084231) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -109,6 +109,60 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "education_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_school_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_school_id"], name: "index_education_classes_on_education_school_id"
+  end
+
+  create_table "education_rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_school_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_school_id"], name: "index_education_rooms_on_education_school_id"
+  end
+
+  create_table "education_schools", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_user_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_user_id"], name: "index_education_schools_on_education_user_id"
+  end
+
+  create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_user_id", null: false
+    t.uuid "education_school_id"
+    t.uuid "education_class_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_class_id"], name: "index_education_students_on_education_class_id"
+    t.index ["education_school_id"], name: "index_education_students_on_education_school_id"
+    t.index ["education_user_id"], name: "index_education_students_on_education_user_id"
+  end
+
+  create_table "education_teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_user_id", null: false
+    t.uuid "education_school_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_school_id"], name: "index_education_teachers_on_education_school_id"
+    t.index ["education_user_id"], name: "index_education_teachers_on_education_user_id"
+  end
+
+  create_table "education_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_education_users_on_user_id"
+  end
+
   create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.string "user_agent"
@@ -132,5 +186,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_06_060635) do
   add_foreign_key "calendar_events", "calendar_schedules"
   add_foreign_key "calendar_schedules", "calendar_users"
   add_foreign_key "calendar_users", "users"
+  add_foreign_key "education_classes", "education_schools"
+  add_foreign_key "education_rooms", "education_schools"
+  add_foreign_key "education_schools", "education_users"
+  add_foreign_key "education_students", "education_classes"
+  add_foreign_key "education_students", "education_schools"
+  add_foreign_key "education_students", "education_users"
+  add_foreign_key "education_teachers", "education_schools"
+  add_foreign_key "education_teachers", "education_users"
+  add_foreign_key "education_users", "users"
   add_foreign_key "sessions", "users"
 end

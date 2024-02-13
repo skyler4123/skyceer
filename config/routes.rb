@@ -5,6 +5,12 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :education_rooms
+  resources :education_classes
+  resources :education_students
+  resources :education_teachers
+  resources :education_schools
+  resources :education_users
   resources :calendar_schedules
   resources :calendar_events
   resources :calendar_users
