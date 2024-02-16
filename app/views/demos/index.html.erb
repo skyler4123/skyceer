@@ -264,9 +264,9 @@
     <%= editorjs(object_type: 'User') %>
     <%= pin_code %>
 
-<%= tui(is_test: true, calendar_schedules: CalendarUser.first.calendar_schedules, calendar_events: (CalendarUser.first.calendar_schedules.map {|schedule| schedule.calendar_events}).flatten) %>
+    <%= tui(calendar_schedules: CalendarUser.first.calendar_schedules, calendar_events: (CalendarUser.first.calendar_schedules.map {|schedule| schedule.calendar_events}).flatten) %>
 
-
+    <%= table %>
 
 
 

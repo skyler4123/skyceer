@@ -20,9 +20,6 @@ export default class ApplicationComponentController extends ApplicationControlle
       this.element.id = `${this.identifier}-${crypto.randomUUID()}`
     }
   }
-  initializeComplete() {
-    this.element.classList.remove('hidden')
-  }
 
   initializeAction() {
     if (this.eventId) {

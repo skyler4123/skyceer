@@ -5,9 +5,16 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class ApplicationController extends Controller {
   initialize() {
-    console.log(this)
     // const demo = {calendarId: 12321, fullName: 'sdsa', isTest: true}
     // console.log(this.snakeCaseForObjectKey(demo))
+  }
+
+  initializeComplete() {
+    if (this.isLastController) {
+      this.element.classList.remove('hidden')
+    } else {
+      this.initializeNextController()
+    }
   }
 
   camelizeOptionsValue(object) {
@@ -54,7 +61,51 @@ export default class ApplicationController extends Controller {
     return Helpers.objectOnlyKeys(object, keys)
   }
 
+  initializeNextController() {
+    this.nextController.init()
+  }
+
   get Api() {
     return Api
+  }
+
+  get controller() {
+    return this.element.dataset.controller.trim().split(' ')
+  }
+
+  get controllerSize() {
+    return this.controller.length
+  }
+
+  get controllerMaxIndex() {
+    return this.controllerSize - 1
+  }
+
+  get controllerIndex() {
+    return this.controller.indexOf(this.identifier)
+  }
+
+  get isFirstController() {
+    return this.identifier === this.controller[0]
+  }
+
+  get isLastController() {
+    return this.identifier === this.controller[this.controllerMaxIndex]
+  }
+
+  get nextController() {
+    if (this.controllerIndex === this.controllerMaxIndex) {
+      return null
+    } else {
+      return this.application.getControllerForElementAndIdentifier(this.element, this.controller[this.controllerIndex + 1])
+    }
+  }
+
+  get previousController() {
+    if (this.controllerIndex === 0) {
+      return null
+    } else {
+      return this.application.getControllerForElementAndIdentifier(this.element, this.controller[this.controllerIndex - 1])
+    }
   }
 }

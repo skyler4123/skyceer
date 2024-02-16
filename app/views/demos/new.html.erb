@@ -1,1 +1,4 @@
-<%= table(is_test: true) %>
+    <%= button(label: 'Toggle Accordion', event: { id: new_id, listener: :click, action: :toggle }) %>
+    <%= accordion(is_test: true, orientation: :horizontal, event: { id: id }) do %>
+      <div>kjhjk lkjlkj kjlkj kjlk </div>
+    <% end %>

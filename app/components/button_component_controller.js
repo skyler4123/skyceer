@@ -50,7 +50,6 @@ export default class extends ApplicationComponentController {
     }
     if (this.actions) {
       this.actions.forEach((action) => {
-        console.log(action)
         this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${Object.values(action)[0]}->${this.identifier}#${Object.values(action)[1]}`
       })
     }

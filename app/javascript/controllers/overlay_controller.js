@@ -2,7 +2,7 @@ import ApplicationController from './application_controller'
 
 export default class extends ApplicationController {
   static targets = ['overlay']
-  initialize() {
+  init() {
     // console.log("Hello, Stimulus!", this.element);
     // this.initializeTarget()
     this.initializeClass()
