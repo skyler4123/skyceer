@@ -1,9 +1,6 @@
 import TableComponent from "../table_component_controller";
 
 export default class extends TableComponent {
-  // connect() {
-  //   console.log("Hello, Stimulus!", this.element);
-  // }
 
   get initHTML() {
     return `
@@ -27,7 +24,6 @@ export default class extends TableComponent {
           `
           ).join('')}
       </tbody>
-
     `
   }
 }
