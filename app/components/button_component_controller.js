@@ -30,9 +30,6 @@ export default class extends ApplicationComponentController {
   }
 
   initializeHTML() {
-    if (this.dir) {
-      this.element.setAttribute('dir', this.dir)
-    }
     if (this.buttonTarget.childElementCount === 0) { this.buttonTarget.textContent = this.label }
   }
   initializeClass() {

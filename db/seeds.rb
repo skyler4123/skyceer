@@ -81,6 +81,24 @@ ActiveRecord::Base.transaction do
   end
 end
 
+# AGRICULTURE PACKAGE
+AgricultureUser.destroy_all
+ActiveRecord::Base.transaction do
+  User.all.each_with_index do |user, index|
+    AgricultureUser.create(name: "agriculture_user_#{index}", user: user)
+  end
+  AgricultureUser.all.each_with_index do |user, index|
+    if (index % 2 == 0)
+      AgricultureFarmer.create(name: "agriculture_farmer_#{index}", agriculture_user: user)
+    else
+      AgricultureMerchant.create(name: "agriculture_merchant_#{index}", agriculture_user: user)
+    end
+  end
+  AgricultureFarmer.all.each_with_index do |farmer, index|
+    AgricultureFarm.create(name: "agriculture_farm_#{index}", agriculture_farmer: farmer)
+  end
+end
+
 # CHAT PACKAGE
 # ChatUser.destroy_all
 # ChatConversation.destroy_all

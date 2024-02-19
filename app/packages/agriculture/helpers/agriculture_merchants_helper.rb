@@ -1,0 +1,2 @@
+module AgricultureMerchantsHelper
+end

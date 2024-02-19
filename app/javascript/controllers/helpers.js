@@ -17,6 +17,9 @@ export const camelizeOptionsValue = (object) => {
   if (options.position) {
     options.position = toCamelCase(options.position)
   }
+  if (options.positionType) {
+    options.positionType = toCamelCase(options.positionType)
+  }
   if (options.type) {
     options.type = toCamelCase(options.type)
   }

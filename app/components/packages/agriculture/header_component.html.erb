@@ -1,0 +1,15 @@
+<%= box(tag: :header, klass: 'sticky top-0 flex flex-row w-full justify-between items-center bg-green-500 p-5') do %>
+  <%= img(url: 'https://static.wixstatic.com/media/f4a6dd_9e179c6590e746aba72674fb55517c92~mv2.png/v1/fill/w_147,h_147,al_c,q_85,usm_1.20_1.00_0.01,enc_auto/Sanh_01.png') %>
+  <div class="flex flex-row">
+    <%= link { text(label: 'Home') } %>
+    <%= link(label: "My Story") %>
+    <%= link(label: "News") %>
+    <%= link(label: "Product") %>
+    <%= link(label: "Community") %>
+    <%= link(label: "Contact") %>
+
+  </div>
+  <div>Dropdown language</div>
+
+
+<% end %>

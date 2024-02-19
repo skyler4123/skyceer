@@ -11,6 +11,7 @@ export default class ApplicationComponentController extends ApplicationControlle
   initialize() {
     this.optionsValue = this.camelizeOptionsValue(this.optionsValue)
     this.initializeID()
+    this.initializeDir()
   }
   connect() {
     if (this.isTest) { console.log(this) }
@@ -18,6 +19,11 @@ export default class ApplicationComponentController extends ApplicationControlle
   initializeID() {
     if (!this.element.id) {
       this.element.id = `${this.identifier}-${crypto.randomUUID()}`
+    }
+  }
+  initializeDir() {
+    if (this.dir) {
+      this.element.setAttribute('dir', this.dir)
     }
   }
 
@@ -85,6 +91,9 @@ export default class ApplicationComponentController extends ApplicationControlle
   }
   get type() {
     return this.optionsValue.type
+  }
+  get label() {
+    return this.optionsValue.label
   }
 
 }

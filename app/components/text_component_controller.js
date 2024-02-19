@@ -5,10 +5,9 @@ export default class extends ApplicationComponentController {
   static targets = ["text", "editor", "input", "pre", "code"]
   static values = {
     ...super.values,
-    isOpen: { type: Boolean, default: true },
     label: { type: String },
-    isOpenEditor: { type: Boolean },
-    language: { type: String }
+    language: { type: String },
+    isOpenEditor: { type: Boolean }
   }
 
   initialize() {
@@ -23,14 +22,11 @@ export default class extends ApplicationComponentController {
   }
 
   initializeValue() {
-    this.labelValue = this.optionsValue.label
-    this.languageValue = this.optionsValue.language || "english"
+    this.labelValue = this.label
+    this.languageValue = this.language
   }
 
   initializeHTML() {
-    if (this.dir) {
-      this.element.setAttribute('dir', this.dir)
-    }
     if (this.type === 'code') {
       this.textTarget.innerHTML = this.initHTML.code
       this.codeTarget.textContent = this.labelValue
@@ -52,7 +48,6 @@ export default class extends ApplicationComponentController {
   initializeClass() {
     if (this.type === 'code') {
       this.element.className = this.twMerge(this.element.className, this.typeClass.code.klass)
-      // this.textTarget.className = this.twMerge('overflow-x-auto flex justify-start no-scrollbar', this.textTarget.className)
       this.textTarget.className = this.twMerge(this.textTarget.className, this.typeClass.code.textClass)
       this.preTarget.className = this.twMerge(this.preTarget.className, this.typeClass.code.preClass)
       this.codeTarget.className = this.twMerge(this.codeTarget.className, this.typeClass.code.codeClass)
@@ -80,8 +75,16 @@ export default class extends ApplicationComponentController {
 
   languageValueChanged(value, previousValue) {
     if (previousValue === undefined || previousValue === '') { return }
-    
-    this.labelValue = this.dictionary[this.languageKey][this.languageValue]
+    if (this.supportLanguages.includes(this.languageValue)) {
+      console.log('this.languageValue: ', this.languageValue)
+      this.labelValue = this.dictionary[this.languageKey][this.languageValue]
+    } else {
+      Object.entries(this.supportLanguagesObject).forEach((languageEntry) => {
+        if (languageEntry[1].includes(this.languageValue)) {
+          this.languageValue = languageEntry[0]
+        }
+      })
+    }
   }
 
   translate(event) {
@@ -130,8 +133,27 @@ export default class extends ApplicationComponentController {
   get codeLanguage() {
     return this.optionsValue.codeLanguage || 'erb'
   }
+  get language() {
+    return this.optionsValue.language || this.defaultLanguage
+  }
+  get defaultLanguage() {
+    return 'english'
+  }
   get languageKey() {
-    return this.optionsValue.languageKey || this.labelValue
+    return this.optionsValue.languageKey || this.defaultLanguageKey
+  }
+  get defaultLanguageKey() {
+    let defaultLanguageKey
+    Object.entries(this.dictionary).forEach((languageKeyObject) => {
+      // languageKeyObject = ['Price': {'english': 'Price','vietnamese': 'Gia ca'}]
+      const key = languageKeyObject[0]
+      const keyWithLanguages = languageKeyObject[1]
+      const value = keyWithLanguages[this.language]
+      if (value === this.label) {
+        defaultLanguageKey = key
+      }
+    })
+    return defaultLanguageKey
   }
   get typeClass() {
     return {
@@ -164,19 +186,32 @@ export default class extends ApplicationComponentController {
       `
     }
   }
+  get supportLanguagesObject() {
+    return {
+      english: ['english', 'eng', 'en'],
+      vietnamese: ['vietnamese', 'vietnam', 'vn', 'viet']
+    }
+  }
+  get supportLanguages() {
+    return Object.keys(this.supportLanguagesObject)
+  }
   get dictionary() {
     return {
-      'Price': {
+      // 'languageKey': { 
+      //   'languageValue': 'value',
+      //   ...
+      // },
+      'Price': { 
         'english': 'Price',
-        'vietnam': 'Gia ca'
+        'vietnamese': 'Gia ca'
       },
       'Car': {
         'english': 'Car',
-        'vietnam': 'Xe hoi'
+        'vietnamese': 'Xe hoi'
       },
       'Teacher': {
         'english': 'Teacher',
-        'vietnam': 'Giao Vien'
+        'vietnamese': 'Giao Vien'
       }
     }
   }

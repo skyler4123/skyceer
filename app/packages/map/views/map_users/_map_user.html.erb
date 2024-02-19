@@ -1,0 +1,17 @@
+<div id="<%= dom_id map_user %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= map_user.user_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= map_user.name %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this map user", map_user, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this map user", edit_map_user_path(map_user), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

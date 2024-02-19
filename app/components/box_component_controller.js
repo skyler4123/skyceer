@@ -29,7 +29,7 @@ export default class extends ApplicationComponentController {
 
   initializeClass() {
     if (this.position) {
-      this.element.className = this.twMerge(this.element.className, this.positionClass[this.position])
+      this.element.className = this.twMerge(this.element.className, this.positionClass[this.positionType][this.position])
     }
     if (this.type === 'badge' || this.type === 'alert') {
       this.element.className = this.twMerge(this.element.className, this.typeClass[this.type][this.border][this.color])
@@ -136,6 +136,9 @@ export default class extends ApplicationComponentController {
   get position() {
     return this.optionsValue.position
   }
+  get positionType() {
+    return this.optionsValue.positionType || 'inside'
+  }
   get typeClass() {
     return {
       badge: {
@@ -191,18 +194,60 @@ export default class extends ApplicationComponentController {
 
   get positionClass() {
     return {
-      topRight: 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
-      rightTop: 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
-      topLeft: 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
-      leftTop: 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
-      bottomRight: 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
-      rightBottom: 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
-      bottomLeft: 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2',
-      leftBottom: 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2',
-      topCenter: 'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2',
-      bottomCenter: 'absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2',
-      rightCenter: 'absolute bottom-0 right-0 top-1/2 translate-x-1/2 -translate-y-1/2',
-      leftCenter: 'absolute bottom-0 left-0 top-1/2 -translate-x-1/2 -translate-y-1/2',
+      border: {
+        topRight: 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
+        rightTop: 'absolute top-0 right-0 translate-x-1/2 -translate-y-1/2',
+
+        topLeft: 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
+        leftTop: 'absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2',
+
+        bottomRight: 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
+        rightBottom: 'absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2',
+
+        bottomLeft: 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2',
+        leftBottom: 'absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2',
+        
+        topCenter: 'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2',
+        bottomCenter: 'absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2',
+        rightCenter: 'absolute bottom-0 right-0 top-1/2 translate-x-1/2 -translate-y-1/2',
+        leftCenter: 'absolute bottom-0 left-0 top-1/2 -translate-x-1/2 -translate-y-1/2',
+      },
+      inside: {
+        topRight: 'absolute top-0 right-0',
+        rightTop: 'absolute top-0 right-0',
+
+        topLeft: 'absolute top-0 left-0',
+        leftTop: 'absolute top-0 left-0',
+
+        bottomRight: 'absolute bottom-0 right-0',
+        rightBottom: 'absolute bottom-0 right-0',
+
+        bottomLeft: 'absolute bottom-0 left-0',
+        leftBottom: 'absolute bottom-0 left-0',
+
+        topCenter: 'absolute top-0 left-1/2 -translate-x-1/2',
+        bottomCenter: 'absolute bottom-0 left-1/2 -translate-x-1/2',
+        rightCenter: 'absolute bottom-0 right-0 top-1/2 -translate-y-1/2',
+        leftCenter: 'absolute bottom-0 left-0 top-1/2 -translate-y-1/2',
+        center: 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+      },
+      outside: {
+        topCenter: 'absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full',
+        topRight: 'absolute top-0 right-0 -translate-y-full',
+        topLeft: 'absolute top-0 left-0 -translate-y-full',
+
+        bottomCenter: 'absolute bottom-0 left-1/2 -translate-x-full translate-y-full',
+        bottomRight: 'absolute bottom-0 right-0 translate-y-full',
+        bottomLeft: 'absolute bottom-0 left-0 translate-y-full',
+
+        rightCenter: 'absolute bottom-0 right-0 top-1/2 translate-x-full -translate-y-1/2',
+        rightTop: 'absolute top-0 right-0 translate-x-full',
+        rightBottom: 'absolute bottom-0 right-0 translate-x-full',
+
+        leftCenter: 'absolute bottom-0 left-0 top-1/2 -translate-x-full -translate-y-1/2',
+        leftTop: 'absolute top-0 left-0 -translate-x-full',
+        leftBottom: 'absolute bottom-0 left-0 -translate-x-full',
+      }
     }
   }
 

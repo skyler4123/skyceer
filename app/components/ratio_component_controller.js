@@ -23,9 +23,6 @@ export default class extends ApplicationComponentController {
   }
 
   initializeHTML() {
-    if (this.dir) {
-      this.element.setAttribute('dir', this.dir)
-    }
     if (this.type === 'progressBar') {
       this.element.innerHTML = this.initHTML[this.type]
     }

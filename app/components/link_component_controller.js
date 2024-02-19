@@ -1,7 +1,7 @@
 import ApplicationComponentController from './application_component_controller';
 
 export default class extends ApplicationComponentController {
-  static targets = ['content', 'link', 'hidden']
+  static targets = ['link']
   static values = {
     ...super.values,
   }
@@ -16,15 +16,11 @@ export default class extends ApplicationComponentController {
   }
 
   initializeHTML() {
-    if (this.dir) {
-      this.element.setAttribute('dir', this.dir)
-    }
     if (this.linkTarget.childElementCount === 0) { this.linkTarget.textContent = this.label }
     this.linkTarget.href = this.url
   }
   initializeClass() {
     this.element.className = this.twMerge(this.element.className, this.optionsValue.klass)
-    this.contentTarget.className = this.twMerge(this.contentTarget.className, this.variant, this.optionsValue.contentClass)
     this.linkTarget.className = this.twMerge(this.linkTarget.className, this.optionsValue.linkClass)
   }
 
@@ -36,7 +32,7 @@ export default class extends ApplicationComponentController {
     return this.optionsValue.label
   }
   get url() {
-    return this.optionsValue.url
+    return this.optionsValue.url || '/#'
   }
 
 

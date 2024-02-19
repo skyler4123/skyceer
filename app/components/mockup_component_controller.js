@@ -14,9 +14,6 @@ export default class extends ApplicationComponentController {
   }
 
   initializeHTML() {
-    if (this.dir) {
-      this.element.setAttribute('dir', this.dir)
-    }
     this.element.innerHTML = this.initHTML[this.deviceName || this.name || "iphone-12"]
   }
 

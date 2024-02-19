@@ -156,7 +156,7 @@
 
     <%= box(type: :alert, border: :bordered, color: :blue, klass: 'relative') do %>
       <div>Test Box Component with styles</div>
-      <%= box(klass: 'w-fit h-fit', position: :left_center) do %>
+      <%= box(klass: 'w-fit h-fit', position: :left_center, position_type: :border) do %>
         <%= box(klass: 'w-4 h-4 bg-green-500 rounded-full animate-ping') %>
       <% end %>
     <% end %>
@@ -268,7 +268,12 @@
 
     <%= table %>
 
-
+    <%= box(type: :alert, border: :bordered, color: :blue, klass: 'relative') do %>
+        <div>Test Box Component with styles</div>
+        <%= box(klass: 'w-fit h-fit', position: :left_bottom, position_type: :outside) do %>
+          <%= box(klass: 'w-4 h-4 bg-green-500') %>
+        <% end %>
+      <% end %>
 
 
 
