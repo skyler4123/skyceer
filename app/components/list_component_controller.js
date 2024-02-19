@@ -1,7 +1,7 @@
 import Sortable from 'sortablejs';
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class ListComponentController extends ApplicationComponentController {
   static targets = ['li']
   static values = {
     ...super.values,

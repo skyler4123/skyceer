@@ -7,7 +7,7 @@ import {  Japanese } from "flatpickr/dist/l10n/ja.js"
 import { useHover, useClickOutside } from 'stimulus-use'
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class InputComponentController extends ApplicationComponentController {
   static targets = ['label', 'input', 'select', 'option']
   static values = {
     ...super.values,

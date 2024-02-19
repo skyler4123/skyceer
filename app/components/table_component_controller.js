@@ -1,6 +1,6 @@
 import ApplicationComponentController from './application_component_controller';
 
-export default class TableComponent extends ApplicationComponentController {
+export default class TableComponentController extends ApplicationComponentController {
   static targets = ['head', 'body', 'h', 'd', 'tr']
   static values = {
     ...super.values,

@@ -1,7 +1,7 @@
 import { Picker } from 'emoji-mart'
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class PopoverComponentController extends ApplicationComponentController {
   static values = {
     ...super.values,
     isOpen: { type: Boolean, default: false },

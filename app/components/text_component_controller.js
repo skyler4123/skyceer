@@ -1,7 +1,7 @@
 import hljs from "highlight.js";
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class TextComponentController extends ApplicationComponentController {
   static targets = ["text", "editor", "input", "pre", "code"]
   static values = {
     ...super.values,

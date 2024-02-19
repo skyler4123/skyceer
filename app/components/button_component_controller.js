@@ -2,7 +2,7 @@ import morphdom from "morphdom"
 import { useHover, useClickOutside } from 'stimulus-use'
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class ButtonComponentController extends ApplicationComponentController {
   static targets = ['button']
   static values = {
     ...super.values,

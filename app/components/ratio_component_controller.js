@@ -1,6 +1,6 @@
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class RatioComponentController extends ApplicationComponentController {
   static targets = ["ratio", "divider"]
   static values = {
     ...super.values,

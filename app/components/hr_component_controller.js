@@ -1,6 +1,6 @@
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class HrComponentController extends ApplicationComponentController {
   static targets = ['content', 'hr']
   static values = {
     ...super.values,

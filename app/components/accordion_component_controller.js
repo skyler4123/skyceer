@@ -1,6 +1,6 @@
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class AccordionComponentController extends ApplicationComponentController {
   static targets = ['content']
   static values = {
     ...super.values,

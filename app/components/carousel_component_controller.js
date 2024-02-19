@@ -1,6 +1,6 @@
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class CarouselComponentController extends ApplicationComponentController {
   static targets = ['carousel']
   static values = {
     ...super.values,

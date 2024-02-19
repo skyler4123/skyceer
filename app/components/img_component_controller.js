@@ -1,6 +1,6 @@
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class ImgComponentController extends ApplicationComponentController {
   static targets = ['img']
   static values = {
     ...super.values,

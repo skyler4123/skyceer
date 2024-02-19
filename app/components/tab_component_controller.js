@@ -1,7 +1,7 @@
 import morphdom from "morphdom"
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class TabComponentController extends ApplicationComponentController {
   static targets = ["tab"]
   static values = {
     ...super.values,

@@ -1,6 +1,6 @@
 import ApplicationComponentController from './application_component_controller';
 
-export default class extends ApplicationComponentController {
+export default class ModalComponentController extends ApplicationComponentController {
   static targets = ['background', 'content']
   static values = {
     ...super.values,
