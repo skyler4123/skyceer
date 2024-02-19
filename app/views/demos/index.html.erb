@@ -276,7 +276,12 @@
       <% end %>
     <%= text(label: "Gia ca", language: :vietnamese) %>
 
-
+    <%= button(event: { id: new_id, action: :tab_next, listener: :dblclick }) do %>
+      <%= tab(event: { id: id }) do |c| %>
+        <%= text(label: 'Text need edit')%>
+        <%= input(value: 'hahah') %>
+      <% end %>
+    <% end %>
 
 
 

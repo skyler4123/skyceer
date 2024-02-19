@@ -1,1 +1,7 @@
-<%= text(label: "Gia ca", language: :vietnamese, is_test: true) %>
+
+    <%= button(event: [{ id: new_id, action: :tab_next, listener: :dblclick }, { id: '123', action: :edit_text, listener: :dblclick }]) do %>
+      <%= tab(event: { id: id }) do |c| %>
+        <%= text(label: 'Text need edit')%>
+        <%= input(value: 'hahah') %>
+      <% end %>
+    <% end %>
