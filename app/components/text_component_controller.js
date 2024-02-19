@@ -76,7 +76,6 @@ export default class extends ApplicationComponentController {
   languageValueChanged(value, previousValue) {
     if (previousValue === undefined || previousValue === '') { return }
     if (this.supportLanguages.includes(this.languageValue)) {
-      console.log('this.languageValue: ', this.languageValue)
       this.labelValue = this.dictionary[this.languageKey][this.languageValue]
     } else {
       Object.entries(this.supportLanguagesObject).forEach((languageEntry) => {
@@ -148,8 +147,8 @@ export default class extends ApplicationComponentController {
       // languageKeyObject = ['Price': {'english': 'Price','vietnamese': 'Gia ca'}]
       const key = languageKeyObject[0]
       const keyWithLanguages = languageKeyObject[1]
-      const value = keyWithLanguages[this.language]
-      if (value === this.label) {
+      const word = keyWithLanguages[this.language]
+      if (word === this.label) {
         defaultLanguageKey = key
       }
     })
@@ -198,7 +197,7 @@ export default class extends ApplicationComponentController {
   get dictionary() {
     return {
       // 'languageKey': { 
-      //   'languageValue': 'value',
+      //   'languageValue': 'word',
       //   ...
       // },
       'Price': { 
