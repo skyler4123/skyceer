@@ -172,7 +172,7 @@ export default class extends ApplicationComponentController {
       copyCode: `
         <div class="hidden absolute top-2 right-2" data-controller="button-component " data-button-component-options-value="{&quot;events&quot;:[{&quot;id&quot;:&quot;${this.eventId}&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;copy_text&quot;},{&quot;id&quot;:&quot;${this.eventId + 'toggle'}&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;tab_next&quot;}]}">
           <button data-button-component-target="button">
-            <div class="hidden" data-controller="tab-component " data-tab-component-options-value="{&quot;event_id&quot;:&quot;${this.eventId + 'toggle'}&quot;,&quot;is_test&quot;:true,&quot;is_restore&quot;:true,&quot;klass&quot;:&quot;bg-blue-900 rounded-md text-white w-20 py-1 flex justify-center&quot;}">
+            <div class="hidden" data-controller="tab-component " data-tab-component-options-value="{&quot;event_id&quot;:&quot;${this.eventId + 'toggle'}&quot;,&quot;is_restore&quot;:true,&quot;klass&quot;:&quot;bg-blue-900 rounded-md text-white w-20 py-1 flex justify-center&quot;}">
               <div class="hidden" data-controller="text-component " data-text-component-options-value="{&quot;label&quot;:&quot;Copy&quot;}">
                 <div data-text-component-target="text"></div>
               </div>
