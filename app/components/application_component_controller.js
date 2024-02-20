@@ -5,7 +5,8 @@ export default class ApplicationComponentController extends ApplicationControlle
     options: { type: Object },
     isOpen: { type: Boolean },
     isFocus: { type: Boolean },
-    isActive: { type: Boolean }
+    isActive: { type: Boolean },
+    isHover: { type: Boolean }
   }
 
   initialize() {
@@ -18,7 +19,7 @@ export default class ApplicationComponentController extends ApplicationControlle
   }
   initializeID() {
     if (!this.element.id) {
-      this.element.id = `${this.identifier}-${crypto.randomUUID()}`
+      this.element.id = `${this.identifier}-${this.newUUID}`
     }
   }
   initializeDir() {

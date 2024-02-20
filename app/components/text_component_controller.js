@@ -2,19 +2,17 @@ import hljs from "highlight.js";
 import ApplicationComponentController from './application_component_controller';
 
 export default class TextComponentController extends ApplicationComponentController {
-  static targets = ["text", "editor", "input", "pre", "code"]
+  static targets = ["pre", "code"]
   static values = {
     ...super.values,
     label: { type: String },
-    language: { type: String },
-    isOpenEditor: { type: Boolean }
+    language: { type: String }
   }
 
   initialize() {
     super.initialize()
     this.initializeValue()
     this.initializeHTML()
-    this.initializeTarget()
     this.initializeClass()
     this.initializeAction()
 
@@ -28,39 +26,23 @@ export default class TextComponentController extends ApplicationComponentControl
 
   initializeHTML() {
     if (this.type === 'code') {
-      this.textTarget.innerHTML = this.initHTML.code
+      this.element.innerHTML = this.initHTML.code
       this.codeTarget.textContent = this.labelValue
       this.element.insertAdjacentHTML('beforeend', this.initHTML.copyCode)
     } else {
-      this.textTarget.innerText = this.labelValue
+      this.element.innerText = this.labelValue
     }
-    this.textTarget.setAttribute('open', '')
-  }
-
-  initializeTarget() {
-    if (this.hasEditorTarget) {
-      setTimeout(() => {
-        this.editorTarget.querySelector('input').setAttribute(`data-${this.identifier}-target`, 'input')
-      }, 500)
-    }
+    this.element.setAttribute('open', '')
   }
 
   initializeClass() {
     if (this.type === 'code') {
       this.element.className = this.twMerge(this.element.className, this.typeClass.code.klass)
-      this.textTarget.className = this.twMerge(this.textTarget.className, this.typeClass.code.textClass)
       this.preTarget.className = this.twMerge(this.preTarget.className, this.typeClass.code.preClass)
       this.codeTarget.className = this.twMerge(this.codeTarget.className, this.typeClass.code.codeClass)
       hljs.highlightElement(this.codeTarget)
     }
     this.element.className = this.twMerge(this.element.className, this.klass)
-    this.textTarget.className = this.twMerge('hidden open:flex', this.textTarget.className, this.textClass)
-    if (this.hasEditorTarget) {
-      setTimeout(() => {
-        this.editorTarget.className = this.twMerge('hidden open:flex', this.editorTarget.className, this.editorClass)
-        this.inputTarget.className = this.twMerge(this.inputTarget.className, this.inputClass)  
-      }, 500)
-    }
   }
 
   copyText() {
@@ -70,7 +52,7 @@ export default class TextComponentController extends ApplicationComponentControl
   labelValueChanged(value, previousValue) {
     if (previousValue === undefined || previousValue === '') { return }
 
-    this.textTarget.innerHTML = this.labelValue
+    this.element.innerHTML = this.labelValue
   }
 
   languageValueChanged(value, previousValue) {
@@ -96,20 +78,6 @@ export default class TextComponentController extends ApplicationComponentControl
 
   closeEditor() {
     this.isOpenEditorValue = false
-  }
-
-  isOpenEditorValueChanged(value, previousValue) {
-    if (previousValue === undefined || previousValue === '') { return }
-
-    if (this.isOpenEditorValue) {
-      this.inputTarget.value = this.labelValue
-      this.textTarget.removeAttribute('open')
-      this.editorTarget.setAttribute('open', '')
-    } else {
-      this.labelValue = this.inputTarget.value
-      this.editorTarget.removeAttribute('open', '')
-      this.textTarget.setAttribute('open', '')
-    }
   }
 
   increase(event) {

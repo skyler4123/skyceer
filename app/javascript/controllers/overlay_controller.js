@@ -1,3 +1,11 @@
+// <%= button(label: 'Test Overlay', klass: "relative w-60 h-40 bg-red-500", event: { id: new_id, action: :toggle, listener: :hover }) do |c| %>
+// <% c.with_append do %>
+//   <%= accordion(controller: "overlay", orientation: :horizontal, klass: '') do %>
+//     <div data-overlay-target="overlay" class="bg-green-500 w-60 h-40"></div>
+//   <% end %>
+// <% end %>
+// <% end %>
+
 import ApplicationController from './application_controller'
 
 export default class extends ApplicationController {

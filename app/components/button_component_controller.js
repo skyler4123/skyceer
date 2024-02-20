@@ -43,11 +43,11 @@ export default class ButtonComponentController extends ApplicationComponentContr
 
   initializeAction() {
     if (this.type === 'toggle') {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#selfToggle`
+      this.element.dataset.action = this.dataAction + ' ' + `click->${this.identifier}#selfToggle`
     }
     if (this.actions) {
       this.actions.forEach((action) => {
-        this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `${Object.values(action)[0]}->${this.identifier}#${Object.values(action)[1]}`
+        this.element.dataset.action = this.dataAction + ' ' + `${Object.values(action)[0]}->${this.identifier}#${Object.values(action)[1]}`
       })
     }
     if (this.events) {
@@ -57,11 +57,21 @@ export default class ButtonComponentController extends ApplicationComponentContr
             this.dispatch('dispatch', { detail: { event: { ...event, controller: this } } })
           }, 500)
         }
-        if (event.listener === 'hover') {
-          this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
-        } else {
-          this.element.dataset.action = this.element.dataset.action + ' ' + `${event.listener}->${this.identifier}#${event.action}`
-        }
+        switch(event.listener) {
+          case 'hover':
+            this.element.dataset.action = this.dataAction + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
+            break;
+          case 'clickOutside':
+            this.element.dataset.action = this.dataAction + ' ' + `${this.identifier}:click:outside->${this.identifier}#${event.action}`
+            break;
+          default:
+            this.element.dataset.action = this.dataAction + ' ' + `${event.listener}->${this.identifier}#${event.action}`
+        } 
+        // if (event.listener === 'hover') {
+        //   this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
+        // } else {
+        //   this.element.dataset.action = this.element.dataset.action + ' ' + `${event.listener}->${this.identifier}#${event.action}`
+        // }
       })
     }
   }
@@ -179,13 +189,29 @@ export default class ButtonComponentController extends ApplicationComponentContr
   tabNext(event) {
     if (this.isPreventDefault('tabNext')) { event.preventDefault() }
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabNext'), controller: this } } })
+    if (this.isMultiController) { this.runActionOnOtherControllers('tabNext') }
     if (this.isStopPropagation('tabNext')) { event.stopPropagation() }
   }
 
   tabBack(event) {
     if (this.isPreventDefault('tabBack')) { event.preventDefault() }
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabBack'), controller: this } } })
+    if (this.isMultiController) { this.runActionOnOtherControllers('tabNext') }
     if (this.isStopPropagation('tabBack')) { event.stopPropagation() }
+  }
+
+  tabFirst(event) {
+    if (this.isPreventDefault('tabFirst')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabFirst'), controller: this } } })
+    if (this.isMultiController) { this.runActionOnOtherControllers('tabFirst') }
+    if (this.isStopPropagation('tabFirst')) { event.stopPropagation() }
+  }
+
+  tabLast(event) {
+    if (this.isPreventDefault('tabLast')) { event.preventDefault() }
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabLast'), controller: this } } })
+    if (this.isMultiController) { this.runActionOnOtherControllers('tabLast') }
+    if (this.isStopPropagation('tabLast')) { event.stopPropagation() }
   }
 
   openEditor(event) {
@@ -228,6 +254,15 @@ export default class ButtonComponentController extends ApplicationComponentContr
     if (this.isPreventDefault('rating')) { event.preventDefault() }
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rating'), controller: this } } })
     if (this.isStopPropagation('rating')) { event.stopPropagation() }
+  }
+
+  runActionOnOtherControllers(action) {
+    this.controllers.forEach((controller) => {
+      if (this === controller) { return }
+      if (typeof controller[action] !== 'undefined') {
+        controller[action]()
+      }
+    })
   }
 
   get buttonClass() {

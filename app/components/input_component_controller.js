@@ -18,6 +18,7 @@ export default class InputComponentController extends ApplicationComponentContro
   initialize() {
     super.initialize()
     this.initializeHTML()
+    this.initializeValue()
     this.initializeTarget()
     this.initializeClass()
     this.initializeFormat()
@@ -28,6 +29,12 @@ export default class InputComponentController extends ApplicationComponentContro
 
   initializeHTML() {
     this.element.innerHTML = this.initHTML
+  }
+
+  initializeValue() {
+    if (this.type !== 'select') {
+      this.inputValue = this.inputTarget.value
+    }
   }
 
   initializeTarget() {
@@ -109,7 +116,8 @@ export default class InputComponentController extends ApplicationComponentContro
   }
 
   inputValueChanged(value, previousValue) {
-    // console.log(this.inputValue)
+    if (this.type === 'select') { return }
+    this.inputTarget.value = this.inputValue
   }
 
   focus() {

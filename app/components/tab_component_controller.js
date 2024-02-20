@@ -59,6 +59,14 @@ export default class TabComponentController extends ApplicationComponentControll
     }
   }
 
+  tabFirst() {
+    this.tabIndexValue = 0
+  }
+
+  tabLast() {
+    this.tabIndexValue = this.maxIndex
+  }
+
   tabIndexValueChanged(value, previousValue) {
     this.tabTargets.forEach((target) => {
       target.removeAttribute('open')

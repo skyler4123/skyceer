@@ -65,16 +65,45 @@ export default class ApplicationController extends Controller {
     this.nextController.init()
   }
 
+  findController(controller) {
+    const findControllerElement = this.element.querySelector(`[data-controller*="${controller}"]`)
+    if (findControllerElement) {
+      return this.application.getControllerForElementAndIdentifier(findControllerElement, controller)
+    }
+  }
+
+  replaceAction(oldAction, newAction) {
+    this.element.dataset.action = this.element.dataset.action.replace(oldAction, newAction).trim()
+  }
+
+  removeAction(action) {
+    this.replaceAction(action, '')
+  }
+  
+  addAction(action) {
+    this.element.dataset.action = ((this.element.dataset.action || '') + ' ' + action).trim()
+  }
+
+  get newUUID() {
+    return crypto.randomUUID()
+  }
   get Api() {
     return Api
   }
 
-  get controller() {
+  get controllerNames() {
     return this.element.dataset.controller.trim().split(' ')
   }
 
+  get controllers() {
+    const controllers = this.controllerNames.map((name) => {
+      return this.application.getControllerForElementAndIdentifier(this.element, name)
+    })
+    return controllers
+  }
+
   get controllerSize() {
-    return this.controller.length
+    return this.controllerNames.length
   }
 
   get controllerMaxIndex() {
@@ -82,30 +111,42 @@ export default class ApplicationController extends Controller {
   }
 
   get controllerIndex() {
-    return this.controller.indexOf(this.identifier)
+    return this.controllerNames.indexOf(this.identifier)
+  }
+
+  get isMultiController() {
+    if (this.controllerSize > 1) { return true }
   }
 
   get isFirstController() {
-    return this.identifier === this.controller[0]
+    return this.identifier === this.controllerNames[0]
   }
 
   get isLastController() {
-    return this.identifier === this.controller[this.controllerMaxIndex]
+    return this.identifier === this.controllerNames[this.controllerMaxIndex]
   }
 
   get nextController() {
     if (this.controllerIndex === this.controllerMaxIndex) {
       return null
     } else {
-      return this.application.getControllerForElementAndIdentifier(this.element, this.controller[this.controllerIndex + 1])
+      return this.application.getControllerForElementAndIdentifier(this.element, this.controllerNames[this.controllerIndex + 1])
     }
   }
-
+  
   get previousController() {
     if (this.controllerIndex === 0) {
       return null
     } else {
-      return this.application.getControllerForElementAndIdentifier(this.element, this.controller[this.controllerIndex - 1])
+      return this.application.getControllerForElementAndIdentifier(this.element, this.controllerNames[this.controllerIndex - 1])
     }
+  }
+
+  get dataAction() {
+    return (this.element.dataset.action || '').trim()
+  }
+
+  get dataActions() {
+    return this.dataAction.split(' ')
   }
 }
