@@ -1,5 +1,6 @@
-import ApplicationController from './application_controller'
-export default class extends ApplicationController {
+import ApplicationComponentController from "../application_component_controller";
+
+export default class extends ApplicationComponentController {
   static targets = ['ratio', 'comparison', 'input']
   static values = {
     comparison: { type: Number }
