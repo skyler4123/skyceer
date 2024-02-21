@@ -13,6 +13,7 @@ export default class ApplicationComponentController extends ApplicationControlle
     this.optionsValue = this.camelizeOptionsValue(this.optionsValue)
     this.initializeID()
     this.initializeDir()
+    this.initializeController()
   }
   connect() {
     if (this.isTest) { console.log(this) }
@@ -26,6 +27,10 @@ export default class ApplicationComponentController extends ApplicationControlle
     if (this.dir) {
       this.element.setAttribute('dir', this.dir)
     }
+  }
+
+  initializeController() {
+    this.element.dataset.controller = this.element.dataset.controller.trim()  
   }
 
   initializeAction() {
@@ -60,14 +65,35 @@ export default class ApplicationComponentController extends ApplicationControlle
     }
   }
 
+  get isOpen() {
+    return this.optionsValue.isOpen
+  }
+  get isFocus() {
+    return this.optionsValue.isFocus
+  }
+  get isActive() {
+    return this.optionsValue.isActive
+  }
+  get isHover() {
+    return this.optionsValue.isHover
+  }
   get dir() {
     return this.optionsValue.dir || false
   }
   get klass() {
-    return this.optionsValue.klass
+    return this.optionsValue.klass || ''
+  }
+  get labelClass() {
+    return this.optionsValue.labelClass || ''
   }
   get id() {
     return this.element.id
+  }
+  get label() {
+    return this.optionsValue.label
+  }
+  get hasLabel() {
+    return typeof this.label !== 'undefined'
   }
   get isTest() {
     return this.optionsValue.isTest
@@ -75,8 +101,20 @@ export default class ApplicationComponentController extends ApplicationControlle
   get event() {
     return this.optionsValue.event
   }
+  get events() {
+    return this.optionsValue.events
+  }
+  get action() {
+    return this.optionsValue.action
+  }
+  get actions() {
+    return this.optionsValue.actions
+  }
   get eventId() {
     return this.event?.id || this.optionsValue.eventId || this.parentButtonEventId
+  }
+  get eventIds() {
+    return this.events.map((event) => (event.id))
   }
   get parentButtonController() {
     if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
@@ -93,8 +131,14 @@ export default class ApplicationComponentController extends ApplicationControlle
   get type() {
     return this.optionsValue.type
   }
+  get hasType() {
+    return typeof this.type !== 'undefined'
+  }
   get label() {
     return this.optionsValue.label
+  }
+  get hasContent() {
+    return this.element.childElementCount > 0
   }
 
 }

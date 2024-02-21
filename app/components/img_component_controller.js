@@ -1,7 +1,6 @@
 import ApplicationComponentController from './application_component_controller';
 
 export default class ImgComponentController extends ApplicationComponentController {
-  static targets = ['img']
   static values = {
     ...super.values,
   }
@@ -16,25 +15,15 @@ export default class ImgComponentController extends ApplicationComponentControll
   }
 
   initializeHTML() {
-    this.element.innerHTML = this.initHTML
+    this.element.setAttribute('src', this.url)
+    this.element.setAttribute('alt', this.alt)
   }
 
   initializeClass() {
     if (this.type) {
       this.element.className = this.twMerge(this.element.className , this.typeClass[this.type].klass)
-      this.imgTarget.className = this.twMerge(this.imgTarget.className, this.typeClass[this.type].imgClass)
     }
     this.element.className = this.twMerge(this.element.className ,this.klass)
-    this.imgTarget.className = this.twMerge(this.imgTarget.className, this.imgClass)
-  }
-
-  isOpenValueChanged(value, previousValue) {
-    super.isOpenValueChanged(value, previousValue)
-    if (this.isOpenValue) {
-      this.imgTarget.setAttribute('open', '')
-    } else {
-      this.imgTarget.removeAttribute('open')
-    }
   }
 
   rotate() {
@@ -44,13 +33,9 @@ export default class ImgComponentController extends ApplicationComponentControll
   get typeClass() {
     return {
       avatar: {
-        klass: '',
-        imgClass: 'rounded-full object-cover'
+        klass: 'rounded-full object-cover'
       }
     }
-  }
-  get imgClass() {
-    return this.optionsValue.imgClass
   }
   get src() {
     return this.optionsValue.src
@@ -61,11 +46,5 @@ export default class ImgComponentController extends ApplicationComponentControll
   get alt() {
     return this.optionsValue.alt
   }
-  get initHTML() {
-    return `
-      <img data-${this.identifier}-target="img" src="${this.url}" alt="${this.alt}">
-    `
-  }
-
 
 }

@@ -8,7 +8,7 @@ import { useHover, useClickOutside } from 'stimulus-use'
 import ApplicationComponentController from './application_component_controller';
 
 export default class InputComponentController extends ApplicationComponentController {
-  static targets = ['label', 'input', 'select', 'option']
+  static targets = ['label', 'input']
   static values = {
     ...super.values,
     isRememberMe: { type: Boolean },
@@ -18,8 +18,6 @@ export default class InputComponentController extends ApplicationComponentContro
   initialize() {
     super.initialize()
     this.initializeHTML()
-    this.initializeValue()
-    this.initializeTarget()
     this.initializeClass()
     this.initializeFormat()
     this.initializeAction()
@@ -31,30 +29,12 @@ export default class InputComponentController extends ApplicationComponentContro
     this.element.innerHTML = this.initHTML
   }
 
-  initializeValue() {
-    if (this.type !== 'select') {
-      this.inputValue = this.inputTarget.value
-    }
-  }
-
-  initializeTarget() {
-    if (this.hasSelectTarget) {
-      this.selectTarget.querySelectorAll('option').forEach((target) => {
-        target.setAttribute(`data-${this.identifier}-target`, 'option')
-      })
-    }
-  }
-
   initializeClass() {
     if (this.hasLabelTaget) {
       this.labelTarget.className = this.twMerge(this.labelTarget.className, this.labelClass)
     }
     if (this.hasInputTarget) {
       this.inputTarget.className = this.twMerge(this.inputTarget.className, this.inputClass)
-    }
-    if (this.hasSelectTarget) {
-      this.selectTarget.className = this.twMerge(this.selectTarget.className, this.selectClass)
-      this.optionTarget.className = this.twMerge(this.optionTarget.className, this.optionClass)
     }
     if (this.isFloatingLabel && this.hasLabelTaget) {
       this.element.className = this.twMerge('relative', this.element.className)
@@ -89,9 +69,6 @@ export default class InputComponentController extends ApplicationComponentContro
     if (this.isFloatingLabel) {
       this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
     }
-    if (this.type !== 'select') {
-      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ' ' + `input->${this.identifier}#input`
-    }
   }
 
   isOpenValueChanged(value, previousValue) {
@@ -116,7 +93,6 @@ export default class InputComponentController extends ApplicationComponentContro
   }
 
   inputValueChanged(value, previousValue) {
-    if (this.type === 'select') { return }
     this.inputTarget.value = this.inputValue
   }
 
@@ -201,14 +177,6 @@ export default class InputComponentController extends ApplicationComponentContro
     }
   }
   get initHTML() {
-    if (this.type === 'select') {
-      return `
-        ${this.label ? `<label data-${this.identifier}-target="label">${this.label}</label>` : ''}
-        <select data-${this.identifier}-target="select" name="${this.name}">
-          ${this.element.innerHTML}
-        </select>
-      `
-    }
     if (this.type === 'comparison') {
       return `
         <input data-${this.identifier}-target="input" type="range" min="0" max="100" value="50">
@@ -261,9 +229,6 @@ export default class InputComponentController extends ApplicationComponentContro
   }
   get inputClass() {
     return this.optionsValue.inputClass
-  }
-  get selectClass() {
-    return this.optionsValue.selectClass
   }
   get optionClass() {
     return this.optionsValue.optionClass

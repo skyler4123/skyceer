@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Lib::EditorjsComponent < ApplicationComponent
+class Utilities::EditorjsComponent < ApplicationComponent
   def initialize(
     holder: "editorjs-#{SecureRandom.alphanumeric}",
     object_id: nil,

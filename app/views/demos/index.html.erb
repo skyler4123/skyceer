@@ -82,7 +82,7 @@
     <%= icon(type: :logo, name: :github, event: { id: id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
 
     <%= button(label: 'Press to rotate Img', event: { id: new_id, listener: :click, action: :rotate }) %>
-    <%= img(event: { id: id }, img_class: "w-40 h-40 open:animate-spin", url: "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg") %>
+    <%= img(event: { id: id }, klass: "w-40 h-40 open:animate-spin", url: "https://picsum.photos/1000/1000") %>
 
     <%= list(is_sortable: true) do %>
       <li>Coffee</li>
@@ -99,11 +99,9 @@
       </div>
     <% end %>
 
-    <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) do |c| %>
-      <% c.with_append do %>
-        <%= popover(position: :right_center) do %>
-          <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
-        <% end %>
+    <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) do %>
+      <%= popover(position: :right_center) do %>
+        <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
       <% end %>
     <% end %>
 
@@ -153,14 +151,6 @@
       <% end %>
     <% end %>
 
-    <%= input(label: "text select component", type: :select) do %>
-        <option selected>Choose a country</option>
-        <option value="US">United States</option>
-        <option value="CA">Canada</option>
-        <option value="FR">France</option>
-        <option value="DE">Germany</option>
-    <% end %>
-
     <%= button(type: :toggle) %>
     <%= button(type: :toggle, klass: 'open:bg-green-500') %>
     <%= button(type: :toggle, klass: 'open:bg-red-500') %>
@@ -191,11 +181,9 @@
       <% end %>
     <% end %>
 
-    <%= button(label: 'Test Overlay', klass: "relative w-60 h-40 bg-red-500", event: { id: new_id, action: :toggle, listener: :hover }) do |c| %>
-      <% c.with_append do %>
-        <%= accordion(controller: "overlay", orientation: :horizontal, klass: '') do %>
-          <div data-overlay-target="overlay" class="bg-green-500 w-60 h-40"></div>
-        <% end %>
+    <%= button(label: 'Test Overlay', klass: "relative w-60 h-40 bg-red-500", event: { id: new_id, action: :toggle, listener: :hover }) do %>
+      <%= accordion(controller: "overlay", orientation: :horizontal, klass: '') do %>
+        <div data-overlay-target="overlay" class="bg-green-500 w-60 h-40"></div>
       <% end %>
     <% end %>
 
@@ -223,33 +211,27 @@
 
     <%= text(type: :code, klass: "w-full", label: Constants::SAMPLE_ERB_CODE, event_id: 'copy code id') %>
 
-    <%= img(type: :avatar, img_class: 'w-10 h-10') %>
+    <%= img(type: :avatar, klass: 'w-10 h-10') %>
 
-    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do |c| %>
-      <% c.with_append do %>
-        <%= popover(inside_or_outside: :inside) do %>
-          <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
-        <% end %>
+    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do %>
+      <%= popover(inside_or_outside: :inside) do %>
+        <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
       <% end %>
     <% end %>
     <%= icon %>
     <%= icon %>
     <%= icon %>
 
-    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do |c| %>
-      <% c.with_append do %>
-        <%= popover do %>
-          <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
-        <% end %>
+    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do %>
+      <%= popover do %>
+        <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
       <% end %>
     <% end %>
     <%= icon %>
     <%= icon %>
     <%= icon %>
-    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do |c| %>
-      <% c.with_append do %>
-        <%= popover(type: :emoji) %>
-      <% end %>
+    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do %>
+      <%= popover(type: :emoji) %>
     <% end %>
 
     <%= apex %>
@@ -276,8 +258,15 @@
       <% end %>
     <% end %>
 
+    <%= img(event: { id: id }, klass: "w-40 h-40 open:animate-spin hover:scale-150 duration-500", url: "https://picsum.photos/1000/1000") %>
 
-
+    <%= select do %>
+      <option selected>Choose a country</option>
+      <option value="US">United States</option>
+      <option value="CA">Canada</option>
+      <option value="FR">France</option>
+      <option value="DE">Germany</option>
+    <% end %>
 
 
 

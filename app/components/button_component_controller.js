@@ -3,7 +3,7 @@ import { useHover, useClickOutside } from 'stimulus-use'
 import ApplicationComponentController from './application_component_controller';
 
 export default class ButtonComponentController extends ApplicationComponentController {
-  static targets = ['button']
+  static targets = ['label', 'toggle']
   static values = {
     ...super.values,
   }
@@ -30,15 +30,28 @@ export default class ButtonComponentController extends ApplicationComponentContr
   }
 
   initializeHTML() {
-    if (this.buttonTarget.childElementCount === 0) { this.buttonTarget.textContent = this.label }
+    if (typeof this.type !== 'undefined') {
+      this.element.innerHTML = this.initHTML[this.type]
+      return
+    }
+    if (!this.hasContent && this.hasLabel) {
+      this.element.innerHTML = this.label
+      return
+    }
+    if (this.hasContent && this.hasLabel) {
+      this.element.insertAdjacentHTML( 'afterbegin', this.initHTML.label)
+    }
+
   }
   initializeClass() {
     if (this.type === 'toggle') {
       this.element.className = this.twMerge(this.element.className, this.typeClass.toggle.klass)
-      this.buttonTarget.className = this.twMerge(this.buttonTarget.className, this.typeClass.toggle.buttonClass)
+      this.toggleTarget.className = this.twMerge(this.toggleTarget.className, this.typeClass.toggle.toggleClass)
+    }
+    if (this.hasLabelTarget) {
+      this.labelTarget.className = this.twMerge(this.labelTarget.className, this.labelClass)
     }
     this.element.className = this.twMerge(this.element.className, this.klass)
-    this.buttonTarget.className = this.twMerge(this.buttonTarget.className, this.buttonClass)
   }
 
   initializeAction() {
@@ -77,8 +90,8 @@ export default class ButtonComponentController extends ApplicationComponentContr
   }
 
   initializeValue() {
-    if (typeof this.optionsValue.isOpen != "undefined") {
-      this.isOpenValue = this.optionsValue.isOpen
+    if (typeof this.isOpen != "undefined") {
+      this.isOpenValue = this.isOpen
     }
   }
 
@@ -99,12 +112,13 @@ export default class ButtonComponentController extends ApplicationComponentContr
   }
 
   isOpenValueChanged(value, previousValue) {
-    if (this.isOpenValue) {
-      this.element.setAttribute('open', '')
-      this.buttonTarget.setAttribute('open', '')
-    } else {
-      this.element.removeAttribute('open')
-      this.buttonTarget.removeAttribute('open')
+    super.isOpenValueChanged(value, previousValue)
+    if (this.type === 'toggle') {
+      if (this.isOpenValue) {
+        this.toggleTarget.setAttribute('open', '')
+      } else {
+        this.toggleTarget.removeAttribute('open')
+      }
     }
   }
 
@@ -265,29 +279,20 @@ export default class ButtonComponentController extends ApplicationComponentContr
     })
   }
 
-  get buttonClass() {
-    return this.optionsValue.buttonClass
-  }
-  get label() {
-    return this.optionsValue.label
-  }
-  get events() {
-    return this.optionsValue.events
-  }
-  get eventIds() {
-    return this.events.map((event) => (event.id))
-  }
-  get actions() {
-    return this.optionsValue.actions
-  }
   get isRememberMe() {
     return this.optionsValue.isRememberMe || false
+  }
+  get initHTML() {
+    return {
+      label: `<div data-${this.identifier}-target='label'>${this.label}</div>`,
+      toggle: `<div data-${this.identifier}-target='toggle'></div>`
+    }
   }
   get typeClass() {
     return {
       toggle: {
         klass: 'bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full cursor-pointer duration-200 ease-out',
-        buttonClass: 'bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 open:translate-x-full duration-200 ease-out'
+        toggleClass: 'bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 open:translate-x-full duration-200 ease-out'
       }
     }
   }
