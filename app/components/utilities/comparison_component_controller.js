@@ -1,7 +1,7 @@
 import ApplicationComponentController from "../application_component_controller";
 
 export default class extends ApplicationComponentController {
-  static targets = ['ratio', 'comparison', 'input']
+  static targets = ['ratio', 'comparison']
   static values = {
     comparison: { type: Number }
   }
@@ -22,17 +22,12 @@ export default class extends ApplicationComponentController {
     }
     if (!this.hasComparisonTarget) {
       this.element.children[this.element.children.length - 1].setAttribute(`data-${this.identifier}-target`, 'comparison')
-    }
-    if (!this.hasInputTarget) {
-      setTimeout(() => {
-        this.comparisonTarget.querySelector('input').setAttribute(`data-${this.identifier}-target`, 'input')
-        this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ' ' + `input->${this.identifier}#input`
-      }, 500)
+      this.comparisonTarget.dataset.action = (this.comparisonTarget.dataset.action || '') + ` input->${this.identifier}#input`
     }
   }
 
   input() {
-    this.comparisonValue = this.inputTarget.value
+    this.comparisonValue = this.comparisonTarget.value
   }
 
   comparisonValueChanged(value, previousValue) {

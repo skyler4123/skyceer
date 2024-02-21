@@ -8,7 +8,6 @@ import { useHover, useClickOutside } from 'stimulus-use'
 import ApplicationComponentController from './application_component_controller';
 
 export default class InputComponentController extends ApplicationComponentController {
-  static targets = ['label', 'input']
   static values = {
     ...super.values,
     isRememberMe: { type: Boolean },
@@ -26,23 +25,46 @@ export default class InputComponentController extends ApplicationComponentContro
   }
 
   initializeHTML() {
-    this.element.innerHTML = this.initHTML
+    if (typeof this.accept !== 'undefined') { this.element.setAttribute('accept', this.accept) }
+    if (typeof this.alt !== 'undefined') { this.element.setAttribute('alt', this.alt) }
+    if (typeof this.autocomplete !== 'undefined') { this.element.setAttribute('autocomplete', this.autocomplete) }
+    if (typeof this.autofocus !== 'undefined') { this.element.setAttribute('autofocus', this.autofocus) }
+    if (typeof this.checked !== 'undefined') { this.element.setAttribute('checked', this.checked) }
+    if (typeof this.dirname !== 'undefined') { this.element.setAttribute('dirname', this.dirname) }
+    if (typeof this.disabled !== 'undefined') { this.element.setAttribute('disabled', this.disabled) }
+    if (typeof this.form !== 'undefined') { this.element.setAttribute('form', this.form) }
+    if (typeof this.formeventAction !== 'undefined') { this.element.setAttribute('formeventAction', this.formeventAction) }
+    if (typeof this.formenctype !== 'undefined') { this.element.setAttribute('formenctype', this.formenctype) }
+    if (typeof this.formmethod !== 'undefined') { this.element.setAttribute('formmethod', this.formmethod) }
+    if (typeof this.formnovalidate !== 'undefined') { this.element.setAttribute('formnovalidate', this.formnovalidate) }
+    if (typeof this.formtarget !== 'undefined') { this.element.setAttribute('formtarget', this.formtarget) }
+    if (typeof this.height !== 'undefined') { this.element.setAttribute('height', this.height) }
+    if (typeof this.list !== 'undefined') { this.element.setAttribute('list', this.list) }
+    if (typeof this.max !== 'undefined') { this.element.setAttribute('max', this.max) }
+    if (typeof this.maxlength !== 'undefined') { this.element.setAttribute('maxlength', this.maxlength) }
+    if (typeof this.min !== 'undefined') { this.element.setAttribute('min', this.min) }
+    if (typeof this.minlength !== 'undefined') { this.element.setAttribute('minlength', this.minlength) }
+    if (typeof this.multiple !== 'undefined') { this.element.setAttribute('multiple', this.multiple) }
+    if (typeof this.name !== 'undefined') { this.element.setAttribute('name', this.name) }
+    if (typeof this.pattern !== 'undefined') { this.element.setAttribute('pattern', this.pattern) }
+    if (typeof this.placeholder !== 'undefined') { this.element.setAttribute('placeholder', this.placeholder) }
+    if (typeof this.popovertarget !== 'undefined') { this.element.setAttribute('popovertarget', this.popovertarget) }
+    if (typeof this.popovertargeteventAction !== 'undefined') { this.element.setAttribute('popovertargeteventAction', this.popovertargeteventAction) }
+    if (typeof this.readonly !== 'undefined') { this.element.setAttribute('readonly', this.readonly) }
+    if (typeof this.required !== 'undefined') { this.element.setAttribute('required', this.required) }
+    if (typeof this.size !== 'undefined') { this.element.setAttribute('size', this.size) }
+    if (typeof this.src !== 'undefined') { this.element.setAttribute('src', this.src) }
+    if (typeof this.step !== 'undefined') { this.element.setAttribute('step', this.step) }
+    if (typeof this.type !== 'undefined') { this.element.setAttribute('type', this.type) }
+    if (typeof this.value !== 'undefined') { this.element.setAttribute('value', this.value) }
+    if (typeof this.width !== 'undefined') { this.element.setAttribute('width', this.width) }
+
+    if (this.type === 'comparison') { this.element.setAttribute('type', 'range') }
   }
 
   initializeClass() {
-    if (this.hasLabelTaget) {
-      this.labelTarget.className = this.twMerge(this.labelTarget.className, this.labelClass)
-    }
-    if (this.hasInputTarget) {
-      this.inputTarget.className = this.twMerge(this.inputTarget.className, this.inputClass)
-    }
-    if (this.isFloatingLabel && this.hasLabelTaget) {
-      this.element.className = this.twMerge('relative', this.element.className)
-      this.labelTarget.className = this.twMerge('absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white', this.labelTarget.className )
-    }
     if (this.type === "comparison") {
       this.element.className = this.twMerge(this.element.className , this.typeClass.comparison.klass)
-      this.inputTarget.className = this.twMerge(this.inputTarget.className, this.typeClass.comparison.inputClass)
     }
     this.element.className = this.twMerge(this.element.className , this.klass)
   }
@@ -53,13 +75,10 @@ export default class InputComponentController extends ApplicationComponentContro
     const timeTypes = ['date', 'datetime-local', 'month', 'time', 'week']
     if (timeTypes.includes(this.type)) {
       flatpickr.l10ns.default.firstDayOfWeek = 1
-      flatpickr(this.inputTarget, this.formatOptions)
+      flatpickr(this.element, this.formatOptions)
       return
     }
-    if (this.hasInputTarget) {
-      var cleave = new Cleave(this.inputTarget, this.formatOptions);
-      return
-    }
+    var cleave = new Cleave(this.element, this.formatOptions);
   }
   
   initializeAction() {
@@ -71,29 +90,12 @@ export default class InputComponentController extends ApplicationComponentContro
     }
   }
 
-  isOpenValueChanged(value, previousValue) {
-    super.isOpenValueChanged(value, previousValue)
-    if (this.isOpenValue) {
-      if (this.hasLabelTaget) {
-        this.labelTarget.setAttribute('open', '')
-      }
-      this.inputTarget.setAttribute('open', '')
-    } else {
-      if (this.hasLabelTaget) {
-        this.labelTarget.removeAttribute('open')
-      }
-      if (this.hasInputTarget) {
-        this.inputTarget.removeAttribute('open')
-      }
-    }
-  }
-
   input() {
-    this.inputValue = this.inputTarget.value
+    this.inputValue = this.element.value
   }
 
   inputValueChanged(value, previousValue) {
-    this.inputTarget.value = this.inputValue
+    this.element.value = this.inputValue
   }
 
   focus() {
@@ -110,19 +112,9 @@ export default class InputComponentController extends ApplicationComponentContro
 
   isFocusValueChanged(value, previousValue) {
     if (this.isFocusValue) {
-      if (this.label) {
-        this.labelTarget.setAttribute('open', '')
-      }
-      if (this.hasInputTarget) {
-        this.inputTarget.setAttribute('open', '')
-      }
+      this.element.setAttribute('open', '')
     } else {
-      if (this.label && this.hasInputTarget && !this.inputTarget.value) {
-        this.labelTarget.removeAttribute('open')
-      }
-      if (this.hasInputTarget) {
-        this.inputTarget.removeAttribute('open')
-      }
+      this.element.removeAttribute('open')
     }
   }
 
@@ -155,7 +147,7 @@ export default class InputComponentController extends ApplicationComponentContro
     if (previousValue === undefined) { return }
 
     if (this.isRememberMeValue) {
-      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ' ' + this.actionToSaveToLocal
+      this.addAction(this.actionToSaveToLocal)
       if (!this.isInitializedSyncFromLocal) {
         this.syncFromLocal()
         this.initializedSyncFromLocal = true
@@ -163,7 +155,7 @@ export default class InputComponentController extends ApplicationComponentContro
         this.saveToLocal()
       }
     } else {
-      this.inputTarget.dataset.action = this.inputTarget.dataset.action?.replace(this.actionToSaveToLocal, '')
+      this.removeAction(this.actionToSaveToLocal)
       this.clearLocal()    
     }
   }
@@ -171,73 +163,9 @@ export default class InputComponentController extends ApplicationComponentContro
   get typeClass() {
     return {
       comparison: {
-        klass: 'absolute inset-0 w-[1536px] h-[854px]',
-        inputClass: 'absolute w-full h-full appearance-none bg-inherit [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-1 [&::-webkit-slider-thumb]:h-[854px] [&::-webkit-slider-thumb]:hover:cursor-ew-resize'
+        klass: 'absolute inset-0 w-full h-full appearance-none bg-inherit [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-1 [&::-webkit-slider-thumb]:h-[854px] [&::-webkit-slider-thumb]:hover:cursor-ew-resize',
       }
     }
-  }
-  get initHTML() {
-    if (this.type === 'comparison') {
-      return `
-        <input data-${this.identifier}-target="input" type="range" min="0" max="100" value="50">
-      `
-    }
-    return `
-        ${this.label ? `<label data-${this.identifier}-target="label">${this.label}</label>` : ''}
-        <input
-          ${this.accept ? `accept="${this.accept}"` : ""}
-          ${this.alt ? `alt="${this.alt}"` : ""}
-          ${this.autocomplete ? `autocomplete="${this.autocomplete}"` : ""}
-          ${this.autofocus ? `autofocus="${this.autofocus}"` : ""}
-          ${this.checked ? `checked` : ""}
-          ${this.dirname ? `dirname="${this.dirname}"` : ""}
-          ${this.disabled ? `disabled` : ""}
-          ${this.form ? `form="${this.form}"` : ""}
-          ${this.formeventAction ? `formaction="${this.formeventAction}"` : ""}
-          ${this.formenctype ? `formenctype="${this.formenctype}"` : ""}
-          ${this.formmethod ? `formmethod="${this.formmethod}"` : ""}
-          ${this.formnovalidate ? `formnovalidate="${this.formnovalidate}"` : ""}
-          ${this.formtarget ? `formtarget="${this.formtarget}"` : ""}
-          ${this.height ? `height="${this.height}"` : ""}
-          ${this.list ? `list="${this.list}"` : ""}
-          ${this.max ? `max="${this.max}"` : ""}
-          ${this.maxlength ? `maxlength="${this.maxlength}"` : ""}
-          ${this.min ? `min="${this.min}"` : ""}
-          ${this.minlength ? `minlength="${this.minlength}"` : ""}
-          ${this.multiple ? `multiple="${this.multiple}"` : ""}
-          ${this.name ? `name="${this.name}"` : ""}
-          ${this.pattern ? `pattern="${this.pattern}"` : ""}
-          ${this.placeholder ? `placeholder="${this.placeholder}"` : ""}
-          ${this.popovertarget ? `popovertarget="${this.popovertarget}"` : ""}
-          ${this.popovertargeteventAction ? `popovertargetaction="${this.popovertargeteventAction}"` : ""}
-          ${this.readonly ? `readonly` : ""}
-          ${this.required ? `required` : ""}
-          ${this.size ? `size="${this.size}"` : ""}
-          ${this.src ? `src="${this.src}"` : ""}
-          ${this.step ? `step="${this.step}"` : ""}
-          ${this.type ? `type="${this.type}"` : ""}
-          ${this.value ? `value="${this.value}"` : ""}
-          ${this.width ? `width="${this.width}"` : ""}
-
-          data-${this.identifier}-target="input"
-        >
-    `
-  }
-
-  get labelClass() {
-    return this.optionsValue.labelClass
-  }
-  get inputClass() {
-    return this.optionsValue.inputClass
-  }
-  get optionClass() {
-    return this.optionsValue.optionClass
-  }
-  get label() {
-    return this.optionsValue.label
-  }
-  get isFloatingLabel() {
-    return this.optionsValue.isFloatingLabel
   }
   get formatOptions() {
     return this.optionsValue.formatOptions
@@ -267,10 +195,10 @@ export default class InputComponentController extends ApplicationComponentContro
     return JSON.parse(localStorage.getItem(this.rememberMeName) || '{}')
   }
   get currentValue() {
-    return this.inputTarget.value
+    return this.element.value
   }
   set currentValue(value) {
-    this.inputTarget.value = value
+    this.element.value = value
   }
   get actionToSaveToLocal() {
     return `input->${this.identifier}#saveToLocal`
