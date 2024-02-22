@@ -277,7 +277,7 @@
     <% end %>
 
     <%= box(controller: 'search') do %>
-      <%= input(placeholder: 'acb...xyz') %>
+      <%= input(placeholder: 'acb...xyz', url: 'https://jsonplaceholder.typicode.com/users', auto_submit: true) %>
       <%= button(label: 'Search') %>
       <%= popover do %>
         <p>Response from BE</p>

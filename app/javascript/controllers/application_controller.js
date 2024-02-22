@@ -1,5 +1,6 @@
 import * as Helpers from "./helpers"
 import Api from "./api"
+import "axios";
 import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus"
 
@@ -24,6 +25,7 @@ export default class ApplicationController extends Controller {
     } else {
       this.initializeNextController()
     }
+    this.applyDefaultStyle()
   }
 
   connect() {
@@ -151,6 +153,12 @@ export default class ApplicationController extends Controller {
     this.element.className = this.twMerge(this.element.className, klass)
   }
 
+  applyDefaultStyle() {
+    if (this.canApplyDefaultStyle) {
+      this.addClass(this.defaultStyle.klass)
+    }
+  }
+
   get isOpen() {
     return this.optionsValue.isOpen
   }
@@ -235,7 +243,12 @@ export default class ApplicationController extends Controller {
   get Api() {
     return Api
   }
-
+  get Axios() {
+    return axios
+  }
+  get axios() {
+    return axios
+  }
   get controllerNames() {
     return this.element.dataset.controller.trim().split(' ')
   }
@@ -246,7 +259,12 @@ export default class ApplicationController extends Controller {
     })
     return controllers
   }
-
+  get firstController() {
+    return this.controllers[0]
+  }
+  get lastController() {
+    return this.controllers[this.controllers.length - 1]
+  }
   get controllerSize() {
     return this.controllerNames.length
   }
@@ -302,5 +320,8 @@ export default class ApplicationController extends Controller {
   }
   get parentElement() {
     return this.element.parentElement
+  }
+  get canApplyDefaultStyle() {
+    return (this.element.className === '' && (typeof this.defaultStyle !== 'undefined'))
   }
 }

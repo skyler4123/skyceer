@@ -43,8 +43,8 @@ export default class extends ApplicationController {
 
   initializeAction() {
     setTimeout(() => {
-      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#input keydown.enter->${this.identifier}#search`
-      this.buttonTarget.dataset.action = (this.buttonTarget.dataset.action || '') + ` click->${this.identifier}#search`
+      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#input keydown.enter->${this.identifier}#enterSearch`
+      this.buttonTarget.dataset.action = (this.buttonTarget.dataset.action || '') + ` click->${this.identifier}#buttonSearch`
     }, 750)
   }
 
@@ -53,22 +53,38 @@ export default class extends ApplicationController {
       this.closePopover()
      }
   }
+
   input() {
     this.inputValue = this.inputTarget.value
   }
 
-  async search() {
+  buttonSearch() {
+    this.search()
+  }
 
-    const response = await fetch("https://jsonplaceholder.typicode.com/users");
-    const users = await response.json();
-    this.payload = users
+  enterSearch() {
+    this.search()
+  }
 
-    this.updatePopoverHTML()
-    this.openPopover()
+  search() {
+    if (this.inputTarget.value.length === 0) { return }
+    this.axios.get(this.url + `/${this.inputValue}`)
+    .then((response) => {
+      this.payload = [response.data].flat()
+      this.updatePopoverHTML()
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   updatePopoverHTML() {
-    this.popoverController.element.innerHTML = this.popoverHTML
+    if (this.payload.length === 0) {
+      this.closePopover()
+    } else {
+      this.popoverController.element.innerHTML = this.popoverHTML
+      this.openPopover()
+    }
   }
 
   openPopover() {
@@ -84,9 +100,10 @@ export default class extends ApplicationController {
   }
 
   inputValueChanged(value, previousValue) {
-    // if (previousValue === undefined) { return }
-    // this.closePopover()
-    // this.search()
+    if (previousValue === undefined) { return }
+    if (this.autoSubmit) {
+      this.search()
+    }
   }
 
   get inputController() {
@@ -98,7 +115,12 @@ export default class extends ApplicationController {
   get popoverController() {
     return this.findController('popover')
   }
-
+  get url() {
+    return this.inputController.optionsValue.url
+  }
+  get autoSubmit() {
+    return this.inputController.optionsValue.autoSubmit
+  }
   get popoverHTML() {
     return `
       <div class="flex flex-col">
