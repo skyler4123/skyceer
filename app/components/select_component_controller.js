@@ -1,6 +1,6 @@
 import ApplicationComponentController from './application_component_controller';
 
-export default class RatioComponentController extends ApplicationComponentController {
+export default class SelectComponentController extends ApplicationComponentController {
   static targets = ['defaultOption', 'option']
   static values = {
     ...super.values,

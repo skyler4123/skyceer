@@ -28,6 +28,7 @@ export default class PopoverComponentController extends ApplicationComponentCont
 
   initializeClass() {
     this.element.className = this.twMerge(this.element.className, this.positionClass[this.insideOrOutside][this.position], this.klass)
+    this.parentControllerElement.className = this.twMerge(this.parentControllerElement.className, 'relative')
   }
 
   get insideOrOutside() {

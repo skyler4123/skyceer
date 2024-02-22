@@ -1,1 +1,13 @@
-<%= text(tag: :label, label: 'sdsadasd') %>
+<p>/</p>
+<p>/</p>
+<p>/</p>
+<p>/</p>
+
+
+    <%= box(controller: 'search') do %>
+      <%= input(placeholder: 'acb...xyz') %>
+      <%= button(label: 'Search') %>
+      <%= popover do %>
+        <p>Response from BE</p>
+      <% end %>
+    <% end %>

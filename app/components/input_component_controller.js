@@ -88,6 +88,7 @@ export default class InputComponentController extends ApplicationComponentContro
     if (this.isFloatingLabel) {
       this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
     }
+    this.addAction(`input->${this.identifier}#input`)
   }
 
   input() {

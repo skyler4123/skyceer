@@ -43,6 +43,19 @@ export default class TabComponentController extends ApplicationComponentControll
     this.tabIndexValue = event.value
   }
 
+  tabToIndex(index) {
+    this.tabIndexValue = index
+  }
+
+  tabIndexOf(element) {
+    let findIndex
+    this.tabTargets.forEach((target, index) => {
+      if (findIndex) { return }
+      if (target.contains(element)) { findIndex = index }
+    })
+    return findIndex
+  }
+
   tabNext() {
     if (this.tabIndexValue === this.maxIndex) {
       this.tabIndexValue = 0

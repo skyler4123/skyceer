@@ -1,3 +1,9 @@
+<%= box(klass: 'w-fit h-fit fixed', position: :left_center, position_type: :inside) do %>
+  <%= box(klass: 'w-4 h-4 bg-green-500 rounded-full') %>
+<% end %>
+
+
+
 <div class="w-full">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
@@ -250,14 +256,6 @@
       <% end %>
     <%= text(label: "Gia ca", language: :vietnamese) %>
 
-
-    <%= button(controller: 'edit-text-by-editor', events: [{ id: new_id, action: :tab_last, listener: :dblclick }, { id: id, action: :tab_first, listener: :click_outside }]) do %>
-      <%= tab(event: { id: id }) do |c| %>
-        <%= text(label: 'Text need edit')%>
-        <%= input(value: 'hahah') %>
-      <% end %>
-    <% end %>
-
     <%= img(event: { id: id }, klass: "w-40 h-40 open:animate-spin hover:scale-150 duration-500", url: "https://picsum.photos/1000/1000") %>
 
     <%= select do %>
@@ -268,9 +266,23 @@
       <option value="DE">Germany</option>
     <% end %>
 
+    <%= box(controller: 'floating-label', klass: 'bg-gray-200 p-2') do %>
+      <%= label(label: 'khkhlkl') %>
+      <%= input %>
+    <% end %>
 
+    <%= tab(controller: 'edit-text-by-input') do %>
+      <%= text(label: 'Text need edit')%>
+      <%= input(value: 'hahah') %>
+    <% end %>
 
-
+    <%= box(controller: 'search') do %>
+      <%= input(placeholder: 'acb...xyz') %>
+      <%= button(label: 'Search') %>
+      <%= popover do %>
+        <p>Response from BE</p>
+      <% end %>
+    <% end %>
 
 
 
