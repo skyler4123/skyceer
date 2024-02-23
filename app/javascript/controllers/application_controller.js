@@ -153,6 +153,10 @@ export default class ApplicationController extends Controller {
     this.element.className = this.twMerge(this.element.className, klass)
   }
 
+  mergeClass(element, klass) {
+    element.className = this.twMerge(element.className, klass)
+  }
+
   applyDefaultStyle() {
     if (this.canApplyDefaultStyle) {
       this.addClass(this.defaultStyle.klass)
