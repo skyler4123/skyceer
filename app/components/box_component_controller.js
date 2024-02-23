@@ -12,7 +12,7 @@ export default class BoxComponentController extends ApplicationComponentControll
     this.initializeTarget()
     this.initializeValue()
     this.initializeClass()
-    this.initializeAction()
+    // this.initializeAction()
 
     this.initializeComplete()
   }
@@ -29,15 +29,15 @@ export default class BoxComponentController extends ApplicationComponentControll
 
   initializeClass() {
     if (this.position) {
-      this.element.className = this.twMerge(this.element.className, this.positionClass[this.positionType][this.position])
+      // this.element.className = this.twMerge(this.element.className, this.positionClass[this.positionType][this.position])
+      this.mergeClass(this.element, this.positionClass[this.positionType][this.position])
     }
-    if (this.type === 'badge' || this.type === 'alert') {
-      this.element.className = this.twMerge(this.element.className, this.typeClass[this.type][this.border][this.color])
+    if (this.type && this.border && this.color) {
+      // this.element.className = this.twMerge(this.element.className, this.typeClass[this.type][this.border][this.color])
+      this.mergeClass(this.element, this.typeClass[this.type][this.border][this.color])
     }
-    if (this.type === 'toggle') {
-      this.element.className = this.twMerge(this.element.className, this.typeClass[this.type])
-    }
-    this.element.className = this.twMerge(this.element.className, this.klass)
+    // this.element.className = this.twMerge(this.element.className, this.klass)
+    super.initializeClass()
   }
 
   rating(event) {
@@ -129,9 +129,6 @@ export default class BoxComponentController extends ApplicationComponentControll
 
   get border() {
     return this.optionsValue.border
-  }
-  get color() {
-    return this.optionsValue.color
   }
   get position() {
     return this.optionsValue.position

@@ -14,6 +14,9 @@ export const camelizeOptionsValue = (object) => {
       return event
     })
   }
+  // if (options.klass && isObject(options.klass)) {
+  //   options.klass = camelCaseForObjectKey(options.klass)
+  // }
   if (options.position) {
     options.position = toCamelCase(options.position)
   }
@@ -140,4 +143,24 @@ export const objectOnlyKeys = (object, keys) => {
     }
   }, {})
   return newObject
+}
+
+export const isObject = (x) => {
+  return typeof x === 'object' && !Array.isArray(x) && x !== null
+}
+
+export const isObjectEmpty = (object) => {
+  return Object.keys(object) === 0
+}
+
+export const isString = (x) => {
+  return (typeof x === 'string' || x instanceof String)
+}
+
+export const isDefined = (x) => {
+  return typeof x !== 'undefined'  
+}
+
+export const isUndefined = (x) => {
+  return typeof x === 'undefined'  
 }

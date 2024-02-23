@@ -34,7 +34,13 @@ export default class LinkComponentController extends ApplicationComponentControl
   get url() {
     return this.optionsValue.url || '/#'
   }
-
+  get typeClass() {
+    return {
+      default: {
+        element: '',
+      }
+    }
+  }
 
   
 }

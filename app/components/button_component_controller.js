@@ -44,14 +44,12 @@ export default class ButtonComponentController extends ApplicationComponentContr
 
   }
   initializeClass() {
-    if (this.type === 'toggle') {
-      this.element.className = this.twMerge(this.element.className, this.typeClass.toggle.klass)
-      this.toggleTarget.className = this.twMerge(this.toggleTarget.className, this.typeClass.toggle.toggleClass)
-    }
+    this.initializeTypeClass()
     if (this.hasLabelTarget) {
-      this.labelTarget.className = this.twMerge(this.labelTarget.className, this.labelClass)
+      // this.labelTarget.className = this.twMerge(this.labelTarget.className, this.labelClass)
+      this.mergeClass(this.labelTarget, this.labelClass)
     }
-    this.element.className = this.twMerge(this.element.className, this.klass)
+    super.initializeClass()
   }
 
   initializeAction() {
@@ -65,11 +63,11 @@ export default class ButtonComponentController extends ApplicationComponentContr
     }
     if (this.events) {
       this.events.forEach((event) => {
-        if (event.initialize) {
-          setTimeout(() => {
-            this.dispatch('dispatch', { detail: { event: { ...event, controller: this } } })
-          }, 500)
-        }
+        // if (event.initialize) {
+        //   setTimeout(() => {
+        //     this.dispatch('dispatch', { detail: { event: { ...event, controller: this } } })
+        //   }, 500)
+        // }
         switch(event.listener) {
           case 'hover':
             this.element.dataset.action = this.dataAction + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
@@ -80,11 +78,6 @@ export default class ButtonComponentController extends ApplicationComponentContr
           default:
             this.element.dataset.action = this.dataAction + ' ' + `${event.listener}->${this.identifier}#${event.action}`
         } 
-        // if (event.listener === 'hover') {
-        //   this.element.dataset.action = this.element.dataset.action + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
-        // } else {
-        //   this.element.dataset.action = this.element.dataset.action + ' ' + `${event.listener}->${this.identifier}#${event.action}`
-        // }
       })
     }
   }
@@ -288,31 +281,30 @@ export default class ButtonComponentController extends ApplicationComponentContr
       toggle: `<div data-${this.identifier}-target='toggle'></div>`
     }
   }
-  get defaultStyle() {
-    return {
-      klass: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
-    }
-  }
   get typeClass() {
     return {
+      default: {
+        element: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+      },
       toggle: {
-        klass: 'bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full cursor-pointer duration-200 ease-out',
-        toggleClass: 'bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 open:translate-x-full duration-200 ease-out'
+        element: 'bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full cursor-pointer duration-200 ease-out',
+        toggleTarget: 'bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 open:translate-x-full duration-200 ease-out'
       }
     }
   }
-  get variants() {
-    return {
-      primary: " bg-primary text-primary-foreground hover:bg-primary/80 ",
-      secondary: " bg-secondary text-secondary-foreground hover:bg-secondary/80 ",
-      outline: "  border border-input bg-background hover:bg-accent hover:text-accent-foreground ",
-      ghost: " hover:bg-accent hover:text-accent-foreground  ",
-      destructive: " bg-destructive text-destructive-foreground hover:bg-destructive/90 ",
-    }
-  }
-  get variant() {
-    return this.variants[this.optionsValue.variant]
-  }
+
+  // get variants() {
+  //   return {
+  //     primary: " bg-primary text-primary-foreground hover:bg-primary/80 ",
+  //     secondary: " bg-secondary text-secondary-foreground hover:bg-secondary/80 ",
+  //     outline: "  border border-input bg-background hover:bg-accent hover:text-accent-foreground ",
+  //     ghost: " hover:bg-accent hover:text-accent-foreground  ",
+  //     destructive: " bg-destructive text-destructive-foreground hover:bg-destructive/90 ",
+  //   }
+  // }
+  // get variant() {
+  //   return this.variants[this.optionsValue.variant]
+  // }
 
 
 }

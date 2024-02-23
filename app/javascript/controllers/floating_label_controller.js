@@ -33,7 +33,7 @@ export default class extends ApplicationController {
   }
 
   initializeClass() {
-    this.addClass(this.defaultClass.klass)
+    this.mergeClass(this.element, this.defaultClass.klass)
     setTimeout(() => {
       this.labelTarget.className = this.twMerge(this.labelTarget.className, this.defaultClass.labelClass)
       this.inputTarget.className = this.twMerge(this.inputTarget.className, this.defaultClass.inputClass)

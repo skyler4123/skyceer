@@ -21,11 +21,20 @@ export default class ApplicationController extends Controller {
 
   initializeComplete() {
     if (this.isLastController) {
-      this.element.classList.remove('hidden')
+      this.removeClass(this.element, 'hidden')
     } else {
       this.initializeNextController()
     }
-    this.applyDefaultStyle()
+  }
+
+  initializeTypeClass() {
+    Object.keys(this.typeClass[this.type]).forEach((target) => {
+      this.mergeClass(this[target], this.typeClass[this.type][target])
+    })
+  }
+
+  initializeClass() {
+    this.mergeClass(this.element, this.klass)
   }
 
   connect() {
@@ -47,12 +56,13 @@ export default class ApplicationController extends Controller {
   }
 
   initializeAction() {
-    if (this.eventId) {
+    if (this.eventId && !this.isButtonComponentController) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }
   }
 
   globalDispatch({ detail: { event } }) {
+    console.log(this.id)
     if (this.eventId === event.id && this.id !== event.controller.id) {
       eval(`this.${event.action}(event)`)
     }
@@ -122,6 +132,26 @@ export default class ApplicationController extends Controller {
     return Helpers.objectOnlyKeys(object, keys)
   }
 
+  isObject(x) {
+    return Helpers.isObject(x)
+  }
+
+  isObjectEmpty(object) {
+    return Helpers.isObjectEmpty(object)
+  }
+
+  isString(x) {
+    return Helpers.isString(x)
+  }
+
+  isDefined(x) {
+    return Helpers.isDefined(x)
+  }
+
+  isUndefined(x) {
+    return Helpers.isUndefined(x)
+  }
+
   initializeNextController() {
     this.nextController.init()
   }
@@ -137,31 +167,35 @@ export default class ApplicationController extends Controller {
     }
   }
 
-  replaceAction(oldAction, newAction) {
-    this.element.dataset.action = this.element.dataset.action.replace(oldAction, newAction).trim()
+  addAction(element, action) {
+    if (this.isUndefined(element)) { return }
+    element.dataset.action = ((element.dataset.action || '') + ' ' + action).trim()
   }
 
-  removeAction(action) {
-    this.replaceAction(action, '')
-  }
-  
-  addAction(action) {
-    this.element.dataset.action = ((this.element.dataset.action || '') + ' ' + action).trim()
+  replaceAction(element, oldAction, newAction) {
+    if (this.isUndefined(element)) { return }
+
+    element.dataset.action = element.dataset.action.replace(oldAction, newAction).trim()
   }
 
-  addClass(klass) {
-    this.element.className = this.twMerge(this.element.className, klass)
+  removeAction(element, action) {
+    if (this.isUndefined(element)) { return }
+
+    this.replaceAction(element, action, '')
   }
 
   mergeClass(element, klass) {
+    if (this.isUndefined(element)) { return }
+
     element.className = this.twMerge(element.className, klass)
   }
 
-  applyDefaultStyle() {
-    if (this.canApplyDefaultStyle) {
-      this.addClass(this.defaultStyle.klass)
-    }
+  removeClass(element, klass) {
+    if (this.isUndefined(element)) { return }
+
+    element.classList.remove(klass)
   }
+
 
   get isOpen() {
     return this.optionsValue.isOpen
@@ -178,9 +212,20 @@ export default class ApplicationController extends Controller {
   get dir() {
     return this.optionsValue.dir || false
   }
+
   get klass() {
     return this.optionsValue.klass || ''
+    // const klass = this.optionsValue.klass
+    // if (!this.isDefined(klass)) { return { element: '' } }
+
+    // if (this.isString(klass)) {
+    //   return { element: klass }
+    // }
+    // if (this.isObject(klass)) {
+    //   return this.optionsValue.klass
+    // }
   }
+
   get labelClass() {
     return this.optionsValue.labelClass || ''
   }
@@ -217,6 +262,9 @@ export default class ApplicationController extends Controller {
   get parentControllerElement() {
     return this.element.parentNode.closest('[data-controller]')
   }
+  get isButtonComponentController() {
+    return this.identifier === 'button-component'
+  }
   get parentButtonControllerElement() {
     if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
       return this.element.parentNode.closest('[data-controller*="button-component"]')
@@ -229,14 +277,17 @@ export default class ApplicationController extends Controller {
       return JSON.parse(this.parentButtonControllerElement.dataset.buttonComponentOptionsValue).events[0].id
     }
   }
-  get type() {
-    return this.optionsValue.type
-  }
-  get hasType() {
-    return typeof this.type !== 'undefined'
-  }
   get label() {
     return this.optionsValue.label
+  }
+  get type() {
+    return this.optionsValue.type || 'default'
+  }
+  get color() {
+    return this.optionsValue.color
+  }
+  get variant() {
+    return this.optionsValue.variant || this.color
   }
   get hasContent() {
     return this.element.childElementCount > 0
@@ -325,7 +376,7 @@ export default class ApplicationController extends Controller {
   get parentElement() {
     return this.element.parentElement
   }
-  get canApplyDefaultStyle() {
-    return (this.element.className === '' && (typeof this.defaultStyle !== 'undefined'))
+  get isOverideClass() {
+    return this.optionsValue.isOverideClass || false
   }
 }

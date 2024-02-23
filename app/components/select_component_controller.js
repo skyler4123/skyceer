@@ -28,7 +28,7 @@ export default class SelectComponentController extends ApplicationComponentContr
   }
 
   initializeAction() {
-    this.addAction(`change->${this.identifier}#change`)
+    this.addAction(this.element, `change->${this.identifier}#change`)
   }
 
   initializeClass() {

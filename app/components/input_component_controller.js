@@ -88,7 +88,7 @@ export default class InputComponentController extends ApplicationComponentContro
     if (this.isFloatingLabel) {
       this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
     }
-    this.addAction(`input->${this.identifier}#input`)
+    this.addAction(this.element, `input->${this.identifier}#input`)
   }
 
   input() {
@@ -148,7 +148,7 @@ export default class InputComponentController extends ApplicationComponentContro
     if (previousValue === undefined) { return }
 
     if (this.isRememberMeValue) {
-      this.addAction(this.actionToSaveToLocal)
+      this.addAction(this.element, this.actionToSaveToLocal)
       if (!this.isInitializedSyncFromLocal) {
         this.syncFromLocal()
         this.initializedSyncFromLocal = true
@@ -156,7 +156,7 @@ export default class InputComponentController extends ApplicationComponentContro
         this.saveToLocal()
       }
     } else {
-      this.removeAction(this.actionToSaveToLocal)
+      this.removeAction(this.element, this.actionToSaveToLocal)
       this.clearLocal()    
     }
   }
@@ -164,7 +164,7 @@ export default class InputComponentController extends ApplicationComponentContro
   get typeClass() {
     return {
       comparison: {
-        klass: 'absolute inset-0 w-full h-full appearance-none bg-inherit [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-1 [&::-webkit-slider-thumb]:h-[854px] [&::-webkit-slider-thumb]:hover:cursor-ew-resize',
+        element: 'absolute inset-0 w-full h-full appearance-none bg-inherit [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-1 [&::-webkit-slider-thumb]:h-[854px] [&::-webkit-slider-thumb]:hover:cursor-ew-resize',
       }
     }
   }

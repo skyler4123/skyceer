@@ -41,7 +41,15 @@ export default class HrComponentController extends ApplicationComponentControlle
   get hrClass() {
     return this.optionsValue.hrClass
   }
-
+  get typeClass() {
+    return {
+      default: {
+        element: `w-full my-5 ${this.hasContentTarget ? 'relative' : ''}`,
+        contentTarget: 'w-full h-0.5 bg-gray-200 border-0 dark:bg-gray-700',
+        hrTarget: 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-2',
+      }
+    }
+  }
 
 
 
