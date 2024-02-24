@@ -12,8 +12,8 @@ export default class RatioComponentController extends ApplicationComponentContro
     this.initializeValue()
     this.initializeHTML()
     this.initializeTarget()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

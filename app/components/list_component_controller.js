@@ -10,8 +10,8 @@ export default class ListComponentController extends ApplicationComponentControl
   initialize() {
     super.initialize()
     this.initializeTarget()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

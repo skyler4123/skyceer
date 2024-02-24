@@ -9,8 +9,8 @@ export default class ModalComponentController extends ApplicationComponentContro
 
   initialize() {
     super.initialize()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

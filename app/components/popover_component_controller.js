@@ -10,8 +10,8 @@ export default class PopoverComponentController extends ApplicationComponentCont
   initialize() {
     super.initialize()
     this.initializeHTML()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

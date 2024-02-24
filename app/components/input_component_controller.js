@@ -17,9 +17,9 @@ export default class InputComponentController extends ApplicationComponentContro
   initialize() {
     super.initialize()
     this.initializeHTML()
-    this.initializeClass()
+    // this.initializeClass()
     this.initializeFormat()
-    this.initializeAction()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

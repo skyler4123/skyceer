@@ -24,7 +24,7 @@ export default class ImgComponentController extends ApplicationComponentControll
   get typeClass() {
     return { ...super.typeClass,
       avatar: {
-        klass: 'rounded-full object-cover'
+        element: 'rounded-full object-cover'
       }
     }
   }

@@ -10,8 +10,8 @@ export default class IconComponentController extends ApplicationComponentControl
     super.initialize()
     this.initializeHTML()
     this.initializeTarget()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

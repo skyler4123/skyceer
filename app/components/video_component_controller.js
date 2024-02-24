@@ -8,8 +8,8 @@ export default class VideoComponentController extends ApplicationComponentContro
   initialize() {
     super.initialize()
     this.initializeHTML()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

@@ -164,3 +164,7 @@ export const isDefined = (x) => {
 export const isUndefined = (x) => {
   return typeof x === 'undefined'  
 }
+
+export const getKeyEndWith = (object, string) => {
+  return Object.keys(object).filter((key) => key.endsWith(string))
+}

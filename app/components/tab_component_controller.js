@@ -11,8 +11,8 @@ export default class TabComponentController extends ApplicationComponentControll
   initialize() {
     super.initialize()
     this.initializeTarget()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

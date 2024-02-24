@@ -2,6 +2,7 @@
 <p>/</p>
 <p>/</p>
 <p>/</p>
-<%= box(klass: 'w-fit h-fit fixed', position: :left_center, position_type: :inside) do %>
-  <%= box(klass: 'w-4 h-4 bg-green-500 rounded-full') %>
-<% end %>
+    <%= tab(controller: 'edit-text-by-input') do %>
+      <%= text(label: 'Text need edit')%>
+      <%= input(value: 'hahah') %>
+    <% end %>

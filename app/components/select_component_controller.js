@@ -10,8 +10,8 @@ export default class SelectComponentController extends ApplicationComponentContr
   initialize() {
     super.initialize()
     this.initializeTarget()
-    this.initializeAction()
-    this.initializeClass()
+    // this.initializeAction()
+    // this.initializeClass()
 
     this.initializeComplete()
   }

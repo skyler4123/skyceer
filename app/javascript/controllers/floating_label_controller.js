@@ -22,14 +22,14 @@ export default class extends ApplicationController {
     super.connect()
     setTimeout(() => {
       useClickOutside(this, { element: this.inputTarget })
-    }, 1000)
+    }, 2000)
   }
 
   initializeTarget() {
     setTimeout(() => {
       this.labelController.element.setAttribute(`data-${this.identifier}-target`, 'label')
       this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
-    }, 500)
+    }, 1500)
   }
 
   initializeClass() {
@@ -37,13 +37,13 @@ export default class extends ApplicationController {
     setTimeout(() => {
       this.labelTarget.className = this.twMerge(this.labelTarget.className, this.defaultClass.labelClass)
       this.inputTarget.className = this.twMerge(this.inputTarget.className, this.defaultClass.inputClass)
-    }, 500)
+    }, 1500)
   }
 
   initializeAction() {
     setTimeout(() => {
       this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + `click->${this.identifier}#click`
-    }, 500)
+    }, 1500)
   }
 
   clickOutside(event) {

@@ -7,8 +7,8 @@ export default class ToastComponentController extends ApplicationComponentContro
 
   initialize() {
     super.initialize()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

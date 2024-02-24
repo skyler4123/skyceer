@@ -13,8 +13,8 @@ export default class TextComponentController extends ApplicationComponentControl
     super.initialize()
     this.initializeValue()
     this.initializeHTML()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

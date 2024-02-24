@@ -10,8 +10,8 @@ export default class SkeletonComponentController extends ApplicationComponentCon
     super.initialize()
     this.initializeValue()
     this.initializeHTML()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

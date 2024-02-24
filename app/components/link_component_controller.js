@@ -9,8 +9,8 @@ export default class LinkComponentController extends ApplicationComponentControl
   initialize() {
     super.initialize()
     this.initializeHTML()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

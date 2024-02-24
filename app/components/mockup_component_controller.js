@@ -8,7 +8,7 @@ export default class MockupComponentController extends ApplicationComponentContr
   initialize() {
     super.initialize()
     this.initializeHTML()
-    this.initializeAction()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

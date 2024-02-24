@@ -33,7 +33,18 @@ export default class ApplicationController extends Controller {
     Object.keys(this.typeClass[this.type]).forEach((target) => {
       this.mergeClass(this[target], this.typeClass[this.type][target])
     })
-    this.mergeClass(this.element, this.klass)
+    this.classParams.forEach((klass) => {
+      if (klass === 'klass') {
+        this.mergeClass(this.element, this.klass)
+      } else {
+        const targetString = klass.replace('Class', '')
+        if (this[`has${targetString.charAt(0).toUpperCase() + targetString.slice(1)}Target`]) {
+          this[`${targetString}Targets`].forEach((targetElement) => {
+            this.mergeClass(targetElement, this.optionsValue[klass])
+          })
+        }
+      }
+    })
   }
 
   connect() {
@@ -151,6 +162,9 @@ export default class ApplicationController extends Controller {
     return Helpers.isUndefined(x)
   }
 
+  getKeyEndWith(object, string) {
+    return Helpers.getKeyEndWith(object, string)
+  }
   initializeNextController() {
     this.nextController.init()
   }
@@ -211,7 +225,9 @@ export default class ApplicationController extends Controller {
   get dir() {
     return this.optionsValue.dir || false
   }
-
+  get classParams() {
+    return this.getKeyEndWith(this.optionsValue, 'lass')
+  }
   get klass() {
     return this.optionsValue.klass || ''
     // const klass = this.optionsValue.klass

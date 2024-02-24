@@ -10,8 +10,8 @@ export default class HrComponentController extends ApplicationComponentControlle
     super.initialize()
     this.initializeHTML()
     this.initializeTarget()
-    this.initializeClass()
-    this.initializeAction()
+    // this.initializeClass()
+    // this.initializeAction()
 
     this.initializeComplete()
   }

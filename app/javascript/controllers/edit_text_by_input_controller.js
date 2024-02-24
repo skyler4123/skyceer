@@ -22,21 +22,21 @@ export default class EditTextByInput extends ApplicationController {
     super.connect()
     setTimeout(() => {
       useClickOutside(this, { element: this.inputTarget })
-    }, 1000)
+    }, 2000)
   }
   
   initializeTarget() {
     setTimeout(() => {
       this.textController.element.setAttribute(`data-${this.identifier}-target`, 'text')
       this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
-    }, 500)
+    }, 1000)
   }
 
   initializeAction() {
     setTimeout(() => {
       this.textTarget.dataset.action = (this.textTarget.dataset.action || '') + ` dblclick->${this.identifier}#tabInput`
       this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#inputFitContent`
-    }, 750)
+    }, 1750)
   }
 
   clickOutside(event) {

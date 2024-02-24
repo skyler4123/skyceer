@@ -11,6 +11,7 @@ export default class ButtonComponentController extends ApplicationComponentContr
   initialize() {
     super.initialize()
     this.initializeValue()
+    this.initializeHTML()
     // Demo()
     this.initializeComplete()
   }
@@ -19,11 +20,14 @@ export default class ButtonComponentController extends ApplicationComponentContr
     useClickOutside(this)
   }
 
-  isPreventDefault(action) {
-    return this.eventWithAction(action).isPreventDefault
-  }
-  isStopPropagation(action) {
-    return this.eventWithAction(action).isStopPropagation
+  initializeHTML() {
+    if (this.label) {
+      this.element.innerHTML = this.label
+      return
+    }
+    if (this.type !== 'default') {
+      this.element.innerHTML = this.typeHTML[this.type]
+    }
   }
 
   initializeAction() {
@@ -37,11 +41,6 @@ export default class ButtonComponentController extends ApplicationComponentContr
     }
     if (this.events) {
       this.events.forEach((event) => {
-        // if (event.initialize) {
-        //   setTimeout(() => {
-        //     this.dispatch('dispatch', { detail: { event: { ...event, controller: this } } })
-        //   }, 500)
-        // }
         switch(event.listener) {
           case 'hover':
             this.element.dataset.action = this.dataAction + ' ' + `mouseenter->${this.identifier}#${event.action} mouseleave->${this.identifier}#${event.action}`
@@ -87,6 +86,14 @@ export default class ButtonComponentController extends ApplicationComponentContr
         this.toggleTarget.removeAttribute('open')
       }
     }
+  }
+
+  isPreventDefault(action) {
+    return this.eventWithAction(action).isPreventDefault
+  }
+
+  isStopPropagation(action) {
+    return this.eventWithAction(action).isStopPropagation
   }
 
   toggle(event) {
@@ -251,7 +258,6 @@ export default class ButtonComponentController extends ApplicationComponentContr
   }
   get typeHTML() {
     return {
-      default: `${this.label}`,
       toggle: `<div data-${this.identifier}-target='toggle'></div>`
     }
   }
