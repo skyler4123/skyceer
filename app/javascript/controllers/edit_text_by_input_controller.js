@@ -11,32 +11,27 @@ export default class EditTextByInput extends ApplicationController {
 
   initialize() {}
   init() {
-    console.log(this)
-    this.initializeTarget()
-    this.initializeAction()
-
-    this.initializeComplete()
+    setTimeout(() => {
+      this.initializeTarget()
+      this.initializeAction()
+      this.initializeComplete()  
+      useClickOutside(this, { element: this.inputTarget })
+    }, 1000)
   }
 
   connect() {
     super.connect()
-    setTimeout(() => {
-      useClickOutside(this, { element: this.inputTarget })
-    }, 2000)
+    // useClickOutside(this, { element: this.inputTarget })
   }
   
   initializeTarget() {
-    setTimeout(() => {
-      this.textController.element.setAttribute(`data-${this.identifier}-target`, 'text')
-      this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
-    }, 1000)
+    this.textController.element.setAttribute(`data-${this.identifier}-target`, 'text')
+    this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
   initializeAction() {
-    setTimeout(() => {
-      this.textTarget.dataset.action = (this.textTarget.dataset.action || '') + ` dblclick->${this.identifier}#tabInput`
-      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#inputFitContent`
-    }, 1750)
+    this.textTarget.dataset.action = (this.textTarget.dataset.action || '') + ` dblclick->${this.identifier}#tabInput`
+    this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#inputFitContent`
   }
 
   clickOutside(event) {

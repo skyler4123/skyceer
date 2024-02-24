@@ -11,39 +11,28 @@ export default class extends ApplicationController {
 
   initialize() {}
   init() {
-    this.initializeTarget()
-    this.initializeClass()
-    this.initializeAction()
-
-    this.initializeComplete()
-  }
-
-  connect() {
-    super.connect()
     setTimeout(() => {
+      this.initializeTarget()
+      this.initializeClass()
+      this.initializeAction()
+      this.initializeComplete()
       useClickOutside(this, { element: this.inputTarget })
-    }, 2000)
+    }, 1000)
   }
 
   initializeTarget() {
-    setTimeout(() => {
-      this.labelController.element.setAttribute(`data-${this.identifier}-target`, 'label')
-      this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
-    }, 1500)
+    this.labelController.element.setAttribute(`data-${this.identifier}-target`, 'label')
+    this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
   initializeClass() {
     this.mergeClass(this.element, this.defaultClass.klass)
-    setTimeout(() => {
-      this.labelTarget.className = this.twMerge(this.labelTarget.className, this.defaultClass.labelClass)
-      this.inputTarget.className = this.twMerge(this.inputTarget.className, this.defaultClass.inputClass)
-    }, 1500)
+    this.labelTarget.className = this.twMerge(this.labelTarget.className, this.defaultClass.labelClass)
+    this.inputTarget.className = this.twMerge(this.inputTarget.className, this.defaultClass.inputClass)
   }
 
   initializeAction() {
-    setTimeout(() => {
-      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + `click->${this.identifier}#click`
-    }, 1500)
+    this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + `click->${this.identifier}#click`
   }
 
   clickOutside(event) {

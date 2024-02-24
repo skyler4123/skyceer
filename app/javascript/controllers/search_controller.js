@@ -18,34 +18,23 @@ export default class extends ApplicationController {
 
   initialize() {}
   init() {
-    console.log(this)
-    this.initializeTarget()
-    // this.initializeClass()
-    this.initializeAction()
-
-    this.initializeComplete()
-  }
-
-  connect() {
-    super.connect()
     setTimeout(() => {
+      this.initializeTarget()
+      this.initializeAction()
+      this.initializeComplete()
       useClickOutside(this, { element: this.inputTarget })
     }, 1000)
   }
 
   initializeTarget() {
-    setTimeout(() => {
-      this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
-      this.buttonController.element.setAttribute(`data-${this.identifier}-target`, 'button')
-      this.popoverController.element.setAttribute(`data-${this.identifier}-target`, 'popover')
-    }, 500)
+    this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
+    this.buttonController.element.setAttribute(`data-${this.identifier}-target`, 'button')
+    this.popoverController.element.setAttribute(`data-${this.identifier}-target`, 'popover')
   }
 
   initializeAction() {
-    setTimeout(() => {
-      this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#input keydown.enter->${this.identifier}#enterSearch`
-      this.buttonTarget.dataset.action = (this.buttonTarget.dataset.action || '') + ` click->${this.identifier}#buttonSearch`
-    }, 750)
+    this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#input keydown.enter->${this.identifier}#enterSearch`
+    this.buttonTarget.dataset.action = (this.buttonTarget.dataset.action || '') + ` click->${this.identifier}#buttonSearch`
   }
 
   clickOutside(event) {
