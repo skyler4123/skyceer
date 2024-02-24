@@ -17,7 +17,6 @@ export default class ApplicationController extends Controller {
     this.initializeID()
     this.initializeDir()
     this.initializeController()
-    this.initializeHTML()
   }
 
   initializeComplete() {
@@ -55,9 +54,6 @@ export default class ApplicationController extends Controller {
     this.element.dataset.controller = this.element.dataset.controller.trim()  
   }
 
-  initializeHTML() {
-    this.element.innerHTML = this.typeHTML[this.type]
-  }
   initializeAction() {
     if (this.eventId && !this.isButtonComponentController) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`

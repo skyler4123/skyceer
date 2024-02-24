@@ -14,13 +14,6 @@ export default class AccordionComponentController extends ApplicationComponentCo
   get type() {
     return this.optionsValue.type || 'vertical'
   }
-  get typeHTML() {
-    return {
-      vertical: `<div data-${this.identifier}-target='overflow'>${this.content}</div>`,
-      horizontal: `${this.content}`,
-    }
-  }
-
   get typeClass() {
     return {
       vertical: {

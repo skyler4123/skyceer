@@ -3,37 +3,65 @@ import ApplicationComponentController from './application_component_controller';
 export default class BoxComponentController extends ApplicationComponentController {
   static targets = ['item', 'accordion', 'button', 'carousel', 'hr', 'icon', 'img', 'input', 'link', 'list', 'mockup', 'modal', 'popover', 'progress', 'skeleton', 'tab', 'text', 'toast', 'video']
   static values = {
-    ...super.values
+    ...super.values,
+    ratingIndex: { type: Number }
   }
 
   initialize() {
     super.initialize()
     this.initializeTarget()
-    // this.initializeValue()
-
+    this.initializeValue()
     // this.initializeClass()
     // this.initializeAction()
+
     this.initializeComplete()
   }
 
-  // initializeValue() {
-  //   if (typeof this.optionsValue.isOpen != "undefined") {
-  //     this.isOpenValue = this.optionsValue.isOpen
-  //   }
-  //   if (typeof this.optionsValue.ratingIndex != "undefined") {
-  //     this.isFirstRatingIndexValueChanged = true
-  //     this.ratingIndexValue = this.optionsValue.ratingIndex
-  //   }
-  // }
+  initializeValue() {
+    if (typeof this.optionsValue.isOpen != "undefined") {
+      this.isOpenValue = this.optionsValue.isOpen
+    }
+    if (typeof this.optionsValue.ratingIndex != "undefined") {
+      this.isFirstRatingIndexValueChanged = true
+      this.ratingIndexValue = this.optionsValue.ratingIndex
+    }
+  }
 
   initializeClass() {
     if (this.position) {
+      // this.element.className = this.twMerge(this.element.className, this.positionClass[this.positionType][this.position])
       this.mergeClass(this.element, this.positionClass[this.positionType][this.position])
     }
     if (this.type && this.border && this.color) {
+      // this.element.className = this.twMerge(this.element.className, this.typeClass[this.type][this.border][this.color])
       this.mergeClass(this.element, this.typeClass[this.type][this.border][this.color])
     }
-    this.mergeClass(this.element, this.klass)
+    // this.element.className = this.twMerge(this.element.className, this.klass)
+    super.initializeClass()
+  }
+
+  rating(event) {
+    this.ratingIndexValue = event.value
+  }
+
+  ratingIndexValueChanged(value, previousValue) {
+    if (previousValue === undefined) { return }
+
+    let timeout = 0
+    if (this.isFirstRatingIndexValueChanged) {
+      timeout = 500
+    }
+    setTimeout(() => {
+      for (let i = 0; i < this.iconTargets.length; i++) {
+        const iconController = this.application.getControllerForElementAndIdentifier(this.iconTargets[i], 'icon-component')
+        if (i <= this.ratingIndexValue) {
+          iconController.open()
+        } else {
+          iconController.close()
+        }
+        this.isFirstRatingIndexValueChanged = false
+      }
+    }, timeout)
   }
 
   initializeTarget() {
@@ -95,6 +123,7 @@ export default class BoxComponentController extends ApplicationComponentControll
       this.element.querySelectorAll('[data-controller*="video-component"]').forEach((target) => {
         target.setAttribute(`data-${this.identifier}-target`, 'video')
       })
+
     }, 500)
   }
 
