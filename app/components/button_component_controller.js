@@ -10,9 +10,6 @@ export default class ButtonComponentController extends ApplicationComponentContr
 
   initialize() {
     super.initialize()
-    this.initializeHTML()
-    this.initializeClass()
-    this.initializeAction()
     this.initializeValue()
     // Demo()
     this.initializeComplete()
@@ -27,29 +24,6 @@ export default class ButtonComponentController extends ApplicationComponentContr
   }
   isStopPropagation(action) {
     return this.eventWithAction(action).isStopPropagation
-  }
-
-  initializeHTML() {
-    if (typeof this.type !== 'undefined') {
-      this.element.innerHTML = this.initHTML[this.type]
-      return
-    }
-    if (!this.hasContent && this.hasLabel) {
-      this.element.innerHTML = this.label
-      return
-    }
-    if (this.hasContent && this.hasLabel) {
-      this.element.insertAdjacentHTML( 'afterbegin', this.initHTML.label)
-    }
-
-  }
-  initializeClass() {
-    this.initializeTypeClass()
-    if (this.hasLabelTarget) {
-      // this.labelTarget.className = this.twMerge(this.labelTarget.className, this.labelClass)
-      this.mergeClass(this.labelTarget, this.labelClass)
-    }
-    super.initializeClass()
   }
 
   initializeAction() {
@@ -275,9 +249,9 @@ export default class ButtonComponentController extends ApplicationComponentContr
   get isRememberMe() {
     return this.optionsValue.isRememberMe || false
   }
-  get initHTML() {
+  get typeHTML() {
     return {
-      label: `<div data-${this.identifier}-target='label'>${this.label}</div>`,
+      default: `${this.label}`,
       toggle: `<div data-${this.identifier}-target='toggle'></div>`
     }
   }

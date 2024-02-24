@@ -2,9 +2,6 @@
 <p>/</p>
 <p>/</p>
 <p>/</p>
-
-
-
-    <%= box(type: :alert, border: :bordered, color: :blue, klass: 'relative', is_test: true) do %>
-      <div>Test Box Component with styles</div>
-    <% end %>
+<%= box(klass: 'w-fit h-fit fixed', position: :left_center, position_type: :inside) do %>
+  <%= box(klass: 'w-4 h-4 bg-green-500 rounded-full') %>
+<% end %>

@@ -11,7 +11,7 @@ export default class BoxComponentController extends ApplicationComponentControll
     super.initialize()
     this.initializeTarget()
     this.initializeValue()
-    this.initializeClass()
+    // this.initializeClass()
     // this.initializeAction()
 
     this.initializeComplete()

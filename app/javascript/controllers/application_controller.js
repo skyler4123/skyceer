@@ -17,9 +17,12 @@ export default class ApplicationController extends Controller {
     this.initializeID()
     this.initializeDir()
     this.initializeController()
+    this.initializeHTML()
   }
 
   initializeComplete() {
+    this.initializeClass()
+    this.initializeAction()
     if (this.isLastController) {
       this.removeClass(this.element, 'hidden')
     } else {
@@ -27,13 +30,10 @@ export default class ApplicationController extends Controller {
     }
   }
 
-  initializeTypeClass() {
+  initializeClass() {
     Object.keys(this.typeClass[this.type]).forEach((target) => {
       this.mergeClass(this[target], this.typeClass[this.type][target])
     })
-  }
-
-  initializeClass() {
     this.mergeClass(this.element, this.klass)
   }
 
@@ -55,6 +55,9 @@ export default class ApplicationController extends Controller {
     this.element.dataset.controller = this.element.dataset.controller.trim()  
   }
 
+  initializeHTML() {
+    this.element.innerHTML = this.typeHTML[this.type]
+  }
   initializeAction() {
     if (this.eventId && !this.isButtonComponentController) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
@@ -283,11 +286,21 @@ export default class ApplicationController extends Controller {
   get type() {
     return this.optionsValue.type || 'default'
   }
+  get typeClass() {
+    return {
+      default: {
+        element: ''
+      }
+    }
+  }
   get color() {
     return this.optionsValue.color
   }
   get variant() {
     return this.optionsValue.variant || this.color
+  }
+  get content() {
+    return this.element.innerHTML
   }
   get hasContent() {
     return this.element.childElementCount > 0

@@ -1,39 +1,35 @@
 import ApplicationComponentController from './application_component_controller';
 
 export default class AccordionComponentController extends ApplicationComponentController {
-  static targets = ['content']
+  static targets = ['overflow']
   static values = {
     ...super.values,
   }
 
   initialize() {
     super.initialize()
-    this.initializeClass()
-    this.initializeAction()
     this.initializeComplete()
-  }
-
-  initializeClass() {
-    if (this.type) {
-      Object.keys(this.typeClass[this.type]).forEach((target) => {
-        this.mergeClass(target, this.typeClass[this.type][target])
-      })
-    }
-    super.initializeClass()
   }
 
   get type() {
     return this.optionsValue.type || 'vertical'
   }
+  get typeHTML() {
+    return {
+      vertical: `<div data-${this.identifier}-target='overflow'>${this.content}</div>`,
+      horizontal: `${this.content}`,
+    }
+  }
+
   get typeClass() {
     return {
       vertical: {
         element: 'grid grid-rows-[0fr] open:grid-rows-[1fr] transition-all duration-200 ease-out overflow-hidden',
-        contentTarget: 'overflow-hidden'
+        overflowTarget: 'overflow-hidden'
       },
       horizontal: {
         element: 'whitespace-nowrap grid grid-cols-[0fr] open:grid-rows-[1fr] open:grid-cols-[1fr] transition-all duration-200 ease-out overflow-hidden',
-        contentTarget: 'overflow-hidden',
+        overflowTarget: 'overflow-hidden',
       }
     }
   }

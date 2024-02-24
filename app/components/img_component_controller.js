@@ -8,8 +8,6 @@ export default class ImgComponentController extends ApplicationComponentControll
   initialize() {
     super.initialize()
     this.initializeHTML()
-    this.initializeClass()
-    this.initializeAction()
 
     this.initializeComplete()
   }
@@ -19,19 +17,12 @@ export default class ImgComponentController extends ApplicationComponentControll
     this.element.setAttribute('alt', this.alt)
   }
 
-  initializeClass() {
-    if (this.type) {
-      this.element.className = this.twMerge(this.element.className , this.typeClass[this.type].klass)
-    }
-    this.element.className = this.twMerge(this.element.className ,this.klass)
-  }
-
   rotate() {
     this.isOpenValue = !this.isOpenValue
   }
 
   get typeClass() {
-    return {
+    return { ...super.typeClass,
       avatar: {
         klass: 'rounded-full object-cover'
       }
@@ -46,5 +37,4 @@ export default class ImgComponentController extends ApplicationComponentControll
   get alt() {
     return this.optionsValue.alt
   }
-
 }
