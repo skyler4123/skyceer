@@ -30,8 +30,18 @@ export default class ApplicationController extends Controller {
   }
 
   initializeClass() {
-    Object.keys(this.typeClass[this.type]).forEach((target) => {
-      this.mergeClass(this[target], this.typeClass[this.type][target])
+    Object.keys(this.typeClass[this.type]).forEach((targetString) => {
+      // targetString = 'carouselTarget'
+      if (targetString === 'element') {
+        this.mergeClass(this.element, this.typeClass[this.type][targetString])
+      } else {
+        const target = targetString.replace('Target', '')
+        if (this[`has${target.charAt(0).toUpperCase() + target.slice(1)}Target`]) {
+          this[`${target}Targets`].forEach((targetElement) => {
+            this.mergeClass(targetElement, this.typeClass[this.type][targetString])
+          })
+        }
+      }
     })
     this.classParams.forEach((klass) => {
       if (klass === 'klass') {

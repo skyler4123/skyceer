@@ -9,22 +9,8 @@ export default class BoxComponentController extends ApplicationComponentControll
   initialize() {
     super.initialize()
     this.initializeTarget()
-    // this.initializeValue()
-
-    // this.initializeClass()
-    // this.initializeAction()
     this.initializeComplete()
   }
-
-  // initializeValue() {
-  //   if (typeof this.optionsValue.isOpen != "undefined") {
-  //     this.isOpenValue = this.optionsValue.isOpen
-  //   }
-  //   if (typeof this.optionsValue.ratingIndex != "undefined") {
-  //     this.isFirstRatingIndexValueChanged = true
-  //     this.ratingIndexValue = this.optionsValue.ratingIndex
-  //   }
-  // }
 
   initializeClass() {
     if (this.position) {

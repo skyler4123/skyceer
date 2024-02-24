@@ -21,12 +21,12 @@ export default class CarouselComponentController extends ApplicationComponentCon
       target.setAttribute(`data-${this.identifier}-target`, "carousel")
     })
   }
-  initializeClass() {
-    this.element.className = this.twMerge(this.element.className , "h-96 w-[600px] flex flex-row rounded-lg items-center overflow-y-auto scroll-smooth snap-x snap-mandatory no-scrollbar", this.klass)
-    this.carouselTargets.forEach((target) => {
-      target.className = this.twMerge("flex-shrink-0 w-[300px] h-full snap-start snap-always", this.carouselClass)
-    })
-  }
+  // initializeClass() {
+  //   this.element.className = this.twMerge(this.element.className , "h-96 w-[600px] flex flex-row rounded-lg items-center overflow-y-auto scroll-smooth snap-x snap-mandatory no-scrollbar", this.klass)
+  //   this.carouselTargets.forEach((target) => {
+  //     target.className = this.twMerge("flex-shrink-0 w-[300px] h-full snap-start snap-always", this.carouselClass)
+  //   })
+  // }
 
   initializeAction() {
     super.initializeAction()
@@ -113,9 +113,17 @@ export default class CarouselComponentController extends ApplicationComponentCon
     clearInterval(previousValue)
   }
 
-  get carouselClass() {
-    return this.optionsValue.carouselClass
+  get typeClass() {
+    return {
+      default: {
+        element: 'h-96 w-[600px] flex flex-row rounded-lg items-center overflow-y-auto scroll-smooth snap-x snap-mandatory no-scrollbar',
+        carouselTarget: 'flex-shrink-0 w-[300px] h-full snap-start snap-always'
+      }
+    }
   }
+  // get carouselClass() {
+  //   return this.optionsValue.carouselClass
+  // }
   get isInfinityScroll() {
     if (this.optionsValue.isInfinityScroll === undefined) {
       return true
