@@ -85,7 +85,6 @@ export default class ApplicationController extends Controller {
   }
 
   globalDispatch({ detail: { event } }) {
-    console.log(this.id)
     if (this.eventId === event.id && this.id !== event.controller.id) {
       eval(`this.${event.action}(event)`)
     }
