@@ -37,7 +37,7 @@ export default class ApplicationController extends Controller {
   }
 
   initializeShow() {
-    if (this.isShowAfterInitialize) {
+    if (this.isLastController && this.isShowAfterInitialize) {
       this.removeClass(this.element, 'hidden')
     }
   }
@@ -253,10 +253,10 @@ export default class ApplicationController extends Controller {
     return DomHelpers.createNodeFromHTML(html)
   }
 
-  mergeElementWithHTML(html) {
+  mergeElementWithHTML(element, html) {
     const newNode = this.createNodeFromHTML(html).firstElementChild
-    this.cloneAttributes(this.element, newNode)
-    this.element.innerHTML = newNode.innerHTML
+    this.cloneAttributes(element, newNode)
+    element.innerHTML = newNode.innerHTML
   }
 
   get isOpen() {

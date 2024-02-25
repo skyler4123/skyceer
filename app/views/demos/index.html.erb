@@ -231,26 +231,30 @@
 
     <%= img(type: :avatar, klass: 'w-10 h-10') %>
 
-    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do %>
-      <%= popover(inside_or_outside: :inside) do %>
+    <div class="relative">
+      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
+      <%= popover(inside_or_outside: :inside, event_id: id) do %>
         <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
       <% end %>
-    <% end %>
+    </div>
     <%= icon %>
     <%= icon %>
     <%= icon %>
 
-    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do %>
-      <%= popover do %>
+    <div class="relative">
+      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
+      <%= popover(event_id: id) do %>
         <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
       <% end %>
-    <% end %>
+    </div>
     <%= icon %>
     <%= icon %>
     <%= icon %>
-    <%= button(label: 'Test Popover', klass: "relative w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) do %>
-      <%= popover(type: :emoji) %>
-    <% end %>
+    <div class="relative">
+      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
+      <%= popover(type: :emoji, event_id: id) %>
+
+    </div>
 
     <%= apex %>
     <%= editorjs(object_type: 'User') %>
