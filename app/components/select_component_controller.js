@@ -10,9 +10,6 @@ export default class SelectComponentController extends ApplicationComponentContr
   initialize() {
     super.initialize()
     this.initializeTarget()
-    // this.initializeAction()
-    // this.initializeClass()
-
     this.initializeComplete()
   }
 
@@ -28,19 +25,12 @@ export default class SelectComponentController extends ApplicationComponentContr
   }
 
   initializeAction() {
+    super.initializeAction()
     this.addAction(this.element, `change->${this.identifier}#change`)
   }
 
-  initializeClass() {
-    this.element.className = this.twMerge(this.element.className , this.klass)
-    this.defaultOptionTarget.className = this.twMerge(this.defaultOptionTarget.className , this.defaultOptionClass)
-    this.optionTargets.forEach((target) => {
-      target.className = this.twMerge(target.className , this.optionClass)
-    })
-  }
-
   change() {
-    this.selectValue = this.value
+    this.selectValue = this.element.value
   }
 
   get optionClass() {
@@ -48,8 +38,5 @@ export default class SelectComponentController extends ApplicationComponentContr
   }
   get defaultOptionClass() {
     return this.optionsValue.defaultOptionClass || this.optionClass
-  }
-  get value() {
-    return this.element.value
   }
 }
