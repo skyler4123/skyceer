@@ -7,16 +7,21 @@ export default class ToastComponentController extends ApplicationComponentContro
 
   initialize() {
     super.initialize()
-    // this.initializeClass()
-    // this.initializeAction()
-
     this.initializeComplete()
   }
 
   initializeClass() {
-    this.element.className = this.twMerge('w-1/3 h-5/6 bg-gray-200 rounded-lg text-black shadow-lg shadow-gray-500/50', this.element.className, this.positionClass[this.position], this.klass)
+    this.mergeClass(this.element, this.positionClass[this.position])
+    super.initializeClass()
   }
 
+  get typeClass() {
+    return {
+      default: {
+        element: 'w-1/3 h-5/6 bg-gray-200 rounded-lg text-black shadow-lg shadow-gray-500/50'
+      }
+    }
+  }
   get position() {
     return this.optionsValue.position || 'left'
   }
