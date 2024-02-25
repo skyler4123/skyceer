@@ -8,18 +8,11 @@ export default class VideoComponentController extends ApplicationComponentContro
   initialize() {
     super.initialize()
     this.initializeHTML()
-    // this.initializeClass()
-    // this.initializeAction()
-
     this.initializeComplete()
   }
 
   initializeHTML() {
     this.element.innerHTML = this.initHTML
-  }
-
-  initializeClass() {
-    this.element.className = this.twMerge('w-full', this.element.className, this.klass)
   }
 
   initializeAction() {
@@ -35,6 +28,13 @@ export default class VideoComponentController extends ApplicationComponentContro
     }
   }
 
+  get typeClass() {
+    return {
+      'video/mp4': {
+        element: 'w-full'
+      }
+    }
+  }
   get videoClass() {
     return this.optionsValue.videoClass
   }
