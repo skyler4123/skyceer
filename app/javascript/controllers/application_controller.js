@@ -15,20 +15,30 @@ export default class ApplicationController extends Controller {
   }
   initialize() {
     this.optionsValue = this.camelizeOptionsValue(this.optionsValue)
-    this.initializeID()
-    this.initializeDir()
     this.initializeController()
+    if (this.isFirstController) {
+      this.initializeID()
+      this.initializeDir()
+    }
   }
 
   initializeComplete() {
     this.initializeClass()
     this.initializeAction()
-    if (this.isLastController) {
-      if (this.isShowAfterInitialize) {
-        this.removeClass(this.element, 'hidden')
-      }
-    } else {
-      this.initializeNextController()
+    this.initializeShow()
+
+    // if (this.isLastController) {
+    //   if (this.isShowAfterInitialize) {
+    //     this.removeClass(this.element, 'hidden')
+    //   }
+    // } else {
+    //   this.initializeNextController()
+    // }
+  }
+
+  initializeShow() {
+    if (this.isShowAfterInitialize) {
+      this.removeClass(this.element, 'hidden')
     }
   }
 
@@ -185,7 +195,7 @@ export default class ApplicationController extends Controller {
   }
 
   findController(controller) {
-    const findControllerElement = this.element.querySelector(`[data-controller*="${controller}"]`)
+    const findControllerElement = this.findControllerElement(controller)
     if (findControllerElement) {
       let findController = this.application.getControllerForElementAndIdentifier(findControllerElement, controller)
       if (!findController) {
@@ -193,6 +203,10 @@ export default class ApplicationController extends Controller {
       }
       return findController
     }
+  }
+
+  findControllerElement(controller) {
+    return this.element.querySelector(`[data-controller*="${controller}"]`)
   }
 
   addAction(element, action) {
@@ -237,6 +251,12 @@ export default class ApplicationController extends Controller {
 
   createNodeFromHTML(html) {
     return DomHelpers.createNodeFromHTML(html)
+  }
+
+  mergeElementWithHTML(html) {
+    const newNode = this.createNodeFromHTML(html).firstElementChild
+    this.cloneAttributes(this.element, newNode)
+    this.element.innerHTML = newNode.innerHTML
   }
 
   get isOpen() {
@@ -428,5 +448,8 @@ export default class ApplicationController extends Controller {
   }
   get isShowAfterInitialize() {
     return true
+  }
+  get isComponentController() {
+    return this.identifier.endWith('-component')
   }
 }

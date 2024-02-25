@@ -16,20 +16,16 @@ export default class extends ApplicationController {
     input: { type: String },
   }
 
-  initialize() {}
-  init() {
-    setTimeout(() => {
-      this.initializeTarget()
-      this.initializeAction()
-      this.initializeComplete()
-      useClickOutside(this, { element: this.inputTarget })
-    }, 1000)
+  initialize() {
+    this.initializeTarget()
+    this.initializeComplete()
+    useClickOutside(this, { element: this.inputTarget })
   }
 
   initializeTarget() {
-    this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
-    this.buttonController.element.setAttribute(`data-${this.identifier}-target`, 'button')
-    this.popoverController.element.setAttribute(`data-${this.identifier}-target`, 'popover')
+    this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
+    this.buttonControllerElement.setAttribute(`data-${this.identifier}-target`, 'button')
+    this.popoverControllerElement.setAttribute(`data-${this.identifier}-target`, 'popover')
   }
 
   initializeAction() {
@@ -103,6 +99,15 @@ export default class extends ApplicationController {
   }
   get popoverController() {
     return this.findController('popover')
+  }
+  get inputControllerElement() {
+    return this.findControllerElement('input')
+  }
+  get buttonControllerElement() {
+    return this.findControllerElement('button')
+  }
+  get popoverControllerElement() {
+    return this.findControllerElement('popover')
   }
   get url() {
     return this.inputController.optionsValue.url

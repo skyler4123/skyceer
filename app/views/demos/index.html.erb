@@ -83,11 +83,11 @@
         <% end %>
     <% end %>
 
-    <%= button(label: 'Press to rotate Icon', event: { id: new_id, listener: :click, action: :rotate }) %>
+    <%= button(label: 'Press to rotate Icon', event: { id: new_id, listener: :click, action: :open }) %>
     <%= icon(event: { id: id }, klass: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
     <%= icon(type: :logo, name: :github, event: { id: id }, klass: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
 
-    <%= button(label: 'Press to rotate Img', event: { id: new_id, listener: :click, action: :rotate }) %>
+    <%= button(label: 'Press to rotate Img', event: { id: new_id, listener: :click, action: :open }) %>
     <%= img(event: { id: id }, klass: "w-40 h-40 open:animate-spin", url: "https://picsum.photos/1000/1000") %>
 
     <%= list(is_sortable: true) do %>
@@ -174,7 +174,7 @@
       <% end %>
     <% end %>
 
-    <%= button(type: :toggle, klass: { element: 'bg-red-500', toggle_target: 'bg-green-500' }) %>
+    <%= button(type: :toggle, klass: 'bg-red-500', toggle_class: 'bg-green-500') %>
     <%= button(type: :toggle) %>
     <%= button(type: :toggle, klass: 'open:bg-green-500') %>
     <%= button(type: :toggle, klass: 'open:bg-red-500') %>
@@ -202,12 +202,6 @@
       <% end %>
       <%= button(event: { id: id, listener: :click, action: :rating, value: 4 }) do %>
         <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
-      <% end %>
-    <% end %>
-
-    <%= button(label: 'Test Overlay', klass: "relative w-60 h-40 bg-red-500", event: { id: new_id, action: :toggle, listener: :hover }) do %>
-      <%= accordion(controller: "overlay", orientation: :horizontal, klass: '') do %>
-        <div data-overlay-target="overlay" class="bg-green-500 w-60 h-40"></div>
       <% end %>
     <% end %>
 
@@ -302,7 +296,12 @@
       <% end %>
     <% end %>
 
-
+    <%= button(type: :none, klass: 'relative w-64 h-40', event: { id: new_id, listener: :hover, action: :toggle }) do %>
+      <div class="w-full h-full bg-red-500"></div>
+      <%= accordion(type: :horizontal_overlay, is_test: true, event_id: id) do %>
+          <div class="bg-green-500 w-full h-full">kjhjk lkjlkj kjlkj kjlk </div>
+        <% end %>
+    <% end %>
 
 
 

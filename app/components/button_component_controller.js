@@ -25,7 +25,7 @@ export default class ButtonComponentController extends ApplicationComponentContr
       this.element.innerHTML = this.label
       return
     }
-    if (this.type !== 'default') {
+    if (Object.keys(this.typeHTML).includes(this.type)) {
       this.element.innerHTML = this.typeHTML[this.type]
     }
   }
@@ -88,6 +88,38 @@ export default class ButtonComponentController extends ApplicationComponentContr
     }
   }
 
+  runActionOnOtherControllers(action) {
+    this.controllers.forEach((controller) => {
+      if (this === controller) { return }
+      if (typeof controller[action] !== 'undefined') {
+        controller[action]()
+      }
+    })
+  }
+
+  get isRememberMe() {
+    return this.optionsValue.isRememberMe || false
+  }
+  get typeHTML() {
+    return {
+      toggle: `<div data-${this.identifier}-target='toggle'></div>`
+    }
+  }
+  get typeClass() {
+    return {
+      none: {
+        element: '',
+      },
+      default: {
+        element: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+      },
+      toggle: {
+        element: 'bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full cursor-pointer duration-200 ease-out',
+        toggleTarget: 'bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 open:translate-x-full duration-200 ease-out'
+      }
+    }
+  }
+  
   isPreventDefault(action) {
     return this.eventWithAction(action).isPreventDefault
   }
@@ -243,48 +275,5 @@ export default class ButtonComponentController extends ApplicationComponentContr
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rating'), controller: this } } })
     if (this.isStopPropagation('rating')) { event.stopPropagation() }
   }
-
-  runActionOnOtherControllers(action) {
-    this.controllers.forEach((controller) => {
-      if (this === controller) { return }
-      if (typeof controller[action] !== 'undefined') {
-        controller[action]()
-      }
-    })
-  }
-
-  get isRememberMe() {
-    return this.optionsValue.isRememberMe || false
-  }
-  get typeHTML() {
-    return {
-      toggle: `<div data-${this.identifier}-target='toggle'></div>`
-    }
-  }
-  get typeClass() {
-    return {
-      default: {
-        element: 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
-      },
-      toggle: {
-        element: 'bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full cursor-pointer duration-200 ease-out',
-        toggleTarget: 'bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 open:translate-x-full duration-200 ease-out'
-      }
-    }
-  }
-
-  // get variants() {
-  //   return {
-  //     primary: " bg-primary text-primary-foreground hover:bg-primary/80 ",
-  //     secondary: " bg-secondary text-secondary-foreground hover:bg-secondary/80 ",
-  //     outline: "  border border-input bg-background hover:bg-accent hover:text-accent-foreground ",
-  //     ghost: " hover:bg-accent hover:text-accent-foreground  ",
-  //     destructive: " bg-destructive text-destructive-foreground hover:bg-destructive/90 ",
-  //   }
-  // }
-  // get variant() {
-  //   return this.variants[this.optionsValue.variant]
-  // }
-
 
 }

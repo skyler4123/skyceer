@@ -9,14 +9,10 @@ import ApplicationController from './application_controller'
 export default class EditTextByInput extends ApplicationController {
   static targets = ['text', 'input']
 
-  initialize() {}
-  init() {
-    setTimeout(() => {
-      this.initializeTarget()
-      this.initializeAction()
-      this.initializeComplete()  
-      useClickOutside(this, { element: this.inputTarget })
-    }, 1000)
+  initialize() {
+    this.initializeTarget()
+    this.initializeComplete()  
+    useClickOutside(this, { element: this.inputTarget })
   }
 
   connect() {
@@ -25,8 +21,8 @@ export default class EditTextByInput extends ApplicationController {
   }
   
   initializeTarget() {
-    this.textController.element.setAttribute(`data-${this.identifier}-target`, 'text')
-    this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
+    this.textControllerElement.setAttribute(`data-${this.identifier}-target`, 'text')
+    this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
   initializeAction() {
@@ -61,6 +57,12 @@ export default class EditTextByInput extends ApplicationController {
   }
   get inputController() {
     return this.findController('input')
+  }
+  get textControllerElement() {
+    return this.findControllerElement('text')
+  }
+  get inputControllerElement() {
+    return this.findControllerElement('input')
   }
   get textTabIndex() {
     return this.tabController.tabIndexOf(this.textTarget)

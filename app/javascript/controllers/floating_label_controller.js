@@ -9,20 +9,15 @@ import ApplicationController from './application_controller'
 export default class extends ApplicationController {
   static targets = ['label', 'input']
 
-  initialize() {}
-  init() {
-    setTimeout(() => {
-      this.initializeTarget()
-      this.initializeClass()
-      this.initializeAction()
-      this.initializeComplete()
-      useClickOutside(this, { element: this.inputTarget })
-    }, 1000)
+  initialize() {
+    this.initializeTarget()
+    this.initializeComplete()
+    useClickOutside(this, { element: this.inputTarget })
   }
 
   initializeTarget() {
-    this.labelController.element.setAttribute(`data-${this.identifier}-target`, 'label')
-    this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
+    this.labelControllerElement.setAttribute(`data-${this.identifier}-target`, 'label')
+    this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
   initializeClass() {
@@ -64,10 +59,16 @@ export default class extends ApplicationController {
     }
   }
 
-  get labelController() {
-    return this.findController('label')
+  // get labelController() {
+  //   return this.findController('label')
+  // }
+  // get inputController() {
+  //   return this.findController('input')
+  // }
+  get labelControllerElement() {
+    return this.findControllerElement('label')
   }
-  get inputController() {
-    return this.findController('input')
+  get inputControllerElement() {
+    return this.findControllerElement('input')
   }
 }
