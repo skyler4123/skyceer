@@ -1,4 +1,3 @@
-import morphdom from "morphdom"
 import ApplicationComponentController from './application_component_controller';
 
 export default class TabComponentController extends ApplicationComponentController {
@@ -11,32 +10,13 @@ export default class TabComponentController extends ApplicationComponentControll
   initialize() {
     super.initialize()
     this.initializeTarget()
-    // this.initializeClass()
-    // this.initializeAction()
-
     this.initializeComplete()
   }
 
   initializeTarget() {
     Array.from(this.element.children).forEach((target) => {
-      morphdom(target, this.initTarget(target.outerHTML))
-      // target.setAttribute(`data-${this.identifier}-target`, 'tab')
+      target.setAttribute(`data-${this.identifier}-target`, 'tab')
     })
-  }
-
-  initializeClass() {
-    this.element.className = this.twMerge(this.element.className, this.klass)
-    this.tabTargets.forEach((target) => {
-      target.className = this.twMerge('hidden open:flex', target.className, this.tabClass)
-    })
-  }
-
-  initTarget(contentHTML) {
-    return `
-      <div data-${this.identifier}-target="tab">
-        ${contentHTML}
-      </div>
-    `
   }
 
   tab(event) {
@@ -92,8 +72,13 @@ export default class TabComponentController extends ApplicationComponentControll
     }
   }
 
-  get tabClass() {
-    return this.optionsValue.tabClass
+  get typeClass() {
+    return {
+      default: {
+        element: '',
+        tabTarget: 'hidden open:flex'
+      }
+    }
   }
   get maxIndex() {
     return this.tabTargets.length - 1

@@ -5,9 +5,9 @@
     <%= button(label: "Tab Next", event: { id: new_id, action: :tab_next, listener: :click }) %>
 
       <%= tab(event: { id: id }) do |c| %>
-        <%= icon(name: "link") %>
-        <%= icon(name: "check-circle", klass: "w-5 h-6 text-green-500") %>
-        <%= icon(name: "spinner", type: :animation) %>
-        <%= icon(name: "star", klass: "w-5 h-6 text-sky-800") %>
-        <%= icon(name: "sun", klass: "w-5 h-6 text-yellow-500") %>
+        <div><%= icon(name: "link") %></div>
+        <div><%= icon(name: "check-circle", klass: "w-5 h-6 text-green-500") %></div>
+        <div><%= icon(name: "spinner", type: :animation) %></div>
+        <div><%= icon(name: "star", klass: "w-5 h-6 text-sky-800") %></div>
+        <div><%= icon(name: "sun", klass: "w-5 h-6 text-yellow-500") %></div>
       <% end %>
