@@ -82,7 +82,6 @@ export default class ApplicationController extends Controller {
   }
 
   initializeAction() {
-    console.log('jhkskjhjkl')
     if (this.eventId && !this.isButtonComponentController) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }

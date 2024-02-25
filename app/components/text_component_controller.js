@@ -13,9 +13,6 @@ export default class TextComponentController extends ApplicationComponentControl
     super.initialize()
     this.initializeValue()
     this.initializeHTML()
-    // this.initializeClass()
-    // this.initializeAction()
-
     this.initializeComplete()
   }
 
@@ -29,20 +26,11 @@ export default class TextComponentController extends ApplicationComponentControl
       this.element.innerHTML = this.initHTML.code
       this.codeTarget.textContent = this.labelValue
       this.element.insertAdjacentHTML('beforeend', this.initHTML.copyCode)
+      hljs.highlightElement(this.codeTarget)
     } else {
       this.element.innerText = this.labelValue
     }
     this.element.setAttribute('open', '')
-  }
-
-  initializeClass() {
-    if (this.type === 'code') {
-      this.element.className = this.twMerge(this.element.className, this.typeClass.code.klass)
-      this.preTarget.className = this.twMerge(this.preTarget.className, this.typeClass.code.preClass)
-      this.codeTarget.className = this.twMerge(this.codeTarget.className, this.typeClass.code.codeClass)
-      hljs.highlightElement(this.codeTarget)
-    }
-    this.element.className = this.twMerge(this.element.className, this.klass)
   }
 
   copyText() {
@@ -88,15 +76,6 @@ export default class TextComponentController extends ApplicationComponentControl
     this.labelValue = Number(this.labelValue) - (Number(event.value) || 1)
   }
 
-  get textClass() {
-    return this.optionsValue.textClass
-  }
-  get editorClass() {
-    return this.optionsValue.editorClass
-  }
-  get inputClass() {
-    return this.optionsValue.inputClass
-  }
   get codeLanguage() {
     return this.optionsValue.codeLanguage || 'erb'
   }
@@ -124,11 +103,14 @@ export default class TextComponentController extends ApplicationComponentControl
   }
   get typeClass() {
     return {
+      default: {
+        element: '',
+      },
       code: {
-        klass: 'flex flex-row w-full justify-between gap-x-4 bg-[#0D1117] relative rounded-md',
-        textClass: 'w-full',
-        preClass: 'w-full pr-4',
-        codeClass: 'w-full no-scrollbar rounded-md'
+        element: 'flex flex-row w-full justify-between gap-x-4 bg-[#0D1117] relative rounded-md',
+        textTarget: 'w-full',
+        preTarget: 'w-full pr-4',
+        codeTarget: 'w-full no-scrollbar rounded-md'
       }
     }
   }
@@ -140,8 +122,8 @@ export default class TextComponentController extends ApplicationComponentControl
       copyCode: `
         <div class="hidden absolute top-2 right-2" data-controller="button-component " data-button-component-options-value="{&quot;events&quot;:[{&quot;id&quot;:&quot;${this.eventId}&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;copy_text&quot;},{&quot;id&quot;:&quot;${this.eventId + 'toggle'}&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;tab_next&quot;}]}">
           <button data-button-component-target="button">
-            <div class="hidden" data-controller="tab-component " data-tab-component-options-value="{&quot;event_id&quot;:&quot;${this.eventId + 'toggle'}&quot;,&quot;is_restore&quot;:true,&quot;klass&quot;:&quot;bg-blue-900 rounded-md text-white w-20 py-1 flex justify-center&quot;}">
-              <div class="hidden" data-controller="text-component " data-text-component-options-value="{&quot;label&quot;:&quot;Copy&quot;}">
+            <div class="hidden" data-controller="tab-component " data-tab-component-options-value="{&quot;event_id&quot;:&quot;${this.eventId + 'toggle'}&quot;,&quot;is_restore&quot;:true,&quot;klass&quot;:&quot;rounded-md text-white w-20 py-1 flex justify-center&quot;}">
+              <div class="" data-controller="text-component " data-text-component-options-value="{&quot;label&quot;:&quot;Copy&quot;}">
                 <div data-text-component-target="text"></div>
               </div>
               <div class="hidden" data-controller="text-component " data-text-component-options-value="{&quot;label&quot;:&quot;Copied&quot;,&quot;text_class&quot;:&quot;text-green-500&quot;}">
