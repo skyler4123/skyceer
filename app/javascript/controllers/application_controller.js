@@ -24,7 +24,9 @@ export default class ApplicationController extends Controller {
     this.initializeClass()
     this.initializeAction()
     if (this.isLastController) {
-      this.removeClass(this.element, 'hidden')
+      if (this.isShowAfterInitialize) {
+        this.removeClass(this.element, 'hidden')
+      }
     } else {
       this.initializeNextController()
     }
@@ -80,6 +82,7 @@ export default class ApplicationController extends Controller {
   }
 
   initializeAction() {
+    console.log('jhkskjhjkl')
     if (this.eventId && !this.isButtonComponentController) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
     }
@@ -423,5 +426,8 @@ export default class ApplicationController extends Controller {
   }
   get isOverideClass() {
     return this.optionsValue.isOverideClass || false
+  }
+  get isShowAfterInitialize() {
+    return true
   }
 }

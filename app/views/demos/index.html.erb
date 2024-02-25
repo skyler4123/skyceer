@@ -105,6 +105,15 @@
       </div>
     <% end %>
 
+    <%= button(label: 'Test Modal', event: { id: new_id, action: :open, listener: :click }) %>
+    <%= modal(event: { id: id }, background_class: 'bg-red-500') do %>
+      <div class="">
+        Executing JavaScript from a string is an BIG security risk.
+        With eval(), malicious code can run inside your application without permission.
+        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
+      </div>
+    <% end %>
+    
     <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) do %>
       <%= popover(position: :right_center) do %>
         <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
