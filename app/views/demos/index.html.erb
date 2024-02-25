@@ -113,9 +113,17 @@
         With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
       </div>
     <% end %>
-    
-    <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) do %>
-      <%= popover(position: :right_center) do %>
+
+    <div>
+      <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) %>
+      <%= popover(event_id: id, position: :right_center) do %>
+        <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
+      <% end %>
+    </div>
+
+    <%= box do %>
+      <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) %>
+      <%= popover(event_id: id, position: :right_center) do %>
         <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
       <% end %>
     <% end %>

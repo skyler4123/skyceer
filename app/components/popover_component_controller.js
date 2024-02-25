@@ -10,27 +10,26 @@ export default class PopoverComponentController extends ApplicationComponentCont
   initialize() {
     super.initialize()
     this.initializeHTML()
-    // this.initializeClass()
-    // this.initializeAction()
-
     this.initializeComplete()
   }
-  initializeComplete() {}
   
   initializeHTML() {
     if (this.type === 'emoji') {
       const pickerOptions = { onEmojiSelect: console.log }
       const picker = new Picker(pickerOptions)
-    
       this.element.appendChild(picker)
     }
   }
 
   initializeClass() {
-    this.element.className = this.twMerge(this.element.className, this.positionClass[this.insideOrOutside][this.position], this.klass)
-    this.parentControllerElement.className = this.twMerge(this.parentControllerElement.className, 'relative')
+    this.mergeClass(this.element, this.positionClass[this.insideOrOutside][this.position])
+    this.mergeClass(this.parentElement, 'relative')
+    super.initializeClass()
   }
 
+  get isShowAfterInitialize() {
+    return false
+  }
   get insideOrOutside() {
     return this.optionsValue.insideOrOutside || 'outside'
   }
