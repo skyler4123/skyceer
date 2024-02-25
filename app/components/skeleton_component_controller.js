@@ -8,30 +8,14 @@ export default class SkeletonComponentController extends ApplicationComponentCon
 
   initialize() {
     super.initialize()
-    this.initializeValue()
     this.initializeHTML()
-    // this.initializeClass()
-    // this.initializeAction()
-
     this.initializeComplete()
   }
-
-  initializeValue() {
-    this.percentageValue = this.optionsValue.percentage
-  }
-
   initializeHTML() {
-    this.element.innerHTML = this.initHTML[this.name]
+    this.element.innerHTML = this.typeHTML[this.type]
   }
 
-  initializeClass() {
-    this.element.className = this.twMerge(this.element.className, this.klass)
-  }
-
-  get name() {
-    return this.optionsValue.name || "default"
-  }
-  get initHTML() {
+  get typeHTML() {
     return {
       'default': `
         <div data-${this.identifier}-target="skeleton" role="status" class="max-w-sm animate-pulse">
