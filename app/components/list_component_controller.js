@@ -22,12 +22,12 @@ export default class ListComponentController extends ApplicationComponentControl
     })
   }
 
-  initializeClass() {
-    this.element.className = this.twMerge(this.element.className, this.klass)
-    this.liTargets.forEach((target) => {
-      target.className = this.twMerge(target.className, this.liClass)
-    })
-  }
+  // initializeClass() {
+  //   this.element.className = this.twMerge(this.element.className, this.klass)
+  //   this.liTargets.forEach((target) => {
+  //     target.className = this.twMerge(target.className, this.liClass)
+  //   })
+  // }
 
   initializeAction() {
     super.initializeAction()
@@ -45,9 +45,9 @@ export default class ListComponentController extends ApplicationComponentControl
     }
   }
 
-  get liClass() {
-    return this.optionsValue.liClass
-  }
+  // get liClass() {
+  //   return this.optionsValue.liClass
+  // }
   get isSortable() {
     if (this.sortableOptions || this.optionsValue.isSortable) { return true }
   }

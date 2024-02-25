@@ -62,12 +62,12 @@ export default class InputComponentController extends ApplicationComponentContro
     if (this.type === 'comparison') { this.element.setAttribute('type', 'range') }
   }
 
-  initializeClass() {
-    if (this.type === "comparison") {
-      this.element.className = this.twMerge(this.element.className , this.typeClass.comparison.klass)
-    }
-    this.element.className = this.twMerge(this.element.className , this.klass)
-  }
+  // initializeClass() {
+  //   if (this.type === "comparison") {
+  //     this.element.className = this.twMerge(this.element.className , this.typeClass.comparison.klass)
+  //   }
+  //   this.element.className = this.twMerge(this.element.className , this.klass)
+  // }
 
   initializeFormat() {
     if (!this.formatOptions) { return }
@@ -82,12 +82,13 @@ export default class InputComponentController extends ApplicationComponentContro
   }
   
   initializeAction() {
-    if (this.eventId) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    }
-    if (this.isFloatingLabel) {
-      this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
-    }
+    // if (this.eventId) {
+    //   this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+    // }
+    // if (this.isFloatingLabel) {
+    //   this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
+    // }
+    super.initializeAction()
     this.addAction(this.element, `input->${this.identifier}#input`)
   }
 
@@ -163,6 +164,9 @@ export default class InputComponentController extends ApplicationComponentContro
 
   get typeClass() {
     return {
+      text: {
+        element: ''
+      },
       comparison: {
         element: 'absolute inset-0 w-full h-full appearance-none bg-inherit [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-1 [&::-webkit-slider-thumb]:h-[854px] [&::-webkit-slider-thumb]:hover:cursor-ew-resize',
       }
@@ -309,7 +313,7 @@ export default class InputComponentController extends ApplicationComponentContro
     return this.optionsValue.step
   }
   get type() {
-    return this.optionsValue.type
+    return this.optionsValue.type || 'text'
   }
   get value() {
     return this.optionsValue.value

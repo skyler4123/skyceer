@@ -2,17 +2,8 @@
 <p>/</p>
 <p>/</p>
 <p>/</p>
-    <%= carousel(event: { id: id }) do %>
-      <div>
-          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
-      </div>
-      <div>
-          <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
-      </div>
-      <div>
-          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
-      </div>
-      <div>
-          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
-      </div>
+    <%= list(is_sortable: true) do %>
+      <li>Coffee</li>
+      <li>Tea</li>
+      <li>Milk</li>
     <% end %>
