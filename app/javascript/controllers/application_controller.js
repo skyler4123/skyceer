@@ -1,4 +1,5 @@
 import * as Helpers from "./helpers"
+import * as DomHelpers from "./dom_helpers"
 import Api from "./api"
 import "axios";
 import { twMerge } from 'tailwind-merge'
@@ -211,8 +212,11 @@ export default class ApplicationController extends Controller {
 
   mergeClass(element, klass) {
     if (this.isUndefined(element)) { return }
-
-    element.className = this.twMerge(element.className, klass)
+    if (element.tagName === 'svg') {
+      element.classList = this.twMerge(element.classList, klass)
+    } else {
+      element.className = this.twMerge(element.className, klass)
+    }
   }
 
   removeClass(element, klass) {
@@ -221,6 +225,17 @@ export default class ApplicationController extends Controller {
     element.classList.remove(klass)
   }
 
+  getAttributes(element) {
+    return DomHelpers.getAttributes(element)
+  }
+  
+  cloneAttributes(element, refElement) {
+    return DomHelpers.cloneAttributes(element, refElement)
+  }
+
+  createNodeFromHTML(html) {
+    return DomHelpers.createNodeFromHTML(html)
+  }
 
   get isOpen() {
     return this.optionsValue.isOpen

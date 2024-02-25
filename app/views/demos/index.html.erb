@@ -84,8 +84,8 @@
     <% end %>
 
     <%= button(label: 'Press to rotate Icon', event: { id: new_id, listener: :click, action: :rotate }) %>
-    <%= icon(event: { id: id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
-    <%= icon(type: :logo, name: :github, event: { id: id }, svg_class: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
+    <%= icon(event: { id: id }, klass: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
+    <%= icon(type: :logo, name: :github, event: { id: id }, klass: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
 
     <%= button(label: 'Press to rotate Img', event: { id: new_id, listener: :click, action: :rotate }) %>
     <%= img(event: { id: id }, klass: "w-40 h-40 open:animate-spin", url: "https://picsum.photos/1000/1000") %>
@@ -122,10 +122,10 @@
     <%= button(event: { id: id, action: :tab_next, listener: :click }) do %>
       <%= tab(event: { id: id }) do |c| %>
         <%= icon(name: "link") %>
-        <%= icon(name: "check-circle", svg_class: "w-5 h-6 text-green-500") %>
+        <%= icon(name: "check-circle", klass: "w-5 h-6 text-green-500") %>
         <%= icon(name: "spinner", type: :animation) %>
-        <%= icon(name: "star", svg_class: "w-5 h-6 text-sky-800") %>
-        <%= icon(name: "sun", svg_class: "w-5 h-6 text-yellow-500") %>
+        <%= icon(name: "star", klass: "w-5 h-6 text-sky-800") %>
+        <%= icon(name: "sun", klass: "w-5 h-6 text-yellow-500") %>
       <% end %>
     <% end %>
 
@@ -172,19 +172,19 @@
 
     <%= box(event: { id: new_id }) do %>
       <%= button(event: { id: id, listener: :click, action: :rating, value: 0 }) do %>
-        <%= icon(event_id: '#', name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
+        <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
       <% end %>
       <%= button(event: { id: id, listener: :click, action: :rating, value: 1 }) do %>
-        <%= icon(event_id: '#', name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
+        <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
       <% end %>
       <%= button(event: { id: id, listener: :click, action: :rating, value: 2 }) do %>
-        <%= icon(event_id: '#', name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
+        <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
       <% end %>
       <%= button(event: { id: id, listener: :click, action: :rating, value: 3 }) do %>
-        <%= icon(event_id: '#', name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
+        <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
       <% end %>
       <%= button(event: { id: id, listener: :click, action: :rating, value: 4 }) do %>
-        <%= icon(event_id: '#', name: :star, svg_class: 'open:fill-yellow-500 open:text-yellow-500') %>
+        <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
       <% end %>
     <% end %>
 
