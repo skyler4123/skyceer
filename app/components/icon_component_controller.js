@@ -13,7 +13,6 @@ export default class IconComponentController extends ApplicationComponentControl
 
   initializeHTML() {
     const newSvgNode = this.createNodeFromHTML(this.typeHTML[this.type][this.name]).firstElementChild
-    console.log(newSvgNode)
     this.cloneAttributes(this.element, newSvgNode)
     this.element.innerHTML = newSvgNode.innerHTML
   }

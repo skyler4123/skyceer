@@ -13,7 +13,6 @@ export default class extends ApplicationComponentController {
     this.initializeStylesheet()
     this.initializeValue()
     this.initializeChart()
-    this.initializeAction()
 
     this.initializeComplete()
   }

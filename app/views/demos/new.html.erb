@@ -3,4 +3,5 @@
 <p>/</p>
 <p>/</p>
 
-<%= video %>
+    <%= button(label: 'Press to rotate Img', event: { id: new_id, listener: :click, action: :rotate }) %>
+    <%= img(event: { id: id }, klass: "w-40 h-40 open:animate-spin", url: "https://picsum.photos/1000/1000") %>
