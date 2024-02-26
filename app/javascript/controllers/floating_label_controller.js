@@ -1,7 +1,12 @@
-// <%= box(controller: 'floating-label', klass: 'bg-gray-200 p-2') do %>
-//   <%= label(label: 'khkhlkl') %>
+// <%= box(controller: "floating-label") do %>
+//   <%= label(label: 'Floating Title') %>
 //   <%= input %>
 // <% end %>
+
+{/* <div data-controller="floating-label">
+  <%= label(label: 'Floating Title') %>
+  <%= input %>
+</div> */}
 
 import { useHover, useClickOutside } from 'stimulus-use'
 import ApplicationController from './application_controller'
@@ -10,6 +15,7 @@ export default class extends ApplicationController {
   static targets = ['label', 'input']
 
   initialize() {
+    super.initialize()
     this.initializeTarget()
     this.initializeComplete()
     useClickOutside(this, { element: this.inputTarget })
@@ -20,14 +26,10 @@ export default class extends ApplicationController {
     this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
-  initializeClass() {
-    this.mergeClass(this.element, this.defaultClass.klass)
-    this.labelTarget.className = this.twMerge(this.labelTarget.className, this.defaultClass.labelClass)
-    this.inputTarget.className = this.twMerge(this.inputTarget.className, this.defaultClass.inputClass)
-  }
 
   initializeAction() {
-    this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + `click->${this.identifier}#click`
+    super.initializeAction()
+    this.addAction(this.inputTarget, `click->${this.identifier}#click`)
   }
 
   clickOutside(event) {
@@ -51,20 +53,25 @@ export default class extends ApplicationController {
     }
   }
   
-  get defaultClass() {
+
+  get type() {
+    return 'default'
+  }
+  get typeClass() {
     return {
-      klass: 'relative',
-      labelClass: 'absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white',
-      inputClass: '',
+      default: {
+        element: 'relative',
+        labelTarget: 'absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white',
+        inputTarget: '',
+      }
     }
   }
-
-  // get labelController() {
-  //   return this.findController('label')
-  // }
-  // get inputController() {
-  //   return this.findController('input')
-  // }
+  get labelController() {
+    return this.findController('label')
+  }
+  get inputController() {
+    return this.findController('input')
+  }
   get labelControllerElement() {
     return this.findControllerElement('label')
   }

@@ -1,6 +1,6 @@
 // <%= tab(controller: 'edit-text-by-input') do %>
-//   <%= text(label: 'Text need edit')%>
-//   <%= input(value: 'hahah') %>
+//   <div><%= text(label: 'Text need edit')%></div>
+//   <div><%= input %></div>
 // <% end %>
 
 import { useHover, useClickOutside } from 'stimulus-use'
@@ -8,16 +8,18 @@ import ApplicationController from './application_controller'
 
 export default class EditTextByInput extends ApplicationController {
   static targets = ['text', 'input']
+  static values = {
+    ...super.values,
+  }
 
   initialize() {
     this.initializeTarget()
     this.initializeComplete()  
-    useClickOutside(this, { element: this.inputTarget })
   }
 
   connect() {
     super.connect()
-    // useClickOutside(this, { element: this.inputTarget })
+    useClickOutside(this, { element: this.inputTarget })
   }
   
   initializeTarget() {
@@ -72,5 +74,12 @@ export default class EditTextByInput extends ApplicationController {
   }
   get textWidth() {
     return this.textController.element.offsetWidth
+  }
+  get typeClass() {
+    return {
+      default: {
+        element: 'relative'
+      }
+    }
   }
 }

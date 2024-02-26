@@ -17,10 +17,7 @@ export default class InputComponentController extends ApplicationComponentContro
   initialize() {
     super.initialize()
     this.initializeHTML()
-    // this.initializeClass()
     this.initializeFormat()
-    // this.initializeAction()
-
     this.initializeComplete()
   }
 
@@ -62,13 +59,6 @@ export default class InputComponentController extends ApplicationComponentContro
     if (this.type === 'comparison') { this.element.setAttribute('type', 'range') }
   }
 
-  // initializeClass() {
-  //   if (this.type === "comparison") {
-  //     this.element.className = this.twMerge(this.element.className , this.typeClass.comparison.klass)
-  //   }
-  //   this.element.className = this.twMerge(this.element.className , this.klass)
-  // }
-
   initializeFormat() {
     if (!this.formatOptions) { return }
 
@@ -82,12 +72,6 @@ export default class InputComponentController extends ApplicationComponentContro
   }
   
   initializeAction() {
-    // if (this.eventId) {
-    //   this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
-    // }
-    // if (this.isFloatingLabel) {
-    //   this.element.dataset.action = (this.element.dataset.action || '') + ' ' + `click->${this.identifier}#focus`
-    // }
     super.initializeAction()
     this.addAction(this.element, `input->${this.identifier}#input`)
   }

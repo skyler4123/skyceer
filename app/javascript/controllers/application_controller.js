@@ -26,14 +26,6 @@ export default class ApplicationController extends Controller {
     this.initializeClass()
     this.initializeAction()
     this.initializeShow()
-
-    // if (this.isLastController) {
-    //   if (this.isShowAfterInitialize) {
-    //     this.removeClass(this.element, 'hidden')
-    //   }
-    // } else {
-    //   this.initializeNextController()
-    // }
   }
 
   initializeShow() {
@@ -45,7 +37,6 @@ export default class ApplicationController extends Controller {
   initializeClass() {
     if (this.typeClass) {
       Object.keys(this.typeClass[this.type]).forEach((targetString) => {
-        // targetString = 'carouselTarget'
         if (targetString === 'element') {
           this.mergeClass(this.element, this.typeClass[this.type][targetString])
         } else {
@@ -229,7 +220,7 @@ export default class ApplicationController extends Controller {
   mergeClass(element, klass) {
     if (this.isUndefined(element)) { return }
     if (element.tagName === 'svg') {
-      element.classList = this.twMerge(element.classList, klass)
+      element.className.baseVal = this.twMerge(element.className.baseVal, klass)
     } else {
       element.className = this.twMerge(element.className, klass)
     }

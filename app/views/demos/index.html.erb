@@ -24,7 +24,8 @@
     <% end %>
     <%= icon %>
     
-    <%= link(label: "Link to Youtube", url: 'https://www.youtube.com/') %>
+    <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_text }) %>
+    <%= text(label: 'Test Copy Text', event_id: id) %>
     <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_link }) %>
     <%= link(label: "Test Copy Link", url: '/#', event: { id: id }) %>
 
@@ -114,14 +115,14 @@
       </div>
     <% end %>
 
-    <div>
+    <div class="relative">
       <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) %>
       <%= popover(event_id: id, position: :right_center) do %>
         <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
       <% end %>
     </div>
 
-    <%= box do %>
+    <%= box(klass: 'relative') do %>
       <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) %>
       <%= popover(event_id: id, position: :right_center) do %>
         <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
@@ -186,24 +187,6 @@
     <%= text(label: '12', event: { id: new_id }) %>
     <%= button(label: "Increase", event: { id: id, listener: :click, action: :increase, value: 3 }) %>
     <%= button(label: "Decrease", event: { id: id, listener: :click, action: :decrease, value: 4 }) %>
-
-    <%= box(event: { id: new_id }) do %>
-      <%= button(event: { id: id, listener: :click, action: :rating, value: 0 }) do %>
-        <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
-      <% end %>
-      <%= button(event: { id: id, listener: :click, action: :rating, value: 1 }) do %>
-        <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
-      <% end %>
-      <%= button(event: { id: id, listener: :click, action: :rating, value: 2 }) do %>
-        <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
-      <% end %>
-      <%= button(event: { id: id, listener: :click, action: :rating, value: 3 }) do %>
-        <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
-      <% end %>
-      <%= button(event: { id: id, listener: :click, action: :rating, value: 4 }) do %>
-        <%= icon(event_id: '#', name: :star, klass: 'open:fill-yellow-500 open:text-yellow-500') %>
-      <% end %>
-    <% end %>
 
     <%= button(label: 'Test Darkroom', event: { id: new_id, action: :open, listener: :click }) %>
     <%= modal(event: { id: id }, background_class: 'bg-gray-900/80') do %>
@@ -288,8 +271,8 @@
     <% end %>
 
     <%= tab(controller: 'edit-text-by-input') do %>
-      <%= text(label: 'Text need edit')%>
-      <%= input(value: 'hahah') %>
+      <div><%= text(label: 'Text need edit')%></div>
+      <div><%= input %></div>
     <% end %>
 
     <%= box(controller: 'search') do %>
@@ -307,8 +290,21 @@
         <% end %>
     <% end %>
 
+    <div data-controller="rating">
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+    </div>
 
-
+    <%= box(controller: 'rating') do %>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+    <% end %>
 
 
 

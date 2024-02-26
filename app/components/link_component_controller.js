@@ -24,12 +24,9 @@ export default class LinkComponentController extends ApplicationComponentControl
     window.navigator.clipboard.writeText(this.url)
   }
 
-  // get label() {
-  //   return this.optionsValue.label
-  // }
-  // get url() {
-  //   return this.optionsValue.url || '/#'
-  // }
+  get url() {
+    return this.optionsValue.url || '/#'
+  }
 
   
 }
