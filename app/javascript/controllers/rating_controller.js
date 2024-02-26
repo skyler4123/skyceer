@@ -16,7 +16,6 @@ export default class extends ApplicationController {
   }
 
   initialize() {
-    console.log(this)
     super.initialize()
     this.initializeTarget()
     this.initializeComplete()
