@@ -23,8 +23,7 @@ export default class ApplicationController extends Controller {
   }
 
   initializeComplete() {
-    this.initializeTypeClass()
-    this.initializeCustomClass()
+    this.initializeClass()
     this.initializeAction()
     this.initializeShow()
   }
@@ -51,38 +50,6 @@ export default class ApplicationController extends Controller {
       })
     }
 
-    this.classParams.forEach((klass) => {
-      if (klass === 'klass') {
-        this.mergeClass(this.element, this.klass)
-      } else {
-        const targetString = klass.replace('Class', '')
-        if (this[`has${targetString.charAt(0).toUpperCase() + targetString.slice(1)}Target`]) {
-          this[`${targetString}Targets`].forEach((targetElement) => {
-            this.mergeClass(targetElement, this.optionsValue[klass])
-          })
-        }
-      }
-    })
-  }
-
-  initializeTypeClass() {
-    if (this.typeClass) {
-      Object.keys(this.typeClass[this.type]).forEach((targetString) => {
-        if (targetString === 'element') {
-          this.mergeClass(this.element, this.typeClass[this.type][targetString])
-        } else {
-          const target = targetString.replace('Target', '')
-          if (this[`has${target.charAt(0).toUpperCase() + target.slice(1)}Target`]) {
-            this[`${target}Targets`].forEach((targetElement) => {
-              this.mergeClass(targetElement, this.typeClass[this.type][targetString])
-            })
-          }
-        }
-      })
-    }
-  }
-
-  initializeCustomClass() {
     this.classParams.forEach((klass) => {
       if (klass === 'klass') {
         this.mergeClass(this.element, this.klass)
