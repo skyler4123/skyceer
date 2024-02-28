@@ -10,9 +10,6 @@ export default class CarouselComponentController extends ApplicationComponentCon
   initialize() {
     super.initialize()
     this.initializeTarget()
-    // this.initializeClass()
-    // this.initializeAction()
-
     this.initializeComplete()
   }
 
@@ -21,13 +18,6 @@ export default class CarouselComponentController extends ApplicationComponentCon
       target.setAttribute(`data-${this.identifier}-target`, "carousel")
     })
   }
-  // initializeClass() {
-  //   this.element.className = this.twMerge(this.element.className , "h-96 w-[600px] flex flex-row rounded-lg items-center overflow-y-auto scroll-smooth snap-x snap-mandatory no-scrollbar", this.klass)
-  //   this.carouselTargets.forEach((target) => {
-  //     target.className = this.twMerge("flex-shrink-0 w-[300px] h-full snap-start snap-always", this.carouselClass)
-  //   })
-  // }
-
   initializeAction() {
     super.initializeAction()
     this.element.dataset.action = (this.element.dataset.action || "") + ` wheel->${this.identifier}#scroll:passive`
@@ -121,9 +111,6 @@ export default class CarouselComponentController extends ApplicationComponentCon
       }
     }
   }
-  // get carouselClass() {
-  //   return this.optionsValue.carouselClass
-  // }
   get isInfinityScroll() {
     if (this.optionsValue.isInfinityScroll === undefined) {
       return true

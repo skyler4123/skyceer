@@ -15,11 +15,7 @@ export default class LinkComponentController extends ApplicationComponentControl
     if (this.hasLabel) { this.element.innerHTML = this.label }
     this.element.href = this.url
   }
-  // initializeClass() {
-  //   this.element.className = this.twMerge(this.element.className, this.optionsValue.klass)
-  //   this.linkTarget.className = this.twMerge(this.linkTarget.className, this.optionsValue.linkClass)
-  // }
-
+  
   copyLink() {
     window.navigator.clipboard.writeText(this.url)
   }

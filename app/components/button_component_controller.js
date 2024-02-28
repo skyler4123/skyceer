@@ -31,13 +31,9 @@ export default class ButtonComponentController extends ApplicationComponentContr
   }
 
   initializeAction() {
+    super.initializeAction()
     if (this.type === 'toggle') {
       this.element.dataset.action = this.dataAction + ' ' + `click->${this.identifier}#selfToggle`
-    }
-    if (this.actions) {
-      this.actions.forEach((action) => {
-        this.element.dataset.action = this.dataAction + ' ' + `${Object.values(action)[0]}->${this.identifier}#${Object.values(action)[1]}`
-      })
     }
     if (this.events) {
       this.events.forEach((event) => {
@@ -95,6 +91,10 @@ export default class ButtonComponentController extends ApplicationComponentContr
         controller[action]()
       }
     })
+  }
+
+  darkMode() {
+    this.htmlTag.classList.toggle('dark')
   }
 
   get isRememberMe() {

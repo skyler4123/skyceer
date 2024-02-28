@@ -23,7 +23,6 @@ export default class PopoverComponentController extends ApplicationComponentCont
 
   initializeClass() {
     this.mergeClass(this.element, this.positionClass[this.insideOrOutside][this.position])
-    // this.mergeClass(this.parentElement, 'relative')
     super.initializeClass()
   }
 

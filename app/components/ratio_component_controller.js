@@ -12,9 +12,6 @@ export default class RatioComponentController extends ApplicationComponentContro
     this.initializeValue()
     this.initializeHTML()
     this.initializeTarget()
-    // this.initializeClass()
-    // this.initializeAction()
-
     this.initializeComplete()
   }
   
@@ -24,7 +21,7 @@ export default class RatioComponentController extends ApplicationComponentContro
 
   initializeHTML() {
     if (this.type === 'progressBar') {
-      this.element.innerHTML = this.initHTML[this.type]
+      this.element.innerHTML = this.typeHTML[this.type]
     }
   }
 
@@ -34,15 +31,14 @@ export default class RatioComponentController extends ApplicationComponentContro
     })
   }
 
-  initializeClass() {
-    if (this.type === 'progressBar') {
-      this.element.className = this.twMerge(this.element.className, this.typeClass.progressBar.klass, this.klass)
-      this.ratioTarget.className = this.twMerge(this.ratioTarget.className, this.typeClass.progressBar.ratioClass, this.ratioClass)
-      return
-    }
-    this.element.className = this.twMerge(this.element.className, this.klass, this.backgroundClass)
-    this.ratioTarget.className = this.twMerge(this.ratioTarget.className, this.ratioClass)  
-  }
+  // initializeClass() {
+  //   if (this.type === 'progressBar') {
+  //     this.element.className = this.twMerge(this.element.className, this.typeClass.progressBar.klass, this.klass)
+  //     this.ratioTarget.className = this.twMerge(this.ratioTarget.className, this.typeClass.progressBar.ratioClass, this.ratioClass)
+  //     return
+  //   }
+  //   super.initializeClass()
+  // }
 
 
   ratioValueChanged(value, previousValue) {
@@ -78,7 +74,7 @@ export default class RatioComponentController extends ApplicationComponentContro
   get orientation() {
     return this.optionsValue.orientation || "vertical"
   }
-  get initHTML() {
+  get typeHTML() {
     return {
       progressBar: `
         <div data-${this.identifier}-target="ratio" style="width: ${this.ratioValue}%">
@@ -90,13 +86,17 @@ export default class RatioComponentController extends ApplicationComponentContro
 
   get typeClass() {
     return {
+      default: {
+        element: '',
+        ratioTarget: '',
+      },
       progressBar: {
-        klass: 'w-1/2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700',
-        ratioClass: 'bg-blue-600 h-2.5 rounded-full text-center p-0.5 leading-none duration-500 ease-out'
+        element: 'w-1/2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700',
+        ratioTarget: 'bg-blue-600 h-2.5 rounded-full text-center p-0.5 leading-none duration-500 ease-out'
       },
       img: {
-        klass: '',
-        ratioClass: 'object-cover object-left  h-full w-full duration-1000'
+        element: '',
+        ratioTarget: 'object-cover object-left  h-full w-full duration-1000'
       }
     }
   }

@@ -67,23 +67,6 @@
       </div>
     <% end %>
 
-    <%= button(event: { id: new_id, listener: :hover, action: :scroll_forward_auto }) do %>
-        <%= carousel do %>
-        <div>
-            <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
-        </div>
-        <% end %>
-    <% end %>
-
     <%= button(label: 'Press to rotate Icon', event: { id: new_id, listener: :click, action: :open }) %>
     <%= icon(event: { id: id }, klass: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
     <%= icon(type: :logo, name: :github, event: { id: id }, klass: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
@@ -208,7 +191,6 @@
 
     <%= button(label: "Test Button", event: { action: :change_ratio, value: 95, listener: :click, id: new_id }) %>
     <%= ratio(ratio: 15, event_id: id, type: :progress_bar) %>
-    <%= comparison %>
 
     <%= text(type: :code, klass: "w-full", label: Constants::SAMPLE_ERB_CODE, event_id: 'copy code id') %>
 
@@ -236,7 +218,6 @@
     <div class="relative">
       <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
       <%= popover(type: :emoji, event_id: id) %>
-
     </div>
 
     <%= apex %>
@@ -285,7 +266,7 @@
 
     <%= button(type: :none, klass: 'relative w-64 h-40', event: { id: new_id, listener: :hover, action: :toggle }) do %>
       <div class="w-full h-full bg-red-500"></div>
-      <%= accordion(type: :horizontal_overlay, is_test: true, event_id: id) do %>
+      <%= accordion(type: :horizontal_overlay, event_id: id) do %>
           <div class="bg-green-500 w-full h-full">kjhjk lkjlkj kjlkj kjlk </div>
         <% end %>
     <% end %>
@@ -306,6 +287,24 @@
       <%= icon %>
     <% end %>
 
+    <div data-controller="image-comparison" class="relative w-[1536px] h-[854px]">
+      <%= ratio(event_id: id, klass: 'w-[1536px] h-[854px]') do %>
+        <img class="object-cover object-left h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg">
+      <% end %>
+
+      <%= ratio(dir: :rtl, event_id: id, is_reverse: true, klass: 'absolute inset-0 w-[1536px] h-[854px]') do %>
+        <img class="object-cover object-left rtl:object-right h-full w-full blur-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg">
+      <% end %>
+
+      <%= input(type: :comparison) %>
+    </div>
+
+    <%= button(type: :none, action: {listener: :click, action: :dark_mode}, event: { id: new_id, action: :tab_next, listener: :click }) do %>
+      <%= tab(event: { id: id }) do |c| %>
+        <div><%= icon(name: "moon", klass: 'fill-blue-950') %></div>
+        <div><%= icon(name: "sun") %></div>
+      <% end %>
+    <% end %>
 
 
 
@@ -315,13 +314,6 @@
 
 
 
-
-
-
-    
-
-
-
-
+  
   </div>
 </div>

@@ -168,3 +168,19 @@ export const isUndefined = (x) => {
 export const getKeyEndWith = (object, string) => {
   return Object.keys(object).filter((key) => key.endsWith(string))
 }
+
+export const isArrayHasNull = (array) => {
+  return array.includes(null)
+}
+
+export const isArraytNull = (array) => {
+  return array.every((element) => element === null)
+}
+
+export const isObjectHasNull = (object) => {
+  return this.isArrayHasNull(Object.values(object))
+}
+
+export const isObjectNull = (object) => {
+  return this.isArraytNull(Object.values(object))
+}

@@ -12,7 +12,6 @@ export default class TableComponentController extends ApplicationComponentContro
     super.initialize()
     this.initializeHTML()
     this.initializeValue()
-
     this.initializeComplete()
   }
 

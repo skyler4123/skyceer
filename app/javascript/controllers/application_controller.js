@@ -84,7 +84,18 @@ export default class ApplicationController extends Controller {
 
   initializeAction() {
     if (this.eventId && !this.isButtonComponentController) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` global:dispatch@window->${this.identifier}#globalDispatch`
+      this.element.dataset.action = (this.element.dataset.action || "") + ` event:${this.eventGroup}@window->${this.identifier}#eventHandler`
+    }
+    if (this.actions) {
+      this.actions.forEach((action) => {
+        this.addAction(this.element, `${action.listener}->${this.identifier}#${action.action}`)
+      })
+    }
+  }
+
+  eventHandler({ detail: { event } }) {
+    if (this.eventId === event.id && this.id !== event.controller.id) {
+      this[event.action](event)
     }
   }
 
@@ -181,23 +192,53 @@ export default class ApplicationController extends Controller {
   getKeyEndWith(object, string) {
     return Helpers.getKeyEndWith(object, string)
   }
+  isArrayHasNull(array) {
+    return Helpers.isArrayHasNull(array)
+  }
+  isArraytNull(array) {
+    return Helpers.isArraytNull(array)
+  }
+  isObjectHasNull(object) {
+    return Helpers.isObjectHasNull(object)
+  }
+  isObjectNull(object) {
+    return Helpers.isObjectNull(object)
+  }
   initializeNextController() {
     this.nextController.init()
   }
 
-  findController(controller) {
-    const findControllerElement = this.findControllerElement(controller)
-    if (findControllerElement) {
-      let findController = this.application.getControllerForElementAndIdentifier(findControllerElement, controller)
-      if (!findController) {
-        findController = this.application.getControllerForElementAndIdentifier(findControllerElement, `${controller}-component`)
+  findController(controllerName) {
+    const controllerElement = this.findControllerElement(controllerName)
+    if (controllerElement) {
+      let controller = this.application.getControllerForElementAndIdentifier(controllerElement, controllerName)
+      if (!controller) {
+        controller = this.application.getControllerForElementAndIdentifier(controllerElement, `${controllerName}-component`)
       }
-      return findController
+      return controller
+    }
+  }
+
+  findControllers(controllerName) {
+    const controllerElements = this.findControllerElements(controllerName)
+    let controllers = []
+    if (controllerElements.length > 0) {
+      controllers = Array.from(controllerElements).map((element) => this.application.getControllerForElementAndIdentifier(element, controllerName))
+      if (this.isArraytNull(controllers)) {
+        controllers = Array.from(controllerElements).map((element) => {
+          return this.application.getControllerForElementAndIdentifier(element, `${controllerName}-component`)
+        })
+      }
+      return controllers
     }
   }
 
   findControllerElement(controller) {
     return this.element.querySelector(`[data-controller*="${controller}"]`)
+  }
+
+  findControllerElements(controller) {
+    return this.element.querySelectorAll(`[data-controller*="${controller}"]`)
   }
 
   addAction(element, action) {
@@ -297,7 +338,7 @@ export default class ApplicationController extends Controller {
     return this.optionsValue.isTest
   }
   get event() {
-    return this.optionsValue.event
+    return this.optionsValue.event || { event: { id: this.optionsValue.eventId } }
   }
   get events() {
     return this.optionsValue.events
@@ -313,6 +354,9 @@ export default class ApplicationController extends Controller {
   }
   get eventIds() {
     return this.events.map((event) => (event.id))
+  }
+  get eventGroup() {
+    return this.event.group || 'global'
   }
   get parentControllerElement() {
     return this.element.parentNode.closest('[data-controller]')
@@ -442,5 +486,8 @@ export default class ApplicationController extends Controller {
   }
   get isComponentController() {
     return this.identifier.endWith('-component')
+  }
+  get htmlTag() {
+    return document.querySelector('html')
   }
 }

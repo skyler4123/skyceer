@@ -46,39 +46,39 @@ export default class extends ApplicationComponentController {
 
   initializeAction() {
     this.calendar.on('selectDateTime', (event) => {
-      console.log('selectDateTime', event)
+      // console.log('selectDateTime', event)
       this.selectDateTime(event)
     });
     this.calendar.on('beforeCreateEvent', (event) => {
-      console.log('beforeCreateEvent', event)
+      // console.log('beforeCreateEvent', event)
       this.beforeCreateEvent(event)
     });
     this.calendar.on('beforeUpdateEvent', (event) => {
-      console.log('beforeUpdateEvent', event)
+      // console.log('beforeUpdateEvent', event)
       this.beforeUpdateEvent(event)
     });
     this.calendar.on('beforeDeleteEvent', (event) => {
-      console.log('beforeDeleteEvent', event)
+      // console.log('beforeDeleteEvent', event)
       this.beforeDeleteEvent(event)
     });
     this.calendar.on('afterRenderEvent', (event) => {
-      console.log('afterRenderEvent', event)
+      // console.log('afterRenderEvent', event)
       this.afterRenderEvent(event)
     });
     this.calendar.on('clickDayName', (event) => {
-      console.log('clickDayName', event)
+      // console.log('clickDayName', event)
       this.clickDayName(event)
     });
     this.calendar.on('clickEvent', (event) => {
-      console.log('clickEvent', event)
+      // console.log('clickEvent', event)
       this.clickEvent(event)
     });
     this.calendar.on('clickMoreEventsBtn', (event) => {
-      console.log('clickMoreEventsBtn', event)
+      // console.log('clickMoreEventsBtn', event)
       this.clickMoreEventsBtn(event)
     });
     this.calendar.on('clickTimezoneCollapseBtn', (event) => {
-      console.log('clickTimezoneCollapseBtn', event)
+      // console.log('clickTimezoneCollapseBtn', event)
       this.clickTimezoneCollapseBtn(event)
     });
   }

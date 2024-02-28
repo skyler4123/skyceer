@@ -1,6 +1,12 @@
 <p>/</p>
 <p>/</p>
 <p>/</p>
-<p>/</p>
+<p class="bg-red-500 dark:bg-green-500">/</p>
 
- <%= text(is_test:true, label: "Gia ca", language: :vietnamese) %>
+    
+    <%= button(type: :none, action: {listener: :click, action: :dark_mode}, event: { id: new_id, action: :tab_next, listener: :click }) do %>
+      <%= tab(event: { id: id }) do |c| %>
+        <div><%= icon(name: "moon", klass: 'fill-blue-950') %></div>
+        <div><%= icon(name: "sun") %></div>
+      <% end %>
+    <% end %>
