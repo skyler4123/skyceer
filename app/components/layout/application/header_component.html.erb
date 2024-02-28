@@ -1,0 +1,15 @@
+<header class="fixed top-0 flex flex-row justify-between items-center w-full p-4 border-gray-200 dark:bg-gray-900 border-b-2 dark:border-gray-600">
+  <%= link(url: '/#', klass: 'flex flex-row items-center') do %>
+    <%= icon(klass: 'w-8 h-8') %>
+    <h1>Skyler</h1>
+  <% end %>
+  <nav>
+    <%= link(url: '/#', label: 'Home') %>
+    <%= link(url: '/#', label: 'Blog') %>
+    <%= link(url: '/#', label: 'About') %>
+  </nav>
+  <div>
+    <%= button_darkmode %>
+    <%= link(url: '/#', label: 'Pricing & FAQ') %>
+  </div>
+</header>
