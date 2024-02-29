@@ -1,11 +1,14 @@
-<header class="fixed top-0 flex flex-row justify-between items-center w-full p-4 border-gray-200 dark:bg-gray-900 border-b-2 dark:border-gray-600">
+<header class="sticky top-0 flex flex-row justify-between items-center w-full p-4 border-gray-200 dark:bg-gray-900 border-b-2 dark:border-gray-600">
   <%= link(url: '/#', klass: 'flex flex-row items-center') do %>
-    <%= icon(klass: 'w-8 h-8') %>
+    <%= img(klass: 'w-8 h-8 mr-2', url: 'https://saaslit.com/assets/logo-aaf6c1fc133aefefe75fed952f7f5cdaef935d3f1b9ae88924e14a1c83f8b34b.png') %>
     <h1>Skyler</h1>
   <% end %>
   <nav>
     <%= link(url: '/#', label: 'Home') %>
     <%= link(url: '/#', label: 'Blog') %>
+    <%= link(url: '/#', label: 'Education') %>
+    <%= link(url: '/#', label: 'Agriculture') %>
+
     <%= link(url: '/#', label: 'About') %>
   </nav>
   <div>

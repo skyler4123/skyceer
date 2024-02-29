@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  layout :layout_for_actions
+  # layout :layout_for_actions
 
   def index
   end
