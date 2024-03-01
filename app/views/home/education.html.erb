@@ -1,1 +1,43 @@
-<div>EDUCATION PACKAGE</div>
+
+<%= box(klass: "font-['Ubuntu'] w-full flex flex-col justify-center items-center") do %>
+
+  <%= box(klass: 'flex flex-col justify-center items-center gap-y-8 my-24') do %>
+    <%= box(klass: 'flex flex-col justify-center items-center font-extrabold') do %>
+      <%= text(label: 'Skip initial efforts', klass: 'text-6xl') %>
+      <%= text(label: 'about design, development, and deployment', klass: 'text-2xl') %>
+    <% end %>
+    <%= box(klass: 'flex flex-col justify-center items-center') do %>
+      <div>saaslit is a <%= text(tag: :span, label: 'beginner friendly', klass: 'text-blue-700 font-bold') %> web application template</div>
+      <div>that integrates UI kit with a backend framework.</div>
+    <% end %>
+    <%= link(variant: :button, klass: 'flex w-fit justify-center items-center gap-x-2 py-3') do %>
+      <%= text(tag: :span, label: 'Learn More') %>
+      <%= icon(name: 'arrow-right', klass: 'w-4 h-4') %>
+    <% end %>
+  <% end %>
+
+  <%= box(klass: 'flex flex-row justify-around items-center w-full') do %>
+    <% 3.times do %>
+      <%= box(klass: 'flex flex-col gap-y-4') do %>
+        <%= box(klass: 'bg-blue-100 dark:bg-blue-900 w-16 h-16 flex justify-center items-center rounded-md') do %>
+          <%= icon(name: 'arrow-down-tray', klass: 'w-8 h-8') %>
+        <% end %>
+        <%= text(label: '1. Download', klass: 'font-bold text-xl') %>
+        <%= list(klass: 'flex flex-col gap-y-2') do %>
+          <% 3.times do %>
+            <li class="flex gap-x-2 leading-tight text-gray-500 dark:text-gray-400">
+              <%= icon(name: 'check-circle', klass: 'flex-shrink-0 w-6 h-6 text-blue-600 dark:text-blue-500') %>
+              <div>
+                <%= text(tag: :span, label: 'Generate', klass: 'font-bold flex-shrink-0 w-5 h-5 text-blue-600 dark:text-primary-500') %>
+                <%= text(tag: :span, label: 'your favorite backend framework') %>
+              </div>
+            </li>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= img(klass: 'w-1/2 m-4 rounded-lg', url: 'https://res.cloudinary.com/bdavidxyz-com/image/upload/fl_lossy/v1708439923/saaslit/adminlight.png') %>
+
+<% end %>

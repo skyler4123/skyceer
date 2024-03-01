@@ -17,6 +17,9 @@ export const camelizeOptionsValue = (object) => {
   // if (options.klass && isObject(options.klass)) {
   //   options.klass = camelCaseForObjectKey(options.klass)
   // }
+  if (options.variant) {
+    options.variant = toCamelCase(options.variant)
+  }
   if (options.position) {
     options.position = toCamelCase(options.position)
   }

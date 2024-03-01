@@ -28,6 +28,9 @@ export default class ModalComponentController extends ApplicationComponentContro
     }
   }
 
+  get type() {
+    return this.optionsValue.type || 'default'
+  }
   get typeClass() {
     return {
       default: {

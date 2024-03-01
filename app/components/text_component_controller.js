@@ -103,9 +103,6 @@ export default class TextComponentController extends ApplicationComponentControl
   }
   get typeClass() {
     return {
-      default: {
-        element: '',
-      },
       code: {
         element: 'flex flex-row w-full justify-between gap-x-4 bg-[#0D1117] relative rounded-md',
         textTarget: 'w-full',

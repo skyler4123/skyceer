@@ -15,6 +15,9 @@ export default class ToastComponentController extends ApplicationComponentContro
     super.initializeClass()
   }
 
+  get type() {
+    return this.optionsValue.type || 'default'
+  }
   get typeClass() {
     return {
       default: {

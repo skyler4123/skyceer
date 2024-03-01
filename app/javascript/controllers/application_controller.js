@@ -35,7 +35,13 @@ export default class ApplicationController extends Controller {
   }
 
   initializeClass() {
-    if (this.typeClass) {
+    this.initializeTypeClass()
+    this.initializeVariantClass()
+    this.initializeCustomeClass()
+  }
+
+  initializeTypeClass() {
+    if (this.type && this.typeClass) {
       Object.keys(this.typeClass[this.type]).forEach((targetString) => {
         if (targetString === 'element') {
           this.mergeClass(this.element, this.typeClass[this.type][targetString])
@@ -49,7 +55,26 @@ export default class ApplicationController extends Controller {
         }
       })
     }
+  }
+  
+  initializeVariantClass() {
+    if (this.variant && this.variantClass) {
+      Object.keys(this.variantClass[this.variant]).forEach((targetString) => {
+        if (targetString === 'element') {
+          this.mergeClass(this.element, this.variantClass[this.variant][targetString])
+        } else {
+          const target = targetString.replace('Target', '')
+          if (this[`has${target.charAt(0).toUpperCase() + target.slice(1)}Target`]) {
+            this[`${target}Targets`].forEach((targetElement) => {
+              this.mergeClass(targetElement, this.variantClass[this.variant][targetString])
+            })
+          }
+        }
+      })
+    }
+  }
 
+  initializeCustomeClass() {
     this.classParams.forEach((klass) => {
       if (klass === 'klass') {
         this.mergeClass(this.element, this.klass)
@@ -350,7 +375,7 @@ export default class ApplicationController extends Controller {
     return this.optionsValue.actions
   }
   get eventId() {
-    return this.event?.id || this.optionsValue.eventId || this.parentButtonEventId
+    return this.event?.id || this.optionsValue.eventId //|| this.parentButtonEventId
   }
   get eventIds() {
     return this.events.map((event) => (event.id))
@@ -380,13 +405,13 @@ export default class ApplicationController extends Controller {
     return this.optionsValue.label
   }
   get type() {
-    return this.optionsValue.type || 'default'
+    return this.optionsValue.type
   }
   get color() {
     return this.optionsValue.color
   }
   get variant() {
-    return this.optionsValue.variant || this.color
+    return this.optionsValue.variant
   }
   get content() {
     return this.element.innerHTML

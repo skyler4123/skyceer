@@ -264,7 +264,7 @@
       <% end %>
     <% end %>
 
-    <%= button(type: :none, klass: 'relative w-64 h-40', event: { id: new_id, listener: :hover, action: :toggle }) do %>
+    <%= button(klass: 'relative w-64 h-40', event: { id: new_id, listener: :hover, action: :toggle }) do %>
       <div class="w-full h-full bg-red-500"></div>
       <%= accordion(type: :horizontal_overlay, event_id: id) do %>
           <div class="bg-green-500 w-full h-full">kjhjk lkjlkj kjlkj kjlk </div>
@@ -299,7 +299,7 @@
       <%= input(type: :comparison) %>
     </div>
 
-    <%= button(type: :none, action: {listener: :click, action: :dark_mode}, event: { id: new_id, action: :tab_next, listener: :click }) do %>
+    <%= button(action: {listener: :click, action: :dark_mode}, event: { id: new_id, action: :tab_next, listener: :click }) do %>
       <%= tab(event: { id: id }) do |c| %>
         <div><%= icon(name: "moon", klass: 'fill-blue-950') %></div>
         <div><%= icon(name: "sun") %></div>
@@ -307,7 +307,16 @@
     <% end %>
 
 
-
+    <%= button(label: 'Test Variant') %>
+    <%= button(label: 'Test Variant', variant: :default) %>
+    <%= button(label: 'Test Variant', variant: :pill) %>
+    <%= button(label: 'Test Variant', variant: :gradient_monochrome) %>
+    <%= button(label: 'Test Variant', variant: :gradient_duotone) %>
+    <%= button(variant: :gradient_outline) do %>
+      <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">Purple to blue</span>
+    <% end %>
+    <%= button(label: 'Test Variant', variant: :colored_shadows) %>
+    <%= button(label: 'Test Variant', variant: :outline) %>
 
 
 

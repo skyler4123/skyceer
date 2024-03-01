@@ -1,4 +1,5 @@
 class DemosController < ApplicationController
+  layout :layout_for_actions
   # skip_before_action :authenticate
   before_action :set_demo, only: %i[ show edit update destroy ]
 
@@ -67,5 +68,10 @@ class DemosController < ApplicationController
     # Only allow a list of trusted parameters through.
     def demo_params
       params.require(:demo).permit(:id, :string, :text, :float, :decimal, :datetime, :time, :date, :binary, :boolean, :json)
+    end
+
+    def layout_for_actions
+      return 'application' if action_name != 'new'
+      return 'test' if action_name == 'new'
     end
 end

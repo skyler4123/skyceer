@@ -75,6 +75,9 @@ export default class EditTextByInput extends ApplicationController {
   get textWidth() {
     return this.textController.element.offsetWidth
   }
+  get type() {
+    return this.optionsValue.type || 'default'
+  }
   get typeClass() {
     return {
       default: {

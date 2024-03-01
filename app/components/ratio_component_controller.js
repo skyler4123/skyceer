@@ -86,10 +86,6 @@ export default class RatioComponentController extends ApplicationComponentContro
 
   get typeClass() {
     return {
-      default: {
-        element: '',
-        ratioTarget: '',
-      },
       progressBar: {
         element: 'w-1/2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700',
         ratioTarget: 'bg-blue-600 h-2.5 rounded-full text-center p-0.5 leading-none duration-500 ease-out'

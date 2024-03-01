@@ -1,13 +1,12 @@
-export const button = (options, children) => {
+export const Button = (options, children) => {
   return `
-    <div class="hidden" data-controller="button-component " data-button-component-options-value='${JSON.stringify(options)}'>
-      <button data-button-component-target="button"></button>
+    "<button class="hidden" data-controller="button-component " data-button-component-options-value='${JSON.stringify(options)}'>
       ${children ? children() : ``}
-    </div>
+    </button>"
   `
 }
 
-export const accordion = (options, children) => {
+export const Accordion = (options, children) => {
   return `
     <div class="hidden" data-controller="accordion-component" data-accordion-component-options-value='${JSON.stringify(options)}'>
       <div data-accordion-component-target="content">

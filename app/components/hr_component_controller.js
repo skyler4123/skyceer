@@ -10,6 +10,9 @@ export default class HrComponentController extends ApplicationComponentControlle
     this.initializeComplete()
   }
 
+  get type() {
+    return this.optionsValue.type || 'default'
+  }
   get typeClass() {
     return {
       default: {

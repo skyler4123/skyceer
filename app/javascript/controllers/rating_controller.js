@@ -50,7 +50,7 @@ export default class extends ApplicationController {
   }
 
   get type() {
-    return 'yellowStar'
+    return this.optionsValue.type || 'yellowStar'
   }
   get typeClass() {
     return {
