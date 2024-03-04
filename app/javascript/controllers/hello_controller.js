@@ -5,6 +5,7 @@ import ApplicationController from './application_controller'
 export default class extends ApplicationController {
   initialize() {
     this.element.innerHTML = this.html
+    console.log('<%=  %>')
   }
   // init() {
   //   console.log('Hello Skyler!')
