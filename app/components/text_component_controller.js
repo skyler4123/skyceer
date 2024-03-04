@@ -108,7 +108,10 @@ export default class TextComponentController extends ApplicationComponentControl
         textTarget: 'w-full',
         preTarget: 'w-full pr-4',
         codeTarget: 'w-full no-scrollbar rounded-md'
-      }
+      },
+      label: {
+        element: '',
+      },
     }
   }
   get initHTML() {

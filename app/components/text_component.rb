@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class TextComponent < ApplicationComponent
-  renders_one :editor
-  
+
   def initialize( controller: nil, tag: :div, **options)
+    tag = :label if options[:type] && (options[:type] == 'label' || options[:type] == :label)
     super
     raise ArgumentError unless options[:label]
-    @tag = tag
   end
+
 end

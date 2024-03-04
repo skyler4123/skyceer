@@ -1,8 +1,4 @@
-<<%= @tag %> class="hidden" data-controller="<%= @controller %>" data-text-component-options-value="<%= @options %>">
-    <%if editor? %>
-      <div data-text-component-target="editor">
-        <%= editor %>
-      </div>
-    <% end %>
-    <<%= @tag %> data-text-component-target="text"></<%= @tag %>>
+
+<<%= @tag %> class="hidden" data-controller="<%= @controller %>" data-<%= @component_name %>-options-value="<%= @options %>">
+  <%= content %>
 </<%= @tag %>>

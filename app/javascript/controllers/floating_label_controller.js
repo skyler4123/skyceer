@@ -1,10 +1,10 @@
 // <%= box(controller: "floating-label") do %>
-//   <%= label(label: 'Floating Title') %>
+//   <%= text(label: 'Floating Title') %>
 //   <%= input %>
 // <% end %>
 
 {/* <div data-controller="floating-label">
-  <%= label(label: 'Floating Title') %>
+  <%= text(label: 'Floating Title') %>
   <%= input %>
 </div> */}
 
@@ -12,7 +12,7 @@ import { useHover, useClickOutside } from 'stimulus-use'
 import ApplicationController from './application_controller'
 
 export default class extends ApplicationController {
-  static targets = ['label', 'input']
+  static targets = ['text', 'input']
 
   initialize() {
     super.initialize()
@@ -22,7 +22,7 @@ export default class extends ApplicationController {
   }
 
   initializeTarget() {
-    this.labelControllerElement.setAttribute(`data-${this.identifier}-target`, 'label')
+    this.textControllerElement.setAttribute(`data-${this.identifier}-target`, 'text')
     this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
@@ -45,10 +45,10 @@ export default class extends ApplicationController {
     if (previousValue === undefined) { return }
     super.isOpenValueChanged(value, previousValue)
     if (this.isOpenValue) {
-      this.labelController.open()
+      this.textController.open()
       this.inputController.open()
     } else {
-      this.labelController.close()
+      this.textController.close()
       this.inputController.close()
     }
   }
@@ -61,19 +61,19 @@ export default class extends ApplicationController {
     return {
       default: {
         element: 'relative',
-        labelTarget: 'absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white',
+        textTarget: 'absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white',
         inputTarget: '',
       }
     }
   }
-  get labelController() {
-    return this.findController('label')
+  get textController() {
+    return this.findController('text')
   }
   get inputController() {
     return this.findController('input')
   }
-  get labelControllerElement() {
-    return this.findControllerElement('label')
+  get textControllerElement() {
+    return this.findControllerElement('text')
   }
   get inputControllerElement() {
     return this.findControllerElement('input')
