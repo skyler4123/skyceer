@@ -10,10 +10,13 @@ class HomeController < ApplicationController
   def agriculture
   end
 
+  def about
+  end
+
   private
   
   def layout_for_actions
-    return 'application' if action_name == 'index'
+    return 'application' if action_name == 'index' || action_name == 'about'
     action_name
   end
 end

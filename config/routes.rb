@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   end
 
   # HOME for packages
+  get  "about", to: "home#about"
   get  "agriculture", to: "home#agriculture"
   get  "education", to: "home#education"
   get  "home", to: "home#index"
@@ -59,5 +60,5 @@ Rails.application.routes.draw do
   # get "/up", to: Proc.new { [200, {}, ["OK"]] }
   get "up" => "rails/health#show", as: :rails_health_check
 
-  root "home#education"
+  root "home#index"
 end

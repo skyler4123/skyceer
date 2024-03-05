@@ -48,7 +48,7 @@ export default class extends ApplicationController {
       this.textController.open()
       this.inputController.open()
     } else {
-      this.textController.close()
+      if (this.inputTarget.value.length === 0) { this.textController.close() }
       this.inputController.close()
     }
   }
@@ -61,7 +61,7 @@ export default class extends ApplicationController {
     return {
       default: {
         element: 'relative',
-        textTarget: 'absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-white',
+        textTarget: 'absolute left-0 top-1/2 -translate-y-1/2 translate-x-2 open:top-0 duration-200 ease-out bg-gray-50 dark:bg-gray-900',
         inputTarget: '',
       }
     }

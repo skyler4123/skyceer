@@ -145,14 +145,24 @@ export default class InputComponentController extends ApplicationComponentContro
       this.clearLocal()    
     }
   }
-
+  // get variant() {
+  //   return this.optionsValue.variant || 'default'
+  // }
+  // get variantClass() {
+  //   return {
+  //     default: {
+  //       element: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+  //     }
+  //   }
+  // }
   get typeClass() {
     return {
       text: {
-        element: ''
+        element: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
       },
       comparison: {
         element: 'absolute inset-0 w-full h-full appearance-none bg-inherit [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-1 [&::-webkit-slider-thumb]:h-[854px] [&::-webkit-slider-thumb]:hover:cursor-ew-resize',
+
       }
     }
   }

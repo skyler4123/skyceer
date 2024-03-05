@@ -24,6 +24,19 @@
     <% end %>
     <%= icon %>
     
+    <%= button(label: 'Test Variant') %>
+    <%= button(label: 'Test Variant', variant: :default) %>
+    <%= button(label: 'Test Variant', variant: :pill) %>
+    <%= button(label: 'Test Variant', variant: :gradient_monochrome) %>
+    <%= button(label: 'Test Variant', variant: :gradient_duotone) %>
+    <%= button(variant: :gradient_outline) do %>
+      <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">Purple to blue</span>
+    <% end %>
+    <%= button(label: 'Test Variant', variant: :colored_shadows) %>
+    <%= button(label: 'Test Variant', variant: :outline) %>
+
+
+    
     <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_text }) %>
     <%= text(label: 'Test Copy Text', event_id: id) %>
     <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_link }) %>
@@ -246,9 +259,9 @@
       <option value="DE">Germany</option>
     <% end %>
 
-    <%= box(controller: 'floating-label', klass: 'bg-gray-200 p-2') do %>
-      <%= label(label: 'khkhlkl') %>
-      <%= input %>
+    <%= box(controller: 'floating-label', klass: '') do %>
+      <%= text(type: :label, label: 'Test Floating Label') %>
+      <%= input(klass: '') %>
     <% end %>
 
     <%= tab(controller: 'edit-text-by-input') do %>
