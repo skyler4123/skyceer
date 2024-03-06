@@ -37,6 +37,7 @@ export default class ApplicationController extends Controller {
   initializeClass() {
     this.initializeTypeClass()
     this.initializeVariantClass()
+    this.initializePositionClass()
     this.initializeCustomeClass()
   }
 
@@ -59,14 +60,33 @@ export default class ApplicationController extends Controller {
   
   initializeVariantClass() {
     if (this.variant && this.variantClass) {
-      Object.keys(this.variantClass[this.variant]).forEach((targetString) => {
+      let targetsWithClasses = this.getChildObjectByKeys(this.variantClass, [this.variant].flat())
+      Object.keys(targetsWithClasses).forEach((targetString) => {
         if (targetString === 'element') {
-          this.mergeClass(this.element, this.variantClass[this.variant][targetString])
+          this.mergeClass(this.element, targetsWithClasses[targetString])
         } else {
           const target = targetString.replace('Target', '')
           if (this[`has${target.charAt(0).toUpperCase() + target.slice(1)}Target`]) {
             this[`${target}Targets`].forEach((targetElement) => {
-              this.mergeClass(targetElement, this.variantClass[this.variant][targetString])
+              this.mergeClass(targetElement, targetsWithClasses[targetString])
+            })
+          }
+        }
+      })
+    }
+  }
+
+  initializePositionClass() {
+    if (this.position && this.positionClass) {
+      let targetsWithClasses = this.getChildObjectByKeys(this.positionClass, [this.position].flat())
+      Object.keys(targetsWithClasses).forEach((targetString) => {
+        if (targetString === 'element') {
+          this.mergeClass(this.element, targetsWithClasses[targetString])
+        } else {
+          const target = targetString.replace('Target', '')
+          if (this[`has${target.charAt(0).toUpperCase() + target.slice(1)}Target`]) {
+            this[`${target}Targets`].forEach((targetElement) => {
+              this.mergeClass(targetElement, targetsWithClasses[targetString])
             })
           }
         }
@@ -170,6 +190,14 @@ export default class ApplicationController extends Controller {
     return Helpers.snakeCaseForObjectKeyAndValue(object, except)
   }
 
+  camelCaseForArray(array, exceptIndex) {
+    return Helpers.camelCaseForArray(array, exceptIndex)
+  }
+
+  snakeCaseForArray(array, exceptIndex) {
+    return Helpers.snakeCaseForArray(array, exceptIndex)
+  }
+
   toSnakeCase(string) {
     return Helpers.toSnakeCase(string)
   }
@@ -214,6 +242,10 @@ export default class ApplicationController extends Controller {
     return Helpers.isUndefined(x)
   }
 
+  isArray(x) {
+    return Helpers.isArray(x)
+  }
+
   getKeyEndWith(object, string) {
     return Helpers.getKeyEndWith(object, string)
   }
@@ -229,6 +261,18 @@ export default class ApplicationController extends Controller {
   isObjectNull(object) {
     return Helpers.isObjectNull(object)
   }
+  getChildObjectByKeys(object, keys) {
+    return Helpers.getChildObjectByKeys(object, keys)
+  }
+  sortNumberArray(array) {
+    return Helpers.sortNumberArray(array)
+  }
+  sortReverseNumberArray(array) {
+    return Helpers.sortReverseNumberArray(array)
+  }
+
+
+
   initializeNextController() {
     this.nextController.init()
   }

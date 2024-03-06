@@ -14,14 +14,21 @@ export const camelizeOptionsValue = (object) => {
       return event
     })
   }
-  // if (options.klass && isObject(options.klass)) {
-  //   options.klass = camelCaseForObjectKey(options.klass)
-  // }
   if (options.variant) {
-    options.variant = toCamelCase(options.variant)
+    if (isString(options.variant)) {
+      options.variant = toCamelCase(options.variant)
+    }
+    if (isArray(options.variant)) {
+      options.variant = camelCaseForArray(options.variant)
+    }
   }
   if (options.position) {
-    options.position = toCamelCase(options.position)
+    if (isString(options.position)) {
+      options.position = toCamelCase(options.position)
+    }
+    if (isArray(options.position)) {
+      options.position = camelCaseForArray(options.position)
+    }
   }
   if (options.positionType) {
     options.positionType = toCamelCase(options.positionType)
@@ -114,6 +121,30 @@ export const camelCaseForObjectKeyAndValue = (object, except) => {
   return objectResult
 }
 
+export const camelCaseForArray = (array, exceptIndex) => {
+  let result = array.reduce((result, key, currentIndex) => {
+    if (exceptIndex !== undefined && exceptIndex === currentIndex) {
+      return [...result, key]
+    } else {
+      return [...result, toCamelCase(key)]
+    }
+  }, [])
+
+  return result
+}
+
+export const snakeCaseForArray = (array, exceptIndex) => {
+  let result = array.reduce((result, key, currentIndex) => {
+    if (exceptIndex !== undefined && exceptIndex === currentIndex) {
+      return [...result, key]
+    } else {
+      return [...result, toSnakeCase(key)]
+    }
+  }, [])
+
+  return result
+}
+
 export const deleteObjectKey = (object, condition) => {
   let newObject = object
   newObject = Object.keys(newObject).reduce((result, key) => {
@@ -186,4 +217,24 @@ export const isObjectHasNull = (object) => {
 
 export const isObjectNull = (object) => {
   return this.isArraytNull(Object.values(object))
+}
+
+export const isArray = (x) => {
+  return Array.isArray(x)
+}
+
+export const getChildObjectByKeys = (object, keys) => {
+  let value = object
+  keys.forEach((key) => {
+    value = value[key]
+  })
+  return value
+}
+
+export const sortNumberArray = (array) => {
+  return array.sort((a, b) => (a - b));
+}
+
+export const sortReverseNumberArray = (array) => {
+  return sortNumberArray(array).reverse()
 }

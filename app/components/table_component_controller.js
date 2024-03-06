@@ -31,6 +31,7 @@ export default class TableComponentController extends ApplicationComponentContro
           <th class="${this.hClass}" data-${this.identifier}-target="h"></th>
           <th class="${this.hClass}" data-${this.identifier}-target="h"></th>
           <th class="${this.hClass}" data-${this.identifier}-target="h"></th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody class="${this.bodyClass}" data-${this.identifier}-target="body">
@@ -40,6 +41,7 @@ export default class TableComponentController extends ApplicationComponentContro
               <td class="${this.dClass}" data-${this.identifier}-target="d"></td>
               <td class="${this.dClass}" data-${this.identifier}-target="d"></td>
               <td class="${this.dClass}" data-${this.identifier}-target="d"></td>
+              <td>Online</td>
             </tr>
           `
           ).join('')}
@@ -62,6 +64,36 @@ export default class TableComponentController extends ApplicationComponentContro
     const newBodyData = this.bodyValue.flat(Infinity)
     this.dTargets.forEach((target, index) => {
       target.innerText = newBodyData[index]
+    })
+  }
+
+  hideRow(rowIndex) {
+    [rowIndex].flat().forEach((index) => {
+      this.mergeClass(this.trTargets[index], 'hidden')
+    })
+  }
+
+  showRow(rowIndex) {
+    [rowIndex].flat().forEach((index) => {
+      this.trTargets[index].classList.remove('hidden')
+    })
+  }
+
+  hideColumn(columnIndex) {
+    this.element.querySelectorAll('th').forEach((target) => {
+      if (target.cellIndex === columnIndex) { this.mergeClass(target, 'hidden') }
+    })
+    this.element.querySelectorAll('td').forEach((target) => {
+      if (target.cellIndex === columnIndex) { this.mergeClass(target, 'hidden') }
+    })
+  }
+
+  showColumn(columnIndex) {
+    this.element.querySelectorAll('th').forEach((target) => {
+      if (target.cellIndex === columnIndex) { target.classList.remove('hidden') }
+    })
+    this.element.querySelectorAll('td').forEach((target) => {
+      if (target.cellIndex === columnIndex) { target.classList.remove('hidden') }
     })
   }
 

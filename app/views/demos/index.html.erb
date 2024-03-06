@@ -1,4 +1,4 @@
-<%= box(klass: 'w-fit h-fit fixed', position: :left_center, position_type: :inside) do %>
+<%= box(klass: 'w-fit h-fit fixed', position: [:inside, :left_center]) do %>
   <%= box(klass: 'w-4 h-4 bg-green-500 rounded-full') %>
 <% end %>
 
@@ -111,20 +111,6 @@
       </div>
     <% end %>
 
-    <div class="relative">
-      <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) %>
-      <%= popover(event_id: id, position: :right_center) do %>
-        <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
-      <% end %>
-    </div>
-
-    <%= box(klass: 'relative') do %>
-      <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) %>
-      <%= popover(event_id: id, position: :right_center) do %>
-        <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
-      <% end %>
-    <% end %>
-
     <%= button(label: "Test Button", event: { action: :change_ratio, value: 95, listener: :click, id: new_id }) %>
     <%= ratio(is_show_ratio: true, type: :progress_bar, ratio: 45, event: { id: id }, ratio_class: 'bg-green-500') %>
 
@@ -164,9 +150,9 @@
       <% end %>
     <% end %>
 
-    <%= box(type: :alert, border: :bordered, color: :blue, klass: 'relative') do %>
+    <%= box(variant: [:alert, :bordered, :blue], klass: 'relative') do %>
       <div>Test Box Component with styles</div>
-      <%= box(klass: 'w-fit h-fit', position: :left_center, position_type: :border) do %>
+      <%= box(klass: 'w-fit h-fit', position: [:border, :left_center]) do %>
         <%= box(klass: 'w-4 h-4 bg-green-500 rounded-full animate-ping') %>
       <% end %>
     <% end %>
@@ -209,30 +195,6 @@
 
     <%= img(type: :avatar, klass: 'w-10 h-10') %>
 
-    <div class="relative">
-      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
-      <%= popover(inside_or_outside: :inside, event_id: id) do %>
-        <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
-      <% end %>
-    </div>
-    <%= icon %>
-    <%= icon %>
-    <%= icon %>
-
-    <div class="relative">
-      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
-      <%= popover(event_id: id) do %>
-        <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
-      <% end %>
-    </div>
-    <%= icon %>
-    <%= icon %>
-    <%= icon %>
-    <div class="relative">
-      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
-      <%= popover(type: :emoji, event_id: id) %>
-    </div>
-
     <%= apex %>
     <%= editorjs(object_type: 'User') %>
     <%= pin_code %>
@@ -241,9 +203,9 @@
 
     <%= table %>
 
-    <%= box(type: :alert, border: :bordered, color: :blue, klass: 'relative') do %>
+    <%= box(variant: [:alert, :bordered, :blue], klass: 'relative') do %>
         <div>Test Box Component with styles</div>
-        <%= box(klass: 'w-fit h-fit', position: :left_bottom, position_type: :outside) do %>
+        <%= box(klass: 'w-fit h-fit', position: [:outside, :left_bottom]) do %>
           <%= box(klass: 'w-4 h-4 bg-green-500') %>
         <% end %>
       <% end %>
@@ -330,6 +292,107 @@
     <% end %>
     <%= button(label: 'Test Variant', variant: :colored_shadows) %>
     <%= button(label: 'Test Variant', variant: :outline) %>
+
+    <%= box(variant: :default) do %>
+      <div>ihlo u iugi hig oif uihuy giuh ujygiu huy giuh uyg iuh uyg</div>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+    <% end %>
+    <div>/</div>
+    <%= box(variant: :only_border) do %>
+      <div>ihlo u iugi hig oif uihuy giuh ujygiu huy giuh uyg iuh uyg</div>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+    <% end %>
+    <div>/</div>
+    <%= box(variant: :only_bg) do %>
+      <div>ihlo u iugi hig oif uihuy giuh ujygiu huy giuh uyg iuh uyg</div>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+    <% end %>
+    <div>/</div>
+    <%= box(variant: [:alert, :default, :red]) do %>
+      <div>ihlo u iugi hig oif uihuy giuh ujygiu huy giuh uyg iuh uyg</div>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+      <%= icon %>
+    <% end %>
+
+    <div class="relative">
+      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
+      <%= popover(event_id: id) do %>
+        <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
+      <% end %>
+    </div>
+
+    <div>/</div>
+    <div>/</div>
+    <div>/</div>
+
+    <div class="relative">
+      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
+      <%= popover(event_id: id, position: [:outside, :right_center]) do %>
+        <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
+      <% end %>
+    </div>
+
+    <div>/</div>
+    <div>/</div>
+    <div>/</div>
+
+    <div class="relative">
+      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
+      <%= popover(type: :emoji, event_id: id, position: [:outside, :right_center]) %>
+    </div>
+
+    <div class="relative">
+      <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) %>
+      <%= popover(event_id: id) do %>
+        <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
+      <% end %>
+    </div>
+
+    <div class="relative">
+      <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :hover, id: new_id }) %>
+      <%= popover(event_id: id) do %>
+        <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
+      <% end %>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
