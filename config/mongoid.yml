@@ -1,7 +1,7 @@
 production:
   clients:
     default:
-      uri: <%= ENV['MONGO_URL'] %>
+      uri: <%= ENV['MONGO_URL_DEVELOPMENT'] %>
       options:
         server_selection_timeout: 5
 
@@ -12,7 +12,7 @@ development:
     default:
       # Mongoid can connect to a URI accepted by the driver:
       # uri: mongodb://user:password@mongodb.domain.com:27017/skyceer_development
-      uri: <%= ENV['MONGO_URL'] %>
+      uri: <%= ENV['MONGO_URL_DEVELOPMENT'] %>
 
       # Otherwise define the parameters separately.
       # This defines the name of the default database that Mongoid can connect to.
@@ -21,7 +21,7 @@ development:
       # Provides the hosts the default client can connect to. Must be an array
       # of host:port pairs. (required)
       # hosts:
-      #   - <%= ENV.fetch('MONGO_URL') { "0.0.0.0:27017" } %>
+      #   - <%= ENV.fetch('MONGO_URL_DEVELOPMENT') { "0.0.0.0:27017" } %>
       options:
         # Note that all options listed below are Ruby driver client options (the mongo gem).
         # Please refer to the driver documentation of the version of the mongo gem you are using

@@ -70,6 +70,7 @@ test:
 #
 production:
   <<: *default
-  database: skyceer_production
+  # database: skyceer_production
+  database: skyceer_development
   # username: skyceer
   # password: <%= ENV["SKYCEER_DATABASE_PASSWORD"] %>
