@@ -7,11 +7,12 @@ rm -f /rails/tmp/pids/server.pid
 # fi
 ./bin/rails db:prepare
 ./bin/rails log:clear
-# ./bin/rails assets:precompile
+./bin/rails assets:precompile
 
-# Update Packwerk and Sorbet
-./bin/bundle exec tapioca init
-./bin/bundle exec tapioca dsl
+# Update Sorbet
+# ./bin/bundle exec tapioca init
+# ./bin/bundle exec tapioca dsl
+# Update Packwerk
 ./bin/bundle exec packwerk check
 ./bin/rails graphwerk:update
 
