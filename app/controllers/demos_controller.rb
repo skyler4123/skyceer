@@ -1,6 +1,6 @@
 class DemosController < ApplicationController
   layout :layout_for_actions
-  # skip_before_action :authenticate
+  skip_before_action :authenticate, only: [:new]
   before_action :set_demo, only: %i[ show edit update destroy ]
 
   # GET /demos or /demos.json

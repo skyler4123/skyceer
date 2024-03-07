@@ -36,3 +36,4 @@ pin "highlight.js", to: "https://ga.jspm.io/npm:highlight.js@11.8.0/es/index.js"
 pin "emoji-mart" # @5.5.2
 pin "axios", to: "https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js", preload: true
 pin "@googlemaps/js-api-loader", to: "@googlemaps--js-api-loader.js" # @1.16.6
+pin 'uuid', to: "https://jspm.dev/uuid"

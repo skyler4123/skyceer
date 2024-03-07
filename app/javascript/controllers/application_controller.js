@@ -2,6 +2,7 @@ import * as Helpers from "./helpers"
 import * as DomHelpers from "./dom_helpers"
 import Api from "./api"
 import "axios";
+import { v4 as uuidv4 } from "uuid"
 import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus"
 
@@ -464,7 +465,11 @@ export default class ApplicationController extends Controller {
     return this.element.childElementCount > 0
   }
   get newUUID() {
-    return crypto.randomUUID()
+    if (this.protocol === 'https') {
+      return crypto.randomUUID()
+    } else {
+      return uuidv4()
+    }
   }
   get Api() {
     return Api
@@ -558,5 +563,8 @@ export default class ApplicationController extends Controller {
   }
   get htmlTag() {
     return document.querySelector('html')
+  }
+  get protocol() {
+    return location.protocol
   }
 }
