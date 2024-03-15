@@ -1,7 +1,10 @@
 import ApplicationController from './application_controller'
 export default class extends ApplicationController {
   initialize() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` button-component:dispatch->${this.identifier}#receiver`
+    this.element.dataset.action = (this.element.dataset.action || "") + `
+    button:dispatch->${this.identifier}#receiver
+    box:dispatch->${this.identifier}#receiver
+    `
   }
 
   receiver({ detail: { event } }) {

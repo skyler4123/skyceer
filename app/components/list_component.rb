@@ -3,6 +3,5 @@
 class ListComponent < ApplicationComponent
   def initialize( controller: nil, tag: :ol, **options)
     super
-    @tag = tag
   end
 end

@@ -1,9 +1,9 @@
 // Docs: https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/calendar.md
 
 import Calendar from '@toast-ui/calendar';
-import ApplicationComponentController from '../application_component_controller';
+import ApplicationController from '../../javascript/controllers/application_controller';
 
-export default class extends ApplicationComponentController {
+export default class extends ApplicationController {
   static values = {
     ...super.values,
     calendarSchedules: { type: Array },

@@ -1,8 +1,7 @@
-import { twMerge } from 'tailwind-merge'
 import ApexCharts from 'apexcharts'
-import ApplicationComponentController from '../application_component_controller';
+import ApplicationController from '../../javascript/controllers/application_controller';
 
-export default class extends ApplicationComponentController {
+export default class extends ApplicationController {
   static values = {
     ...super.values,
     series: { type: Array }

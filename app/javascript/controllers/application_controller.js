@@ -115,7 +115,7 @@ export default class ApplicationController extends Controller {
   }
   initializeID() {
     if (!this.element.id) {
-      this.element.id = `${this.identifier}-${this.newUUID}`
+      this.element.id = `${this.identifier}:${this.newUUID}`
     }
   }
   initializeDir() {
@@ -129,8 +129,11 @@ export default class ApplicationController extends Controller {
   }
 
   initializeAction() {
-    if (this.eventId && !this.isButtonComponentController) {
+    if (this.isEventListener) {
       this.element.dataset.action = (this.element.dataset.action || "") + ` event:${this.eventGroup}@window->${this.identifier}#eventHandler`
+    }
+    if (this.isEventTrigger) {
+      this.addAction(this.element, `${this.eventListener}->${this.identifier}#${this.eventAction}Dispatch`)
     }
     if (this.actions) {
       this.actions.forEach((action) => {
@@ -159,8 +162,12 @@ export default class ApplicationController extends Controller {
     this.isOpenValue = true
   }
 
-  close() {
+  close(event) {
+    console.log(event)
     this.isOpenValue = false
+    // if (this.isEventTrigger) {
+    //   this.
+    // }
   }
 
   isOpenValueChanged(value, previousValue) {
@@ -422,11 +429,23 @@ export default class ApplicationController extends Controller {
   get eventId() {
     return this.event?.id || this.optionsValue.eventId //|| this.parentButtonEventId
   }
+  get eventListener() {
+    return this.event.listener
+  }
+  get eventAction() {
+    return this.event.action
+  }
   get eventIds() {
     return this.events.map((event) => (event.id))
   }
   get eventGroup() {
     return this.event.group || 'global'
+  }
+  get isEventListener() {
+    return this.isDefined(this.eventId) && this.isUndefined(this.eventListener && this.isUndefined(this.eventAction))
+  }
+  get isEventTrigger() {
+    return this.isDefined(this.eventId) && this.isDefined(this.eventListener && this.isDefined(this.eventAction))
   }
   get parentControllerElement() {
     return this.element.parentNode.closest('[data-controller]')

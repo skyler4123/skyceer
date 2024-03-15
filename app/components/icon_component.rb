@@ -2,4 +2,8 @@
 
 class IconComponent < ApplicationComponent
 
+  def initialize(controller: nil, tag: :svg, **options)
+    super
+  end
+  
 end
