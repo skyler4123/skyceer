@@ -415,13 +415,13 @@ export default class ApplicationController extends Controller {
     return this.optionsValue.isTest
   }
   get event() {
-    return this.optionsValue.event || { event: { id: this.optionsValue.eventId } }
+    return this.optionsValue.event || this.events?.[0] || { event: { id: this.optionsValue.eventId } }
   }
   get events() {
     return this.optionsValue.events
   }
   get action() {
-    return this.optionsValue.action
+    return this.optionsValue.action || this.actions?.[0]
   }
   get actions() {
     return this.optionsValue.actions
