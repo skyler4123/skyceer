@@ -156,24 +156,12 @@ export default class ApplicationController extends Controller {
     this.isOpenValue = !this.isOpenValue
   }
 
-  toggleDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggle'), controller: this } } })
-  }
-
   open() {
     this.isOpenValue = true
   }
 
-  openDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('open'), controller: this } } })
-  }
-
   close() {
     this.isOpenValue = false
-  }
-
-  closeDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('close'), controller: this } } })
   }
 
   isOpenValueChanged(value, previousValue) {
@@ -182,6 +170,90 @@ export default class ApplicationController extends Controller {
     } else {
       this.element.removeAttribute('open')
     }
+  }
+
+  toggleDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggle'), controller: this } } })
+  }
+
+  openDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('open'), controller: this } } })
+  }
+
+  closeDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('close'), controller: this } } })
+  }
+
+  switchDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('switch'), controller: this } } })
+  }
+
+  tabDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tab'), controller: this } } })
+  }
+
+  copyLinkDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('copyLink'), controller: this } } })
+  }
+
+  copyTextDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('copyText'), controller: this } } })
+  }
+
+  scrollBackDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollBack'), controller: this } } })
+  }
+
+  scrollForwardDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollForward'), controller: this } } })
+  }
+
+  scrollForwardAutoDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollForwardAuto'), controller: this } } })
+  }
+
+  rotateDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rotate'), controller: this } } })
+  }
+
+  changeRatioDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('changeRatio'), controller: this } } })
+  }
+
+  tabDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tab'), controller: this } } })
+  }
+
+  tabNextDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabNext'), controller: this } } })
+  }
+
+  tabBackDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabBack'), controller: this } } })
+  }
+
+  tabFirstDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabFirst'), controller: this } } })
+  }
+
+  tabLastDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabLast'), controller: this } } })
+  }
+
+  toggleRememberMeDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggleRememberMe'), controller: this } } })
+  }
+
+  increaseDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('increase'), controller: this } } })
+  }
+
+  decreaseDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('decrease'), controller: this } } })
+  }
+
+  ratingDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rating'), controller: this } } })
   }
 
   camelizeOptionsValue(object) {
