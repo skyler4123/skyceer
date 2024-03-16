@@ -129,11 +129,15 @@ export default class ApplicationController extends Controller {
   }
 
   initializeAction() {
-    if (this.isEventListener) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` event:${this.eventGroup}@window->${this.identifier}#eventHandler`
-    }
-    if (this.isEventTrigger) {
-      this.addAction(this.element, `${this.eventListener}->${this.identifier}#${this.eventAction}Dispatch`)
+    if (this.events) {
+      this.events.forEach(event => {
+        if (this.isListenerEvent(event)) {
+          this.addAction(this.element, `event:${this.groupOfEvent(event)}@window->${this.identifier}#eventHandler`)
+        }
+        if (this.isTriggerEvent(event)) {
+          this.addAction(this.element, `${event.listener}->${this.identifier}#${event.action}Dispatch`)
+        }
+      })
     }
     if (this.actions) {
       this.actions.forEach((action) => {
@@ -148,26 +152,28 @@ export default class ApplicationController extends Controller {
     }
   }
 
-  globalDispatch({ detail: { event } }) {
-    if (this.eventId === event.id && this.id !== event.controller.id) {
-      eval(`this.${event.action}(event)`)
-    }
+  toggle(event) {
+    this.isOpenValue = !this.isOpenValue
   }
 
-  toggle() {
-    this.isOpenValue = !this.isOpenValue
+  toggleDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggle'), controller: this } } })
   }
 
   open() {
     this.isOpenValue = true
   }
 
-  close(event) {
-    console.log(event)
+  openDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('open'), controller: this } } })
+  }
+
+  close() {
     this.isOpenValue = false
-    // if (this.isEventTrigger) {
-    //   this.
-    // }
+  }
+
+  closeDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('close'), controller: this } } })
   }
 
   isOpenValueChanged(value, previousValue) {
@@ -279,8 +285,6 @@ export default class ApplicationController extends Controller {
     return Helpers.sortReverseNumberArray(array)
   }
 
-
-
   initializeNextController() {
     this.nextController.init()
   }
@@ -368,6 +372,12 @@ export default class ApplicationController extends Controller {
     element.innerHTML = newNode.innerHTML
   }
 
+  isEventBrowser(event) {
+    return !!event.target
+  }
+  isEventDispatch(event) {
+    return !this.isEventDispatch(event)
+  }
   get isOpen() {
     return this.optionsValue.isOpen
   }
@@ -388,15 +398,6 @@ export default class ApplicationController extends Controller {
   }
   get klass() {
     return this.optionsValue.klass || ''
-    // const klass = this.optionsValue.klass
-    // if (!this.isDefined(klass)) { return { element: '' } }
-
-    // if (this.isString(klass)) {
-    //   return { element: klass }
-    // }
-    // if (this.isObject(klass)) {
-    //   return this.optionsValue.klass
-    // }
   }
 
   get labelClass() {
@@ -441,11 +442,29 @@ export default class ApplicationController extends Controller {
   get eventGroup() {
     return this.event.group || 'global'
   }
+  groupOfEvent(event) {
+    return event.group || 'global'
+  }
   get isEventListener() {
     return this.isDefined(this.eventId) && this.isUndefined(this.eventListener && this.isUndefined(this.eventAction))
   }
+  isListenerEvent(event) {
+    return event.id  && !event.listener && !event.action
+  }
+  get listenerEvents() {
+    return this.events.filter(event => event.id && !event.listener && !event.action)
+  }
   get isEventTrigger() {
     return this.isDefined(this.eventId) && this.isDefined(this.eventListener && this.isDefined(this.eventAction))
+  }
+  get triggerEvents() {
+    return this.events.filter(event => event.id && event.listener && event.action)
+  }
+  isTriggerEvent(event) {
+    return event.id && event.listener && event.action
+  }
+  eventWithAction(action) {
+    return this.events.find(event => event.action === action)
   }
   get parentControllerElement() {
     return this.element.parentNode.closest('[data-controller]')

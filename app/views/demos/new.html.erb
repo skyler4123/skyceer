@@ -3,11 +3,7 @@
 <div>/</div>
 <div>/</div>
 <div>/</div>
-    <%= button(label: 'Press to rotate Icon', event: { id: new_id, listener: :click, action: :open }) %>
-    <%= box(variant: :only_border, event: { id: id, listener: :click, action: :close }) do %>
-      <div>ihlo u iugi hig oif uihuy giuh ujygiu huy giuh uyg iuh uyg</div>
-      <%= icon %>
-      <%= icon(event: { id: id }, klass: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
+    <%= button(label: 'Press to rotate Icon', event: { id: new_id, listener: :click, action: :toggle }) %>
+    <%= box(variant: :only_border, events: [{id: id}, { id: new_id, listener: :click, action: :toggle }], action: {listener: :click, action: :toggle}) do %>
       <%= icon(type: :logo, name: :github, event: { id: id }, klass: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
-
     <% end %>
