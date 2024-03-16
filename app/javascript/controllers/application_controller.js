@@ -135,13 +135,31 @@ export default class ApplicationController extends Controller {
           this.addAction(this.element, `event:${this.groupOfEvent(event)}@window->${this.identifier}#eventHandler`)
         }
         if (this.isTriggerEvent(event)) {
-          this.addAction(this.element, `${event.listener}->${this.identifier}#${event.action}Dispatch`)
+          switch(event.listener) {
+            case 'hover':
+              this.addAction(this.element, `mouseenter->${this.identifier}#${event.action}Dispatch mouseleave->${this.identifier}#${event.action}Dispatch`)
+              break;
+            case 'clickOutside':
+              this.addAction(this.element, `${this.identifier}:click:outside->${this.identifier}#${event.action}Dispatch`)
+              break;
+            default:
+              this.addAction(this.element, `${event.listener}->${this.identifier}#${event.action}Dispatch`)
+          }
         }
       })
     }
     if (this.actions) {
       this.actions.forEach((action) => {
-        this.addAction(this.element, `${action.listener}->${this.identifier}#${action.action}`)
+        switch(action.listener) {
+          case 'hover':
+            this.addAction(this.element, `mouseenter->${this.identifier}#${action.action} mouseleave->${this.identifier}#${action.action}`)
+            break;
+          case 'clickOutside':
+            this.addAction(this.element, `${this.identifier}:click:outside->${this.identifier}#${action.action}`)
+            break;
+          default:
+            this.addAction(this.element, `${action.listener}->${this.identifier}#${action.action}`)
+        }
       })
     }
   }
@@ -488,10 +506,10 @@ export default class ApplicationController extends Controller {
     return this.optionsValue.isTest
   }
   get event() {
-    return this.optionsValue.event || this.events?.[0] || { event: { id: this.optionsValue.eventId } }
+    return this.optionsValue.event || { id: this.optionsValue.eventId }
   }
   get events() {
-    return this.optionsValue.events
+    return this.optionsValue.events || [this.event].flat()
   }
   get action() {
     return this.optionsValue.action || this.actions?.[0]
@@ -500,7 +518,7 @@ export default class ApplicationController extends Controller {
     return this.optionsValue.actions
   }
   get eventId() {
-    return this.event?.id || this.optionsValue.eventId //|| this.parentButtonEventId
+    return  this.optionsValue.eventId || this.event?.id || this.events[0].id
   }
   get eventListener() {
     return this.event.listener

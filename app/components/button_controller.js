@@ -28,6 +28,13 @@ export default class ButtonController extends ApplicationController {
     }
   }
 
+  initializeAction() {
+    super.initializeAction()
+    if (this.type === 'toggle') {
+      this.element.dataset.action = this.dataAction + ' ' + `click->${this.identifier}#toggle`
+    }
+  }
+
   isOpenValueChanged(value, previousValue) {
     super.isOpenValueChanged(value, previousValue)
     if (this.type === 'toggle') {
