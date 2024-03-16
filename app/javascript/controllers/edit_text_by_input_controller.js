@@ -52,7 +52,7 @@ export default class EditTextByInput extends ApplicationController {
   }
 
   get tabController() {
-    return this.application.getControllerForElementAndIdentifier(this.element, 'tab-component')
+    return this.application.getControllerForElementAndIdentifier(this.element, 'tab')
   }
   get textController() {
     return this.findController('text')

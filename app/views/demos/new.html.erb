@@ -4,9 +4,7 @@
 <div>/</div>
 <div>/</div>
 
-    <div class="relative">
-      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
-      <%= popover(event_id: id) do %>
-        <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
-      <% end %>
-    </div>
+    <%= tab(controller: 'edit-text-by-input') do %>
+      <div><%= text(label: 'Text need edit')%></div>
+      <div><%= input %></div>
+    <% end %>
