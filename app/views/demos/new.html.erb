@@ -4,4 +4,4 @@
 <div>/</div>
 <div>/</div>
 
-    <%= tui(calendar_schedules: CalendarUser.first.calendar_schedules, calendar_events: (CalendarUser.first.calendar_schedules.map {|schedule| schedule.calendar_events}).flatten) %>
+    <%= editorjs(object_type: 'User') %>

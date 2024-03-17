@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class Utilities::EditorjsComponent < ApplicationComponent
+
+  erb_template <<-ERB
+    <form data-controller="utilities--editorjs" data-utilities--editorjs-object-id-value='<%= @object_id %>' data-utilities--editorjs-object-type-value="<%= @object_type %>" data-utilities--editorjs-image-endpoint-by-file-value="<%= @image_endpoint_by_file %>" data-utilities--editorjs-image-endpoint-by-url-value="<%= @image_endpoint_by_url %>" class="flex flex-col">
+      <div id="<%= @holder %>" data-utilities--editorjs-target="editor"></div>
+    </form>
+  ERB
+
   def initialize(
     holder: "editorjs-#{SecureRandom.alphanumeric}",
     object_id: nil,
