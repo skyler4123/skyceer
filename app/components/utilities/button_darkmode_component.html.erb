@@ -1,6 +1,0 @@
-<%= button(klass: 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 max-sm:hidden', action: {listener: :click, action: :dark_mode}, event: { id: new_id, action: :tab_next, listener: :click }) do %>
-  <%= tab(event: { id: id }) do |c| %>
-    <div><%= icon(name: "moon", klass: 'w-5 h-5 fill-blue-950') %></div>
-    <div><%= icon(name: "sun", klass: 'w-5 h-5') %></div>
-  <% end %>
-<% end %>

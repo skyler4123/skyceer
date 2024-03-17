@@ -19,6 +19,11 @@ export default class TabController extends ApplicationController {
     })
   }
 
+  initializeAction() {
+    super.initializeAction()
+    this.addAction(this.element, `click->${this.identifier}#tabNext`)
+  }
+
   tab(event) {
     this.tabIndexValue = event.value
   }
