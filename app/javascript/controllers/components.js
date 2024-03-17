@@ -1,5 +1,5 @@
 const Components = (name, options = {}, content = null) => {
-  let tag = ''
+  let tag
   switch(name) {
     case 'button':
       tag = 'button'
