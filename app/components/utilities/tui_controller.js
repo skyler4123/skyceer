@@ -14,15 +14,11 @@ export default class extends ApplicationController {
     super.initialize()
     this.initializeValue()
     this.initializeCalendar()
-    // this.initializeAction()
-    // this.initializeClass()
-
     this.initializeComplete()
   }
 
   initializeValue() {
     let options = this.optionsValue
-    console.log(this)
     options.calendarSchedules = options.calendarSchedules.map((schedule) => {
       schedule = this.camelCaseForObjectKey(schedule, 'id')
       return schedule

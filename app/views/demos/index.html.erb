@@ -286,14 +286,6 @@
       <%= input(type: :comparison) %>
     </div>
 
-    <%= button(action: {listener: :click, action: :dark_mode}, event: { id: new_id, action: :tab_next, listener: :click }) do %>
-      <%= tab(event: { id: id }) do |c| %>
-        <div><%= icon(name: "moon", klass: 'fill-blue-950') %></div>
-        <div><%= icon(name: "sun") %></div>
-      <% end %>
-    <% end %>
-
-
     <%= button(label: 'Test Variant') %>
     <%= button(label: 'Test Variant', variant: :default) %>
     <%= button(label: 'Test Variant', variant: :pill) %>
