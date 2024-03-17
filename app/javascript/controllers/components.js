@@ -50,6 +50,15 @@ const Components = (name, options = {}, content = null) => {
       `
     case 'hr': case 'img': case 'input':
       return `<${tag} class="hidden" data-controller="${name}" data-${name}-options-value='${JSON.stringify(options)}'>`
+    case 'modal':
+      return `
+        <${tag} class="hidden" data-controller="${name}" data-${name}-options-value='${JSON.stringify(options)}'>
+          <div data-${name}-target="background"></div>
+          <div data-${name}-target="content">
+            ${content ? content() : ``}
+          </div>
+        </${tag}>
+      `
     default:
       return `
         <${tag}
