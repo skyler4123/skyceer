@@ -11,7 +11,10 @@
     <%= link(klass: 'hover:text-blue-700 open:text-blue-700', url: '/about', label: 'About') %>
   </nav>
   <div class="flex flex-row justify-center items-center gap-x-2">
-    <%= button_darkmode %>
+    <%= tab(controller: :darkmode) do |c| %>
+      <div><%= icon(name: "moon", klass: 'w-5 h-5 fill-blue-950') %></div>
+      <div><%= icon(name: "sun", klass: 'w-5 h-5') %></div>
+    <% end %>
     <%= link(variant: :button, url: '/#', label: 'Pricing & FAQ') %>
   </div>
 </header>

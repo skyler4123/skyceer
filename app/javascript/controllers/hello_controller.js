@@ -1,31 +1,16 @@
-
-import { Button } from '../../components/components'
 // import ApplicationController from './application_controller'
-
 // export default class extends ApplicationController {
+
+import Components from "./components"
 import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   initialize() {
-    console.log(crypto, crypto.randomUUID())
+    console.log('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
+    console.log(this.initHTML)
+    this.element.innerHTML = this.initHTML
   }
-  // init() {
-  //   console.log('Hello Skyler!')
 
-  //   this.initializeComplete()
-  // }
-
-  get html() {
-    return `
-
-      ${Button({}, () => {
-        return `
-          <div>WWWWWWWWWWWWWWWWWWWWWWW</div>
-        `
-      }
-        
-      )}
-
-    `
+  get initHTML() {
+    return Components('button', {label: 'Test Components', event: {id: '123', listener: 'click', action: 'toggle'}, variant: 'gradient_outline'})
   }
-  
 }

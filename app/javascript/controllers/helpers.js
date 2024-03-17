@@ -1,12 +1,19 @@
 export const camelizeOptionsValue = (object) => {
   let options = object
   options = camelCaseForObjectKey(options)
-
+  if (options.action) {
+    options.actions ||= [options.action]
+    delete(options.action)
+  }
   if (options.actions) {
     options.actions = options.actions.map((action) => {
       action = camelCaseForObjectKeyAndValue(action)
       return action
     })
+  }
+  if (options.event) {
+    options.events ||= [options.event]
+    delete(options.event)
   }
   if (options.events) {
     options.events = options.events.map((event) => {

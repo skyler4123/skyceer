@@ -115,7 +115,7 @@ export default class ApplicationController extends Controller {
   }
   initializeID() {
     if (!this.element.id) {
-      this.element.id = `${this.identifier}-${this.newUUID}`
+      this.element.id = `${this.identifier}:${this.newUUID}`
     }
   }
   initializeDir() {
@@ -129,12 +129,37 @@ export default class ApplicationController extends Controller {
   }
 
   initializeAction() {
-    if (this.eventId && !this.isButtonComponentController) {
-      this.element.dataset.action = (this.element.dataset.action || "") + ` event:${this.eventGroup}@window->${this.identifier}#eventHandler`
+    if (this.events) {
+      this.events.forEach(event => {
+        if (this.isListenerEvent(event)) {
+          this.addAction(this.element, `event:${this.groupOfEvent(event)}@window->${this.identifier}#eventHandler`)
+        }
+        if (this.isTriggerEvent(event)) {
+          switch(event.listener) {
+            case 'hover':
+              this.addAction(this.element, `mouseenter->${this.identifier}#${event.action}Dispatch mouseleave->${this.identifier}#${event.action}Dispatch`)
+              break;
+            case 'clickOutside':
+              this.addAction(this.element, `${this.identifier}:click:outside->${this.identifier}#${event.action}Dispatch`)
+              break;
+            default:
+              this.addAction(this.element, `${event.listener}->${this.identifier}#${event.action}Dispatch`)
+          }
+        }
+      })
     }
     if (this.actions) {
       this.actions.forEach((action) => {
-        this.addAction(this.element, `${action.listener}->${this.identifier}#${action.action}`)
+        switch(action.listener) {
+          case 'hover':
+            this.addAction(this.element, `mouseenter->${this.identifier}#${action.action} mouseleave->${this.identifier}#${action.action}`)
+            break;
+          case 'clickOutside':
+            this.addAction(this.element, `${this.identifier}:click:outside->${this.identifier}#${action.action}`)
+            break;
+          default:
+            this.addAction(this.element, `${action.listener}->${this.identifier}#${action.action}`)
+        }
       })
     }
   }
@@ -145,13 +170,7 @@ export default class ApplicationController extends Controller {
     }
   }
 
-  globalDispatch({ detail: { event } }) {
-    if (this.eventId === event.id && this.id !== event.controller.id) {
-      eval(`this.${event.action}(event)`)
-    }
-  }
-
-  toggle() {
+  toggle(event) {
     this.isOpenValue = !this.isOpenValue
   }
 
@@ -169,6 +188,90 @@ export default class ApplicationController extends Controller {
     } else {
       this.element.removeAttribute('open')
     }
+  }
+
+  toggleDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggle'), controller: this } } })
+  }
+
+  openDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('open'), controller: this } } })
+  }
+
+  closeDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('close'), controller: this } } })
+  }
+
+  switchDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('switch'), controller: this } } })
+  }
+
+  tabDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tab'), controller: this } } })
+  }
+
+  copyLinkDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('copyLink'), controller: this } } })
+  }
+
+  copyTextDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('copyText'), controller: this } } })
+  }
+
+  scrollBackDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollBack'), controller: this } } })
+  }
+
+  scrollForwardDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollForward'), controller: this } } })
+  }
+
+  scrollForwardAutoDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollForwardAuto'), controller: this } } })
+  }
+
+  rotateDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rotate'), controller: this } } })
+  }
+
+  changeRatioDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('changeRatio'), controller: this } } })
+  }
+
+  tabDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tab'), controller: this } } })
+  }
+
+  tabNextDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabNext'), controller: this } } })
+  }
+
+  tabBackDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabBack'), controller: this } } })
+  }
+
+  tabFirstDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabFirst'), controller: this } } })
+  }
+
+  tabLastDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabLast'), controller: this } } })
+  }
+
+  toggleRememberMeDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggleRememberMe'), controller: this } } })
+  }
+
+  increaseDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('increase'), controller: this } } })
+  }
+
+  decreaseDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('decrease'), controller: this } } })
+  }
+
+  ratingDispatch(event) {
+    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rating'), controller: this } } })
   }
 
   camelizeOptionsValue(object) {
@@ -272,8 +375,6 @@ export default class ApplicationController extends Controller {
     return Helpers.sortReverseNumberArray(array)
   }
 
-
-
   initializeNextController() {
     this.nextController.init()
   }
@@ -361,6 +462,12 @@ export default class ApplicationController extends Controller {
     element.innerHTML = newNode.innerHTML
   }
 
+  isEventBrowser(event) {
+    return !!event.target
+  }
+  isEventDispatch(event) {
+    return !this.isEventDispatch(event)
+  }
   get isOpen() {
     return this.optionsValue.isOpen
   }
@@ -381,15 +488,6 @@ export default class ApplicationController extends Controller {
   }
   get klass() {
     return this.optionsValue.klass || ''
-    // const klass = this.optionsValue.klass
-    // if (!this.isDefined(klass)) { return { element: '' } }
-
-    // if (this.isString(klass)) {
-    //   return { element: klass }
-    // }
-    // if (this.isObject(klass)) {
-    //   return this.optionsValue.klass
-    // }
   }
 
   get labelClass() {
@@ -408,25 +506,55 @@ export default class ApplicationController extends Controller {
     return this.optionsValue.isTest
   }
   get event() {
-    return this.optionsValue.event || { event: { id: this.optionsValue.eventId } }
+    return this.optionsValue.event || { id: this.optionsValue.eventId }
   }
   get events() {
-    return this.optionsValue.events
+    return this.optionsValue.events || [this.event].flat()
   }
   get action() {
-    return this.optionsValue.action
+    return this.optionsValue.action || this.actions?.[0]
   }
   get actions() {
     return this.optionsValue.actions
   }
   get eventId() {
-    return this.event?.id || this.optionsValue.eventId //|| this.parentButtonEventId
+    return  this.optionsValue.eventId || this.event?.id || this.events[0].id
+  }
+  get eventListener() {
+    return this.event.listener
+  }
+  get eventAction() {
+    return this.event.action
   }
   get eventIds() {
     return this.events.map((event) => (event.id))
   }
   get eventGroup() {
     return this.event.group || 'global'
+  }
+  groupOfEvent(event) {
+    return event.group || 'global'
+  }
+  get isEventListener() {
+    return this.isDefined(this.eventId) && this.isUndefined(this.eventListener && this.isUndefined(this.eventAction))
+  }
+  isListenerEvent(event) {
+    return event.id  && !event.listener && !event.action
+  }
+  get listenerEvents() {
+    return this.events.filter(event => event.id && !event.listener && !event.action)
+  }
+  get isEventTrigger() {
+    return this.isDefined(this.eventId) && this.isDefined(this.eventListener && this.isDefined(this.eventAction))
+  }
+  get triggerEvents() {
+    return this.events.filter(event => event.id && event.listener && event.action)
+  }
+  isTriggerEvent(event) {
+    return event.id && event.listener && event.action
+  }
+  eventWithAction(action) {
+    return this.events.find(event => event.action === action)
   }
   get parentControllerElement() {
     return this.element.parentNode.closest('[data-controller]')

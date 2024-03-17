@@ -1,21 +1,9 @@
 # frozen_string_literal: true
 
 class ButtonComponent < ApplicationComponent
-  renders_many :prepends
-  renders_many :appends
-  renders_one :body
-  renders_many :hiddens
 
-  def initialize( controller: nil, **options)
-    @controller = "button-component" + ' ' + controller.to_s
-    if options[:event]
-      options[:events] ||= [options[:event]]
-      options.delete(:event)
-    end
-    if options[:action]
-      options[:actions] ||= [options[:action]]
-      options.delete(:action)
-    end
-    @options = options.to_json
+  def initialize(controller: nil, tag: :button, **options)
+    super
   end
+  
 end
