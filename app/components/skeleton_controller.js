@@ -15,6 +15,9 @@ export default class SkeletonController extends ApplicationController {
     this.element.innerHTML = this.typeHTML[this.type]
   }
 
+  get type() {
+    return this.optionsValue.type || 'default'
+  }
   get typeHTML() {
     return {
       'default': `
