@@ -16,7 +16,7 @@ export default class ToastController extends ApplicationController {
   }
 
   get type() {
-    return this.optionsValue.type || 'default'
+    return this.paramsValue.type || 'default'
   }
   get typeClass() {
     return {
@@ -26,7 +26,7 @@ export default class ToastController extends ApplicationController {
     }
   }
   get position() {
-    return this.optionsValue.position || 'left'
+    return this.paramsValue.position || 'left'
   }
   get positionClass() {
     return {

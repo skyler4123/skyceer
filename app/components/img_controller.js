@@ -29,12 +29,12 @@ export default class ImgController extends ApplicationController {
     }
   }
   get src() {
-    return this.optionsValue.src
+    return this.paramsValue.src
   }
   get url() {
-    return this.optionsValue.url || this.src || 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg'
+    return this.paramsValue.url || this.src || 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg'
   }
   get alt() {
-    return this.optionsValue.alt
+    return this.paramsValue.alt
   }
 }

@@ -18,7 +18,7 @@ export default class extends ApplicationController {
   }
 
   initializeValue() {
-    let options = this.optionsValue
+    let options = this.paramsValue
     options.calendarSchedules = options.calendarSchedules.map((schedule) => {
       schedule = this.camelCaseForObjectKey(schedule, 'id')
       return schedule
@@ -29,7 +29,7 @@ export default class extends ApplicationController {
 
       return event
     })
-    this.optionsValue = options
+    this.paramsValue = options
     this.calendarEventsValue = this.calendarEvents.map((event) => {
       return this.objectOnlyKeys(event, ['id', 'calendarId','title','start','end'])
     })
@@ -179,7 +179,7 @@ export default class extends ApplicationController {
   }
 
   get calendarEvents() {
-    return this.optionsValue.calendarEvents || [
+    return this.paramsValue.calendarEvents || [
     // return [
       {
         id: 'event1',
@@ -191,10 +191,10 @@ export default class extends ApplicationController {
     ]
   }
   get overideOptions() {
-    return this.optionsValue.overideOptions
+    return this.paramsValue.overideOptions
   }
   get options() {
-    return this.optionsValue.options || this.defaultOptions
+    return this.paramsValue.options || this.defaultOptions
   }
   get defaultOptions() {
     return {
@@ -251,7 +251,7 @@ export default class extends ApplicationController {
     }
   }
   get calendarSchedules() {
-    return this.optionsValue.calendarSchedules || [
+    return this.paramsValue.calendarSchedules || [
       {
         id: 'cal1',
         name: 'Personal',

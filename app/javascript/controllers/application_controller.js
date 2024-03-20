@@ -8,14 +8,14 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class ApplicationController extends Controller {
   static values = {
-    options: { type: Object },
+    params: { type: Object },
     isOpen: { type: Boolean },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
     isHover: { type: Boolean }
   }
   initialize() {
-    this.optionsValue = this.camelizeOptionsValue(this.optionsValue)
+    this.paramsValue = this.camelizeParamsValue(this.paramsValue)
     this.initializeController()
     if (this.isFirstController) {
       this.initializeID()
@@ -103,7 +103,7 @@ export default class ApplicationController extends Controller {
         const targetString = klass.replace('Class', '')
         if (this[`has${targetString.charAt(0).toUpperCase() + targetString.slice(1)}Target`]) {
           this[`${targetString}Targets`].forEach((targetElement) => {
-            this.mergeClass(targetElement, this.optionsValue[klass])
+            this.mergeClass(targetElement, this.paramsValue[klass])
           })
         }
       }
@@ -274,8 +274,8 @@ export default class ApplicationController extends Controller {
     this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rating'), controller: this } } })
   }
 
-  camelizeOptionsValue(object) {
-    return Helpers.camelizeOptionsValue(object)
+  camelizeParamsValue(object) {
+    return Helpers.camelizeParamsValue(object)
   }
 
   camelCaseForObjectKey(object, except) {
@@ -469,56 +469,56 @@ export default class ApplicationController extends Controller {
     return !this.isEventDispatch(event)
   }
   get isOpen() {
-    return this.optionsValue.isOpen
+    return this.paramsValue.isOpen
   }
   get isFocus() {
-    return this.optionsValue.isFocus
+    return this.paramsValue.isFocus
   }
   get isActive() {
-    return this.optionsValue.isActive
+    return this.paramsValue.isActive
   }
   get isHover() {
-    return this.optionsValue.isHover
+    return this.paramsValue.isHover
   }
   get dir() {
-    return this.optionsValue.dir || false
+    return this.paramsValue.dir || false
   }
   get classParams() {
-    return this.getKeyEndWith(this.optionsValue, 'lass')
+    return this.getKeyEndWith(this.paramsValue, 'lass')
   }
   get klass() {
-    return this.optionsValue.klass || ''
+    return this.paramsValue.klass || ''
   }
 
   get labelClass() {
-    return this.optionsValue.labelClass || ''
+    return this.paramsValue.labelClass || ''
   }
   get id() {
     return this.element.id
   }
   get label() {
-    return this.optionsValue.label
+    return this.paramsValue.label
   }
   get hasLabel() {
     return typeof this.label !== 'undefined'
   }
   get isTest() {
-    return this.optionsValue.isTest
+    return this.paramsValue.isTest
   }
   get event() {
-    return this.optionsValue.event || { id: this.optionsValue.eventId }
+    return this.paramsValue.event || { id: this.paramsValue.eventId }
   }
   get events() {
-    return this.optionsValue.events || [this.event].flat()
+    return this.paramsValue.events || [this.event].flat()
   }
   get action() {
-    return this.optionsValue.action || this.actions?.[0]
+    return this.paramsValue.action || this.actions?.[0]
   }
   get actions() {
-    return this.optionsValue.actions
+    return this.paramsValue.actions
   }
   get eventId() {
-    return  this.optionsValue.eventId || this.event?.id || this.events[0].id
+    return  this.paramsValue.eventId || this.event?.id || this.events[0].id
   }
   get eventListener() {
     return this.event.listener
@@ -571,20 +571,20 @@ export default class ApplicationController extends Controller {
   }
   get parentButtonEventId() {
     if (this.parentButtonControllerElement) {
-      return JSON.parse(this.parentButtonControllerElement.dataset.buttonComponentOptionsValue).events[0].id
+      return JSON.parse(this.parentButtonControllerElement.dataset.buttonComponentParamsValue).events[0].id
     }
   }
   get label() {
-    return this.optionsValue.label
+    return this.paramsValue.label
   }
   get type() {
-    return this.optionsValue.type
+    return this.paramsValue.type
   }
   get color() {
-    return this.optionsValue.color
+    return this.paramsValue.color
   }
   get variant() {
-    return this.optionsValue.variant
+    return this.paramsValue.variant
   }
   get content() {
     return this.element.innerHTML
@@ -681,7 +681,7 @@ export default class ApplicationController extends Controller {
     return this.element.parentElement
   }
   get isOverideClass() {
-    return this.optionsValue.isOverideClass || false
+    return this.paramsValue.isOverideClass || false
   }
   get isShowAfterInitialize() {
     return true

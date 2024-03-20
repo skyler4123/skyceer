@@ -60,19 +60,19 @@ export default class RatioController extends ApplicationController {
   }
 
   get ratioClass() {
-    return this.optionsValue.ratioClass
+    return this.paramsValue.ratioClass
   }
   get ratio() {
-    return this.optionsValue.ratio || 50
+    return this.paramsValue.ratio || 50
   }
   get isReverse() {
-    return this.optionsValue.isReverse || false
+    return this.paramsValue.isReverse || false
   }
   get isShowRatio() {
-    return this.optionsValue.isShowRatio
+    return this.paramsValue.isShowRatio
   }
   get orientation() {
-    return this.optionsValue.orientation || "vertical"
+    return this.paramsValue.orientation || "vertical"
   }
   get typeHTML() {
     return {

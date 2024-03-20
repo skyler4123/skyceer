@@ -64,7 +64,7 @@ export default class ButtonController extends ApplicationController {
   }
   
   get isRememberMe() {
-    return this.optionsValue.isRememberMe || false
+    return this.paramsValue.isRememberMe || false
   }
   get typeHTML() {
     return {

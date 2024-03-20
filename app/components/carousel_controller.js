@@ -104,7 +104,7 @@ export default class CarouselController extends ApplicationController {
   }
 
   get type() {
-    return this.optionsValue.type || 'default'
+    return this.paramsValue.type || 'default'
   }
   get typeClass() {
     return {
@@ -115,14 +115,14 @@ export default class CarouselController extends ApplicationController {
     }
   }
   get isInfinityScroll() {
-    if (this.optionsValue.isInfinityScroll === undefined) {
+    if (this.paramsValue.isInfinityScroll === undefined) {
       return true
     } else {
-      return this.optionsValue.isInfinityScroll
+      return this.paramsValue.isInfinityScroll
     }
   }
   get timeInterval() {
-    return this.optionsValue.timeInterval
+    return this.paramsValue.timeInterval
   }
 
 

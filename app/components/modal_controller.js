@@ -29,7 +29,7 @@ export default class ModalController extends ApplicationController {
   }
 
   get type() {
-    return this.optionsValue.type || 'default'
+    return this.paramsValue.type || 'default'
   }
   get typeClass() {
     return {

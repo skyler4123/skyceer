@@ -77,16 +77,16 @@ export default class TextController extends ApplicationController {
   }
 
   get codeLanguage() {
-    return this.optionsValue.codeLanguage || 'erb'
+    return this.paramsValue.codeLanguage || 'erb'
   }
   get language() {
-    return this.optionsValue.language || this.defaultLanguage
+    return this.paramsValue.language || this.defaultLanguage
   }
   get defaultLanguage() {
     return 'english'
   }
   get languageKey() {
-    return this.optionsValue.languageKey || this.defaultLanguageKey
+    return this.paramsValue.languageKey || this.defaultLanguageKey
   }
   get defaultLanguageKey() {
     let defaultLanguageKey
@@ -120,13 +120,13 @@ export default class TextController extends ApplicationController {
         <pre data-${this.identifier}-target="pre"><code data-${this.identifier}-target="code" class="${this.codeLanguage}"></code></pre>
       `,
       copyCode: `
-        <div class="hidden absolute top-2 right-2" data-controller="button " data-button-options-value="{&quot;events&quot;:[{&quot;id&quot;:&quot;${this.eventId}&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;copy_text&quot;},{&quot;id&quot;:&quot;${this.eventId + 'toggle'}&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;tab_next&quot;}]}">
+        <div class="hidden absolute top-2 right-2" data-controller="button " data-button-params-value="{&quot;events&quot;:[{&quot;id&quot;:&quot;${this.eventId}&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;copy_text&quot;},{&quot;id&quot;:&quot;${this.eventId + 'toggle'}&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;tab_next&quot;}]}">
           <button data-button-target="button">
-            <div class="hidden" data-controller="tab " data-tab-options-value="{&quot;event_id&quot;:&quot;${this.eventId + 'toggle'}&quot;,&quot;is_restore&quot;:true,&quot;klass&quot;:&quot;rounded-md text-white w-20 py-1 flex justify-center&quot;}">
-              <div class="" data-controller="text " data-text-options-value="{&quot;label&quot;:&quot;Copy&quot;}">
+            <div class="hidden" data-controller="tab " data-tab-params-value="{&quot;event_id&quot;:&quot;${this.eventId + 'toggle'}&quot;,&quot;is_restore&quot;:true,&quot;klass&quot;:&quot;rounded-md text-white w-20 py-1 flex justify-center&quot;}">
+              <div class="" data-controller="text " data-text-params-value="{&quot;label&quot;:&quot;Copy&quot;}">
                 <div data-text-target="text"></div>
               </div>
-              <div class="hidden" data-controller="text " data-text-options-value="{&quot;label&quot;:&quot;Copied&quot;,&quot;text_class&quot;:&quot;text-green-500&quot;}">
+              <div class="hidden" data-controller="text " data-text-params-value="{&quot;label&quot;:&quot;Copied&quot;,&quot;text_class&quot;:&quot;text-green-500&quot;}">
                 <div data-text-target="text"></div>
               </div>
             </div>

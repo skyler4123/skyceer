@@ -12,7 +12,7 @@ export default class AccordionController extends ApplicationController {
   }
 
   get type() {
-    return this.optionsValue.type || 'vertical'
+    return this.paramsValue.type || 'vertical'
   }
   get typeClass() {
     return {

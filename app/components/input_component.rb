@@ -2,6 +2,6 @@
 
 class InputComponent < ApplicationComponent
   erb_template <<-ERB
-    <input class="hidden" data-controller="<%= @controllers %>" data-<%= @controller_name %>-options-value="<%= @options %>">
+    <input class="hidden" data-controller="<%= @controllers %>" data-<%= @controller_name %>-params-value="<%= @params %>">
   ERB
 end

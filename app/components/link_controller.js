@@ -21,7 +21,7 @@ export default class LinkController extends ApplicationController {
   }
 
   get url() {
-    return this.optionsValue.url || '/#'
+    return this.paramsValue.url || '/#'
   }
   get variantClass() {
     return {

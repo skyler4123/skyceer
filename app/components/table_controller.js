@@ -99,33 +99,33 @@ export default class TableController extends ApplicationController {
   }
 
   get head() {
-    return this.optionsValue.head || this.defaultHead
+    return this.paramsValue.head || this.defaultHead
   }
   get defaultHead() {
     return ['header 1', 'header 2', 'header 3']
   }
   get body() {
-    return this.optionsValue.body || this.defaultBody
+    return this.paramsValue.body || this.defaultBody
   }
   get defaultBody() {
     return [['1','2','3'], ['4','5','6'], ['7','8','9']]
   }
   get headClass() {
-    return this.optionsValue.headClass || ''
+    return this.paramsValue.headClass || ''
   }
   get headTrClass() {
-    return this.optionsValue.headTrClass || ''
+    return this.paramsValue.headTrClass || ''
   }
   get hClass() {
-    return this.optionsValue.hClass || ''
+    return this.paramsValue.hClass || ''
   }
   get bodyClass() {
-    return this.optionsValue.bodyClass || ''
+    return this.paramsValue.bodyClass || ''
   }
   get bodyTrClass() {
-    return this.optionsValue.bodyTrClass || ''
+    return this.paramsValue.bodyTrClass || ''
   }
   get dClass() {
-    return this.optionsValue.dClass || ''
+    return this.paramsValue.dClass || ''
   }
 }

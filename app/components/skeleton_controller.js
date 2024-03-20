@@ -16,7 +16,7 @@ export default class SkeletonController extends ApplicationController {
   }
 
   get type() {
-    return this.optionsValue.type || 'default'
+    return this.paramsValue.type || 'default'
   }
   get typeHTML() {
     return {

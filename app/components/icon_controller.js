@@ -16,10 +16,10 @@ export default class IconController extends ApplicationController {
   }
 
   get type() {
-    return this.optionsValue.type || "outline"
+    return this.paramsValue.type || "outline"
   }
   get name() {
-    return this.optionsValue.name || "star"
+    return this.paramsValue.name || "star"
   }
   get typeHTML() {
     return {

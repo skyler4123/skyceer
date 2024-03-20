@@ -36,25 +36,25 @@ export default class VideoController extends ApplicationController {
     }
   }
   get videoClass() {
-    return this.optionsValue.videoClass
+    return this.paramsValue.videoClass
   }
   get isControl() {
-    return this.optionsValue.isControl || true
+    return this.paramsValue.isControl || true
   }
   get isAutoplay() {
-    return this.optionsValue.isAutoplay || false
+    return this.paramsValue.isAutoplay || false
   }
   get isMuted() {
-    return this.optionsValue.isMuted || false
+    return this.paramsValue.isMuted || false
   }
   get src() {
-    return this.optionsValue.src
+    return this.paramsValue.src
   }
   get url() {
-    return this.optionsValue.url || this.src || 'https://flowbite.com/docs/videos/flowbite.mp4'
+    return this.paramsValue.url || this.src || 'https://flowbite.com/docs/videos/flowbite.mp4'
   }
   get type() {
-    return this.optionsValue.type || 'video/mp4'
+    return this.paramsValue.type || 'video/mp4'
   }
   get initHTML() {
     return `

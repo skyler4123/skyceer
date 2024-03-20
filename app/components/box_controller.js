@@ -30,13 +30,13 @@ export default class BoxController extends ApplicationController {
   }
 
   get border() {
-    return this.optionsValue.border
+    return this.paramsValue.border
   }
   get position() {
-    return this.optionsValue.position
+    return this.paramsValue.position
   }
   get positionType() {
-    return this.optionsValue.positionType || 'inside'
+    return this.paramsValue.positionType || 'inside'
   }
   get variantClass() {
     return {

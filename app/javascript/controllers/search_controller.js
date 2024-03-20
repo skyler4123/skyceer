@@ -110,10 +110,10 @@ export default class extends ApplicationController {
     return this.findControllerElement('popover')
   }
   get url() {
-    return this.inputController.optionsValue.url
+    return this.inputController.paramsValue.url
   }
   get autoSubmit() {
-    return this.inputController.optionsValue.autoSubmit
+    return this.inputController.paramsValue.autoSubmit
   }
   get popoverHTML() {
     return `

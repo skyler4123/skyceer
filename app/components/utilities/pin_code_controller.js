@@ -83,7 +83,7 @@ export default class extends ApplicationController {
     `
   }
   get klass() {
-    return this.optionsValue.klass || 'flex flex-row gap-x-3'
+    return this.paramsValue.klass || 'flex flex-row gap-x-3'
   }
   get maxIndex() {
     return this.cellTargets.length - 1
@@ -95,6 +95,6 @@ export default class extends ApplicationController {
     return this.cellTargets[this.indexValue]
   }
   get name() {
-    return this.optionsValue.name
+    return this.paramsValue.name
   }
 }

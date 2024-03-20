@@ -78,7 +78,7 @@ export default class TabController extends ApplicationController {
   }
 
   get type() {
-    return this.optionsValue.type || 'default'
+    return this.paramsValue.type || 'default'
   }
   get typeClass() {
     return {
@@ -92,15 +92,15 @@ export default class TabController extends ApplicationController {
     return this.tabTargets.length - 1
   }
   get isRestore() {
-    if (typeof this.optionsValue.restoreIndex != "undefined" || typeof this.optionsValue.restoreTimeout != "undefined") {
+    if (typeof this.paramsValue.restoreIndex != "undefined" || typeof this.paramsValue.restoreTimeout != "undefined") {
       return true
     }
-    return this.optionsValue.isRestore
+    return this.paramsValue.isRestore
   }
   get restoreIndex() {
-    return this.optionsValue.restoreIndex || 0
+    return this.paramsValue.restoreIndex || 0
   }
   get restoreTimeout() {
-    return this.optionsValue.restoreTimeout || 5000
+    return this.paramsValue.restoreTimeout || 5000
   }
 }

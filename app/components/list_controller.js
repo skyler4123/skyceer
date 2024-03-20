@@ -36,10 +36,10 @@ export default class ListController extends ApplicationController {
   }
 
   get isSortable() {
-    if (this.sortableOptions || this.optionsValue.isSortable) { return true }
+    if (this.sortableOptions || this.paramsValue.isSortable) { return true }
   }
   get sortableOptions() {
-    return this.optionsValue.sortableOptions
+    return this.paramsValue.sortableOptions
   }
 
 

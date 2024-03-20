@@ -2,7 +2,7 @@
 
 class LinkComponent < ApplicationComponent
 
-  def initialize(controller: nil, tag: :div, **options)
+  def initialize(controller: nil, tag: :div, **params)
     @tag = :a
     super
   end

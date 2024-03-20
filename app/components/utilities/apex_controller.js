@@ -34,7 +34,7 @@ export default class extends ApplicationController {
   }
 
   get series() {
-    return this.optionsValue.series || [{
+    return this.paramsValue.series || [{
       data: [{
         x: 'category A',
         y: 10
@@ -48,7 +48,7 @@ export default class extends ApplicationController {
     }]
   }
   get options() {
-    return this.optionsValue.options || {
+    return this.paramsValue.options || {
       chart: {
         type: 'bar'
       },

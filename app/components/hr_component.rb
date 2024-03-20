@@ -2,6 +2,6 @@
 
 class HrComponent < ApplicationComponent
   erb_template <<-ERB
-    <hr class="hidden" data-controller="<%= @controllers %>" data-<%= @controller_name %>-options-value="<%= @options %>">
+    <hr class="hidden" data-controller="<%= @controllers %>" data-<%= @controller_name %>-params-value="<%= @params %>">
   ERB
 end

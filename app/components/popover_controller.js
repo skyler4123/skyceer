@@ -30,10 +30,10 @@ export default class PopoverController extends ApplicationController {
     return false
   }
   // get insideOrOutside() {
-  //   return this.optionsValue.insideOrOutside || 'outside'
+  //   return this.paramsValue.insideOrOutside || 'outside'
   // }
   get position() {
-    return this.optionsValue.position || ['outside', 'bottomCenter']
+    return this.paramsValue.position || ['outside', 'bottomCenter']
   }
   get positionClass() {
     return {

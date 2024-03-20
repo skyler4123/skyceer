@@ -1,49 +1,49 @@
-export const camelizeOptionsValue = (object) => {
-  let options = object
-  options = camelCaseForObjectKey(options)
-  if (options.action) {
-    options.actions ||= [options.action]
-    delete(options.action)
+export const camelizeParamsValue = (object) => {
+  let params = object
+  params = camelCaseForObjectKey(params)
+  if (params.action) {
+    params.actions ||= [params.action]
+    delete(params.action)
   }
-  if (options.actions) {
-    options.actions = options.actions.map((action) => {
+  if (params.actions) {
+    params.actions = params.actions.map((action) => {
       action = camelCaseForObjectKeyAndValue(action)
       return action
     })
   }
-  if (options.event) {
-    options.events ||= [options.event]
-    delete(options.event)
+  if (params.event) {
+    params.events ||= [params.event]
+    delete(params.event)
   }
-  if (options.events) {
-    options.events = options.events.map((event) => {
+  if (params.events) {
+    params.events = params.events.map((event) => {
       event = camelCaseForObjectKeyAndValue(event, 'id')
       return event
     })
   }
-  if (options.variant) {
-    if (isString(options.variant)) {
-      options.variant = toCamelCase(options.variant)
+  if (params.variant) {
+    if (isString(params.variant)) {
+      params.variant = toCamelCase(params.variant)
     }
-    if (isArray(options.variant)) {
-      options.variant = camelCaseForArray(options.variant)
-    }
-  }
-  if (options.position) {
-    if (isString(options.position)) {
-      options.position = toCamelCase(options.position)
-    }
-    if (isArray(options.position)) {
-      options.position = camelCaseForArray(options.position)
+    if (isArray(params.variant)) {
+      params.variant = camelCaseForArray(params.variant)
     }
   }
-  if (options.positionType) {
-    options.positionType = toCamelCase(options.positionType)
+  if (params.position) {
+    if (isString(params.position)) {
+      params.position = toCamelCase(params.position)
+    }
+    if (isArray(params.position)) {
+      params.position = camelCaseForArray(params.position)
+    }
   }
-  if (options.type) {
-    options.type = toCamelCase(options.type)
+  if (params.positionType) {
+    params.positionType = toCamelCase(params.positionType)
   }
-  return options
+  if (params.type) {
+    params.type = toCamelCase(params.type)
+  }
+  return params
 }
 
 export const toCamelCase = (string) => {

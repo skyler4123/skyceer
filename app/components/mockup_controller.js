@@ -16,10 +16,10 @@ export default class MockupController extends ApplicationController {
   }
 
   get name() {
-    return this.optionsValue.name
+    return this.paramsValue.name
   }
   get deviceName() {
-    return this.optionsValue.deviceName
+    return this.paramsValue.deviceName
   }
   get initHTML() {
     return {

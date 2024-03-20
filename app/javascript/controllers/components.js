@@ -1,4 +1,4 @@
-const Components = (name, options = {}, content = null) => {
+const Components = (name, params = {}, content = null) => {
   let tag
   switch(name) {
     case 'button':
@@ -41,7 +41,7 @@ const Components = (name, options = {}, content = null) => {
         <${tag}
         class="hidden"
         data-controller="${name}"
-        data-${name}-options-value='${JSON.stringify(options)}'
+        data-${name}-params-value='${JSON.stringify(params)}'
         >
           <div data-${name}-target="overflow">
             ${content ? content() : ``}
@@ -49,10 +49,10 @@ const Components = (name, options = {}, content = null) => {
         </${tag}>
       `
     case 'hr': case 'img': case 'input':
-      return `<${tag} class="hidden" data-controller="${name}" data-${name}-options-value='${JSON.stringify(options)}'>`
+      return `<${tag} class="hidden" data-controller="${name}" data-${name}-params-value='${JSON.stringify(params)}'>`
     case 'modal':
       return `
-        <${tag} class="hidden" data-controller="${name}" data-${name}-options-value='${JSON.stringify(options)}'>
+        <${tag} class="hidden" data-controller="${name}" data-${name}-params-value='${JSON.stringify(params)}'>
           <div data-${name}-target="background"></div>
           <div data-${name}-target="content">
             ${content ? content() : ``}
@@ -64,7 +64,7 @@ const Components = (name, options = {}, content = null) => {
         <${tag}
           class="hidden"
           data-controller="${name}"
-          data-${name}-options-value='${JSON.stringify(options)}'
+          data-${name}-params-value='${JSON.stringify(params)}'
         >
           ${content ? content() : ``}
         </${tag}>

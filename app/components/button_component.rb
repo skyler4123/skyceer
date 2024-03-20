@@ -2,7 +2,7 @@
 
 class ButtonComponent < ApplicationComponent
 
-  def initialize(controller: nil, tag: :button, **options)
+  def initialize(controller: nil, tag: :button, **params)
     super
   end
   
