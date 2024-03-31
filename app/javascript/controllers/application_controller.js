@@ -17,6 +17,7 @@ export default class ApplicationController extends Controller {
   initialize() {
     this.paramsValue = this.camelizeParamsValue(this.paramsValue)
     this.initializeController()
+    this.initializeParams()
     if (this.isFirstController) {
       this.initializeID()
       this.initializeDir()
@@ -107,6 +108,12 @@ export default class ApplicationController extends Controller {
           })
         }
       }
+    })
+  }
+
+  initializeParams() {
+    Object.keys(this.paramsValue).forEach(key => {
+      this[`${key}Params`] = this.paramsValue[key]
     })
   }
 
