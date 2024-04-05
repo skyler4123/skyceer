@@ -77,7 +77,6 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
-    ast (2.4.2)
     aws-eventstream (1.3.0)
     aws-partitions (1.901.0)
     aws-sdk-core (3.191.5)
@@ -96,13 +95,6 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
-    better_html (2.1.1)
-      actionview (>= 6.0)
-      activesupport (>= 6.0)
-      ast (~> 2.0)
-      erubi (~> 1.4)
-      parser (>= 2.4)
-      smart_properties
     bigdecimal (3.1.7)
     bindex (0.8.1)
     bootsnap (1.18.3)
@@ -111,7 +103,6 @@ GEM
     builder (3.2.4)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
-    constant_resolver (0.2.0)
     crass (1.0.6)
     date (3.3.4)
     debug (1.9.1)
@@ -144,11 +135,6 @@ GEM
       raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    graphwerk (1.2.1)
-      activesupport
-      packwerk
-      ruby-graphviz
-      sorbet-runtime
     http_parser.rb (0.8.0)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
@@ -216,24 +202,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.3-x86_64-linux)
       racc (~> 1.4)
-    packwerk (3.2.0)
-      activesupport (>= 6.0)
-      ast
-      better_html
-      bundler
-      constant_resolver (>= 0.2.0)
-      parallel
-      parser
-      prism (>= 0.24.0)
-      sorbet-runtime (>= 0.5.9914)
-      zeitwerk (>= 2.6.1)
     pagy (7.0.11)
-    parallel (1.24.0)
-    parser (3.3.0.5)
-      ast (~> 2.4.1)
-      racc
     pg (1.5.6)
-    prism (0.24.0)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -295,7 +265,6 @@ GEM
       connection_pool
     reline (0.5.0)
       io-console (~> 0.5)
-    rexml (3.2.6)
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.0)
@@ -324,8 +293,6 @@ GEM
     rswag-ui (2.13.0)
       actionpack (>= 3.1, < 7.2)
       railties (>= 3.1, < 7.2)
-    ruby-graphviz (1.2.5)
-      rexml
     ruby-vips (2.2.1)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
@@ -346,8 +313,6 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    smart_properties (1.17.0)
-    sorbet-runtime (0.5.11311)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -411,14 +376,12 @@ DEPENDENCIES
   em-websocket
   factory_bot_rails
   faker
-  graphwerk
   image_processing
   importmap-rails
   jbuilder
   jwt
   memory_profiler
   mongoid
-  packwerk
   pagy
   pg
   puma
@@ -445,7 +408,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.5.7
