@@ -57,8 +57,8 @@ Rails.application.routes.draw do
   post 'images/upload_by_file'
   post 'images/upload_by_url'
   mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
-  # get "/up", to: Proc.new { [200, {}, ["OK"]] }
-  get "up" => "rails/health#show", as: :rails_health_check
+  get "/up", to: Proc.new { [200, {}, ["OK"]] }
+  # get "up" => "rails/health#show", as: :rails_health_check
 
   root "home#index"
 end
