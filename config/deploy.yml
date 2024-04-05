@@ -6,9 +6,11 @@ image: pkphung2001/skyceer
 
 # Deploy to these servers.
 servers:
-  web:
-    hosts:
-      - <%= ENV["KAMAL_WEB_HOST"] %>
+  - 128.199.101.106
+# servers:
+#   web:
+#     hosts:
+#       - <%= ENV["KAMAL_WEB_HOST"] %>
     # volumes:
     #   - ".:/rails"
   # job:
