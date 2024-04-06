@@ -106,7 +106,7 @@ env:
 # Configure a custom healthcheck (default is /up on port 3000)
 healthcheck:
   path: /sign_in
-  interval: 50s
+  interval: 200s
 #   port: 3000
 #   exposed_port: 3000
 
