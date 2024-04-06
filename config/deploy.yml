@@ -104,10 +104,10 @@ env:
 #     accesslog.format: json
 
 # Configure a custom healthcheck (default is /up on port 3000)
-healthcheck:
-  path: /sign_in
-  interval: 10s
-  max_attempts: 10
+# healthcheck:
+#   path: /sign_in
+#   interval: 10s
+#   max_attempts: 10
 #   port: 3000
 #   exposed_port: 3000
 
