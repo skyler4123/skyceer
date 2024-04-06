@@ -64,7 +64,7 @@ ssh:
 #     host: ssh://app@192.168.0.1
 
 # Use accessory services (secrets come from .env).
-# accessories:
+accessories:
 #   db:
 #     image: mysql:8.0
 #     host: 192.168.0.2
@@ -79,15 +79,15 @@ ssh:
 #       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
 #     directories:
 #       - data:/var/lib/mysql
-  # postgres:
-  #   image: postgres:latest
-  #   host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
-  #   port: <%= ENV["POSTGRES_PORT"] %>
-  #   env:
-  #     secret:
-  #       - POSTGRES_PASSWORD
-  #   volumes:
-  #     - /var/lib/postgres:/data
+  postgres:
+    image: postgres:latest
+    host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
+    port: <%= ENV["POSTGRES_PORT"] %>
+    env:
+      secret:
+        - POSTGRES_PASSWORD
+    volumes:
+      - /var/lib/postgres:/data
   # redis:
   #   image: redis:latest
   #   host: <%= ENV["KAMAL_REDIS_HOST"] %>
