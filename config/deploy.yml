@@ -47,8 +47,8 @@ env:
     - POSTGRES_PASSWORD
 
 # Use a different ssh user than root
-# ssh:
-#   user: <%= ENV["KAMAL_SSH_USER"] %>
+ssh:
+  user: <%= ENV["KAMAL_SSH_USER"] %>
   # proxy:
   #   - "ubuntu@13.250.29.204"
   #   - "ubuntu@54.255.170.174"
@@ -105,7 +105,7 @@ env:
 
 # Configure a custom healthcheck (default is /up on port 3000)
 healthcheck:
-  path: /sign_in
+  path: /up
   interval: 10s
   max_attempts: 10
 #   port: 3000
