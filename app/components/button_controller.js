@@ -19,25 +19,25 @@ export default class ButtonController extends ApplicationController {
   }
 
   initializeHTML() {
-    if (this.label) {
-      this.element.innerHTML = this.label
+    if (this.hasLabelParams) {
+      this.element.innerHTML = this.labelParams
       return
     }
-    if (Object.keys(this.typeHTML).includes(this.type)) {
-      this.element.innerHTML = this.typeHTML[this.type]
+    if (Object.keys(this.typeHTML).includes(this.typeParams)) {
+      this.element.innerHTML = this.typeHTML[this.typeParams]
     }
   }
 
   initializeAction() {
     super.initializeAction()
-    if (this.type === 'toggle') {
+    if (this.typeParams === 'toggle') {
       this.element.dataset.action = this.dataAction + ' ' + `click->${this.identifier}#toggle`
     }
   }
 
   isOpenValueChanged(value, previousValue) {
     super.isOpenValueChanged(value, previousValue)
-    if (this.type === 'toggle') {
+    if (this.typeParams === 'toggle') {
       if (this.isOpenValue) {
         this.toggleTarget.setAttribute('open', '')
       } else {

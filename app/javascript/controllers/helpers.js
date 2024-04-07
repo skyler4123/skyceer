@@ -46,17 +46,17 @@ export const camelizeParamsValue = (object) => {
   return params
 }
 
-export const toCamelCase = (string) => {
-  if (typeof string === 'string' || string instanceof String) {
-    return string.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
-  } else {
-    return string
-  }
-}
+// export const toCamelCase = (string) => {
+//   if (typeof string === 'string' || string instanceof String) {
+//     return string.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+//   } else {
+//     return string
+//   }
+// }
 
-export const toSnakeCase = (string) => {
-  return string.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
-}
+// export const toSnakeCase = (string) => {
+//   return string.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
+// }
 
 export const changeObjectKey = (object, oldKey, newKey) => {
   object[newKey] = object[oldKey]
@@ -245,3 +245,87 @@ export const sortNumberArray = (array) => {
 export const sortReverseNumberArray = (array) => {
   return sortNumberArray(array).reverse()
 }
+
+export const toCamelCase = str => {
+  const s =
+    str &&
+    str
+      .match(
+        /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+      )
+      .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())
+      .join('');
+  return s.slice(0, 1).toLowerCase() + s.slice(1);
+};
+
+export const toPascalCase = (str) => {
+  return str
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())
+    .join('');
+}
+
+export const toKebabCase = str =>
+  str &&
+  str
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .map(x => x.toLowerCase())
+    .join('-');
+
+export  const toSnakeCase = str =>
+    str &&
+    str
+      .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+      .map(x => x.toLowerCase())
+      .join('_');
+
+export const toTitleCase = str =>
+  str
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .map(x => x.slice(0, 1).toUpperCase() + x.slice(1))
+    .join(' ');
+
+export const toSentenceCase = str => {
+  const s =
+    str &&
+    str
+      .match(
+        /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+      )
+      .join(' ');
+  return s.slice(0, 1).toUpperCase() + s.slice(1);
+};
+
+export const convertCase = (str, toCase = 'camel') => {
+  if (!str) return '';
+
+  const delimiter =
+    toCase === 'snake'
+      ? '_'
+      : toCase === 'kebab'
+        ? '-'
+        : ['title', 'sentence'].includes(toCase)
+          ? ' '
+          : '';
+
+  const transform = ['camel', 'pascal'].includes(toCase)
+    ? x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase()
+    : ['snake', 'kebab'].includes(toCase)
+      ? x => x.toLowerCase()
+      : toCase === 'title'
+        ? x => x.slice(0, 1).toUpperCase() + x.slice(1)
+        : x => x;
+
+  const finalTransform =
+    toCase === 'camel'
+      ? x => x.slice(0, 1).toLowerCase() + x.slice(1)
+      : toCase === 'sentence'
+        ? x => x.slice(0, 1).toUpperCase() + x.slice(1)
+        : x => x;
+
+  const words = str.match(
+    /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+  );
+
+  return finalTransform(words.map(transform).join(delimiter));
+};
