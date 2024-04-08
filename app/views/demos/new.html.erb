@@ -5,7 +5,43 @@
 <div>/</div>
 
 
-    <%= button(label: 'Toggle Accordion', event: { id: new_id, listener: :click, action: :toggle }) %>
-    <%= accordion(orientation: :horizontal, event: { id: id }) do %>
-      <div>kjhjk lkjlkj kjlkj kjlk </div>
+
+
+
+    <%= button(label: 'Press to gray icon and press icon to rotate logo', event: { id: new_id, listener: :click, action: :toggle }) %>
+    <%= box(klass: 'open:bg-gray-200',variant: :only_border, events: [{id: id}, { id: new_id, listener: :click, action: :toggle }], action: {listener: :click, action: :toggle}) do %>
+      <%= icon(type: :logo, name: :github, event: { id: id }, klass: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>
+    <% end %>
+
+<%= button(label: 'Scroll Back', event: { id: new_id, listener: :click, action: :scroll_back }) %>
+    <%= button(label: 'Scroll Forward', event: { id: id, listener: :click, action: :scroll_forward }) %>
+    
+    <%= carousel(event: { id: id }) do %>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
+      </div>
+    <% end %>
+
+    <%= carousel(time_interval: 3000, event: { id: id }) do %>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
+      </div>
+      <div>
+          <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
+      </div>
     <% end %>

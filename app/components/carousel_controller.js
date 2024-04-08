@@ -15,7 +15,9 @@ export default class CarouselController extends ApplicationController {
 
   initializeParams() {
     super.initializeParams()
-    this.typeParams ||= 'default'
+    this.setParams({name: 'type', defaultValue: "default"})
+    this.setParams({name: 'isInfinityScroll', defaultValue: true})
+
   }
 
   initializeTarget() {
