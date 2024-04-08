@@ -15,13 +15,21 @@ export default class RatioController extends ApplicationController {
     this.initializeComplete()
   }
   
+  initializeParams() {
+    super.initializeParams()
+    this.setParams({name: 'ratio', defaultValue: 50})
+    this.setParams({name: 'isReverse', defaultValue: false})
+    this.setParams({name: 'isShowRatio', defaultValue: false})
+    this.setParams({name: 'orientation', defaultValue: 'vertical'})
+  }
+
   initializeValue() {
-    this.ratioValue = this.ratio
+    this.ratioValue = this.ratioParams
   }
 
   initializeHTML() {
-    if (this.type === 'progressBar') {
-      this.element.innerHTML = this.typeHTML[this.type]
+    if (this.typeParams=== 'progressBar') {
+      this.element.innerHTML = this.typeHTML[this.typeParams]
     }
   }
 
@@ -44,13 +52,13 @@ export default class RatioController extends ApplicationController {
   ratioValueChanged(value, previousValue) {
     if (previousValue === undefined || previousValue === '') { return }
     let ratio
-    if (this.isReverse) {
+    if (this.isReverseParams) {
       ratio = 100 - this.ratioValue
     } else {
       ratio = this.ratioValue
     }
     this.ratioTarget.style.width = `${ratio}%`
-    if (this.isShowRatio) {
+    if (this.isShowRatioParams) {
       this.ratioTarget.textContent = this.ratioValue
     }
   }
@@ -59,21 +67,21 @@ export default class RatioController extends ApplicationController {
     this.ratioValue = event.value
   }
 
-  get ratioClass() {
-    return this.paramsValue.ratioClass
-  }
-  get ratio() {
-    return this.paramsValue.ratio || 50
-  }
-  get isReverse() {
-    return this.paramsValue.isReverse || false
-  }
-  get isShowRatio() {
-    return this.paramsValue.isShowRatio
-  }
-  get orientation() {
-    return this.paramsValue.orientation || "vertical"
-  }
+  // get ratioClass() {
+  //   return this.paramsValue.ratioClass
+  // }
+  // get ratio() {
+  //   return this.paramsValue.ratio || 50
+  // }
+  // get isReverse() {
+  //   return this.paramsValue.isReverse || false
+  // }
+  // get isShowRatio() {
+  //   return this.paramsValue.isShowRatio
+  // }
+  // get orientation() {
+  //   return this.paramsValue.orientation || "vertical"
+  // }
   get typeHTML() {
     return {
       progressBar: `

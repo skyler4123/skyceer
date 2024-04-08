@@ -11,13 +11,19 @@ export default class SkeletonController extends ApplicationController {
     this.initializeHTML()
     this.initializeComplete()
   }
-  initializeHTML() {
-    this.element.innerHTML = this.typeHTML[this.type]
+  
+  initializeParams() {
+    super.initializeParams()
+    this.setParams({name: 'type', defaultValue: 'default'})
   }
 
-  get type() {
-    return this.paramsValue.type || 'default'
+  initializeHTML() {
+    this.element.innerHTML = this.typeHTML[this.typeParams]
   }
+
+  // get type() {
+  //   return this.paramsValue.type || 'default'
+  // }
   get typeHTML() {
     return {
       'default': `

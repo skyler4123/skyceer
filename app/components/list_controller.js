@@ -13,6 +13,11 @@ export default class ListController extends ApplicationController {
     this.initializeComplete()
   }
 
+  initializeParams() {
+    super.initializeParams()
+    this.setParams({name: 'sort', defaultValue: true})
+  }
+
   initializeTarget() {
     this.element.querySelectorAll('li').forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, 'li')
@@ -21,8 +26,8 @@ export default class ListController extends ApplicationController {
 
   initializeAction() {
     super.initializeAction()
-    if (this.isSortable) {
-      Sortable.create(this.element, this.sortableOptions)
+    if (this.hasSortParams) {
+      Sortable.create(this.element, this.sortParams)
     }
   }
 
@@ -35,12 +40,12 @@ export default class ListController extends ApplicationController {
     }
   }
 
-  get isSortable() {
-    if (this.sortableOptions || this.paramsValue.isSortable) { return true }
-  }
-  get sortableOptions() {
-    return this.paramsValue.sortableOptions
-  }
+  // get isSortable() {
+  //   if (this.sortableOptions || this.paramsValue.isSortable) { return true }
+  // }
+  // get sortableOptions() {
+  //   return this.paramsValue.sortableOptions
+  // }
 
 
 }

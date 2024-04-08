@@ -13,6 +13,14 @@ export default class TabController extends ApplicationController {
     this.initializeComplete()
   }
 
+  initializeParams() {
+    super.initializeParams()
+    this.setParams({name: 'type', defaultValue: 'default'})
+    this.setParams({name: 'isRestore', defaultValue: false})
+    this.setParams({name: 'restoreIndex', defaultValue: 0})
+    this.setParams({name: 'restoreTimeout', defaultValue: 5000})
+  }
+
   initializeTarget() {
     Array.from(this.element.children).forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, 'tab')
@@ -70,16 +78,16 @@ export default class TabController extends ApplicationController {
       target.removeAttribute('open')
     })
     this.tabTargets[this.tabIndexValue].setAttribute('open', '')
-    if (this.isRestore && previousValue !== undefined) {
+    if (this.isRestoreParams && previousValue !== undefined) {
       setTimeout(() => {
-        this.tabIndexValue = this.restoreIndex
-      }, this.restoreTimeout)
+        this.tabIndexValue = this.restoreIndexParams
+      }, this.restoreTimeoutParams)
     }
   }
 
-  get type() {
-    return this.paramsValue.type || 'default'
-  }
+  // get type() {
+  //   return this.paramsValue.type || 'default'
+  // }
   get typeClass() {
     return {
       default: {
@@ -91,16 +99,16 @@ export default class TabController extends ApplicationController {
   get maxIndex() {
     return this.tabTargets.length - 1
   }
-  get isRestore() {
-    if (typeof this.paramsValue.restoreIndex != "undefined" || typeof this.paramsValue.restoreTimeout != "undefined") {
-      return true
-    }
-    return this.paramsValue.isRestore
-  }
-  get restoreIndex() {
-    return this.paramsValue.restoreIndex || 0
-  }
-  get restoreTimeout() {
-    return this.paramsValue.restoreTimeout || 5000
-  }
+  // get isRestore() {
+  //   if (typeof this.paramsValue.restoreIndex != "undefined" || typeof this.paramsValue.restoreTimeout != "undefined") {
+  //     return true
+  //   }
+  //   return this.paramsValue.isRestore
+  // }
+  // get restoreIndex() {
+  //   return this.paramsValue.restoreIndex || 0
+  // }
+  // get restoreTimeout() {
+  //   return this.paramsValue.restoreTimeout || 5000
+  // }
 }

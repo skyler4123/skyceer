@@ -52,7 +52,7 @@ export default class CarouselController extends ApplicationController {
 
   scrollForward() {
     if ((this.element.scrollLeft + this.element.offsetWidth + 1) > this.element.scrollWidth) {
-      if (this.hasIsInfinityScrollParams && this.isInfinityScroll) {
+      if (this.hasIsInfinityScrollParams && this.isInfinityScrollParams) {
         this.appendCarousel()
       } else {
         this.scrollStart()
@@ -121,13 +121,13 @@ export default class CarouselController extends ApplicationController {
       }
     }
   }
-  get isInfinityScroll() {
-    if (this.paramsValue.isInfinityScroll === undefined) {
-      return true
-    } else {
-      return this.paramsValue.isInfinityScroll
-    }
-  }
+  // get isInfinityScroll() {
+  //   if (this.paramsValue.isInfinityScroll === undefined) {
+  //     return true
+  //   } else {
+  //     return this.paramsValue.isInfinityScroll
+  //   }
+  // }
   // get timeInterval() {
   //   return this.paramsValue.timeInterval
   // }

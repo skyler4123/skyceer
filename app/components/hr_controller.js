@@ -12,7 +12,7 @@ export default class HrController extends ApplicationController {
 
   initializeParams() {
     super.initializeParams()
-    this.typeParams ||= 'default'
+    this.setParams({name: 'type', defaultValue: 'default'})
   }
   
   // get type() {

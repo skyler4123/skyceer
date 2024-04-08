@@ -15,13 +15,20 @@ export default class TableController extends ApplicationController {
     this.initializeComplete()
   }
 
+  initializeParams() {
+    super.initializeParams()
+    this.setParams({name: 'head', defaultValue: ['header 1', 'header 2', 'header 3']})
+    this.setParams({name: 'body', defaultValue: [['1','2','3'], ['4','5','6'], ['7','8','9']]})
+
+  }
+
   initializeHTML() {
     this.element.innerHTML = this.initHTML
   }
 
   initializeValue() {
-    this.headValue = this.head
-    this.bodyValue = this.body
+    this.headValue = this.headParams
+    this.bodyValue = this.bodyParams
   }
 
   // Demo HTML sample
@@ -98,34 +105,34 @@ export default class TableController extends ApplicationController {
     })
   }
 
-  get head() {
-    return this.paramsValue.head || this.defaultHead
-  }
-  get defaultHead() {
-    return ['header 1', 'header 2', 'header 3']
-  }
-  get body() {
-    return this.paramsValue.body || this.defaultBody
-  }
-  get defaultBody() {
-    return [['1','2','3'], ['4','5','6'], ['7','8','9']]
-  }
-  get headClass() {
-    return this.paramsValue.headClass || ''
-  }
-  get headTrClass() {
-    return this.paramsValue.headTrClass || ''
-  }
-  get hClass() {
-    return this.paramsValue.hClass || ''
-  }
-  get bodyClass() {
-    return this.paramsValue.bodyClass || ''
-  }
-  get bodyTrClass() {
-    return this.paramsValue.bodyTrClass || ''
-  }
-  get dClass() {
-    return this.paramsValue.dClass || ''
-  }
+  // get head() {
+  //   return this.paramsValue.head || this.defaultHead
+  // }
+  // get defaultHead() {
+  //   return ['header 1', 'header 2', 'header 3']
+  // }
+  // get body() {
+  //   return this.paramsValue.body || this.defaultBody
+  // }
+  // get defaultBody() {
+  //   return [['1','2','3'], ['4','5','6'], ['7','8','9']]
+  // }
+  // get headClass() {
+  //   return this.paramsValue.headClass || ''
+  // }
+  // get headTrClass() {
+  //   return this.paramsValue.headTrClass || ''
+  // }
+  // get hClass() {
+  //   return this.paramsValue.hClass || ''
+  // }
+  // get bodyClass() {
+  //   return this.paramsValue.bodyClass || ''
+  // }
+  // get bodyTrClass() {
+  //   return this.paramsValue.bodyTrClass || ''
+  // }
+  // get dClass() {
+  //   return this.paramsValue.dClass || ''
+  // }
 }

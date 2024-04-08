@@ -166,27 +166,28 @@ export default class InputController extends ApplicationController {
       }
     }
   }
-  get formatOptions() {
-    return this.paramsValue.formatOptions
-  }
-  get isAutoSubmit() {
-    return this.paramsValue.isAutoSubmit
-  }
-  get autoSubmitUrl() {
-    return this.paramsValue.autoSubmitUrl
-  }
-  get payloadAutoSubmit() {
-    return this.paramsValue.payloadAutoSubmit
-  }
-  get httpMethodAutoSubmit() {
-    return this.paramsValue.httpMethodAutoSubmit
-  }
-  get setTimeoutAutoSubmit() {
-    return this.paramsValue.setTimeoutAutoSubmit
-  }
-  get setTimeoutAutoSubmitId() {
-    return this.paramsValue.setTimeoutAutoSubmitId
-  }
+
+  // get formatOptions() {
+  //   return this.paramsValue.formatOptions
+  // }
+  // get isAutoSubmit() {
+  //   return this.paramsValue.isAutoSubmit
+  // }
+  // get autoSubmitUrl() {
+  //   return this.paramsValue.autoSubmitUrl
+  // }
+  // get payloadAutoSubmit() {
+  //   return this.paramsValue.payloadAutoSubmit
+  // }
+  // get httpMethodAutoSubmit() {
+  //   return this.paramsValue.httpMethodAutoSubmit
+  // }
+  // get setTimeoutAutoSubmit() {
+  //   return this.paramsValue.setTimeoutAutoSubmit
+  // }
+  // get setTimeoutAutoSubmitId() {
+  //   return this.paramsValue.setTimeoutAutoSubmitId
+  // }
   get rememberMeName() {
     return this.paramsValue.rememberMeName || 'rememberMe'
   }

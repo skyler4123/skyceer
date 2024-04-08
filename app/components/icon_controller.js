@@ -13,8 +13,8 @@ export default class IconController extends ApplicationController {
 
   initializeParams() {
     super.initializeParams()
-    this.typeParams ||= 'outline'
-    this.nameParams ||= 'star'
+    this.setParams({name: 'type', defaultValue: 'outline'})
+    this.setParams({name: 'name', defaultValue: 'star'})
   }
 
   initializeHTML() {

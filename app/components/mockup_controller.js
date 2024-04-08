@@ -12,15 +12,15 @@ export default class MockupController extends ApplicationController {
   }
 
   initializeHTML() {
-    this.element.innerHTML = this.initHTML[this.deviceName || this.name || "iphone-12"]
+    this.element.innerHTML = this.initHTML[this.deviceNameParams || this.nameParams || "iphone-12"]
   }
 
-  get name() {
-    return this.paramsValue.name
-  }
-  get deviceName() {
-    return this.paramsValue.deviceName
-  }
+  // get name() {
+  //   return this.paramsValue.name
+  // }
+  // get deviceName() {
+  //   return this.paramsValue.deviceName
+  // }
   get initHTML() {
     return {
       'iphone-12': `

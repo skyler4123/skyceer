@@ -13,8 +13,10 @@ export default class ImgController extends ApplicationController {
 
   initializeParams() {
     super.initializeParams()
-    this.urlParams ||= this.srcParams ||= 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg'
+    this.setParams({name: 'src', defaultValue: 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg'})
+    this.setParams({name: 'url', defaultValue: this.srcParams})
   }
+  
   initializeHTML() {
     this.element.setAttribute('src', this.urlParams)
     this.element.setAttribute('alt', this.altParams)
