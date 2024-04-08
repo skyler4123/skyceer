@@ -113,9 +113,12 @@ export default class ApplicationController extends Controller {
 
   initializeParams() {
     Object.keys(this.paramsValue).forEach(key => {
-      this[`${key}Params`] = this.paramsValue[key]
-      this[`has${this.toPascalCase(key)}Params`] = true
+      this.setParams({name: key, value: this.paramsValue[key]})
     })
+  }
+  setParams({name, value} = {}) {
+    this[`${name}Params`] = value
+    this[`has${this.toPascalCase(name)}Params`] = true
   }
 
   connect() {
