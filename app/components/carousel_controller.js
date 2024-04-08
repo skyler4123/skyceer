@@ -21,8 +21,8 @@ export default class CarouselController extends ApplicationController {
   initializeAction() {
     super.initializeAction()
     this.element.dataset.action = (this.element.dataset.action || "") + ` wheel->${this.identifier}#scroll:passive`
-    if (this.timeInterval) {
-      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeInterval)
+    if (this.hasTimeIntervalParams) {
+      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeIntervalParams)
     }
   }
 
@@ -37,7 +37,7 @@ export default class CarouselController extends ApplicationController {
   }
 
   scrollBack() {
-    if (this.element.scrollLeft === 0 && this.isInfinityScroll) {
+    if (this.element.scrollLeft === 0 && this.isInfinityScrollParams) {
       this.prependCarousel()
     }
     this.element.scrollBy(-1, 0)
@@ -45,7 +45,7 @@ export default class CarouselController extends ApplicationController {
 
   scrollForward() {
     if ((this.element.scrollLeft + this.element.offsetWidth + 1) > this.element.scrollWidth) {
-      if (this.isInfinityScroll) {
+      if (this.hasIsInfinityScrollParams && this.isInfinityScroll) {
         this.appendCarousel()
       } else {
         this.scrollStart()
@@ -59,7 +59,7 @@ export default class CarouselController extends ApplicationController {
     if (this.intervalIdValue) {
       this.intervalIdValue = false
     } else {
-      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeInterval || 2000)
+      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeIntervalParams || 2000)
     }
   }
 
