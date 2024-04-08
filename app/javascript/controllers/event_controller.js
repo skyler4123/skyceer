@@ -2,8 +2,27 @@ import ApplicationController from './application_controller'
 export default class extends ApplicationController {
   initialize() {
     this.element.dataset.action = (this.element.dataset.action || "") + `
-    button:dispatch->${this.identifier}#receiver
+    accordion:dispatch->${this.identifier}#receiver
     box:dispatch->${this.identifier}#receiver
+    button:dispatch->${this.identifier}#receiver
+    carousel:dispatch->${this.identifier}#receiver
+    hr:dispatch->${this.identifier}#receiver
+    icon:dispatch->${this.identifier}#receiver
+    img:dispatch->${this.identifier}#receiver
+    input:dispatch->${this.identifier}#receiver
+    link:dispatch->${this.identifier}#receiver
+    list:dispatch->${this.identifier}#receiver
+    mockup:dispatch->${this.identifier}#receiver
+    modal:dispatch->${this.identifier}#receiver
+    popover:dispatch->${this.identifier}#receiver
+    ratio:dispatch->${this.identifier}#receiver
+    select:dispatch->${this.identifier}#receiver
+    skeleton:dispatch->${this.identifier}#receiver
+    tab:dispatch->${this.identifier}#receiver
+    tab:dispatch->${this.identifier}#receiver
+    text:dispatch->${this.identifier}#receiver
+    toast:dispatch->${this.identifier}#receiver
+    video:dispatch->${this.identifier}#receiver
     `
   }
 

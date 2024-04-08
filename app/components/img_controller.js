@@ -8,13 +8,16 @@ export default class ImgController extends ApplicationController {
   initialize() {
     super.initialize()
     this.initializeHTML()
-
     this.initializeComplete()
   }
 
+  initializeParams() {
+    super.initializeParams()
+    this.urlParams ||= this.srcParams ||= 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg'
+  }
   initializeHTML() {
-    this.element.setAttribute('src', this.url)
-    this.element.setAttribute('alt', this.alt)
+    this.element.setAttribute('src', this.urlParams)
+    this.element.setAttribute('alt', this.altParams)
   }
 
   rotate() {
@@ -28,13 +31,13 @@ export default class ImgController extends ApplicationController {
       }
     }
   }
-  get src() {
-    return this.paramsValue.src
-  }
-  get url() {
-    return this.paramsValue.url || this.src || 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg'
-  }
-  get alt() {
-    return this.paramsValue.alt
-  }
+  // get src() {
+  //   return this.paramsValue.src
+  // }
+  // get url() {
+  //   return this.paramsValue.url || this.src || 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg'
+  // }
+  // get alt() {
+  //   return this.paramsValue.alt
+  // }
 }

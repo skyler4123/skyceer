@@ -13,6 +13,11 @@ export default class CarouselController extends ApplicationController {
     this.initializeComplete()
   }
 
+  initializeParams() {
+    super.initializeParams()
+    this.typeParams ||= 'default'
+  }
+
   initializeTarget() {
     Array.from(this.element.children).forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, "carousel")
@@ -103,9 +108,9 @@ export default class CarouselController extends ApplicationController {
     clearInterval(previousValue)
   }
 
-  get type() {
-    return this.paramsValue.type || 'default'
-  }
+  // get type() {
+  //   return this.paramsValue.type || 'default'
+  // }
   get typeClass() {
     return {
       default: {
@@ -121,9 +126,9 @@ export default class CarouselController extends ApplicationController {
       return this.paramsValue.isInfinityScroll
     }
   }
-  get timeInterval() {
-    return this.paramsValue.timeInterval
-  }
+  // get timeInterval() {
+  //   return this.paramsValue.timeInterval
+  // }
 
 
 

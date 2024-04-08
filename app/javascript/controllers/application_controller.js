@@ -173,7 +173,8 @@ export default class ApplicationController extends Controller {
   }
 
   eventHandler({ detail: { event } }) {
-    if (this.eventId === event.id && this.id !== event.controller.id) {
+    console.log(this)
+    if (this.eventIdsParams.includes(event.id) && this.id !== event.controller.id) {
       this[event.action](event)
     }
   }
@@ -522,9 +523,9 @@ export default class ApplicationController extends Controller {
   // get labelClass() {
   //   return this.paramsValue.labelClass || ''
   // }
-  // get id() {
-  //   return this.element.id
-  // }
+  get id() {
+    return this.element.id
+  }
   // get label() {
   //   return this.paramsValue.label
   // }
@@ -583,7 +584,7 @@ export default class ApplicationController extends Controller {
     return event && this.isDefined(event.id) && this.isDefined(event.listener) && this.isDefined(event.action)
   }
   getEventWithAction(action) {
-    return this.events.find(event => event.action === action)
+    return this.eventsParams.find(event => event.action === action)
   }
   get parentControllerElement() {
     return this.element.parentNode.closest('[data-controller]')

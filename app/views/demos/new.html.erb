@@ -7,8 +7,7 @@
 
 
 
-<%= button(is_test: true, label: 'Test Variant', variant: :gradient_monochrome, 
-actions: [{listener: :click, action: :demo}, {listener: :hover, action: :demo}],
-events: [{id: new_id, listener: :click, action: :demo}, {id: new_id, listener: :hover, action: :demo }],
-klass: 'flex lfex-row bg-green-500'
-) %>
+    <%= button(label: 'Toggle Accordion', event: { id: new_id, listener: :click, action: :toggle }) %>
+    <%= accordion(orientation: :horizontal, event: { id: id }) do %>
+      <div>kjhjk lkjlkj kjlkj kjlk </div>
+    <% end %>
