@@ -99,7 +99,7 @@ export default class ApplicationController extends Controller {
   initializeCustomeClass() {
     this.classParams.forEach((klass) => {
       if (klass === 'klass') {
-        this.mergeClass(this.element, this.klass)
+        this.mergeClass(this.element, this.klassParams)
       } else {
         const targetString = klass.replace('Class', '')
         if (this[`has${targetString.charAt(0).toUpperCase() + targetString.slice(1)}Target`]) {
@@ -173,7 +173,7 @@ export default class ApplicationController extends Controller {
   }
 
   eventHandler({ detail: { event } }) {
-    console.log(this)
+    console.log('wwwwwwwwwwwwwww')
     if (this.eventIdsParams.includes(event.id) && this.id !== event.controller.id) {
       this[event.action](event)
     }
