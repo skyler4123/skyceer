@@ -11,6 +11,10 @@ export const camelizeParamsValue = (object) => {
       return action
     })
   }
+  if (params.eventId) {
+    params.event = { id: params.eventId }
+    delete(params.eventId)
+  }
   if (params.event) {
     params.events ||= [params.event]
     delete(params.event)

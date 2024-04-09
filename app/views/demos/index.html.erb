@@ -25,18 +25,18 @@
     <%= icon %>
     
     <%= button(is_test: true, label: 'Test Variant', variant: :gradient_monochrome, 
-action: {listener: :click, action: :demo},
-) %>
+    action: {listener: :click, action: :demo},
+    ) %>
 
-<%= button(is_test: true, label: 'Test Variant', variant: :gradient_monochrome, 
-actions: [{listener: :click, action: :demo}, {listener: :hover, action: :demo}],
-) %>
+    <%= button(is_test: true, label: 'Test Variant', variant: :gradient_monochrome, 
+    actions: [{listener: :click, action: :demo}, {listener: :hover, action: :demo}],
+    ) %>
 
-<%= button(is_test: true, label: 'Test Variant', variant: :gradient_monochrome, 
-actions: [{listener: :click, action: :demo}, {listener: :hover, action: :demo}],
-events: [{id: new_id, listener: :click, action: :demo}, {id: new_id, listener: :hover, action: :demo }],
-klass: 'flex lfex-row bg-green-500'
-) %>
+    <%= button(is_test: true, label: 'Test Variant', variant: :gradient_monochrome, 
+    actions: [{listener: :click, action: :demo}, {listener: :hover, action: :demo}],
+    events: [{id: new_id, listener: :click, action: :demo}, {id: new_id, listener: :hover, action: :demo }],
+    klass: 'flex lfex-row bg-green-500'
+    ) %>
 
     <%= tab(controller: :darkmode) do |c| %>
       <div><%= icon(name: "moon", klass: 'w-5 h-5 fill-blue-950') %></div>

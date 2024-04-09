@@ -22,39 +22,39 @@ export default class InputController extends ApplicationController {
   }
 
   initializeHTML() {
-    if (typeof this.acceptParams !== 'undefined') { this.element.setAttribute('accept', this.acceptParams) }
-    if (typeof this.altParams !== 'undefined') { this.element.setAttribute('alt', this.altParams) }
-    if (typeof this.autocompleteParams !== 'undefined') { this.element.setAttribute('autocomplete', this.autocompleteParams) }
-    if (typeof this.autofocusParams !== 'undefined') { this.element.setAttribute('autofocus', this.autofocusParams) }
-    if (typeof this.checkedParams !== 'undefined') { this.element.setAttribute('checked', this.checkedParams) }
-    if (typeof this.dirnameParams !== 'undefined') { this.element.setAttribute('dirname', this.dirnameParams) }
-    if (typeof this.disabledParams !== 'undefined') { this.element.setAttribute('disabled', this.disabledParams) }
-    if (typeof this.formParams !== 'undefined') { this.element.setAttribute('form', this.formParams) }
-    if (typeof this.formeventActionParams !== 'undefined') { this.element.setAttribute('formeventAction', this.formeventActionParams) }
-    if (typeof this.formenctypeParams !== 'undefined') { this.element.setAttribute('formenctype', this.formenctypeParams) }
-    if (typeof this.formmethodParams !== 'undefined') { this.element.setAttribute('formmethod', this.formmethodParams) }
-    if (typeof this.formnovalidateParams !== 'undefined') { this.element.setAttribute('formnovalidate', this.formnovalidateParams) }
-    if (typeof this.formtargetParams !== 'undefined') { this.element.setAttribute('formtarget', this.formtargetParams) }
-    if (typeof this.heightParams !== 'undefined') { this.element.setAttribute('height', this.heightParams) }
-    if (typeof this.listParams !== 'undefined') { this.element.setAttribute('list', this.listParams) }
-    if (typeof this.maxParams !== 'undefined') { this.element.setAttribute('max', this.maxParams) }
-    if (typeof this.maxlengthParams !== 'undefined') { this.element.setAttribute('maxlength', this.maxlengthParams) }
-    if (typeof this.minParams !== 'undefined') { this.element.setAttribute('min', this.minParams) }
-    if (typeof this.minlengthParams !== 'undefined') { this.element.setAttribute('minlength', this.minlengthParams) }
-    if (typeof this.multipleParams !== 'undefined') { this.element.setAttribute('multiple', this.multipleParams) }
-    if (typeof this.nameParams !== 'undefined') { this.element.setAttribute('name', this.nameParams) }
-    if (typeof this.patternParams !== 'undefined') { this.element.setAttribute('pattern', this.patternParams) }
-    if (typeof this.placeholderParams !== 'undefined') { this.element.setAttribute('placeholder', this.placeholderParams) }
-    if (typeof this.popovertargetParams !== 'undefined') { this.element.setAttribute('popovertarget', this.popovertargetParams) }
-    if (typeof this.popovertargeteventActionParams !== 'undefined') { this.element.setAttribute('popovertargeteventAction', this.popovertargeteventActionParams) }
-    if (typeof this.readonlyParams !== 'undefined') { this.element.setAttribute('readonly', this.readonlyParams) }
-    if (typeof this.requiredParams !== 'undefined') { this.element.setAttribute('required', this.requiredParams) }
-    if (typeof this.sizeParams !== 'undefined') { this.element.setAttribute('size', this.sizeParams) }
-    if (typeof this.srcParams !== 'undefined') { this.element.setAttribute('src', this.srcParams) }
-    if (typeof this.stepParams !== 'undefined') { this.element.setAttribute('step', this.stepParams) }
-    if (typeof this.typeParams !== 'undefined') { this.element.setAttribute('type', this.typeParams) }
-    if (typeof this.valueParams !== 'undefined') { this.element.setAttribute('value', this.valueParams) }
-    if (typeof this.widthParams !== 'undefined') { this.element.setAttribute('width', this.widthParams) }
+    if (this.hasAcceptParam) { this.element.setAttribute('accept', this.acceptParams) }
+    if (this.hasAltParam) { this.element.setAttribute('alt', this.altParams) }
+    if (this.hasAutocompleteParam) { this.element.setAttribute('autocomplete', this.autocompleteParams) }
+    if (this.hasAutofocusParam) { this.element.setAttribute('autofocus', this.autofocusParams) }
+    if (this.hasCheckedParam) { this.element.setAttribute('checked', this.checkedParams) }
+    if (this.hasDirnameParam) { this.element.setAttribute('dirname', this.dirnameParams) }
+    if (this.hasDisabledParam) { this.element.setAttribute('disabled', this.disabledParams) }
+    if (this.hasFormParam) { this.element.setAttribute('form', this.formParams) }
+    if (this.hasFormeventActionParam) { this.element.setAttribute('formeventAction', this.formeventActionParams) }
+    if (this.hasFormenctypeParam) { this.element.setAttribute('formenctype', this.formenctypeParams) }
+    if (this.hasFormmethodParam) { this.element.setAttribute('formmethod', this.formmethodParams) }
+    if (this.hasFormnovalidateParam) { this.element.setAttribute('formnovalidate', this.formnovalidateParams) }
+    if (this.hasFormtargetParam) { this.element.setAttribute('formtarget', this.formtargetParams) }
+    if (this.hasHeightParam) { this.element.setAttribute('height', this.heightParams) }
+    if (this.hasListParam) { this.element.setAttribute('list', this.listParams) }
+    if (this.hasMaxParam) { this.element.setAttribute('max', this.maxParams) }
+    if (this.hasMaxlengthParam) { this.element.setAttribute('maxlength', this.maxlengthParams) }
+    if (this.hasMinParam) { this.element.setAttribute('min', this.minParams) }
+    if (this.hasMinlengthParam) { this.element.setAttribute('minlength', this.minlengthParams) }
+    if (this.hasMultipleParam) { this.element.setAttribute('multiple', this.multipleParams) }
+    if (this.hasNameParam) { this.element.setAttribute('name', this.nameParams) }
+    if (this.hasPatternParam) { this.element.setAttribute('pattern', this.patternParams) }
+    if (this.hasPlaceholderParam) { this.element.setAttribute('placeholder', this.placeholderParams) }
+    if (this.hasPopovertargetParam) { this.element.setAttribute('popovertarget', this.popovertargetParams) }
+    if (this.hasPopovertargeteventActionParam) { this.element.setAttribute('popovertargeteventAction', this.popovertargeteventActionParams) }
+    if (this.hasReadonlyParam) { this.element.setAttribute('readonly', this.readonlyParams) }
+    if (this.hasRequiredParam) { this.element.setAttribute('required', this.requiredParams) }
+    if (this.hasSizeParam) { this.element.setAttribute('size', this.sizeParams) }
+    if (this.hasSrcParam) { this.element.setAttribute('src', this.srcParams) }
+    if (this.hasStepParam) { this.element.setAttribute('step', this.stepParams) }
+    if (this.hasTypeParam) { this.element.setAttribute('type', this.typeParams) }
+    if (this.hasValueParam) { this.element.setAttribute('value', this.valueParams) }
+    if (this.hasWidthParam) { this.element.setAttribute('width', this.widthParams) }
 
     if (this.typeParams === 'comparison') { this.element.setAttribute('type', 'range') }
   }

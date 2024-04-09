@@ -12,4 +12,9 @@
 
 
 
-    <%= input(name: 'email') %>
+    <%= button(klass: 'relative w-64 h-40', event: { id: new_id, listener: :hover, action: :toggle }) do %>
+      <div class="w-full h-full bg-red-500"></div>
+      <%= accordion(type: :horizontal_overlay, event_id: id) do %>
+          <div class="bg-green-500 w-full h-full">kjhjk lkjlkj kjlkj kjlk </div>
+        <% end %>
+    <% end %>

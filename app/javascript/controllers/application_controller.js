@@ -176,7 +176,6 @@ export default class ApplicationController extends Controller {
   }
 
   eventHandler({ detail: { event } }) {
-    console.log('wwwwwwwwwwwwwww')
     if (this.eventIdsParams.includes(event.id) && this.id !== event.controller.id) {
       this[event.action](event)
     }

@@ -19,7 +19,6 @@ export default class TableController extends ApplicationController {
     super.initializeParams()
     this.setParams({name: 'head', defaultValue: ['header 1', 'header 2', 'header 3']})
     this.setParams({name: 'body', defaultValue: [['1','2','3'], ['4','5','6'], ['7','8','9']]})
-
   }
 
   initializeHTML() {
