@@ -31,8 +31,14 @@ export default class ApplicationController extends Controller {
   }
 
   initializeShow() {
-    if (this.isLastController && this.isShowAfterInitialize) {
-      this.removeClass(this.element, 'hidden')
+    if (this.isLastController) {
+      if (this.hasIsShowAfterInitializeParams) {
+        if (this.isShowAfterInitializeParams) {
+          this.removeClass(this.element, 'hidden')
+        }
+      } else {
+        this.removeClass(this.element, 'hidden')
+      }
     }
   }
 
@@ -715,9 +721,9 @@ export default class ApplicationController extends Controller {
   get isOverideClass() {
     return this.paramsValue.isOverideClass || false
   }
-  get isShowAfterInitialize() {
-    return true
-  }
+  // get isShowAfterInitialize() {
+  //   return true
+  // }
   get isComponentController() {
     return this.identifier.endWith('-component')
   }

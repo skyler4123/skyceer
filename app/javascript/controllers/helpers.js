@@ -251,6 +251,7 @@ export const sortReverseNumberArray = (array) => {
 }
 
 export const toCamelCase = str => {
+  if (isNumberOrNumberString(str)) { return str }
   const s =
     str &&
     str
@@ -263,33 +264,43 @@ export const toCamelCase = str => {
 };
 
 export const toPascalCase = (str) => {
+  if (isNumberOrNumberString(str)) { return str }
   return str
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())
     .join('');
 }
 
-export const toKebabCase = str =>
-  str &&
+export const toKebabCase = str => {
+  if (isNumberOrNumberString(str)) { return str }
+  return str &&
   str
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     .map(x => x.toLowerCase())
     .join('-');
+}
 
-export  const toSnakeCase = str =>
-    str &&
+export  const toSnakeCase = str => {
+  if (isNumberOrNumberString(str)) { return str }
+  return str &&
     str
       .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
       .map(x => x.toLowerCase())
       .join('_');
 
-export const toTitleCase = str =>
-  str
+}
+
+export const toTitleCase = str => {
+  if (isNumberOrNumberString(str)) { return str }
+  return str
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     .map(x => x.slice(0, 1).toUpperCase() + x.slice(1))
     .join(' ');
 
+}
+
 export const toSentenceCase = str => {
+  if (isNumberOrNumberString(str)) { return str }
   const s =
     str &&
     str
@@ -302,6 +313,7 @@ export const toSentenceCase = str => {
 
 export const convertCase = (str, toCase = 'camel') => {
   if (!str) return '';
+  if (isNumberOrNumberString(str)) { return str }
 
   const delimiter =
     toCase === 'snake'
@@ -333,3 +345,15 @@ export const convertCase = (str, toCase = 'camel') => {
 
   return finalTransform(words.map(transform).join(delimiter));
 };
+
+export const isNumber = (x) => {
+  return typeof x === "number"
+}
+
+export const isNumberString = (x) => {
+  return !isNaN(x)
+}
+
+export const isNumberOrNumberString = (x) => {
+  return isNumber(x) || isNumberString(x)
+}

@@ -18,9 +18,6 @@ export default class VideoController extends ApplicationController {
     this.setParams({name: 'isAutoplay', defaultValue: false})
     this.setParams({name: 'isMuted', defaultValue: false})
     this.setParams({name: 'url', defaultValue: this.srcParams || 'https://flowbite.com/docs/videos/flowbite.mp4'})
-    this.setParams({name: 'type', defaultValue: 'default'})
-    this.setParams({name: 'type', defaultValue: 'default'})
-
   }
 
   initializeHTML() {
@@ -70,7 +67,7 @@ export default class VideoController extends ApplicationController {
   // }
   get initHTML() {
     return `
-      <source src="${this.url}" type="${this.type}">
+      <source src="${this.urlParams}" type="${this.typeParams}">
     `
   }
 

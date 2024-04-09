@@ -11,10 +11,21 @@
 
 
 
+    <%= button(label: 'Test Darkroom', event: { id: new_id, action: :open, listener: :click }) %>
 
-    <%= button(klass: 'relative w-64 h-40', event: { id: new_id, listener: :hover, action: :toggle }) do %>
-      <div class="w-full h-full bg-red-500"></div>
-      <%= accordion(type: :horizontal_overlay, event_id: id) do %>
-          <div class="bg-green-500 w-full h-full">kjhjk lkjlkj kjlkj kjlk </div>
-        <% end %>
+    <%= modal(event: { id: id }, background_class: 'bg-gray-900/80') do %>
+      <%= carousel do %>
+        <div>
+            <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
+        </div>
+        <div>
+            <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
+        </div>
+      <% end %>
     <% end %>
