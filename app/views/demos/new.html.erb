@@ -11,21 +11,10 @@
 
 
 
-    <%= button(label: 'Test Darkroom', event: { id: new_id, action: :open, listener: :click }) %>
-
-    <%= modal(event: { id: id }, background_class: 'bg-gray-900/80') do %>
-      <%= carousel do %>
-        <div>
-            <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-full w-full object-cover" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
-        </div>
-        <div>
-            <img class="h-full w-full" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
-        </div>
-      <% end %>
+    <%= button(label: 'Toggle Toast', event: { id: new_id, action: :toggle, listener: :click }) %>
+    <%= toast(event_id: id, position: :bottom) do %>
+      <div>Executing JavaScript from a string is an BIG security risk.
+        With eval(), malicious code can run inside your application without permission.
+        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
+      </div>
     <% end %>
