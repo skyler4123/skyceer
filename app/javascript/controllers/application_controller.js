@@ -85,7 +85,8 @@ export default class ApplicationController extends Controller {
   }
 
   initializePositionClass() {
-    if (this.positionParams && this.positionClass) {
+    console.log(this.positionClass)
+    if (this.hasPositionParams && this.positionClass) {
       let targetsWithClasses = this.getChildObjectByKeys(this.positionClass, [this.positionParams].flat())
       Object.keys(targetsWithClasses).forEach((targetString) => {
         if (targetString === 'element') {

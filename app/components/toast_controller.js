@@ -6,6 +6,7 @@ export default class ToastController extends ApplicationController {
   }
 
   initialize() {
+    console.log(this)
     super.initialize()
     this.initializeComplete()
   }
@@ -16,10 +17,10 @@ export default class ToastController extends ApplicationController {
     this.setParams({name: 'position', defaultValue: 'left'})
   }
 
-  initializeClass() {
-    this.mergeClass(this.element, this.positionClass[this.position])
-    super.initializeClass()
-  }
+  // initializeClass() {
+    // this.mergeClass(this.element, this.positionClass[this.position])
+    // super.initializeClass()
+  // }
 
   // get type() {
   //   return this.paramsValue.type || 'default'
@@ -36,10 +37,18 @@ export default class ToastController extends ApplicationController {
   // }
   get positionClass() {
     return {
-      'left': 'fixed top-1/2 -left-1/2 z-20 -translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:left-2 p-4',
-      'right': 'fixed top-1/2 -right-1/2 z-20 translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:right-2 p-4',
-      'top': 'fixed -top-1/2 right-1/2 z-20 -translate-x-1/2 -translate-y-full duration-200 ease-out open:translate-y-0 open:top-2 p-4',
-      'bottom': 'fixed -bottom-1/2 right-1/2 z-20 -translate-x-1/2 translate-y-full duration-200 ease-out open:translate-y-0 open:bottom-2 p-4',
+      'left': {
+        element: 'fixed top-1/2 -left-1/2 z-20 -translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:left-2 p-4'
+      },
+      'right': {
+        element: 'fixed top-1/2 -right-1/2 z-20 translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:right-2 p-4'
+      },
+      'top': {
+        element: 'fixed -top-1/2 right-1/2 z-20 -translate-x-1/2 -translate-y-full duration-200 ease-out open:translate-y-0 open:top-2 p-4'
+      },
+      'bottom': {
+        element: 'fixed -bottom-1/2 right-1/2 z-20 -translate-x-1/2 translate-y-full duration-200 ease-out open:translate-y-0 open:bottom-2 p-4'
+      },
     }
   }
 
