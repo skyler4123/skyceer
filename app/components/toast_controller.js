@@ -6,7 +6,6 @@ export default class ToastController extends ApplicationController {
   }
 
   initialize() {
-    console.log(this)
     super.initialize()
     this.initializeComplete()
   }
