@@ -22,53 +22,53 @@ export default class InputController extends ApplicationController {
   }
 
   initializeHTML() {
-    if (typeof this.accept !== 'undefined') { this.element.setAttribute('accept', this.accept) }
-    if (typeof this.alt !== 'undefined') { this.element.setAttribute('alt', this.alt) }
-    if (typeof this.autocomplete !== 'undefined') { this.element.setAttribute('autocomplete', this.autocomplete) }
-    if (typeof this.autofocus !== 'undefined') { this.element.setAttribute('autofocus', this.autofocus) }
-    if (typeof this.checked !== 'undefined') { this.element.setAttribute('checked', this.checked) }
-    if (typeof this.dirname !== 'undefined') { this.element.setAttribute('dirname', this.dirname) }
-    if (typeof this.disabled !== 'undefined') { this.element.setAttribute('disabled', this.disabled) }
-    if (typeof this.form !== 'undefined') { this.element.setAttribute('form', this.form) }
-    if (typeof this.formeventAction !== 'undefined') { this.element.setAttribute('formeventAction', this.formeventAction) }
-    if (typeof this.formenctype !== 'undefined') { this.element.setAttribute('formenctype', this.formenctype) }
-    if (typeof this.formmethod !== 'undefined') { this.element.setAttribute('formmethod', this.formmethod) }
-    if (typeof this.formnovalidate !== 'undefined') { this.element.setAttribute('formnovalidate', this.formnovalidate) }
-    if (typeof this.formtarget !== 'undefined') { this.element.setAttribute('formtarget', this.formtarget) }
-    if (typeof this.height !== 'undefined') { this.element.setAttribute('height', this.height) }
-    if (typeof this.list !== 'undefined') { this.element.setAttribute('list', this.list) }
-    if (typeof this.max !== 'undefined') { this.element.setAttribute('max', this.max) }
-    if (typeof this.maxlength !== 'undefined') { this.element.setAttribute('maxlength', this.maxlength) }
-    if (typeof this.min !== 'undefined') { this.element.setAttribute('min', this.min) }
-    if (typeof this.minlength !== 'undefined') { this.element.setAttribute('minlength', this.minlength) }
-    if (typeof this.multiple !== 'undefined') { this.element.setAttribute('multiple', this.multiple) }
-    if (typeof this.name !== 'undefined') { this.element.setAttribute('name', this.name) }
-    if (typeof this.pattern !== 'undefined') { this.element.setAttribute('pattern', this.pattern) }
-    if (typeof this.placeholder !== 'undefined') { this.element.setAttribute('placeholder', this.placeholder) }
-    if (typeof this.popovertarget !== 'undefined') { this.element.setAttribute('popovertarget', this.popovertarget) }
-    if (typeof this.popovertargeteventAction !== 'undefined') { this.element.setAttribute('popovertargeteventAction', this.popovertargeteventAction) }
-    if (typeof this.readonly !== 'undefined') { this.element.setAttribute('readonly', this.readonly) }
-    if (typeof this.required !== 'undefined') { this.element.setAttribute('required', this.required) }
-    if (typeof this.size !== 'undefined') { this.element.setAttribute('size', this.size) }
-    if (typeof this.src !== 'undefined') { this.element.setAttribute('src', this.src) }
-    if (typeof this.step !== 'undefined') { this.element.setAttribute('step', this.step) }
-    if (typeof this.type !== 'undefined') { this.element.setAttribute('type', this.type) }
-    if (typeof this.value !== 'undefined') { this.element.setAttribute('value', this.value) }
-    if (typeof this.width !== 'undefined') { this.element.setAttribute('width', this.width) }
+    if (this.hasAcceptParam) { this.element.setAttribute('accept', this.acceptParams) }
+    if (this.hasAltParam) { this.element.setAttribute('alt', this.altParams) }
+    if (this.hasAutocompleteParam) { this.element.setAttribute('autocomplete', this.autocompleteParams) }
+    if (this.hasAutofocusParam) { this.element.setAttribute('autofocus', this.autofocusParams) }
+    if (this.hasCheckedParam) { this.element.setAttribute('checked', this.checkedParams) }
+    if (this.hasDirnameParam) { this.element.setAttribute('dirname', this.dirnameParams) }
+    if (this.hasDisabledParam) { this.element.setAttribute('disabled', this.disabledParams) }
+    if (this.hasFormParam) { this.element.setAttribute('form', this.formParams) }
+    if (this.hasFormeventActionParam) { this.element.setAttribute('formeventAction', this.formeventActionParams) }
+    if (this.hasFormenctypeParam) { this.element.setAttribute('formenctype', this.formenctypeParams) }
+    if (this.hasFormmethodParam) { this.element.setAttribute('formmethod', this.formmethodParams) }
+    if (this.hasFormnovalidateParam) { this.element.setAttribute('formnovalidate', this.formnovalidateParams) }
+    if (this.hasFormtargetParam) { this.element.setAttribute('formtarget', this.formtargetParams) }
+    if (this.hasHeightParam) { this.element.setAttribute('height', this.heightParams) }
+    if (this.hasListParam) { this.element.setAttribute('list', this.listParams) }
+    if (this.hasMaxParam) { this.element.setAttribute('max', this.maxParams) }
+    if (this.hasMaxlengthParam) { this.element.setAttribute('maxlength', this.maxlengthParams) }
+    if (this.hasMinParam) { this.element.setAttribute('min', this.minParams) }
+    if (this.hasMinlengthParam) { this.element.setAttribute('minlength', this.minlengthParams) }
+    if (this.hasMultipleParam) { this.element.setAttribute('multiple', this.multipleParams) }
+    if (this.hasNameParam) { this.element.setAttribute('name', this.nameParams) }
+    if (this.hasPatternParam) { this.element.setAttribute('pattern', this.patternParams) }
+    if (this.hasPlaceholderParam) { this.element.setAttribute('placeholder', this.placeholderParams) }
+    if (this.hasPopovertargetParam) { this.element.setAttribute('popovertarget', this.popovertargetParams) }
+    if (this.hasPopovertargeteventActionParam) { this.element.setAttribute('popovertargeteventAction', this.popovertargeteventActionParams) }
+    if (this.hasReadonlyParam) { this.element.setAttribute('readonly', this.readonlyParams) }
+    if (this.hasRequiredParam) { this.element.setAttribute('required', this.requiredParams) }
+    if (this.hasSizeParam) { this.element.setAttribute('size', this.sizeParams) }
+    if (this.hasSrcParam) { this.element.setAttribute('src', this.srcParams) }
+    if (this.hasStepParam) { this.element.setAttribute('step', this.stepParams) }
+    if (this.hasTypeParam) { this.element.setAttribute('type', this.typeParams) }
+    if (this.hasValueParam) { this.element.setAttribute('value', this.valueParams) }
+    if (this.hasWidthParam) { this.element.setAttribute('width', this.widthParams) }
 
-    if (this.type === 'comparison') { this.element.setAttribute('type', 'range') }
+    if (this.typeParams === 'comparison') { this.element.setAttribute('type', 'range') }
   }
 
   initializeFormat() {
-    if (!this.formatOptions) { return }
+    if (!this.hasFormatParams) { return }
 
     const timeTypes = ['date', 'datetime-local', 'month', 'time', 'week']
-    if (timeTypes.includes(this.type)) {
+    if (timeTypes.includes(this.typeParams)) {
       flatpickr.l10ns.default.firstDayOfWeek = 1
-      flatpickr(this.element, this.formatOptions)
+      flatpickr(this.element, this.formatParams)
       return
     }
-    var cleave = new Cleave(this.element, this.formatOptions);
+    var cleave = new Cleave(this.element, this.formatParams);
   }
   
   initializeAction() {
@@ -117,7 +117,7 @@ export default class InputController extends ApplicationController {
   }
   
   saveToLocal() {
-    const remmemberMeData = { ...this.localData, [this.name]: this.currentValue }
+    const remmemberMeData = { ...this.localData, [this.nameParams]: this.currentValue }
     localStorage.setItem(this.rememberMeName, JSON.stringify(remmemberMeData))
   }
 
@@ -166,27 +166,28 @@ export default class InputController extends ApplicationController {
       }
     }
   }
-  get formatOptions() {
-    return this.paramsValue.formatOptions
-  }
-  get isAutoSubmit() {
-    return this.paramsValue.isAutoSubmit
-  }
-  get autoSubmitUrl() {
-    return this.paramsValue.autoSubmitUrl
-  }
-  get payloadAutoSubmit() {
-    return this.paramsValue.payloadAutoSubmit
-  }
-  get httpMethodAutoSubmit() {
-    return this.paramsValue.httpMethodAutoSubmit
-  }
-  get setTimeoutAutoSubmit() {
-    return this.paramsValue.setTimeoutAutoSubmit
-  }
-  get setTimeoutAutoSubmitId() {
-    return this.paramsValue.setTimeoutAutoSubmitId
-  }
+
+  // get formatOptions() {
+  //   return this.paramsValue.formatOptions
+  // }
+  // get isAutoSubmit() {
+  //   return this.paramsValue.isAutoSubmit
+  // }
+  // get autoSubmitUrl() {
+  //   return this.paramsValue.autoSubmitUrl
+  // }
+  // get payloadAutoSubmit() {
+  //   return this.paramsValue.payloadAutoSubmit
+  // }
+  // get httpMethodAutoSubmit() {
+  //   return this.paramsValue.httpMethodAutoSubmit
+  // }
+  // get setTimeoutAutoSubmit() {
+  //   return this.paramsValue.setTimeoutAutoSubmit
+  // }
+  // get setTimeoutAutoSubmitId() {
+  //   return this.paramsValue.setTimeoutAutoSubmitId
+  // }
   get rememberMeName() {
     return this.paramsValue.rememberMeName || 'rememberMe'
   }
@@ -216,105 +217,105 @@ export default class InputController extends ApplicationController {
 
 
   // Attributes or input
-  get accept() {
-    return this.paramsValue.accept
-  }
-  get alt() {
-    return this.paramsValue.alt
-  }
-  get autocomplete() {
-    return this.paramsValue.autocomplete
-  }
-  get autofocus() {
-    return this.paramsValue.autofocus
-  }
-  get checked() {
-    return this.paramsValue.checked
-  }
-  get dirname() {
-    return this.paramsValue.dirname
-  }
-  get disabled() {
-    return this.paramsValue.disabled
-  }
-  get form() {
-    return this.paramsValue.form
-  }
-  get formaction() {
-    return this.paramsValue.formaction
-  }
-  get formenctype() {
-    return this.paramsValue.formenctype
-  }
-  get formmethod() {
-    return this.paramsValue.formmethod
-  }
-  get formnovalidate() {
-    return this.paramsValue.formnovalidate
-  }
-  get formtarget() {
-    return this.paramsValue.formtarget
-  }
-  get height() {
-    return this.paramsValue.height
-  }
-  get list() {
-    return this.paramsValue.list
-  }
-  get max() {
-    return this.paramsValue.max
-  }
-  get maxlength() {
-    return this.paramsValue.maxlength
-  }
-  get min() {
-    return this.paramsValue.min
-  }
-  get minlength() {
-    return this.paramsValue.minlength
-  }
-  get multiple() {
-    return this.paramsValue.multiple
-  }
-  get name() {
-    return this.paramsValue.name
-  }
-  get pattern() {
-    return this.paramsValue.pattern
-  }
-  get placeholder() {
-    return this.paramsValue.placeholder
-  }
-  get popovertarget() {
-    return this.paramsValue.popovertarget
-  }
-  get popovertargetaction() {
-    return this.paramsValue.popovertargetaction
-  }
-  get readonly() {
-    return this.paramsValue.readonly
-  }
-  get required() {
-    return this.paramsValue.required
-  }
-  get size() {
-    return this.paramsValue.size
-  }
-  get src() {
-    return this.paramsValue.src
-  }
-  get step() {
-    return this.paramsValue.step
-  }
-  get type() {
-    return this.paramsValue.type || 'text'
-  }
-  get value() {
-    return this.paramsValue.value
-  }
-  get width() {
-    return this.paramsValue.width
-  }
+  // get accept() {
+  //   return this.paramsValue.accept
+  // }
+  // get alt() {
+  //   return this.paramsValue.alt
+  // }
+  // get autocomplete() {
+  //   return this.paramsValue.autocomplete
+  // }
+  // get autofocus() {
+  //   return this.paramsValue.autofocus
+  // }
+  // get checked() {
+  //   return this.paramsValue.checked
+  // }
+  // get dirname() {
+  //   return this.paramsValue.dirname
+  // }
+  // get disabled() {
+  //   return this.paramsValue.disabled
+  // }
+  // get form() {
+  //   return this.paramsValue.form
+  // }
+  // get formaction() {
+  //   return this.paramsValue.formaction
+  // }
+  // get formenctype() {
+  //   return this.paramsValue.formenctype
+  // }
+  // get formmethod() {
+  //   return this.paramsValue.formmethod
+  // }
+  // get formnovalidate() {
+  //   return this.paramsValue.formnovalidate
+  // }
+  // get formtarget() {
+  //   return this.paramsValue.formtarget
+  // }
+  // get height() {
+  //   return this.paramsValue.height
+  // }
+  // get list() {
+  //   return this.paramsValue.list
+  // }
+  // get max() {
+  //   return this.paramsValue.max
+  // }
+  // get maxlength() {
+  //   return this.paramsValue.maxlength
+  // }
+  // get min() {
+  //   return this.paramsValue.min
+  // }
+  // get minlength() {
+  //   return this.paramsValue.minlength
+  // }
+  // get multiple() {
+  //   return this.paramsValue.multiple
+  // }
+  // get name() {
+  //   return this.paramsValue.name
+  // }
+  // get pattern() {
+  //   return this.paramsValue.pattern
+  // }
+  // get placeholder() {
+  //   return this.paramsValue.placeholder
+  // }
+  // get popovertarget() {
+  //   return this.paramsValue.popovertarget
+  // }
+  // get popovertargetaction() {
+  //   return this.paramsValue.popovertargetaction
+  // }
+  // get readonly() {
+  //   return this.paramsValue.readonly
+  // }
+  // get required() {
+  //   return this.paramsValue.required
+  // }
+  // get size() {
+  //   return this.paramsValue.size
+  // }
+  // get src() {
+  //   return this.paramsValue.src
+  // }
+  // get step() {
+  //   return this.paramsValue.step
+  // }
+  // get type() {
+  //   return this.paramsValue.type || 'text'
+  // }
+  // get value() {
+  //   return this.paramsValue.value
+  // }
+  // get width() {
+  //   return this.paramsValue.width
+  // }
 
 
 

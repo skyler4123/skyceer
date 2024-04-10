@@ -10,14 +10,20 @@ export default class ToastController extends ApplicationController {
     this.initializeComplete()
   }
 
-  initializeClass() {
-    this.mergeClass(this.element, this.positionClass[this.position])
-    super.initializeClass()
+  initializeParams() {
+    super.initializeParams()
+    this.setParams({name: 'type', defaultValue: 'default'})
+    this.setParams({name: 'position', defaultValue: 'left'})
   }
 
-  get type() {
-    return this.paramsValue.type || 'default'
-  }
+  // initializeClass() {
+    // this.mergeClass(this.element, this.positionClass[this.position])
+    // super.initializeClass()
+  // }
+
+  // get type() {
+  //   return this.paramsValue.type || 'default'
+  // }
   get typeClass() {
     return {
       default: {
@@ -25,15 +31,23 @@ export default class ToastController extends ApplicationController {
       }
     }
   }
-  get position() {
-    return this.paramsValue.position || 'left'
-  }
+  // get position() {
+  //   return this.paramsValue.position || 'left'
+  // }
   get positionClass() {
     return {
-      'left': 'fixed top-1/2 -left-1/2 z-20 -translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:left-2 p-4',
-      'right': 'fixed top-1/2 -right-1/2 z-20 translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:right-2 p-4',
-      'top': 'fixed -top-1/2 right-1/2 z-20 -translate-x-1/2 -translate-y-full duration-200 ease-out open:translate-y-0 open:top-2 p-4',
-      'bottom': 'fixed -bottom-1/2 right-1/2 z-20 -translate-x-1/2 translate-y-full duration-200 ease-out open:translate-y-0 open:bottom-2 p-4',
+      'left': {
+        element: 'fixed top-1/2 -left-1/2 z-20 -translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:left-2 p-4'
+      },
+      'right': {
+        element: 'fixed top-1/2 -right-1/2 z-20 translate-x-full -translate-y-1/2 duration-200 ease-out open:translate-x-0 open:right-2 p-4'
+      },
+      'top': {
+        element: 'fixed -top-1/2 right-1/2 z-20 -translate-x-1/2 -translate-y-full duration-200 ease-out open:translate-y-0 open:top-2 p-4'
+      },
+      'bottom': {
+        element: 'fixed -bottom-1/2 right-1/2 z-20 -translate-x-1/2 translate-y-full duration-200 ease-out open:translate-y-0 open:bottom-2 p-4'
+      },
     }
   }
 

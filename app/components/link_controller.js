@@ -11,18 +11,23 @@ export default class LinkController extends ApplicationController {
     this.initializeComplete()
   }
 
+  initializeParams() {
+    super.initializeParams()
+    this.setParams({name: 'url', defaultValue: '/#'})
+  }
+
   initializeHTML() {
-    if (this.hasLabel) { this.element.innerHTML = this.label }
-    this.element.href = this.url
+    if (this.hasLabelParams) { this.element.innerHTML = this.labelParams }
+    this.element.href = this.urlParams
   }
   
   copyLink() {
-    window.navigator.clipboard.writeText(this.url)
+    window.navigator.clipboard.writeText(this.urlParams)
   }
 
-  get url() {
-    return this.paramsValue.url || '/#'
-  }
+  // get url() {
+  //   return this.paramsValue.url || '/#'
+  // }
   get variantClass() {
     return {
       default: {

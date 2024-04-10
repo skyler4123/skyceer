@@ -31,8 +31,14 @@ export default class ApplicationController extends Controller {
   }
 
   initializeShow() {
-    if (this.isLastController && this.isShowAfterInitialize) {
-      this.removeClass(this.element, 'hidden')
+    if (this.isLastController) {
+      if (this.hasIsShowAfterInitializeParams) {
+        if (this.isShowAfterInitializeParams) {
+          this.removeClass(this.element, 'hidden')
+        }
+      } else {
+        this.removeClass(this.element, 'hidden')
+      }
     }
   }
 
@@ -44,15 +50,15 @@ export default class ApplicationController extends Controller {
   }
 
   initializeTypeClass() {
-    if (this.type && this.typeClass) {
-      Object.keys(this.typeClass[this.type]).forEach((targetString) => {
+    if (this.typeParams && this.typeClass) {
+      Object.keys(this.typeClass[this.typeParams]).forEach((targetString) => {
         if (targetString === 'element') {
-          this.mergeClass(this.element, this.typeClass[this.type][targetString])
+          this.mergeClass(this.element, this.typeClass[this.typeParams][targetString])
         } else {
           const target = targetString.replace('Target', '')
           if (this[`has${target.charAt(0).toUpperCase() + target.slice(1)}Target`]) {
             this[`${target}Targets`].forEach((targetElement) => {
-              this.mergeClass(targetElement, this.typeClass[this.type][targetString])
+              this.mergeClass(targetElement, this.typeClass[this.typeParams][targetString])
             })
           }
         }
@@ -61,8 +67,8 @@ export default class ApplicationController extends Controller {
   }
   
   initializeVariantClass() {
-    if (this.variant && this.variantClass) {
-      let targetsWithClasses = this.getChildObjectByKeys(this.variantClass, [this.variant].flat())
+    if (this.variantParams && this.variantClass) {
+      let targetsWithClasses = this.getChildObjectByKeys(this.variantClass, [this.variantParams].flat())
       Object.keys(targetsWithClasses).forEach((targetString) => {
         if (targetString === 'element') {
           this.mergeClass(this.element, targetsWithClasses[targetString])
@@ -79,8 +85,8 @@ export default class ApplicationController extends Controller {
   }
 
   initializePositionClass() {
-    if (this.position && this.positionClass) {
-      let targetsWithClasses = this.getChildObjectByKeys(this.positionClass, [this.position].flat())
+    if (this.hasPositionParams && this.positionClass) {
+      let targetsWithClasses = this.getChildObjectByKeys(this.positionClass, [this.positionParams].flat())
       Object.keys(targetsWithClasses).forEach((targetString) => {
         if (targetString === 'element') {
           this.mergeClass(this.element, targetsWithClasses[targetString])
@@ -99,12 +105,12 @@ export default class ApplicationController extends Controller {
   initializeCustomeClass() {
     this.classParams.forEach((klass) => {
       if (klass === 'klass') {
-        this.mergeClass(this.element, this.klass)
+        this.mergeClass(this.element, this.klassParams)
       } else {
         const targetString = klass.replace('Class', '')
         if (this[`has${targetString.charAt(0).toUpperCase() + targetString.slice(1)}Target`]) {
           this[`${targetString}Targets`].forEach((targetElement) => {
-            this.mergeClass(targetElement, this.paramsValue[klass])
+            this.mergeClass(targetElement, this[`${klass}Params`])
           })
         }
       }
@@ -113,12 +119,16 @@ export default class ApplicationController extends Controller {
 
   initializeParams() {
     Object.keys(this.paramsValue).forEach(key => {
-      this[`${key}Params`] = this.paramsValue[key]
+      this.setParams({name: key})
     })
+  }
+  setParams({name, defaultValue}) {
+    this[`${name}Params`] = this.paramsValue[name] || defaultValue
+    this[`has${this.toPascalCase(name)}Params`] = true
   }
 
   connect() {
-    if (this.isTest) { console.log(this) }
+    if (this.isTestParams) { console.log(this) }
   }
   initializeID() {
     if (!this.element.id) {
@@ -126,8 +136,8 @@ export default class ApplicationController extends Controller {
     }
   }
   initializeDir() {
-    if (this.dir) {
-      this.element.setAttribute('dir', this.dir)
+    if (this.hasDirParams) {
+      this.element.setAttribute('dir', this.dirParams)
     }
   }
 
@@ -136,8 +146,8 @@ export default class ApplicationController extends Controller {
   }
 
   initializeAction() {
-    if (this.events) {
-      this.events.forEach(event => {
+    if (this.eventsParams) {
+      this.eventsParams.forEach(event => {
         if (this.isListenerEvent(event)) {
           this.addAction(this.element, `event:${this.groupOfEvent(event)}@window->${this.identifier}#eventHandler`)
         }
@@ -155,8 +165,8 @@ export default class ApplicationController extends Controller {
         }
       })
     }
-    if (this.actions) {
-      this.actions.forEach((action) => {
+    if (this.hasActionsParams) {
+      this.actionsParams.forEach((action) => {
         switch(action.listener) {
           case 'hover':
             this.addAction(this.element, `mouseenter->${this.identifier}#${action.action} mouseleave->${this.identifier}#${action.action}`)
@@ -172,7 +182,7 @@ export default class ApplicationController extends Controller {
   }
 
   eventHandler({ detail: { event } }) {
-    if (this.eventId === event.id && this.id !== event.controller.id) {
+    if (this.eventIdsParams.includes(event.id) && this.id !== event.controller.id) {
       this[event.action](event)
     }
   }
@@ -198,87 +208,87 @@ export default class ApplicationController extends Controller {
   }
 
   toggleDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggle'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('toggle'), controller: this } } })
   }
 
   openDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('open'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('open'), controller: this } } })
   }
 
   closeDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('close'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('close'), controller: this } } })
   }
 
   switchDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('switch'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('switch'), controller: this } } })
   }
 
   tabDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tab'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tab'), controller: this } } })
   }
 
   copyLinkDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('copyLink'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('copyLink'), controller: this } } })
   }
 
   copyTextDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('copyText'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('copyText'), controller: this } } })
   }
 
   scrollBackDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollBack'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('scrollBack'), controller: this } } })
   }
 
   scrollForwardDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollForward'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('scrollForward'), controller: this } } })
   }
 
   scrollForwardAutoDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('scrollForwardAuto'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('scrollForwardAuto'), controller: this } } })
   }
 
   rotateDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rotate'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('rotate'), controller: this } } })
   }
 
   changeRatioDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('changeRatio'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('changeRatio'), controller: this } } })
   }
 
   tabDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tab'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tab'), controller: this } } })
   }
 
   tabNextDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabNext'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tabNext'), controller: this } } })
   }
 
   tabBackDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabBack'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tabBack'), controller: this } } })
   }
 
   tabFirstDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabFirst'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tabFirst'), controller: this } } })
   }
 
   tabLastDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('tabLast'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tabLast'), controller: this } } })
   }
 
   toggleRememberMeDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('toggleRememberMe'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('toggleRememberMe'), controller: this } } })
   }
 
   increaseDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('increase'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('increase'), controller: this } } })
   }
 
   decreaseDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('decrease'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('decrease'), controller: this } } })
   }
 
   ratingDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.eventWithAction('rating'), controller: this } } })
+    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('rating'), controller: this } } })
   }
 
   camelizeParamsValue(object) {
@@ -315,6 +325,23 @@ export default class ApplicationController extends Controller {
 
   toCamelCase(string) {
     return Helpers.toCamelCase(string)
+  }
+
+  toPascalCase(string) {
+    return Helpers.toPascalCase(string)
+  }
+
+  toKebabCase(string) {
+    return Helpers.toKebabCase(string)
+  }
+  toTitleCase(string) {
+    return Helpers.toTitleCase(string)
+  }
+  toSentenceCase(string) {
+    return Helpers.toSentenceCase(string)
+  }
+  convertCase(string, toCase = 'camel') {
+    return Helpers.convertCase(string, toCase)
   }
 
   twMerge(...args) {
@@ -475,124 +502,128 @@ export default class ApplicationController extends Controller {
   isEventDispatch(event) {
     return !this.isEventDispatch(event)
   }
-  get isOpen() {
-    return this.paramsValue.isOpen
+
+  demo() {
+    console.log(this)
   }
-  get isFocus() {
-    return this.paramsValue.isFocus
-  }
-  get isActive() {
-    return this.paramsValue.isActive
-  }
-  get isHover() {
-    return this.paramsValue.isHover
-  }
-  get dir() {
-    return this.paramsValue.dir || false
-  }
+  // get isOpen() {
+  //   return this.paramsValue.isOpen
+  // }
+  // get isFocus() {
+  //   return this.paramsValue.isFocus
+  // }
+  // get isActive() {
+  //   return this.paramsValue.isActive
+  // }
+  // get isHover() {
+  //   return this.paramsValue.isHover
+  // }
+  // get dir() {
+  //   return this.paramsValue.dir || false
+  // }
   get classParams() {
     return this.getKeyEndWith(this.paramsValue, 'lass')
   }
-  get klass() {
-    return this.paramsValue.klass || ''
-  }
+  // get klass() {
+  //   return this.paramsValue.klass || ''
+  // }
 
-  get labelClass() {
-    return this.paramsValue.labelClass || ''
-  }
+  // get labelClass() {
+  //   return this.paramsValue.labelClass || ''
+  // }
   get id() {
     return this.element.id
   }
-  get label() {
-    return this.paramsValue.label
+  // get label() {
+  //   return this.paramsValue.label
+  // }
+  // get hasLabel() {
+  //   return typeof this.label !== 'undefined'
+  // }
+  // get isTest() {
+  //   return this.paramsValue.isTest
+  // }
+  get eventParams() {
+    return this.eventsParams[0]
   }
-  get hasLabel() {
-    return typeof this.label !== 'undefined'
+  // get events() {
+  //   return this.paramsValue.events || [this.event].flat()
+  // }
+  // get action() {
+  //   return this.paramsValue.action || this.actions?.[0]
+  // }
+  // get actions() {
+  //   return this.paramsValue.actions
+  // }
+  get eventIdParams() {
+    return  this.eventParams.id
   }
-  get isTest() {
-    return this.paramsValue.isTest
+  // get eventListener() {
+  //   return this.event.listener
+  // }
+  // get eventAction() {
+  //   return this.event.action
+  // }
+  get eventIdsParams() {
+    return this.eventsParams.map((event) => (event.id))
   }
-  get event() {
-    return this.paramsValue.event || { id: this.paramsValue.eventId }
-  }
-  get events() {
-    return this.paramsValue.events || [this.event].flat()
-  }
-  get action() {
-    return this.paramsValue.action || this.actions?.[0]
-  }
-  get actions() {
-    return this.paramsValue.actions
-  }
-  get eventId() {
-    return  this.paramsValue.eventId || this.event?.id || this.events[0].id
-  }
-  get eventListener() {
-    return this.event.listener
-  }
-  get eventAction() {
-    return this.event.action
-  }
-  get eventIds() {
-    return this.events.map((event) => (event.id))
-  }
-  get eventGroup() {
-    return this.event.group || 'global'
+  get eventGroupParams() {
+    return this.eventParams.group || 'global'
   }
   groupOfEvent(event) {
     return event.group || 'global'
   }
-  get isEventListener() {
-    return this.isDefined(this.eventId) && this.isUndefined(this.eventListener && this.isUndefined(this.eventAction))
-  }
+  // isEventListener(event) {
+  //   return event && this.isDefined(this.event.id) && this.isUndefined(this.event.listener) && this.isUndefined(this.event.action)
+  // }
   isListenerEvent(event) {
-    return event.id  && !event.listener && !event.action
+    return event && this.isDefined(event.id) && this.isUndefined(event.listener) && this.isUndefined(event.action)
   }
   get listenerEvents() {
-    return this.events.filter(event => event.id && !event.listener && !event.action)
+    return this.eventsParams.filter(event => this.isListenerEvent(event))
   }
-  get isEventTrigger() {
-    return this.isDefined(this.eventId) && this.isDefined(this.eventListener && this.isDefined(this.eventAction))
-  }
+  // isEventTrigger(event) {
+  //   return this.isDefined(this.eventId) && this.isDefined(this.eventListener && this.isDefined(this.eventAction))
+  // }
   get triggerEvents() {
-    return this.events.filter(event => event.id && event.listener && event.action)
+    return this.events.filter(event => this.isTriggerEvent(event))
   }
   isTriggerEvent(event) {
-    return event.id && event.listener && event.action
+    return event && this.isDefined(event.id) && this.isDefined(event.listener) && this.isDefined(event.action)
   }
-  eventWithAction(action) {
-    return this.events.find(event => event.action === action)
+  getEventWithAction(action) {
+    return this.eventsParams.find(event => event.action === action)
   }
   get parentControllerElement() {
     return this.element.parentNode.closest('[data-controller]')
   }
-  get isButtonComponentController() {
-    return this.identifier === 'button-component'
-  }
-  get parentButtonControllerElement() {
-    if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
-      return this.element.parentNode.closest('[data-controller*="button-component"]')
-    } else {
-      return false
-    }
-  }
-  get parentButtonEventId() {
-    if (this.parentButtonControllerElement) {
-      return JSON.parse(this.parentButtonControllerElement.dataset.buttonComponentParamsValue).events[0].id
-    }
-  }
-  get label() {
-    return this.paramsValue.label
-  }
-  get type() {
-    return this.paramsValue.type
-  }
-  get color() {
-    return this.paramsValue.color
-  }
-  get variant() {
-    return this.paramsValue.variant
-  }
+  // get isButtonComponentController() {
+  //   return this.identifier === 'button-component'
+  // }
+  // get parentButtonControllerElement() {
+  //   if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
+  //     return this.element.parentNode.closest('[data-controller*="button-component"]')
+  //   } else {
+  //     return false
+  //   }
+  // }
+  // get parentButtonEventId() {
+  //   if (this.parentButtonControllerElement) {
+  //     return JSON.parse(this.parentButtonControllerElement.dataset.buttonComponentParamsValue).events[0].id
+  //   }
+  // }
+  // get label() {
+  //   return this.paramsValue.label
+  // }
+  // get type() {
+  //   return this.paramsValue.type
+  // }
+  // get color() {
+  //   return this.paramsValue.color
+  // }
+  // get variant() {
+  //   return this.paramsValue.variant
+  // }
   get content() {
     return this.element.innerHTML
   }
@@ -690,9 +721,9 @@ export default class ApplicationController extends Controller {
   get isOverideClass() {
     return this.paramsValue.isOverideClass || false
   }
-  get isShowAfterInitialize() {
-    return true
-  }
+  // get isShowAfterInitialize() {
+  //   return true
+  // }
   get isComponentController() {
     return this.identifier.endWith('-component')
   }

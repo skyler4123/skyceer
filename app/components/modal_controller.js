@@ -12,6 +12,12 @@ export default class ModalController extends ApplicationController {
     this.initializeComplete()
   }
 
+  initializeParams() {
+    super.initializeParams()
+    this.setParams({name: 'type', defaultValue: 'default'})
+    this.setParams({name: 'isShowAfterInitialize', defaultValue: false})
+  }
+
   initializeAction() {
     super.initializeAction()
     this.backgroundTarget.dataset.action = (this.backgroundTarget.dataset.action || '') + ' ' + `click->${this.identifier}#close`
@@ -28,9 +34,9 @@ export default class ModalController extends ApplicationController {
     }
   }
 
-  get type() {
-    return this.paramsValue.type || 'default'
-  }
+  // get type() {
+  //   return this.paramsValue.type || 'default'
+  // }
   get typeClass() {
     return {
       default: {
@@ -40,7 +46,7 @@ export default class ModalController extends ApplicationController {
       }
     }
   }
-  get isShowAfterInitialize() {
-    return false
-  }
+  // get isShowAfterInitialize() {
+  //   return false
+  // }
 }

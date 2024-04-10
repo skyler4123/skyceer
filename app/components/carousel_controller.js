@@ -13,6 +13,13 @@ export default class CarouselController extends ApplicationController {
     this.initializeComplete()
   }
 
+  initializeParams() {
+    super.initializeParams()
+    this.setParams({name: 'type', defaultValue: "default"})
+    this.setParams({name: 'isInfinityScroll', defaultValue: true})
+
+  }
+
   initializeTarget() {
     Array.from(this.element.children).forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, "carousel")
@@ -21,8 +28,8 @@ export default class CarouselController extends ApplicationController {
   initializeAction() {
     super.initializeAction()
     this.element.dataset.action = (this.element.dataset.action || "") + ` wheel->${this.identifier}#scroll:passive`
-    if (this.timeInterval) {
-      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeInterval)
+    if (this.hasTimeIntervalParams) {
+      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeIntervalParams)
     }
   }
 
@@ -37,7 +44,7 @@ export default class CarouselController extends ApplicationController {
   }
 
   scrollBack() {
-    if (this.element.scrollLeft === 0 && this.isInfinityScroll) {
+    if (this.element.scrollLeft === 0 && this.isInfinityScrollParams) {
       this.prependCarousel()
     }
     this.element.scrollBy(-1, 0)
@@ -45,7 +52,7 @@ export default class CarouselController extends ApplicationController {
 
   scrollForward() {
     if ((this.element.scrollLeft + this.element.offsetWidth + 1) > this.element.scrollWidth) {
-      if (this.isInfinityScroll) {
+      if (this.hasIsInfinityScrollParams && this.isInfinityScrollParams) {
         this.appendCarousel()
       } else {
         this.scrollStart()
@@ -59,7 +66,7 @@ export default class CarouselController extends ApplicationController {
     if (this.intervalIdValue) {
       this.intervalIdValue = false
     } else {
-      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeInterval || 2000)
+      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeIntervalParams || 2000)
     }
   }
 
@@ -103,9 +110,9 @@ export default class CarouselController extends ApplicationController {
     clearInterval(previousValue)
   }
 
-  get type() {
-    return this.paramsValue.type || 'default'
-  }
+  // get type() {
+  //   return this.paramsValue.type || 'default'
+  // }
   get typeClass() {
     return {
       default: {
@@ -114,16 +121,16 @@ export default class CarouselController extends ApplicationController {
       }
     }
   }
-  get isInfinityScroll() {
-    if (this.paramsValue.isInfinityScroll === undefined) {
-      return true
-    } else {
-      return this.paramsValue.isInfinityScroll
-    }
-  }
-  get timeInterval() {
-    return this.paramsValue.timeInterval
-  }
+  // get isInfinityScroll() {
+  //   if (this.paramsValue.isInfinityScroll === undefined) {
+  //     return true
+  //   } else {
+  //     return this.paramsValue.isInfinityScroll
+  //   }
+  // }
+  // get timeInterval() {
+  //   return this.paramsValue.timeInterval
+  // }
 
 
 

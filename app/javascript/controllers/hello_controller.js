@@ -11,6 +11,6 @@ export default class extends Controller {
   }
 
   get initHTML() {
-    return Components('button', {label: 'Test Components', event: {id: '123', listener: 'click', action: 'toggle'}, variant: 'gradient_outline'})
+    return Components('button', {label: 'Test Components', event: {id: '123', listener: 'click', action: 'toggle'}, variant: 'gradient_monochrome'})
   }
 }

@@ -29,15 +29,15 @@ export default class BoxController extends ApplicationController {
     })
   }
 
-  get border() {
-    return this.paramsValue.border
-  }
-  get position() {
-    return this.paramsValue.position
-  }
-  get positionType() {
-    return this.paramsValue.positionType || 'inside'
-  }
+  // get border() {
+  //   return this.paramsValue.border
+  // }
+  // get position() {
+  //   return this.paramsValue.position
+  // }
+  // get positionType() {
+  //   return this.paramsValue.positionType || 'inside'
+  // }
   get variantClass() {
     return {
       default: {

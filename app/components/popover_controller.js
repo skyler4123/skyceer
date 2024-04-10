@@ -12,7 +12,13 @@ export default class PopoverController extends ApplicationController {
     this.initializeHTML()
     this.initializeComplete()
   }
-  
+
+  initializeParams() {
+    super.initializeParams()
+    this.setParams({name: 'position', defaultValue: ['outside', 'bottomCenter']})
+    this.setParams({name: 'isShowAfterInitialize', defaultValue: false})
+  }
+
   initializeHTML() {
     if (this.type === 'emoji') {
       const pickerOptions = { onEmojiSelect: console.log }
@@ -26,15 +32,15 @@ export default class PopoverController extends ApplicationController {
   //   super.initializeClass()
   // }
 
-  get isShowAfterInitialize() {
-    return false
-  }
+  // get isShowAfterInitialize() {
+  //   return false
+  // }
   // get insideOrOutside() {
   //   return this.paramsValue.insideOrOutside || 'outside'
   // }
-  get position() {
-    return this.paramsValue.position || ['outside', 'bottomCenter']
-  }
+  // get position() {
+  //   return this.paramsValue.position || ['outside', 'bottomCenter']
+  // }
   get positionClass() {
     return {
       outside: {

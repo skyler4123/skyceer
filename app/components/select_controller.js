@@ -33,10 +33,10 @@ export default class SelectController extends ApplicationController {
     this.selectValue = this.element.value
   }
 
-  get optionClass() {
-    return this.paramsValue.optionClass || ''
-  }
-  get defaultOptionClass() {
-    return this.paramsValue.defaultOptionClass || this.optionClass
-  }
+  // get optionClass() {
+  //   return this.paramsValue.optionClass || ''
+  // }
+  // get defaultOptionClass() {
+  //   return this.paramsValue.defaultOptionClass || this.optionClass
+  // }
 }
