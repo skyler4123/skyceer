@@ -11,10 +11,5 @@
 
 
 
-    <%= button(label: 'Toggle Toast', event: { id: new_id, action: :toggle, listener: :click }) %>
-    <%= toast(event_id: id, position: :bottom) do %>
-      <div>Executing JavaScript from a string is an BIG security risk.
-        With eval(), malicious code can run inside your application without permission.
-        With eval(), third-party code can see the scope of your application, which can lead to possible attacks.
-      </div>
-    <% end %>
+<div data-controller="hello"></div>
+<%= button(label: 'Test Components', event: {id: '123', listener: 'click', action: 'toggle'}, variant: 'gradient_monochrome') %>
