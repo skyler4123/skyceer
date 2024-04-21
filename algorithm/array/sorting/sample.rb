@@ -6,7 +6,9 @@ def sample(array = [9,0,8,2,1,3,5,4,7,6])
   return result
 end
 
-def sort(a, b)
+def sort(array)
+  a = array[0]
+  b = array[1]
   if a > b
     return [b, a]
   else
