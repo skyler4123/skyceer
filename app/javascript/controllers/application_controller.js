@@ -179,6 +179,7 @@ export default class ApplicationController extends Controller {
         }
       })
     }
+    if (this.isDefined(this.initAction)) { this.initAction() }
   }
 
   eventHandler({ detail: { event } }) {

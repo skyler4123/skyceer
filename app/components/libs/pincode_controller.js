@@ -1,6 +1,6 @@
 import ApplicationController from '../../javascript/controllers/application_controller';
 
-export default class extends ApplicationController {
+export default class Pincode extends ApplicationController {
   static targets = ["input", "cell"]
   static values = {
     ...super.values,

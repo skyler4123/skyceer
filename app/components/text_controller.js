@@ -1,4 +1,4 @@
-import hljs from "highlight.js";
+// import hljs from "highlight.js";
 import ApplicationController from "../javascript/controllers/application_controller";
 import Dictionary from "../javascript/controllers/dictionary";
 
@@ -36,7 +36,7 @@ export default class TextController extends ApplicationController {
       this.element.innerHTML = this.initHTML.code
       this.codeTarget.textContent = this.labelValue
       this.element.insertAdjacentHTML('beforeend', this.initHTML.copyCode)
-      hljs.highlightElement(this.codeTarget)
+      // hljs.highlightElement(this.codeTarget)
     } else {
       this.element.innerText = this.labelValue
     }

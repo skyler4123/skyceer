@@ -11,7 +11,7 @@ import Quote from '@editorjs/quote';
 import Table from '@editorjs/table';
 import { Controller } from "@hotwired/stimulus";
 
-export default class extends Controller {
+export default class Editorjs extends Controller {
   static targets = ["editor"]
   static values = {
     recordId: String,

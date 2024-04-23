@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Utilities::ComparisonComponent, type: :component do
+RSpec.describe Libs::ComparisonComponent, type: :component do
   pending "add some examples to (or delete) #{__FILE__}"
 
   # it "renders something useful" do

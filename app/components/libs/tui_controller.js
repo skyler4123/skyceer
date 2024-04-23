@@ -3,7 +3,7 @@
 import Calendar from '@toast-ui/calendar';
 import ApplicationController from '../../javascript/controllers/application_controller';
 
-export default class extends ApplicationController {
+export default class Tui extends ApplicationController {
   static values = {
     ...super.values,
     calendarSchedules: { type: Array },

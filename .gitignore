@@ -38,4 +38,3 @@
 !/.env*.erb
 /faker/*
 coverage
-vendor

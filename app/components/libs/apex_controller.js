@@ -1,7 +1,7 @@
 import ApexCharts from 'apexcharts'
 import ApplicationController from '../../javascript/controllers/application_controller';
 
-export default class extends ApplicationController {
+export default class Apex extends ApplicationController {
   static values = {
     ...super.values,
     series: { type: Array }
