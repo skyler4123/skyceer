@@ -46,7 +46,7 @@ export default class ApplicationController extends Controller {
     this.initializeTypeClass()
     this.initializeVariantClass()
     this.initializePositionClass()
-    this.initializeCustomeClass()
+    this.initializeCustomClass()
   }
 
   initializeTypeClass() {
@@ -64,6 +64,7 @@ export default class ApplicationController extends Controller {
         }
       })
     }
+    if (this.isDefined(this.initTypeClass)) { this.initTypeClass() }
   }
   
   initializeVariantClass() {
@@ -82,6 +83,7 @@ export default class ApplicationController extends Controller {
         }
       })
     }
+    if (this.isDefined(this.initVariantClass)) { this.initVariantClass() }
   }
 
   initializePositionClass() {
@@ -100,9 +102,10 @@ export default class ApplicationController extends Controller {
         }
       })
     }
+    if (this.isDefined(this.initPositionClass)) { this.initPositionClass() }
   }
 
-  initializeCustomeClass() {
+  initializeCustomClass() {
     this.classParams.forEach((klass) => {
       if (klass === 'klass') {
         this.mergeClass(this.element, this.klassParams)
@@ -121,6 +124,7 @@ export default class ApplicationController extends Controller {
     Object.keys(this.paramsValue).forEach(key => {
       this.setParams({name: key})
     })
+    if (this.isDefined(this.initParams)) { this.initParams() }
   }
   setParams({name, defaultValue}) {
     this[`${name}Params`] = this.paramsValue[name] || defaultValue
