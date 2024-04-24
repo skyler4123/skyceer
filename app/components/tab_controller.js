@@ -7,28 +7,28 @@ export default class TabController extends ApplicationController {
     tabIndex: { type: Number }
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeTarget()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initTarget()
+    // this.initComplete()
   }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'type', defaultValue: 'default'})
     this.setParams({name: 'isRestore', defaultValue: false})
     this.setParams({name: 'restoreIndex', defaultValue: 0})
     this.setParams({name: 'restoreTimeout', defaultValue: 5000})
   }
 
-  initializeTarget() {
+  initTarget() {
     Array.from(this.element.children).forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, 'tab')
     })
   }
 
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initAction()
     this.addAction(this.element, `click->${this.identifier}#tabNext`)
   }
 

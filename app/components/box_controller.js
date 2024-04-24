@@ -6,10 +6,10 @@ export default class BoxController extends ApplicationController {
     ...super.values
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeTarget()
-    this.initializeComplete()
+  init() {
+    // super.initialize()
+    this.initTarget()
+    // this.initializeComplete()
   }
 
   // initializeClass() {
@@ -23,7 +23,7 @@ export default class BoxController extends ApplicationController {
   //   this.mergeClass(this.element, this.klass)
   // }
 
-  initializeTarget() {
+  initTarget() {
     Array.from(this.element.children).forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, "item")
     })

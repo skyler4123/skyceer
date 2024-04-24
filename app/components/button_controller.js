@@ -8,17 +8,17 @@ export default class ButtonController extends ApplicationController {
     ...super.values,
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeHTML()
-    this.initializeComplete()
+  init() {
+    // super.initialize()
+    this.initHTML()
+    // this.initializeComplete()
   }
   connect() {
     super.connect()
     useClickOutside(this)
   }
 
-  initializeHTML() {
+  initHTML() {
     if (this.hasLabelParams) {
       this.element.innerHTML = this.labelParams
       return
@@ -28,8 +28,8 @@ export default class ButtonController extends ApplicationController {
     }
   }
 
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initializeAction()
     if (this.typeParams === 'toggle') {
       this.element.dataset.action = this.dataAction + ' ' + `click->${this.identifier}#toggle`
     }

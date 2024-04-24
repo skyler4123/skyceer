@@ -7,19 +7,19 @@ export default class ModalController extends ApplicationController {
     isOpen: { type: Boolean, default: false },
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeComplete()
-  }
+  // init() {
+  //   super.init()
+  //   this.initComplete()
+  // }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'type', defaultValue: 'default'})
     this.setParams({name: 'isShowAfterInitialize', defaultValue: false})
   }
 
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initAction()
     this.backgroundTarget.dataset.action = (this.backgroundTarget.dataset.action || '') + ' ' + `click->${this.identifier}#close`
   }
 

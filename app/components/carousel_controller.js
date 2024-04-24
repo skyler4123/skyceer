@@ -7,26 +7,26 @@ export default class CarouselController extends ApplicationController {
     intervalId: { type: Number }
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeTarget()
-    this.initializeComplete()
+  init() {
+    // super.initialize()
+    this.initTarget()
+    // this.initializeComplete()
   }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initializeParams()
     this.setParams({name: 'type', defaultValue: "default"})
     this.setParams({name: 'isInfinityScroll', defaultValue: true})
 
   }
 
-  initializeTarget() {
+  initTarget() {
     Array.from(this.element.children).forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, "carousel")
     })
   }
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initializeAction()
     this.element.dataset.action = (this.element.dataset.action || "") + ` wheel->${this.identifier}#scroll:passive`
     if (this.hasTimeIntervalParams) {
       this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeIntervalParams)

@@ -5,18 +5,18 @@ export default class LinkController extends ApplicationController {
     ...super.values,
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeHTML()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initHTML()
+    // this.initComplete()
   }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'url', defaultValue: '/#'})
   }
 
-  initializeHTML() {
+  initHTML() {
     if (this.hasLabelParams) { this.element.innerHTML = this.labelParams }
     this.element.href = this.urlParams
   }

@@ -14,14 +14,14 @@ export default class InputController extends ApplicationController {
     input: { type: String }
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeHTML()
-    this.initializeFormat()
-    this.initializeComplete()
+  init() {
+    // super.initialize()
+    this.initHTML()
+    this.initFormat()
+    // this.initializeComplete()
   }
 
-  initializeHTML() {
+  initHTML() {
     if (this.hasAcceptParam) { this.element.setAttribute('accept', this.acceptParams) }
     if (this.hasAltParam) { this.element.setAttribute('alt', this.altParams) }
     if (this.hasAutocompleteParam) { this.element.setAttribute('autocomplete', this.autocompleteParams) }
@@ -59,7 +59,7 @@ export default class InputController extends ApplicationController {
     if (this.typeParams === 'comparison') { this.element.setAttribute('type', 'range') }
   }
 
-  initializeFormat() {
+  initFormat() {
     if (!this.hasFormatParams) { return }
 
     const timeTypes = ['date', 'datetime-local', 'month', 'time', 'week']
@@ -71,8 +71,8 @@ export default class InputController extends ApplicationController {
     var cleave = new Cleave(this.element, this.formatParams);
   }
   
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initializeAction()
     this.addAction(this.element, `input->${this.identifier}#input`)
   }
 

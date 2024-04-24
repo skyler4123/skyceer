@@ -7,13 +7,13 @@ export default class SelectController extends ApplicationController {
     select: { type: String }
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeTarget()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initTarget()
+    // this.initComplete()
   }
 
-  initializeTarget() {
+  initTarget() {
     this.element.querySelectorAll('option').forEach((target) => {
       if (target.hasAttribute('value')) {
         target.setAttribute(`data-${this.identifier}-target`, 'option')
@@ -24,8 +24,8 @@ export default class SelectController extends ApplicationController {
     })
   }
 
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initAction()
     this.addAction(this.element, `change->${this.identifier}#change`)
   }
 

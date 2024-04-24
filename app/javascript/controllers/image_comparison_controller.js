@@ -17,20 +17,20 @@ export default class extends ApplicationController {
     ratio: { type: Number, default: 50 }
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeTarget()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initTarget()
+    // this.initComplete()
   }
 
-  initializeTarget() {
+  initTarget() {
     this.firstRatioControllerElement.setAttribute(`data-${this.identifier}-target`, 'firstRatio')
     this.lastRatioControllerElement.setAttribute(`data-${this.identifier}-target`, 'lastRatio')
     this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initAction()
     this.addAction(this.inputTarget, `input->${this.identifier}#input`)
   }
 

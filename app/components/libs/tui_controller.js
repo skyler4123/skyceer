@@ -10,14 +10,14 @@ export default class Tui extends ApplicationController {
     calendarEvents: { type: Array }
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeValue()
-    this.initializeCalendar()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initValue()
+    this.initCalendar()
+    // this.initComplete()
   }
 
-  initializeValue() {
+  initValue() {
     let options = this.paramsValue
     options.calendarSchedules = options.calendarSchedules.map((schedule) => {
       schedule = this.camelCaseForObjectKey(schedule, 'id')
@@ -36,12 +36,12 @@ export default class Tui extends ApplicationController {
     
   }
   
-  initializeCalendar() {
+  initCalendar() {
     this.calendar = new Calendar(this.element, this.overideOptions || { ...this.defaultOptions, ...this.options });
     this.calendar.setCalendars(this.calendarSchedules)
   }
 
-  initializeAction() {
+  initAction() {
     this.calendar.on('selectDateTime', (event) => {
       // console.log('selectDateTime', event)
       this.selectDateTime(event)
@@ -80,9 +80,9 @@ export default class Tui extends ApplicationController {
     });
   }
 
-  initializeClass() {
-    this.element.className = this.twMerge(this.element.className)
-  }
+  // initClass() {
+  //   this.element.className = this.twMerge(this.element.className)
+  // }
 
   selectDateTime(event) {}
 
@@ -190,12 +190,12 @@ export default class Tui extends ApplicationController {
       }
     ]
   }
-  get overideOptions() {
-    return this.paramsValue.overideOptions
-  }
-  get options() {
-    return this.paramsValue.options || this.defaultOptions
-  }
+  // get overideOptions() {
+  //   return this.paramsValue.overideOptions
+  // }
+  // get options() {
+  //   return this.paramsValue.options || this.defaultOptions
+  // }
   get defaultOptions() {
     return {
       defaultView: 'month',

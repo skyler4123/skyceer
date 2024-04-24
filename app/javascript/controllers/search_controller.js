@@ -16,19 +16,19 @@ export default class extends ApplicationController {
     input: { type: String },
   }
 
-  initialize() {
-    this.initializeTarget()
-    this.initializeComplete()
+  init() {
+    this.initTarget()
+    // this.initComplete()
     useClickOutside(this, { element: this.inputTarget })
   }
 
-  initializeTarget() {
+  initTarget() {
     this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
     this.buttonControllerElement.setAttribute(`data-${this.identifier}-target`, 'button')
     this.popoverControllerElement.setAttribute(`data-${this.identifier}-target`, 'popover')
   }
 
-  initializeAction() {
+  initAction() {
     this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#input keydown.enter->${this.identifier}#enterSearch`
     this.buttonTarget.dataset.action = (this.buttonTarget.dataset.action || '') + ` click->${this.identifier}#buttonSearch`
   }

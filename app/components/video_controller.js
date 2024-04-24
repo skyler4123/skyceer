@@ -5,14 +5,14 @@ export default class VideoController extends ApplicationController {
     ...super.values,
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeHTML()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initHTML()
+    // this.initComplete()
   }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'type', defaultValue: 'video/mp4'})
     this.setParams({name: 'isControl', defaultValue: true})
     this.setParams({name: 'isAutoplay', defaultValue: false})
@@ -20,12 +20,12 @@ export default class VideoController extends ApplicationController {
     this.setParams({name: 'url', defaultValue: this.srcParams || 'https://flowbite.com/docs/videos/flowbite.mp4'})
   }
 
-  initializeHTML() {
-    this.element.innerHTML = this.initHTML
+  initHTML() {
+    this.element.innerHTML = this.typeHTML
   }
 
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initAction()
     if (this.hasIsControlParams && this.isControllParams) {
       this.element.setAttribute('controls', '')
     }
@@ -65,7 +65,7 @@ export default class VideoController extends ApplicationController {
   // get type() {
   //   return this.paramsValue.type || 'video/mp4'
   // }
-  get initHTML() {
+  get typeHTML() {
     return `
       <source src="${this.urlParams}" type="${this.typeParams}">
     `

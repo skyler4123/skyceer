@@ -14,21 +14,21 @@ import ApplicationController from './application_controller'
 export default class extends ApplicationController {
   static targets = ['text', 'input']
 
-  initialize() {
-    super.initialize()
-    this.initializeTarget()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initTarget()
+    // this.initComplete()
     useClickOutside(this, { element: this.inputTarget })
   }
 
-  initializeTarget() {
+  initTarget() {
     this.textControllerElement.setAttribute(`data-${this.identifier}-target`, 'text')
     this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
 
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initAction()
     this.addAction(this.inputTarget, `click->${this.identifier}#click`)
   }
 

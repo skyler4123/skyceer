@@ -7,19 +7,19 @@ export default class PopoverController extends ApplicationController {
     isOpen: { type: Boolean, default: false },
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeHTML()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initHTML()
+    // this.initComplete()
   }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'position', defaultValue: ['outside', 'bottomCenter']})
     this.setParams({name: 'isShowAfterInitialize', defaultValue: false})
   }
 
-  initializeHTML() {
+  initHTML() {
     if (this.type === 'emoji') {
       const pickerOptions = { onEmojiSelect: console.log }
       const picker = new Picker(pickerOptions)

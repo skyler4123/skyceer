@@ -12,9 +12,9 @@ export default class EditTextByInput extends ApplicationController {
     ...super.values,
   }
 
-  initialize() {
-    this.initializeTarget()
-    this.initializeComplete()  
+  init() {
+    this.initTarget()
+    // this.initComplete()  
   }
 
   connect() {
@@ -22,12 +22,12 @@ export default class EditTextByInput extends ApplicationController {
     useClickOutside(this, { element: this.inputTarget })
   }
   
-  initializeTarget() {
+  initTarget() {
     this.textControllerElement.setAttribute(`data-${this.identifier}-target`, 'text')
     this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
-  initializeAction() {
+  initAction() {
     this.textTarget.dataset.action = (this.textTarget.dataset.action || '') + ` dblclick->${this.identifier}#tabInput`
     this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#inputFitContent`
   }

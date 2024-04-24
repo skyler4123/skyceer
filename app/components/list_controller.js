@@ -7,25 +7,25 @@ export default class ListController extends ApplicationController {
     ...super.values,
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeTarget()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initTarget()
+    // this.initComplete()
   }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'sort', defaultValue: true})
   }
 
-  initializeTarget() {
+  initTarget() {
     this.element.querySelectorAll('li').forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, 'li')
     })
   }
 
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initAction()
     if (this.hasSortParams) {
       Sortable.create(this.element, this.sortParams)
     }

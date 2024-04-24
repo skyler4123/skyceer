@@ -10,15 +10,15 @@ export default class TextController extends ApplicationController {
     language: { type: String }
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeValue()
-    this.initializeHTML()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initValue()
+    this.initHTML()
+    // this.initComplete()
   }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
     this.setParams({name: 'language', defaultValue: 'english'})
     this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
@@ -26,16 +26,16 @@ export default class TextController extends ApplicationController {
 
   }
 
-  initializeValue() {
+  initValue() {
     this.labelValue = this.labelParams
     this.languageValue = this.languageParams
   }
 
-  initializeHTML() {
+  initHTML() {
     if (this.typeParams === 'code') {
-      this.element.innerHTML = this.initHTML.code
+      this.element.innerHTML = this.typeHTML.code
       this.codeTarget.textContent = this.labelValue
-      this.element.insertAdjacentHTML('beforeend', this.initHTML.copyCode)
+      this.element.insertAdjacentHTML('beforeend', this.typeHTML.copyCode)
       // hljs.highlightElement(this.codeTarget)
     } else {
       this.element.innerText = this.labelValue
@@ -124,7 +124,7 @@ export default class TextController extends ApplicationController {
       },
     }
   }
-  get initHTML() {
+  get typeHTML() {
     return {
       code: `
         <pre data-${this.identifier}-target="pre"><code data-${this.identifier}-target="code" class="${this.codeLanguageParams}"></code></pre>

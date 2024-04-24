@@ -5,19 +5,19 @@ export default class IconController extends ApplicationController {
     ...super.values,
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeHTML()
-    this.initializeComplete()
+  init() {
+    // super.initialize()
+    this.initHTML()
+    // this.initializeComplete()
   }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initializeParams()
     this.setParams({name: 'type', defaultValue: 'outline'})
     this.setParams({name: 'name', defaultValue: 'star'})
   }
 
-  initializeHTML() {
+  initHTML() {
     this.mergeElementWithHTML(this.element, this.typeHTML[this.typeParams][this.nameParams])
   }
 

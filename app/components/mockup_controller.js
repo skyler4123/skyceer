@@ -5,14 +5,14 @@ export default class MockupController extends ApplicationController {
     ...super.values,
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeHTML()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initHTML()
+    // this.initComplete()
   }
 
-  initializeHTML() {
-    this.element.innerHTML = this.initHTML[this.deviceNameParams || this.nameParams || "iphone-12"]
+  initHTML() {
+    this.element.innerHTML = this.typeHTML[this.deviceNameParams || this.nameParams || "iphone-12"]
   }
 
   // get name() {
@@ -21,7 +21,7 @@ export default class MockupController extends ApplicationController {
   // get deviceName() {
   //   return this.paramsValue.deviceName
   // }
-  get initHTML() {
+  get typeHTML() {
     return {
       'iphone-12': `
         <div data-${this.identifier}-target="mockup" class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px]">

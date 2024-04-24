@@ -22,6 +22,8 @@ export default class ApplicationController extends Controller {
       this.initializeID()
       this.initializeDir()
     }
+    if (this.isDefined(this.init)) { this.init() }
+    this.initializeComplete()
   }
 
   initializeComplete() {

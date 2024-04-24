@@ -15,13 +15,13 @@ export default class extends ApplicationController {
     rating: { type: Number },
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeTarget()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initTarget()
+    // this.initComplete()
   }
 
-  initializeTarget() {
+  initTarget() {
     Array.from(this.element.children).forEach((target, index) => {
       target.setAttribute(`data-${this.identifier}-target`, 'ratingItem')
       target.setAttribute(`data-${this.identifier}-rating-param`, index)
@@ -29,9 +29,9 @@ export default class extends ApplicationController {
     })
   }
 
-  initializeClass() {
+  initClass() {
     setTimeout(() => {
-      super.initializeClass()
+      super.initClass()
     })
   }
 

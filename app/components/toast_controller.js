@@ -5,20 +5,20 @@ export default class ToastController extends ApplicationController {
     ...super.values,
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeComplete()
-  }
+  // init() {
+  //   super.init()
+  //   this.initComplete()
+  // }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'type', defaultValue: 'default'})
     this.setParams({name: 'position', defaultValue: 'left'})
   }
 
-  // initializeClass() {
+  // initClass() {
     // this.mergeClass(this.element, this.positionClass[this.position])
-    // super.initializeClass()
+    // super.initClass()
   // }
 
   // get type() {

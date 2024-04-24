@@ -3,13 +3,13 @@ import ApplicationController from './application_controller'
 
 export default class extends ApplicationController {
 
-  initialize() {
-    super.initialize()
-    this.initializeComplete()
-  }
+  // initialize() {
+  //   super.initialize()
+  //   this.initializeComplete()
+  // }
 
-  initializeAction() {
-    super.initializeAction()
+  initAction() {
+    // super.initializeAction()
     this.element.dataset.action = (this.element.dataset.action || '') + ` click->${this.identifier}#darkmode`
   }
 

@@ -8,30 +8,30 @@ export default class TableController extends ApplicationController {
     body: { type: Array },
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeHTML()
-    this.initializeValue()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initHTML()
+    this.initValue()
+    // this.initComplete()
   }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'head', defaultValue: ['header 1', 'header 2', 'header 3']})
     this.setParams({name: 'body', defaultValue: [['1','2','3'], ['4','5','6'], ['7','8','9']]})
   }
 
-  initializeHTML() {
-    this.element.innerHTML = this.initHTML
+  initHTML() {
+    this.element.innerHTML = this.typeHTML
   }
 
-  initializeValue() {
+  initValue() {
     this.headValue = this.headParams
     this.bodyValue = this.bodyParams
   }
 
   // Demo HTML sample
-  get initHTML() {
+  get typeHTML() {
     return `
       <thead class="${this.headClass}" data-${this.identifier}-target="head">
         <tr class="${this.headTrClass}" data-${this.identifier}-target="tr">

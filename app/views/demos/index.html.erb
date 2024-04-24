@@ -32,6 +32,8 @@
 
     <div data-controller="darkmode">darkmode</div>
 
+    <%= openlayers %>
+
     <%= button(label: 'Press to gray icon and press icon to rotate logo', event: { id: new_id, listener: :click, action: :toggle }) %>
     <%= box(klass: 'open:bg-gray-200',variant: :only_border, events: [{id: id}, { id: new_id, listener: :click, action: :toggle }], action: {listener: :click, action: :toggle}) do %>
       <%= icon(type: :logo, name: :github, event: { id: id }, klass: "w-10 h-10 open:rotate-180 duration-1000 ease-out") %>

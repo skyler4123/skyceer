@@ -6,10 +6,10 @@ export default class AccordionController extends ApplicationController {
     ...super.values,
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeComplete()
-  }
+  // initialize() {
+  //   super.initialize()
+  //   this.initializeComplete()
+  // }
 
   initParams() {
     // super.initializeParams()

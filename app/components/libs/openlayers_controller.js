@@ -37,13 +37,13 @@ export default class Openlayers extends ApplicationController {
     }
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeComplete()
-  }
+  // init() {
+  //   super.init()
+  //   this.initComplete()
+  // }
 
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'type', defaultValue: 'default'})
   }
 

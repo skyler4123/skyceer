@@ -7,33 +7,33 @@ export default class Apex extends ApplicationController {
     series: { type: Array }
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeStylesheet()
-    this.initializeValue()
-    this.initializeChart()
+  init() {
+    // super.init()
+    this.initStylesheet()
+    this.initValue()
+    this.initChart()
 
-    this.initializeComplete()
+    // this.initComplete()
   }
 
-  initializeStylesheet() {}
+  initStylesheet() {}
   
-  initializeValue() {
+  initValue() {
     this.seriesValue = this.series
   }
 
-  initializeChart() {
+  initChart() {
     this.chart = new ApexCharts(this.element, this.options);
     this.chart.render();
   }
 
-  initializeAction() {}
+  // initAction() {}
 
   seriesValueChanged(value, previousValue) {
     this.chart.updateSeries(this.seriesValue)
   }
 
-  get series() {
+  get seriesDefault() {
     return this.paramsValue.series || [{
       data: [{
         x: 'category A',
@@ -57,7 +57,7 @@ export default class Apex extends ApplicationController {
           horizontal: true
         }
       },
-      series: this.series
+      series: this.seriesDefault
     }
   }
 

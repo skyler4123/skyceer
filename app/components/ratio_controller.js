@@ -7,33 +7,33 @@ export default class RatioController extends ApplicationController {
     ratio: { type: Number }
   }
 
-  initialize() {
-    super.initialize()
-    this.initializeValue()
-    this.initializeHTML()
-    this.initializeTarget()
-    this.initializeComplete()
+  init() {
+    // super.init()
+    this.initValue()
+    this.initHTML()
+    this.initTarget()
+    // this.initComplete()
   }
   
-  initializeParams() {
-    super.initializeParams()
+  initParams() {
+    // super.initParams()
     this.setParams({name: 'ratio', defaultValue: 50})
     this.setParams({name: 'isReverse', defaultValue: false})
     this.setParams({name: 'isShowRatio', defaultValue: false})
     this.setParams({name: 'orientation', defaultValue: 'vertical'})
   }
 
-  initializeValue() {
+  initValue() {
     this.ratioValue = this.ratioParams
   }
 
-  initializeHTML() {
+  initHTML() {
     if (this.typeParams=== 'progressBar') {
       this.element.innerHTML = this.typeHTML[this.typeParams]
     }
   }
 
-  initializeTarget() {
+  initTarget() {
     Array.from(this.element.children).forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, 'ratio')
     })
