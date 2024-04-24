@@ -146,7 +146,7 @@ export default class Openlayers extends ApplicationController {
 
     navigator.geolocation.watchPosition((pos) => {
       const coords = [pos.coords.longitude, pos.coords.latitude];
-      console.log(coords)
+      // console.log(coords)
       // this.map.setView(new View({
       //   center: [pos.coords.longitude, pos.coords.latitude],
       //   zoom: 10
