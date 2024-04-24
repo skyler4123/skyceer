@@ -74,19 +74,7 @@ export default class TabController extends ApplicationController {
   }
 
   tabIndexValueChanged(value, previousValue) {
-    if (document.startViewTransition) {
-      document.startViewTransition(() => {
-        this.tabTargets.forEach((target) => {
-          target.removeAttribute('open')
-        })
-        this.tabTargets[this.tabIndexValue].setAttribute('open', '')
-        if (this.isRestoreParams && previousValue !== undefined) {
-          setTimeout(() => {
-            this.tabIndexValue = this.restoreIndexParams
-          }, this.restoreTimeoutParams)
-        }
-      })
-    } else {
+    this.startViewTransition(() => {
       this.tabTargets.forEach((target) => {
         target.removeAttribute('open')
       })
@@ -96,7 +84,7 @@ export default class TabController extends ApplicationController {
           this.tabIndexValue = this.restoreIndexParams
         }, this.restoreTimeoutParams)
       }
-    }
+    })
   }
 
   // get type() {

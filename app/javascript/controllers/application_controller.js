@@ -740,4 +740,12 @@ export default class ApplicationController extends Controller {
   get protocol() {
     return location.protocol
   }
+
+  startViewTransition(callback) {
+    if (document.startViewTransition) {
+      document.startViewTransition(() => callback())
+    } else {
+      callback()
+    }
+  }
 }
