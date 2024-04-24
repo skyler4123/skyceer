@@ -74,7 +74,6 @@ export default class TabController extends ApplicationController {
   }
 
   tabIndexValueChanged(value, previousValue) {
-
     if (document.startViewTransition) {
       document.startViewTransition(() => {
         this.tabTargets.forEach((target) => {
