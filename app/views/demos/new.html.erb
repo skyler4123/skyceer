@@ -10,6 +10,15 @@
 
 
 
-   <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_text }) %>
-
-    <%= text(label: 'Test Copy Text', event_id: id) %>
+    <%= button(label: "Tab Next", event: { id: new_id, action: :tab_next, listener: :click }) %>
+    <%= button(label: "Tab Back", event: { id: id, action: :tab_back, listener: :click }) %>
+    <%= button(label: "Tab to 4rd Item", event: { id: id, action: :tab, value: 4, listener: :click }) %>
+    <%= button(event: { id: id, action: :tab_next, listener: :click }) do %>
+      <%= tab(event: { id: id }) do |c| %>
+        <div><%= icon(name: "link") %></div>
+        <div><%= icon(name: "check-circle", klass: "w-5 h-6 text-green-500") %></div>
+        <div><%= icon(name: "spinner", type: :animation) %></div>
+        <div><%= icon(name: "star", klass: "w-5 h-6 text-sky-800") %></div>
+        <div><%= icon(name: "sun", klass: "w-5 h-6 text-yellow-500") %></div>
+      <% end %>
+    <% end %>

@@ -74,14 +74,29 @@ export default class TabController extends ApplicationController {
   }
 
   tabIndexValueChanged(value, previousValue) {
-    this.tabTargets.forEach((target) => {
-      target.removeAttribute('open')
-    })
-    this.tabTargets[this.tabIndexValue].setAttribute('open', '')
-    if (this.isRestoreParams && previousValue !== undefined) {
-      setTimeout(() => {
-        this.tabIndexValue = this.restoreIndexParams
-      }, this.restoreTimeoutParams)
+
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        this.tabTargets.forEach((target) => {
+          target.removeAttribute('open')
+        })
+        this.tabTargets[this.tabIndexValue].setAttribute('open', '')
+        if (this.isRestoreParams && previousValue !== undefined) {
+          setTimeout(() => {
+            this.tabIndexValue = this.restoreIndexParams
+          }, this.restoreTimeoutParams)
+        }
+      })
+    } else {
+      this.tabTargets.forEach((target) => {
+        target.removeAttribute('open')
+      })
+      this.tabTargets[this.tabIndexValue].setAttribute('open', '')
+      if (this.isRestoreParams && previousValue !== undefined) {
+        setTimeout(() => {
+          this.tabIndexValue = this.restoreIndexParams
+        }, this.restoreTimeoutParams)
+      }
     }
   }
 
