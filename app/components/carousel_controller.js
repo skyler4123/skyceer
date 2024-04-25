@@ -8,13 +8,10 @@ export default class CarouselController extends ApplicationController {
   }
 
   init() {
-    // super.initialize()
     this.initTarget()
-    // this.initializeComplete()
   }
 
   initParams() {
-    // super.initializeParams()
     this.setParams({name: 'type', defaultValue: "default"})
     this.setParams({name: 'isInfinityScroll', defaultValue: true})
 
@@ -26,7 +23,6 @@ export default class CarouselController extends ApplicationController {
     })
   }
   initAction() {
-    // super.initializeAction()
     this.element.dataset.action = (this.element.dataset.action || "") + ` wheel->${this.identifier}#scroll:passive`
     if (this.hasTimeIntervalParams) {
       this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeIntervalParams)
@@ -110,9 +106,7 @@ export default class CarouselController extends ApplicationController {
     clearInterval(previousValue)
   }
 
-  // get type() {
-  //   return this.paramsValue.type || 'default'
-  // }
+
   get typeClass() {
     return {
       default: {
@@ -121,17 +115,6 @@ export default class CarouselController extends ApplicationController {
       }
     }
   }
-  // get isInfinityScroll() {
-  //   if (this.paramsValue.isInfinityScroll === undefined) {
-  //     return true
-  //   } else {
-  //     return this.paramsValue.isInfinityScroll
-  //   }
-  // }
-  // get timeInterval() {
-  //   return this.paramsValue.timeInterval
-  // }
-
 
 
 }

@@ -207,11 +207,13 @@ export default class ApplicationController extends Controller {
   }
 
   isOpenValueChanged(value, previousValue) {
-    if (this.isOpenValue) {
-      this.element.setAttribute('open', '')
-    } else {
-      this.element.removeAttribute('open')
-    }
+    this.startViewTransition(() => {
+      if (this.isOpenValue) {
+        this.element.setAttribute('open', '')
+      } else {
+        this.element.removeAttribute('open')
+      }
+    })
   }
 
   toggleDispatch(event) {

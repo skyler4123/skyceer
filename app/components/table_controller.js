@@ -9,14 +9,11 @@ export default class TableController extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initHTML()
     this.initValue()
-    // this.initComplete()
   }
 
   initParams() {
-    // super.initParams()
     this.setParams({name: 'head', defaultValue: ['header 1', 'header 2', 'header 3']})
     this.setParams({name: 'body', defaultValue: [['1','2','3'], ['4','5','6'], ['7','8','9']]})
   }
@@ -30,7 +27,6 @@ export default class TableController extends ApplicationController {
     this.bodyValue = this.bodyParams
   }
 
-  // Demo HTML sample
   get typeHTML() {
     return `
       <thead class="${this.headClass}" data-${this.identifier}-target="head">
@@ -104,34 +100,4 @@ export default class TableController extends ApplicationController {
     })
   }
 
-  // get head() {
-  //   return this.paramsValue.head || this.defaultHead
-  // }
-  // get defaultHead() {
-  //   return ['header 1', 'header 2', 'header 3']
-  // }
-  // get body() {
-  //   return this.paramsValue.body || this.defaultBody
-  // }
-  // get defaultBody() {
-  //   return [['1','2','3'], ['4','5','6'], ['7','8','9']]
-  // }
-  // get headClass() {
-  //   return this.paramsValue.headClass || ''
-  // }
-  // get headTrClass() {
-  //   return this.paramsValue.headTrClass || ''
-  // }
-  // get hClass() {
-  //   return this.paramsValue.hClass || ''
-  // }
-  // get bodyClass() {
-  //   return this.paramsValue.bodyClass || ''
-  // }
-  // get bodyTrClass() {
-  //   return this.paramsValue.bodyTrClass || ''
-  // }
-  // get dClass() {
-  //   return this.paramsValue.dClass || ''
-  // }
 }

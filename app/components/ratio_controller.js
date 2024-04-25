@@ -8,15 +8,12 @@ export default class RatioController extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initValue()
     this.initHTML()
     this.initTarget()
-    // this.initComplete()
   }
   
   initParams() {
-    // super.initParams()
     this.setParams({name: 'ratio', defaultValue: 50})
     this.setParams({name: 'isReverse', defaultValue: false})
     this.setParams({name: 'isShowRatio', defaultValue: false})
@@ -39,16 +36,6 @@ export default class RatioController extends ApplicationController {
     })
   }
 
-  // initializeClass() {
-  //   if (this.type === 'progressBar') {
-  //     this.element.className = this.twMerge(this.element.className, this.typeClass.progressBar.klass, this.klass)
-  //     this.ratioTarget.className = this.twMerge(this.ratioTarget.className, this.typeClass.progressBar.ratioClass, this.ratioClass)
-  //     return
-  //   }
-  //   super.initializeClass()
-  // }
-
-
   ratioValueChanged(value, previousValue) {
     if (previousValue === undefined || previousValue === '') { return }
     let ratio
@@ -66,22 +53,7 @@ export default class RatioController extends ApplicationController {
   changeRatio(event) {
     this.ratioValue = event.value
   }
-
-  // get ratioClass() {
-  //   return this.paramsValue.ratioClass
-  // }
-  // get ratio() {
-  //   return this.paramsValue.ratio || 50
-  // }
-  // get isReverse() {
-  //   return this.paramsValue.isReverse || false
-  // }
-  // get isShowRatio() {
-  //   return this.paramsValue.isShowRatio
-  // }
-  // get orientation() {
-  //   return this.paramsValue.orientation || "vertical"
-  // }
+  
   get typeHTML() {
     return {
       progressBar: `

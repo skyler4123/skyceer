@@ -6,13 +6,10 @@ export default class VideoController extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initHTML()
-    // this.initComplete()
   }
 
   initParams() {
-    // super.initParams()
     this.setParams({name: 'type', defaultValue: 'video/mp4'})
     this.setParams({name: 'isControl', defaultValue: true})
     this.setParams({name: 'isAutoplay', defaultValue: false})
@@ -25,7 +22,6 @@ export default class VideoController extends ApplicationController {
   }
 
   initAction() {
-    // super.initAction()
     if (this.hasIsControlParams && this.isControllParams) {
       this.element.setAttribute('controls', '')
     }
@@ -44,27 +40,7 @@ export default class VideoController extends ApplicationController {
       }
     }
   }
-  // get videoClass() {
-  //   return this.paramsValue.videoClass
-  // }
-  // get isControl() {
-  //   return this.paramsValue.isControl || true
-  // }
-  // get isAutoplay() {
-  //   return this.paramsValue.isAutoplay || false
-  // }
-  // get isMuted() {
-  //   return this.paramsValue.isMuted || false
-  // }
-  // get src() {
-  //   return this.paramsValue.src
-  // }
-  // get url() {
-  //   return this.paramsValue.url || this.src || 'https://flowbite.com/docs/videos/flowbite.mp4'
-  // }
-  // get type() {
-  //   return this.paramsValue.type || 'video/mp4'
-  // }
+
   get typeHTML() {
     return `
       <source src="${this.urlParams}" type="${this.typeParams}">

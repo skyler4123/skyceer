@@ -8,13 +8,10 @@ export default class TabController extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initTarget()
-    // this.initComplete()
   }
 
   initParams() {
-    // super.initParams()
     this.setParams({name: 'type', defaultValue: 'default'})
     this.setParams({name: 'isRestore', defaultValue: false})
     this.setParams({name: 'restoreIndex', defaultValue: 0})
@@ -28,7 +25,6 @@ export default class TabController extends ApplicationController {
   }
 
   initAction() {
-    // super.initAction()
     this.addAction(this.element, `click->${this.identifier}#tabNext`)
   }
 
@@ -87,9 +83,6 @@ export default class TabController extends ApplicationController {
     })
   }
 
-  // get type() {
-  //   return this.paramsValue.type || 'default'
-  // }
   get typeClass() {
     return {
       default: {
@@ -101,16 +94,5 @@ export default class TabController extends ApplicationController {
   get maxIndex() {
     return this.tabTargets.length - 1
   }
-  // get isRestore() {
-  //   if (typeof this.paramsValue.restoreIndex != "undefined" || typeof this.paramsValue.restoreTimeout != "undefined") {
-  //     return true
-  //   }
-  //   return this.paramsValue.isRestore
-  // }
-  // get restoreIndex() {
-  //   return this.paramsValue.restoreIndex || 0
-  // }
-  // get restoreTimeout() {
-  //   return this.paramsValue.restoreTimeout || 5000
-  // }
+
 }

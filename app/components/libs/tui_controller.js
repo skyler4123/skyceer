@@ -11,10 +11,8 @@ export default class Tui extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initValue()
     this.initCalendar()
-    // this.initComplete()
   }
 
   initValue() {
@@ -190,12 +188,7 @@ export default class Tui extends ApplicationController {
       }
     ]
   }
-  // get overideOptions() {
-  //   return this.paramsValue.overideOptions
-  // }
-  // get options() {
-  //   return this.paramsValue.options || this.defaultOptions
-  // }
+
   get defaultOptions() {
     return {
       defaultView: 'month',

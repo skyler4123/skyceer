@@ -9,21 +9,12 @@ export default class Pincode extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initHTML()
-    // this.initAction()
-    // this.initClass()
-
-    // this.initComplete()
   }
 
   initHTML() {
     this.element.innerHTML = this.typeHTML
   }
-
-  // initClass() {
-  //   this.element.className = this.twMerge(this.element.className, this.klass)
-  // }
 
   keyup(event) {
     if (event.code === 'Backspace') {
@@ -82,9 +73,7 @@ export default class Pincode extends ApplicationController {
       </div>
     `
   }
-  // get klass() {
-  //   return this.paramsValue.klass || 'flex flex-row gap-x-3'
-  // }
+
   get maxIndex() {
     return this.cellTargets.length - 1
   }
@@ -94,7 +83,5 @@ export default class Pincode extends ApplicationController {
   get currentCell() {
     return this.cellTargets[this.indexValue]
   }
-  // get name() {
-  //   return this.paramsValue.name
-  // }
+
 }

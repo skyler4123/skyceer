@@ -8,13 +8,10 @@ export default class PopoverController extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initHTML()
-    // this.initComplete()
   }
 
   initParams() {
-    // super.initParams()
     this.setParams({name: 'position', defaultValue: ['outside', 'bottomCenter']})
     this.setParams({name: 'isShowAfterInitialize', defaultValue: false})
   }
@@ -27,20 +24,6 @@ export default class PopoverController extends ApplicationController {
     }
   }
 
-  // initializeClass() {
-  //   this.mergeClass(this.element, this.positionClass[this.insideOrOutside][this.position])
-  //   super.initializeClass()
-  // }
-
-  // get isShowAfterInitialize() {
-  //   return false
-  // }
-  // get insideOrOutside() {
-  //   return this.paramsValue.insideOrOutside || 'outside'
-  // }
-  // get position() {
-  //   return this.paramsValue.position || ['outside', 'bottomCenter']
-  // }
   get positionClass() {
     return {
       outside: {

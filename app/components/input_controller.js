@@ -15,10 +15,8 @@ export default class InputController extends ApplicationController {
   }
 
   init() {
-    // super.initialize()
     this.initHTML()
     this.initFormat()
-    // this.initializeComplete()
   }
 
   initHTML() {
@@ -72,7 +70,6 @@ export default class InputController extends ApplicationController {
   }
   
   initAction() {
-    // super.initializeAction()
     this.addAction(this.element, `input->${this.identifier}#input`)
   }
 
@@ -145,16 +142,6 @@ export default class InputController extends ApplicationController {
       this.clearLocal()    
     }
   }
-  // get variant() {
-  //   return this.paramsValue.variant || 'default'
-  // }
-  // get variantClass() {
-  //   return {
-  //     default: {
-  //       element: 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-  //     }
-  //   }
-  // }
   get typeClass() {
     return {
       text: {
@@ -167,27 +154,6 @@ export default class InputController extends ApplicationController {
     }
   }
 
-  // get formatOptions() {
-  //   return this.paramsValue.formatOptions
-  // }
-  // get isAutoSubmit() {
-  //   return this.paramsValue.isAutoSubmit
-  // }
-  // get autoSubmitUrl() {
-  //   return this.paramsValue.autoSubmitUrl
-  // }
-  // get payloadAutoSubmit() {
-  //   return this.paramsValue.payloadAutoSubmit
-  // }
-  // get httpMethodAutoSubmit() {
-  //   return this.paramsValue.httpMethodAutoSubmit
-  // }
-  // get setTimeoutAutoSubmit() {
-  //   return this.paramsValue.setTimeoutAutoSubmit
-  // }
-  // get setTimeoutAutoSubmitId() {
-  //   return this.paramsValue.setTimeoutAutoSubmitId
-  // }
   get rememberMeName() {
     return this.paramsValue.rememberMeName || 'rememberMe'
   }
@@ -209,114 +175,5 @@ export default class InputController extends ApplicationController {
   set isInitializedSyncFromLocal(value) {
     this.initializedSyncFromLocal = value
   }
-
-
-
-
-
-
-
-  // Attributes or input
-  // get accept() {
-  //   return this.paramsValue.accept
-  // }
-  // get alt() {
-  //   return this.paramsValue.alt
-  // }
-  // get autocomplete() {
-  //   return this.paramsValue.autocomplete
-  // }
-  // get autofocus() {
-  //   return this.paramsValue.autofocus
-  // }
-  // get checked() {
-  //   return this.paramsValue.checked
-  // }
-  // get dirname() {
-  //   return this.paramsValue.dirname
-  // }
-  // get disabled() {
-  //   return this.paramsValue.disabled
-  // }
-  // get form() {
-  //   return this.paramsValue.form
-  // }
-  // get formaction() {
-  //   return this.paramsValue.formaction
-  // }
-  // get formenctype() {
-  //   return this.paramsValue.formenctype
-  // }
-  // get formmethod() {
-  //   return this.paramsValue.formmethod
-  // }
-  // get formnovalidate() {
-  //   return this.paramsValue.formnovalidate
-  // }
-  // get formtarget() {
-  //   return this.paramsValue.formtarget
-  // }
-  // get height() {
-  //   return this.paramsValue.height
-  // }
-  // get list() {
-  //   return this.paramsValue.list
-  // }
-  // get max() {
-  //   return this.paramsValue.max
-  // }
-  // get maxlength() {
-  //   return this.paramsValue.maxlength
-  // }
-  // get min() {
-  //   return this.paramsValue.min
-  // }
-  // get minlength() {
-  //   return this.paramsValue.minlength
-  // }
-  // get multiple() {
-  //   return this.paramsValue.multiple
-  // }
-  // get name() {
-  //   return this.paramsValue.name
-  // }
-  // get pattern() {
-  //   return this.paramsValue.pattern
-  // }
-  // get placeholder() {
-  //   return this.paramsValue.placeholder
-  // }
-  // get popovertarget() {
-  //   return this.paramsValue.popovertarget
-  // }
-  // get popovertargetaction() {
-  //   return this.paramsValue.popovertargetaction
-  // }
-  // get readonly() {
-  //   return this.paramsValue.readonly
-  // }
-  // get required() {
-  //   return this.paramsValue.required
-  // }
-  // get size() {
-  //   return this.paramsValue.size
-  // }
-  // get src() {
-  //   return this.paramsValue.src
-  // }
-  // get step() {
-  //   return this.paramsValue.step
-  // }
-  // get type() {
-  //   return this.paramsValue.type || 'text'
-  // }
-  // get value() {
-  //   return this.paramsValue.value
-  // }
-  // get width() {
-  //   return this.paramsValue.width
-  // }
-
-
 
 }

@@ -8,12 +8,9 @@ export default class Apex extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initStylesheet()
     this.initValue()
     this.initChart()
-
-    // this.initComplete()
   }
 
   initStylesheet() {}
@@ -26,8 +23,6 @@ export default class Apex extends ApplicationController {
     this.chart = new ApexCharts(this.element, this.options);
     this.chart.render();
   }
-
-  // initAction() {}
 
   seriesValueChanged(value, previousValue) {
     this.chart.updateSeries(this.seriesValue)

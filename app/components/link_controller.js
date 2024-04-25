@@ -6,13 +6,10 @@ export default class LinkController extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initHTML()
-    // this.initComplete()
   }
 
   initParams() {
-    // super.initParams()
     this.setParams({name: 'url', defaultValue: '/#'})
   }
 
@@ -25,9 +22,6 @@ export default class LinkController extends ApplicationController {
     window.navigator.clipboard.writeText(this.urlParams)
   }
 
-  // get url() {
-  //   return this.paramsValue.url || '/#'
-  // }
   get variantClass() {
     return {
       default: {

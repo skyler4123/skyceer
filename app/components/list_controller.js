@@ -8,13 +8,10 @@ export default class ListController extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initTarget()
-    // this.initComplete()
   }
 
   initParams() {
-    // super.initParams()
     this.setParams({name: 'sort', defaultValue: true})
   }
 
@@ -25,7 +22,6 @@ export default class ListController extends ApplicationController {
   }
 
   initAction() {
-    // super.initAction()
     if (this.hasSortParams) {
       Sortable.create(this.element, this.sortParams)
     }
@@ -39,13 +35,6 @@ export default class ListController extends ApplicationController {
       this.liTarget.removeAttribute('open')
     }
   }
-
-  // get isSortable() {
-  //   if (this.sortableOptions || this.paramsValue.isSortable) { return true }
-  // }
-  // get sortableOptions() {
-  //   return this.paramsValue.sortableOptions
-  // }
 
 
 }

@@ -6,21 +6,13 @@ export default class MockupController extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initHTML()
-    // this.initComplete()
   }
 
   initHTML() {
     this.element.innerHTML = this.typeHTML[this.deviceNameParams || this.nameParams || "iphone-12"]
   }
 
-  // get name() {
-  //   return this.paramsValue.name
-  // }
-  // get deviceName() {
-  //   return this.paramsValue.deviceName
-  // }
   get typeHTML() {
     return {
       'iphone-12': `

@@ -6,13 +6,10 @@ export default class IconController extends ApplicationController {
   }
 
   init() {
-    // super.initialize()
     this.initHTML()
-    // this.initializeComplete()
   }
 
   initParams() {
-    // super.initializeParams()
     this.setParams({name: 'type', defaultValue: 'outline'})
     this.setParams({name: 'name', defaultValue: 'star'})
   }
@@ -21,12 +18,6 @@ export default class IconController extends ApplicationController {
     this.mergeElementWithHTML(this.element, this.typeHTML[this.typeParams][this.nameParams])
   }
 
-  // get type() {
-  //   return this.paramsValue.type || "outline"
-  // }
-  // get name() {
-  //   return this.paramsValue.name || "star"
-  // }
   get typeHTML() {
     return {
       animation: {

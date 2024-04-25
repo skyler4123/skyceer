@@ -6,13 +6,10 @@ export default class ImgController extends ApplicationController {
   }
 
   init() {
-    // super.initialize()
     this.initHTML()
-    // this.initializeComplete()
   }
 
   initParams() {
-    // super.initializeParams()
     this.setParams({name: 'src', defaultValue: 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg'})
     this.setParams({name: 'url', defaultValue: this.srcParams})
   }
@@ -33,13 +30,4 @@ export default class ImgController extends ApplicationController {
       }
     }
   }
-  // get src() {
-  //   return this.paramsValue.src
-  // }
-  // get url() {
-  //   return this.paramsValue.url || this.src || 'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg'
-  // }
-  // get alt() {
-  //   return this.paramsValue.alt
-  // }
 }

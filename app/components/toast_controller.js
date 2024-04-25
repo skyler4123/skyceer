@@ -5,25 +5,11 @@ export default class ToastController extends ApplicationController {
     ...super.values,
   }
 
-  // init() {
-  //   super.init()
-  //   this.initComplete()
-  // }
-
   initParams() {
-    // super.initParams()
     this.setParams({name: 'type', defaultValue: 'default'})
     this.setParams({name: 'position', defaultValue: 'left'})
   }
 
-  // initClass() {
-    // this.mergeClass(this.element, this.positionClass[this.position])
-    // super.initClass()
-  // }
-
-  // get type() {
-  //   return this.paramsValue.type || 'default'
-  // }
   get typeClass() {
     return {
       default: {
@@ -31,9 +17,7 @@ export default class ToastController extends ApplicationController {
       }
     }
   }
-  // get position() {
-  //   return this.paramsValue.position || 'left'
-  // }
+
   get positionClass() {
     return {
       'left': {

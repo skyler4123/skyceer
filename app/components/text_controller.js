@@ -11,14 +11,11 @@ export default class TextController extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initValue()
     this.initHTML()
-    // this.initComplete()
   }
 
   initParams() {
-    // super.initParams()
     this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
     this.setParams({name: 'language', defaultValue: 'english'})
     this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
@@ -36,7 +33,6 @@ export default class TextController extends ApplicationController {
       this.element.innerHTML = this.typeHTML.code
       this.codeTarget.textContent = this.labelValue
       this.element.insertAdjacentHTML('beforeend', this.typeHTML.copyCode)
-      // hljs.highlightElement(this.codeTarget)
     } else {
       this.element.innerText = this.labelValue
     }
@@ -86,15 +82,6 @@ export default class TextController extends ApplicationController {
     this.labelValue = Number(this.labelValue) - (Number(event.value) || 1)
   }
 
-  // get codeLanguage() {
-  //   return this.paramsValue.codeLanguage || 'erb'
-  // }
-  // get language() {
-  //   return this.paramsValue.language || this.defaultLanguage
-  // }
-  // get defaultLanguage() {
-  //   return 'english'
-  // }
   get languageKey() {
     return this.paramsValue.languageKey || this.defaultLanguageKey
   }

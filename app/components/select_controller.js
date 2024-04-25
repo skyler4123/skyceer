@@ -8,9 +8,7 @@ export default class SelectController extends ApplicationController {
   }
 
   init() {
-    // super.init()
     this.initTarget()
-    // this.initComplete()
   }
 
   initTarget() {
@@ -25,7 +23,6 @@ export default class SelectController extends ApplicationController {
   }
 
   initAction() {
-    // super.initAction()
     this.addAction(this.element, `change->${this.identifier}#change`)
   }
 
@@ -33,10 +30,4 @@ export default class SelectController extends ApplicationController {
     this.selectValue = this.element.value
   }
 
-  // get optionClass() {
-  //   return this.paramsValue.optionClass || ''
-  // }
-  // get defaultOptionClass() {
-  //   return this.paramsValue.defaultOptionClass || this.optionClass
-  // }
 }

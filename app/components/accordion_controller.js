@@ -6,18 +6,10 @@ export default class AccordionController extends ApplicationController {
     ...super.values,
   }
 
-  // initialize() {
-  //   super.initialize()
-  //   this.initializeComplete()
-  // }
-
   initParams() {
-    // super.initializeParams()
     this.setParams({name: 'type', defaultValue: 'vertical'})
   }
-  // get type() {
-  //   return this.typeParams || 'vertical'
-  // }
+
   get typeClass() {
     return {
       vertical: {
