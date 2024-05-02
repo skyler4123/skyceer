@@ -14,21 +14,22 @@ import ApplicationController from './application_controller'
 export default class extends ApplicationController {
   static targets = ['text', 'input']
 
+  initParams() {
+    this.setParams({name: 'type', defaultValue: 'default'})
+  }
+
   init() {
-    // super.init()
     this.initTarget()
-    // this.initComplete()
     useClickOutside(this, { element: this.inputTarget })
   }
 
   initTarget() {
-    this.textControllerElement.setAttribute(`data-${this.identifier}-target`, 'text')
-    this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
+    this.textController.element.setAttribute(`data-${this.identifier}-target`, 'text')
+    this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
 
   initAction() {
-    // super.initAction()
     this.addAction(this.inputTarget, `click->${this.identifier}#click`)
   }
 
@@ -53,10 +54,6 @@ export default class extends ApplicationController {
     }
   }
   
-
-  get type() {
-    return this.paramsValue.type || 'default'
-  }
   get typeClass() {
     return {
       default: {
@@ -66,16 +63,12 @@ export default class extends ApplicationController {
       }
     }
   }
+  
   get textController() {
-    return this.findController('text')
+    return this.getChildrenControllerFromIdentifier('text')
   }
   get inputController() {
-    return this.findController('input')
+    return this.getChildrenControllerFromIdentifier('input')
   }
-  get textControllerElement() {
-    return this.findControllerElement('text')
-  }
-  get inputControllerElement() {
-    return this.findControllerElement('input')
-  }
+
 }

@@ -4,22 +4,13 @@ import ApplicationController from '../../javascript/controllers/application_cont
 export default class Apex extends ApplicationController {
   static values = {
     ...super.values,
-    series: { type: Array }
   }
 
-  init() {
-    this.initStylesheet()
-    this.initValue()
-    this.initChart()
+  initParams() {
+    this.setParams({name: 'variant', defaultValue: 'default'})
   }
 
-  initStylesheet() {}
-  
-  initValue() {
-    this.seriesValue = this.series
-  }
-
-  initChart() {
+  connect() {
     this.chart = new ApexCharts(this.element, this.options);
     this.chart.render();
   }
@@ -56,6 +47,13 @@ export default class Apex extends ApplicationController {
     }
   }
 
+  get variantClass() {
+    return {
+      default: {
+        element: 'w-full'
+      }
+    }
+  }
 }
 
 

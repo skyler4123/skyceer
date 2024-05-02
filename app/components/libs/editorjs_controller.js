@@ -9,23 +9,27 @@ import Checklist from '@editorjs/checklist';
 import Embed from '@editorjs/embed';
 import Quote from '@editorjs/quote';
 import Table from '@editorjs/table';
-import { Controller } from "@hotwired/stimulus";
+import ApplicationController from '../../javascript/controllers/application_controller';
 
-export default class Editorjs extends Controller {
-  static targets = ["editor"]
+export default class Editorjs extends ApplicationController {
+  static targets = ["holder"]
   static values = {
-    recordId: String,
-    recordType: String,
-    imageEndpointByFile: String,
-    imageEndpointByUrl: String,
-    editor: Object
+    ...super.values,
+  }
+  initParams() {
+    this.setParams({name: 'variant', defaultValue: 'default'})
+  }
+
+  get variantClass() {
+    return {
+      default: {
+        element: 'w-full h-[350px]'
+      }
+    }
   }
   connect() {
-    // console.log("Hello, Stimulus!", this.element);
-  }
-  initialize() {
     this.editorJS = new EditorJS({
-      holder: this.editorTarget.id,
+      holder: this.holderTarget,
       autofocus: true,
       tools: {
         header: {
@@ -43,15 +47,15 @@ export default class Editorjs extends Controller {
           class: ImageTool,
           config: {
             endpoints: {
-              byFile: this.imageEndpointByFileValue, // Your backend file uploader endpoint
-              byUrl: this.imageEndpointByUrlValue, // Your endpoint that provides uploading by Url
+              byFile: this.imageEditorjsByFileParams, // Your backend file uploader endpoint
+              byUrl: this.imageEditorjsByUrlParams, // Your endpoint that provides uploading by Url
             },
             additionalRequestHeaders: {
-              'X-CSRF-Token': this.csrfToken()
+              'X-CSRF-Token': this.csrfToken
             },
             additionalRequestData: {
-              record_id: this.recordIdValue,
-              record_type: this.recordTypeValue,
+              record_id: this.recordIdParams,
+              record_class: this.recordClassParams,
             }
           }
         },
@@ -75,26 +79,25 @@ export default class Editorjs extends Controller {
         table: Table,
       }
     });
-    if (!this.recordIdValue) { 
-      this.recordIdValue = crypto.randomUUID()
-      this.formParent().prepend(this.inputId())
-    }
+    // if (!this.recordIdValue) { 
+    //   this.recordIdValue = crypto.randomUUID()
+    //   this.formParent().prepend(this.inputId())
+    // }
   }
-  csrfToken() {
-    return document.querySelector('meta[name="csrf-token"]').content
-  }
-  formParent() {
-    return this.element.closest("form")
-  }
-  inputId() {
-    let inputId = document.createElement("input");
-    inputId.setAttribute("name", `${this.recordTypeValue}[id]`)
-    inputId.setAttribute("type", "hidden")
-    inputId.setAttribute("value", this.recordIdValue)
-    return inputId
-  }
+
+
+  // formParent() {
+  //   return this.element.closest("form")
+  // }
+  // inputId() {
+  //   let inputId = document.createElement("input");
+  //   inputId.setAttribute("name", `${this.recordTypeValue}[id]`)
+  //   inputId.setAttribute("type", "hidden")
+  //   inputId.setAttribute("value", this.recordIdValue)
+  //   return inputId
+  // }
   save() {
-    console.log("Hello, Stimulus!", this.editorJS);
+    // console.log("Hello, Stimulus!", this.editorJS);
     this.editorJS.save().then(outputData => {
       console.log(outputData)
     }).catch(error => {

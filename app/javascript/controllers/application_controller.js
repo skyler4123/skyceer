@@ -1,22 +1,37 @@
-import * as Helpers from "./helpers"
-import * as DomHelpers from "./dom_helpers"
 import Api from "./api"
 import "axios";
 import { v4 as uuidv4 } from "uuid"
-import { twMerge } from 'tailwind-merge'
 import { Controller } from "@hotwired/stimulus"
+import DataHelpers from "./data_helpers";
+import DomHelpers from "./dom_helpers";
+import DispatchHelpers from "./dispatch_helpers";
+import ControllerHelpers from "./controller_helpers";
 
 export default class ApplicationController extends Controller {
+
   static values = {
     params: { type: Object },
     isOpen: { type: Boolean },
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
-    isHover: { type: Boolean }
+    isHover: { type: Boolean },
+    isInitialized: { type: Boolean, default: false },
   }
-  initialize() {
+
+  initialize({isPreviousControllerInitialized = false} = {}) {
+    if (!this.canInitialize(isPreviousControllerInitialized)) { return }
+    if (this.isBasicController) {
+      this.functionsForInitialize()
+    } else {
+      setTimeout(() => {
+        this.functionsForInitialize()
+      }, 0)
+    }
+
+  }
+
+  functionsForInitialize() {
     this.paramsValue = this.camelizeParamsValue(this.paramsValue)
-    this.initializeController()
     this.initializeParams()
     if (this.isFirstController) {
       this.initializeID()
@@ -26,10 +41,76 @@ export default class ApplicationController extends Controller {
     this.initializeComplete()
   }
 
+  canInitialize(isPreviousControllerInitialized) {
+    if (this.isFirstController) { return true }
+    if (isPreviousControllerInitialized) { return true }
+    return false
+  }
+
+  initializeController() {
+    this.element.dataset.controller = this.element.dataset.controller.trim()
+  }
+
+  initializeParams() {
+    Object.keys(this.paramsValue).forEach(key => {
+      this.setParams({name: key})
+    })
+    if (this.isDefined(this.initParams)) { this.initParams() }
+  }
+
+  initializeID() {
+    if (!this.element.id) {
+      this.element.id = `${this.identifier}:${this.newUUID}`
+    }
+  }
+  initializeDir() {
+    if (this.hasDirParams) {
+      this.element.setAttribute('dir', this.dirParams)
+    }
+  }
+
   initializeComplete() {
     this.initializeClass()
     this.initializeAction()
     this.initializeShow()
+    this.isInitializedValue = true
+  }
+
+  isInitializedValueChanged(value, previousValue) {
+    if (this.isInitializedValue) {
+      if (!this.isLastController) {
+        this.initializeNextController()
+      }
+    }
+  }
+
+  get getBasicControllerIdentifiers() {
+    return [
+      'accordion',
+      'box',
+      'button',
+      'carousel',
+      'hr',
+      'icon',
+      'img',
+      'input',
+      'link',
+      'list',
+      'mockup',
+      'modal',
+      'popover',
+      'ratio',
+      'select',
+      'skeleton',
+      'tab',
+      'table',
+      'text',
+      'toast',
+      'video'
+    ]
+  }
+  get isBasicController() {
+    return this.getBasicControllerIdentifiers.includes(this.identifier)
   }
 
   initializeShow() {
@@ -45,9 +126,9 @@ export default class ApplicationController extends Controller {
   }
 
   initializeClass() {
-    this.initializeTypeClass()
     this.initializeVariantClass()
     this.initializePositionClass()
+    this.initializeTypeClass()
     this.initializeCustomClass()
   }
 
@@ -122,12 +203,6 @@ export default class ApplicationController extends Controller {
     })
   }
 
-  initializeParams() {
-    Object.keys(this.paramsValue).forEach(key => {
-      this.setParams({name: key})
-    })
-    if (this.isDefined(this.initParams)) { this.initParams() }
-  }
   setParams({name, defaultValue}) {
     this[`${name}Params`] = this.paramsValue[name] || defaultValue
     this[`has${this.toPascalCase(name)}Params`] = true
@@ -135,20 +210,6 @@ export default class ApplicationController extends Controller {
 
   connect() {
     if (this.isTestParams) { console.log(this) }
-  }
-  initializeID() {
-    if (!this.element.id) {
-      this.element.id = `${this.identifier}:${this.newUUID}`
-    }
-  }
-  initializeDir() {
-    if (this.hasDirParams) {
-      this.element.setAttribute('dir', this.dirParams)
-    }
-  }
-
-  initializeController() {
-    this.element.dataset.controller = this.element.dataset.controller.trim()  
   }
 
   initializeAction() {
@@ -188,391 +249,40 @@ export default class ApplicationController extends Controller {
     if (this.isDefined(this.initAction)) { this.initAction() }
   }
 
-  eventHandler({ detail: { event } }) {
-    if (this.eventIdsParams.includes(event.id) && this.id !== event.controller.id) {
-      this[event.action](event)
-    }
-  }
-
-  toggle(event) {
-    this.isOpenValue = !this.isOpenValue
-  }
-
-  open() {
-    this.isOpenValue = true
-  }
-
-  close() {
-    this.isOpenValue = false
-  }
-
-  isOpenValueChanged(value, previousValue) {
-    this.startViewTransition(() => {
-      if (this.isOpenValue) {
-        this.element.setAttribute('open', '')
-      } else {
-        this.element.removeAttribute('open')
-      }
-    })
-  }
-
-  toggleDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('toggle'), controller: this } } })
-  }
-
-  openDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('open'), controller: this } } })
-  }
-
-  closeDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('close'), controller: this } } })
-  }
-
-  switchDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('switch'), controller: this } } })
-  }
-
-  tabDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tab'), controller: this } } })
-  }
-
-  copyLinkDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('copyLink'), controller: this } } })
-  }
-
-  copyTextDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('copyText'), controller: this } } })
-  }
-
-  scrollBackDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('scrollBack'), controller: this } } })
-  }
-
-  scrollForwardDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('scrollForward'), controller: this } } })
-  }
-
-  scrollForwardAutoDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('scrollForwardAuto'), controller: this } } })
-  }
-
-  rotateDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('rotate'), controller: this } } })
-  }
-
-  changeRatioDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('changeRatio'), controller: this } } })
-  }
-
-  tabDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tab'), controller: this } } })
-  }
-
-  tabNextDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tabNext'), controller: this } } })
-  }
-
-  tabBackDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tabBack'), controller: this } } })
-  }
-
-  tabFirstDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tabFirst'), controller: this } } })
-  }
-
-  tabLastDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('tabLast'), controller: this } } })
-  }
-
-  toggleRememberMeDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('toggleRememberMe'), controller: this } } })
-  }
-
-  increaseDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('increase'), controller: this } } })
-  }
-
-  decreaseDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('decrease'), controller: this } } })
-  }
-
-  ratingDispatch(event) {
-    this.dispatch('dispatch', { detail: { event: { ...this.getEventWithAction('rating'), controller: this } } })
-  }
-
-  camelizeParamsValue(object) {
-    return Helpers.camelizeParamsValue(object)
-  }
-
-  camelCaseForObjectKey(object, except) {
-    return Helpers.camelCaseForObjectKey(object, except)
-  }
-
-  camelCaseForObjectKeyAndValue(object, except) {
-    return Helpers.camelCaseForObjectKeyAndValue(object, except)
-  }
-
-  snakeCaseForObjectKey(object, except) {
-    return Helpers.snakeCaseForObjectKey(object, except)
-  }
-
-  snakeCaseForObjectKeyAndValue(object, except) {
-    return Helpers.snakeCaseForObjectKeyAndValue(object, except)
-  }
-
-  camelCaseForArray(array, exceptIndex) {
-    return Helpers.camelCaseForArray(array, exceptIndex)
-  }
-
-  snakeCaseForArray(array, exceptIndex) {
-    return Helpers.snakeCaseForArray(array, exceptIndex)
-  }
-
-  toSnakeCase(string) {
-    return Helpers.toSnakeCase(string)
-  }
-
-  toCamelCase(string) {
-    return Helpers.toCamelCase(string)
-  }
-
-  toPascalCase(string) {
-    return Helpers.toPascalCase(string)
-  }
-
-  toKebabCase(string) {
-    return Helpers.toKebabCase(string)
-  }
-  toTitleCase(string) {
-    return Helpers.toTitleCase(string)
-  }
-  toSentenceCase(string) {
-    return Helpers.toSentenceCase(string)
-  }
-  convertCase(string, toCase = 'camel') {
-    return Helpers.convertCase(string, toCase)
-  }
-
-  twMerge(...args) {
-    return twMerge(...args)
-  }
-
-  changeObjectKey(object, oldKey, newKey) {
-    return Helpers.changeObjectKey(object, oldKey, newKey)
-  }
-
-  deleteObjectKey(object, condition) {
-    return Helpers.deleteObjectKey(object, condition)
-  }
-
-  objectOnlyKeys(object, keys) {
-    return Helpers.objectOnlyKeys(object, keys)
-  }
-
-  isObject(x) {
-    return Helpers.isObject(x)
-  }
-
-  isObjectEmpty(object) {
-    return Helpers.isObjectEmpty(object)
-  }
-
-  isString(x) {
-    return Helpers.isString(x)
-  }
-
-  isDefined(x) {
-    return Helpers.isDefined(x)
-  }
-
-  isUndefined(x) {
-    return Helpers.isUndefined(x)
-  }
-
-  isArray(x) {
-    return Helpers.isArray(x)
-  }
-
-  getKeyEndWith(object, string) {
-    return Helpers.getKeyEndWith(object, string)
-  }
-  isArrayHasNull(array) {
-    return Helpers.isArrayHasNull(array)
-  }
-  isArraytNull(array) {
-    return Helpers.isArraytNull(array)
-  }
-  isObjectHasNull(object) {
-    return Helpers.isObjectHasNull(object)
-  }
-  isObjectNull(object) {
-    return Helpers.isObjectNull(object)
-  }
-  getChildObjectByKeys(object, keys) {
-    return Helpers.getChildObjectByKeys(object, keys)
-  }
-  sortNumberArray(array) {
-    return Helpers.sortNumberArray(array)
-  }
-  sortReverseNumberArray(array) {
-    return Helpers.sortReverseNumberArray(array)
-  }
-
   initializeNextController() {
-    this.nextController.init()
-  }
-
-  findController(controllerName) {
-    const controllerElement = this.findControllerElement(controllerName)
-    if (controllerElement) {
-      let controller = this.application.getControllerForElementAndIdentifier(controllerElement, controllerName)
-      if (!controller) {
-        controller = this.application.getControllerForElementAndIdentifier(controllerElement, `${controllerName}-component`)
-      }
-      return controller
-    }
-  }
-
-  findControllers(controllerName) {
-    const controllerElements = this.findControllerElements(controllerName)
-    let controllers = []
-    if (controllerElements.length > 0) {
-      controllers = Array.from(controllerElements).map((element) => this.application.getControllerForElementAndIdentifier(element, controllerName))
-      if (this.isArraytNull(controllers)) {
-        controllers = Array.from(controllerElements).map((element) => {
-          return this.application.getControllerForElementAndIdentifier(element, `${controllerName}-component`)
-        })
-      }
-      return controllers
-    }
-  }
-
-  findControllerElement(controller) {
-    return this.element.querySelector(`[data-controller*="${controller}"]`)
-  }
-
-  findControllerElements(controller) {
-    return this.element.querySelectorAll(`[data-controller*="${controller}"]`)
-  }
-
-  addAction(element, action) {
-    if (this.isUndefined(element)) { return }
-    element.dataset.action = ((element.dataset.action || '') + ' ' + action).trim()
-  }
-
-  replaceAction(element, oldAction, newAction) {
-    if (this.isUndefined(element)) { return }
-
-    element.dataset.action = element.dataset.action.replace(oldAction, newAction).trim()
-  }
-
-  removeAction(element, action) {
-    if (this.isUndefined(element)) { return }
-
-    this.replaceAction(element, action, '')
-  }
-
-  mergeClass(element, klass) {
-    if (this.isUndefined(element)) { return }
-    if (element.tagName === 'svg') {
-      element.className.baseVal = this.twMerge(element.className.baseVal, klass)
+    if (this.nextController) {
+      this.nextController.initialize({isPreviousControllerInitialized: true})
     } else {
-      element.className = this.twMerge(element.className, klass)
+      this.intervalTime = 0
+      this.intervalId = setInterval(() => {
+        this.intervalTime += 1
+        if (this.intervalTime > 10) {
+          clearInterval(this.intervalId)
+          console.log('Can not find the controller! Are you sue it is correct controller?')
+          return
+        } 
+        this.nextController.initialize({isPreviousControllerInitialized: true})
+        clearInterval(this.intervalId)
+      }, 1000)  
     }
   }
 
-  removeClass(element, klass) {
-    if (this.isUndefined(element)) { return }
-
-    element.classList.remove(klass)
-  }
-
-  getAttributes(element) {
-    return DomHelpers.getAttributes(element)
-  }
-  
-  cloneAttributes(element, refElement) {
-    return DomHelpers.cloneAttributes(element, refElement)
-  }
-
-  createNodeFromHTML(html) {
-    return DomHelpers.createNodeFromHTML(html)
-  }
-
-  mergeElementWithHTML(element, html) {
-    const newNode = this.createNodeFromHTML(html).firstElementChild
-    this.cloneAttributes(element, newNode)
-    element.innerHTML = newNode.innerHTML
-  }
-
-  isEventBrowser(event) {
-    return !!event.target
-  }
-  isEventDispatch(event) {
-    return !this.isEventDispatch(event)
-  }
-
-  demo() {
-    console.log(this)
-  }
-  // get isOpen() {
-  //   return this.paramsValue.isOpen
-  // }
-  // get isFocus() {
-  //   return this.paramsValue.isFocus
-  // }
-  // get isActive() {
-  //   return this.paramsValue.isActive
-  // }
-  // get isHover() {
-  //   return this.paramsValue.isHover
-  // }
-  // get dir() {
-  //   return this.paramsValue.dir || false
-  // }
   get classParams() {
     return this.getKeyEndWith(this.paramsValue, 'lass')
   }
-  // get klass() {
-  //   return this.paramsValue.klass || ''
-  // }
 
-  // get labelClass() {
-  //   return this.paramsValue.labelClass || ''
-  // }
   get id() {
     return this.element.id
   }
-  // get label() {
-  //   return this.paramsValue.label
-  // }
-  // get hasLabel() {
-  //   return typeof this.label !== 'undefined'
-  // }
-  // get isTest() {
-  //   return this.paramsValue.isTest
-  // }
+  
   get eventParams() {
     return this.eventsParams[0]
   }
-  // get events() {
-  //   return this.paramsValue.events || [this.event].flat()
-  // }
-  // get action() {
-  //   return this.paramsValue.action || this.actions?.[0]
-  // }
-  // get actions() {
-  //   return this.paramsValue.actions
-  // }
+  
   get eventIdParams() {
     return  this.eventParams.id
   }
-  // get eventListener() {
-  //   return this.event.listener
-  // }
-  // get eventAction() {
-  //   return this.event.action
-  // }
+
   get eventIdsParams() {
     return this.eventsParams.map((event) => (event.id))
   }
@@ -582,57 +292,25 @@ export default class ApplicationController extends Controller {
   groupOfEvent(event) {
     return event.group || 'global'
   }
-  // isEventListener(event) {
-  //   return event && this.isDefined(this.event.id) && this.isUndefined(this.event.listener) && this.isUndefined(this.event.action)
-  // }
+
   isListenerEvent(event) {
     return event && this.isDefined(event.id) && this.isUndefined(event.listener) && this.isUndefined(event.action)
   }
   get listenerEvents() {
     return this.eventsParams.filter(event => this.isListenerEvent(event))
   }
-  // isEventTrigger(event) {
-  //   return this.isDefined(this.eventId) && this.isDefined(this.eventListener && this.isDefined(this.eventAction))
-  // }
+
   get triggerEvents() {
     return this.events.filter(event => this.isTriggerEvent(event))
   }
   isTriggerEvent(event) {
     return event && this.isDefined(event.id) && this.isDefined(event.listener) && this.isDefined(event.action)
   }
-  getEventWithAction(action) {
-    return this.eventsParams.find(event => event.action === action)
-  }
+
   get parentControllerElement() {
     return this.element.parentNode.closest('[data-controller]')
   }
-  // get isButtonComponentController() {
-  //   return this.identifier === 'button-component'
-  // }
-  // get parentButtonControllerElement() {
-  //   if (this.element.parentNode.closest('[data-controller]').dataset.controller.includes('button-component')) {
-  //     return this.element.parentNode.closest('[data-controller*="button-component"]')
-  //   } else {
-  //     return false
-  //   }
-  // }
-  // get parentButtonEventId() {
-  //   if (this.parentButtonControllerElement) {
-  //     return JSON.parse(this.parentButtonControllerElement.dataset.buttonComponentParamsValue).events[0].id
-  //   }
-  // }
-  // get label() {
-  //   return this.paramsValue.label
-  // }
-  // get type() {
-  //   return this.paramsValue.type
-  // }
-  // get color() {
-  //   return this.paramsValue.color
-  // }
-  // get variant() {
-  //   return this.paramsValue.variant
-  // }
+  
   get content() {
     return this.element.innerHTML
   }
@@ -665,12 +343,30 @@ export default class ApplicationController extends Controller {
     })
     return controllers
   }
+
+  get childrenControllerElements() {
+    return this.element.querySelectorAll('[data-controller]')
+  }
+
+  get childrenControllers() {
+    return Array.from(this.childrenControllerElements).map(element => {
+      return this.application.getControllerForElementAndIdentifier(element, this.getIdentifierFromElement(element))
+    })
+  }
+
+  
+
+  get hasChildrenController() {
+    return this.childrenControllerElements.length > 0
+  }
+
   get firstController() {
     return this.controllers[0]
   }
   get lastController() {
     return this.controllers[this.controllers.length - 1]
   }
+
   get controllerSize() {
     return this.controllerNames.length
   }
@@ -688,27 +384,19 @@ export default class ApplicationController extends Controller {
   }
 
   get isFirstController() {
-    return this.identifier === this.controllerNames[0]
+    return this.controllerIndex === 0
   }
 
   get isLastController() {
-    return this.identifier === this.controllerNames[this.controllerMaxIndex]
+    return this.controllerIndex === this.controllerMaxIndex
   }
 
   get nextController() {
-    if (this.controllerIndex === this.controllerMaxIndex) {
-      return null
-    } else {
-      return this.application.getControllerForElementAndIdentifier(this.element, this.controllerNames[this.controllerIndex + 1])
-    }
+    return this.controllers[this.controllerIndex + 1]
   }
   
   get previousController() {
-    if (this.controllerIndex === 0) {
-      return null
-    } else {
-      return this.application.getControllerForElementAndIdentifier(this.element, this.controllerNames[this.controllerIndex - 1])
-    }
+    return this.controllers[this.controllerIndex + 1]
   }
 
   get dataAction() {
@@ -730,9 +418,7 @@ export default class ApplicationController extends Controller {
   get isOverideClass() {
     return this.paramsValue.isOverideClass || false
   }
-  // get isShowAfterInitialize() {
-  //   return true
-  // }
+
   get isComponentController() {
     return this.identifier.endWith('-component')
   }
@@ -743,11 +429,10 @@ export default class ApplicationController extends Controller {
     return location.protocol
   }
 
-  startViewTransition(callback) {
-    if (document.startViewTransition) {
-      document.startViewTransition(() => callback())
-    } else {
-      callback()
-    }
-  }
 }
+
+Object.assign(ApplicationController.prototype, DataHelpers)
+Object.assign(ApplicationController.prototype, DomHelpers)
+Object.assign(ApplicationController.prototype, DispatchHelpers)
+Object.assign(ApplicationController.prototype, ControllerHelpers)
+

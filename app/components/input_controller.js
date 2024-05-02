@@ -69,9 +69,9 @@ export default class InputController extends ApplicationController {
     var cleave = new Cleave(this.element, this.formatParams);
   }
   
-  initAction() {
-    this.addAction(this.element, `input->${this.identifier}#input`)
-  }
+  // initAction() {
+  //   this.addAction(this.element, `input->${this.identifier}#input`)
+  // }
 
   input() {
     this.inputValue = this.element.value

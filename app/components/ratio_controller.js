@@ -8,9 +8,9 @@ export default class RatioController extends ApplicationController {
   }
 
   init() {
-    this.initValue()
     this.initHTML()
     this.initTarget()
+    this.initValue()
   }
   
   initParams() {
@@ -51,7 +51,7 @@ export default class RatioController extends ApplicationController {
   }
 
   changeRatio(event) {
-    this.ratioValue = event.value
+    this.ratioValue = event.payload.value
   }
   
   get typeHTML() {

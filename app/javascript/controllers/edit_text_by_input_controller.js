@@ -12,37 +12,41 @@ export default class EditTextByInput extends ApplicationController {
     ...super.values,
   }
 
-  init() {
-    this.initTarget()
-    // this.initComplete()  
+  initParams() {
+    this.setParams({name: 'type', defaultValue: 'default'})
   }
 
-  connect() {
-    super.connect()
+  init() {
+    this.initTarget()
     useClickOutside(this, { element: this.inputTarget })
   }
+
+  // connect() {
+  //   super.connect()
+  //   useClickOutside(this, { element: this.inputTarget })
+  // }
   
   initTarget() {
-    this.textControllerElement.setAttribute(`data-${this.identifier}-target`, 'text')
-    this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
+    this.textController.element.setAttribute(`data-${this.identifier}-target`, 'text')
+    this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
   initAction() {
-    this.textTarget.dataset.action = (this.textTarget.dataset.action || '') + ` dblclick->${this.identifier}#tabInput`
+    this.textTarget.dataset.action = (this.textTarget.dataset.action || '') + ` dblclick->${this.identifier}#tabToInput`
     this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#inputFitContent`
   }
 
   clickOutside(event) {
-    this.tabText()
+    this.tabToText()
   }
 
-  tabInput() {
+  tabToInput() {
     this.inputController.inputValue = this.textController.labelValue
     this.inputFitContent()
     this.tabController.tabToIndex(this.inputTabIndex)
   }
 
-  tabText() {
+  tabToText() {
     this.textController.labelValue = this.inputController.inputValue
     this.tabController.tabToIndex(this.textTabIndex)
   }
@@ -54,17 +58,17 @@ export default class EditTextByInput extends ApplicationController {
   get tabController() {
     return this.application.getControllerForElementAndIdentifier(this.element, 'tab')
   }
-  get textController() {
-    return this.findController('text')
-  }
-  get inputController() {
-    return this.findController('input')
-  }
   get textControllerElement() {
-    return this.findControllerElement('text')
+    return this.element.querySelector('[data-controller*=text]')
+  }
+  get textController() {
+    return this.application.getControllerForElementAndIdentifier(this.textControllerElement, 'text')
   }
   get inputControllerElement() {
-    return this.findControllerElement('input')
+    return this.element.querySelector('[data-controller*=input]')
+  }
+  get inputController() {
+    return this.application.getControllerForElementAndIdentifier(this.inputControllerElement, 'input')
   }
   get textTabIndex() {
     return this.tabController.tabIndexOf(this.textTarget)
@@ -75,9 +79,7 @@ export default class EditTextByInput extends ApplicationController {
   get textWidth() {
     return this.textController.element.offsetWidth
   }
-  get type() {
-    return this.paramsValue.type || 'default'
-  }
+
   get typeClass() {
     return {
       default: {

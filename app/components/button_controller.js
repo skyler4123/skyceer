@@ -9,9 +9,7 @@ export default class ButtonController extends ApplicationController {
   }
 
   init() {
-    // super.initialize()
     this.initHTML()
-    // this.initializeComplete()
   }
   connect() {
     super.connect()
@@ -29,7 +27,6 @@ export default class ButtonController extends ApplicationController {
   }
 
   initAction() {
-    // super.initializeAction()
     if (this.typeParams === 'toggle') {
       this.element.dataset.action = this.dataAction + ' ' + `click->${this.identifier}#toggle`
     }
@@ -63,9 +60,6 @@ export default class ButtonController extends ApplicationController {
     document.scrollingElement.scrollTo(0, 0)
   }
   
-  // get isRememberMe() {
-  //   return this.paramsValue.isRememberMe || false
-  // }
   get typeHTML() {
     return {
       toggle: `<div data-${this.identifier}-target='toggle'></div>`

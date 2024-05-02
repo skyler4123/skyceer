@@ -63,7 +63,7 @@ export default class TextController extends ApplicationController {
   }
 
   translate(event) {
-    this.languageValue = event.value
+    this.languageValue = event.payload.value
   }
 
   openEditor() {
@@ -75,11 +75,11 @@ export default class TextController extends ApplicationController {
   }
 
   increase(event) {
-    this.labelValue = Number(this.labelValue) + (Number(event.value) || 1)
+    this.labelValue = Number(this.labelValue) + (Number(event.payload.value) || 1)
   }
 
   decrease(event) {
-    this.labelValue = Number(this.labelValue) - (Number(event.value) || 1)
+    this.labelValue = Number(this.labelValue) - (Number(event.payload.value) || 1)
   }
 
   get languageKey() {

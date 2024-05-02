@@ -4,7 +4,8 @@ export default class CarouselController extends ApplicationController {
   static targets = ['carousel']
   static values = {
     ...super.values,
-    intervalId: { type: Number }
+    intervalId: { type: Number },
+    index: { type: Number, default: 0 },
   }
 
   init() {
@@ -23,84 +24,72 @@ export default class CarouselController extends ApplicationController {
     })
   }
   initAction() {
-    this.element.dataset.action = (this.element.dataset.action || "") + ` wheel->${this.identifier}#scroll:passive`
+    // this.element.dataset.action = (this.element.dataset.action || "") + ` wheel->${this.identifier}#scroll:passive`
     if (this.hasTimeIntervalParams) {
-      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeIntervalParams)
+      this.intervalIdValue = setInterval(() => { this.scrollNext() }, this.timeIntervalParams)
     }
   }
 
-  scroll() {
-    if (this.element.scrollLeft === 0) {
-      this.scrollBack()
-    }
-    if ((this.element.scrollLeft + this.element.offsetWidth + 1) > this.element.scrollWidth) {
-      this.scrollForward()
-    }
+  indexValueChanged(value, previousValue) {
+    if (this.indexValue > this.carouselCount - 2) { return this.indexValue = 0 }
+    if (this.indexValue < 0) { return this.indexValue = this.carouselCount - 2 }
+    this.element.scrollTo(this.indexValue * this.carouselWidth, 0)
+  }
 
+  get carouselCount() {
+    return this.carouselTargets.length
+  }
+  get carouselWidth() {
+    return this.element.scrollWidth / this.carouselCount
   }
 
   scrollBack() {
-    if (this.element.scrollLeft === 0 && this.isInfinityScrollParams) {
-      this.prependCarousel()
-    }
-    this.element.scrollBy(-1, 0)
+    this.indexValue -= 1
   }
 
-  scrollForward() {
-    if ((this.element.scrollLeft + this.element.offsetWidth + 1) > this.element.scrollWidth) {
-      if (this.hasIsInfinityScrollParams && this.isInfinityScrollParams) {
-        this.appendCarousel()
-      } else {
-        this.scrollStart()
-        return
-      }
-    }
-    this.element.scrollBy(1, 0)
+  scrollNext() {
+    this.indexValue += 1
   }
 
-  scrollForwardAuto() {
-    if (this.intervalIdValue) {
-      this.intervalIdValue = false
-    } else {
-      this.intervalIdValue = setInterval(() => { this.scrollForward() }, this.timeIntervalParams || 2000)
-    }
+  scrollNextAuto() {
+    this.intervalIdValue = setInterval(() => { this.scrollNext() }, this.timeIntervalParams || 2000)
   }
 
   
-  scrollStart() {
-    this.element.scrollTo(0, 0)
+  scrollToFirst() {
+    this.indexValue = 0
   }
 
-  scrollEnd() {
-    this.element.scrollTo(this.element.scrollWidth, this.element.scrollHeight)
+  scrollToEnd() {
+    this.indexValue = this.carouselCount
   }
 
-  prependCarousel() {
-    this.carouselTargets.forEach((target, index) => {
-      this.element.insertBefore(target.cloneNode(true), this.element.childNodes[index])
-    })
-    this.reduceCarouselAt('append')
-  }
+  // prependCarousel() {
+  //   this.carouselTargets.forEach((target, index) => {
+  //     this.element.insertBefore(target.cloneNode(true), this.element.childNodes[index])
+  //   })
+  //   this.reduceCarouselAt('append')
+  // }
 
-  appendCarousel() {
-    this.carouselTargets.forEach((target) => {
-      this.element.appendChild(target.cloneNode(true))
-    })
-    this.reduceCarouselAt('prepend')
-  }
+  // appendCarousel() {
+  //   this.carouselTargets.forEach((target) => {
+  //     this.element.appendChild(target.cloneNode(true))
+  //   })
+  //   this.reduceCarouselAt('prepend')
+  // }
 
-  reduceCarouselAt(reduceAt) {
-    if (this.carouselTargets.length > 32) {
-      const length = Math.round(this.carouselTargets.length * 0.75)
-      for (let i = 0; i < length; i++) {
-        if (reduceAt === 'append') {
-          this.element.removeChild(this.carouselTargets[this.carouselTargets.length - 1])
-        } else {
-          this.element.removeChild(this.carouselTarget)
-        }
-      }
-    }
-  }
+  // reduceCarouselAt(reduceAt) {
+  //   if (this.carouselTargets.length > 32) {
+  //     const length = Math.round(this.carouselTargets.length * 0.75)
+  //     for (let i = 0; i < length; i++) {
+  //       if (reduceAt === 'append') {
+  //         this.element.removeChild(this.carouselTargets[this.carouselTargets.length - 1])
+  //       } else {
+  //         this.element.removeChild(this.carouselTarget)
+  //       }
+  //     }
+  //   }
+  // }
 
   intervalIdValueChanged(value, previousValue) {
     clearInterval(previousValue)

@@ -5,6 +5,8 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :demo, only: [:index, :new]
+
   resources :map_locations
   resources :map_users
 
@@ -33,7 +35,6 @@ Rails.application.routes.draw do
   resources :chat_users
 
   resources :components
-  resources :demos
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   get  "sign_up", to: "registrations#new"

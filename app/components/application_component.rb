@@ -13,7 +13,7 @@ class ApplicationComponent < ViewComponent::Base
     @tag = tag
     @component_name = self.class.name.underscore.dasherize.gsub('/', '--')
     @controller_name = @component_name.gsub('-component', '')
-    @controllers = @controller_name + ' ' + controller.to_s
+    @controllers = (@controller_name + ' ' + controller.to_s).strip
     @params = params.to_json
   end
 end

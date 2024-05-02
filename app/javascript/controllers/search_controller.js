@@ -16,21 +16,24 @@ export default class extends ApplicationController {
     input: { type: String },
   }
 
+  initParams() {
+    this.setParams({name: 'type', defaultValue: 'default'})
+  }
+
   init() {
     this.initTarget()
-    // this.initComplete()
     useClickOutside(this, { element: this.inputTarget })
   }
 
   initTarget() {
-    this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
-    this.buttonControllerElement.setAttribute(`data-${this.identifier}-target`, 'button')
-    this.popoverControllerElement.setAttribute(`data-${this.identifier}-target`, 'popover')
+    this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
+    this.buttonController.element.setAttribute(`data-${this.identifier}-target`, 'button')
+    this.popoverController.element.setAttribute(`data-${this.identifier}-target`, 'popover')
   }
 
   initAction() {
-    this.inputTarget.dataset.action = (this.inputTarget.dataset.action || '') + ` input->${this.identifier}#input keydown.enter->${this.identifier}#enterSearch`
-    this.buttonTarget.dataset.action = (this.buttonTarget.dataset.action || '') + ` click->${this.identifier}#buttonSearch`
+    this.addAction(this.inputTarget, `input->${this.identifier}#input keydown.enter->${this.identifier}#enterSearch`)
+    this.addAction(this.buttonTarget, `click->${this.identifier}#buttonSearch`)
   }
 
   clickOutside(event) {
@@ -86,34 +89,25 @@ export default class extends ApplicationController {
 
   inputValueChanged(value, previousValue) {
     if (previousValue === undefined) { return }
-    if (this.autoSubmit) {
+    if (this.isAutoSubmit) {
       this.search()
     }
   }
 
   get inputController() {
-    return this.findController('input')
+    return this.getChildrenControllerFromIdentifier('input')
   }
   get buttonController() {
-    return this.findController('button')
+    return this.getChildrenControllerFromIdentifier('button')
   }
   get popoverController() {
-    return this.findController('popover')
-  }
-  get inputControllerElement() {
-    return this.findControllerElement('input')
-  }
-  get buttonControllerElement() {
-    return this.findControllerElement('button')
-  }
-  get popoverControllerElement() {
-    return this.findControllerElement('popover')
+    return this.getChildrenControllerFromIdentifier('popover')
   }
   get url() {
     return this.inputController.paramsValue.url
   }
-  get autoSubmit() {
-    return this.inputController.paramsValue.autoSubmit
+  get isAutoSubmit() {
+    return this.inputController.paramsValue.isAutoSubmit
   }
   get popoverHTML() {
     return `
@@ -125,5 +119,16 @@ export default class extends ApplicationController {
           ).join('')}
       </div>
     `
+  }
+
+  get typeClass() {
+    return {
+      default: {
+        element: 'relative flex flex-row justify-center items-center',
+        inputTarget: '',
+        popoverTarget: '',
+        buttonTarget: '',
+      }
+    }
   }
 }

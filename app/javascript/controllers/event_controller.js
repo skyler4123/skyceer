@@ -33,16 +33,16 @@ export default class extends ApplicationController {
   broadcastEvent(event) {
     event  = this.normalizeEvent(event)
     console.log(event)
-    this.dispatch(event.group, { detail: { event: event } })
+    this.dispatch(event.payload.group, { detail: { event: event } })
   }
 
   isGlobalEvent(event) {
-    return event.group === 'global' || this.isUndefined(event.group)
+    return event.payload.group === 'global' || this.isUndefined(event.payload.group)
   }
 
   normalizeEvent(event) {
     if (this.isGlobalEvent(event)) {
-      event = { ...event, group: 'global' }
+      event.payload['group'] = 'global'
     }
     return event
   }

@@ -4,32 +4,58 @@ import ApplicationController from '../../javascript/controllers/application_cont
 
 const Map = openlayers.Map
 const View = openlayers.View
+const Feature = openlayers.Feature
+const Overlay = openlayers.Overlay
+
 const TiltLayer = openlayers.layer.Tile
-const OSM = openlayers.source.OSM
-const GeoJSON = openlayers.format.GeoJSON
 const VectorLayer = openlayers.layer.Vector
+
+const OSM = openlayers.source.OSM
 const VectorSource = openlayers.source.Vector
+const Stamen = openlayers.source.Stamen
+const XYZ = openlayers.source.XYZ
+
+const GeoJSON = openlayers.format.GeoJSON
+const KML = openlayers.format.KML
+
 const DragAndDrop = openlayers.interaction.DragAndDrop
 const Modify = openlayers.interaction.Modify
 const Draw = openlayers.interaction.Draw
 const Snap = openlayers.interaction.Snap
+const Select = openlayers.interaction.Select
+
 const Style = openlayers.style.Style
 const Stroke = openlayers.style.Stroke
 const Fill = openlayers.style.Fill
+const Text = openlayers.style.Text
+const CircleStyle = openlayers.style.Circle
+const Icon = openlayers.style.Icon
+
 const getArea = openlayers.Sphere.getArea
-const Feature = openlayers.Feature
+
+const fromExtent = openlayers.geom.Polygon.fromExtent
 const Point = openlayers.geom.Point
+const MultiPoint = openlayers.geom.MultiPoint
 const circular = openlayers.geom.Polygon.circular
 
+const VectorContext = openlayers.render.VectorContext
+
+const toLonLat = openlayers.proj.toLonLat
+const fromLonLat = openlayers.proj.fromLonLat
+
+const toStringHDMS = openlayers.coordinate.toStringHDMS
+
+const click = openlayers.events.condition.click
+const pointerMove = openlayers.events.condition.pointerMove
 
 
 export default class Openlayers extends ApplicationController {
-  static targets = ['map', 'download', 'clear']
+  static targets = ['map', 'download', 'clear', 'input']
 
   get typeClass() {
     return {
       default: {
-        element: 'w-full h-[500px]',
+        element: 'relative w-full h-[500px]',
         mapTarget: 'w-full h-full',
         downloadTarget: 'text-red-500',
         clearTarget: ''
@@ -37,13 +63,7 @@ export default class Openlayers extends ApplicationController {
     }
   }
 
-  // init() {
-  //   super.init()
-  //   this.initComplete()
-  // }
-
   initParams() {
-    // super.initParams()
     this.setParams({name: 'type', defaultValue: 'default'})
   }
 
@@ -54,118 +74,161 @@ export default class Openlayers extends ApplicationController {
   clear() {
     this.source.clear()
   }
-  connect() {
-    function clamp(value, low, high) {
-      return Math.max(low, Math.min(value, high));
-    }
-    
-    function getColor(feature) {
-      const min = 1e8; // the smallest area
-      const max = 2e13; // the biggest area
-      const steps = 50;
-      const ramp = colormap({
-        colormap: 'blackbody',
-        nshades: steps,
-      });
-      
-      const area = getArea(feature.getGeometry());
-      const f = Math.pow(clamp((area - min) / (max - min), 0, 1), 1 / 2);
-      const index = Math.round(f * (steps - 1));
-      return ramp[index];
-    }
-    
-    this.source = new VectorSource()
-    this.sourceOSM = new OSM()
 
+  connect() {
+
+    const vectorSource = new VectorSource()
+    const vectorStyle = new Style({
+      stroke: new Stroke({
+        color: 'red'
+      }),
+      fill: new Fill({
+        color: 'green'
+      })
+    })
+    const vectorLayer = new VectorLayer({
+      source: vectorSource,
+      style: (feature, resolution) => {
+        return vectorStyle
+      }
+    })
+
+    const osmSource = new OSM()
+    const osmLayer = new TiltLayer({
+      source: osmSource
+    })
+    
     this.map = new Map({
       target: this.mapTarget,
       view: new View({
-        center: [116.6888326e5, 10.7789988e5],
-        zoom: 8,
+        center: [0, 0],
+        zoom: 2,
       }),
       layers: [
-        new TiltLayer({
-          source: this.sourceOSM
-        })
+        osmLayer
       ]
     })
 
-    const layer = new VectorLayer({
-      source: this.source,
-      style: (feature) => {
-        return new Style({
-          fill: new Fill({
-            color: getColor(feature)
-          }),
-          stroke: new Stroke({
-            color: 'rgba(255,255,255,0.8)'
-          })
-        })
-      }
-      // style: new Style({
-      //   fill: new Fill({color: 'red'}),
-      //   stroke: new Stroke({color: 'white'})
-      // })
-    })
+    this.map.addLayer(vectorLayer)
 
-    this.map.addLayer(layer)
+    // this.map.addInteraction(
+    //   new Modify({
+    //     source: vectorSource,
+    //   })
+    // );
+
+    // this.map.addInteraction(
+    //   new Draw({
+    //     type: 'Polygon',
+    //     source: vectorSource,
+    //   })
+    // );
+
+    // this.map.addInteraction(
+    //   new Snap({
+    //     source: vectorSource
+    //   })
+    // )
     this.map.addInteraction(
       new DragAndDrop({
-        source: this.source,
+        source: vectorSource,
         formatConstructors: [GeoJSON]
       })
     )
 
-    this.map.addInteraction(
-      new Modify({
-        source: this.source,
-      })
-    );
+    // const iconStyle = new Style({
+    //   image: new Icon({
+    //     anchor: [0.5, 46],
+    //     anchorXUnits: 'fraction',
+    //     anchorYUnits: 'pixels',
+    //     src: 'https://openlayers.org/en/latest/examples/data/icon.png',
+    //   }),
+    // });
 
-    this.map.addInteraction(
-      new Draw({
-        type: 'Polygon',
-        source: this.source,
-      })
-    );
-
-    this.map.addInteraction(
-      new Snap({
-        source: this.source
-      })
-    )
-
-    const format = new GeoJSON({featureProjection: 'EPSG:3857'})
-    this.source.on('change', () => {
-      const features = this.source.getFeatures()
-      const json = format.writeFeatures(features)
-      this.downloadTarget.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(json)
+    this.iconSource = new VectorSource({
+      features: [
+        new Feature({
+          geometry: new Point(fromLonLat([10, 10])),
+          labelPoint: 'Label Demo',
+          name: "demo name",
+          id: 1,
+          price: 100
+        }),
+        new Feature({
+          geometry: new Point(fromLonLat([0, 0])),
+          labelPoint: 'Label Demo',
+          name: "demo name",
+          id: 2,
+          price: 223
+        }),
+        new Feature({
+          geometry: new Point(fromLonLat([50, 0])),
+          labelPoint: 'Label Demo',
+          name: "demo name",
+          id: 3,
+          price: 332
+        }),
+        new Feature({
+          geometry: new Point([10000000, -1000000]),
+          labelPoint: 'Label Demo',
+          name: "demo name",
+          id: 4,
+          price: 423
+        }),
+      ]
+    })
+    const iconLayer = new VectorLayer({
+      source: this.iconSource,
+      style: new Style(null)
+      // style: (feature) => {
+      //   if (feature.get('price') > 1000) { return null }
+      //   return this.iconStyle({text: `${feature.get('price')} VND`})
+      //   // return this.iconStyle({text: `${feature.get('price')} VND`})
+      // },
     })
 
+    this.map.addLayer(iconLayer)
 
 
-    navigator.geolocation.watchPosition((pos) => {
-      const coords = [pos.coords.longitude, pos.coords.latitude];
-      // console.log(coords)
-      // this.map.setView(new View({
-      //   center: [pos.coords.longitude, pos.coords.latitude],
-      //   zoom: 10
-      // }))
-      
-      // const accuracy = circular(coords, pos.coords.accuracy);
-      // this.sourceOSM.clear(true);
-      // this.sourceOSM.addFeatures([
-      //   new Feature(
-      //     accuracy.transform('EPSG:4326', this.map.getView().getProjection())
-      //   ),
-      //   new Feature(new Point(fromLonLat(coords))),
-      // ]);
-    });
+
 
 
   } // connect
 
+  iconStyle({text}) {
+    return new Style({
+      image: new CircleStyle({
+        radius: 10,
+        fill: new Fill({color: 'yellow'}),
+        stroke: new Stroke({color: 'green'}),
+      }),
+      text: new Text({
+        font: '16px sans-serif',
+        text: text,
+        textAlign: 'center',
+        offsetY: -25,
+        fill: new Fill({
+          color: [255, 255, 255, 1],
+        }),
+        backgroundFill: new Fill({
+          color: [168, 50, 153, 0.6],
+        }),
+        padding: [2,2,2,2]
+      })
+    })
+  } 
 
+  input() {
+    const value = this.inputTarget.value
+    this.iconSource.forEachFeature(feature => {
+      if (feature.get('price') < value) {
+        feature.setStyle(this.iconStyle({text: `${feature.get('price')} VND`}))
+      } else {
+        feature.setStyle(null)
+
+      }
+    })
+  }
 }
 
 
