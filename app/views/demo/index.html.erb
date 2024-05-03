@@ -34,7 +34,6 @@
 
     <div data-controller="darkmode">darkmode</div>
 
-    <%= openlayers %>
     <div>/</div>
     <div>/</div>
     <div>/</div>
@@ -64,8 +63,23 @@
     <%= link(label: "Test Copy Link", url: '/#', event: { id: id }) %>
 
     <%= button(label: 'Toggle Accordion', event: { id: new_id, listener: :click, action: :toggle }) %>
-    <%= accordion(orientation: :horizontal, event: { id: id }) do %>
-      <div>kjhjk lkjlkj kjlkj kjlk </div>
+    <%= accordion(type: :horizontal, event: { id: id }) do %>
+      <div>1 2 3 4 5 6 7 8 9 0</div>
+    <% end %>
+    <%= accordion(type: :horizontal, event: { id: id }, klass: '') do %>
+      <div dir="rtl">1 2 3 4 5 6 7 8 9 0</div>
+    <% end %>
+
+    <%= button(label: 'Toggle Accordion', event: { id: new_id, listener: :click, action: :toggle }) %>
+    <div class="flex flex-row w-full">
+      <%= openlayers %>
+      <%= accordion(type: :horizontal, event: { id: id }, klass: '') do %>
+        <div dir="rtl">1 2 3 4 5 6 7 8 9 0</div>
+      <% end %>
+    </div>
+    <%= button(label: 'Toggle Accordion', event: { id: new_id, listener: :click, action: :toggle }) %>
+    <%= accordion(type: :vertical, event: { id: id }) do %>
+      <div>1 2 3 4 5 6 7 8 9 0</div>
     <% end %>
 
     <%= button(label: 'Scroll Back', event: { id: new_id, listener: :click, action: :scroll_back }) %>
