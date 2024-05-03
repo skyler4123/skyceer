@@ -126,21 +126,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_043913) do
     t.index ["user_id"], name: "index_calendar_users_on_user_id"
   end
 
-  create_table "demos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "string"
-    t.text "text"
-    t.float "float"
-    t.decimal "decimal"
-    t.datetime "datetime"
-    t.time "time"
-    t.date "date"
-    t.binary "binary"
-    t.boolean "boolean"
-    t.json "json"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "education_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
     t.string "name"

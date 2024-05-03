@@ -96,3 +96,6 @@ gem 'rack-cors'
 
 gem 'rswag-api'
 gem 'rswag-ui'
+
+gem "solid_queue"
+gem "mission_control-jobs"
