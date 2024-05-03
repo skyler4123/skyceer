@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   mount MissionControl::Jobs::Engine, at: "/jobs"
   resources :demo, only: [:index, :new]
 
-  resources :map_locations
   resources :map_users
 
   # AGRICULTURE packge
