@@ -15,6 +15,5 @@ class ApplicationComponent < ViewComponent::Base
     @controller_name = @component_name.gsub('-component', '')
     @controllers = (@controller_name + ' ' + controller.to_s).strip
     @params = params.to_json
-    puts '123'
   end
 end
