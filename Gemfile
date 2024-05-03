@@ -76,8 +76,8 @@ group :test do
   gem 'simplecov', require: false
 end
 
-# gem "packwerk"
-# gem "graphwerk"
+gem "packwerk"
+gem "graphwerk"
 gem "dotenv-rails"
 gem "view_component"
 gem "faker"
