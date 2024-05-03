@@ -130,7 +130,7 @@ GEM
     faker (3.3.0)
       i18n (>= 1.8.11, < 2)
     ffi (1.16.3)
-    fugit (1.10.1)
+    fugit (1.9.0)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
     globalid (1.2.1)
@@ -171,6 +171,11 @@ GEM
     mini_magick (4.12.0)
     mini_mime (1.1.5)
     minitest (5.22.3)
+    mission_control-jobs (0.2.1)
+      importmap-rails
+      rails (~> 7.1)
+      stimulus-rails
+      turbo-rails
     mongo (2.19.3)
       bson (>= 4.14.1, < 5.0.0)
     mongoid (8.1.5)
@@ -313,6 +318,12 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    solid_queue (0.3.0)
+      activejob (>= 7.1)
+      activerecord (>= 7.1)
+      concurrent-ruby (~> 1.2.2)
+      fugit (~> 1.9.0)
+      railties (>= 7.1)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -381,6 +392,7 @@ DEPENDENCIES
   jbuilder
   jwt
   memory_profiler
+  mission_control-jobs
   mongoid
   pagy
   pg
@@ -398,6 +410,7 @@ DEPENDENCIES
   sidekiq
   sidekiq-cron
   simplecov
+  solid_queue
   sprockets-rails
   stackprof
   stimulus-rails
