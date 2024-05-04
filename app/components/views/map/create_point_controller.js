@@ -72,40 +72,41 @@ export default class CreateMapController extends ApplicationController {
 
 
 
+    this.iconSource = new VectorSource()
 
 
-    this.iconSource = new VectorSource({
-      features: [
-        new Feature({
-          geometry: new Point(fromLonLat([10, 10])),
-          labelPoint: 'Label Demo',
-          name: "demo name",
-          id: 1,
-          price: 100
-        }),
-        new Feature({
-          geometry: new Point(fromLonLat([0, 0])),
-          labelPoint: 'Label Demo',
-          name: "demo name",
-          id: 2,
-          price: 223
-        }),
-        new Feature({
-          geometry: new Point(fromLonLat([50, 0])),
-          labelPoint: 'Label Demo',
-          name: "demo name",
-          id: 3,
-          price: 332
-        }),
-        new Feature({
-          geometry: new Point([10000000, -1000000]),
-          labelPoint: 'Label Demo',
-          name: "demo name",
-          id: 4,
-          price: 423
-        }),
-      ]
-    })
+    // this.iconSource = new VectorSource({
+    //   features: [
+    //     new Feature({
+    //       geometry: new Point(fromLonLat([10, 10])),
+    //       labelPoint: 'Label Demo',
+    //       name: "demo name",
+    //       id: 1,
+    //       price: 100
+    //     }),
+    //     new Feature({
+    //       geometry: new Point(fromLonLat([0, 0])),
+    //       labelPoint: 'Label Demo',
+    //       name: "demo name",
+    //       id: 2,
+    //       price: 223
+    //     }),
+    //     new Feature({
+    //       geometry: new Point(fromLonLat([50, 0])),
+    //       labelPoint: 'Label Demo',
+    //       name: "demo name",
+    //       id: 3,
+    //       price: 332
+    //     }),
+    //     new Feature({
+    //       geometry: new Point([10000000, -1000000]),
+    //       labelPoint: 'Label Demo',
+    //       name: "demo name",
+    //       id: 4,
+    //       price: 423
+    //     }),
+    //   ]
+    // })
     this.iconStyle = new Style({
       image: new Icon({
         anchor: [0.5, 850],
@@ -125,6 +126,19 @@ export default class CreateMapController extends ApplicationController {
 
     this.map.addLayer(this.iconLayer)
 
+    MapPointsApi.index().then(response => {
+      console.log('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
+      console.log(response)
+      const pointsData = response.data
+      pointsData.forEach(pointData => {
+        const newFeature =  new Feature({
+          geometry: new Point(pointData.coordinates),
+          price: 100
+        })
+        this.iconSource.addFeature(newFeature)
+      })
+    })
+    
     this.map.on('singleclick', async (event) => {
       try {
         const response = await MapPointsApi.create({params: {coordinates: event.coordinate}})
