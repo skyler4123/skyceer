@@ -197,9 +197,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_022313) do
 
   create_table "map_points", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.decimal "coordinates", default: ["0.0", "0.0"], array: true
-    t.string "mapable_type", null: false
-    t.uuid "mapable_id", null: false
-    t.uuid "map_user_id", null: false
+    t.string "mapable_type"
+    t.uuid "mapable_id"
+    t.uuid "map_user_id"
     t.boolean "verified"
     t.boolean "expired"
     t.datetime "created_at", null: false

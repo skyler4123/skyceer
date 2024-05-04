@@ -1,4 +1,5 @@
 class MapPointsController < ApplicationController
+  # protect_from_forgery with: :null_session
   before_action :set_map_point, only: %i[ show edit update destroy ]
 
   # GET /map_points or /map_points.json
@@ -21,12 +22,19 @@ class MapPointsController < ApplicationController
 
   # POST /map_points or /map_points.json
   def create
+    # debugger
     @map_point = MapPoint.new(map_point_params)
-
+    # render json: @map_point, status: :ok
     respond_to do |format|
       if @map_point.save
-        format.html { redirect_to map_point_url(@map_point), notice: "Map point was successfully created." }
-        format.json { render :show, status: :created, location: @map_point }
+        format.html {
+          puts 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
+          redirect_to map_point_url(@map_point), notice: "Map point was successfully created."
+        }
+        format.json {
+          puts 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'
+          render :show, status: :created, location: @map_point
+        }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @map_point.errors, status: :unprocessable_entity }
@@ -65,6 +73,6 @@ class MapPointsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def map_point_params
-      params.require(:map_point).permit(:coordinates, :mapable_id, :mapable_type, :map_user_id, :verified, :expired)
+      params.require(:map_point).permit(:mapable_id, :mapable_type, :map_user_id, :verified, :expired, coordinates: [])
     end
 end

@@ -8,6 +8,8 @@
     <%= link_to "New map point", new_map_point_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
+  <%= render(Views::Map::CreatePointComponent.new) %>
+
   <div id="map_points" class="min-w-full">
     <%= render @map_points %>
   </div>
