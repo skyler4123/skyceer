@@ -28,11 +28,9 @@ class MapPointsController < ApplicationController
     respond_to do |format|
       if @map_point.save
         format.html {
-          puts 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq'
           redirect_to map_point_url(@map_point), notice: "Map point was successfully created."
         }
         format.json {
-          puts 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww'
           render :show, status: :created, location: @map_point
         }
       else
