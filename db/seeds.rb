@@ -139,13 +139,13 @@ ActiveRecord::Base.transaction do
     )
   end
   CarUser.all.each do |car_user|
-    2.times do
+    5.times do
       car_store = CarStore.create(
         name: "car_store_#{SecureRandom.uuid}",
         car_user_id: car_user.id,
         coordinates: [rand(-20e6..20e6), rand(-20e6..20e6)],
       )
-      2.times do
+      1.times do
         CarCar.create(
           name: "name_#{SecureRandom.uuid}",
           model: "model_#{SecureRandom.uuid}",
