@@ -12,10 +12,10 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/map_locations", type: :request do
+RSpec.describe "/map_points", type: :request do
   
   # This should return the minimal set of attributes required to create a valid
-  # MapLocation. As you add validations to MapLocation, be sure to
+  # MapPoint. As you add validations to MapPoint, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -27,59 +27,59 @@ RSpec.describe "/map_locations", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      MapLocation.create! valid_attributes
-      get map_locations_url
+      MapPoint.create! valid_attributes
+      get map_points_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      map_location = MapLocation.create! valid_attributes
-      get map_location_url(map_location)
+      map_point = MapPoint.create! valid_attributes
+      get map_point_url(map_point)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_map_location_url
+      get new_map_point_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response" do
-      map_location = MapLocation.create! valid_attributes
-      get edit_map_location_url(map_location)
+      map_point = MapPoint.create! valid_attributes
+      get edit_map_point_url(map_point)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new MapLocation" do
+      it "creates a new MapPoint" do
         expect {
-          post map_locations_url, params: { map_location: valid_attributes }
-        }.to change(MapLocation, :count).by(1)
+          post map_points_url, params: { map_point: valid_attributes }
+        }.to change(MapPoint, :count).by(1)
       end
 
-      it "redirects to the created map_location" do
-        post map_locations_url, params: { map_location: valid_attributes }
-        expect(response).to redirect_to(map_location_url(MapLocation.last))
+      it "redirects to the created map_point" do
+        post map_points_url, params: { map_point: valid_attributes }
+        expect(response).to redirect_to(map_point_url(MapPoint.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new MapLocation" do
+      it "does not create a new MapPoint" do
         expect {
-          post map_locations_url, params: { map_location: invalid_attributes }
-        }.to change(MapLocation, :count).by(0)
+          post map_points_url, params: { map_point: invalid_attributes }
+        }.to change(MapPoint, :count).by(0)
       end
 
     
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post map_locations_url, params: { map_location: invalid_attributes }
+        post map_points_url, params: { map_point: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     
@@ -92,26 +92,26 @@ RSpec.describe "/map_locations", type: :request do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested map_location" do
-        map_location = MapLocation.create! valid_attributes
-        patch map_location_url(map_location), params: { map_location: new_attributes }
-        map_location.reload
+      it "updates the requested map_point" do
+        map_point = MapPoint.create! valid_attributes
+        patch map_point_url(map_point), params: { map_point: new_attributes }
+        map_point.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the map_location" do
-        map_location = MapLocation.create! valid_attributes
-        patch map_location_url(map_location), params: { map_location: new_attributes }
-        map_location.reload
-        expect(response).to redirect_to(map_location_url(map_location))
+      it "redirects to the map_point" do
+        map_point = MapPoint.create! valid_attributes
+        patch map_point_url(map_point), params: { map_point: new_attributes }
+        map_point.reload
+        expect(response).to redirect_to(map_point_url(map_point))
       end
     end
 
     context "with invalid parameters" do
     
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        map_location = MapLocation.create! valid_attributes
-        patch map_location_url(map_location), params: { map_location: invalid_attributes }
+        map_point = MapPoint.create! valid_attributes
+        patch map_point_url(map_point), params: { map_point: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     
@@ -119,17 +119,17 @@ RSpec.describe "/map_locations", type: :request do
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested map_location" do
-      map_location = MapLocation.create! valid_attributes
+    it "destroys the requested map_point" do
+      map_point = MapPoint.create! valid_attributes
       expect {
-        delete map_location_url(map_location)
-      }.to change(MapLocation, :count).by(-1)
+        delete map_point_url(map_point)
+      }.to change(MapPoint, :count).by(-1)
     end
 
-    it "redirects to the map_locations list" do
-      map_location = MapLocation.create! valid_attributes
-      delete map_location_url(map_location)
-      expect(response).to redirect_to(map_locations_url)
+    it "redirects to the map_points list" do
+      map_point = MapPoint.create! valid_attributes
+      delete map_point_url(map_point)
+      expect(response).to redirect_to(map_points_url)
     end
   end
 end

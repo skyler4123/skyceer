@@ -1,2 +1,0 @@
-class MapLocation < ApplicationRecord
-end

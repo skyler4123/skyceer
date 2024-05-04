@@ -5,7 +5,7 @@ default: &default
       recurring_tasks:
         my_periodic_job:
           class: DemoJob
-          schedule: every 60 seconds
+          schedule: every 1 minutes
   workers:
     - queues: "*"
       threads: 5
