@@ -127,8 +127,6 @@ export default class CreateMapController extends ApplicationController {
     this.map.addLayer(this.iconLayer)
 
     MapPointsApi.index().then(response => {
-      console.log('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
-      console.log(response)
       const pointsData = response.data
       pointsData.forEach(pointData => {
         const newFeature =  new Feature({
@@ -138,7 +136,7 @@ export default class CreateMapController extends ApplicationController {
         this.iconSource.addFeature(newFeature)
       })
     })
-    
+
     this.map.on('singleclick', async (event) => {
       try {
         const response = await MapPointsApi.create({params: {coordinates: event.coordinate}})
