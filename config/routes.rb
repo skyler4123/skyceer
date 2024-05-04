@@ -5,6 +5,7 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :map_points
   mount MissionControl::Jobs::Engine, at: "/jobs"
   resources :demo, only: [:index, :new]
 

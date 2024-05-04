@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_19_043913) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_04_022313) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -126,6 +126,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_043913) do
     t.index ["user_id"], name: "index_calendar_users_on_user_id"
   end
 
+  create_table "demos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "string"
+    t.text "text"
+    t.float "float"
+    t.decimal "decimal"
+    t.datetime "datetime"
+    t.time "time"
+    t.date "date"
+    t.binary "binary"
+    t.boolean "boolean"
+    t.json "json"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "education_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
     t.string "name"
@@ -180,10 +195,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_043913) do
     t.index ["user_id"], name: "index_education_users_on_user_id"
   end
 
-  create_table "map_locations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
+  create_table "map_points", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
+    t.string "mapable_type", null: false
+    t.uuid "mapable_id", null: false
+    t.uuid "map_user_id", null: false
+    t.boolean "verified"
+    t.boolean "expired"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["map_user_id"], name: "index_map_points_on_map_user_id"
+    t.index ["mapable_type", "mapable_id"], name: "index_map_points_on_mapable"
   end
 
   create_table "map_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -230,6 +252,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_19_043913) do
   add_foreign_key "education_teachers", "education_schools"
   add_foreign_key "education_teachers", "education_users"
   add_foreign_key "education_users", "users"
+  add_foreign_key "map_points", "map_users"
   add_foreign_key "map_users", "users"
   add_foreign_key "sessions", "users"
 end
