@@ -5,6 +5,10 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :car_stores
+  resources :car_cars
+  resources :car_brands
+  resources :car_users
   resources :map_points
   mount MissionControl::Jobs::Engine, at: "/jobs"
   resources :demo, only: [:index, :new]

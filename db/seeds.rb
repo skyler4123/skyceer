@@ -28,93 +28,93 @@ ActiveRecord::Base.transaction do
 end
 
 # CALENDAR PACKAGE
-CalendarUser.destroy_all
-ActiveRecord::Base.transaction do
-  User.all.each_with_index do |user, index|
-    CalendarUser.create(name: "calendar_user_#{index}", user: user)
-  end
-  CalendarUser.all.each_with_index do |calendar_user|
-    2.times do |n|
-      CalendarSchedule.create(
-        calendar_user: calendar_user,
-        name: "calendar_schedule_#{n}",
-        color: '#' + SecureRandom.hex(3),
-        background_color: '#' + SecureRandom.hex(3),
-        drag_background_color: '#' + SecureRandom.hex(3),
-        border_color: '#' + SecureRandom.hex(3),
-        )
-    end
-  end
-end
+# CalendarUser.destroy_all
+# ActiveRecord::Base.transaction do
+#   User.all.each_with_index do |user, index|
+#     CalendarUser.create(name: "calendar_user_#{index}", user: user)
+#   end
+#   CalendarUser.all.each_with_index do |calendar_user|
+#     2.times do |n|
+#       CalendarSchedule.create(
+#         calendar_user: calendar_user,
+#         name: "calendar_schedule_#{n}",
+#         color: '#' + SecureRandom.hex(3),
+#         background_color: '#' + SecureRandom.hex(3),
+#         drag_background_color: '#' + SecureRandom.hex(3),
+#         border_color: '#' + SecureRandom.hex(3),
+#         )
+#     end
+#   end
+# end
 
 
 # EDUCATION PACKAGE
-EducationUser.destroy_all
-EducationSchool.destroy_all
-EducationTeacher.destroy_all
-EducationStudent.destroy_all
-EducationRoom.destroy_all
-EducationClass.destroy_all
+# EducationUser.destroy_all
+# EducationSchool.destroy_all
+# EducationTeacher.destroy_all
+# EducationStudent.destroy_all
+# EducationRoom.destroy_all
+# EducationClass.destroy_all
 
-ActiveRecord::Base.transaction do
-  User.all.each_with_index do |user, index|
-    EducationUser.create(name: "education_user_#{index}", user: user)
-  end
+# ActiveRecord::Base.transaction do
+#   User.all.each_with_index do |user, index|
+#     EducationUser.create(name: "education_user_#{index}", user: user)
+#   end
 
-  EducationUser.all.each_with_index do |user, index|
-    if index < 2
-      school = EducationSchool.create(name: "education_school_#{index}", education_user: user)
-      5.times do |n|
-        EducationRoom.create(name: "education_room_#{n}", education_school: school)
-      end
-      5.times do |n|
-        EducationClass.create(name: "education_class_#{n}", education_school: school)
-      end
-    end
-    school = EducationSchool.all.sample
-    if index >=2 && index < 6
-      EducationTeacher.create(name: "education_teacher_#{index}", education_user: user, education_school: school)
-    end
-    if index >= 6
-      EducationStudent.create(name: "education_student_#{index}", education_user: user, education_school: school, education_class: school.education_classes.sample)
-    end
-  end
-end
+#   EducationUser.all.each_with_index do |user, index|
+#     if index < 2
+#       school = EducationSchool.create(name: "education_school_#{index}", education_user: user)
+#       5.times do |n|
+#         EducationRoom.create(name: "education_room_#{n}", education_school: school)
+#       end
+#       5.times do |n|
+#         EducationClass.create(name: "education_class_#{n}", education_school: school)
+#       end
+#     end
+#     school = EducationSchool.all.sample
+#     if index >=2 && index < 6
+#       EducationTeacher.create(name: "education_teacher_#{index}", education_user: user, education_school: school)
+#     end
+#     if index >= 6
+#       EducationStudent.create(name: "education_student_#{index}", education_user: user, education_school: school, education_class: school.education_classes.sample)
+#     end
+#   end
+# end
 
 # AGRICULTURE PACKAGE
-AgricultureUser.destroy_all
-ActiveRecord::Base.transaction do
-  User.all.each_with_index do |user, index|
-    AgricultureUser.create(name: "agriculture_user_#{index}", user: user)
-  end
-  AgricultureUser.all.each_with_index do |user, index|
-    if (index % 2 == 0)
-      AgricultureFarmer.create(name: "agriculture_farmer_#{index}", agriculture_user: user)
-    else
-      AgricultureMerchant.create(name: "agriculture_merchant_#{index}", agriculture_user: user)
-    end
-  end
-  AgricultureFarmer.all.each_with_index do |farmer, index|
-    AgricultureFarm.create(name: "agriculture_farm_#{index}", agriculture_farmer: farmer)
-  end
-end
+# AgricultureUser.destroy_all
+# ActiveRecord::Base.transaction do
+#   User.all.each_with_index do |user, index|
+#     AgricultureUser.create(name: "agriculture_user_#{index}", user: user)
+#   end
+#   AgricultureUser.all.each_with_index do |user, index|
+#     if (index % 2 == 0)
+#       AgricultureFarmer.create(name: "agriculture_farmer_#{index}", agriculture_user: user)
+#     else
+#       AgricultureMerchant.create(name: "agriculture_merchant_#{index}", agriculture_user: user)
+#     end
+#   end
+#   AgricultureFarmer.all.each_with_index do |farmer, index|
+#     AgricultureFarm.create(name: "agriculture_farm_#{index}", agriculture_farmer: farmer)
+#   end
+# end
 
 # CHAT PACKAGE
-ChatUser.destroy_all
-ChatConversation.destroy_all
-User.all.each do |user|
-  ChatUser.create(
-    user_id: user.id,
-  )
-end
-ChatUser.each do |user|
-  ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample))
-end
-50.times do |n|
-  chat_conversation = ChatConversation.all.sample
-  chat_user_id = chat_conversation.chat_user_ids.sample
-  chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
-end
+# ChatUser.destroy_all
+# ChatConversation.destroy_all
+# User.all.each do |user|
+#   ChatUser.create(
+#     user_id: user.id,
+#   )
+# end
+# ChatUser.each do |user|
+#   ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample))
+# end
+# 50.times do |n|
+#   chat_conversation = ChatConversation.all.sample
+#   chat_user_id = chat_conversation.chat_user_ids.sample
+#   chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
+# end
 
 # 15.times do |n|
 #   (Dir.glob("/rails/faker/images/laptop/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
@@ -123,4 +123,44 @@ end
 #   end
 # end
 
+
+# Car Package
+CarUser.destroy_all
+CarBrand.destroy_all
+CarStore.destroy_all
+CarCar.destroy_all
+ActiveRecord::Base.transaction do
+  User.last(10).each do |user|
+    CarUser.create(user: user)
+  end
+  10.times do
+    CarBrand.create(
+      name: "car_brand_#{SecureRandom.uuid}"
+    )
+  end
+  CarUser.all.each do |car_user|
+    2.times do
+      car_store = CarStore.create(
+        name: "car_store_#{SecureRandom.uuid}",
+        car_user_id: car_user.id,
+        coordinates: [rand(-20e6..20e6), rand(-20e6..20e6)],
+      )
+      2.times do
+        CarCar.create(
+          name: "name_#{SecureRandom.uuid}",
+          model: "model_#{SecureRandom.uuid}",
+          car_brand: CarBrand.all.sample,
+          car_store: car_store,
+          car_user: car_user,
+          price: rand(1e4..1e6),
+          version: "version_#{SecureRandom.uuid}",
+          coordinates: car_store.coordinates,
+          released_at: rand(10.years).seconds.from_now,
+          verified: true,
+          expired: false,
+        )
+      end
+    end
+  end
+end
 puts "db:seed done!"
