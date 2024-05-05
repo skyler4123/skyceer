@@ -11,17 +11,27 @@ default: &default
 solid: &solid
   <<: *default
   migrations_paths: db/solid_migrate
+
 development:
   primary:
     <<: *default
     database: skyceer_development
   solid:
     <<: *solid
-    database: solid
+    database: solid_development
+    
 test:
-  <<: *default
-  database: skyceer_test
+  primary:
+    <<: *default
+    database: skyceer_test
+  solid:
+    <<: *solid
+    database: solid_test
 
 production:
-  <<: *default
-  database: skyceer_development
+  primary:
+    <<: *default
+    database: skyceer_development
+  solid:
+    <<: *solid
+    database: solid_development
