@@ -1,6 +1,7 @@
 import openlayers from "openlayers"
 import ApplicationController from "../../../javascript/controllers/application_controller"
 import { CarCarsApi } from "../../../javascript/controllers/api/car/car_cars_api"
+import { origin } from "../../../javascript/controllers/api"
 
 const Map = openlayers.Map
 const View = openlayers.View
@@ -117,17 +118,16 @@ export default class CreateMapController extends ApplicationController {
     CarCarsApi.index().then(response => {
       const carsData = response.data
       carsData.forEach(carData => {
-        console.log(carData.price, carData.coordinates)
         const newFeature =  new Feature({
           geometry: new Point(carData.coordinates),
-          price: carData.price,
+          id: carData.id
         })
         newFeature.setStyle(this.iconStyle({ text: `$${Math.round(carData.price)}` }))
         this.iconSource.addFeature(newFeature)
       })
     })
 
-    this.map.on('singleclick', async (event) => {
+    // this.map.on('singleclick', async (event) => {
       // try {
       //   const response = await CarCarsApi.create({params: {coordinates: event.coordinate}})
       //   const coordinates = response.data.coordinates
@@ -143,8 +143,45 @@ export default class CreateMapController extends ApplicationController {
       // } catch(error) {
       //   console.log(error)
       // }
+    // })
+
+
+    this.map.on("pointermove", (event) => {
+      const feature = this.iconSource.getClosestFeatureToCoordinate(event.coordinate)
+      const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
+      if (isNear) {
+        this.map.getViewport().style.cursor = "pointer"
+      } else {
+        this.map.getViewport().style.cursor = ""
+      }
     })
+
+    this.map.on("singleclick", (event) => {
+      const feature = this.iconSource.getClosestFeatureToCoordinate(event.coordinate)
+      const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
+      if (isNear) {
+        location.href = origin + "/car_cars/" + feature.get('id')
+      }
+    })
+
+
   }
+
+  distanceBetween(coordinateA, coordinateB) {
+    const xDelta = Math.abs(coordinateA[0] - coordinateB[0])
+    const yDelta = Math.abs(coordinateA[1] - coordinateB[1])
+    const distance = Math.sqrt(Math.abs(Math.pow(xDelta, 2) - Math.pow(yDelta, 2)))
+    return distance
+  }
+
+  isNearFromEventToPointFeature({event, feature, threshold = 100000} = {}) {
+    const eventCoordinates = event.coordinate
+    const featureCoordinates = feature.getGeometry().getCoordinates()
+    const distance = this.distanceBetween(eventCoordinates, featureCoordinates)
+    return(distance < threshold)
+  }
+
+
 
   iconStyle({text}) {
     return new Style({
