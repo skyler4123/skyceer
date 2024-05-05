@@ -174,13 +174,40 @@ export default class CreateMapController extends ApplicationController {
     return distance
   }
 
-  isNearFromEventToPointFeature({event, feature, threshold = 100000} = {}) {
+  isNearFromEventToPointFeature({event, feature} = {}) {
     const eventCoordinates = event.coordinate
     const featureCoordinates = feature.getGeometry().getCoordinates()
     const distance = this.distanceBetween(eventCoordinates, featureCoordinates)
-    return(distance < threshold)
+    // console.log(this.map)
+    // console.log(distance)
+    const zoomLevel = this.map.getView().getZoom()
+    return(distance < this.threshold({zoomLevel: zoomLevel}))
   }
 
+  threshold({zoomLevel = 2}) {
+    const zoomLevelWithThreshold = {
+      '1': 201988,
+      '2': 142574,
+      '3': 214104,
+      '4': 106014,
+      '5': 28809,
+      '6': 20110,
+      '7': 16654,
+      '8': 6762,
+      '9': 5572,
+      '10': 3216,
+      '11': 429,
+      '12': 403,
+      '13': 300,
+      '14': 150,
+      '15': 130,
+      '16': 110,
+      '17': 90,
+      '18': 70,
+    }
+    const roundZoomLevel = Math.round(zoomLevel)
+    return zoomLevelWithThreshold[`${roundZoomLevel}`]
+  }
 
 
   iconStyle({text}) {
