@@ -1,0 +1,22 @@
+<div id="<%= dom_id car_store %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= car_store.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Car user:</strong>
+    <%= car_store.car_user_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Coordinates:</strong>
+    <%= car_store.coordinates %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this car store", car_store, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this car store", edit_car_store_path(car_store), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
