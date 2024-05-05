@@ -15,5 +15,14 @@ rm -f /rails/tmp/pids/server.pid
 # Update Packwerk
 # ./bin/bundle exec packwerk check
 # ./bin/rails graphwerk:update
+# echo "${*}"
+# echo "$1"
+# echo "${@}"
 
-exec "${@}"
+# exec "${@}"
+
+if [ "$1" == "solid" ]; then
+  ./bin/rails solid_queue:start
+else
+  exec "${@}"
+fi
