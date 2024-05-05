@@ -15,10 +15,10 @@ servers:
   #   hosts:
   #     - <%= ENV["KAMAL_JOB_HOST"] %>
   #   cmd: bundle exec sidekiq
-  job:
-    hosts:
-      - <%= ENV["KAMAL_JOB_HOST"] %>
-    cmd: bundle exec rails solid_queue:start
+  # job:
+  #   hosts:
+  #     - <%= ENV["KAMAL_JOB_HOST"] %>
+  #   cmd: bundle exec rails solid_queue:start
   # websocket:
   #   hosts:
   #     - <%= ENV[""] %>
