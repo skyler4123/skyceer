@@ -214,18 +214,20 @@ export default class CreateMapController extends ApplicationController {
   iconStyle({text}) {
     return new Style({
       image: new Icon({
-        anchor: [0.5, 850],
+        anchor: [0.5, 400],
         anchorXUnits: 'fraction',
         anchorYUnits: 'pixels',
         // src: 'https://openlayers.org/en/latest/examples/data/icon.png',
-        src: 'https://www.svgrepo.com/show/13654/placeholder.svg',
+        // src: 'https://www.svgrepo.com/show/13654/placeholder.svg',
+        src: 'https://www.svgrepo.com/show/476540/car.svg',
+
         scale: 0.03
       }),
       text: new Text({
         font: '16px sans-serif',
         text: text,
         textAlign: 'center',
-        offsetY: -38,
+        offsetY: -25,
         fill: new Fill({
           color: [255, 255, 255, 1],
         }),
