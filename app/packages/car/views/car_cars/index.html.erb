@@ -10,7 +10,11 @@
 
   <%= render(Views::Car::MapCarIndexComponent.new) %>
   
-  <div id="car_cars" class="min-w-full">
+  <%
+=begin%>
+ <div id="car_cars" class="min-w-full">
     <%= render @car_cars %>
-  </div>
+  </div> 
+<%
+=end%>
 </div>

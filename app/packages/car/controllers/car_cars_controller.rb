@@ -1,4 +1,5 @@
 class CarCarsController < ApplicationController
+  layout 'car'
   before_action :set_car_car, only: %i[ show edit update destroy ]
 
   # GET /car_cars or /car_cars.json
