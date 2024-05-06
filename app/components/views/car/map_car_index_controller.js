@@ -160,7 +160,8 @@ export default class CreateMapController extends ApplicationController {
       const feature = this.iconSource.getClosestFeatureToCoordinate(event.coordinate)
       const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
       if (isNear) {
-        location.href = origin + "/car_cars/" + feature.get('id')
+        // location.href = origin + "/car_cars/" + feature.get('id')
+        window.open(origin + "/car_cars/" + feature.get('id'))
       }
     })
 
