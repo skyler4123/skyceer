@@ -1,5 +1,6 @@
 import openlayers from "openlayers"
 import ApplicationController from "../../../javascript/controllers/application_controller";
+import Components from "../../../javascript/controllers/components";
 
 const Map = openlayers.Map
 const View = openlayers.View
@@ -125,8 +126,9 @@ export default class OverlayController extends ApplicationController {
     this.map.addLayer(this.iconLayer)
 
 
-    const popup = new Overlay({
-      element: document.getElementById('popup')
+    this.overlay = new Overlay({
+      element: document.getElementById('overlay'),
+      positioning: 'bottom-center',
     })
 
 
@@ -140,8 +142,10 @@ export default class OverlayController extends ApplicationController {
       })
       this.iconSource.addFeature(newIcon)
 
-      popup.setPosition(event.coordinate)
-      this.map.addOverlay(popup)
+      const overlayElement = this.overlay.getElement()
+      overlayElement.innerHTML = Components('button', {label: 'Test Components', event: {id: '123', listener: 'click', action: 'toggle'}, variant: 'gradientMonochrome'})
+      this.overlay.setPosition(event.coordinate)
+      this.map.addOverlay(this.overlay)
     })
 
 
