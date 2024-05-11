@@ -1,5 +1,5 @@
 import "axios";
-import { defaultHeaders, origin } from "../../api";
+import { defaultHeaders, origin } from "../base_api";
 
 export const CarCarsApi = {
 

@@ -226,8 +226,7 @@
     <%= button(label: "Test Button", event: { action: :change_ratio, value: 95, listener: :click, id: new_id }) %>
     <%= ratio(ratio: 15, event_id: id, type: :progress_bar) %>
 
-
-    <%= text(type: :code, klass: "w-full", label: @sample_erb_code, event_id: 'copy code id') %>
+    <%= text(type: :code, klass: "w-full", label: @sample_erb_code) %>
 
     <%= img(type: :avatar, klass: 'w-10 h-10') %>
 

@@ -13,9 +13,9 @@ export default class TabController extends ApplicationController {
 
   initParams() {
     this.setParams({name: 'type', defaultValue: 'default'})
-    this.setParams({name: 'isRestore', defaultValue: false})
-    this.setParams({name: 'restoreIndex', defaultValue: 0})
-    this.setParams({name: 'restoreTimeout', defaultValue: 5000})
+    // this.setParams({name: 'isRestore', defaultValue: false})
+    // this.setParams({name: 'restoreIndex', defaultValue: 0})
+    // this.setParams({name: 'restoreTimeout', defaultValue: 5000})
   }
 
   initTarget() {
@@ -75,12 +75,16 @@ export default class TabController extends ApplicationController {
         target.removeAttribute('open')
       })
       this.tabTargets[this.tabIndexValue].setAttribute('open', '')
-      if (this.isRestoreParams && previousValue !== undefined) {
-        setTimeout(() => {
-          this.tabIndexValue = this.restoreIndexParams
-        }, this.restoreTimeoutParams)
-      }
     })
+    if (this.hasRestoreTimeoutParams || this.hasRestoreIndexParams) {
+      this.restore({timeout: this.restoreTimeoutParams || 3000, index: this.restoreIndexParams || 0})
+    }
+  }
+
+  restore({timeout = 3000, index = 0}) {
+    setTimeout(() => {
+      this.tabIndexValue = index
+    }, timeout)
   }
 
   get typeClass() {

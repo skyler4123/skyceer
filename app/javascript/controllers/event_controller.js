@@ -19,7 +19,6 @@ export default class extends ApplicationController {
     select:dispatch->${this.identifier}#receiver
     skeleton:dispatch->${this.identifier}#receiver
     tab:dispatch->${this.identifier}#receiver
-    tab:dispatch->${this.identifier}#receiver
     text:dispatch->${this.identifier}#receiver
     toast:dispatch->${this.identifier}#receiver
     video:dispatch->${this.identifier}#receiver

@@ -1,7 +1,7 @@
 import openlayers from "openlayers"
 import ApplicationController from "../../../javascript/controllers/application_controller"
 import { CarCarsApi } from "../../../javascript/controllers/api/car/car_cars_api"
-import { origin } from "../../../javascript/controllers/api"
+import { origin } from "../../../javascript/controllers/api/base_api"
 
 const Map = openlayers.Map
 const View = openlayers.View
