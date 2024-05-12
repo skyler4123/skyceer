@@ -50,18 +50,6 @@ export const camelizeParamsValue = (object) => {
   return params
 }
 
-// export const toCamelCase = (string) => {
-//   if (typeof string === 'string' || string instanceof String) {
-//     return string.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
-//   } else {
-//     return string
-//   }
-// }
-
-// export const toSnakeCase = (string) => {
-//   return string.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
-// }
-
 export const changeObjectKey = (object, oldKey, newKey) => {
   object[newKey] = object[oldKey]
   delete(object[oldKey])
