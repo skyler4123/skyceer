@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class Libs::Openlayers::PointComponent < Libs::Openlayers::OpenlayersComponent
-
-  # <%= render(Libs::Openlayers::PointComponent.new) %>
+class Libs::Openlayers::OpenlayersComponent < ApplicationComponent
+  
+  # <%= render(Libs::Openlayers::PointsComponent.new) %>
 
   erb_template <<-ERB
     <<%= @tag %> class="w-full h-[500px]" data-controller="<%= @controllers %>" data-<%= @controller_name %>-params-value="<%= @params %>">

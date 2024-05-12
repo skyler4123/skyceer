@@ -1,7 +1,7 @@
 import openlayers from "openlayers"
-import ApplicationController from "../../../javascript/controllers/application_controller"
 import { CarCarsApi } from "../../../javascript/controllers/api/car/car_cars_api"
 import { origin } from "../../../javascript/controllers/api/base_api"
+import PointsController from "../../libs/openlayers/points_controller"
 
 const Map = openlayers.Map
 const View = openlayers.View
@@ -49,8 +49,8 @@ const toStringHDMS = openlayers.coordinate.toStringHDMS
 const click = openlayers.events.condition.click
 const pointerMove = openlayers.events.condition.pointerMove
 
-export default class CreateMapController extends ApplicationController {
-  static targets = ['map', 'download', 'clear', 'input']
+export default class CreateMapController extends PointsController {
+  static targets = ['map']
 
   initialize() {
     const osmLayer = new TiltLayer({
@@ -76,39 +76,6 @@ export default class CreateMapController extends ApplicationController {
     this.iconSource = new VectorSource()
 
 
-    // this.iconSource = new VectorSource({
-    //   features: [
-    //     new Feature({
-    //       geometry: new Point(fromLonLat([10, 10])),
-    //       labelPoint: 'Label Demo',
-    //       name: "demo name",
-    //       id: 1,
-    //       price: 100
-    //     }),
-    //     new Feature({
-    //       geometry: new Point(fromLonLat([0, 0])),
-    //       labelPoint: 'Label Demo',
-    //       name: "demo name",
-    //       id: 2,
-    //       price: 223
-    //     }),
-    //     new Feature({
-    //       geometry: new Point(fromLonLat([50, 0])),
-    //       labelPoint: 'Label Demo',
-    //       name: "demo name",
-    //       id: 3,
-    //       price: 332
-    //     }),
-    //     new Feature({
-    //       geometry: new Point([10000000, -1000000]),
-    //       labelPoint: 'Label Demo',
-    //       name: "demo name",
-    //       id: 4,
-    //       price: 423
-    //     }),
-    //   ]
-    // })
-
     this.iconLayer = new VectorLayer({
       source: this.iconSource,
     })
@@ -127,24 +94,6 @@ export default class CreateMapController extends ApplicationController {
       })
     })
 
-    // this.map.on('singleclick', async (event) => {
-      // try {
-      //   const response = await CarCarsApi.create({params: {coordinates: event.coordinate}})
-      //   const coordinates = response.data.coordinates
-      //   const newIcon = new Feature({
-      //     geometry: new Point(coordinates),
-      //     labelPoint: 'Label Demo',
-      //     name: "demo name",
-      //     id: 3,
-      //     price: 332
-      //   })
-      //   this.iconSource.addFeature(newIcon)
-
-      // } catch(error) {
-      //   console.log(error)
-      // }
-    // })
-
 
     this.map.on("pointermove", (event) => {
       const feature = this.iconSource.getClosestFeatureToCoordinate(event.coordinate)
@@ -160,7 +109,6 @@ export default class CreateMapController extends ApplicationController {
       const feature = this.iconSource.getClosestFeatureToCoordinate(event.coordinate)
       const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
       if (isNear) {
-        // location.href = origin + "/car_cars/" + feature.get('id')
         window.open(origin + "/car_cars/" + feature.get('id'))
       }
     })
@@ -179,8 +127,6 @@ export default class CreateMapController extends ApplicationController {
     const eventCoordinates = event.coordinate
     const featureCoordinates = feature.getGeometry().getCoordinates()
     const distance = this.distanceBetween(eventCoordinates, featureCoordinates)
-    // console.log(this.map)
-    // console.log(distance)
     const zoomLevel = this.map.getView().getZoom()
     return(distance < this.threshold({zoomLevel: zoomLevel}))
   }

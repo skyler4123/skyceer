@@ -1,53 +1,6 @@
-import openlayers from "openlayers"
-import ApplicationController from "../../../javascript/controllers/application_controller";
+import OpenlayersController from "./openlayers_controller";
 
-const Map = openlayers.Map
-const View = openlayers.View
-const Feature = openlayers.Feature
-const Overlay = openlayers.Overlay
-
-const TiltLayer = openlayers.layer.Tile
-const VectorLayer = openlayers.layer.Vector
-
-const OSM = openlayers.source.OSM
-const VectorSource = openlayers.source.Vector
-const Stamen = openlayers.source.Stamen
-const XYZ = openlayers.source.XYZ
-
-const GeoJSON = openlayers.format.GeoJSON
-const KML = openlayers.format.KML
-
-const DragAndDrop = openlayers.interaction.DragAndDrop
-const Modify = openlayers.interaction.Modify
-const Draw = openlayers.interaction.Draw
-const Snap = openlayers.interaction.Snap
-const Select = openlayers.interaction.Select
-
-const Style = openlayers.style.Style
-const Stroke = openlayers.style.Stroke
-const Fill = openlayers.style.Fill
-const Text = openlayers.style.Text
-const CircleStyle = openlayers.style.Circle
-const Icon = openlayers.style.Icon
-
-const getArea = openlayers.Sphere.getArea
-
-const fromExtent = openlayers.geom.Polygon.fromExtent
-const Point = openlayers.geom.Point
-const MultiPoint = openlayers.geom.MultiPoint
-const circular = openlayers.geom.Polygon.circular
-
-const VectorContext = openlayers.render.VectorContext
-
-const toLonLat = openlayers.proj.toLonLat
-const fromLonLat = openlayers.proj.fromLonLat
-
-const toStringHDMS = openlayers.coordinate.toStringHDMS
-
-const click = openlayers.events.condition.click
-const pointerMove = openlayers.events.condition.pointerMove
-
-export default class PointsController extends ApplicationController {
+export default class PointsController extends OpenlayersController {
   static targets = ['map']
   static values = {
     points: { type: Array, default: [] }
@@ -58,17 +11,12 @@ export default class PointsController extends ApplicationController {
   }
 
   init() {
-    this.initLib()
-  }
-
-  initLib() {
-    console.log(this)
-    const osmLayer = new TiltLayer({
-      source: new OSM()
+    const osmLayer = new this.TiltLayer({
+      source: new this.OSM()
     })
-    this.map = new Map({
+    this.map = new this.Map({
       target: this.mapTarget,
-      view: new View({
+      view: new this.View({
         center: [0, 0],
         zoom: 2,
       }),
@@ -76,15 +24,11 @@ export default class PointsController extends ApplicationController {
         osmLayer
       ]
     })
-
-    this.poinstSource = new VectorSource({})
-
-    this.pointLayer = new VectorLayer({
+    this.poinstSource = new this.VectorSource({})
+    this.pointLayer = new this.VectorLayer({
       source: this.poinstSource,
     })
-
     this.map.addLayer(this.pointLayer)
-
     this.map.on('singleclick', (event) => {
       const newPoint = {
         id: this.newUUID,
@@ -102,28 +46,12 @@ export default class PointsController extends ApplicationController {
   }
 
   createFeature() {
-    const newFeature = new Feature({
-      geometry: new Point(this.lastPoint.coordinates),
+    const newFeature = new this.Feature({
+      geometry: new this.Point(this.lastPoint.coordinates),
     })
     newFeature.setId(this.lastPoint.id)
     newFeature.setStyle(this.pointStyle())
     return newFeature
   }
 
-  pointStyle() {
-    return new Style({
-      image: new Icon({
-        anchor: [0.5, 850],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'pixels',
-        src: this.iconUrlParams,
-        scale: 0.03
-
-      }),
-    })
-  }
-
-  get lastPoint() {
-    return this.pointsValue[this.pointsValue.length - 1]
-  }
 }
