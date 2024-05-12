@@ -48,6 +48,10 @@ const DataHelpers = {
     if (params.type) {
       params.type = this.toCamelCase(params.type)
     }
+    if (params.target) {
+      params.targets ||= [params.target]
+      delete(params.target)
+    }
     return params
   },
   

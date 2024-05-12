@@ -85,7 +85,7 @@ export default class ApplicationController extends Controller {
   }
 
   initializeTargeted() {
-    
+
   }
 
   get getBasicControllerIdentifiers() {
