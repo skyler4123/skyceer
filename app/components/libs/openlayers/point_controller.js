@@ -57,7 +57,11 @@ export default class PointController extends ApplicationController {
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/13654/placeholder.svg'})
   }
 
-  initComplete() {
+  init() {
+    this.initLib()
+  }
+
+  initLib() {
     const osmLayer = new TiltLayer({
       source: new OSM()
     })
