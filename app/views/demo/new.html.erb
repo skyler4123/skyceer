@@ -8,24 +8,7 @@
 <div>/</div>
 
 
-
-
-
-
-<%
-=begin%>
- <%= render(Libs::Openlayers::PointComponent.new) %>
-<%= render(Libs::Openlayers::PointsComponent.new) %> 
-<%
-=end%>
-<%
-=begin%>
- <%= render(Views::Car::MapCarIndexComponent.new) %> 
-<%
-=end%>
-
-    <%= render(Libs::Openlayers::PointComponent.new(target: {'data-map-car-new' => 'map'})) %>
-
+      <%= text(type: :label, label: 'Test Floating Label', data: {'controller1-target' => 'target1', controller2_target: :target2}) %>
 
 
 
