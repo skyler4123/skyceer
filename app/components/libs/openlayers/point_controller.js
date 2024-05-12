@@ -41,10 +41,10 @@ export default class PointController extends OpenlayersController {
   pointValueChanged(value, previousValue) {
     if (!this.isInitializedValue) { return }
     this.pointSource.clear()
-    this.pointSource.addFeature(this.createFeature())
+    this.pointSource.addFeature(this.createPointFeature())
   }
 
-  createFeature() {
+  createPointFeature() {
     const newFeature = new this.Feature({
       geometry: new this.Point(this.pointValue.coordinates),
     })
@@ -52,5 +52,4 @@ export default class PointController extends OpenlayersController {
     newFeature.setStyle(this.pointStyle())
     return newFeature
   }
-
 }

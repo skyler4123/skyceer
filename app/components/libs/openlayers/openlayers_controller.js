@@ -81,8 +81,8 @@ export default class OpenlayersController extends ApplicationController {
   }
 
   pointStyle() {
-    return new Style({
-      image: new Icon({
+    return new this.Style({
+      image: new this.Icon({
         anchor: [0.5, 850],
         anchorXUnits: 'fraction',
         anchorYUnits: 'pixels',
