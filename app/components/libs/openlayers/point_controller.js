@@ -47,10 +47,10 @@ const toStringHDMS = openlayers.coordinate.toStringHDMS
 const click = openlayers.events.condition.click
 const pointerMove = openlayers.events.condition.pointerMove
 
-export default class PointsController extends ApplicationController {
+export default class PointController extends ApplicationController {
   static targets = ['map']
   static values = {
-    points: { type: Array, default: [] }
+    point: { type: Object, default: {} }
   }
 
   initParams() {
@@ -58,7 +58,6 @@ export default class PointsController extends ApplicationController {
   }
 
   initComplete() {
-    console.log(this)
     const osmLayer = new TiltLayer({
       source: new OSM()
     })
@@ -82,26 +81,24 @@ export default class PointsController extends ApplicationController {
     this.map.addLayer(this.pointLayer)
 
     this.map.on('singleclick', (event) => {
-      const newPoint = {
+      this.pointValue = {
         id: this.newUUID,
         coordinates: event.coordinate
       }
-      this.points = this.pointsValue
-      this.points.push(newPoint)
-      this.pointsValue = this.points
     })
   }
 
-  pointsValueChanged(value, previousValue) {
+  pointValueChanged(value, previousValue) {
     if (!this.isInitializedValue) { return }
+    this.poinstSource.clear()
     this.poinstSource.addFeature(this.createFeature())
   }
 
   createFeature() {
     const newFeature = new Feature({
-      geometry: new Point(this.lastPoint.coordinates),
+      geometry: new Point(this.pointValue.coordinates),
     })
-    newFeature.setId(this.lastPoint.id)
+    newFeature.setId(this.pointValue.id)
     newFeature.setStyle(this.pointStyle())
     return newFeature
   }
@@ -117,9 +114,5 @@ export default class PointsController extends ApplicationController {
 
       }),
     })
-  }
-
-  get lastPoint() {
-    return this.pointsValue[this.pointsValue.length - 1]
   }
 }
