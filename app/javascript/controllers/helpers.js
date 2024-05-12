@@ -11,6 +11,19 @@ export const camelizeParamsValue = (object) => {
       return action
     })
   }
+
+  console.log('jbsakjdaskjdk')
+  if (params.target) {
+    params.targets ||= [params.target]
+    delete(params.target)
+  }
+  // if (params.targets) {
+  //   params.targets = params.targets.map((target) => {
+  //     target = toCamelCase(target)
+  //     return target
+  //   })
+  // }
+
   if (params.eventId) {
     params.event = { id: params.eventId }
     delete(params.eventId)
@@ -25,6 +38,7 @@ export const camelizeParamsValue = (object) => {
       return event
     })
   }
+
   if (params.variant) {
     if (isString(params.variant)) {
       params.variant = toCamelCase(params.variant)

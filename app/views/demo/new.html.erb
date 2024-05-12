@@ -18,8 +18,13 @@
 <%= render(Libs::Openlayers::PointsComponent.new) %> 
 <%
 =end%>
-<%= render(Views::Car::MapCarIndexComponent.new) %>
+<%
+=begin%>
+ <%= render(Views::Car::MapCarIndexComponent.new) %> 
+<%
+=end%>
 
+    <%= render(Libs::Openlayers::PointComponent.new(target: {'data-map-car-new' => 'map'})) %>
 
 
 
