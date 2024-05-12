@@ -72,6 +72,7 @@ export default class ApplicationController extends Controller {
     this.initializeAction()
     this.initializeShow()
     this.isInitializedValue = true
+    if (this.isDefined(this.initComplete)) { this.initComplete() }
   }
 
   isInitializedValueChanged(value, previousValue) {
