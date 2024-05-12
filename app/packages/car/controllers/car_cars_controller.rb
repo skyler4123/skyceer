@@ -4,7 +4,13 @@ class CarCarsController < ApplicationController
 
   # GET /car_cars or /car_cars.json
   def index
-    @car_cars = CarCar.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json do
+        @car_cars = CarCar.all
+        render :index
+      end
+    end
   end
 
   # GET /car_cars/1 or /car_cars/1.json
