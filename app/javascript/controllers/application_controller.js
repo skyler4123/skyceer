@@ -70,7 +70,7 @@ export default class ApplicationController extends Controller {
   initializeComplete() {
     this.initializeClass()
     this.initializeAction()
-    this.initializeTargeted()
+    this.initializeDataAttribute()
     this.initializeShow()
     this.isInitializedValue = true
     if (this.isDefined(this.initComplete)) { this.initComplete() }
@@ -84,7 +84,7 @@ export default class ApplicationController extends Controller {
     }
   }
 
-  initializeTargeted() {
+  initializeDataAttribute() {
 
   }
 

@@ -24,8 +24,8 @@ export default class extends ApplicationController {
   }
 
   initTarget() {
-    this.textController.element.setAttribute(`data-${this.identifier}-target`, 'text')
-    this.inputController.element.setAttribute(`data-${this.identifier}-target`, 'input')
+    this.textControllerElement.setAttribute(`data-${this.identifier}-target`, 'text')
+    this.inputControllerElement.setAttribute(`data-${this.identifier}-target`, 'input')
   }
 
 
@@ -63,12 +63,18 @@ export default class extends ApplicationController {
       }
     }
   }
-  
+
+  get textControllerElement() {
+    return this.element.querySelector('[data-controller*=text]')
+  }
   get textController() {
-    return this.getChildrenControllerFromIdentifier('text')
+    return this.application.getControllerForElementAndIdentifier(this.textControllerElement, 'text')
+  }
+  get inputControllerElement() {
+    return this.element.querySelector('[data-controller*=input]')
   }
   get inputController() {
-    return this.getChildrenControllerFromIdentifier('input')
+    return this.application.getControllerForElementAndIdentifier(this.inputControllerElement, 'input')
   }
 
 }
