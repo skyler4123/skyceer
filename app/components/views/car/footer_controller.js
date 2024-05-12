@@ -2,6 +2,6 @@ import ApplicationController from "../../../javascript/controllers/application_c
 
 export default class extends ApplicationController {
   connect() {
-    console.log("Hello, Stimulus!", this.element);
+    // console.log("Hello, Stimulus!", this.element);
   }
 }
