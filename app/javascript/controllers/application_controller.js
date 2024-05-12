@@ -85,8 +85,10 @@ export default class ApplicationController extends Controller {
   }
 
   initializeDataAttribute() {
-    for (const [key, value] of Object.entries(this.dataParams)) {
-      this.element.setAttribute(`data-${key}`, value)
+    if (this.dataParams) {
+      for (const [key, value] of Object.entries(this.dataParams)) {
+        this.element.setAttribute(`data-${key}`, value)
+      }
     }
   }
 
