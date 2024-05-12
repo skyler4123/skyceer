@@ -14,6 +14,11 @@ export default class PointController extends OpenlayersController {
     const osmLayer = new this.TiltLayer({
       source: new this.OSM()
     })
+    this.pointSource = new this.VectorSource({})
+    this.pointLayer = new this.VectorLayer({
+      source: this.pointSource,
+    })
+
     this.map = new this.Map({
       target: this.mapTarget,
       view: new this.View({
@@ -23,10 +28,6 @@ export default class PointController extends OpenlayersController {
       layers: [
         osmLayer
       ]
-    })
-    this.poinstSource = new this.VectorSource({})
-    this.pointLayer = new this.VectorLayer({
-      source: this.poinstSource,
     })
     this.map.addLayer(this.pointLayer)
     this.map.on('singleclick', (event) => {
@@ -39,8 +40,8 @@ export default class PointController extends OpenlayersController {
 
   pointValueChanged(value, previousValue) {
     if (!this.isInitializedValue) { return }
-    this.poinstSource.clear()
-    this.poinstSource.addFeature(this.createFeature())
+    this.pointSource.clear()
+    this.pointSource.addFeature(this.createFeature())
   }
 
   createFeature() {

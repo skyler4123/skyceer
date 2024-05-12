@@ -1,64 +1,25 @@
-import openlayers from "openlayers"
 import { CarCarsApi } from "../../../javascript/controllers/api/car/car_cars_api"
 import { origin } from "../../../javascript/controllers/api/base_api"
-import PointsController from "../../libs/openlayers/points_controller"
+import OpenlayersController from "../../libs/openlayers/openlayers_controller"
 
-const Map = openlayers.Map
-const View = openlayers.View
-const Feature = openlayers.Feature
-const Overlay = openlayers.Overlay
-
-const TiltLayer = openlayers.layer.Tile
-const VectorLayer = openlayers.layer.Vector
-
-const OSM = openlayers.source.OSM
-const VectorSource = openlayers.source.Vector
-const Stamen = openlayers.source.Stamen
-const XYZ = openlayers.source.XYZ
-
-const GeoJSON = openlayers.format.GeoJSON
-const KML = openlayers.format.KML
-
-const DragAndDrop = openlayers.interaction.DragAndDrop
-const Modify = openlayers.interaction.Modify
-const Draw = openlayers.interaction.Draw
-const Snap = openlayers.interaction.Snap
-const Select = openlayers.interaction.Select
-
-const Style = openlayers.style.Style
-const Stroke = openlayers.style.Stroke
-const Fill = openlayers.style.Fill
-const Text = openlayers.style.Text
-const CircleStyle = openlayers.style.Circle
-const Icon = openlayers.style.Icon
-
-const getArea = openlayers.Sphere.getArea
-
-const fromExtent = openlayers.geom.Polygon.fromExtent
-const Point = openlayers.geom.Point
-const MultiPoint = openlayers.geom.MultiPoint
-const circular = openlayers.geom.Polygon.circular
-
-const VectorContext = openlayers.render.VectorContext
-
-const toLonLat = openlayers.proj.toLonLat
-const fromLonLat = openlayers.proj.fromLonLat
-
-const toStringHDMS = openlayers.coordinate.toStringHDMS
-
-const click = openlayers.events.condition.click
-const pointerMove = openlayers.events.condition.pointerMove
-
-export default class CreateMapController extends PointsController {
+export default class MapCarIndexController extends OpenlayersController {
   static targets = ['map']
+  static values = {
+    points: { type: Array, default: [] }
+  }
 
-  initialize() {
-    const osmLayer = new TiltLayer({
-      source: new OSM()
+  init() {
+    const osmLayer = new this.TiltLayer({
+      source: new this.OSM()
     })
-    this.map = new Map({
+    this.pointsSource = new this.VectorSource({})
+    this.pointsLayer = new this.VectorLayer({
+      source: this.pointsSource,
+    })
+
+    this.map = new this.Map({
       target: this.mapTarget,
-      view: new View({
+      view: new this.View({
         center: [0, 0],
         zoom: 2,
       }),
@@ -66,37 +27,22 @@ export default class CreateMapController extends PointsController {
         osmLayer
       ]
     })
-
-
-
-
-
-
-
-    this.iconSource = new VectorSource()
-
-
-    this.iconLayer = new VectorLayer({
-      source: this.iconSource,
-    })
-
-    this.map.addLayer(this.iconLayer)
+    this.map.addLayer(this.pointsLayer)
 
     CarCarsApi.index().then(response => {
       const carsData = response.data
       carsData.forEach(carData => {
-        const newFeature =  new Feature({
-          geometry: new Point(carData.coordinates),
+        const newFeature =  new this.Feature({
+          geometry: new this.Point(carData.coordinates),
           id: carData.id
         })
-        newFeature.setStyle(this.iconStyle({ text: `$${Math.round(carData.price)}` }))
-        this.iconSource.addFeature(newFeature)
+        newFeature.setStyle(this.pointStyle({ text: `$${Math.round(carData.price)}` }))
+        this.pointsSource.addFeature(newFeature)
       })
     })
 
-
     this.map.on("pointermove", (event) => {
-      const feature = this.iconSource.getClosestFeatureToCoordinate(event.coordinate)
+      const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
       const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
       if (isNear) {
         this.map.getViewport().style.cursor = "pointer"
@@ -106,82 +52,38 @@ export default class CreateMapController extends PointsController {
     })
 
     this.map.on("singleclick", (event) => {
-      const feature = this.iconSource.getClosestFeatureToCoordinate(event.coordinate)
+      const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
       const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
       if (isNear) {
         window.open(origin + "/car_cars/" + feature.get('id'))
       }
     })
 
-
   }
-
-  distanceBetween(coordinateA, coordinateB) {
-    const xDelta = Math.abs(coordinateA[0] - coordinateB[0])
-    const yDelta = Math.abs(coordinateA[1] - coordinateB[1])
-    const distance = Math.sqrt(Math.abs(Math.pow(xDelta, 2) - Math.pow(yDelta, 2)))
-    return distance
-  }
-
-  isNearFromEventToPointFeature({event, feature} = {}) {
-    const eventCoordinates = event.coordinate
-    const featureCoordinates = feature.getGeometry().getCoordinates()
-    const distance = this.distanceBetween(eventCoordinates, featureCoordinates)
-    const zoomLevel = this.map.getView().getZoom()
-    return(distance < this.threshold({zoomLevel: zoomLevel}))
-  }
-
-  threshold({zoomLevel = 2}) {
-    const zoomLevelWithThreshold = {
-      '1': 201988,
-      '2': 142574,
-      '3': 214104,
-      '4': 106014,
-      '5': 28809,
-      '6': 20110,
-      '7': 16654,
-      '8': 6762,
-      '9': 5572,
-      '10': 3216,
-      '11': 429,
-      '12': 403,
-      '13': 300,
-      '14': 150,
-      '15': 130,
-      '16': 110,
-      '17': 90,
-      '18': 70,
-    }
-    const roundZoomLevel = Math.round(zoomLevel)
-    return zoomLevelWithThreshold[`${roundZoomLevel}`]
-  }
-
-
-  iconStyle({text}) {
-    return new Style({
-      image: new Icon({
+  
+  pointStyle({text}) {
+    return new this.Style({
+      image: new this.Icon({
         anchor: [0.5, 400],
         anchorXUnits: 'fraction',
         anchorYUnits: 'pixels',
-        // src: 'https://openlayers.org/en/latest/examples/data/icon.png',
-        // src: 'https://www.svgrepo.com/show/13654/placeholder.svg',
         src: 'https://www.svgrepo.com/show/476540/car.svg',
 
         scale: 0.03
       }),
-      text: new Text({
+      text: new this.Text({
         font: '16px sans-serif',
         text: text,
         textAlign: 'center',
         offsetY: -25,
-        fill: new Fill({
+        fill: new this.Fill({
           color: [255, 255, 255, 1],
         }),
-        backgroundFill: new Fill({
+        backgroundFill: new this.Fill({
           color: [168, 50, 153, 0.6],
         }),
-        // padding: [2,2,2,2]
       }),
     })
   } 
+  
 }

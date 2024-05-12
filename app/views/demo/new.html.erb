@@ -12,8 +12,12 @@
 
 
 
-<%= render(Libs::Openlayers::PointComponent.new) %>
-<%= render(Libs::Openlayers::PointsComponent.new) %>
+<%
+=begin%>
+ <%= render(Libs::Openlayers::PointComponent.new) %>
+<%= render(Libs::Openlayers::PointsComponent.new) %> 
+<%
+=end%>
 <%= render(Views::Car::MapCarIndexComponent.new) %>
 
 
