@@ -29,7 +29,7 @@ export default class ApplicationController extends Controller {
   }
 
   functionsForInitialize() {
-    this.paramsValue = this.camelizeParamsValue(this.paramsValue)
+    this.paramsValue = this.normalizeParamsValue(this.paramsValue)
     this.initializeParams()
     if (this.isFirstController) {
       this.initializeID()

@@ -1,5 +1,5 @@
 const DataHelpers = {
-  camelizeParamsValue(object) {
+  normalizeParamsValue(object) {
     let params = object
     params = this.camelCaseForObjectKey(params)
     if (params.action) {
@@ -65,7 +65,7 @@ const DataHelpers = {
   
   kebabCaseForObjectKey(object, except) {
     let objectResult = Object.keys(object).reduce((result, key) => {
-      if (except !== undefined && except.includes(key)) {
+      if ((except !== undefined && except.includes(key)) || key.includes('--')) {
         return {
           ...result,
           [key]: object[key]
