@@ -22,7 +22,8 @@ ActiveRecord::Base.transaction do
       email: "email#{n + 1}@gmail.com",
       password: "password1234",
       password_confirmation: "password1234",
-      verified: true
+      verified: true,
+      name: "name_#{n + 1}"
     )
   end
 end

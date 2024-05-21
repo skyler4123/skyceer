@@ -39,17 +39,29 @@ export default class MapCarIndexController extends OpenlayersController {
         newFeature.setStyle(this.pointStyle({ text: `$${Math.round(carData.price)}` }))
         this.pointsSource.addFeature(newFeature)
       })
+
+      this.map.on("pointermove", (event) => {
+        if (!this.isInitializedValue) { return }
+        const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
+        const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
+        if (isNear) {
+          this.map.getViewport().style.cursor = "pointer"
+        } else {
+          this.map.getViewport().style.cursor = ""
+        }
+      })
     })
 
-    this.map.on("pointermove", (event) => {
-      const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
-      const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
-      if (isNear) {
-        this.map.getViewport().style.cursor = "pointer"
-      } else {
-        this.map.getViewport().style.cursor = ""
-      }
-    })
+    // this.map.on("pointermove", (event) => {
+    //   if (!this.isInitializedValue) { return }
+    //   const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
+    //   const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
+    //   if (isNear) {
+    //     this.map.getViewport().style.cursor = "pointer"
+    //   } else {
+    //     this.map.getViewport().style.cursor = ""
+    //   }
+    // })
 
     this.map.on("singleclick", (event) => {
       const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)

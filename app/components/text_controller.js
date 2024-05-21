@@ -1,4 +1,5 @@
 import { HighlightJS } from "highlight.js"
+import dayjs from 'dayjs'
 import ApplicationController from "../javascript/controllers/application_controller";
 import Dictionary from "../javascript/controllers/dictionary";
 import { button, tab } from "../javascript/controllers/components";
@@ -20,6 +21,7 @@ export default class TextController extends ApplicationController {
   initParams() {
     this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
     this.setParams({name: 'language', defaultValue: 'english'})
+    if (this.typeParams === 'time') { this.setParams({name: 'timeFormat', defaultValue: 'HH:mm:ss'}) }
   }
 
   initValue() {
@@ -33,6 +35,10 @@ export default class TextController extends ApplicationController {
       this.codeTarget.textContent = this.labelValue
       this.element.insertAdjacentHTML('beforeend', this.typeHTML.copyCode)
       HighlightJS.highlightElement(this.codeTarget)
+    } else if (this.typeParams === 'time') {
+      setInterval(() => {
+        this.element.innerHTML = dayjs().format('HH:mm:ss')
+      }, 1000)
     } else {
       this.element.innerText = this.labelValue
     }
@@ -126,6 +132,9 @@ export default class TextController extends ApplicationController {
       label: {
         element: '',
       },
+      time: {
+        element: ''
+      }
     }
   }
   get typeHTML() {
