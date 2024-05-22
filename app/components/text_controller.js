@@ -11,6 +11,14 @@ export default class TextController extends ApplicationController {
     label: { type: String },
     language: { type: String }
   }
+  static outlets = ['user']
+
+  connect() {
+    // setTimeout(() => {
+    //   const result = this.userOutlet
+    //   console.log(result)
+    // }, 1000)
+  }
 
   init() {
     this.initValue()
@@ -19,9 +27,12 @@ export default class TextController extends ApplicationController {
   }
 
   initParams() {
+    this.addUserOutlet()
+
     this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
     this.setParams({name: 'language', defaultValue: 'english'})
     if (this.typeParams === 'time') { this.setParams({name: 'timeFormat', defaultValue: 'HH:mm:ss'}) }
+    if (this.typeParams === 'email') { this.setParams({name: 'label', defaultValue: this.userOutlet.email()}) }
   }
 
   initValue() {
@@ -133,6 +144,9 @@ export default class TextController extends ApplicationController {
         element: '',
       },
       time: {
+        element: ''
+      },
+      email: {
         element: ''
       }
     }

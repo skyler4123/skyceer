@@ -1,17 +1,18 @@
-import { Controller } from "@hotwired/stimulus"
+// import { Controller } from "@hotwired/stimulus"
+import ApplicationController from "./application_controller"
 
 // Connects to data-controller="user"
-export default class UserController extends Controller {
+export default class UserController extends ApplicationController {
 
   initialize() {
-    console.log('Hello Stimulus! from UserController')
+    // console.log('Hello Stimulus! from UserController')
   }
   
   email() {
-    return document.cookie['email']
+    return this.getCookie('email')
   }
 
   name() {
-    return document.cookie['name']
+    return this.getCookie('name')
   }
 }

@@ -432,6 +432,16 @@ export default class ApplicationController extends Controller {
     return location.protocol
   }
 
+  addUserOutlet() {
+    if (this.element.attributes[`data-${this.identifier}-user-outlet`]) { return }
+    this.element.setAttribute(`data-${this.identifier}-user-outlet`, 'body')
+  }
+
+  getCookie(name) {
+    const value = `; ${decodeURIComponent(document.cookie)}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
 }
 
 Object.assign(ApplicationController.prototype, DataHelpers)
