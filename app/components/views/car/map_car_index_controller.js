@@ -9,6 +9,7 @@ export default class MapCarIndexController extends OpenlayersController {
   }
 
   init() {
+    this.mapTarget.firstChild && this.mapTarget.removeChild(this.mapTarget.firstChild)
     const osmLayer = new this.TiltLayer({
       source: new this.OSM()
     })
