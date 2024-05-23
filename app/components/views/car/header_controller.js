@@ -17,15 +17,12 @@ export default class extends ApplicationController {
         <div>${link({label: 'Sell', url: '/#'})}</div>
         <div>${link({label: 'News', url: '/#'})}</div>
       </div>
-      <div class="flex flex-row">
+      <div class="flex flex-row gap-x-2">
         <div>
           ${link({label: 'Home', url: 'https://saaslit.com/blog'})}
         </div>
         <div>
-          ${link({label: 'Contact', url: 'https://saaslit.com/blog'})}
-        </div>
-        <div>
-          ${link({label: 'About', url: 'https://saaslit.com/blog'})}
+          ${text({type: ['cookie', 'email']})}
         </div>
       </div>
     </div>

@@ -8,13 +8,21 @@
 <div>/</div>
 
 
-<%
-=begin%>
- <%= text(type: :time) %> 
-<%
-=end%>
 
-<%= text(type: :email) %>
+
+
+
+    <div class="relative flex justify-center w-fit">
+      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
+      <%= popover(event_id: id, position: [:outside, :right_center]) do %>
+        <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
+      <% end %>
+    </div>
+
+
+
+
+
 
 
 

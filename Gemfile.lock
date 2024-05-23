@@ -334,6 +334,12 @@ GEM
     ruby-vips (2.2.1)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
+    rubyzip (2.3.2)
+    selenium-webdriver (4.21.1)
+      base64 (~> 0.2)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
     shoulda-matchers (6.2.0)
       activesupport (>= 5.2.0)
     sidekiq (7.2.2)
@@ -400,6 +406,7 @@ GEM
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
     webrick (1.8.1)
+    websocket (1.2.10)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -443,6 +450,7 @@ DEPENDENCIES
   rswag-api
   rswag-specs
   rswag-ui
+  selenium-webdriver
   shoulda-matchers
   sidekiq
   sidekiq-cron

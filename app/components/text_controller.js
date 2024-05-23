@@ -11,7 +11,7 @@ export default class TextController extends ApplicationController {
     label: { type: String },
     language: { type: String }
   }
-  static outlets = ['user']
+  static outlets = ['cookie']
 
   connect() {
   }
@@ -26,11 +26,12 @@ export default class TextController extends ApplicationController {
     this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
     this.setParams({name: 'language', defaultValue: 'english'})
     if (this.typeParams === 'time') { this.setParams({name: 'timeFormat', defaultValue: 'HH:mm:ss'}) }
-    if (this.typeParams === 'email') { this.addUserOutlet() }
+    if (this.typeParams && this.typeParams[0] === 'cookie') { this.addCookieOutlet() }
   }
 
-  userOutletConnected(outlet, element) {
-    this.labelValue = this.userOutlet.email()
+  cookieOutletConnected(outlet, element) {
+    // console.log(this.typeParams)
+    this.labelValue = this.cookieOutlet[this.typeParams[1]]()
   }
 
   initValue() {
@@ -76,6 +77,7 @@ export default class TextController extends ApplicationController {
   }
 
   labelValueChanged(value, previousValue) {
+    if (this.typeParams === 'code') { return }
     // if (previousValue === undefined || previousValue === '') { return }
 
     this.element.innerHTML = this.labelValue

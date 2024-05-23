@@ -141,7 +141,7 @@ export default class ApplicationController extends Controller {
   }
 
   initializeTypeClass() {
-    if (this.typeParams && this.typeClass) {
+    if (this.typeParams && this.isString(this.typeParams) && this.typeClass) {
       Object.keys(this.typeClass[this.typeParams]).forEach((targetString) => {
         if (targetString === 'element') {
           this.mergeClass(this.element, this.typeClass[this.typeParams][targetString])
@@ -432,9 +432,9 @@ export default class ApplicationController extends Controller {
     return location.protocol
   }
 
-  addUserOutlet() {
-    if (this.element.attributes[`data-${this.identifier}-user-outlet`]) { return }
-    this.element.setAttribute(`data-${this.identifier}-user-outlet`, 'body')
+  addCookieOutlet() {
+    if (this.element.attributes[`data-${this.identifier}-cookie-outlet`]) { return }
+    this.element.setAttribute(`data-${this.identifier}-cookie-outlet`, 'body')
   }
 
   getCookie(name) {

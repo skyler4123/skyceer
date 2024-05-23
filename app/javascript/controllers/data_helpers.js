@@ -46,7 +46,9 @@ const DataHelpers = {
       params.positionType = this.toCamelCase(params.positionType)
     }
     if (params.type) {
-      params.type = this.toCamelCase(params.type)
+      if (this.isString(params.type)) {
+        params.type = this.toCamelCase(params.type)
+      }
     }
 
     if (params.data) {

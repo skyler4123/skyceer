@@ -99,3 +99,5 @@ gem 'rswag-ui'
 
 gem "solid_queue"
 gem "mission_control-jobs"
+
+gem "selenium-webdriver"
