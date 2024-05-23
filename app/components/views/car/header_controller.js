@@ -22,7 +22,9 @@ export default class extends ApplicationController {
           ${link({label: 'Home', url: 'https://saaslit.com/blog'})}
         </div>
         <div>
-          ${text({type: ['cookie', 'email']})}
+          ${link({url: '/users'}, () => {
+            return text({type: ['cookie', 'email']})
+          })}
         </div>
       </div>
     </div>

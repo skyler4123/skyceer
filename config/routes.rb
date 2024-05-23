@@ -5,6 +5,11 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :users do
+    collection do
+      get :profile
+    end
+  end
   resources :car_stores
   resources :car_cars
   resources :car_brands
