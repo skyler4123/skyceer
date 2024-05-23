@@ -58,7 +58,6 @@ class UsersController < ApplicationController
   end
 
   def profile
-    # debugger
     @user = Current.user
     render :show
   end
