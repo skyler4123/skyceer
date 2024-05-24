@@ -29,7 +29,7 @@ export default class ApplicationController extends Controller {
   }
 
   functionsForInitialize() {
-    this.paramsValue = this.camelizeParamsValue(this.paramsValue)
+    this.paramsValue = this.normalizeParamsValue(this.paramsValue)
     this.initializeParams()
     if (this.isFirstController) {
       this.initializeID()
@@ -70,14 +70,24 @@ export default class ApplicationController extends Controller {
   initializeComplete() {
     this.initializeClass()
     this.initializeAction()
+    this.initializeDataAttribute()
     this.initializeShow()
     this.isInitializedValue = true
+    if (this.isDefined(this.initComplete)) { this.initComplete() }
   }
 
   isInitializedValueChanged(value, previousValue) {
     if (this.isInitializedValue) {
       if (!this.isLastController) {
         this.initializeNextController()
+      }
+    }
+  }
+
+  initializeDataAttribute() {
+    if (this.dataParams) {
+      for (const [key, value] of Object.entries(this.dataParams)) {
+        this.element.setAttribute(`data-${key}`, value)
       }
     }
   }
@@ -131,7 +141,7 @@ export default class ApplicationController extends Controller {
   }
 
   initializeTypeClass() {
-    if (this.typeParams && this.typeClass) {
+    if (this.typeParams && this.isString(this.typeParams) && this.typeClass) {
       Object.keys(this.typeClass[this.typeParams]).forEach((targetString) => {
         if (targetString === 'element') {
           this.mergeClass(this.element, this.typeClass[this.typeParams][targetString])
@@ -259,7 +269,7 @@ export default class ApplicationController extends Controller {
           console.log('Can not find the controller! Are you sue it is correct controller?')
           return
         } 
-        this.nextController.initialize({isPreviousControllerInitialized: true})
+        this.nextController && this.nextController.initialize({isPreviousControllerInitialized: true})
         clearInterval(this.intervalId)
       }, 1000)  
     }
@@ -321,6 +331,9 @@ export default class ApplicationController extends Controller {
     } else {
       return uuidv4()
     }
+  }
+  get Api() {
+    return Api
   }
 
   get controllerNames() {
@@ -419,6 +432,16 @@ export default class ApplicationController extends Controller {
     return location.protocol
   }
 
+  addCookieOutlet() {
+    if (this.element.attributes[`data-${this.identifier}-cookie-outlet`]) { return }
+    this.element.setAttribute(`data-${this.identifier}-cookie-outlet`, 'body')
+  }
+
+  getCookie(name) {
+    const value = `; ${decodeURIComponent(document.cookie)}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
 }
 
 Object.assign(ApplicationController.prototype, DataHelpers)

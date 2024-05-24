@@ -3,7 +3,7 @@ class CarStoresController < ApplicationController
 
   # GET /car_stores or /car_stores.json
   def index
-    @car_stores = CarStore.all
+    @car_stores = Current.car_user.car_stores
   end
 
   # GET /car_stores/1 or /car_stores/1.json

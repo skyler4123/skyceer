@@ -1,5 +1,5 @@
 const DataHelpers = {
-  camelizeParamsValue(object) {
+  normalizeParamsValue(object) {
     let params = object
     params = this.camelCaseForObjectKey(params)
     if (params.action) {
@@ -46,8 +46,16 @@ const DataHelpers = {
       params.positionType = this.toCamelCase(params.positionType)
     }
     if (params.type) {
-      params.type = this.toCamelCase(params.type)
+      if (this.isString(params.type)) {
+        params.type = this.toCamelCase(params.type)
+      }
     }
+
+    if (params.data) {
+      params.data = this.kebabCaseForObjectKey(params.data)
+      // params.data = this.camelCaseForObjectValue(params.data)
+    }
+
     return params
   },
   
@@ -57,6 +65,22 @@ const DataHelpers = {
     return object
   },
   
+  kebabCaseForObjectKey(object, except) {
+    let objectResult = Object.keys(object).reduce((result, key) => {
+      if ((except !== undefined && except.includes(key)) || key.includes('--')) {
+        return {
+          ...result,
+          [key]: object[key]
+        }
+      }
+      return {
+      ...result,
+      [this.toKebabCase(key)]: object[key]
+      }
+    }, {})
+    return objectResult
+  },
+
   snakeCaseForObjectKey(object, except) {
     let objectResult = Object.keys(object).reduce((result, key) => {
       if (except !== undefined && except.includes(key)) {
@@ -105,6 +129,22 @@ const DataHelpers = {
     return objectResult
   },
   
+  camelCaseForObjectValue(object, except) {
+    let objectResult = Object.keys(object).reduce((result, key) => {
+      if (except !== undefined && except.includes(key)) {
+        return {
+          ...result,
+          [key]: object[key]
+        }
+      }
+      return {
+      ...result,
+      [key]: this.toCamelCase(object[key])
+      }
+    }, {})
+    return objectResult
+  },
+
   camelCaseForObjectKeyAndValue(object, except) {
     let objectResult = Object.keys(object).reduce((result, key) => {
       if (except !== undefined && except.includes(key)) {

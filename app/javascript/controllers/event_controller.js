@@ -1,6 +1,11 @@
 import ApplicationController from './application_controller'
 export default class extends ApplicationController {
+  static values = {
+    ...super.values,
+  }
+
   initialize() {
+    if (this.isInitializedValue) { return }
     this.element.dataset.action = (this.element.dataset.action || "") + `
     accordion:dispatch->${this.identifier}#receiver
     box:dispatch->${this.identifier}#receiver
@@ -19,11 +24,11 @@ export default class extends ApplicationController {
     select:dispatch->${this.identifier}#receiver
     skeleton:dispatch->${this.identifier}#receiver
     tab:dispatch->${this.identifier}#receiver
-    tab:dispatch->${this.identifier}#receiver
     text:dispatch->${this.identifier}#receiver
     toast:dispatch->${this.identifier}#receiver
     video:dispatch->${this.identifier}#receiver
     `
+    this.isInitializedValue = true
   }
 
   receiver({ detail: { event } }) {

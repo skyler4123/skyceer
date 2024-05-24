@@ -1,26 +1,37 @@
-// import hljs from "highlight.js";
+import { HighlightJS } from "highlight.js"
+import dayjs from 'dayjs'
 import ApplicationController from "../javascript/controllers/application_controller";
 import Dictionary from "../javascript/controllers/dictionary";
+import { button, tab } from "../javascript/controllers/components";
 
 export default class TextController extends ApplicationController {
-  static targets = ["pre", "code"]
+  static targets = ["pre", "code", "copyCode"]
   static values = {
     ...super.values,
     label: { type: String },
     language: { type: String }
   }
+  static outlets = ['cookie']
+
+  connect() {
+  }
 
   init() {
     this.initValue()
     this.initHTML()
+    this.initTarget()
   }
 
   initParams() {
     this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
     this.setParams({name: 'language', defaultValue: 'english'})
-    this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
-    this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
+    if (this.typeParams === 'time') { this.setParams({name: 'timeFormat', defaultValue: 'HH:mm:ss'}) }
+    if (this.typeParams && this.typeParams[0] === 'cookie') { this.addCookieOutlet() }
+  }
 
+  cookieOutletConnected(outlet, element) {
+    // console.log(this.typeParams)
+    this.labelValue = this.cookieOutlet[this.typeParams[1]]()
   }
 
   initValue() {
@@ -33,10 +44,32 @@ export default class TextController extends ApplicationController {
       this.element.innerHTML = this.typeHTML.code
       this.codeTarget.textContent = this.labelValue
       this.element.insertAdjacentHTML('beforeend', this.typeHTML.copyCode)
+      HighlightJS.highlightElement(this.codeTarget)
+    } else if (this.typeParams === 'time') {
+      setInterval(() => {
+        this.element.innerHTML = dayjs().format('HH:mm:ss')
+      }, 1000)
     } else {
       this.element.innerText = this.labelValue
     }
     this.element.setAttribute('open', '')
+  }
+
+  initTarget() {
+    if (this.typeParams === 'code') {
+      const copyCodeElement = this.element.querySelector('[data-controller*=tab]')
+      copyCodeElement.setAttribute(`data-${this.identifier}-target`, 'copyCode')
+    }
+  }
+
+  initAction() {
+    if (this.typeParams === 'code') {
+      this.addAction(this.copyCodeTarget, `click->${this.identifier}#copyCode`)
+    }
+  }
+  
+  copyCode() {
+    this.copyText()
   }
 
   copyText() {
@@ -44,7 +77,8 @@ export default class TextController extends ApplicationController {
   }
 
   labelValueChanged(value, previousValue) {
-    if (previousValue === undefined || previousValue === '') { return }
+    if (this.typeParams === 'code') { return }
+    // if (previousValue === undefined || previousValue === '') { return }
 
     this.element.innerHTML = this.labelValue
   }
@@ -109,6 +143,12 @@ export default class TextController extends ApplicationController {
       label: {
         element: '',
       },
+      time: {
+        element: ''
+      },
+      email: {
+        element: ''
+      }
     }
   }
   get typeHTML() {
@@ -116,20 +156,12 @@ export default class TextController extends ApplicationController {
       code: `
         <pre data-${this.identifier}-target="pre"><code data-${this.identifier}-target="code" class="${this.codeLanguageParams}"></code></pre>
       `,
-      copyCode: `
-        <div class="hidden absolute top-2 right-2" data-controller="button " data-button-params-value="{&quot;events&quot;:[{&quot;id&quot;:&quot;${this.eventIdParams}&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;copy_text&quot;},{&quot;id&quot;:&quot;${this.eventIdParams + 'toggle'}&quot;,&quot;listener&quot;:&quot;click&quot;,&quot;action&quot;:&quot;tab_next&quot;}]}">
-          <button data-button-target="button">
-            <div class="hidden" data-controller="tab " data-tab-params-value="{&quot;event_id&quot;:&quot;${this.eventIdParams + 'toggle'}&quot;,&quot;is_restore&quot;:true,&quot;klass&quot;:&quot;rounded-md text-white w-20 py-1 flex justify-center&quot;}">
-              <div class="" data-controller="text " data-text-params-value="{&quot;label&quot;:&quot;Copy&quot;}">
-                <div data-text-target="text"></div>
-              </div>
-              <div class="hidden" data-controller="text " data-text-params-value="{&quot;label&quot;:&quot;Copied&quot;,&quot;text_class&quot;:&quot;text-green-500&quot;}">
-                <div data-text-target="text"></div>
-              </div>
-            </div>
-          </button>
-        </div>
-      `
+      copyCode: tab({klass: 'absolute top-2 right-2', action: { listener: 'click', action: 'tabLast' }, restoreTimeout: 10000, restoreIndex: 0 }, () => {
+        return `
+          <div>${button({label: 'Copy', variant: 'pill'})}</div>
+          <div>${button({label: 'Copied', variant: 'pill'})}</div>
+        `
+      }),
     }
   }
   get supportLanguagesObject() {

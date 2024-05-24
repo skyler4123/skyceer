@@ -109,6 +109,10 @@ const ControllerHelpers = {
     }
   },
 
+  addClass(element, klass) {
+    this.mergeClass(element, klass)
+  },
+
   removeClass(element, klass) {
     if (this.isUndefined(element)) { return }
 

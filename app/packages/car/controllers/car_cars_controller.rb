@@ -1,9 +1,18 @@
 class CarCarsController < ApplicationController
+  layout 'car'
+  skip_before_action :authenticate, only: [:index]
   before_action :set_car_car, only: %i[ show edit update destroy ]
 
   # GET /car_cars or /car_cars.json
   def index
-    @car_cars = CarCar.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json do
+        @car_cars = CarCar.all
+        @car_cars = @car_cars.where('price <= ?', params[:price]) if params[:price].present?
+        render :index
+      end
+    end
   end
 
   # GET /car_cars/1 or /car_cars/1.json
@@ -22,7 +31,8 @@ class CarCarsController < ApplicationController
   # POST /car_cars or /car_cars.json
   def create
     @car_car = CarCar.new(car_car_params)
-
+    @car_car.car_user = Current.car_user
+    @car_car.coordinates = normalize_coordinates(params[:car_car][:coordinates])
     respond_to do |format|
       if @car_car.save
         format.html { redirect_to car_car_url(@car_car), notice: "Car car was successfully created." }
@@ -65,6 +75,10 @@ class CarCarsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def car_car_params
-      params.require(:car_car).permit(:name, :model, :car_brand_id, :car_user_id, :price, :version, :coordinates, :released_at, :verified, :expired)
+      params.require(:car_car).permit(:name, :model, :car_brand_id, :car_store_id, :car_user_id, :price, :version, :released_at, :verified, :expired, coordinates: [])
+    end
+
+    def normalize_coordinates(coordinates)
+      coordinates.split(',').map(&:to_f)
     end
 end

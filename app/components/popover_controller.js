@@ -17,8 +17,11 @@ export default class PopoverController extends ApplicationController {
   }
 
   initHTML() {
-    if (this.type === 'emoji') {
-      const pickerOptions = { onEmojiSelect: console.log }
+    if (this.typeParams === 'emoji') {
+      // const pickerOptions = { onEmojiSelect: console.log }
+      const pickerOptions = { onEmojiSelect: (event) => {
+        console.log(event)
+      }}
       const picker = new Picker(pickerOptions)
       this.element.appendChild(picker)
     }

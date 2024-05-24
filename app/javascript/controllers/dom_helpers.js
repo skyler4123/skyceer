@@ -18,6 +18,10 @@ const DomHelpers = {
     return document.createRange().createContextualFragment(html)
   },
 
+  appendChildFromHTML({element, html}) {
+    return element.appendChild(this.createNodeFromHTML(html))
+  },
+
   getClientXYFrom({event}) {
     const { clientX, clientY } = event
     return [clientX, clientY]

@@ -1,36 +1,38 @@
-// import ApplicationController from './application_controller'
-// export default class extends ApplicationController {
-import openlayers from "openlayers"
-import Components from "./components"
 import { Controller } from "@hotwired/stimulus"
+import { button, tab } from "./components"
+import { Picker } from "emoji-mart"
 
-const Map = openlayers.Map
-const View = openlayers.View
-const TiltLayer = openlayers.layer.Tile
-const OSM = openlayers.source.OSM
 export default class extends Controller {
+  static targets = ['input']
   initialize() {
-    const map = new Map({
-      target: "map",
-      view: new View({
-        center: [0, 0],
-        zoom: 2,
-      }),
-      layers: [
-        new TiltLayer({
-          source: new OSM()
-        })
-      ]
-    })
+    console.log('Hello Stimulus!')
+    // this.element.innerHTML = this.initHTML
+    const pickerOptions = {
+      onEmojiSelect: (e) => {
+        console.log(e)
+        this.inputTarget.value = this.inputTarget.value + e.native
+      }
+    }
+    const picker = new Picker(pickerOptions)
+    this.element.appendChild(picker)
+  }
+
+  // &#128515
+
+
+  get initHTML() {
+    return (
+      tab({action: { listener: 'click', action: 'tab_next' }, restoreTimeout: 10000, restoreIndex: 0 }, () => {
+        return `
+          <div>${button({label: 'Copy', variant: 'pill'})}</div>
+          <div>${button({label: 'Copied', variant: 'pill'})}</div>
+        `
+      })
+    )
   }
 
 
-
-
-
-
-
-
+  
 
 
 

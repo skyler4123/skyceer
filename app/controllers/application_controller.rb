@@ -17,4 +17,10 @@ class ApplicationController < ActionController::Base
       Current.user_agent = request.user_agent
       Current.ip_address = request.ip
     end
+
+    def set_cookie(session:, user:)
+      cookies.signed.permanent[:session_token] = { value: session.id, httponly: true }
+      cookies[:email] = user.email
+      cookies[:name] = user.name
+    end
 end

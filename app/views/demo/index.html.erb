@@ -27,6 +27,11 @@
     <% end %>
     <%= icon %>
 
+    <%= text(type: :time) %>
+    <%= text(type: [:cookie, :email]) %>
+    <%= text(type: [:cookie, :name]) %>
+
+
     <%= tab(controller: :darkmode) do |c| %>
       <div><%= icon(variant: [:outline, :moon], klass: 'w-5 h-5 fill-blue-950') %></div>
       <div><%= icon(variant: [:outline, :sun], klass: 'w-5 h-5') %></div>
@@ -226,8 +231,7 @@
     <%= button(label: "Test Button", event: { action: :change_ratio, value: 95, listener: :click, id: new_id }) %>
     <%= ratio(ratio: 15, event_id: id, type: :progress_bar) %>
 
-
-    <%= text(type: :code, klass: "w-full", label: @sample_erb_code, event_id: 'copy code id') %>
+    <%= text(type: :code, klass: "w-full", label: @sample_erb_code) %>
 
     <%= img(type: :avatar, klass: 'w-10 h-10') %>
 
@@ -385,7 +389,7 @@
     <div>/</div>
     <div>/</div>
 
-    <div class="relative">
+    <div class="relative flex justify-center w-fit">
       <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
       <%= popover(event_id: id, position: [:outside, :right_center]) do %>
         <div class="animate-fade-in bg-red-500">hkj o;o jygn sa</div>
@@ -396,27 +400,30 @@
     <div>/</div>
     <div>/</div>
 
-    <div class="relative">
+    <div class="relative flex justify-center w-fit">
       <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :hover, action: :toggle }) %>
       <%= popover(type: :emoji, event_id: id, position: [:outside, :right_center]) %>
     </div>
 
-    <div class="relative">
+    <div class="relative flex justify-center w-fit">
+      <%= button(label: 'Test Popover', klass: " w-64 h-40 bg-gray-200", event: { id: new_id, listener: :click, action: :toggle }) %>
+      <%= popover(type: :emoji, event_id: id, position: [:outside, :right_center]) %>
+    </div>
+
+    <div class="relative flex justify-center w-fit">
       <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :click, id: new_id }) %>
       <%= popover(event_id: id) do %>
         <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
       <% end %>
     </div>
 
-    <div class="relative">
+    <div class="relative flex justify-center w-fit">
       <%= button(label: "Test Popover", klass: "relative", event: { action: :toggle, listener: :hover, id: new_id }) %>
       <%= popover(event_id: id) do %>
         <div class="animate-fade-in">hkj o;o jygn sa dukh khga ag knjyf </div>
       <% end %>
     </div>
   
-    <%= render(Libs::Openlayers::MarkerComponent.new) %>
-
 
 
 
