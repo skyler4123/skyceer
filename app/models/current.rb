@@ -7,4 +7,8 @@ class Current < ActiveSupport::CurrentAttributes
   def self.user_id
     self.session.user_id
   end
+
+  def self.car_user
+    CarUser.find_by(user_id: self.user_id)
+  end
 end

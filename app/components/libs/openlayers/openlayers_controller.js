@@ -39,7 +39,16 @@ export default class OpenlayersController extends ApplicationController {
   get click() { return openlayers.events.condition.click }
   get pointerMove() { return openlayers.events.condition.pointerMove }
 
+  get variantClass() {
+    return {
+      default: {
+        element: "w-full h-[500px]"
+      }
+    }
+  }
+
   initParams() {
+    this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/13654/placeholder.svg'})
   }
 
@@ -106,6 +115,7 @@ export default class OpenlayersController extends ApplicationController {
   }
 
   isNearFromEventToPointFeature({event, feature} = {}) {
+    if (!event || !feature ) { return false }
     let isNear = false
     const eventCoordinates = event.coordinate
     const featureCoordinates = feature.getGeometry().getCoordinates()
@@ -113,5 +123,10 @@ export default class OpenlayersController extends ApplicationController {
     const zoomLevel = this.map.getView().getZoom()
     isNear = distance < this.thresholdHover({zoomLevel: zoomLevel})
     return isNear
+  }
+
+  isCoordinateValid(coordinate) {
+    if (this.isArray(coordinate) && coordinate.length === 2) { return true }
+    return false
   }
 }

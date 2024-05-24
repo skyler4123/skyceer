@@ -269,7 +269,7 @@ export default class ApplicationController extends Controller {
           console.log('Can not find the controller! Are you sue it is correct controller?')
           return
         } 
-        this.nextController.initialize({isPreviousControllerInitialized: true})
+        this.nextController && this.nextController.initialize({isPreviousControllerInitialized: true})
         clearInterval(this.intervalId)
       }, 1000)  
     }

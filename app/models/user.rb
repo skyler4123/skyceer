@@ -24,8 +24,8 @@ class User < ApplicationRecord
     sessions.where.not(id: Current.session).delete_all
   end
 
-  has_one :calendar_user
-  has_one :education_user
-  has_one :agriculture_user
-  has_one :car_user
+  has_one :calendar_user, dependent: :destroy
+  has_one :education_user, dependent: :destroy
+  has_one :agriculture_user, dependent: :destroy
+  has_one :car_user, dependent: :destroy
 end

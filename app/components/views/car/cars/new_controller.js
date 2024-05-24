@@ -1,20 +1,31 @@
 // import { Controller } from "@hotwired/stimulus";
+import { CarBrandsApi } from "../../../../javascript/controllers/api/car/car_brands_api";
+import { CarStoresApi } from "../../../../javascript/controllers/api/car/car_stores_api";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
 
 export default class extends ApplicationController {
-  static targets = ['coordinateInput', 'map']
-  // static values = [
-  //   coordinates = { type: Object }
-  // ]
+  static targets = ['coordinateInput', 'brandInput', 'storeInput', 'map']
 
-  initAction() {
-    console.log(this)
-    this.addAction(this.coordinateInputTarget, `input->${this.identifier}#inputCoordinate`)
-    this.addAction(this.mapTarget, `click->${this.identifier}#sync`)
+  init() {
+    this.addClass(this.brandInputTarget, "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full")
+    CarBrandsApi.index().then(response => {
+      const brandsData = response.data
+      brandsData.forEach(brand => {
+        this.appendChildFromHTML({element: this.brandInputTarget, html: `<option value='${brand.id}'>${brand.name}</option>`})
+      })
+    })
+
+    this.addClass(this.storeInputTarget, "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full")
+    CarStoresApi.index().then(response => {
+      const storesData = response.data
+      storesData.forEach(store => {
+        this.appendChildFromHTML({element: this.storeInputTarget, html: `<option value='${store.id}'>${store.name}</option>`})
+      })
+    })
   }
 
-  inputCoordinate(event) {
-    console.log(event)
+  initAction() {
+    this.addAction(this.mapTarget, `click->${this.identifier}#sync`)
   }
 
   sync() {
@@ -25,9 +36,5 @@ export default class extends ApplicationController {
 
   mapController() {
     return this.application.getControllerForElementAndIdentifier(this.mapTarget, 'libs--openlayers--point')
-  }
-
-  connect() {
-    // console.log("Hello, Stimulus!", this.coordinateInputTarget);
   }
 }

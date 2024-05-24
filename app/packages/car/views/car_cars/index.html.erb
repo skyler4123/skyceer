@@ -1,4 +1,4 @@
-<div class="w-full">
+<div class="w-full" data-controller="views--car--cars--index">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
@@ -8,7 +8,24 @@
     <%= link_to "New car car", new_car_car_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <%= render(Views::Car::MapCarIndexComponent.new) %>
+  <form data-views--car--cars--index-target="formSearch">
+    <div class="my-5">
+      <label>
+        Name
+        <input name="name"/>
+      </label>
+      <label>
+        Brand
+        <input name="brand"/>
+      </label>
+      <label>
+        Price
+        <input name="price"/>
+      </label>
+      <input type="submit" value="Submit"/>
+    </div>
+  </form>
+  <%= render(Views::Car::MapCarIndexComponent.new(data: {"views--car--cars--index-target" => "map"})) %>
   
   <%
 =begin%>

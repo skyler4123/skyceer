@@ -23,13 +23,22 @@
 
   <div class="my-5">
     <%= form.label :car_brand_id %>
-    <%= form.text_field :car_brand_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <select name="car_car[car_brand_id]" data-views--car--cars--new-target='brandInput'></select>
   </div>
 
   <div class="my-5">
+    <%= form.label :car_store_id %>
+    <select name="car_car[car_store_id]" data-views--car--cars--new-target='storeInput'></select>
+  </div>
+<%
+=begin%>
+ 
+  <div class="my-5">
     <%= form.label :car_user_id %>
     <%= form.text_field :car_user_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+  </div> 
+<%
+=end%>
 
   <div class="my-5">
     <%= form.label :price %>
@@ -43,12 +52,12 @@
 
   <div class="my-5">
     <%= form.label :coordinates %>
-    <%= form.text_field :coordinates, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: {'views--car--cars--new-target' => 'coordinateInput'} %>
+    <%= form.text_field :coordinates, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: { 'views--car--cars--new-target' => 'coordinateInput' } %>
   </div>
 
   <div class="my-5">
     <%= form.label :released_at %>
-    <%= form.datetime_field :released_at, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.date_field :released_at, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">

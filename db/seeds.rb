@@ -17,7 +17,7 @@ REDIS.set('time', Date.current.to_s)
 # APPLICATION PACKAGE
 User.destroy_all
 ActiveRecord::Base.transaction do
-  20.times do |n|
+  10.times do |n|
     User.create(
       email: "email#{n + 1}@gmail.com",
       password: "password1234",
@@ -131,7 +131,7 @@ CarBrand.destroy_all
 CarStore.destroy_all
 CarCar.destroy_all
 ActiveRecord::Base.transaction do
-  User.last(10).each do |user|
+  User.all.each do |user|
     CarUser.create(user: user)
   end
   10.times do
@@ -140,7 +140,7 @@ ActiveRecord::Base.transaction do
     )
   end
   CarUser.all.each do |car_user|
-    5.times do
+    2.times do
       car_store = CarStore.create(
         name: "car_store_#{SecureRandom.uuid}",
         car_user_id: car_user.id,
@@ -153,7 +153,7 @@ ActiveRecord::Base.transaction do
           car_brand: CarBrand.all.sample,
           car_store: car_store,
           car_user: car_user,
-          price: rand(1e4..1e6),
+          price: rand(1..1000),
           version: "version_#{SecureRandom.uuid}",
           coordinates: car_store.coordinates,
           released_at: rand(10.years).seconds.from_now,

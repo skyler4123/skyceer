@@ -13,9 +13,8 @@ export default class extends ApplicationController {
         <div>Skycarr</div>
       </div>
       <div class="flex flex-row">
-        <div>${link({label: 'Home', url: '/#'})}</div>
-        <div>${link({label: 'Sell', url: '/#'})}</div>
-        <div>${link({label: 'News', url: '/#'})}</div>
+        <div>${link({label: 'Home', url: '/car_cars'})}</div>
+        <div>${link({label: 'Sell', url: '/car_cars/new'})}</div>
       </div>
       <div class="flex flex-row gap-x-2">
         <div>

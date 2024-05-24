@@ -3,13 +3,15 @@ import { origin } from "../../../javascript/controllers/api/base_api"
 import OpenlayersController from "../../libs/openlayers/openlayers_controller"
 
 export default class MapCarIndexController extends OpenlayersController {
-  static targets = ['map']
   static values = {
-    points: { type: Array, default: [] }
+    ...super.values,
+    points: { type: Array, default: [] },
+    fetchParams: { type: Object, default: {} }
   }
 
-  init() {
-    this.mapTarget.firstChild && this.mapTarget.removeChild(this.mapTarget.firstChild)
+  initComplete() {
+    if (!this.isInitializedValue) { return }
+    this.element.firstChild && this.element.removeChild(this.element.firstChild)
     const osmLayer = new this.TiltLayer({
       source: new this.OSM()
     })
@@ -19,7 +21,7 @@ export default class MapCarIndexController extends OpenlayersController {
     })
 
     this.map = new this.Map({
-      target: this.mapTarget,
+      target: this.element,
       view: new this.View({
         center: [0, 0],
         zoom: 2,
@@ -30,9 +32,22 @@ export default class MapCarIndexController extends OpenlayersController {
     })
     this.map.addLayer(this.pointsLayer)
 
-    CarCarsApi.index().then(response => {
+    this.fetchPointFeature()
+    this.addPointerMoveEvent()
+    this.addSingleClickEvent()
+  }
+
+  fetchParamsValueChanged(value, previousValue) {
+    if (!this.isInitializedValue) { return }
+    this.fetchPointFeature({params: value})
+  }
+
+  fetchPointFeature({params} = {}) {
+    this.pointsSource.clear()
+    CarCarsApi.index({params: params}).then(response => {
       const carsData = response.data
       carsData.forEach(carData => {
+        if (!this.isCoordinateValid(carData.coordinates)) { return }
         const newFeature =  new this.Feature({
           geometry: new this.Point(carData.coordinates),
           id: carData.id
@@ -40,30 +55,23 @@ export default class MapCarIndexController extends OpenlayersController {
         newFeature.setStyle(this.pointStyle({ text: `$${Math.round(carData.price)}` }))
         this.pointsSource.addFeature(newFeature)
       })
-
-      this.map.on("pointermove", (event) => {
-        if (!this.isInitializedValue) { return }
-        const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
-        const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
-        if (isNear) {
-          this.map.getViewport().style.cursor = "pointer"
-        } else {
-          this.map.getViewport().style.cursor = ""
-        }
-      })
     })
+  }
 
-    // this.map.on("pointermove", (event) => {
-    //   if (!this.isInitializedValue) { return }
-    //   const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
-    //   const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
-    //   if (isNear) {
-    //     this.map.getViewport().style.cursor = "pointer"
-    //   } else {
-    //     this.map.getViewport().style.cursor = ""
-    //   }
-    // })
+  addPointerMoveEvent() {
+    this.map.on("pointermove", (event) => {
+      if (!this.isInitializedValue) { return }
+      const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
+      const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
+      if (isNear) {
+        this.map.getViewport().style.cursor = "pointer"
+      } else {
+        this.map.getViewport().style.cursor = ""
+      }
+    })
+  }
 
+  addSingleClickEvent() {
     this.map.on("singleclick", (event) => {
       const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
       const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
@@ -71,9 +79,8 @@ export default class MapCarIndexController extends OpenlayersController {
         window.open(origin + "/car_cars/" + feature.get('id'))
       }
     })
-
   }
-  
+
   pointStyle({text}) {
     return new this.Style({
       image: new this.Icon({
@@ -97,6 +104,6 @@ export default class MapCarIndexController extends OpenlayersController {
         }),
       }),
     })
-  } 
-  
+  }
+
 }
