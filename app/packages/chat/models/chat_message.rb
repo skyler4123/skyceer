@@ -17,6 +17,7 @@ class ChatMessage
   end
 
   def render_component
-    ApplicationController.render(TurboStreams::ChatMessageComponent.new(chat_message: self), layout: false)
+    # ApplicationController.render(TurboStreams::ChatMessageComponent.new(chat_message: self), layout: false)
+    ApplicationController.render(Views::Chat::BoxComponent.new, layout: false)
   end
 end

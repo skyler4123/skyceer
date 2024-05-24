@@ -16,8 +16,7 @@ export default class extends ApplicationController {
 
   init() {
     this.element.innerHTML = `
-    <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col w-[400px] h-[500px]">
-
+    <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col w-[400px] h-[500px] border-2 rounded-md">
       <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
         <div class="relative flex items-center space-x-4">
           <div class="relative">
@@ -32,7 +31,6 @@ export default class extends ApplicationController {
               <div class="text-2xl mt-1 flex items-center">
                 <span class="text-gray-700 mr-3">Anderson Vanhron</span>
               </div>
-              <span class="text-lg text-gray-600">Junior Developer</span>
           </div>
         </div>
         <div class="flex items-center space-x-2">
