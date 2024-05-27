@@ -31,8 +31,10 @@ export default class extends ApplicationController {
     addEventListener("turbo:before-stream-render", ((event) => {
       const fallbackToDefaultActions = event.detail.render
       event.detail.render = (streamElement) => {
+        const template = streamElement.querySelector('template')
+        const [chatUserId, content] = JSON.parse(template.innerHTML)
+        template.innerHTML = this.newHTML({chatUserId: chatUserId, content: content})
         fallbackToDefaultActions(streamElement).then(() => {
-          this.chatMessagesTarget.lastElementChild.setAttribute(`data-${this.identifier}-target`, "message")
           this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight)
         })
       }
@@ -40,19 +42,26 @@ export default class extends ApplicationController {
     }))
   }
 
+  newHTML({chatUserId, content}) {
+    return `
+      <div
+        data-${this.identifier}-target="message"
+        data-chat-user-id="${chatUserId}"
+      >
+        ${content}
+      </div>
+    `
+  }
   initMessages() {
     ChatConversationsApi.show({id: this.conversationIdParams}).then(response => {
       const messagesData = response.data
       const messages = messagesData.messages.forEach(message => {
-        this.chatMessagesTarget.insertAdjacentHTML('beforeend',
-        `<div data-chat-user-id="${message.chat_user_id}" data-${this.identifier}-target="message">${message.content}</div>`
-        )
+        this.chatMessagesTarget.insertAdjacentHTML('beforeend', this.newHTML({chatUserId: message.chat_user_id, content: message.content}))
       })
       this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight) 
     })
     ChatUsersApi.index().then(response => {
       const usersData = response.data
-      console.log(this)
       this.users = usersData
     })
   }

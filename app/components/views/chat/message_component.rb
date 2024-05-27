@@ -3,7 +3,7 @@
 class Views::Chat::MessageComponent < ApplicationComponent
 
   erb_template <<-ERB
-      <div data-chat-user-id="<%= @chat_message.chat_user_id %>"><%= @chat_message.content %></div>
+      <%= [@chat_message.chat_user_id, @chat_message.content] %>
     </<%= @tag %>>
   ERB
 
