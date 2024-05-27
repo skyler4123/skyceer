@@ -1,21 +1,64 @@
+import { ChatConversationsApi } from "../../../javascript/controllers/api/chat/chat_conversations_api";
+import { ChatUsersApi } from "../../../javascript/controllers/api/chat/chat_users_api";
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
 export default class extends ApplicationController {
+  static targets = ['content', 'message', 'chatMessages']
+  // static values = {
+  //   users: { type: Object, default: {} }
+  // }
 
   initParams() {
     this.setParams({ name: 'variant', defaultValue: 'default' })
   }
 
+
   get variantClass() {
     return {
       default: {
-        element: 'w-fit h-fit'
+        element: 'fixed bottom-0 right-0 w-fit h-fit'
       }
     }
   }
 
   init() {
-    this.element.innerHTML = `
+    this.initHTML()
+    this.initMessages()
+    this.initEvent()
+  }
+
+  initEvent() {
+    addEventListener("turbo:before-stream-render", ((event) => {
+      const fallbackToDefaultActions = event.detail.render
+      event.detail.render = (streamElement) => {
+        fallbackToDefaultActions(streamElement).then(() => {
+          this.chatMessagesTarget.lastElementChild.setAttribute(`data-${this.identifier}-target`, "message")
+          this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight)
+        })
+      }
+      
+    }))
+  }
+
+  initMessages() {
+    ChatConversationsApi.show({id: this.conversationIdParams}).then(response => {
+      const messagesData = response.data
+      const messages = messagesData.messages.forEach(message => {
+        this.chatMessagesTarget.insertAdjacentHTML('beforeend',
+        `<div data-chat-user-id="${message.chat_user_id}" data-${this.identifier}-target="message">${message.content}</div>`
+        )
+      })
+      this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight) 
+    })
+    ChatUsersApi.index().then(response => {
+      const usersData = response.data
+      console.log(this)
+      this.users = usersData
+    })
+  }
+
+  initHTML() {
+    this.contentTarget.innerHTML = `
     <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col w-[400px] h-[500px] border-2 rounded-md">
       <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
         <div class="relative flex items-center space-x-4">
@@ -42,7 +85,7 @@ export default class extends ApplicationController {
         </div>
       </div>
 
-      <div id="messages" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+      <div data-${this.identifier}-target="chatMessages" id="${this.toSnakeCase('chatMessages')}" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
           <div class="chat-message">
             <div class="flex items-end">
                 <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">

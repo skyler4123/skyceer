@@ -28,6 +28,48 @@ ActiveRecord::Base.transaction do
   end
 end
 
+
+# Car Package
+CarUser.destroy_all
+CarBrand.destroy_all
+CarStore.destroy_all
+CarCar.destroy_all
+ActiveRecord::Base.transaction do
+  User.all.each do |user|
+    CarUser.create(user: user)
+  end
+  10.times do
+    CarBrand.create(
+      name: "car_brand_#{SecureRandom.uuid}"
+    )
+  end
+  CarUser.all.each do |car_user|
+    2.times do
+      car_store = CarStore.create(
+        name: "car_store_#{SecureRandom.uuid}",
+        car_user_id: car_user.id,
+        coordinates: [rand(-20e6..20e6), rand(-20e6..20e6)],
+      )
+      1.times do
+        CarCar.create(
+          name: "name_#{SecureRandom.uuid}",
+          model: "model_#{SecureRandom.uuid}",
+          car_brand: CarBrand.all.sample,
+          car_store: car_store,
+          car_user: car_user,
+          price: rand(1..1000),
+          version: "version_#{SecureRandom.uuid}",
+          coordinates: car_store.coordinates,
+          released_at: rand(10.years).seconds.from_now,
+          verified: true,
+          expired: false,
+        )
+      end
+    end
+  end
+end
+
+
 # CALENDAR PACKAGE
 # CalendarUser.destroy_all
 # ActiveRecord::Base.transaction do
@@ -82,6 +124,7 @@ end
 #   end
 # end
 
+
 # AGRICULTURE PACKAGE
 # AgricultureUser.destroy_all
 # ActiveRecord::Base.transaction do
@@ -99,6 +142,7 @@ end
 #     AgricultureFarm.create(name: "agriculture_farm_#{index}", agriculture_farmer: farmer)
 #   end
 # end
+
 
 # CHAT PACKAGE
 ChatUser.destroy_all
@@ -128,43 +172,5 @@ end
 # end
 
 
-# Car Package
-CarUser.destroy_all
-CarBrand.destroy_all
-CarStore.destroy_all
-CarCar.destroy_all
-ActiveRecord::Base.transaction do
-  User.all.each do |user|
-    CarUser.create(user: user)
-  end
-  10.times do
-    CarBrand.create(
-      name: "car_brand_#{SecureRandom.uuid}"
-    )
-  end
-  CarUser.all.each do |car_user|
-    2.times do
-      car_store = CarStore.create(
-        name: "car_store_#{SecureRandom.uuid}",
-        car_user_id: car_user.id,
-        coordinates: [rand(-20e6..20e6), rand(-20e6..20e6)],
-      )
-      1.times do
-        CarCar.create(
-          name: "name_#{SecureRandom.uuid}",
-          model: "model_#{SecureRandom.uuid}",
-          car_brand: CarBrand.all.sample,
-          car_store: car_store,
-          car_user: car_user,
-          price: rand(1..1000),
-          version: "version_#{SecureRandom.uuid}",
-          coordinates: car_store.coordinates,
-          released_at: rand(10.years).seconds.from_now,
-          verified: true,
-          expired: false,
-        )
-      end
-    end
-  end
-end
+
 puts "db:seed done!"

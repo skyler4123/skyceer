@@ -8,7 +8,7 @@ class CreateCarCars < ActiveRecord::Migration[7.1]
       t.references :car_user, null: true, foreign_key: true, type: :uuid
       t.decimal :price
       t.string :version
-      t.strin :coordinates
+      t.decimal :coordinates
       t.datetime :released_at
       t.boolean :verified
       t.boolean :expired
