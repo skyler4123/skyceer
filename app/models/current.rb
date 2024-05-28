@@ -11,4 +11,16 @@ class Current < ActiveSupport::CurrentAttributes
   def self.car_user
     CarUser.find_by(user_id: self.user_id)
   end
+
+  def self.car_user_id
+    self.car_user.id
+  end
+
+  def self.chat_user
+    ChatUser.find_by(user_id: self.user_id)
+  end
+
+  def self.chat_user_id
+    self.chat_user.id.to_s
+  end
 end

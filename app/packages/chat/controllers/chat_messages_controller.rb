@@ -21,17 +21,20 @@ class ChatMessagesController < ApplicationController
 
   # POST /chat_messages or /chat_messages.json
   def create
-    @chat_message = ChatMessage.new(chat_message_params)
-
-    respond_to do |format|
-      if @chat_message.save
-        format.html { redirect_to chat_message_url(@chat_message), notice: "Chat message was successfully created." }
-        format.json { render :show, status: :created, location: @chat_message }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @chat_message.errors, status: :unprocessable_entity }
-      end
-    end
+    chat_conversation = ChatConversation.find(params[:chat_conversation_id])
+    chat_user_id = Current.chat_user_id
+    chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: params[:content])
+    render json: { success: true }
+    # return json: { head :no_content }
+    # respond_to do |format|
+    #   if @chat_message.save
+    #     format.html { redirect_to chat_message_url(@chat_message), notice: "Chat message was successfully created." }
+    #     format.json { render :show, status: :created, location: @chat_message }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: @chat_message.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /chat_messages/1 or /chat_messages/1.json
@@ -65,6 +68,6 @@ class ChatMessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def chat_message_params
-      params.fetch(:chat_message, {})
+      params.require(:chat_message).permit(:chat_conversation_id, :content)
     end
 end

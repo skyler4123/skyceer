@@ -13,9 +13,20 @@ REDIS.set('time', Date.current.to_s)
 
 
 
+# DESTROY ALL
+User.destroy_all
+
+CarUser.destroy_all
+CarBrand.destroy_all
+CarStore.destroy_all
+CarCar.destroy_all
+
+ChatUser.destroy_all
+ChatConversation.destroy_all
+
 
 # APPLICATION PACKAGE
-User.destroy_all
+
 ActiveRecord::Base.transaction do
   10.times do |n|
     User.create(
@@ -30,14 +41,10 @@ end
 
 
 # Car Package
-CarUser.destroy_all
-CarBrand.destroy_all
-CarStore.destroy_all
-CarCar.destroy_all
 ActiveRecord::Base.transaction do
-  User.all.each do |user|
-    CarUser.create(user: user)
-  end
+  # User.all.each do |user|
+  #   CarUser.create(user: user)
+  # end
   10.times do
     CarBrand.create(
       name: "car_brand_#{SecureRandom.uuid}"
@@ -145,19 +152,19 @@ end
 
 
 # CHAT PACKAGE
-ChatUser.destroy_all
-ChatConversation.destroy_all
-User.all.each do |user|
-  ChatUser.create(
-    user_id: user.id,
-  )
-end
+
+# User.all.each do |user|
+#   ChatUser.create(
+#     user_id: user.id,
+#   )
+# end
 ChatUser.each do |user|
   ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample))
 end
 50.times do |n|
   chat_conversation = ChatConversation.all.sample
   chat_user_id = chat_conversation.chat_user_ids.sample
+  # chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_conversation.chat_user_ids.sample, content: "content_#{n}")
   chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
 end
 

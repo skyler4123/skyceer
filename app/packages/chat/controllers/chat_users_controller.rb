@@ -5,6 +5,11 @@ class ChatUsersController < ApplicationController
   def index
     @chat_users = ChatUser.all
     @chat_users = @chat_users.in(id: params[:ids]) if params[:ids].present?
+    if (params[:chat_conversation_id].present?)
+      chat_conversation = ChatConversation.find(params[:chat_conversation_id])
+      chat_user_ids = chat_conversation.chat_user_ids
+      @chat_users = @chat_users.in(id: chat_user_ids)
+    end
   end
 
   # GET /chat_users/1 or /chat_users/1.json

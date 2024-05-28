@@ -414,6 +414,10 @@ const DataHelpers = {
   dig({object, digArray}) {
     return this.getChildObjectByKeys(object, digArray)
   },
+
+  pluck({object, key}) {
+    return object.map(x => x[key])
+  }
 }
 
 
