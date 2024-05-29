@@ -8,16 +8,7 @@
 <div>/</div>
 
 
-      <%
-=begin%>
- <%= turbo_stream_from(@turbo_stream_from) %> 
-<%
-=end%>
 
-
-<% chat_user_id = Current.chat_user_id %>
-<% chat_conversation = ChatConversation.where(:chat_user_ids.in => [ChatUser.first.id]).first %>
-<%= render(Views::Chat::BoxComponent.new(chat_user_id: chat_user_id.to_s, conversation_id: chat_conversation.id.to_s)) %>
 
 
 

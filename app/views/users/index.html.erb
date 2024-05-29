@@ -1,3 +1,13 @@
+<div id="chat_boxes" class="flex flex-row-reverse w-fit h-fit fixed bottom-0 right-0">
+  <%
+=begin%>
+ <% chat_user_id = Current.chat_user_id %>
+  <% chat_conversation = ChatConversation.where(:chat_user_ids.in => [ChatUser.first.id.to_s]).first %>
+  <%= render(Views::Chat::BoxComponent.new(chat_user_id: chat_user_id.to_s, conversation_id: chat_conversation.id.to_s)) %> 
+<%
+=end%>
+</div>
+
 <div class="w-full">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>

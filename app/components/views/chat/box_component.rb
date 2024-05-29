@@ -9,7 +9,6 @@ class Views::Chat::BoxComponent < ApplicationComponent
       <%= turbo_stream_from(@turbo_stream_from) %>
       <div data-<%= @controller_name %>-target="content"></div>
       <%= content %>
-    </div>
     </<%= @tag %>>
   ERB
 

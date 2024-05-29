@@ -12,7 +12,7 @@ class ChatMessage
     # Turbo::StreamsChannel.broadcast_append_to(self.chat_conversation.id, target: 'chat_messages', partial: 'chat_messages/chat_message', locals: { chat_message: self })
     # Turbo::StreamsChannel.broadcast_append_to(self.chat_conversation.id, target: 'chat_messages', html: ApplicationController.render(TurboStreams::ChatMessageComponent.new(chat_message: self)))
     # Turbo::StreamsChannel.broadcast_append_to(self.chat_conversation.id, target: 'chat_messages', html: TurboStreams::ChatMessageComponent.new(chat_message: self).render_in(ActionController::Base.new.view_context))
-    Turbo::StreamsChannel.broadcast_append_to(self.chat_conversation.id, target: 'chat_messages', html: render_component)
+    Turbo::StreamsChannel.broadcast_append_to(self.chat_conversation.id, target: self.chat_conversation.id, html: render_component)
 
   end
 

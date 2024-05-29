@@ -159,7 +159,9 @@ end
 #   )
 # end
 ChatUser.each do |user|
-  ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample))
+  # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
+  ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..2).to_a.sample).map(&:to_s))
+
 end
 50.times do |n|
   chat_conversation = ChatConversation.all.sample

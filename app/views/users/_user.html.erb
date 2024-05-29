@@ -17,6 +17,9 @@
   <% if action_name != "show" %>
     <%= link_to "Show this user", user, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this user", edit_user_path(user), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <% if user.sessions.present? && user.id != Current.user_id%>
+      <%= link(data: {'turbo-stream' => true}, label: 'Chat with this user!', variant: :default, url: "/chat_conversations?host_chat_user_id=#{Current.chat_user_id}&guess_chat_user_id=#{user.sessions.last.chat_user_id}") %>
+    <% end %>
     <hr class="mt-6">
   <% end %>
 </div>

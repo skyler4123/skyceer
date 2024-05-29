@@ -16,7 +16,7 @@ export default class extends ApplicationController {
   get variantClass() {
     return {
       default: {
-        element: 'fixed bottom-0 right-0 w-fit h-fit'
+        element: 'w-fit h-fit'
       }
     }
   }
@@ -37,16 +37,18 @@ export default class extends ApplicationController {
 
   initEvent() {
     addEventListener("turbo:before-stream-render", ((event) => {
+      if (event.target.target !== this.conversationIdParams) { return }
+      
       const fallbackToDefaultActions = event.detail.render
       event.detail.render = (streamElement) => {
         const template = streamElement.querySelector('template')
-        const [chatUserId, content] = JSON.parse(template.innerHTML)
-        template.innerHTML = this.newChatMessageHTML({chatUserId: chatUserId, content: content})
-        fallbackToDefaultActions(streamElement).then(() => {
-          this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight)
-        })
+        try {
+          const [chatUserId, content] = JSON.parse(template.innerHTML)
+          template.innerHTML = this.newChatMessageHTML({chatUserId: chatUserId, content: content})
+        } catch(error) {}
+        fallbackToDefaultActions(streamElement)
+        this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight)
       }
-      
     }))
   }
 
@@ -138,7 +140,7 @@ export default class extends ApplicationController {
         </div>
       </div>
 
-      <div data-${this.identifier}-target="chatMessages" id="${this.toSnakeCase('chatMessages')}" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+      <div data-${this.identifier}-target="chatMessages" id="${this.conversationIdParams}" class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
       </div>
 
       <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
