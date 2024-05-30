@@ -75,7 +75,7 @@ export default class Openlayers extends ApplicationController {
     this.source.clear()
   }
 
-  connect() {
+  initComplete() {
 
     const vectorSource = new VectorSource()
     const vectorStyle = new Style({
