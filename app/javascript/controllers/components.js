@@ -39,7 +39,6 @@ const Components = (name, params = {}, content = null) => {
     case 'accordion':
       return `
         <${tag}
-        class="hidden"
         data-controller="${name}"
         data-${name}-params-value='${JSON.stringify(params)}'
         >
@@ -49,10 +48,10 @@ const Components = (name, params = {}, content = null) => {
         </${tag}>
       `
     case 'hr': case 'img': case 'input':
-      return `<${tag} class="hidden" data-controller="${name}" data-${name}-params-value='${JSON.stringify(params)}'>`
+      return `<${tag} data-controller="${name}" data-${name}-params-value='${JSON.stringify(params)}'>`
     case 'modal':
       return `
-        <${tag} class="hidden" data-controller="${name}" data-${name}-params-value='${JSON.stringify(params)}'>
+        <${tag} data-controller="${name}" data-${name}-params-value='${JSON.stringify(params)}'>
           <div data-${name}-target="background"></div>
           <div data-${name}-target="content">
             ${content ? content() : ``}
@@ -62,7 +61,6 @@ const Components = (name, params = {}, content = null) => {
     default:
       return `
         <${tag}
-          class="hidden"
           data-controller="${name}"
           data-${name}-params-value='${JSON.stringify(params)}'
         >
