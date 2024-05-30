@@ -17,6 +17,7 @@ export default class ApplicationController extends Controller {
   }
 
   initialize({isPreviousControllerInitialized = false} = {}) {
+    this.addClass(this.element, 'hidden')
     if (!this.canInitialize(isPreviousControllerInitialized)) { return }
     if (this.isBasicController) {
       this.functionsForInitialize()
