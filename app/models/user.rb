@@ -28,4 +28,11 @@ class User < ApplicationRecord
   has_one :education_user, dependent: :destroy
   has_one :agriculture_user, dependent: :destroy
   has_one :car_user, dependent: :destroy
+
+  after_create :create_package_users
+
+  def create_package_users
+    CarUser.create(user_id: self.id)
+    ChatUser.create(user_id: self.id)
+  end
 end

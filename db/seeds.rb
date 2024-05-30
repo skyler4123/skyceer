@@ -13,9 +13,20 @@ REDIS.set('time', Date.current.to_s)
 
 
 
+# DESTROY ALL
+User.destroy_all
+
+CarUser.destroy_all
+CarBrand.destroy_all
+CarStore.destroy_all
+CarCar.destroy_all
+
+ChatUser.destroy_all
+ChatConversation.destroy_all
+
 
 # APPLICATION PACKAGE
-User.destroy_all
+
 ActiveRecord::Base.transaction do
   10.times do |n|
     User.create(
@@ -27,6 +38,44 @@ ActiveRecord::Base.transaction do
     )
   end
 end
+
+
+# Car Package
+ActiveRecord::Base.transaction do
+  # User.all.each do |user|
+  #   CarUser.create(user: user)
+  # end
+  10.times do
+    CarBrand.create(
+      name: "car_brand_#{SecureRandom.uuid}"
+    )
+  end
+  CarUser.all.each do |car_user|
+    2.times do
+      car_store = CarStore.create(
+        name: "car_store_#{SecureRandom.uuid}",
+        car_user_id: car_user.id,
+        coordinates: [rand(-20e6..20e6), rand(-20e6..20e6)],
+      )
+      1.times do
+        CarCar.create(
+          name: "name_#{SecureRandom.uuid}",
+          model: "model_#{SecureRandom.uuid}",
+          car_brand: CarBrand.all.sample,
+          car_store: car_store,
+          car_user: car_user,
+          price: rand(1..1000),
+          version: "version_#{SecureRandom.uuid}",
+          coordinates: car_store.coordinates,
+          released_at: rand(10.years).seconds.from_now,
+          verified: true,
+          expired: false,
+        )
+      end
+    end
+  end
+end
+
 
 # CALENDAR PACKAGE
 # CalendarUser.destroy_all
@@ -82,6 +131,7 @@ end
 #   end
 # end
 
+
 # AGRICULTURE PACKAGE
 # AgricultureUser.destroy_all
 # ActiveRecord::Base.transaction do
@@ -100,23 +150,29 @@ end
 #   end
 # end
 
+
 # CHAT PACKAGE
-# ChatUser.destroy_all
-# ChatConversation.destroy_all
+
 # User.all.each do |user|
 #   ChatUser.create(
 #     user_id: user.id,
 #   )
 # end
-# ChatUser.each do |user|
-#   ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample))
-# end
-# 50.times do |n|
-#   chat_conversation = ChatConversation.all.sample
-#   chat_user_id = chat_conversation.chat_user_ids.sample
-#   chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
-# end
+ChatUser.each do |user|
+  # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
+  ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..2).to_a.sample).map(&:to_s))
 
+end
+50.times do |n|
+  chat_conversation = ChatConversation.all.sample
+  chat_user_id = chat_conversation.chat_user_ids.sample
+  # chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_conversation.chat_user_ids.sample, content: "content_#{n}")
+  chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
+end
+
+
+
+# UPLOAD IMAGE
 # 15.times do |n|
 #   (Dir.glob("/rails/faker/images/laptop/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
 #     file_name, file_type = file.path.split('/').last.split('.')
@@ -125,43 +181,5 @@ end
 # end
 
 
-# Car Package
-CarUser.destroy_all
-CarBrand.destroy_all
-CarStore.destroy_all
-CarCar.destroy_all
-ActiveRecord::Base.transaction do
-  User.all.each do |user|
-    CarUser.create(user: user)
-  end
-  10.times do
-    CarBrand.create(
-      name: "car_brand_#{SecureRandom.uuid}"
-    )
-  end
-  CarUser.all.each do |car_user|
-    2.times do
-      car_store = CarStore.create(
-        name: "car_store_#{SecureRandom.uuid}",
-        car_user_id: car_user.id,
-        coordinates: [rand(-20e6..20e6), rand(-20e6..20e6)],
-      )
-      1.times do
-        CarCar.create(
-          name: "name_#{SecureRandom.uuid}",
-          model: "model_#{SecureRandom.uuid}",
-          car_brand: CarBrand.all.sample,
-          car_store: car_store,
-          car_user: car_user,
-          price: rand(1..1000),
-          version: "version_#{SecureRandom.uuid}",
-          coordinates: car_store.coordinates,
-          released_at: rand(10.years).seconds.from_now,
-          verified: true,
-          expired: false,
-        )
-      end
-    end
-  end
-end
+
 puts "db:seed done!"

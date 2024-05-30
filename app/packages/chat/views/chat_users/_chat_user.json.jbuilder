@@ -1,2 +1,4 @@
-json.extract! chat_user, :id, :user_id, :created_at, :updated_at
-json.url chat_user_url(chat_user, format: :json)
+# json.extract! chat_user, :user_id
+json.id chat_user.id_string
+json.set! :avatar, 'https://picsum.photos/200'
+

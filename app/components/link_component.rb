@@ -2,8 +2,7 @@
 
 class LinkComponent < ApplicationComponent
 
-  def initialize(controller: nil, tag: :div, **params)
-    @tag = :a
+  def initialize(controller: nil, tag: :a, **params)
     super
   end
 

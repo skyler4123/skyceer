@@ -9,7 +9,8 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      session_record = @user.sessions.create!
+      # session_record = @user.sessions.create!
+      @session = create_session_for_all_package(user: user)
       # cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
       set_cookie(session: @session, user: user)
 

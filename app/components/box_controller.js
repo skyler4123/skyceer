@@ -16,6 +16,12 @@ export default class BoxController extends ApplicationController {
     })
   }
 
+  seeMore(event) {
+    const element = this.element
+    this.fitHeight(element)
+    this.noneShadow(element)
+  }
+
   get variantClass() {
     return {
       default: {

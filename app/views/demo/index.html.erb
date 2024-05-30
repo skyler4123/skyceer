@@ -32,6 +32,13 @@
     <%= text(type: [:cookie, :name]) %>
 
 
+    <%= box(event_id: new_id, klass: 'relative border-2 border-black m-4 h-[300px] overflow-hidden shadow-[inset_0_-40px_20px_-20px_rgba(0,0,0,0.5)]', expansable: {height: 300}) do %>
+      <%= text(label: 'I’ve written a few thousand words on why traditional “semantic class names” are the reason CSS is hard to maintain, but the truth is you’re never going to believe me until you actually try it. If you can suppress the urge to retch long enough to give it a chance, I really think you’ll wonder how you ever worked with CSS any other way. I’ve written a few thousand words on why traditional “semantic class names” are the reason CSS is hard to maintain, but the truth is you’re never going to believe me until you actually try it. If you can suppress the urge to retch long enough to give it a chance, I really think you’ll wonder how you ever worked with CSS any other way. I’ve written a few thousand words on why traditional “semantic class names” are the reason CSS is hard to maintain, but the truth is you’re never going to believe me until you actually try it. If you can suppress the urge to retch long enough to give it a chance, I really think you’ll wonder how you ever worked with CSS any other way. I’ve written a few thousand words on why traditional “semantic class names” are the reason CSS is hard to maintain, but the truth is you’re never going to believe me until you actually try it. If you can suppress the urge to retch long enough to give it a chance, I really think you’ll wonder how you ever worked with CSS any other way. I’ve written a few thousand words on why traditional “semantic class names” are the reason CSS is hard to maintain, but the truth is you’re never going to believe me until you actually try it. If you can suppress the urge to retch long enough to give it a chance, I really think you’ll wonder how you ever worked with CSS any other way. I’ve written a few thousand words on why traditional “semantic class names” are the reason CSS is hard to maintain, but the truth is you’re never going to believe me until you actually try it. If you can suppress the urge to retch long enough to give it a chance, I really think you’ll wonder how you ever worked with CSS any other way. I’ve written a few thousand words on why traditional “semantic class names” are the reason CSS is hard to maintain, but the truth is you’re never going to believe me until you actually try it. If you can suppress the urge to retch long enough to give it a chance, I really think you’ll wonder how you ever worked with CSS any other way. I’ve written a few thousand words on why traditional “semantic class names” are the reason CSS is hard to maintain, but the truth is you’re never going to believe me until you actually try it. If you can suppress the urge to retch long enough to give it a chance, I really think you’ll wonder how you ever worked with CSS any other way.') %>
+      <%= box(position: [:inside, :bottom_center]) do %>
+        <%= button(label: "See More", klass: '', variant: :default, action: { listener: :click, action: :hide }, event: {id: id, listener: :click, action: 'seeMore'}) %>
+      <% end %>
+    <% end %>
+
     <%= tab(controller: :darkmode) do |c| %>
       <div><%= icon(variant: [:outline, :moon], klass: 'w-5 h-5 fill-blue-950') %></div>
       <div><%= icon(variant: [:outline, :sun], klass: 'w-5 h-5') %></div>
@@ -427,6 +434,9 @@
 
 
 
+    <% chat_conversation = ChatConversation.last %>
+    <% chat_user_id = chat_conversation.chat_user_ids.sample %>
+    <%= render(Views::Chat::BoxComponent.new(chat_user_id: chat_user_id.to_s, conversation_id: chat_conversation.id.to_s)) %>
 
 
 

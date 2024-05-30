@@ -23,4 +23,12 @@ class ApplicationController < ActionController::Base
       cookies[:email] = user.email
       cookies[:name] = user.name
     end
+
+    def create_session_for_all_package(user:)
+      Session.create!(
+        user: user,
+        car_user: user.car_user,
+        chat_user_id: ChatUser.find_by(user_id: user.id).id
+      )
+    end
 end
