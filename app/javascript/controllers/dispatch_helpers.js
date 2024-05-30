@@ -104,6 +104,11 @@ const DispatchHelpers = {
     event['payload'] = { ...this.getEventWithAction('rating'), controller: this }
     this.dispatch('dispatch', { detail: { event: event } })
   },
+
+  seeMoreDispatch(event) {
+    event['payload'] = { ...this.getEventWithAction('seeMore'), controller: this }
+    this.dispatch('dispatch', { detail: { event: event } })
+  },
 }
 
 export default DispatchHelpers;

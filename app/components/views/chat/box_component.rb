@@ -5,9 +5,8 @@ class Views::Chat::BoxComponent < ApplicationComponent
   include Turbo::StreamsHelper
 
   erb_template <<-ERB
+    <%= turbo_stream_from(@turbo_stream_from) %>
     <<%= @tag %> class="hidden" data-controller="<%= @controllers %>" data-<%= @controller_name %>-params-value="<%= @params %>">
-      <%= turbo_stream_from(@turbo_stream_from) %>
-      <div data-<%= @controller_name %>-target="content"></div>
       <%= content %>
     </<%= @tag %>>
   ERB

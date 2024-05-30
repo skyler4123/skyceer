@@ -250,7 +250,7 @@ export default class ApplicationController extends Controller {
             this.addAction(this.element, `${this.identifier}:click:outside->${this.identifier}#${action.action}`)
             break;
           default:
-            this.addAction(this.element, `${action.listener}->${this.identifier}#${action.action}`)
+            this.addAction(this.element, `${action.listener}->${action.controller || this.identifier}#${action.action}`)
         }
       })
     }
@@ -356,8 +356,6 @@ export default class ApplicationController extends Controller {
       return this.application.getControllerForElementAndIdentifier(element, this.getIdentifierFromElement(element))
     })
   }
-
-  
 
   get hasChildrenController() {
     return this.childrenControllerElements.length > 0

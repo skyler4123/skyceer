@@ -4,7 +4,7 @@ import { ChatUsersApi } from "../../../javascript/controllers/api/chat/chat_user
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
 export default class extends ApplicationController {
-  static targets = ['content', 'message', 'chatMessages', 'input']
+  static targets = ['message', 'chatMessages', 'input']
   // static values = {
   //   users: { type: Object, default: {} }
   // }
@@ -44,7 +44,7 @@ export default class extends ApplicationController {
         const template = streamElement.querySelector('template')
         try {
           const [chatUserId, content] = JSON.parse(template.innerHTML)
-          template.innerHTML = this.newChatMessageHTML({chatUserId: chatUserId, content: content})
+          template.innerHTML = this.newChatMessageHTML({chatUserId: chatUserId, messageContent: content})
         } catch(error) {}
         fallbackToDefaultActions(streamElement)
         this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight)
@@ -68,7 +68,7 @@ export default class extends ApplicationController {
     ChatConversationsApi.show({id: this.conversationIdParams}).then(response => {
       const messagesData = response.data
       messagesData.messages.forEach(message => {
-        this.chatMessagesTarget.insertAdjacentHTML('beforeend', this.newChatMessageHTML({chatUserId: message.chat_user_id, content: message.content}))
+        this.chatMessagesTarget.insertAdjacentHTML('beforeend', this.newChatMessageHTML({chatUserId: message.chat_user_id, messageContent: message.content}))
       })
       this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight) 
     })
@@ -95,7 +95,7 @@ export default class extends ApplicationController {
     return !this.isHostChatUser(chatUserId)
   }
 
-  newChatMessageHTML({chatUserId, content}) {
+  newChatMessageHTML({chatUserId, messageContent}) {
     return `
       <div
         ${this.isHostChatUser(chatUserId) ? "dir='rtl'" : "dir='ltr'"}
@@ -107,13 +107,13 @@ export default class extends ApplicationController {
           class="w-6 h-6 rounded-full"
           src="${this.getAvatarByChatUserId(chatUserId)}"
         >
-        <div class="w-full px-4 py-2 rounded-lg inline-block bg-gray-300 rtl:bg-blue-600 text-gray-600 rtl:text-white">${content}</div>
+        <div class="w-full px-4 py-2 rounded-lg inline-block bg-gray-300 rtl:bg-blue-600 text-gray-600 rtl:text-white">${messageContent}</div>
       </div>
     `
   }
 
   initHTML() {
-    this.contentTarget.innerHTML = `
+    this.element.innerHTML = `
     <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col w-[400px] h-[500px] border-2 rounded-md">
       <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
         <div class="relative flex items-center space-x-4">

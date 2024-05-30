@@ -51,7 +51,7 @@ export default class Editorjs extends ApplicationController {
               byUrl: this.imageEditorjsByUrlParams, // Your endpoint that provides uploading by Url
             },
             additionalRequestHeaders: {
-              'X-CSRF-Token': this.csrfToken
+              'X-CSRF-Token': this.csrfToken()
             },
             additionalRequestData: {
               record_id: this.recordIdParams,

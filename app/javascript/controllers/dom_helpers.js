@@ -49,8 +49,20 @@ const DomHelpers = {
     element.style = style
   },
 
-  get csrfToken() {
+  csrfToken() {
     return document.querySelector('meta[name="csrf-token"]').content
+  },
+
+  fitHeight() {
+    this.addClass(this.element, 'h-fit')
+  },
+
+  noneShadow() {
+    this.addClass(this.element, 'shadow-none')
+  },
+
+  hide() {
+    this.addClass(this.element, 'hidden')
   },
 }
 

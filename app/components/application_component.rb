@@ -4,7 +4,7 @@ class ApplicationComponent < ViewComponent::Base
   include ApplicationHelper
   
   erb_template <<-ERB
-    <<%= @tag %> class="hidden" data-controller="<%= @controllers %>" <%= @data %> data-<%= @controller_name %>-params-value="<%= @params %>">
+    <<%= @tag %> data-controller="<%= @controllers %>" <%= @data %> data-<%= @controller_name %>-params-value="<%= @params %>">
       <%= content %>
     </<%= @tag %>>
   ERB
