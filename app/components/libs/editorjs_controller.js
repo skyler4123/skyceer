@@ -23,7 +23,7 @@ export default class Editorjs extends ApplicationController {
   get variantClass() {
     return {
       default: {
-        element: 'w-full h-[350px]'
+        element: 'w-11/12 h-[350px] border-2 border-gray-200 rounded-md p-4'
       }
     }
   }

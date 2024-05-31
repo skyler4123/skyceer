@@ -2,12 +2,10 @@ import { ChatConversationsApi } from "../../../javascript/controllers/api/chat/c
 import { ChatMessagesApi } from "../../../javascript/controllers/api/chat/chat_messages_api";
 import { ChatUsersApi } from "../../../javascript/controllers/api/chat/chat_users_api";
 import ApplicationController from "../../../javascript/controllers/application_controller";
+import { icon } from "../../../javascript/controllers/components";
 
 export default class extends ApplicationController {
-  static targets = ['message', 'chatMessages', 'input']
-  // static values = {
-  //   users: { type: Object, default: {} }
-  // }
+  static targets = ['message', 'chatMessages', 'input', 'closeButton']
 
   initParams() {
     this.setParams({ name: 'variant', defaultValue: 'default' })
@@ -36,18 +34,18 @@ export default class extends ApplicationController {
   }
 
   initEvent() {
-    addEventListener("turbo:before-stream-render", ((event) => {
+    document.addEventListener("turbo:before-stream-render", ((event) => {
       if (event.target.target !== this.conversationIdParams) { return }
-      
+
       const fallbackToDefaultActions = event.detail.render
       event.detail.render = (streamElement) => {
         const template = streamElement.querySelector('template')
         try {
           const [chatUserId, content] = JSON.parse(template.innerHTML)
           template.innerHTML = this.newChatMessageHTML({chatUserId: chatUserId, messageContent: content})
+          fallbackToDefaultActions(streamElement)
+          this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight)
         } catch(error) {}
-        fallbackToDefaultActions(streamElement)
-        this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight)
       }
     }))
   }
@@ -95,6 +93,10 @@ export default class extends ApplicationController {
     return !this.isHostChatUser(chatUserId)
   }
 
+  closeBoxchat() {
+    this.element.remove()
+  }
+
   newChatMessageHTML({chatUserId, messageContent}) {
     return `
       <div
@@ -113,7 +115,7 @@ export default class extends ApplicationController {
   }
 
   initHTML() {
-    this.element.innerHTML = `
+    const html = `
     <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col w-[400px] h-[500px] border-2 rounded-md">
       <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
         <div class="relative flex items-center space-x-4">
@@ -127,15 +129,13 @@ export default class extends ApplicationController {
           </div>
           <div class="flex flex-col leading-tight">
               <div class="text-2xl mt-1 flex items-center">
-                <span class="text-gray-700 mr-3">Anderson Vanhron</span>
+                <span class="text-gray-700 mr-3">Group name</span>
               </div>
           </div>
         </div>
         <div class="flex items-center space-x-2">
-          <button type="button" class="inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-              </svg>
+          <button data-${this.identifier}-target="closeButton" data-action="click->${this.identifier}#closeBoxchat" type="button" class="inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+            ${icon({variant: ['outline', 'x-mark'], klass: 'w-5 h-5 fill-blue-950'})}
           </button>
         </div>
       </div>
@@ -166,5 +166,6 @@ export default class extends ApplicationController {
 
     </div>
     `
+    this.element.insertAdjacentHTML('beforeend', html)
   }
 }
