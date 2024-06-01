@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_04_105020) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_01_081312) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -236,6 +236,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105020) do
     t.index ["user_id"], name: "index_education_users_on_user_id"
   end
 
+  create_table "english_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_english_users_on_user_id"
+  end
+
+  create_table "english_words", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "ipa"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_english_words_on_name"
+  end
+
   create_table "map_points", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.decimal "coordinates", default: ["0.0", "0.0"], array: true
     t.string "mapable_type"
@@ -302,6 +317,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105020) do
   add_foreign_key "education_teachers", "education_schools"
   add_foreign_key "education_teachers", "education_users"
   add_foreign_key "education_users", "users"
+  add_foreign_key "english_users", "users"
   add_foreign_key "map_points", "map_users"
   add_foreign_key "map_users", "users"
   add_foreign_key "sessions", "car_users"

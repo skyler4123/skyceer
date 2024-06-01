@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
+require 'csv'
 
 
 return if ENV['RAILS_ENV'] == 'production'
@@ -73,6 +73,18 @@ ActiveRecord::Base.transaction do
         )
       end
     end
+  end
+end
+
+# ENGLISH Package
+
+ActiveRecord::Base.transaction do
+  break if EnglishWord.count > 0
+
+  rows = CSV.read('vendor/english/en_US_api.txt', col_sep: "\t")
+  rows.each do |row|
+    word, ipa = row
+    EnglishWord.create(name: word, ipa: ipa)
   end
 end
 

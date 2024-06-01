@@ -5,6 +5,8 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :english_words
+  resources :english_users
   resources :users do
     collection do
       get :profile
