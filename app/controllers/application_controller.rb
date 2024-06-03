@@ -28,7 +28,13 @@ class ApplicationController < ActionController::Base
       Session.create!(
         user: user,
         car_user: user.car_user,
-        chat_user_id: ChatUser.find_by(user_id: user.id).id
+        chat_user_id: ChatUser.find_by(user_id: user.id).id,
+        english_user_id: EnglishUser.find_by(user_id: user.id).id,
       )
+    end
+
+    def pagy_custom(collection, vars = {})
+      pagy = Pagy.new(count: collection.count(*vars[:count_args]), page: params[:page], **vars)
+      [pagy, collection.offset(pagy.offset).limit(pagy.items)]
     end
 end

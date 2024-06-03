@@ -39,6 +39,8 @@ class ChatConversationsController < ApplicationController
 
   # GET /chat_conversations/1 or /chat_conversations/1.json
   def show
+    @chat_messages = @chat_conversation.chat_messages
+    @pagy, @chat_messages = pagy_custom(@chat_messages, items: 3)
   end
 
   # GET /chat_conversations/new
