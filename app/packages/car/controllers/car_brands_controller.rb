@@ -1,4 +1,4 @@
-class CarBrandsController < ApplicationController
+class CarBrandsController < CarController
   skip_before_action :authenticate, only: [:index]
   before_action :set_car_brand, only: %i[ show edit update destroy ]
 

@@ -1,4 +1,4 @@
-class CarUsersController < ApplicationController
+class CarUsersController < CarController
   before_action :set_car_user, only: %i[ show edit update destroy ]
 
   # GET /car_users or /car_users.json

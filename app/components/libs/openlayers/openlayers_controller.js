@@ -52,8 +52,8 @@ export default class OpenlayersController extends ApplicationController {
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/13654/placeholder.svg'})
   }
 
-  thresholdHover({zoomLevel = 2}) {
-    const zoomLevelWithThreshold = {
+  thresholdHover({zoomLevel = 2, factor = 2}) {
+    const basicZoomLevelWithThreshold = {
       '1': 201988,
       '2': 142574,
       '3': 214104,
@@ -74,7 +74,7 @@ export default class OpenlayersController extends ApplicationController {
       '18': 70,
     }
     const roundZoomLevel = Math.round(zoomLevel)
-    return zoomLevelWithThreshold[`${roundZoomLevel}`]
+    return basicZoomLevelWithThreshold[`${roundZoomLevel}`] * factor
   }
 
   initHover({source}) {

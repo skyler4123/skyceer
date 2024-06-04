@@ -17,10 +17,18 @@
   </head>
 
   <body data-controller="global event cookie" class="flex flex-col justify-center items-center bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
-    <%= render(Views::Car::HeaderComponent.new) %>
-    <main class="flex flex-col items-center w-full">
+    <%
+=begin%>
+ <%= render(Views::Car::HeaderComponent.new) %>
+    <main class="flex flex-col items-center w-full"> 
+<%
+=end%>
       <%= yield %>
-    </main>
-    <%= render(Views::Car::FooterComponent.new) %>
+    <%
+=begin%>
+ </main>
+    <%= render(Views::Car::FooterComponent.new) %> 
+<%
+=end%>
   </body>
 </html>

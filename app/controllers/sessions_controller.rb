@@ -27,6 +27,10 @@ class SessionsController < ApplicationController
     @session.destroy; redirect_to(sessions_path, notice: "That session has been logged out")
   end
 
+  def sign_out
+    Current.session.destroy; redirect_to(sessions_path, notice: "That session has been logged out")
+  end
+  
   private
     def set_session
       @session = Current.user.sessions.find(params[:id])

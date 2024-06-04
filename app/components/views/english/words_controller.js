@@ -22,16 +22,15 @@ export default class extends ApplicationController {
     this.resetIpasValue()
     if (this.wordsValue.length === 0) { return }
     const ipas = []
-    this.wordsValue.map((word, index) => {
+    await Promise.all(this.wordsValue.map((word, index) => {
       return FreeDictionaryApi.show({word: word}).then(response => {
         const { data } = response
         const ipa = data[0]['phonetic']
         ipas[index] = ipa
+        // this.ipasValue = ipas
       })
-    })
-    setTimeout(() => {
-      this.ipasValue = ipas
-    }, 1000)
+    }))
+    this.ipasValue = ipas
   }
   
   resetIpasValue() {
@@ -46,7 +45,7 @@ export default class extends ApplicationController {
   initHTML() {
     const html = `
       <form data-action="submit->${this.identifier}#submit" data-${this.identifier}-target="form" class="flex flex-row justify-center items-center">
-        <input data-${this.identifier}-target="input" type="text" name="word"/>
+        <input data-${this.identifier}-target="input" data-action="keydown.enter->${this.identifier}#submit" type="text" name="word"/>
         <label data-${this.identifier}-target="submit">
           <input type="submit" class="hidden"/>
           ${icon({variant: ['outline', 'magnifying-glass']})}

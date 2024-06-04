@@ -1,5 +1,4 @@
-class CarCarsController < ApplicationController
-  layout 'car'
+class CarCarsController < CarController
   skip_before_action :authenticate, only: [:index]
   before_action :set_car_car, only: %i[ show edit update destroy ]
 
