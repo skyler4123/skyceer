@@ -1,6 +1,6 @@
 class CarCarsController < CarController
   skip_before_action :authenticate, only: [:index]
-  before_action :set_car_car, only: %i[ show edit update destroy ]
+  before_action :set_car_car, only: %i[ edit update destroy ]
 
   # GET /car_cars or /car_cars.json
   def index
@@ -16,6 +16,16 @@ class CarCarsController < CarController
 
   # GET /car_cars/1 or /car_cars/1.json
   def show
+    respond_to do |format|
+      format.html {
+        @id = params[:id]
+        render :show 
+      }
+      format.json do
+        @car_car = CarCar.find(params[:id])
+        render :show
+      end
+    end
   end
 
   # GET /car_cars/new

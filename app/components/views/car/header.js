@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid"
 import { carLogo } from "./logo"
 import { carNav } from "./nav"
 import { uiDarkmodeButton } from "../ui/darkmode_button"
@@ -18,7 +17,7 @@ export const carHeader = () => {
           ${uiDarkmodeButton()}
         </div>
         <div>
-          ${uiUserBox({eventId: uuidv4()})}
+          ${uiUserBox()}
         </div>
       </div>
     </div>

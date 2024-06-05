@@ -4,6 +4,7 @@ import DataHelpers from "./data_helpers";
 import DomHelpers from "./dom_helpers";
 import DispatchHelpers from "./dispatch_helpers";
 import ControllerHelpers from "./controller_helpers";
+import ApiHelpers from "./api_helpers";
 
 export default class ApplicationController extends Controller {
 
@@ -441,10 +442,15 @@ export default class ApplicationController extends Controller {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
   }
+
+  redirect(url) {
+    if (this.isUndefined(url)) { return }
+    window.location.href = url;
+  }
 }
 
 Object.assign(ApplicationController.prototype, DataHelpers)
 Object.assign(ApplicationController.prototype, DomHelpers)
 Object.assign(ApplicationController.prototype, DispatchHelpers)
 Object.assign(ApplicationController.prototype, ControllerHelpers)
-
+Object.assign(ApplicationController.prototype, ApiHelpers)

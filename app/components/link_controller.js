@@ -1,3 +1,4 @@
+import "axios";
 import ApplicationController from "../javascript/controllers/application_controller";
 
 export default class LinkController extends ApplicationController {
@@ -11,6 +12,25 @@ export default class LinkController extends ApplicationController {
 
   initParams() {
     this.setParams({name: 'url', defaultValue: '/#'})
+  }
+
+  initAction() {
+    if (this.methodParams) {
+      this.addAction(this.element, `click->${this.identifier}#send`)
+    }
+  }
+
+  async send(event) {
+    const response = await axios({
+      method: this.methodParams,
+      url: this.urlParams,
+      headers: {...this.defaultHeaders()},
+      data: event.params ?? null
+    })
+    const { status } = response
+    if (status === 204) {
+      this.redirect('/car_cars')
+    }
   }
 
   initHTML() {

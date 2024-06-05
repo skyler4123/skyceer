@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from "uuid"
 import { box, link, popover, text } from "../../../javascript/controllers/components"
 
-export const uiUserBox = ({eventId}) => {
+export const uiUserBox = () => {
+  const eventId = uuidv4()
   return (
     box({klass: 'relative', event: {id: eventId, listener: 'hover', action: 'toggle'}}, () => {
       return [

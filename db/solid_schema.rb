@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[7.1].define(version: 2024_05_03_134408) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
