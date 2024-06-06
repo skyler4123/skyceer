@@ -1,7 +1,6 @@
 import OpenlayersController from "./openlayers_controller";
 
 export default class PointController extends OpenlayersController {
-  static targets = ['map']
   static values = {
     point: { type: Object, default: {} }
   }
@@ -10,7 +9,7 @@ export default class PointController extends OpenlayersController {
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/13654/placeholder.svg'})
   }
 
-  init() {
+  initComplete() {
     const osmLayer = new this.TiltLayer({
       source: new this.OSM()
     })
@@ -20,7 +19,7 @@ export default class PointController extends OpenlayersController {
     })
 
     this.map = new this.Map({
-      target: this.mapTarget,
+      target: this.element,
       view: new this.View({
         center: [0, 0],
         zoom: 2,

@@ -4,6 +4,8 @@ import DataHelpers from "./data_helpers";
 import DomHelpers from "./dom_helpers";
 import DispatchHelpers from "./dispatch_helpers";
 import ControllerHelpers from "./controller_helpers";
+import ApiHelpers from "./api_helpers";
+import { CookieHelpers } from "./cookie_helpers";
 
 export default class ApplicationController extends Controller {
 
@@ -436,10 +438,17 @@ export default class ApplicationController extends Controller {
     this.element.setAttribute(`data-${this.identifier}-cookie-outlet`, 'body')
   }
 
-  getCookie(name) {
-    const value = `; ${decodeURIComponent(document.cookie)}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+  redirect(url) {
+    if (this.isUndefined(url)) { return }
+    window.location.href = url;
+  }
+
+  isSuccess(response) {
+    return (response.status >= 200 && response.status < 300)
+  }
+
+  isFail(response) {
+    return !this.isSuccess(response)
   }
 }
 
@@ -447,4 +456,5 @@ Object.assign(ApplicationController.prototype, DataHelpers)
 Object.assign(ApplicationController.prototype, DomHelpers)
 Object.assign(ApplicationController.prototype, DispatchHelpers)
 Object.assign(ApplicationController.prototype, ControllerHelpers)
-
+Object.assign(ApplicationController.prototype, ApiHelpers)
+Object.assign(ApplicationController.prototype, CookieHelpers)

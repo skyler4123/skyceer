@@ -1,5 +1,7 @@
-
-<%= render(Views::Chat::BoxesComponent.new) %>
+ <%= render(Views::Chat::BoxesComponent.new) %>
+<%
+=begin%>
+ <%= render(Views::Chat::BoxesComponent.new) %>
 
 
 <div class="w-full">
@@ -15,4 +17,6 @@
   <div id="users" class="min-w-full">
     <%= render @users %>
   </div>
-</div>
+</div> 
+<%
+=end%>

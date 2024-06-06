@@ -1,7 +1,6 @@
-class Session < ApplicationRecord
+class Session < SessionApplicationRecord
   belongs_to :user
   belongs_to :car_user
-
 
   before_create do
     self.user_agent = Current.user_agent

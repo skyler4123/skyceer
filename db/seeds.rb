@@ -24,6 +24,7 @@ CarCar.destroy_all
 ChatUser.destroy_all
 ChatConversation.destroy_all
 
+EnglishUser.destroy_all
 
 # APPLICATION PACKAGE
 
@@ -152,12 +153,6 @@ end
 
 
 # CHAT PACKAGE
-
-# User.all.each do |user|
-#   ChatUser.create(
-#     user_id: user.id,
-#   )
-# end
 ChatUser.each do |user|
   # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
   ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..2).to_a.sample).map(&:to_s))
@@ -165,11 +160,11 @@ ChatUser.each do |user|
 end
 50.times do |n|
   chat_conversation = ChatConversation.all.sample
-  chat_user_id = chat_conversation.chat_user_ids.sample
-  # chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_conversation.chat_user_ids.sample, content: "content_#{n}")
-  chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: "content_#{n}")
+  chat_user_ids = chat_conversation.chat_user_ids
+  chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_ids.sample, content: "content_#{n}")
 end
 
+# ENGLISH Package
 
 
 # UPLOAD IMAGE

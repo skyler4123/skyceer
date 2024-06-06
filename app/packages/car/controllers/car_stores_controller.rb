@@ -1,4 +1,4 @@
-class CarStoresController < ApplicationController
+class CarStoresController < CarController
   before_action :set_car_store, only: %i[ show edit update destroy ]
 
   # GET /car_stores or /car_stores.json

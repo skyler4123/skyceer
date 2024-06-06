@@ -12,9 +12,9 @@ class Views::Chat::BoxComponent < ApplicationComponent
   ERB
 
   def initialize(controller: nil, tag: :div, data: nil, **params)
-    raise ArgumentError if !params[:conversation_id] || !params[:chat_user_id]
+    raise ArgumentError if !params[:conversation_id] || !params[:host_session_id]
     @turbo_stream_from = params[:conversation_id]
-    @chat_user_id = params[:chat_user_id]
+    @host_session_id = params[:host_session_id]
     super
   end
 

@@ -10,8 +10,8 @@
 
   <div id="chat_conversations" class="min-w-full">
     <% @chat_conversations.each do |chat_conversation| %>
-      <%= render partial: 'chat_conversation', locals: { chat_conversation: chat_conversation } %>
+      <%= render partial: 'chat_conversation', locals: { chat_conversation: chat_conversation, chat_messages: chat_conversation.chat_messages } %>
     <% end %>
-    <%= render @chat_conversations %>
+
   </div>
 </div>

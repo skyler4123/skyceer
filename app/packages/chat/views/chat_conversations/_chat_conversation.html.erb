@@ -4,12 +4,13 @@
     <strong class="block font-medium mb-1">User:</strong>
     <%= chat_conversation.chat_user_ids %>
     <div id="chat_messages">
-      <% chat_conversation.chat_messages.each do |chat_message| %>
+      <% chat_messages.each do |chat_message| %>
         <div>
           <%= chat_message.chat_user_id %>
           <%= chat_message.content %>
         </div>
       <% end %>
+      <%== pagy_nav(@pagy) if @pagy && @pagy.pages > 0 %>
     </div>
   </p>
   <% if action_name != "show" %>

@@ -7,7 +7,11 @@ default: &default
   password: <%= ENV.fetch("POSTGRES_PASSWORD") { "password" } %>
   host: <%= ENV.fetch("POSTGRES_HOST") { "0.0.0.0" } %>
   port: <%= ENV.fetch("POSTGRES_PORT") { "5432" } %>
-  
+
+session: &session
+  <<: *default
+  migrations_paths: db/session_migrate
+
 solid: &solid
   <<: *default
   migrations_paths: db/solid_migrate
@@ -16,6 +20,9 @@ development:
   primary:
     <<: *default
     database: skyceer_development
+  session:
+    <<: *session
+    database: session_development
   solid:
     <<: *solid
     database: solid_development
@@ -24,6 +31,9 @@ test:
   primary:
     <<: *default
     database: skyceer_test
+  session:
+    <<: *session
+    database: session_test
   solid:
     <<: *solid
     database: solid_test
@@ -32,6 +42,9 @@ production:
   primary:
     <<: *default
     database: skyceer_development
+  session:
+    <<: *session
+    database: session_development
   solid:
     <<: *solid
     database: solid_development

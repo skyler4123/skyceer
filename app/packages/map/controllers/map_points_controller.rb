@@ -22,7 +22,6 @@ class MapPointsController < ApplicationController
 
   # POST /map_points or /map_points.json
   def create
-    # debugger
     @map_point = MapPoint.new(map_point_params)
     # render json: @map_point, status: :ok
     respond_to do |format|

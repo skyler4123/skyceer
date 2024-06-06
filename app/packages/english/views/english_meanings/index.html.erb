@@ -1,0 +1,21 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "English meanings" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">English meanings</h1>
+    <%= link_to "New english meaning", new_english_meaning_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="english_meanings" class="min-w-full">
+    <% @english_meanings.each do |english_meaning| %>
+      <%= render english_meaning %>
+      <p>
+        <%= link_to "Show this english meaning", english_meaning, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>
