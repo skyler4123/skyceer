@@ -4,6 +4,13 @@ class SessionsController < ApplicationController
   before_action :set_session, only: :destroy
 
   def index
+    debugger
+    if params[:chat_conversation_id]
+      chat_conversation = ChatConversation.find(params[:chat_conversation_id])
+      chat_user_ids = chat_conversation.chat_user_ids
+      @sessions = Session.where(chat_user_id: chat_user_ids)
+      return @sessions
+    end
     @sessions = Current.user.sessions.order(created_at: :desc)
   end
 

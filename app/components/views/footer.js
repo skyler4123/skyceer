@@ -1,4 +1,4 @@
-import { link, text } from "../../../javascript/controllers/components"
+import { link, text } from "../../javascript/controllers/components"
 import { logo } from "./logo"
 
 export const footer = () => {

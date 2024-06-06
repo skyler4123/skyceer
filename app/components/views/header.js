@@ -1,9 +1,7 @@
-
-import { uiDarkmodeButton } from "../ui/darkmode_button"
-import { uiUserBox } from "../ui/user_box"
 import { logo } from "./logo"
 import { nav } from "./nav"
-
+import { uiDarkmodeButton } from "./ui/darkmode_button"
+import { uiUserBox } from "./ui/user_box"
 
 export const header = () => {
   return `

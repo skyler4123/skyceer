@@ -1,4 +1,4 @@
-export const carSearch = ({identifier}) => {
+export const search = ({identifier}) => {
   return `
     <form data-${identifier}-target="search">
       <div class="my-5">

@@ -17,6 +17,7 @@ class ChatMessage
   end
 
   def render_component
-    ApplicationController.render(Views::Chat::MessageComponent.new(chat_message: self), layout: false)
+    return unless Current.session
+    ApplicationController.render(Views::Chat::MessageComponent.new(host_session_id: Current.session_id, message_content: self.content), layout: false)
   end
 end
