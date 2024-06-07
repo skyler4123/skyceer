@@ -1,18 +1,23 @@
 // import { Controller } from "@hotwired/stimulus";
-import { CarBrandsApi } from "../../../../javascript/controllers/api/car/car_brands_api";
+// import { CarBrandsApi } from "../../../../javascript/controllers/api/car/car_brands_api";
 import { CarCarsApi } from "../../../../javascript/controllers/api/car/car_cars_api";
 import { CarStoresApi } from "../../../../javascript/controllers/api/car/car_stores_api";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
 import { link } from "../../../../javascript/controllers/components";
+import { Constants } from "../../../../javascript/controllers/constants";
 import { footer } from "../footer";
 import { form } from "../form";
 import { header } from "../header";
 
 export default class extends ApplicationController {
-  static targets = ['header', 'main', 'footer', 'form', 'coordinateInput', 'brandInput', 'storeInput', 'map']
+  static targets = ['header', 'main', 'footer', 'form', 'coordinateInput', 'brandInput', 'modelInput', 'storeInput', 'map']
+  static values = {
+    ...super.values,
+    brand: { type: String }
+  }
 
   init() {
-    this.parentElement.className = 'w-full h-full'
+    this.element.className = 'w-full h-full'
     this.initHeader()
     this.initMain()
     this.initFooter()
@@ -37,15 +42,10 @@ export default class extends ApplicationController {
   }
 
   initForm() {
-    this.addClass(this.brandInputTarget, "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full")
-    CarBrandsApi.index().then(response => {
-      const brandsData = response.data
-      brandsData.forEach(brand => {
-        this.appendChildFromHTML({element: this.brandInputTarget, html: `<option value='${brand.id}'>${brand.name}</option>`})
-      })
+    Constants.car_brands.forEach(brand => {
+      this.appendChildFromHTML({element: this.brandInputTarget, html: `<option value='${brand}'>${brand}</option>`})
     })
 
-    this.addClass(this.storeInputTarget, "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full")
     CarStoresApi.index().then(response => {
       const storesData = response.data
       storesData.forEach(store => {
@@ -57,6 +57,19 @@ export default class extends ApplicationController {
   initAction() {
     this.addAction(this.mapTarget, `click->${this.identifier}#sync`)
     this.addAction(this.formTarget, `submit->${this.identifier}#submit`)
+    this.addAction(this.brandInputTarget, `change->${this.identifier}#brandChanged`)
+  }
+
+  brandChanged(event) {
+    this.brandValue = this.brandInputTarget.value
+  }
+
+  brandValueChanged(value, previousValue) {
+    if (!this.isInitializedValue) { return }
+    this.modelInputTarget.innerHTML = ''
+    for (const [key, value] of Object.entries(Constants.car[this.brandValue])) {
+      this.appendChildFromHTML({element: this.modelInputTarget, html: `<option value='${key}'>${key}</option>`})
+    }                      
   }
 
   async submit(event) {

@@ -1,7 +1,6 @@
 import { icon, link } from "../../../javascript/controllers/components"
 
 export const car = (car) => {
-  console.log(car)
   return `
     <div id="car_car_${car.id} }">
       <p class="my-5">
@@ -16,7 +15,7 @@ export const car = (car) => {
 
       <p class="my-5">
         <strong class="block font-medium mb-1">Car brand:</strong>
-        ${ car.car_brand_id }
+        ${ car.brand }
       </p>
 
       <p class="my-5">

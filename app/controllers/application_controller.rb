@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
       cookies.signed.permanent[:session_token] = { value: session.id, httponly: true }
       cookies[:email] = user.email
       cookies[:name] = user.name
-      cookies[:session_id] = user.sessions.last.id
     end
 
     def create_session_for_all_package(user:)

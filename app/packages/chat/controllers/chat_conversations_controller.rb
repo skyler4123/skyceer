@@ -5,30 +5,18 @@ class ChatConversationsController < ApplicationController
   def index
 
     @chat_conversations = ChatConversation.all
-    if params[:guess_session_id].present?
-      @host_session_id = Current.session_id
-      @guess_session_id = params[:guess_session_id]
-
-      chat_user_ids = Session.where(id: [@host_session_id, @guess_session_id]).pluck(:chat_user_id).sort
+    if params[:guess_user_id].present?
+      @host_chat_user_id = Current.chat_user_id
+      @guess_chat_user_id = Session.chat_user_id(user_id: params[:guess_user_id])
+      chat_user_ids = [@host_chat_user_id, @guess_chat_user_id].sort
+      # @chat_conversations = @chat_conversations.in(chat_user_ids: chat_user_ids)
       @chat_conversations = @chat_conversations.all(chat_user_ids: chat_user_ids)
       if @chat_conversations.empty?
         @chat_conversation = ChatConversation.create(chat_user_ids: chat_user_ids)
       else
         @chat_conversation = @chat_conversations.last
       end
-    end
-    # if params[:host_chat_user_id].present? && params[:guess_chat_user_id].present?
-    #   @host_chat_user_id = params[:host_chat_user_id]
-    #   @guess_chat_user_id = params[:guess_chat_user_id]
-    #   chat_user_ids = [@host_chat_user_id, @guess_chat_user_id].sort
-    #   # @chat_conversations = @chat_conversations.in(chat_user_ids: chat_user_ids)
-    #   @chat_conversations = @chat_conversations.all(chat_user_ids: chat_user_ids)
-    #   if @chat_conversations.empty?
-    #     @chat_conversation = ChatConversation.create(chat_user_ids: chat_user_ids)
-    #   else
-    #     @chat_conversation = @chat_conversations.last
-    #   end
-    # end 
+    end 
 
     respond_to do |format|
       if @chat_conversations

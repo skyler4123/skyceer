@@ -26,17 +26,16 @@ export default class TextController extends ApplicationController {
     this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
     this.setParams({name: 'language', defaultValue: 'english'})
     if (this.typeParams === 'time') { this.setParams({name: 'timeFormat', defaultValue: 'HH:mm:ss'}) }
-    if (this.typeParams && this.typeParams[0] === 'cookie') { this.addCookieOutlet() }
-  }
-
-  cookieOutletConnected(outlet, element) {
-    // console.log(this.typeParams)
-    this.labelValue = this.cookieOutlet[this.typeParams[1]]()
   }
 
   initValue() {
-    this.labelValue = this.labelParams
     this.languageValue = this.languageParams
+
+    if (this.typeParams && this.typeParams[0] === 'cookie') { 
+      this.labelValue = this.getCookie('email')
+      return
+    }
+    this.labelValue = this.labelParams
   }
 
   initHTML() {

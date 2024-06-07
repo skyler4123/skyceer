@@ -218,7 +218,23 @@ const DataHelpers = {
     }, {})
     return newObject
   },
-  
+
+  selectFromObjectByKeys(object, keys) {
+    return this.objectOnlyKeys(object, keys)
+  },
+
+  selectFromObjectArrayByKeys(array, keys) {
+    let result = array.reduce((result, element, currentIndex) => {
+      return [...result, this.selectFromObjectByKeys(element, keys)]
+    }, [])
+    return result
+  },
+
+  findElementFromObjectArrayByObject(objectArray, object) {
+    const result = objectArray.find((element) => element[this.getFirstKeyFromObject(object)] === object[this.getFirstKeyFromObject(object)]);
+    return result
+  },
+
   isObject(x) {
     return typeof x === 'object' && !Array.isArray(x) && x !== null
   },
@@ -425,7 +441,8 @@ const DataHelpers = {
   
   getLastKeyFromObject(object) {
     return Object.keys(object)[Object.keys(object).length]
-  }
+  },
+
 }
 
 

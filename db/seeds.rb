@@ -17,7 +17,6 @@ REDIS.set('time', Date.current.to_s)
 User.destroy_all
 
 CarUser.destroy_all
-CarBrand.destroy_all
 CarStore.destroy_all
 CarCar.destroy_all
 
@@ -46,11 +45,6 @@ ActiveRecord::Base.transaction do
   # User.all.each do |user|
   #   CarUser.create(user: user)
   # end
-  10.times do
-    CarBrand.create(
-      name: "car_brand_#{SecureRandom.uuid}"
-    )
-  end
   CarUser.all.each do |car_user|
     2.times do
       car_store = CarStore.create(
@@ -62,7 +56,7 @@ ActiveRecord::Base.transaction do
         CarCar.create(
           name: "name_#{SecureRandom.uuid}",
           model: "model_#{SecureRandom.uuid}",
-          car_brand: CarBrand.all.sample,
+          brand: ['Tesla', 'Toyota', 'Honda'].sample,
           car_store: car_store,
           car_user: car_user,
           price: rand(1..1000),

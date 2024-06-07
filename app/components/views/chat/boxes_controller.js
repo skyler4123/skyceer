@@ -40,7 +40,7 @@ export default class extends ApplicationController {
   get variantClass() {
     return {
       default: {
-        element: 'fixed bottom-0 right-0 flex flex-row-reverse w-fit h-fit'
+        element: 'flex flex-row-reverse w-fit h-fit fixed bottom-0 right-0'
       }
     }
   }

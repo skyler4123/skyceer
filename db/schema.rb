@@ -126,16 +126,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105018) do
     t.index ["user_id"], name: "index_calendar_users_on_user_id"
   end
 
-  create_table "car_brands", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "car_cars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "model"
-    t.uuid "car_brand_id"
+    t.string "brand"
     t.uuid "car_store_id"
     t.uuid "car_user_id"
     t.decimal "price"
@@ -146,7 +140,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105018) do
     t.boolean "expired"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["car_brand_id"], name: "index_car_cars_on_car_brand_id"
     t.index ["car_store_id"], name: "index_car_cars_on_car_store_id"
     t.index ["car_user_id"], name: "index_car_cars_on_car_user_id"
   end
@@ -276,7 +269,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105018) do
   add_foreign_key "calendar_events", "calendar_schedules"
   add_foreign_key "calendar_schedules", "calendar_users"
   add_foreign_key "calendar_users", "users"
-  add_foreign_key "car_cars", "car_brands"
   add_foreign_key "car_cars", "car_stores"
   add_foreign_key "car_cars", "car_users"
   add_foreign_key "car_stores", "car_users"

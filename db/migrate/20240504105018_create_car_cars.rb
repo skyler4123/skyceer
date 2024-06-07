@@ -3,7 +3,7 @@ class CreateCarCars < ActiveRecord::Migration[7.1]
     create_table :car_cars, id: :uuid do |t|
       t.string :name
       t.string :model
-      t.references :car_brand, null: true, foreign_key: true, type: :uuid
+      t.string :brand
       t.references :car_store, null: true, foreign_key: true, type: :uuid
       t.references :car_user, null: true, foreign_key: true, type: :uuid
       t.decimal :price

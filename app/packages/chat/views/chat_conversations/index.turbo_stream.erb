@@ -1,3 +1,3 @@
 <%= turbo_stream.append "chat_boxes" do %>
-  <%= render(Views::Chat::BoxComponent.new(host_session_id: @host_session_id, conversation_id: @chat_conversation.id.to_s)) %>
+  <%= render(Views::Chat::BoxComponent.new(chat_user_id: @host_chat_user_id, conversation_id: @chat_conversation.id.to_s)) %>
 <% end %>

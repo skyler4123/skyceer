@@ -74,7 +74,7 @@ class CarCarsController < CarController
 
     # Only allow a list of trusted parameters through.
     def car_car_params
-      params.require(:car_car).permit(:name, :model, :car_brand_id, :car_store_id, :car_user_id, :price, :version, :released_at, :verified, :expired, coordinates: [])
+      params.require(:car_car).permit(:name, :model, :brand, :car_store_id, :car_user_id, :price, :version, :released_at, :verified, :expired, coordinates: [])
     end
 
     def normalize_coordinates(coordinates)

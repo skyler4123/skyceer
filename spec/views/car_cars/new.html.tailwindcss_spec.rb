@@ -24,7 +24,7 @@ RSpec.describe "car_cars/new", type: :view do
 
       assert_select "input[name=?]", "car_car[model]"
 
-      assert_select "input[name=?]", "car_car[car_brand_id]"
+      assert_select "input[name=?]", "car_car[brand]"
 
       assert_select "input[name=?]", "car_car[car_user_id]"
 

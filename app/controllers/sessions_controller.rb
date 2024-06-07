@@ -4,13 +4,6 @@ class SessionsController < ApplicationController
   before_action :set_session, only: :destroy
 
   def index
-    debugger
-    if params[:chat_conversation_id]
-      chat_conversation = ChatConversation.find(params[:chat_conversation_id])
-      chat_user_ids = chat_conversation.chat_user_ids
-      @sessions = Session.where(chat_user_id: chat_user_ids)
-      return @sessions
-    end
     @sessions = Current.user.sessions.order(created_at: :desc)
   end
 
@@ -20,6 +13,7 @@ class SessionsController < ApplicationController
   def create
     if user = User.authenticate_by(email: params[:email], password: params[:password])
       # @session = user.sessions.create!
+      Session.where(user_id: user.id).destroy_all
       @session = create_session_for_all_package(user: user)
       # cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
       set_cookie(session: @session, user: user)

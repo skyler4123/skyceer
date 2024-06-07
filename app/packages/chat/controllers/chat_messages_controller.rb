@@ -25,7 +25,6 @@ class ChatMessagesController < ApplicationController
     chat_user_id = Current.chat_user_id
     chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_id, content: params[:content])
     render json: { success: true }
-
     # return json: { head :no_content }
     # respond_to do |format|
     #   if @chat_message.save

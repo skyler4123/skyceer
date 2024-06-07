@@ -1,7 +1,6 @@
 import { ChatConversationsApi } from "../../../javascript/controllers/api/chat/chat_conversations_api";
 import { ChatMessagesApi } from "../../../javascript/controllers/api/chat/chat_messages_api";
 import { ChatUsersApi } from "../../../javascript/controllers/api/chat/chat_users_api";
-import { SessionsApi } from "../../../javascript/controllers/api/sessions_api";
 import ApplicationController from "../../../javascript/controllers/application_controller";
 import { icon } from "../../../javascript/controllers/components";
 
@@ -20,23 +19,18 @@ export default class extends ApplicationController {
     }
   }
 
-  async init() {
-    // this.initChatUsers().then(() => {
-    //   if (!this.hostSessionIds().includes(this.hostSessionIdParams)) {
-    //     this.element.innerHTML = ''
-    //     console.log('This chat user does not belongs to this chat conversation!')
-    //     return
-    //   }
-    //   this.initChatMessages()
-    //   this.initHTML()
-    //   this.initEvent()
-    // })
-    this.initSessions()
-  }
+  init() {
+    this.initChatUsers().then(() => {
+      if (!this.chatUserIds().includes(this.chatUserIdParams)) {
+        this.element.innerHTML = ''
+        console.log('This chat user does not belongs to this chat conversation!')
+        return
+      }
+      this.initChatMessages()
+      this.initHTML()
+      this.initEvent()
+    })
 
-  async initSessions() {
-    const response = await SessionsApi.index({params: { chat_conversation_id: this.conversationIdParams } })
-    console.log(response)
   }
 
   initEvent() {
@@ -47,8 +41,8 @@ export default class extends ApplicationController {
       event.detail.render = (streamElement) => {
         const template = streamElement.querySelector('template')
         try {
-          const [hostSessionId, content] = JSON.parse(template.innerHTML)
-          template.innerHTML = this.newChatMessageHTML({hostSessionId: hostSessionId, messageContent: content})
+          const [chatUserId, content] = JSON.parse(template.innerHTML)
+          template.innerHTML = this.newChatMessageHTML({chatUserId: chatUserId, messageContent: content})
           fallbackToDefaultActions(streamElement)
           this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight)
         } catch(error) {}
@@ -56,10 +50,14 @@ export default class extends ApplicationController {
     }))
   }
 
+  getAvatarByChatUserId(chatUserId) {
+    const chatUser = this.chatUsers.find(chatUser => chatUser.id === chatUserId)
+    return chatUser.avatar
+  }
+
   initChatUsers() {
     return ChatUsersApi.index({params: { 'chat_conversation_id': this.conversationIdParams }}).then(response => {
       const chatUsersData = response.data
-      console.log('response', response)
       this.chatUsers = chatUsersData
     })
   }
@@ -68,15 +66,10 @@ export default class extends ApplicationController {
     ChatConversationsApi.show({id: this.conversationIdParams}).then(response => {
       const messagesData = response.data
       messagesData.messages.forEach(message => {
-        this.chatMessagesTarget.insertAdjacentHTML('beforeend', this.newChatMessageHTML({hostSessionId: message.chat_user_id, messageContent: message.content}))
+        this.chatMessagesTarget.insertAdjacentHTML('beforeend', this.newChatMessageHTML({chatUserId: message.chat_user_id, messageContent: message.content}))
       })
       this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight) 
     })
-  }
-
-  getAvatarByhostSessionId(hostSessionId) {
-    const chatUser = this.chatUsers.find(chatUser => chatUser.id === hostSessionId)
-    return chatUser.avatar
   }
 
   createChatMessage(event) {
@@ -88,33 +81,33 @@ export default class extends ApplicationController {
     this.inputTarget.focus()
   }
 
-  hostSessionIds() {
+  chatUserIds() {
     return this.pluck({object: this.chatUsers, key: 'id'})
   }
 
-  isHostSession(hostSessionId) {
-    return hostSessionId === this.hostSessionIdParams
+  isHostChatUser(chatUserId) {
+    return chatUserId === this.chatUserIdParams
   }
 
-  isGuessSession(hostSessionId) {
-    return !this.isHostSession(hostSessionId)
+  isGuessChatUser(chatUserId) {
+    return !this.isHostChatUser(chatUserId)
   }
 
   closeBoxchat() {
     this.element.remove()
   }
 
-  newChatMessageHTML({hostSessionId, messageContent}) {
+  newChatMessageHTML({chatUserId, messageContent}) {
     return `
       <div
-        ${this.isHostSession(hostSessionId) ? "dir='rtl'" : "dir='ltr'"}
+        ${this.isHostChatUser(chatUserId) ? "dir='rtl'" : "dir='ltr'"}
         class="flex flex-row items-end justify-center w-full h-fit gap-x-2"
         data-${this.identifier}-target="message"
-        data-chat-user-id="${hostSessionId}"
+        data-chat-user-id="${chatUserId}"
       >
         <img
           class="w-6 h-6 rounded-full"
-          src="${this.getAvatarByhostSessionId(hostSessionId)}"
+          src="${this.getAvatarByChatUserId(chatUserId)}"
         >
         <div class="w-full px-4 py-2 rounded-lg inline-block bg-gray-300 rtl:bg-blue-600 text-gray-600 rtl:text-white">${messageContent}</div>
       </div>

@@ -1,3 +1,5 @@
+import { Constants } from "../../../javascript/controllers/constants"
+
 export const search = ({identifier}) => {
   return `
     <form data-${identifier}-target="search">
@@ -14,7 +16,7 @@ export const search = ({identifier}) => {
           Price
           <input name="price"/>
         </label>
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Search"/>
       </div>
     </form>
   `
