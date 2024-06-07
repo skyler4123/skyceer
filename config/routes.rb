@@ -5,6 +5,9 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :review_comments
+  resources :review_users
+  resources :review_articles
   # resources :english_definitions
   # resources :english_licenses
   # resources :english_meanings

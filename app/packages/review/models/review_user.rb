@@ -1,0 +1,2 @@
+class ReviewUser < ApplicationRecord
+end
