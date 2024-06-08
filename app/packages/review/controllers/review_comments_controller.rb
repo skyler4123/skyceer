@@ -1,4 +1,4 @@
-class ReviewCommentsController < ApplicationController
+class ReviewCommentsController < ReviewController
   before_action :set_review_comment, only: %i[ show edit update destroy ]
 
   # GET /review_comments or /review_comments.json

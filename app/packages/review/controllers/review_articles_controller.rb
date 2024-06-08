@@ -1,4 +1,4 @@
-class ReviewArticlesController < ApplicationController
+class ReviewArticlesController < ReviewController
   before_action :set_review_article, only: %i[ show edit update destroy ]
 
   # GET /review_articles or /review_articles.json
