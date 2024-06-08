@@ -12,7 +12,7 @@ import Table from '@editorjs/table';
 import ApplicationController from '../../javascript/controllers/application_controller';
 
 export default class Editorjs extends ApplicationController {
-  static targets = ["holder"]
+  static targets = ["editor"]
   static values = {
     ...super.values,
   }
