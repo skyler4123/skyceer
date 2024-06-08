@@ -65,6 +65,6 @@ class ReviewCommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def review_comment_params
-      params.require(:review_comment).permit(:body)
+      params.require(:review_comment).permit(:content)
     end
 end

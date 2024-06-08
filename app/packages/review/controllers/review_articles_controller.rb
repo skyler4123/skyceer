@@ -8,6 +8,7 @@ class ReviewArticlesController < ApplicationController
 
   # GET /review_articles/1 or /review_articles/1.json
   def show
+    @review_comments = @review_article.review_comments
   end
 
   # GET /review_articles/new
@@ -65,6 +66,6 @@ class ReviewArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def review_article_params
-      params.require(:review_article).permit(:title, :body)
+      params.require(:review_article).permit(:title, :content)
     end
 end

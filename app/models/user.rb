@@ -35,5 +35,6 @@ class User < ApplicationRecord
     CarUser.create(user_id: self.id)
     ChatUser.create(user_id: self.id)
     EnglishUser.create(user_id: self.id)
+    ReviewUser.create(user_id: self.id)
   end
 end

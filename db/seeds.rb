@@ -25,6 +25,9 @@ ChatConversation.destroy_all
 
 EnglishUser.destroy_all
 
+ReviewUser.destroy_all
+ReviewArticle.destroy_all
+
 # APPLICATION PACKAGE
 
 ActiveRecord::Base.transaction do
@@ -150,12 +153,23 @@ end
 ChatUser.each do |user|
   # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
   ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..2).to_a.sample).map(&:to_s))
-
 end
 50.times do |n|
   chat_conversation = ChatConversation.all.sample
   chat_user_ids = chat_conversation.chat_user_ids
   chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_ids.sample, content: "content_#{n}")
+end
+
+# REVIEW package
+ReviewUser.each do |user|
+  1.times do |n|
+    ReviewArticle.create(review_user: user, title: "title_#{n}", content: "content_#{n}")
+  end
+end
+10.times do |n|
+  review_article = ReviewArticle.all.sample
+  review_user = ReviewUser.all.sample
+  review_article.review_comments << ReviewComment.new(review_user_id: review_user.id, content: "comment_#{n}")
 end
 
 # ENGLISH Package

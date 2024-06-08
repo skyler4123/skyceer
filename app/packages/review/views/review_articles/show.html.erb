@@ -4,7 +4,31 @@
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
-    <%= render @review_article %>
+    <div id="<%= dom_id @review_article %>">
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Title:</strong>
+        <%= @review_article.title %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">content:</strong>
+        <%= @review_article.content %>
+      </p>
+    </div>
+
+    <div id="review_comments" class="min-w-full">
+      <% @review_comments.each do |review_comment| %>
+        <div id="<%= dom_id review_comment %>">
+          <p class="my-5">
+            <strong class="block font-medium mb-1">Review content::</strong>
+            <%= review_comment.content %>
+          </p>
+        </div>
+          <p>
+            <%= link_to "Show this review comment", review_comment, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+          </p>
+      <% end %>
+    </div>
 
     <%= link_to "Edit this review article", edit_review_article_path(@review_article), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Back to review articles", review_articles_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
