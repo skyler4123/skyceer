@@ -29,7 +29,7 @@ export default class Editorjs extends ApplicationController {
   }
   connect() {
     this.editorJS = new EditorJS({
-      holder: this.holderTarget,
+      holder: this.element,
       autofocus: true,
       tools: {
         header: {
