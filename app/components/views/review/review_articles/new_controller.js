@@ -25,21 +25,24 @@ export default class extends ApplicationController {
     this.mainTarget.className = 'flex flex-col justify-center items-center w-full h-full'
     this.mainTarget.innerHTML =
       `
-        ${editorjs({}, () => {
+        ${editorjs({klass: 'w-full h-full'}, () => {
           return `
             <div class="my-5">
               <label for="review_article_title">Title</label>
               <input class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="review_article[title]" id="review_article_title">
             </div>
 
-            <div class="my-5">
+            <div class="my-5 border-2 border-gray-950">
               <label for="review_article_content">Content</label>
-              <input class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="review_article[content]" id="review_article_content">
+              <div data-libs--editorjs-target="editor"></div>
             </div>
 
+
+            
             <div class="inline">
               <input type="submit" name="commit" value="Create Review article" class="rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" data-disable-with="Create Review article">
             </div>
+            
           `
         })}
 
