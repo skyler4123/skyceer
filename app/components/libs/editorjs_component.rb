@@ -2,13 +2,13 @@
 
 class Libs::EditorjsComponent < ApplicationComponent
 
-  # erb_template <<-ERB
-  #   <<%= @tag %> class="hidden" data-controller="<%= @controllers %>" data-<%= @controller_name %>-params-value="<%= @params %>">
-  #     <div data-<%= @controller_name %>-target="holder">
-  #     <%= content %>
-  #   </div>
-  #   </<%= @tag %>>
-  # ERB
+  erb_template <<-ERB
+    <<%= @tag %> class="hidden" data-controller="<%= @controllers %>" data-<%= @controller_name %>-params-value="<%= @params %>">
+      <div data-<%= @controller_name %>-target="editor">
+      <%= content %>
+    </div>
+    </<%= @tag %>>
+  ERB
 
   # def initialize(
   #   holder: "editorjs-#{SecureRandom.alphanumeric}",

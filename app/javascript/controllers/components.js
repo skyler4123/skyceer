@@ -31,6 +31,9 @@ const Components = (name, params = {}, content = null) => {
     case 'video':
       tag = 'video'
       break;
+    case 'editorjs':
+        tag = 'form'
+        break;
     default:
       tag = 'div'
   }
@@ -56,6 +59,12 @@ const Components = (name, params = {}, content = null) => {
           <div data-${name}-target="content">
             ${content ? content() : ``}
           </div>
+        </${tag}>
+      `
+    case 'editorjs':
+      return `
+        <${tag} data-controller="libs--${name}" data-libs--${name}-params-value='${JSON.stringify(params)}'>
+          ${content ? content() : ``}
         </${tag}>
       `
     default:
@@ -131,4 +140,7 @@ export const toast = (params = {}, content = null) => {
 }
 export const video = (params = {}, content = null) => {
   return Components('video', params, content)
+}
+export const editorjs = (params = {}, content = null) => {
+  return Components('editorjs', params, content)
 }
