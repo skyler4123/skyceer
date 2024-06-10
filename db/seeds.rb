@@ -169,7 +169,17 @@ end
 10.times do |n|
   review_article = ReviewArticle.all.sample
   review_user = ReviewUser.all.sample
-  review_article.review_comments << ReviewComment.new(review_user_id: review_user.id, content: "comment_#{n}")
+  content = {
+    blocks: [{
+      id: "oUq2g_tl8y",
+      type: "header",
+      data: {
+         text: "content_#{n}",
+         level: 2
+      }
+   }],
+}
+  review_article.review_comments << ReviewComment.new(review_user_id: review_user.id, content: content)
 end
 
 # ENGLISH Package

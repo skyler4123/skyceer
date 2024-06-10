@@ -38,7 +38,6 @@ export default class extends ApplicationController {
         </div>
         ${link({label: 'Back to car cars', url: '/car_cars', klass: 'ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium'})}
       </div>
-
     `
     this.initForm()
   }
