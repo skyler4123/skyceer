@@ -96,12 +96,16 @@ export default class Editorjs extends ApplicationController {
   //   inputId.setAttribute("value", this.recordIdValue)
   //   return inputId
   // }
-  save() {
+  async render() {
     // console.log("Hello, Stimulus!", this.editorJS);
-    this.editorJS.save().then(outputData => {
-      console.log(outputData)
-    }).catch(error => {
-      console.log(error)
-    })
+    // this.editorJS.save().then(outputData => {
+    //   console.log(outputData)
+    //   return outputData
+    // }).catch(error => {
+    //   console.log(error)
+    // })
+    
+    const outputData = await this.editorJS.save()
+    return outputData
   }
 }

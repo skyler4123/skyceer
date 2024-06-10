@@ -3,7 +3,7 @@ class ReviewArticle
   include Mongoid::Timestamps
 
   field :title, type: String
-  field :content, type: String
+  field :content, type: Hash
   
   belongs_to :review_user
   embeds_many :review_comments

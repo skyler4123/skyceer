@@ -2,8 +2,6 @@ import ApplicationController from "../../../../javascript/controllers/applicatio
 
 export default class extends ApplicationController {
 
-
-  initialize() {}
   // init() {
   //   console.log(this)
   //   this.element.className = 'w-full h-full'

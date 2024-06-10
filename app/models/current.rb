@@ -27,4 +27,16 @@ class Current < ActiveSupport::CurrentAttributes
   def self.chat_user_id
     self.chat_user.id.to_s
   end
+
+  def self.review_user
+    ReviewUser.find_by(user_id: self.user_id)
+  end
+
+  def self.review_user_id
+    self.review_user.id.to_s
+  end
+
+  def self.avatar
+    self.session.avatar
+  end
 end

@@ -10,10 +10,12 @@
         <%= @review_article.title %>
       </p>
 
-      <p class="my-5">
+      <div class="my-5">
         <strong class="block font-medium mb-1">content:</strong>
-        <%= @review_article.content %>
-      </p>
+        <div id="content">
+          <%= editorjs_to_html(@review_article.content) %>
+        </div>
+      </div>
     </div>
 
     <div id="review_comments" class="min-w-full">

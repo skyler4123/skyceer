@@ -9,7 +9,7 @@ export const uiUserBox = () => {
         link({url: '/users/profile'}, () => {
           return text({type: ['cookie', 'email']})
         }),
-        popover({position: ['outside', 'bottomCenter'], event: {id: eventId}}, () => {
+        popover({klass: 'hidden', position: ['outside', 'bottomCenter'], event: {id: eventId}}, () => {
           return (
             `<div>
               <div>${link({url: '/users/profile', label: 'Profile'})}</div>

@@ -53,7 +53,7 @@ ActiveRecord::Base.transaction do
       car_store = CarStore.create(
         name: "car_store_#{SecureRandom.uuid}",
         car_user_id: car_user.id,
-        coordinates: [rand(-20e6..20e6), rand(-20e6..20e6)],
+        coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
       )
       1.times do
         CarCar.create(

@@ -23,6 +23,8 @@ class ReviewArticlesController < ReviewController
   # POST /review_articles or /review_articles.json
   def create
     @review_article = ReviewArticle.new(review_article_params)
+    @review_article.content = JSON.parse(params[:review_article][:content])
+    @review_article.review_user_id = Current.review_user_id
 
     respond_to do |format|
       if @review_article.save

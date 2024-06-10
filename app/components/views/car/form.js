@@ -18,6 +18,11 @@ export const form = (identifier) => {
       </div>
 
       <div class="my-5">
+        <label for="car_car_version">Version</label>
+        <select name="car_car[car_version]" data-${identifier}-target="versionInput" class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"></select>
+      </div>
+
+      <div class="my-5">
         <label for="car_car_car_store_id">Car store</label>
         <select name="car_car[car_store_id]" data-${identifier}-target="storeInput" class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"></select>
       </div>
