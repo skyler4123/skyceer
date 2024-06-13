@@ -161,27 +161,6 @@ end
   chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_ids.sample, content: "content_#{n}")
 end
 
-# REVIEW package
-# ReviewUser.each do |user|
-#   1.times do |n|
-#     ReviewArticle.create(review_user: user, title: "title_#{n}", content: "content_#{n}")
-#   end
-# end
-# 10.times do |n|
-#   review_article = ReviewArticle.all.sample
-#   review_user = ReviewUser.all.sample
-#   content = {
-#     blocks: [{
-#       id: "oUq2g_tl8y",
-#       type: "header",
-#       data: {
-#          text: "content_#{n}",
-#          level: 2
-#       }
-#    }],
-# }
-#   review_article.review_comments << ReviewComment.new(review_user_id: review_user.id, content: content)
-# end
 
 # ARTICLE package
 ArticleUser.each_with_index do |user, user_index|
