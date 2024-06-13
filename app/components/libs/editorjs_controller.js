@@ -12,7 +12,7 @@ import Table from '@editorjs/table';
 import ApplicationController from '../../javascript/controllers/application_controller';
 
 export default class Editorjs extends ApplicationController {
-  static targets = ["holder"]
+  static targets = ["editor"]
   static values = {
     ...super.values,
   }
@@ -29,7 +29,7 @@ export default class Editorjs extends ApplicationController {
   }
   connect() {
     this.editorJS = new EditorJS({
-      holder: this.holderTarget,
+      holder: this.editorTarget,
       autofocus: true,
       tools: {
         header: {
@@ -96,12 +96,16 @@ export default class Editorjs extends ApplicationController {
   //   inputId.setAttribute("value", this.recordIdValue)
   //   return inputId
   // }
-  save() {
+  async render() {
     // console.log("Hello, Stimulus!", this.editorJS);
-    this.editorJS.save().then(outputData => {
-      console.log(outputData)
-    }).catch(error => {
-      console.log(error)
-    })
+    // this.editorJS.save().then(outputData => {
+    //   console.log(outputData)
+    //   return outputData
+    // }).catch(error => {
+    //   console.log(error)
+    // })
+    
+    const outputData = await this.editorJS.save()
+    return outputData
   }
 }

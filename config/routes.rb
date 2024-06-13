@@ -5,10 +5,10 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
-  # resources :english_definitions
-  # resources :english_licenses
-  # resources :english_meanings
-  # resources :english_phonetics
+  resources :article_comments
+  resources :article_users
+  resources :article_posts
+
   resources :english_words
   resources :english_users
   resources :users do

@@ -3,7 +3,7 @@ import { logo } from "./logo"
 
 export const footer = () => {
   return `
-    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
+    <hr class="w-full my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"></hr>
     <div class="flex flex-row justify-between">
       <div class="flex flex-row">
         ${logo()}

@@ -5,11 +5,12 @@ class CarCarsController < CarController
   # GET /car_cars or /car_cars.json
   def index
     respond_to do |format|
-      format.html { render :index }
+      format.html
       format.json do
         @car_cars = CarCar.all
         @car_cars = @car_cars.where('price <= ?', params[:price]) if params[:price].present?
-        render :index
+        @car_cars = @car_cars.where(brand: params[:brand].downcase) if params[:brand].present?
+        @car_cars = @car_cars.where(model: params[:model].downcase) if params[:model].present?
       end
     end
   end

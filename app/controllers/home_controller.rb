@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   # layout :layout_for_actions
+  skip_before_action :authenticate
 
   def index
   end

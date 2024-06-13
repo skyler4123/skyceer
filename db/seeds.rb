@@ -25,8 +25,11 @@ ChatConversation.destroy_all
 
 EnglishUser.destroy_all
 
-# APPLICATION PACKAGE
+ArticleUser.destroy_all
+ArticlePost.destroy_all
 
+
+# APPLICATION PACKAGE
 ActiveRecord::Base.transaction do
   10.times do |n|
     User.create(
@@ -50,16 +53,17 @@ ActiveRecord::Base.transaction do
       car_store = CarStore.create(
         name: "car_store_#{SecureRandom.uuid}",
         car_user_id: car_user.id,
-        coordinates: [rand(-20e6..20e6), rand(-20e6..20e6)],
+        coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
       )
       1.times do
         CarCar.create(
           name: "name_#{SecureRandom.uuid}",
           model: "model_#{SecureRandom.uuid}",
-          brand: ['Tesla', 'Toyota', 'Honda'].sample,
+          brand: ['tesla', 'toyota', 'honda'].sample,
           car_store: car_store,
           car_user: car_user,
           price: rand(1..1000),
+          year: rand(1900..2024),
           version: "version_#{SecureRandom.uuid}",
           coordinates: car_store.coordinates,
           released_at: rand(10.years).seconds.from_now,
@@ -150,12 +154,55 @@ end
 ChatUser.each do |user|
   # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
   ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..2).to_a.sample).map(&:to_s))
-
 end
 50.times do |n|
   chat_conversation = ChatConversation.all.sample
   chat_user_ids = chat_conversation.chat_user_ids
   chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_ids.sample, content: "content_#{n}")
+end
+
+# REVIEW package
+# ReviewUser.each do |user|
+#   1.times do |n|
+#     ReviewArticle.create(review_user: user, title: "title_#{n}", content: "content_#{n}")
+#   end
+# end
+# 10.times do |n|
+#   review_article = ReviewArticle.all.sample
+#   review_user = ReviewUser.all.sample
+#   content = {
+#     blocks: [{
+#       id: "oUq2g_tl8y",
+#       type: "header",
+#       data: {
+#          text: "content_#{n}",
+#          level: 2
+#       }
+#    }],
+# }
+#   review_article.review_comments << ReviewComment.new(review_user_id: review_user.id, content: content)
+# end
+
+# ARTICLE package
+ArticleUser.each_with_index do |user, user_index|
+  1.times do |n|
+    content = {
+      blocks: [{
+        id: "oUq2g_tl8y",
+        type: "header",
+        data: {
+           text: "content_#{user_index}",
+           level: 2
+        }
+     }],
+    }
+    ArticlePost.create(article_user: user, package: 'car', title: "title_#{n}", content: content)
+  end
+end
+10.times do |n|
+  article_post = ArticlePost.all.sample
+  article_user = ArticleUser.all.sample
+  article_post.article_comments << ArticleComment.new(article_user_id: article_user.id, content: "comment_#{n}")
 end
 
 # ENGLISH Package

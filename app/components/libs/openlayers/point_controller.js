@@ -2,7 +2,7 @@ import OpenlayersController from "./openlayers_controller";
 
 export default class PointController extends OpenlayersController {
   static values = {
-    point: { type: Object, default: {} }
+    point: { type: Array, default: [] }
   }
 
   initParams() {
@@ -30,10 +30,11 @@ export default class PointController extends OpenlayersController {
     })
     this.map.addLayer(this.pointLayer)
     this.map.on('singleclick', (event) => {
-      this.pointValue = {
-        id: this.newUUID,
-        coordinates: event.coordinate
-      }
+      // this.pointValue = {
+      //   id: this.newUUID,
+      //   coordinates: event.coordinate
+      // }
+      this.pointValue = event.coordinate
     })
   }
 
@@ -45,9 +46,9 @@ export default class PointController extends OpenlayersController {
 
   createPointFeature() {
     const newFeature = new this.Feature({
-      geometry: new this.Point(this.pointValue.coordinates),
+      geometry: new this.Point(this.pointValue),
     })
-    newFeature.setId(this.pointValue.id)
+    // newFeature.setId(this.pointValue.id)
     newFeature.setStyle(this.pointStyle())
     return newFeature
   }

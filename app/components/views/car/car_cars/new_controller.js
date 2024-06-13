@@ -1,19 +1,19 @@
-// import { Controller } from "@hotwired/stimulus";
-// import { CarBrandsApi } from "../../../../javascript/controllers/api/car/car_brands_api";
 import { CarCarsApi } from "../../../../javascript/controllers/api/car/car_cars_api";
 import { CarStoresApi } from "../../../../javascript/controllers/api/car/car_stores_api";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
 import { link } from "../../../../javascript/controllers/components";
-import { Constants } from "../../../../javascript/controllers/constants";
+import { CarConstants } from "../../../../javascript/controllers/constants/car_constants";
 import { footer } from "../footer";
 import { form } from "../form";
 import { header } from "../header";
 
 export default class extends ApplicationController {
-  static targets = ['header', 'main', 'footer', 'form', 'coordinateInput', 'brandInput', 'modelInput', 'storeInput', 'map']
+  static targets = ['header', 'main', 'footer', 'form', 'coordinateInput', 'brandInput', 'modelInput', 'versionInput', 'storeInput', 'map']
   static values = {
     ...super.values,
-    brand: { type: String }
+    brand: { type: String },
+    model: { type: String },
+    coordinates: { type: Array }
   }
 
   init() {
@@ -36,40 +36,60 @@ export default class extends ApplicationController {
         </div>
         ${link({label: 'Back to car cars', url: '/car_cars', klass: 'ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium'})}
       </div>
-
     `
     this.initForm()
   }
 
   initForm() {
-    Constants.car_brands.forEach(brand => {
+    CarConstants.carBrands().forEach(brand => {
       this.appendChildFromHTML({element: this.brandInputTarget, html: `<option value='${brand}'>${brand}</option>`})
     })
+    this.brandValue = this.brandInputTarget.value
 
     CarStoresApi.index().then(response => {
       const storesData = response.data
       storesData.forEach(store => {
-        this.appendChildFromHTML({element: this.storeInputTarget, html: `<option value='${store.id}'>${store.name}</option>`})
+        this.appendChildFromHTML({element: this.storeInputTarget, html: `<option data-${this.identifier}-coordinates-param='${JSON.stringify(store.coordinates)}' data-action='click->${this.identifier}#changeStore' value='${store.id}'>${store.name}</option>`})
       })
     })
   }
 
   initAction() {
-    this.addAction(this.mapTarget, `click->${this.identifier}#sync`)
+    this.addAction(this.mapTarget, `click->${this.identifier}#setCoordinates`)
     this.addAction(this.formTarget, `submit->${this.identifier}#submit`)
-    this.addAction(this.brandInputTarget, `change->${this.identifier}#brandChanged`)
+    this.addAction(this.brandInputTarget, `change->${this.identifier}#changeBrand`)
+    this.addAction(this.modelInputTarget, `change->${this.identifier}#changeModel`)
   }
 
-  brandChanged(event) {
+  changeStore(event) {
+    const coordinates = event.params.coordinates
+    this.coordinateInputTarget.value = coordinates
+    this.mapController().pointValue = [parseInt(coordinates[0]), parseInt(coordinates[1])]
+  }
+
+  changeBrand(event) {
     this.brandValue = this.brandInputTarget.value
+  }
+
+  changeModel(event) {
+    this.modelValue = this.modelInputTarget.value
   }
 
   brandValueChanged(value, previousValue) {
     if (!this.isInitializedValue) { return }
     this.modelInputTarget.innerHTML = ''
-    for (const [key, value] of Object.entries(Constants.car[this.brandValue])) {
-      this.appendChildFromHTML({element: this.modelInputTarget, html: `<option value='${key}'>${key}</option>`})
-    }                      
+    CarConstants.carModels(this.brandValue).forEach(model => {
+      this.appendChildFromHTML({element: this.modelInputTarget, html: `<option value='${model}'>${model}</option>`})
+    })
+    this.modelValue = this.modelInputTarget.value              
+  }
+
+  modelValueChanged(value, previousValue) {
+    if (!this.isInitializedValue) { return }
+    this.versionInputTarget.innerHTML = ''
+    CarConstants.carVersions(this.brandValue, this.modelValue).forEach(version => {
+      this.appendChildFromHTML({element: this.versionInputTarget, html: `<option value='${version}'>${version}</option>`})
+    })               
   }
 
   async submit(event) {
@@ -82,9 +102,9 @@ export default class extends ApplicationController {
     }
   }
 
-  sync() {
+  setCoordinates() {
     setTimeout(() => {
-      this.coordinateInputTarget.value = this.mapController().pointValue.coordinates
+      this.coordinateInputTarget.value = this.mapController().pointValue
     }, 300)
   }
   // initAction() {

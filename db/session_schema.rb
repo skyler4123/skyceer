@@ -20,6 +20,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105020) do
     t.string "car_user_id", null: false
     t.string "chat_user_id", null: false
     t.string "english_user_id", null: false
+    t.string "article_user_id", null: false
+    t.string "avatar"
     t.string "user_agent"
     t.string "ip_address"
     t.datetime "created_at", null: false

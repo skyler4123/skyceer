@@ -39,3 +39,4 @@ pin "emoji-mart" # @5.6.0
 pin "colormap" # @2.3.2
 pin "lerp" # @1.0.3
 pin "highlight.js", to: "https://ga.jspm.io/npm:highlight.js@11.4.0/es/index.js"
+pin "editorjs-html" # @3.4.3
