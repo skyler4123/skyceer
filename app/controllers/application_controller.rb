@@ -26,6 +26,8 @@ class ApplicationController < ActionController::Base
 
     def create_session_for_all_package(user:)
       Session.create!(
+        name: user.name,
+        email: user.email,
         user_id: user.id,
         car_user_id: user.car_user.id,
         chat_user_id: ChatUser.find_by(user_id: user.id).id,

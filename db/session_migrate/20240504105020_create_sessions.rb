@@ -1,6 +1,8 @@
 class CreateSessions < ActiveRecord::Migration[7.0]
   def change
     create_table :sessions, id: :uuid do |t|
+      t.string :email
+      t.string :name
       t.string :user_id, null: false, foreign_key: true, type: :uuid
       t.string :car_user_id, null: false, foreign_key: true, type: :uuid
       t.string :chat_user_id, null: false, foreign_key: true, type: :uuid

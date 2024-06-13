@@ -4,7 +4,68 @@
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
 
-    <%= render @car_car %>
+    <div id="<%= dom_id @car_car %>">
+      <p class="my-5">
+        <strong class="block font-medium mb-1">User</strong>
+        <%= @chat_user_id %>
+      </p>
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Name:</strong>
+        <%= @car_car.name %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Model:</strong>
+        <%= @car_car.model %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Car brand:</strong>
+        <%= @car_car.brand %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Car user:</strong>
+        <%= @car_car.car_user_id %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Price:</strong>
+        <%= @car_car.price %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Version:</strong>
+        <%= @car_car.version %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Coordinates:</strong>
+        <%= @car_car.coordinates %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Released at:</strong>
+        <%= @car_car.released_at %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Verified:</strong>
+        <%= @car_car.verified %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Expired:</strong>
+        <%= @car_car.expired %>
+      </p>
+
+      <% if action_name != "show" %>
+        <%= link_to "Show this car car", @car_car, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= link_to "Edit this car car", edit_car_car_path(@car_car), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+        <hr class="mt-6">
+      <% end %>
+    </div>
+
 
     <%= link_to "Edit this car_car", edit_car_car_path(@car_car), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">

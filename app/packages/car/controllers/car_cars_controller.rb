@@ -17,6 +17,7 @@ class CarCarsController < CarController
 
   # GET /car_cars/1 or /car_cars/1.json
   def show
+    @chat_user_id = Current.chat_user_id
   end
 
   # GET /car_cars/new
