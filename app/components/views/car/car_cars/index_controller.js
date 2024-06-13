@@ -16,9 +16,13 @@ export default class extends ApplicationController {
     this.initFooter()
   }
 
-  initHeader() { this.headerTarget.innerHTML = header() }
-  initFooter() { this.footerTarget.innerHTML = footer() }
-
+  initHeader() {
+    this.headerTarget.innerHTML = header()
+  }
+  initFooter() {
+    this.footerTarget.className = "flex flex-col w-full px-10"
+    this.footerTarget.innerHTML = footer()
+  }
 
   initMain() {
     this.mainTarget.className = 'flex flex-col justify-center items-center w-full h-full'

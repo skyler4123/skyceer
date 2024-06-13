@@ -443,6 +443,25 @@ const DataHelpers = {
     return Object.keys(object)[Object.keys(object).length]
   },
 
+  range({from = 0, to = 10, step = 1} = {}) {
+    return Array.from({length: to}, (_, v) => v + (from))
+  },
+
+  sortAndGetNewIndex(array, direction = 'asc') {
+    if (!this.isArray(array)) { return }
+
+    let sortFunction = () => {}
+    if (direction.toLowerCase() === 'asc') {
+      sortFunction = (a, b) => a - b
+    } else {
+      sortFunction = (a, b) => b - a
+    }
+    let newArray = [...array]
+    newArray.sort(sortFunction)
+    let newIndex = newArray.map(element => array.indexOf(element))
+    return [newArray, newIndex]
+  }
+
 }
 
 

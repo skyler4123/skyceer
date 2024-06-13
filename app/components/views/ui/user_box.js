@@ -4,7 +4,7 @@ import { box, link, popover, text } from "../../../javascript/controllers/compon
 export const uiUserBox = () => {
   const eventId = uuidv4()
   return (
-    box({klass: 'relative', event: {id: eventId, listener: 'hover', action: 'toggle'}}, () => {
+    box({klass: 'relative flex justify-center items-center', event: {id: eventId, listener: 'hover', action: 'toggle'}}, () => {
       return [
         link({url: '/users/profile'}, () => {
           return text({type: ['cookie', 'email']})

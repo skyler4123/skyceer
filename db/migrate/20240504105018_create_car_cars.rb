@@ -6,8 +6,9 @@ class CreateCarCars < ActiveRecord::Migration[7.1]
       t.string :brand
       t.references :car_store, null: true, foreign_key: true, type: :uuid
       t.references :car_user, null: true, foreign_key: true, type: :uuid
-      t.decimal :price
+      t.integer :price
       t.string :version
+      t.integer :year
       t.decimal :coordinates, array: true, default: [0, 0]
       t.datetime :released_at
       t.boolean :verified

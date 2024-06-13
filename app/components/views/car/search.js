@@ -1,5 +1,3 @@
-import { Constants } from "../../../javascript/controllers/constants"
-
 export const search = ({identifier}) => {
   return `
     <form data-${identifier}-target="search">

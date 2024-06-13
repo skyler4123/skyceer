@@ -25,11 +25,11 @@ ChatConversation.destroy_all
 
 EnglishUser.destroy_all
 
-ReviewUser.destroy_all
-ReviewArticle.destroy_all
+ArticleUser.destroy_all
+ArticlePost.destroy_all
+
 
 # APPLICATION PACKAGE
-
 ActiveRecord::Base.transaction do
   10.times do |n|
     User.create(
@@ -59,10 +59,11 @@ ActiveRecord::Base.transaction do
         CarCar.create(
           name: "name_#{SecureRandom.uuid}",
           model: "model_#{SecureRandom.uuid}",
-          brand: ['Tesla', 'Toyota', 'Honda'].sample,
+          brand: ['tesla', 'toyota', 'honda'].sample,
           car_store: car_store,
           car_user: car_user,
           price: rand(1..1000),
+          year: rand(1900..2024),
           version: "version_#{SecureRandom.uuid}",
           coordinates: car_store.coordinates,
           released_at: rand(10.years).seconds.from_now,
@@ -161,25 +162,47 @@ end
 end
 
 # REVIEW package
-ReviewUser.each do |user|
+# ReviewUser.each do |user|
+#   1.times do |n|
+#     ReviewArticle.create(review_user: user, title: "title_#{n}", content: "content_#{n}")
+#   end
+# end
+# 10.times do |n|
+#   review_article = ReviewArticle.all.sample
+#   review_user = ReviewUser.all.sample
+#   content = {
+#     blocks: [{
+#       id: "oUq2g_tl8y",
+#       type: "header",
+#       data: {
+#          text: "content_#{n}",
+#          level: 2
+#       }
+#    }],
+# }
+#   review_article.review_comments << ReviewComment.new(review_user_id: review_user.id, content: content)
+# end
+
+# ARTICLE package
+ArticleUser.each_with_index do |user, user_index|
   1.times do |n|
-    ReviewArticle.create(review_user: user, title: "title_#{n}", content: "content_#{n}")
+    content = {
+      blocks: [{
+        id: "oUq2g_tl8y",
+        type: "header",
+        data: {
+           text: "content_#{user_index}",
+           level: 2
+        }
+     }],
+    }
+    ArticlePost.create(article_user: user, package: 'car', title: "title_#{n}", content: content)
   end
 end
 10.times do |n|
-  review_article = ReviewArticle.all.sample
-  review_user = ReviewUser.all.sample
-  content = {
-    blocks: [{
-      id: "oUq2g_tl8y",
-      type: "header",
-      data: {
-         text: "content_#{n}",
-         level: 2
-      }
-   }],
-}
-  review_article.review_comments << ReviewComment.new(review_user_id: review_user.id, content: content)
+  article_post = ArticlePost.all.sample
+  article_user = ArticleUser.all.sample
+  article_post.article_comments << ArticleComment.new(article_user_id: article_user.id, content: "comment_#{n}")
 end
 
 # ENGLISH Package

@@ -28,12 +28,12 @@ class Current < ActiveSupport::CurrentAttributes
     self.chat_user.id.to_s
   end
 
-  def self.review_user
-    ReviewUser.find_by(user_id: self.user_id)
+  def self.article_user
+    ArticleUser.find_by(user_id: self.user_id)
   end
 
-  def self.review_user_id
-    self.review_user.id.to_s
+  def self.article_user_id
+    self.article_user.id.to_s
   end
 
   def self.avatar

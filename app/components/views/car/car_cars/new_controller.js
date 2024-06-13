@@ -1,10 +1,8 @@
-// import { Controller } from "@hotwired/stimulus";
-// import { CarBrandsApi } from "../../../../javascript/controllers/api/car/car_brands_api";
 import { CarCarsApi } from "../../../../javascript/controllers/api/car/car_cars_api";
 import { CarStoresApi } from "../../../../javascript/controllers/api/car/car_stores_api";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
 import { link } from "../../../../javascript/controllers/components";
-import { Constants } from "../../../../javascript/controllers/constants";
+import { CarConstants } from "../../../../javascript/controllers/constants/car_constants";
 import { footer } from "../footer";
 import { form } from "../form";
 import { header } from "../header";
@@ -43,7 +41,7 @@ export default class extends ApplicationController {
   }
 
   initForm() {
-    Constants.carBrands().forEach(brand => {
+    CarConstants.carBrands().forEach(brand => {
       this.appendChildFromHTML({element: this.brandInputTarget, html: `<option value='${brand}'>${brand}</option>`})
     })
     this.brandValue = this.brandInputTarget.value
@@ -80,7 +78,7 @@ export default class extends ApplicationController {
   brandValueChanged(value, previousValue) {
     if (!this.isInitializedValue) { return }
     this.modelInputTarget.innerHTML = ''
-    Constants.carModels(this.brandValue).forEach(model => {
+    CarConstants.carModels(this.brandValue).forEach(model => {
       this.appendChildFromHTML({element: this.modelInputTarget, html: `<option value='${model}'>${model}</option>`})
     })
     this.modelValue = this.modelInputTarget.value              
@@ -89,7 +87,7 @@ export default class extends ApplicationController {
   modelValueChanged(value, previousValue) {
     if (!this.isInitializedValue) { return }
     this.versionInputTarget.innerHTML = ''
-    Constants.carVersions(this.brandValue, this.modelValue).forEach(version => {
+    CarConstants.carVersions(this.brandValue, this.modelValue).forEach(version => {
       this.appendChildFromHTML({element: this.versionInputTarget, html: `<option value='${version}'>${version}</option>`})
     })               
   }

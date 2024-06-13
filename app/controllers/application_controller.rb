@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
         car_user_id: user.car_user.id,
         chat_user_id: ChatUser.find_by(user_id: user.id).id,
         english_user_id: EnglishUser.find_by(user_id: user.id).id,
-        review_user_id: ReviewUser.find_by(user_id: user.id).id,
+        article_user_id: ArticleUser.find_by(user_id: user.id).id,
       )
     end
 

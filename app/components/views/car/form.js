@@ -23,18 +23,18 @@ export const form = (identifier) => {
       </div>
 
       <div class="my-5">
-        <label for="car_car_car_store_id">Car store</label>
-        <select name="car_car[car_store_id]" data-${identifier}-target="storeInput" class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"></select>
+        <label for="car_car_year">Year</label>
+        <input class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" type="number" min="1900" max="2099" step="1" name="car_car[year]" value="2024" id="car_car_year">
       </div>
 
       <div class="my-5">
         <label for="car_car_price">Price</label>
-        <input class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" type="text" name="car_car[price]" id="car_car_price">
+        <input class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" type="number" min="0" step="1" name="car_car[price]" id="car_car_price">
       </div>
 
       <div class="my-5">
-        <label for="car_car_version">Version</label>
-        <input class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" type="text" name="car_car[version]" id="car_car_version">
+        <label for="car_car_car_store_id">Car store</label>
+        <select name="car_car[car_store_id]" data-${identifier}-target="storeInput" class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"></select>
       </div>
 
       <div class="my-5">

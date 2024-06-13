@@ -132,8 +132,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105018) do
     t.string "brand"
     t.uuid "car_store_id"
     t.uuid "car_user_id"
-    t.decimal "price"
+    t.integer "price"
     t.string "version"
+    t.integer "year"
     t.decimal "coordinates", default: ["0.0", "0.0"], array: true
     t.datetime "released_at"
     t.boolean "verified"
