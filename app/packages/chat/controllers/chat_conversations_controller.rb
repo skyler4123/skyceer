@@ -5,7 +5,7 @@ class ChatConversationsController < ApplicationController
   def index
     @chat_conversations = ChatConversation.all
     @host_chat_user_id = Current.chat_user_id
-    @guess_chat_user_id = Session.chat_user_id(user_id: params[:guess_user_id]) if params[:guess_user_id].present?
+    # @guess_chat_user_id = Session.chat_user_id(user_id: params[:guess_user_id]) if params[:guess_user_id].present?
     @guess_chat_user_id = params[:guess_chat_user_id] if params[:guess_chat_user_id].present?
     chat_user_ids = [@host_chat_user_id, @guess_chat_user_id].sort
     @chat_conversations = @chat_conversations.all(chat_user_ids: chat_user_ids)
