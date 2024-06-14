@@ -3,12 +3,17 @@
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
-
+      <%
+=begin%>
+ ${user.session_id && link({label: 'Chat with this user!', url: `/chat_conversations?guess_user_id=${user.id}`, variant: 'default', data: {'turbo-stream': true}})} 
+<%
+=end%>
     <div id="<%= dom_id @car_car %>">
       <p class="my-5">
         <strong class="block font-medium mb-1">User</strong>
-        <%= @chat_user_id %>
+        <%= link(label: @user_name, url: "/chat_conversations?guess_chat_user_id=#{@chat_user_id}", data: {'turbo-stream' => true}, variant: :default) %>
       </p>
+      
       <p class="my-5">
         <strong class="block font-medium mb-1">Name:</strong>
         <%= @car_car.name %>
@@ -37,6 +42,13 @@
       <p class="my-5">
         <strong class="block font-medium mb-1">Version:</strong>
         <%= @car_car.version %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Post Purpose:</strong>
+        <%= 'Sell' if @car_car.sell? %>
+        <%= 'Rent' if @car_car.rent? %>
+        <%= 'Sell or Rent' if @car_car.sell_or_rent? %>
       </p>
 
       <p class="my-5">
