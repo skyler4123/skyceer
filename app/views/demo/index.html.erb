@@ -265,7 +265,11 @@
           <%= box(klass: 'w-4 h-4 bg-green-500') %>
         <% end %>
       <% end %>
-    <%= text(label: "Gia ca", language: :vietnamese) %>
+    <%
+=begin%>
+ <%= text(label: "Gia ca", language: :vietnamese) %> 
+<%
+=end%>
 
     <%= img(event: { id: id }, klass: "w-40 h-40 open:animate-spin hover:scale-150 duration-500", url: "https://picsum.photos/1000/1000") %>
 

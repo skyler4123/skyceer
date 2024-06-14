@@ -9,6 +9,7 @@ class CreateCarCars < ActiveRecord::Migration[7.1]
       t.integer :price
       t.string :version
       t.integer :year
+      t.integer :post_purpose
       t.decimal :coordinates, array: true, default: [0, 0]
       t.datetime :released_at
       t.boolean :verified

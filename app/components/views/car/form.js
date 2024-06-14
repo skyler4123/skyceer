@@ -33,6 +33,15 @@ export const form = (identifier) => {
       </div>
 
       <div class="my-5">
+        <label for="car_car_post_purpose">Car store</label>
+        <select name="car_car[post_purpose]" class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full">
+          <option value="sell">For Sell</option>
+          <option value="rent">For Rent</option>
+          <option value="sell_or_rent">For Sell or Rent</option>
+        </select>
+      </div>
+
+      <div class="my-5">
         <label for="car_car_car_store_id">Car store</label>
         <select name="car_car[car_store_id]" data-${identifier}-target="storeInput" class="block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full"></select>
       </div>

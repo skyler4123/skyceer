@@ -14,6 +14,14 @@ export const search = ({identifier}) => {
           Price
           <input name="price"/>
         </label>
+        <label>
+          Post Purpose
+          <select name="post_purpose">
+            <option value="sell">Sell</option>
+            <option value="rent">Rent</option>
+            <option value="sell_or_rent">Sell or Rent</option>
+          </select>
+        </label>
         <input type="submit" value="Search"/>
       </div>
     </form>

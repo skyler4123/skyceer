@@ -64,6 +64,10 @@ const DomHelpers = {
   hide() {
     this.addClass(this.element, 'hidden')
   },
+
+  updateText(element, newText) {
+    element.innerText = newText
+  },
 }
 
 export default DomHelpers;

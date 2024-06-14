@@ -11,12 +11,16 @@ class CarCarsController < CarController
         @car_cars = @car_cars.where('price <= ?', params[:price]) if params[:price].present?
         @car_cars = @car_cars.where(brand: params[:brand].downcase) if params[:brand].present?
         @car_cars = @car_cars.where(model: params[:model].downcase) if params[:model].present?
+        @car_cars = @car_cars.where(post_purpose: params[:post_purpose].downcase) if params[:post_purpose].present? && params[:post_purpose] != 'sell_or_rent'
       end
     end
   end
 
   # GET /car_cars/1 or /car_cars/1.json
   def show
+    session = Session.find_by(car_user_id: @car_car.car_user_id)
+    @user_name = session.name
+    @chat_user_id = session.chat_user_id
   end
 
   # GET /car_cars/new
@@ -75,7 +79,7 @@ class CarCarsController < CarController
 
     # Only allow a list of trusted parameters through.
     def car_car_params
-      params.require(:car_car).permit(:name, :model, :brand, :car_store_id, :car_user_id, :price, :version, :released_at, :verified, :expired, coordinates: [])
+      params.require(:car_car).permit(:name, :model, :brand, :car_store_id, :car_user_id, :price, :version, :post_purpose, :released_at, :verified, :expired, coordinates: [])
     end
 
     def normalize_coordinates(coordinates)

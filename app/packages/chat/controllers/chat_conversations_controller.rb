@@ -3,37 +3,17 @@ class ChatConversationsController < ApplicationController
 
   # GET /chat_conversations or /chat_conversations.json
   def index
-
     @chat_conversations = ChatConversation.all
-    if params[:guess_user_id].present?
-      @host_chat_user_id = Current.chat_user_id
-      @guess_chat_user_id = Session.chat_user_id(user_id: params[:guess_user_id])
-      chat_user_ids = [@host_chat_user_id, @guess_chat_user_id].sort
-      # @chat_conversations = @chat_conversations.in(chat_user_ids: chat_user_ids)
-      @chat_conversations = @chat_conversations.all(chat_user_ids: chat_user_ids)
-      if @chat_conversations.empty?
-        @chat_conversation = ChatConversation.create(chat_user_ids: chat_user_ids)
-      else
-        @chat_conversation = @chat_conversations.last
-      end
-    end 
-
-    respond_to do |format|
-      if @chat_conversations
-        format.html { render :index, status: :ok}
-        format.json { render :index, status: :created, location: @chat_conversation }
-        format.turbo_stream
-      end
+    @host_chat_user_id = Current.chat_user_id
+    # @guess_chat_user_id = Session.chat_user_id(user_id: params[:guess_user_id]) if params[:guess_user_id].present?
+    @guess_chat_user_id = params[:guess_chat_user_id] if params[:guess_chat_user_id].present?
+    chat_user_ids = [@host_chat_user_id, @guess_chat_user_id].sort
+    @chat_conversations = @chat_conversations.all(chat_user_ids: chat_user_ids)
+    if @chat_conversations.empty?
+      @chat_conversation = ChatConversation.create(chat_user_ids: chat_user_ids)
+    else
+      @chat_conversation = @chat_conversations.last
     end
-
-
-    # @chat_users = ChatUser.all
-    # @chat_users = @chat_users.in(id: params[:ids]) if params[:ids].present?
-    # if (params[:chat_conversation_id].present?)
-    #   chat_conversation = ChatConversation.find(params[:chat_conversation_id])
-    #   chat_user_ids = chat_conversation.chat_user_ids
-    #   @chat_users = @chat_users.in(id: chat_user_ids)
-    # end
   end
 
   # GET /chat_conversations/1 or /chat_conversations/1.json

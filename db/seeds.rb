@@ -32,12 +32,21 @@ ArticlePost.destroy_all
 # APPLICATION PACKAGE
 ActiveRecord::Base.transaction do
   10.times do |n|
-    User.create(
+    user = User.create(
       email: "email#{n + 1}@gmail.com",
       password: "password1234",
       password_confirmation: "password1234",
       verified: true,
       name: "name_#{n + 1}"
+    )
+    Session.create!(
+      name: user.name,
+      email: user.email,
+      user_id: user.id,
+      car_user_id: user.car_user.id,
+      chat_user_id: ChatUser.find_by(user_id: user.id).id,
+      english_user_id: EnglishUser.find_by(user_id: user.id).id,
+      article_user_id: ArticleUser.find_by(user_id: user.id).id,
     )
   end
 end
@@ -64,6 +73,7 @@ ActiveRecord::Base.transaction do
           car_user: car_user,
           price: rand(1..1000),
           year: rand(1900..2024),
+          post_purpose: [0, 1, 2].sample,
           version: "version_#{SecureRandom.uuid}",
           coordinates: car_store.coordinates,
           released_at: rand(10.years).seconds.from_now,
