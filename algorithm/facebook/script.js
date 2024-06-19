@@ -49,11 +49,3 @@ let commentedNumbers = commentNumbers.map(comment => {
 let diff = numberSample.diff(commentedNumbers)
 console.log(`Commented Numbers at position ${position}:`, commentedNumbers)
 console.log("Available Number:", diff)
-
-
-
-
-
-
-
-
