@@ -2,7 +2,7 @@
 
 class Views::Vehicle::Cars::NewComponent < ApplicationComponent
   # def call
-  #   content_tag :div, "Hello world!", data: { controller: "views--car--cars--new" } do
+  #   content_tag :div, "Hello world!", data: { controller: "views--vehicle--cars--new" } do
   #     content
   #   end
   # end

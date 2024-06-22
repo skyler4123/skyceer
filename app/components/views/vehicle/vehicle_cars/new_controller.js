@@ -1,8 +1,8 @@
-import { VehicleCarsApi } from "../../../../javascript/controllers/api/car/vehicle_cars_api";
-import { VehicleStoresApi } from "../../../../javascript/controllers/api/car/vehicle_stores_api";
+import { VehicleCarsApi } from "../../../../javascript/controllers/api/vehicle/vehicle_cars_api";
+import { VehicleStoresApi } from "../../../../javascript/controllers/api/vehicle/vehicle_stores_api";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
 import { link } from "../../../../javascript/controllers/components";
-import { CarConstants } from "../../../../javascript/controllers/constants/car_constants";
+import { CarConstants } from "../../../../javascript/controllers/constants/vehicle/car_constants";
 import { footer } from "../footer";
 import { form } from "../form";
 import { header } from "../header";

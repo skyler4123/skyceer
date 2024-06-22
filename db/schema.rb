@@ -126,42 +126,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105018) do
     t.index ["user_id"], name: "index_calendar_users_on_user_id"
   end
 
-  create_table "vehicle_cars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.string "model"
-    t.string "brand"
-    t.uuid "vehicle_store_id"
-    t.uuid "vehicle_user_id"
-    t.integer "price"
-    t.string "version"
-    t.integer "year"
-    t.integer "post_purpose"
-    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
-    t.datetime "released_at"
-    t.boolean "verified"
-    t.boolean "expired"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["vehicle_store_id"], name: "index_vehicle_cars_on_vehicle_store_id"
-    t.index ["vehicle_user_id"], name: "index_vehicle_cars_on_vehicle_user_id"
-  end
-
-  create_table "vehicle_stores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.uuid "vehicle_user_id", null: false
-    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["vehicle_user_id"], name: "index_vehicle_stores_on_vehicle_user_id"
-  end
-
-  create_table "vehicle_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_vehicle_users_on_user_id"
-  end
-
   create_table "demos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "string"
     t.text "text"
@@ -262,6 +226,42 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105018) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "vehicle_cars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "model"
+    t.string "brand"
+    t.uuid "vehicle_store_id"
+    t.uuid "vehicle_user_id"
+    t.integer "price"
+    t.string "version"
+    t.integer "year"
+    t.integer "post_purpose"
+    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
+    t.datetime "released_at"
+    t.boolean "verified"
+    t.boolean "expired"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vehicle_store_id"], name: "index_vehicle_cars_on_vehicle_store_id"
+    t.index ["vehicle_user_id"], name: "index_vehicle_cars_on_vehicle_user_id"
+  end
+
+  create_table "vehicle_stores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.uuid "vehicle_user_id", null: false
+    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vehicle_user_id"], name: "index_vehicle_stores_on_vehicle_user_id"
+  end
+
+  create_table "vehicle_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_vehicle_users_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agriculture_farmers", "agriculture_users"
@@ -271,10 +271,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105018) do
   add_foreign_key "calendar_events", "calendar_schedules"
   add_foreign_key "calendar_schedules", "calendar_users"
   add_foreign_key "calendar_users", "users"
-  add_foreign_key "vehicle_cars", "vehicle_stores"
-  add_foreign_key "vehicle_cars", "vehicle_users"
-  add_foreign_key "vehicle_stores", "vehicle_users"
-  add_foreign_key "vehicle_users", "users"
   add_foreign_key "education_classes", "education_schools"
   add_foreign_key "education_rooms", "education_schools"
   add_foreign_key "education_schools", "education_users"
@@ -286,4 +282,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_04_105018) do
   add_foreign_key "education_users", "users"
   add_foreign_key "map_points", "map_users"
   add_foreign_key "map_users", "users"
+  add_foreign_key "vehicle_cars", "vehicle_stores"
+  add_foreign_key "vehicle_cars", "vehicle_users"
+  add_foreign_key "vehicle_stores", "vehicle_users"
+  add_foreign_key "vehicle_users", "users"
 end

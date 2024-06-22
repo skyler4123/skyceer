@@ -23,12 +23,12 @@
 
   <div class="my-5">
     <%= form.label :brand %>
-    <select name="vehicle_car[brand]" data-views--car--cars--new-target='brandInput'></select>
+    <select name="vehicle_car[brand]" data-views--vehicle--cars--new-target='brandInput'></select>
   </div>
 
   <div class="my-5">
     <%= form.label :vehicle_store_id %>
-    <select name="vehicle_car[vehicle_store_id]" data-views--car--cars--new-target='storeInput'></select>
+    <select name="vehicle_car[vehicle_store_id]" data-views--vehicle--cars--new-target='storeInput'></select>
   </div>
 <%
 =begin%>
@@ -52,7 +52,7 @@
 
   <div class="my-5">
     <%= form.label :coordinates %>
-    <%= form.text_field :coordinates, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: { 'views--car--cars--new-target' => 'coordinateInput' } %>
+    <%= form.text_field :coordinates, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", data: { 'views--vehicle--cars--new-target' => 'coordinateInput' } %>
   </div>
 
   <div class="my-5">
