@@ -29,7 +29,7 @@ export default class extends ApplicationController {
     this.mainTarget.innerHTML =
       `
         ${search({identifier: this.identifier})}
-        <div data-controller="views--car--map-car-index" data-${this.identifier}-target="map"></div>
+        <div data-controller="views--vehicle--map-car-index" data-${this.identifier}-target="map"></div>
       `
   }
   
@@ -45,6 +45,6 @@ export default class extends ApplicationController {
   }
 
   mapController() {
-    return this.application.getControllerForElementAndIdentifier(this.mapTarget, 'views--car--map-car-index')
+    return this.application.getControllerForElementAndIdentifier(this.mapTarget, 'views--vehicle--map-car-index')
   }
 }

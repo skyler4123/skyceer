@@ -19,7 +19,7 @@ export default class extends ApplicationController {
   //   this.mainTarget.innerHTML =
   //     `
   //       ${search({identifier: this.identifier})}
-  //       <div data-controller="views--car--map-car-index" data-${this.identifier}-target="map"></div>
+  //       <div data-controller="views--vehicle--map-car-index" data-${this.identifier}-target="map"></div>
   //     `
   // }
   

@@ -1,5 +1,5 @@
-import { VehicleCarsApi } from "../../../javascript/controllers/api/vehicle/vehicle_cars_api"
 import { origin } from "../../../javascript/controllers/api/base_api"
+import { VehicleCarsApi } from "../../../javascript/controllers/api/vehicle/vehicle_cars_api"
 import OpenlayersController from "../../libs/openlayers/openlayers_controller"
 
 export default class MapCarIndexController extends OpenlayersController {
