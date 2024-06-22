@@ -62,6 +62,7 @@ export default class extends ApplicationController {
   }
 
   changeStore(event) {
+    console.log('jashkjaf')
     const coordinates = event.params.coordinates
     this.coordinateInputTarget.value = coordinates
     this.mapController().pointValue = [parseInt(coordinates[0]), parseInt(coordinates[1])]
