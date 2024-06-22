@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :car_store do
+  factory :vehicle_store do
     name { "MyString" }
-    car_user { nil }
+    vehicle_user { nil }
     coordinates { "9.99" }
   end
 end

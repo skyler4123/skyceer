@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "car_users/show", type: :view do
+RSpec.describe "vehicle_users/show", type: :view do
   before(:each) do
-    assign(:car_user, CarUser.create!(
+    assign(:vehicle_user, VehicleUser.create!(
       user: nil
     ))
   end

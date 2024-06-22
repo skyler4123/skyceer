@@ -12,10 +12,10 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/car_stores", type: :request do
+RSpec.describe "/vehicle_stores", type: :request do
   
   # This should return the minimal set of attributes required to create a valid
-  # CarStore. As you add validations to CarStore, be sure to
+  # VehicleStore. As you add validations to VehicleStore, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -27,59 +27,59 @@ RSpec.describe "/car_stores", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      CarStore.create! valid_attributes
-      get car_stores_url
+      VehicleStore.create! valid_attributes
+      get vehicle_stores_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      car_store = CarStore.create! valid_attributes
-      get car_store_url(car_store)
+      vehicle_store = VehicleStore.create! valid_attributes
+      get vehicle_store_url(vehicle_store)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_car_store_url
+      get new_vehicle_store_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response" do
-      car_store = CarStore.create! valid_attributes
-      get edit_car_store_url(car_store)
+      vehicle_store = VehicleStore.create! valid_attributes
+      get edit_vehicle_store_url(vehicle_store)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new CarStore" do
+      it "creates a new VehicleStore" do
         expect {
-          post car_stores_url, params: { car_store: valid_attributes }
-        }.to change(CarStore, :count).by(1)
+          post vehicle_stores_url, params: { vehicle_store: valid_attributes }
+        }.to change(VehicleStore, :count).by(1)
       end
 
-      it "redirects to the created car_store" do
-        post car_stores_url, params: { car_store: valid_attributes }
-        expect(response).to redirect_to(car_store_url(CarStore.last))
+      it "redirects to the created vehicle_store" do
+        post vehicle_stores_url, params: { vehicle_store: valid_attributes }
+        expect(response).to redirect_to(vehicle_store_url(VehicleStore.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new CarStore" do
+      it "does not create a new VehicleStore" do
         expect {
-          post car_stores_url, params: { car_store: invalid_attributes }
-        }.to change(CarStore, :count).by(0)
+          post vehicle_stores_url, params: { vehicle_store: invalid_attributes }
+        }.to change(VehicleStore, :count).by(0)
       end
 
     
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post car_stores_url, params: { car_store: invalid_attributes }
+        post vehicle_stores_url, params: { vehicle_store: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     
@@ -92,26 +92,26 @@ RSpec.describe "/car_stores", type: :request do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested car_store" do
-        car_store = CarStore.create! valid_attributes
-        patch car_store_url(car_store), params: { car_store: new_attributes }
-        car_store.reload
+      it "updates the requested vehicle_store" do
+        vehicle_store = VehicleStore.create! valid_attributes
+        patch vehicle_store_url(vehicle_store), params: { vehicle_store: new_attributes }
+        vehicle_store.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the car_store" do
-        car_store = CarStore.create! valid_attributes
-        patch car_store_url(car_store), params: { car_store: new_attributes }
-        car_store.reload
-        expect(response).to redirect_to(car_store_url(car_store))
+      it "redirects to the vehicle_store" do
+        vehicle_store = VehicleStore.create! valid_attributes
+        patch vehicle_store_url(vehicle_store), params: { vehicle_store: new_attributes }
+        vehicle_store.reload
+        expect(response).to redirect_to(vehicle_store_url(vehicle_store))
       end
     end
 
     context "with invalid parameters" do
     
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        car_store = CarStore.create! valid_attributes
-        patch car_store_url(car_store), params: { car_store: invalid_attributes }
+        vehicle_store = VehicleStore.create! valid_attributes
+        patch vehicle_store_url(vehicle_store), params: { vehicle_store: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     
@@ -119,17 +119,17 @@ RSpec.describe "/car_stores", type: :request do
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested car_store" do
-      car_store = CarStore.create! valid_attributes
+    it "destroys the requested vehicle_store" do
+      vehicle_store = VehicleStore.create! valid_attributes
       expect {
-        delete car_store_url(car_store)
-      }.to change(CarStore, :count).by(-1)
+        delete vehicle_store_url(vehicle_store)
+      }.to change(VehicleStore, :count).by(-1)
     end
 
-    it "redirects to the car_stores list" do
-      car_store = CarStore.create! valid_attributes
-      delete car_store_url(car_store)
-      expect(response).to redirect_to(car_stores_url)
+    it "redirects to the vehicle_stores list" do
+      vehicle_store = VehicleStore.create! valid_attributes
+      delete vehicle_store_url(vehicle_store)
+      expect(response).to redirect_to(vehicle_stores_url)
     end
   end
 end

@@ -4,7 +4,7 @@ class CreateSessions < ActiveRecord::Migration[7.0]
       t.string :email
       t.string :name
       t.string :user_id, null: false, foreign_key: true, type: :uuid
-      t.string :car_user_id, null: false, foreign_key: true, type: :uuid
+      t.string :vehicle_user_id, null: false, foreign_key: true, type: :uuid
       t.string :chat_user_id, null: false, foreign_key: true, type: :uuid
       t.string :english_user_id, null: false, foreign_key: true, type: :uuid
       t.string :article_user_id, null: false, foreign_key: true, type: :uuid

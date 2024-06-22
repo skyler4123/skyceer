@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "car_cars/show", type: :view do
+RSpec.describe "vehicle_cars/show", type: :view do
   before(:each) do
-    assign(:car_car, CarCar.create!(
+    assign(:vehicle_car, VehicleCar.create!(
       name: "Name",
       model: "Model",
-      car_brand: nil,
-      car_user: nil,
+      vehicle_brand: nil,
+      vehicle_user: nil,
       price: "9.99",
       version: "Version",
       coordinates: "9.99",

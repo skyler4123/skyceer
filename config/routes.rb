@@ -16,10 +16,10 @@ Rails.application.routes.draw do
       get :profile
     end
   end
-  resources :car_stores
-  resources :car_cars
-  resources :car_brands
-  resources :car_users
+  resources :vehicle_stores
+  resources :vehicle_cars
+  resources :vehicle_brands
+  resources :vehicle_users
   resources :map_points
   mount MissionControl::Jobs::Engine, at: "/jobs"
   resources :demo, only: [:index, :new]

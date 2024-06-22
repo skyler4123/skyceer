@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :car_brand do
+  factory :vehicle_brand do
     name { "MyString" }
   end
 end

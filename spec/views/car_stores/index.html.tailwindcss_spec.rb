@@ -1,22 +1,22 @@
 require 'rails_helper'
 
-RSpec.describe "car_stores/index", type: :view do
+RSpec.describe "vehicle_stores/index", type: :view do
   before(:each) do
-    assign(:car_stores, [
-      CarStore.create!(
+    assign(:vehicle_stores, [
+      VehicleStore.create!(
         name: "Name",
-        car_user: nil,
+        vehicle_user: nil,
         coordinates: "9.99"
       ),
-      CarStore.create!(
+      VehicleStore.create!(
         name: "Name",
-        car_user: nil,
+        vehicle_user: nil,
         coordinates: "9.99"
       )
     ])
   end
 
-  it "renders a list of car_stores" do
+  it "renders a list of vehicle_stores" do
     render
     cell_selector = Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
     assert_select cell_selector, text: Regexp.new("Name".to_s), count: 2

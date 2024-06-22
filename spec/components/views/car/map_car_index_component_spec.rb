@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Views::Car::MapCarIndexComponent, type: :component do
+RSpec.describe Views::Vehicle::MapCarIndexComponent, type: :component do
   pending "add some examples to (or delete) #{__FILE__}"
 
   # it "renders something useful" do

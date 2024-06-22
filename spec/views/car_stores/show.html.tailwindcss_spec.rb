@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "car_stores/show", type: :view do
+RSpec.describe "vehicle_stores/show", type: :view do
   before(:each) do
-    assign(:car_store, CarStore.create!(
+    assign(:vehicle_store, VehicleStore.create!(
       name: "Name",
-      car_user: nil,
+      vehicle_user: nil,
       coordinates: "9.99"
     ))
   end

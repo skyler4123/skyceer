@@ -1,24 +1,24 @@
 require 'rails_helper'
 
-RSpec.describe "car_stores/new", type: :view do
+RSpec.describe "vehicle_stores/new", type: :view do
   before(:each) do
-    assign(:car_store, CarStore.new(
+    assign(:vehicle_store, VehicleStore.new(
       name: "MyString",
-      car_user: nil,
+      vehicle_user: nil,
       coordinates: "9.99"
     ))
   end
 
-  it "renders new car_store form" do
+  it "renders new vehicle_store form" do
     render
 
-    assert_select "form[action=?][method=?]", car_stores_path, "post" do
+    assert_select "form[action=?][method=?]", vehicle_stores_path, "post" do
 
-      assert_select "input[name=?]", "car_store[name]"
+      assert_select "input[name=?]", "vehicle_store[name]"
 
-      assert_select "input[name=?]", "car_store[car_user_id]"
+      assert_select "input[name=?]", "vehicle_store[vehicle_user_id]"
 
-      assert_select "input[name=?]", "car_store[coordinates]"
+      assert_select "input[name=?]", "vehicle_store[coordinates]"
     end
   end
 end
