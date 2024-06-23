@@ -1,0 +1,2 @@
+module VehicleUsersHelper
+end

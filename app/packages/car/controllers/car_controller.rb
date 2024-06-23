@@ -1,3 +1,0 @@
-class CarController < ApplicationController
-
-end

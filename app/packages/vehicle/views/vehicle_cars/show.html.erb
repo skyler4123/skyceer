@@ -1,0 +1,88 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+      <%
+=begin%>
+ ${user.session_id && link({label: 'Chat with this user!', url: `/chat_conversations?guess_user_id=${user.id}`, variant: 'default', data: {'turbo-stream': true}})} 
+<%
+=end%>
+    <div id="<%= dom_id @vehicle_car %>">
+      <p class="my-5">
+        <strong class="block font-medium mb-1">User</strong>
+        <%= link(label: @user_name, url: "/chat_conversations?guess_chat_user_id=#{@chat_user_id}", data: {'turbo-stream' => true}, variant: :default) %>
+      </p>
+      
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Name:</strong>
+        <%= @vehicle_car.name %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Model:</strong>
+        <%= @vehicle_car.model %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Vehicle brand:</strong>
+        <%= @vehicle_car.brand %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Vehicle user:</strong>
+        <%= @vehicle_car.vehicle_user_id %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Price:</strong>
+        <%= @vehicle_car.price %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Version:</strong>
+        <%= @vehicle_car.version %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Post Purpose:</strong>
+        <%= 'Sell' if @vehicle_car.sell? %>
+        <%= 'Rent' if @vehicle_car.rent? %>
+        <%= 'Sell or Rent' if @vehicle_car.sell_or_rent? %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Coordinates:</strong>
+        <%= @vehicle_car.coordinates %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Released at:</strong>
+        <%= @vehicle_car.released_at %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Verified:</strong>
+        <%= @vehicle_car.verified %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Expired:</strong>
+        <%= @vehicle_car.expired %>
+      </p>
+
+      <% if action_name != "show" %>
+        <%= link_to "Show this car car", @vehicle_car, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= link_to "Edit this car car", edit_vehicle_car_path(@vehicle_car), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+        <hr class="mt-6">
+      <% end %>
+    </div>
+
+
+    <%= link_to "Edit this vehicle_car", edit_vehicle_car_path(@vehicle_car), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%= button_to "Destroy this vehicle_car", vehicle_car_path(@vehicle_car), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+    <%= link_to "Back to vehicle_cars", vehicle_cars_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
+</div> 

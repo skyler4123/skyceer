@@ -16,9 +16,9 @@ REDIS.set('time', Date.current.to_s)
 # DESTROY ALL
 User.destroy_all
 
-CarUser.destroy_all
-CarStore.destroy_all
-CarCar.destroy_all
+VehicleUser.destroy_all
+VehicleStore.destroy_all
+VehicleCar.destroy_all
 
 ChatUser.destroy_all
 ChatConversation.destroy_all
@@ -43,7 +43,7 @@ ActiveRecord::Base.transaction do
       name: user.name,
       email: user.email,
       user_id: user.id,
-      car_user_id: user.car_user.id,
+      vehicle_user_id: user.vehicle_user.id,
       chat_user_id: ChatUser.find_by(user_id: user.id).id,
       english_user_id: EnglishUser.find_by(user_id: user.id).id,
       article_user_id: ArticleUser.find_by(user_id: user.id).id,
@@ -52,30 +52,30 @@ ActiveRecord::Base.transaction do
 end
 
 
-# Car Package
+# Vehicle Package
 ActiveRecord::Base.transaction do
   # User.all.each do |user|
-  #   CarUser.create(user: user)
+  #   VehicleUser.create(user: user)
   # end
-  CarUser.all.each do |car_user|
+  VehicleUser.all.each do |vehicle_user|
     2.times do
-      car_store = CarStore.create(
-        name: "car_store_#{SecureRandom.uuid}",
-        car_user_id: car_user.id,
+      vehicle_store = VehicleStore.create(
+        name: "vehicle_store_#{SecureRandom.uuid}",
+        vehicle_user_id: vehicle_user.id,
         coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
       )
       1.times do
-        CarCar.create(
+        VehicleCar.create(
           name: "name_#{SecureRandom.uuid}",
           model: "model_#{SecureRandom.uuid}",
           brand: ['tesla', 'toyota', 'honda'].sample,
-          car_store: car_store,
-          car_user: car_user,
+          vehicle_store: vehicle_store,
+          vehicle_user: vehicle_user,
           price: rand(1..1000),
           year: rand(1900..2024),
           post_purpose: [0, 1, 2].sample,
           version: "version_#{SecureRandom.uuid}",
-          coordinates: car_store.coordinates,
+          coordinates: vehicle_store.coordinates,
           released_at: rand(10.years).seconds.from_now,
           verified: true,
           expired: false,

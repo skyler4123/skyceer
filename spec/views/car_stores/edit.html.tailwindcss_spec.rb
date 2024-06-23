@@ -1,28 +1,28 @@
 require 'rails_helper'
 
-RSpec.describe "car_stores/edit", type: :view do
-  let(:car_store) {
-    CarStore.create!(
+RSpec.describe "vehicle_stores/edit", type: :view do
+  let(:vehicle_store) {
+    VehicleStore.create!(
       name: "MyString",
-      car_user: nil,
+      vehicle_user: nil,
       coordinates: "9.99"
     )
   }
 
   before(:each) do
-    assign(:car_store, car_store)
+    assign(:vehicle_store, vehicle_store)
   end
 
-  it "renders the edit car_store form" do
+  it "renders the edit vehicle_store form" do
     render
 
-    assert_select "form[action=?][method=?]", car_store_path(car_store), "post" do
+    assert_select "form[action=?][method=?]", vehicle_store_path(vehicle_store), "post" do
 
-      assert_select "input[name=?]", "car_store[name]"
+      assert_select "input[name=?]", "vehicle_store[name]"
 
-      assert_select "input[name=?]", "car_store[car_user_id]"
+      assert_select "input[name=?]", "vehicle_store[vehicle_user_id]"
 
-      assert_select "input[name=?]", "car_store[coordinates]"
+      assert_select "input[name=?]", "vehicle_store[coordinates]"
     end
   end
 end

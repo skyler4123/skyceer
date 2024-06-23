@@ -29,7 +29,7 @@ export default class LinkController extends ApplicationController {
     })
     const { status } = response
     if (status === 204) {
-      this.redirect('/car_cars')
+      this.redirect('/vehicle_cars')
     }
   }
 

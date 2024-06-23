@@ -1,9 +1,9 @@
 FactoryBot.define do
-  factory :car_car do
+  factory :vehicle_car do
     name { "MyString" }
     model { "MyString" }
-    car_brand { nil }
-    car_user { nil }
+    vehicle_brand { nil }
+    vehicle_user { nil }
     price { "9.99" }
     version { "MyString" }
     coordinates { "9.99" }

@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class Views::Car::ReviewArticles::IndexComponent < ApplicationComponent
+class Views::Vehicle::ReviewArticles::IndexComponent < ApplicationComponent
 end

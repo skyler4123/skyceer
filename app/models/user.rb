@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_one :calendar_user, dependent: :destroy
   has_one :education_user, dependent: :destroy
   has_one :agriculture_user, dependent: :destroy
-  has_one :car_user, dependent: :destroy
+  has_one :vehicle_user, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def create_package_users
-    CarUser.create(user_id: self.id)
+    VehicleUser.create(user_id: self.id)
     ChatUser.create(user_id: self.id)
     EnglishUser.create(user_id: self.id)
     ArticleUser.create(user_id: self.id)
