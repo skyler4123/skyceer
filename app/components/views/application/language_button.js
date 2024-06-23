@@ -1,4 +1,5 @@
-import { icon, tab } from "../../javascript/controllers/components"
+import { tab } from "../../../javascript/controllers/components"
+
 
 export const languageButton = () => {
   return tab({action: {listener: 'click', action: 'tabNext'}, klass: 'flex justify-center items-center cursor-pointer'}, () => {

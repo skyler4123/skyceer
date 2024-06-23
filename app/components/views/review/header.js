@@ -1,6 +1,5 @@
-
-import { uiDarkmodeButton } from "../ui/darkmode_button"
-import { uiUserBox } from "../ui/user_box"
+import { darkmodeButton } from "../application/darkmode_button"
+import { userBox } from "../application/user_box"
 import { logo } from "./logo"
 import { nav } from "./nav"
 
@@ -16,10 +15,10 @@ export const header = () => {
       </div>
       <div class="flex flex-row gap-x-2">
         <div>
-          ${uiDarkmodeButton()}
+          ${darkmodeButton()}
         </div>
         <div>
-          ${uiUserBox()}
+          ${userBox()}
         </div>
       </div>
     </div>

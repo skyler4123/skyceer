@@ -1,4 +1,4 @@
-import { link } from "../../javascript/controllers/components"
+import { link } from "../../../javascript/controllers/components"
 
 export const nav = () => {
   return `
