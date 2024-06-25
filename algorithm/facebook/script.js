@@ -21,7 +21,7 @@ document.querySelectorAll(`[class="${seeMoreClass}"]`).forEach(target => {
 
 // Search number of comments
 let numberFrom = 0
-let numberTo = 99
+let numberTo = 999
 let position = 1
 
 let commentGroupClass = "html-div xe8uvvx x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x1gslohp"
