@@ -41,10 +41,10 @@ test:
 production:
   primary:
     <<: *default
-    database: skyceer_development
+    database: skyceer_production
   session:
     <<: *session
-    database: session_development
+    database: session_production
   solid:
     <<: *solid
-    database: solid_development
+    database: solid_production
