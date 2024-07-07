@@ -1,7 +1,8 @@
 class ArticlePost
   include Mongoid::Document
   include Mongoid::Timestamps
-
+  include Elasticsearch::Model
+  
   field :package, type: String
   field :title, type: String
   field :content, type: Hash
