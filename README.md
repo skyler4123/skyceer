@@ -25,7 +25,6 @@ Postgres
     docker pull postgres
     docker run -d --name postgres -p 5432:5432 -e POSTGRES_USERNAME=postgres -e POSTGRES_PASSWORD=password postgres
   ##
-
 Mongo
   ##
     docker pull mongo
@@ -34,10 +33,13 @@ Mongo
 Elasticsearch
   ##
     docker pull elasticsearch:8.14.1
-    docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e "xpack.security.enrollment.enabled=false" -e ELASTIC_PASSWORD=password elasticsearch:8.14.1
+    docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:8.14.1
+  ##
+  ##
+    docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e "xpack.security.enrollment.enabled=false" -e ELASTIC_USERNAME=elastic -e ELASTIC_PASSWORD=password elasticsearch:8.14.1
   ##
 Kibana
   ##
     docker pull kibana:8.14.1
-    docker run -d --name kibana -p 5601:5601 -e ELASTICSEARCH_PASSWORD=password kibana:8.14.1
+    docker run -d --name kibana -p 5601:5601 kibana:8.14.1
   ##
