@@ -14,13 +14,10 @@ class ArticlePost
 
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
+  
   def as_indexed_json(options={})
-    as_json(except: [:id, :_id])
+    as_json(only: 'title')
   end
-  # settings index: { number_of_shards: 1 } do
-  #   mappings dynamic: 'false' do
-  #     indexes :title, analyzer: 'english', index_options: 'offsets'
-  #   end
-  # end
-
+  after_save    { ElasticsearchJob.perform_later(:index,  self.id, self.class.name) }
+  after_destroy { ElasticsearchJob.perform_later(:delete, self.id, self.class.name) }
 end

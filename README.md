@@ -23,7 +23,7 @@ Rails
 Solid
   ##
     docker build -t rails .
-    docker run -d --name solid rails  bundle exec rake solid_queue:start
+    docker run -d --name solid rails bundle exec rails solid_queue:start
   ##
 Postgres
   ##
