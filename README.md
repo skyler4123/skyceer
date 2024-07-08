@@ -20,6 +20,11 @@ Rails
     docker build -t rails .
     docker run -d --name web -p 3000:3000 -v $PWD:/rails rails
   ##
+Solid
+  ##
+    docker build -t rails .
+    docker run -d --name solid rails  bundle exec rake solid_queue:start
+  ##
 Postgres
   ##
     docker pull postgres

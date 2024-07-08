@@ -1,8 +1,7 @@
 class ArticlePost
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Elasticsearch::Model
-  
+
   field :package, type: String
   field :title, type: String
   field :content, type: Hash
@@ -12,4 +11,16 @@ class ArticlePost
 
   index({ chat_user_ids: '2d' }, { unique: true })
   index({ package: 1 }, { unique: false })
+
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+  def as_indexed_json(options={})
+    as_json(except: [:id, :_id])
+  end
+  # settings index: { number_of_shards: 1 } do
+  #   mappings dynamic: 'false' do
+  #     indexes :title, analyzer: 'english', index_options: 'offsets'
+  #   end
+  # end
+
 end
