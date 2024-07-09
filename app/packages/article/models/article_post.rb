@@ -14,10 +14,13 @@ class ArticlePost
 
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
-  
-  def as_indexed_json(options={})
-    as_json(only: 'title')
+  def raw_title
+    'raw title'
   end
-  after_save    { ElasticsearchJob.perform_later(:index,  self.id, self.class.name) }
-  after_destroy { ElasticsearchJob.perform_later(:delete, self.id, self.class.name) }
+
+  def as_indexed_json(options={})
+    as_json(only: 'id')
+  end
+  after_save    { Elasticsearch::IndexerJob.perform_later(:index,  self.id, self.class.name) }
+  after_destroy { Elasticsearch::IndexerJob.perform_later(:delete, self.id, self.class.name) }
 end

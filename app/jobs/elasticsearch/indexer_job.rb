@@ -1,4 +1,4 @@
-class ElasticsearchJob < ApplicationJob
+class Elasticsearch::IndexerJob < ApplicationJob
   queue_as :elasticsearch
   retry_on Timeout::Error, wait: 2.seconds, attempts: 3
 

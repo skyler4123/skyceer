@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe ElasticsearchJob, type: :job do
+RSpec.describe Elasticsearch::IndexerJob, type: :job do
   pending "add some examples to (or delete) #{__FILE__}"
 end
