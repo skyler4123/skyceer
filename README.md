@@ -20,6 +20,11 @@ Rails
     docker build -t rails .
     docker run -d --name web -p 3000:3000 -v $PWD:/rails rails
   ##
+Solid queue + cache
+  ##
+    docker build -t rails .
+    docker run -d --name solid -v $PWD:/rails rails rails solid_queue:start
+  ##
 Postgres
   ##
     docker pull postgres

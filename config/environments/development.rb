@@ -78,5 +78,6 @@ Rails.application.configure do
   config.assets.debug = true
   # config.active_job.queue_adapter = :solid_queue
   config.hosts << "localhostdev:3000"
+  config.logger = ActiveSupport::Logger.new(STDOUT)
 
 end
