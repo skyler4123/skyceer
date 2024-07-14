@@ -9,7 +9,6 @@ RSpec.feature "Authentication::SignUps", type: :feature, js: true do
 
   it "signs me in" do
     visit '/sign_up'
-    # within("#session") do
     fill_in 'email', with: 'user@example.com'
     fill_in 'password', with: 'password1234'
     fill_in 'password_confirmation', with: 'password1234'
