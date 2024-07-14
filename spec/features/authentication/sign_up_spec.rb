@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature "Authentication::SignUps", type: :feature, js: true do
+
+  before do
+    Capybara.default_driver = :selenium_chrome_headless
+    Capybara.use_default_driver
+  end
+
   it "signs me in" do
     visit '/sign_up'
     # within("#session") do
