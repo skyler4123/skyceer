@@ -18,7 +18,7 @@ Rules
 Rails
   ##
     docker build -t rails .
-    docker run -d --name web -p 3000:3000 -v $PWD:/rails rails
+    docker run -d --rm --name web -p 3000:3000 -v $PWD:/rails rails
   ##
 Solid queue + cache
   ##
@@ -33,15 +33,12 @@ Postgres
 Mongo
   ##
     docker pull mongo
-    docker run -d --name mongo -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=mongo -e MONGO_INITDB_ROOT_PASSWORD=password mongo
+    docker run -d --name mongo -p 27017:27017 mongo
   ##
 Elasticsearch
   ##
     docker pull elasticsearch:8.14.1
-    docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:8.14.1
-  ##
-  ##
-    docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e "xpack.security.enrollment.enabled=false" -e ELASTIC_USERNAME=elastic -e ELASTIC_PASSWORD=password elasticsearch:8.14.1
+    docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e "xpack.security.enrollment.enabled=false" elasticsearch:8.14.1
   ##
 Kibana
   ##
