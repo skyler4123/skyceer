@@ -42,12 +42,39 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client graphviz imagemagick && \
+    apt-get install --no-install-recommends -y curl libvips postgresql-client graphviz imagemagick wget gnupg unzip && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
+
+
+
+
+
+
+
+
+# Install Chrome.
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+RUN apt-get update
+RUN apt-get install -y google-chrome-stable
+# Install ChromeDriver.
+RUN wget -N https://chromedriver.storage.googleapis.com/105.0.5195.19/chromedriver_linux64.zip -P ~/
+RUN unzip ~/chromedriver_linux64.zip -d ~/
+RUN rm ~/chromedriver_linux64.zip
+RUN mv -f ~/chromedriver /usr/local/bin/chromedriver
+RUN chmod +x /usr/local/bin/chromedriver
+
+
+
+
+
+
+
+
 
 # Run and own only the runtime files as a non-root user for security
 # RUN useradd rails --create-home --shell /bin/bash && \
