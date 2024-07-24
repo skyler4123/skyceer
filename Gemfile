@@ -73,7 +73,8 @@ end
 
 group :test do
   gem "rspec-rails"
-  gem "selenium-webdriver"
+  # gem "selenium-webdriver"
+  gem "cuprite"
   gem 'capybara'
   gem 'simplecov', require: false
 end

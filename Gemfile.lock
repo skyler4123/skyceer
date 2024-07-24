@@ -122,6 +122,9 @@ GEM
     connection_pool (2.4.1)
     constant_resolver (0.2.0)
     crass (1.0.6)
+    cuprite (0.15.1)
+      capybara (~> 3.0)
+      ferrum (~> 0.15.0)
     date (3.3.4)
     debug (1.9.2)
       irb (~> 1.10)
@@ -171,6 +174,11 @@ GEM
       logger
     faraday-net_http (3.1.0)
       net-http
+    ferrum (0.15)
+      addressable (~> 2.5)
+      concurrent-ruby (~> 1.1)
+      webrick (~> 1.7)
+      websocket-driver (~> 0.7)
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-arm-linux-gnu)
     ffi (1.17.0-arm64-darwin)
@@ -379,13 +387,6 @@ GEM
     ruby-vips (2.2.2)
       ffi (~> 1.12)
       logger
-    rubyzip (2.3.2)
-    selenium-webdriver (4.23.0)
-      base64 (~> 0.2)
-      logger (~> 1.4)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
-      websocket (~> 1.0)
     shoulda-matchers (6.2.0)
       activesupport (>= 5.2.0)
     sidekiq (7.3.0)
@@ -455,7 +456,6 @@ GEM
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
     webrick (1.8.1)
-    websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -476,6 +476,7 @@ DEPENDENCIES
   bcrypt
   bootsnap
   capybara
+  cuprite
   debug
   dotenv-rails
   elasticsearch-model
@@ -505,7 +506,6 @@ DEPENDENCIES
   rswag-api
   rswag-specs
   rswag-ui
-  selenium-webdriver
   shoulda-matchers
   sidekiq
   sidekiq-cron
