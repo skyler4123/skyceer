@@ -18,7 +18,12 @@ Rules
 Rails
   ##
     docker build -t rails .
-    docker run -d --name web -p 3000:3000 -v $PWD:/rails rails
+    docker run -d --rm --name web -p 3000:3000 -v $PWD:/rails rails
+  ##
+Solid queue + cache
+  ##
+    docker build -t rails .
+    docker run -d --name solid -v $PWD:/rails rails rails solid_queue:start
   ##
 Solid
   ##
@@ -33,18 +38,19 @@ Postgres
 Mongo
   ##
     docker pull mongo
-    docker run -d --name mongo -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=mongo -e MONGO_INITDB_ROOT_PASSWORD=password mongo
+    docker run -d --name mongo -p 27017:27017 mongo
   ##
 Elasticsearch
   ##
     docker pull elasticsearch:8.14.1
-    docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:8.14.1
-  ##
-  ##
-    docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e "xpack.security.enrollment.enabled=false" -e ELASTIC_USERNAME=elastic -e ELASTIC_PASSWORD=password elasticsearch:8.14.1
+    docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e "xpack.security.enrollment.enabled=false" elasticsearch:8.14.1
   ##
 Kibana
   ##
     docker pull kibana:8.14.1
     docker run -d --name kibana -p 5601:5601 kibana:8.14.1
+  ##
+Selenium Grid Standalone with Chrome
+  ##
+    docker run -d --name selenium-standalone-chrome -p 4444:4444 -p 7900:7900 --shm-size="2g" selenium/standalone-chrome:latest
   ##

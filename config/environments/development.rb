@@ -79,5 +79,6 @@ Rails.application.configure do
   # config.active_job.queue_adapter = :solid_queue
   config.logger = ActiveSupport::Logger.new(STDOUT)
   config.hosts << "localhostdev:3000"
+  config.logger = ActiveSupport::Logger.new(STDOUT)
 
 end

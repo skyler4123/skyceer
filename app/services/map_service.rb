@@ -1,5 +1,5 @@
-# require 'selenium-webdriver'
-# require 'debug'
+require 'selenium-webdriver'
+require 'debug'
 
 class MapService
 

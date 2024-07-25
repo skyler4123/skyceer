@@ -10,9 +10,9 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       # session_record = @user.sessions.create!
-      @session = create_session_for_all_package(user: user)
+      @session = create_session_for_all_package(user: @user)
       # cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
-      set_cookie(session: @session, user: user)
+      set_cookie(session: @session, user: @user)
 
       send_email_verification
       redirect_to root_path, notice: "Welcome! You have signed up successfully"
