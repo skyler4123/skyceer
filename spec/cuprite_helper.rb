@@ -2,7 +2,7 @@ require "capybara/cuprite"
 
 Capybara.javascript_driver = :cuprite
 browser_options = {
-  'no-sandbox': nil
+  'no-sandbox': nil,
 }
 options = {
   headless: ENABLE_HEADLESS_MODE_BROWSER, # (String | Boolean) - Set browser as headless or not, true by default. You can set "new" to support new headless mode.
@@ -28,6 +28,7 @@ options = {
   # proxy: {}, # (Hash) - Specify proxy settings, read more
   # save_path: {}, # (String) - Path to save attachments with Content-Disposition header.
   # env: {}, # (Hash) - Environment variables you'd like to pass through to the process
+  inspector: true,
 }
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app, options)
