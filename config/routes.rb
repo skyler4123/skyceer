@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 require 'sidekiq/cron/web'
 Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
-  [user, password] == [Constants::SIDEKIQ_UI_USER, Constants::SIDEKIQ_UI_PASSWORD]
+  [user, password] == [SIDEKIQ_UI_USER, SIDEKIQ_UI_PASSWORD]
 end
 
 Rails.application.routes.draw do

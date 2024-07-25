@@ -45,3 +45,7 @@ Kibana
     docker pull kibana:8.14.1
     docker run -d --name kibana -p 5601:5601 kibana:8.14.1
   ##
+Selenium Grid Standalone with Chrome
+  ##
+    docker run -d --name selenium-standalone-chrome -p 4444:4444 -p 7900:7900 --shm-size="2g" selenium/standalone-chrome:latest
+  ##
