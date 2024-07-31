@@ -21,6 +21,6 @@ class ArticlePost
   def as_indexed_json(options={})
     as_json(only: 'id')
   end
-  after_save    { Elasticsearch::IndexerJob.perform_later(:index,  self.id, self.class.name) }
-  after_destroy { Elasticsearch::IndexerJob.perform_later(:delete, self.id, self.class.name) }
+  # after_save    { Elasticsearch::IndexerJob.perform_later(:index,  self.id, self.class.name) }
+  # after_destroy { Elasticsearch::IndexerJob.perform_later(:delete, self.id, self.class.name) }
 end

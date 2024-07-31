@@ -1,4 +1,4 @@
-module ArticlePostElasticsearchConcern
+module ArticlePost::ElasticsearchConcern
   extend ActiveSupport::Concern
   
   included do
@@ -15,9 +15,7 @@ module ArticlePostElasticsearchConcern
     after_destroy { Elasticsearch::IndexerJob.perform_later(:delete, self.id, self.class.name) }
   end
 
-  module ClassMethods
-    # def find_by_user_id
-
-    # end
+  def self.search(query)
+    # ...
   end
 end
