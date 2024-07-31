@@ -37,7 +37,7 @@ ActiveRecord::Base.transaction do
       password: "password1234",
       password_confirmation: "password1234",
       verified: true,
-      name: "user_name_#{n + 1}"
+      name: "user name #{n + 1}"
     )
     Session.create!(
       name: user.name,
@@ -60,13 +60,13 @@ ActiveRecord::Base.transaction do
   VehicleUser.all.each do |vehicle_user|
     2.times do
       vehicle_store = VehicleStore.create(
-        name: "vehicle_store_name_#{SecureRandom.uuid}",
+        name: "vehicle store name #{SecureRandom.uuid}",
         vehicle_user_id: vehicle_user.id,
         coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
       )
       1.times do
         VehicleCar.create(
-          name: "vehicle_car_name_#{SecureRandom.uuid}",
+          name: "vehicle car name #{SecureRandom.uuid}",
           model: "model_#{SecureRandom.uuid}",
           brand: ['tesla', 'toyota', 'honda'].sample,
           vehicle_store: vehicle_store,
