@@ -8,7 +8,7 @@ class DemoJob < ApplicationJob
       password: "password1234",
       password_confirmation: "password1234",
       verified: true,
-      name: "name #{Time.now.to_i}"
+      name: "user name #{Time.now.to_i}"
     )
   end
 end

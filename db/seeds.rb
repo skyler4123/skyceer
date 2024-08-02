@@ -185,7 +185,7 @@ ArticleUser.each_with_index do |user, user_index|
         }
      }],
     }
-    ArticlePost.create(article_user: user, package: 'car', title: "title_#{n}", content: content)
+    ArticlePost.create(article_user: user, package: 'vehicle', title: "title_#{n}", content: content)
   end
 end
 10.times do |n|

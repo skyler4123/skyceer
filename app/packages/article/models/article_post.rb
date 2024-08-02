@@ -12,6 +12,8 @@ class ArticlePost
   index({ chat_user_ids: '2d' }, { unique: true })
   index({ package: 1 }, { unique: false })
 
+  include ArticlePost::ElasticsearchConcern
+  
   # include Elasticsearch::Model
   # include Elasticsearch::Model::Callbacks
   # def raw_title
