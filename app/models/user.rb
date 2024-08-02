@@ -58,4 +58,6 @@ class User < ApplicationRecord
       errors.add(:avatar, "must be a JPEG or PNG")
     end
   end
+
+  include User::ElasticsearchConcern
 end

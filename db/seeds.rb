@@ -15,6 +15,7 @@ REDIS.set('time', Date.current.to_s)
 
 # DESTROY ALL
 User.destroy_all
+Session.destroy_all
 
 VehicleUser.destroy_all
 VehicleStore.destroy_all
@@ -30,27 +31,26 @@ ArticlePost.destroy_all
 
 
 # APPLICATION PACKAGE
-ActiveRecord::Base.transaction do
-  10.times do |n|
-    user = User.create(
-      email: "email#{n + 1}@gmail.com",
-      password: "password1234",
-      password_confirmation: "password1234",
-      verified: true,
-      name: "user_name_#{n + 1}"
-    )
-    Session.create!(
-      name: user.name,
-      email: user.email,
-      user_id: user.id,
-      vehicle_user_id: user.vehicle_user.id,
-      chat_user_id: ChatUser.find_by(user_id: user.id).id,
-      english_user_id: EnglishUser.find_by(user_id: user.id).id,
-      article_user_id: ArticleUser.find_by(user_id: user.id).id,
-    )
-  end
+10.times do |n|
+  user = User.create(
+    email: "email#{n + 1}@gmail.com",
+    password: "password1234",
+    password_confirmation: "password1234",
+    verified: true,
+    name: "user name #{n + 1}"
+  )
 end
-
+User.all.each do |user|
+  # Session.create!(
+  #   name: user.name,
+  #   email: user.email,
+  #   user_id: user.id,
+  #   vehicle_user_id: user.vehicle_user.id,
+  #   chat_user_id: ChatUser.find_by(user_id: user.id).id,
+  #   english_user_id: EnglishUser.find_by(user_id: user.id).id,
+  #   article_user_id: ArticleUser.find_by(user_id: user.id).id,
+  # )
+end
 
 # Vehicle Package
 ActiveRecord::Base.transaction do
@@ -60,13 +60,13 @@ ActiveRecord::Base.transaction do
   VehicleUser.all.each do |vehicle_user|
     2.times do
       vehicle_store = VehicleStore.create(
-        name: "vehicle_store_name_#{SecureRandom.uuid}",
+        name: "vehicle store name #{SecureRandom.uuid}",
         vehicle_user_id: vehicle_user.id,
         coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
       )
       1.times do
         VehicleCar.create(
-          name: "vehicle_car_name_#{SecureRandom.uuid}",
+          name: "vehicle car name #{SecureRandom.uuid}",
           model: "model_#{SecureRandom.uuid}",
           brand: ['tesla', 'toyota', 'honda'].sample,
           vehicle_store: vehicle_store,
@@ -91,7 +91,7 @@ end
 # ActiveRecord::Base.transaction do
 #   User.all.each_with_index do |user, index|
 #     CalendarUser.create(name: "calendar_user_#{index}", user: user)
-#   end
+#   endq
 #   CalendarUser.all.each_with_index do |calendar_user|
 #     2.times do |n|
 #       CalendarSchedule.create(
@@ -185,7 +185,7 @@ ArticleUser.each_with_index do |user, user_index|
         }
      }],
     }
-    ArticlePost.create(article_user: user, package: 'car', title: "title_#{n}", content: content)
+    ArticlePost.create(article_user: user, package: 'vehicle', title: "title_#{n}", content: content)
   end
 end
 10.times do |n|
