@@ -27,7 +27,7 @@ module User::ElasticsearchConcern
       )
     end
 
-    after_save    { Elasticsearch::IndexerJob.perform_later(:index,  self.id, self.class.name) }
+    after_save_commit    { Elasticsearch::IndexerJob.perform_later(:index,  self.id, self.class.name) }
     before_destroy { Elasticsearch::IndexerJob.perform_later(:delete, self.id, self.class.name) }
   end
 

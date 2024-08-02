@@ -31,27 +31,26 @@ ArticlePost.destroy_all
 
 
 # APPLICATION PACKAGE
-ActiveRecord::Base.transaction do
-  10.times do |n|
-    user = User.create(
-      email: "email#{n + 1}@gmail.com",
-      password: "password1234",
-      password_confirmation: "password1234",
-      verified: true,
-      name: "user name #{n + 1}"
-    )
-    # Session.create!(
-    #   name: user.name,
-    #   email: user.email,
-    #   user_id: user.id,
-    #   vehicle_user_id: user.vehicle_user.id,
-    #   chat_user_id: ChatUser.find_by(user_id: user.id).id,
-    #   english_user_id: EnglishUser.find_by(user_id: user.id).id,
-    #   article_user_id: ArticleUser.find_by(user_id: user.id).id,
-    # )
-  end
+10.times do |n|
+  user = User.create(
+    email: "email#{n + 1}@gmail.com",
+    password: "password1234",
+    password_confirmation: "password1234",
+    verified: true,
+    name: "user name #{n + 1}"
+  )
 end
-
+User.all.each do |user|
+  # Session.create!(
+  #   name: user.name,
+  #   email: user.email,
+  #   user_id: user.id,
+  #   vehicle_user_id: user.vehicle_user.id,
+  #   chat_user_id: ChatUser.find_by(user_id: user.id).id,
+  #   english_user_id: EnglishUser.find_by(user_id: user.id).id,
+  #   article_user_id: ArticleUser.find_by(user_id: user.id).id,
+  # )
+end
 
 # Vehicle Package
 ActiveRecord::Base.transaction do
@@ -92,7 +91,7 @@ end
 # ActiveRecord::Base.transaction do
 #   User.all.each_with_index do |user, index|
 #     CalendarUser.create(name: "calendar_user_#{index}", user: user)
-#   end
+#   endq
 #   CalendarUser.all.each_with_index do |calendar_user|
 #     2.times do |n|
 #       CalendarSchedule.create(
