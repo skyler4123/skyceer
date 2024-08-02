@@ -18,7 +18,7 @@ Rules
 Rails
   ##
     docker build -t rails .
-    docker run -d --rm --name web -p 3000:3000 -v $PWD:/rails rails
+    docker run -d --name web -p 3000:3000 -v $PWD:/rails rails
   ##
 Solid queue + cache
   ##
