@@ -9,6 +9,8 @@ require 'rspec/rails'
 include ActiveSupport::Testing::TimeHelpers
 require 'sidekiq/testing' 
 require 'spec_helper'
+Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
+
 # require 'capybara_helper'
 require 'cuprite_helper'
 
@@ -75,6 +77,7 @@ RSpec.configure do |config|
   end
 
   config.include FactoryBot::Syntax::Methods
+  config.include AuthenticationHelper, :type => :feature
 end
 
 Shoulda::Matchers.configure do |config|

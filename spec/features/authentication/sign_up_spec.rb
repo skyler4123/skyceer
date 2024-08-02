@@ -14,6 +14,7 @@ RSpec.feature "Authentication::SignUps", type: :feature, js: true do
     fill_in 'password_confirmation', with: 'password1234'
     submit_button = find('input[type="submit"]')
     submit_button.click
+    # page.driver.debug
     expect(page).to have_content('Skip initial efforts')
   end
 end
