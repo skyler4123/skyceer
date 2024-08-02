@@ -15,6 +15,7 @@ REDIS.set('time', Date.current.to_s)
 
 # DESTROY ALL
 User.destroy_all
+Session.destroy_all
 
 VehicleUser.destroy_all
 VehicleStore.destroy_all
@@ -39,15 +40,15 @@ ActiveRecord::Base.transaction do
       verified: true,
       name: "user name #{n + 1}"
     )
-    Session.create!(
-      name: user.name,
-      email: user.email,
-      user_id: user.id,
-      vehicle_user_id: user.vehicle_user.id,
-      chat_user_id: ChatUser.find_by(user_id: user.id).id,
-      english_user_id: EnglishUser.find_by(user_id: user.id).id,
-      article_user_id: ArticleUser.find_by(user_id: user.id).id,
-    )
+    # Session.create!(
+    #   name: user.name,
+    #   email: user.email,
+    #   user_id: user.id,
+    #   vehicle_user_id: user.vehicle_user.id,
+    #   chat_user_id: ChatUser.find_by(user_id: user.id).id,
+    #   english_user_id: EnglishUser.find_by(user_id: user.id).id,
+    #   article_user_id: ArticleUser.find_by(user_id: user.id).id,
+    # )
   end
 end
 

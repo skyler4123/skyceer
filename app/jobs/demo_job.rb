@@ -7,7 +7,8 @@ class DemoJob < ApplicationJob
       email: "email#{Time.now.to_i}@gmail.com",
       password: "password1234",
       password_confirmation: "password1234",
-      verified: true
+      verified: true,
+      name: "name #{Time.now.to_i}"
     )
   end
 end
