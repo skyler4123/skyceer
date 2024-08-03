@@ -4,23 +4,59 @@ import ApplicationController from "../../../javascript/controllers/application_c
 export default class Apex extends ApplicationController {
   static values = {
     ...super.values,
+    series: { type: Array, default: [] }
   }
 
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})
+    this.setParams({name: 'options', defaultValue: this.optionsDefault()})
   }
 
-  connect() {
-    this.chart = new ApexCharts(this.element, this.options());
+  initComplete() {
+    this.chart = new ApexCharts(this.element, this.optionsParams);
     this.chart.render();
+    this.initValue()
   }
 
+  initValue() {
+    let value
+    if (this.optionsParams.series.length > 0) {
+      value = this.optionsParams.series 
+    } else {
+      value = this.seriesValueDefault()
+    }
+    this.seriesValue = value
+  }
+  
   seriesValueChanged(value, previousValue) {
+    if (!this.isInitializedValue) { return }
     this.chart.updateSeries(this.seriesValue)
   }
 
-  seriesDefault() {
-    return this.paramsValue.series || [{
+  variantClass() {
+    return {
+      default: {
+        element: 'w-full'
+      }
+    }
+  }
+
+  optionsDefault() {
+    return this.paramsValue.options || {
+      chart: {
+        type: 'bar'
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true
+        }
+      },
+      series: []
+    }
+  }
+
+  seriesValueDefault() {
+    return [{
       data: [{
         x: 'category A',
         y: 10
@@ -33,25 +69,5 @@ export default class Apex extends ApplicationController {
       }]
     }]
   }
-  options() {
-    return this.paramsValue.options || {
-      chart: {
-        type: 'bar'
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true
-        }
-      },
-      series: this.seriesDefault()
-    }
-  }
 
-  variantClass() {
-    return {
-      default: {
-        element: 'w-full'
-      }
-    }
-  }
 }
