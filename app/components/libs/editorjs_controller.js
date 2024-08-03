@@ -20,7 +20,7 @@ export default class Editorjs extends ApplicationController {
     this.setParams({name: 'variant', defaultValue: 'default'})
   }
 
-  get variantClass() {
+  variantClass() {
     return {
       default: {
         element: 'w-11/12 h-[350px] border-2 border-gray-200 rounded-md p-4'

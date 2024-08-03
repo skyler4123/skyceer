@@ -37,7 +37,7 @@ export default class extends ApplicationController {
 
   }
 
-  get variantClass() {
+  variantClass() {
     return {
       default: {
         element: 'flex flex-row-reverse w-fit h-fit fixed bottom-0 right-0'

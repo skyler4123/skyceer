@@ -162,7 +162,7 @@ export default class ApplicationController extends Controller {
   
   initializeVariantClass() {
     if (this.variantParams && this.variantClass) {
-      let targetsWithClasses = this.getChildObjectByKeys(this.variantClass, [this.variantParams].flat())
+      let targetsWithClasses = this.getChildObjectByKeys(this.variantClass(), [this.variantParams].flat())
       Object.keys(targetsWithClasses).forEach((targetString) => {
         if (targetString === 'element') {
           this.mergeClass(this.element, targetsWithClasses[targetString])

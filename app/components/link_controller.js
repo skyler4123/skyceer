@@ -42,7 +42,7 @@ export default class LinkController extends ApplicationController {
     window.navigator.clipboard.writeText(this.urlParams)
   }
 
-  get variantClass() {
+  variantClass() {
     return {
       default: {
         element: 'font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer',

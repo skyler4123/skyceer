@@ -47,7 +47,7 @@ export default class Apex extends ApplicationController {
     }
   }
 
-  get variantClass() {
+  variantClass() {
     return {
       default: {
         element: 'w-full'

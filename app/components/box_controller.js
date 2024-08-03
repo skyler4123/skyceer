@@ -22,7 +22,7 @@ export default class BoxController extends ApplicationController {
     this.noneShadow(element)
   }
 
-  get variantClass() {
+  variantClass() {
     return {
       default: {
         element: 'flex p-3 border border-gray-300 rounded-lg bg-gray-100 dark:bg-gray-800 dark:border-gray-600'

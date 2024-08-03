@@ -39,7 +39,7 @@ export default class OpenlayersController extends ApplicationController {
   get click() { return openlayers.events.condition.click }
   get pointerMove() { return openlayers.events.condition.pointerMove }
 
-  get variantClass() {
+  variantClass() {
     return {
       default: {
         element: "w-full h-[500px]"

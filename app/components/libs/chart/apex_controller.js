@@ -1,7 +1,57 @@
+import ApexCharts from 'apexcharts'
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
-export default class extends ApplicationController {
+export default class Apex extends ApplicationController {
+  static values = {
+    ...super.values,
+  }
+
+  initParams() {
+    this.setParams({name: 'variant', defaultValue: 'default'})
+  }
+
   connect() {
-    console.log("Hello, Stimulus!", this.element);
+    this.chart = new ApexCharts(this.element, this.options());
+    this.chart.render();
+  }
+
+  seriesValueChanged(value, previousValue) {
+    this.chart.updateSeries(this.seriesValue)
+  }
+
+  seriesDefault() {
+    return this.paramsValue.series || [{
+      data: [{
+        x: 'category A',
+        y: 10
+      }, {
+        x: 'category B',
+        y: 18
+      }, {
+        x: 'category C',
+        y: 13
+      }]
+    }]
+  }
+  options() {
+    return this.paramsValue.options || {
+      chart: {
+        type: 'bar'
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true
+        }
+      },
+      series: this.seriesDefault()
+    }
+  }
+
+  variantClass() {
+    return {
+      default: {
+        element: 'w-full'
+      }
+    }
   }
 }

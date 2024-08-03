@@ -72,7 +72,7 @@ export default class SelectionController extends ApplicationController {
 
 
 
-  get variantClass() {
+  variantClass() {
     return {
       star: {
         element: 'flex flex-row',

@@ -11,7 +11,7 @@ export default class extends ApplicationController {
     this.setParams({ name: 'variant', defaultValue: 'default' })
   }
 
-  get variantClass() {
+  variantClass() {
     return {
       default: {
         element: 'w-fit h-fit'

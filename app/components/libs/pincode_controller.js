@@ -75,7 +75,7 @@ export default class Pincode extends ApplicationController {
   get currentCell() {
     return this.cellTargets[this.indexValue]
   }
-  get variantClass() {
+  variantClass() {
     return {
       default: {
         element: 'flex flex-row justify-center items-center gap-x-2',
