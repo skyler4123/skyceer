@@ -54,3 +54,8 @@ Selenium Grid Standalone with Chrome
   ##
     docker run -d --name selenium-standalone-chrome -p 4444:4444 -p 7900:7900 --shm-size="2g" selenium/standalone-chrome:latest
   ##
+Redis
+  ##
+    docker pull redis
+    docker run --name redis -d -p 6379:6379 redis
+  ##
