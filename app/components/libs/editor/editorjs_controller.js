@@ -21,7 +21,6 @@ export default class EditorjsController extends ApplicationController {
   }
 
   initParams() {
-    console.log(this)
     this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'endpointUploadImageByFile', defaultValue: '/images/editorjs_upload_by_file'})
     this.setParams({name: 'endpointUploadImageByUrl', defaultValue: '/images/editorjs_upload_by_url'})
