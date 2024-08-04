@@ -2,7 +2,6 @@ import openlayers from "openlayers"
 import colormap from 'colormap';
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
-
 const Map = openlayers.Map
 const View = openlayers.View
 const Feature = openlayers.Feature
@@ -49,7 +48,7 @@ const toStringHDMS = openlayers.coordinate.toStringHDMS
 const click = openlayers.events.condition.click
 const pointerMove = openlayers.events.condition.pointerMove
 
-export default class extends ApplicationController {
+export default class OpenlayersController extends ApplicationController {
   static targets = ['map']
   static values = {
     pointCoordinates: { type: Array, default: [] }
