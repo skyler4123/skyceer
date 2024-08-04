@@ -9,7 +9,7 @@ export default class Apex extends ApplicationController {
 
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})
-    this.setParams({name: 'options', defaultValue: this.optionsDefault()})
+    this.setParams({name: 'options', defaultValue: this.options()})
   }
 
   initComplete() {
@@ -39,6 +39,10 @@ export default class Apex extends ApplicationController {
         element: 'w-full'
       }
     }
+  }
+
+  options() {
+    return this.optionsDefault()
   }
 
   optionsDefault() {
