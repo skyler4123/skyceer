@@ -50,54 +50,30 @@ const click = openlayers.events.condition.click
 const pointerMove = openlayers.events.condition.pointerMove
 
 export default class extends ApplicationController {
-  static targets = ['map', 'download', 'clear', 'input']
+  static targets = ['map']
+  static values = {
+    pointCoordinates: { type: Array, default: [] }
+  }
 
-  get typeClass() {
+  variantClass() {
     return {
       default: {
         element: 'relative w-full h-[500px]',
         mapTarget: 'w-full h-full',
-        downloadTarget: 'text-red-500',
-        clearTarget: ''
       }
     }
   }
 
   initParams() {
-    this.setParams({name: 'type', defaultValue: 'default'})
-  }
-
-  initAction() {
-    this.addAction(this.clearTarget, `click->${this.identifier}#clear`)
-  }
-
-  clear() {
-    this.source.clear()
+    this.setParams({name: 'variant', defaultValue: 'default'})
+    this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/13654/placeholder.svg'})
+    this.setParams({name: 'pointCoordinates', defaultValue: fromLonLat([10, 10])})
   }
 
   initComplete() {
-
-    const vectorSource = new VectorSource()
-    const vectorStyle = new Style({
-      stroke: new Stroke({
-        color: 'red'
-      }),
-      fill: new Fill({
-        color: 'green'
-      })
-    })
-    const vectorLayer = new VectorLayer({
-      source: vectorSource,
-      style: (feature, resolution) => {
-        return vectorStyle
-      }
-    })
-
-    const osmSource = new OSM()
     const osmLayer = new TiltLayer({
-      source: osmSource
+      source: new OSM()
     })
-    
     this.map = new Map({
       target: this.mapTarget,
       view: new View({
@@ -108,125 +84,37 @@ export default class extends ApplicationController {
         osmLayer
       ]
     })
-
-    this.map.addLayer(vectorLayer)
-
-    // this.map.addInteraction(
-    //   new Modify({
-    //     source: vectorSource,
-    //   })
-    // );
-
-    // this.map.addInteraction(
-    //   new Draw({
-    //     type: 'Polygon',
-    //     source: vectorSource,
-    //   })
-    // );
-
-    // this.map.addInteraction(
-    //   new Snap({
-    //     source: vectorSource
-    //   })
-    // )
-    this.map.addInteraction(
-      new DragAndDrop({
-        source: vectorSource,
-        formatConstructors: [GeoJSON]
-      })
-    )
-
-    // const iconStyle = new Style({
-    //   image: new Icon({
-    //     anchor: [0.5, 46],
-    //     anchorXUnits: 'fraction',
-    //     anchorYUnits: 'pixels',
-    //     src: 'https://openlayers.org/en/latest/examples/data/icon.png',
-    //   }),
-    // });
-
-    this.iconSource = new VectorSource({
-      features: [
-        new Feature({
-          geometry: new Point(fromLonLat([10, 10])),
-          labelPoint: 'Label Demo',
-          name: "demo name",
-          id: 1,
-          price: 100
+    this.pointSource = new VectorSource({})
+    this.pointLayer = new VectorLayer({
+      source: this.pointSource,
+      style: new Style({
+        image: new Icon({
+          anchor: [0.5, 850],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'pixels',
+          src: this.iconUrlParams,
+          scale: 0.03
         }),
-        new Feature({
-          geometry: new Point(fromLonLat([0, 0])),
-          labelPoint: 'Label Demo',
-          name: "demo name",
-          id: 2,
-          price: 223
-        }),
-        new Feature({
-          geometry: new Point(fromLonLat([50, 0])),
-          labelPoint: 'Label Demo',
-          name: "demo name",
-          id: 3,
-          price: 332
-        }),
-        new Feature({
-          geometry: new Point([10000000, -1000000]),
-          labelPoint: 'Label Demo',
-          name: "demo name",
-          id: 4,
-          price: 423
-        }),
-      ]
-    })
-    const iconLayer = new VectorLayer({
-      source: this.iconSource,
-      style: new Style(null)
-      // style: (feature) => {
-      //   if (feature.get('price') > 1000) { return null }
-      //   return this.iconStyle({text: `${feature.get('price')} VND`})
-      //   // return this.iconStyle({text: `${feature.get('price')} VND`})
-      // },
-    })
-
-    this.map.addLayer(iconLayer)
-
-
-
-
-
-  } // connect
-
-  iconStyle({text}) {
-    return new Style({
-      image: new CircleStyle({
-        radius: 10,
-        fill: new Fill({color: 'yellow'}),
-        stroke: new Stroke({color: 'green'}),
-      }),
-      text: new Text({
-        font: '16px sans-serif',
-        text: text,
-        textAlign: 'center',
-        offsetY: -25,
-        fill: new Fill({
-          color: [255, 255, 255, 1],
-        }),
-        backgroundFill: new Fill({
-          color: [168, 50, 153, 0.6],
-        }),
-        padding: [2,2,2,2]
       })
     })
-  } 
+    this.map.addLayer(this.pointLayer)
+    this.pointCoordinatesValue = this.pointCoordinatesParams
+  } // initComplete
 
-  input() {
-    const value = this.inputTarget.value
-    this.iconSource.forEachFeature(feature => {
-      if (feature.get('price') < value) {
-        feature.setStyle(this.iconStyle({text: `${feature.get('price')} VND`}))
-      } else {
-        feature.setStyle(null)
+  pointCoordinatesValueChanged() {
+    if (!this.isInitializedValue) { return }
+    this.pointSource.clear()
+    this.pointSource.addFeature(this.pointFeature())
+  }
 
-      }
+  pointFeature() {
+    return new Feature({
+      geometry: new Point(this.pointCoordinatesValue),
+      labelPoint: 'Label Demo',
+      name: "demo name",
+      id: 1,
+      price: 100
     })
   }
+
 }
