@@ -9,7 +9,7 @@ class Libs::Editor::GrapejsComponent < ApplicationComponent
     </script>
     <<%= @tag %> class="hidden" data-controller="<%= @controllers %>" data-<%= @controller_name %>-params-value="<%= @params %>">
       <div data-<%= @controller_name %>-target="editor">
-        <%= content %>
+        <h1>Hello World Component!</h1>
       </div>
     </<%= @tag %>>
   ERB
