@@ -8,9 +8,7 @@ class Libs::Editor::GrapejsComponent < ApplicationComponent
         window.grapesjs = grapesjs
     </script>
     <<%= @tag %> class="hidden" data-controller="<%= @controllers %>" data-<%= @controller_name %>-params-value="<%= @params %>">
-      <div data-<%= @controller_name %>-target="editor">
-        <h1>Hello World Component!</h1>
-      </div>
+      <div data-<%= @controller_name %>-target="editor"></div>
     </<%= @tag %>>
   ERB
 end
