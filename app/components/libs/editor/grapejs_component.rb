@@ -13,5 +13,4 @@ class Libs::Editor::GrapejsComponent < ApplicationComponent
       </div>
     </<%= @tag %>>
   ERB
-  ERB
 end

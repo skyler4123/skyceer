@@ -40,3 +40,4 @@ pin "colormap" # @2.3.2
 pin "lerp" # @1.0.3
 pin "highlight.js", to: "https://ga.jspm.io/npm:highlight.js@11.4.0/es/index.js"
 pin "editorjs-html" # @3.4.3
+pin "tinymce", to: "https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js"
