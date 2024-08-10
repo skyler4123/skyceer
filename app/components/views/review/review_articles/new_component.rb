@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class Views::Vehicle::ReviewArticles::NewComponent < ApplicationComponent
+class Views::Review::ReviewArticles::NewComponent < ApplicationComponent
 end
