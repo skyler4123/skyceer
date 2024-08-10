@@ -58,26 +58,26 @@
 
 # Throttle login attempts for a given email parameter to 6 reqs/minute
 # Throttle high volumes of requests by IP address
-Rack::Attack.throttle('req/ip', limit: 20, period: 20.seconds) do |req|
-  req.ip unless req.path.starts_with?('/assets')
-end
-# Throttle login attempts by IP address
-Rack::Attack.throttle('logins/ip', limit: 5, period: 20.seconds) do |req|
-  if req.path == '/admins/sign_in' && req.post?
-    req.ip
-  elsif req.path == '/users/sign_in' && req.post?
-    req.ip
-  end
-end
+# Rack::Attack.throttle('req/ip', limit: 20, period: 20.seconds) do |req|
+#   req.ip unless req.path.starts_with?('/assets')
+# end
+# # Throttle login attempts by IP address
+# Rack::Attack.throttle('logins/ip', limit: 5, period: 20.seconds) do |req|
+#   if req.path == '/admins/sign_in' && req.post?
+#     req.ip
+#   elsif req.path == '/users/sign_in' && req.post?
+#     req.ip
+#   end
+# end
 
-# Throttle login attempts by email address
-Rack::Attack.throttle("logins/email", limit: 5, period: 20.seconds) do |req|
-  if req.path == '/admins/sign_in' && req.post?
-    req.params['email'].presence
-  elsif req.path == '/users/sign_in' && req.post?
-    req.params['email'].presence
-  end
-end
+# # Throttle login attempts by email address
+# Rack::Attack.throttle("logins/email", limit: 5, period: 20.seconds) do |req|
+#   if req.path == '/admins/sign_in' && req.post?
+#     req.params['email'].presence
+#   elsif req.path == '/users/sign_in' && req.post?
+#     req.params['email'].presence
+#   end
+# end
 # # Return the *normalized* email as a discriminator on POST /login requests
 # Rack::Attack.throttle('limit logins per email', limit: 6, period: 60) do |req|
 #   if req.path == '/login' && req.post?
@@ -113,3 +113,7 @@ end
 #     STATSD.increment("special_agent")
 #   end
 # end
+
+Rack::Attack.throttle('req/ip', limit: 3, period: 30.seconds) do |req|
+  req.ip
+end
