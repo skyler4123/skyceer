@@ -109,3 +109,5 @@ gem "elasticsearch-rails"
 gem "elasticsearch-persistence"
 
 gem 'rack-attack'
+
+gem 'omniauth-google-oauth2'
