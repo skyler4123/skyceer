@@ -1,8 +1,8 @@
-import { UsersApi } from "../../../javascript/controllers/api/users_api"
-import ApplicationController from "../../../javascript/controllers/application_controller"
-import { footer } from "../application/footer"
-import { header } from "../application/header"
-import { user } from "./user"
+import { footer } from "../footer"
+import { header } from "../header"
+import { UsersApi } from "../../../../javascript/controllers/api/application/users_api";
+import { user } from "./user";
+import ApplicationController from "../../../../javascript/controllers/application_controller";
 
 export default class extends ApplicationController {
   static targets = ['header', 'main', 'footer']
