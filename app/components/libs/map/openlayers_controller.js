@@ -58,7 +58,6 @@ export default class OpenlayersController extends ApplicationController {
   }
 
   initOpenlayers() {
-    console.log(this.viewCenterParams)
     const osmLayer = new TiltLayer({
       source: new OSM()
     })
