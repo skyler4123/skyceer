@@ -214,6 +214,7 @@ export default class ApplicationController extends Controller {
   }
 
   setParams({name, defaultValue}) {
+    if (this.isDefined(this[`${name}Params`])) { return }
     this[`${name}Params`] = this.paramsValue[name] || defaultValue
     this[`has${this.toPascalCase(name)}Params`] = true
   }
