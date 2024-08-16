@@ -51,21 +51,24 @@ const pointerMove = openlayers.events.condition.pointerMove
 export default class extends OpenlayersController {
   static targets = ['map']
   static values = {
-    pointCoordinates: { type: Array, default: [] }
+    pointCoordinates: { type: Object, default: {} }
   }
 
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/13654/placeholder.svg'})
-    this.setParams({name: 'pointCoordinates', defaultValue: fromLonLat([10, 10])})
+    this.setParams({name: 'pointCoordinates', defaultValue: { longitude: 20, latitude: 10, id: 10, price: 999, name: 'Name Demo' }})
+    this.setParams({name: 'viewCenter', defaultValue: [0, 0]})
+    this.setParams({name: 'viewZoom', defaultValue: 4})
   }
 
   initComplete() {
-    this.initOpenlayers()
-    this.initOpenlayersShow()
+    super.initComplete()
+    this.initOpenlayersNew()
+    this.initOpenlayersEvent()
   } // initComplete
 
-  initOpenlayersShow() {
+  initOpenlayersNew() {
     this.pointSource = new VectorSource({})
     this.pointLayer = new VectorLayer({
       source: this.pointSource,
@@ -83,6 +86,14 @@ export default class extends OpenlayersController {
     this.pointCoordinatesValue = this.pointCoordinatesParams
   }
 
+  initOpenlayersEvent() {
+    this.map.on('singleclick', (event) => {
+      let newPointCoordinatesLonLat = toLonLat(event.coordinate)
+      let newPointCoordinates = {longitude: newPointCoordinatesLonLat[0], latitude: newPointCoordinatesLonLat[1]}
+      this.pointCoordinatesValue = { ...this.pointCoordinatesValue, ...newPointCoordinates }
+    })
+  }
+  
   pointCoordinatesValueChanged() {
     if (!this.isInitializedValue) { return }
     this.pointSource.clear()
@@ -90,12 +101,10 @@ export default class extends OpenlayersController {
   }
 
   pointFeature() {
+    let coordinates = fromLonLat([this.pointCoordinatesValue.longitude, this.pointCoordinatesValue.latitude])
     return new Feature({
-      geometry: new Point(this.pointCoordinatesValue),
-      labelPoint: 'Label Demo',
-      name: "demo name",
-      id: 1,
-      price: 100
+      geometry: new Point(coordinates),
+      ...this.pointCoordinatesValue,
     })
   }
 }

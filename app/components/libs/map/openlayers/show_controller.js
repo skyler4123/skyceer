@@ -57,7 +57,7 @@ export default class extends OpenlayersController {
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/13654/placeholder.svg'})
-    this.setParams({name: 'pointCoordinates', defaultValue: { longitude: 20, latitude: 10, id: 10, price: 999, name: 'Name Demo' }})
+    this.setParams({name: 'pointCoordinates', defaultValue: { longitude: -2.7, latitude: 4.9, id: 10, price: 999, name: 'Name Demo' }})
     this.setParams({name: 'viewCenter', defaultValue: [0, 0]})
     this.setParams({name: 'viewZoom', defaultValue: 4})
   }
