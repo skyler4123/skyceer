@@ -51,26 +51,26 @@ const pointerMove = openlayers.events.condition.pointerMove
 export default class extends OpenlayersController {
   static targets = ['map']
   static values = {
-    pointCoordinates: { type: Object, default: {} }
+    pointsCoordinates: { type: Array, default: [] }
   }
 
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/13654/placeholder.svg'})
-    this.setParams({name: 'pointCoordinates', defaultValue: { longitude: 20, latitude: 10, id: 10, price: 999, name: 'Name Demo' }})
+    this.setParams({name: 'pointsCoordinates', defaultValue: [{ longitude: 20, latitude: 10, id: 10, price: 999, name: 'Name Demo' }, { longitude: 10, latitude: 10, id: 10, price: 999, name: 'Name Demo' }]})
     this.setParams({name: 'viewCenter', defaultValue: [0, 0]})
     this.setParams({name: 'viewZoom', defaultValue: 4})
   }
 
   initComplete() {
     super.initComplete()
-    this.initOpenlayersShow()
+    this.initOpenlayersIndex()
   } // initComplete
 
-  initOpenlayersShow() {
-    this.pointSource = new VectorSource({})
-    this.pointLayer = new VectorLayer({
-      source: this.pointSource,
+  initOpenlayersIndex() {
+    this.pointsSource = new VectorSource({})
+    this.pointsLayer = new VectorLayer({
+      source: this.pointsSource,
       style: new Style({
         image: new Icon({
           anchor: [0.5, 850],
@@ -81,21 +81,27 @@ export default class extends OpenlayersController {
         }),
       })
     })
-    this.map.addLayer(this.pointLayer)
-    this.pointCoordinatesValue = this.pointCoordinatesParams
+    this.map.addLayer(this.pointsLayer)
+    this.pointsCoordinatesValue = this.pointsCoordinatesParams
   }
 
-  pointCoordinatesValueChanged() {
+  pointsCoordinatesValueChanged() {
     if (!this.isInitializedValue) { return }
-    this.pointSource.clear()
-    this.pointSource.addFeature(this.pointFeature())
+    this.pointsSource.clear()
+    this.createPointsFeature()
   }
 
-  pointFeature() {
-    let coordinates = fromLonLat([this.pointCoordinatesValue.longitude, this.pointCoordinatesValue.latitude])
+  createPointsFeature() {
+    this.pointsCoordinatesValue.forEach((point) => {
+      this.pointsSource.addFeature(this.pointFeature(point))
+    })
+  }
+
+  pointFeature(point) {
+    let coordinates = fromLonLat([point.longitude, point.latitude])
     return new Feature({
       geometry: new Point(coordinates),
-      ...this.pointCoordinatesValue,
+      ...point,
     })
   }
 }
