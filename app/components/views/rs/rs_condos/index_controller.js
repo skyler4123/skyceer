@@ -20,8 +20,17 @@ export default class extends ApplicationController {
 
   async initMain() {
     const res = await RsCondosApi.index()
-    console.log(res)
-    console.log(this.mapTarget)
+    this.mapTarget.innerHTML = `<div data-controller="libs--map--openlayers--index" data-libs--map--openlayers--index-params-value='${JSON.stringify(this.openlayersParams())}'><div data-libs--map--openlayers--index-target="map"></div></div>`
+  }
+
+  openlayersParams() {
+    return {
+      variant: 'default',
+      iconUrl: 'https://www.svgrepo.com/show/13654/placeholder.svg',
+      pointsCoordinates: [{ longitude: 20, latitude: 10, id: 10, price: 999, name: 'Name Demo' }, { longitude: 10, latitude: 10, id: 10, price: 999, name: 'Name Demo' }],
+      viewCenter: [0, 0],
+      viewZoom: 4,
+    }
   }
 
   connect() {
