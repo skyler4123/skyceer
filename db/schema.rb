@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_17_024251) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_17_032534) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -220,7 +220,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_024251) do
     t.uuid "rs_user_id", null: false
     t.string "name"
     t.string "address"
-    t.string "location"
+    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
     t.integer "price_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

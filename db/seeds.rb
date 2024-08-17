@@ -198,17 +198,19 @@ end
 # ENGLISH Package
 
 # REAL ESTATE
-# User.first(10).each do |user|
-#   RsUser.create(user: user)
-# end
+User.first(10).each do |user|
+  RsUser.create(user: user)
+end
 
-# RsUser.each_with_index do |rs_user, index|
-#   rs_user.rs_condos.create(
-#     name: "rs condo name #{index}",
-#     address: "address #{index}",
+RsUser.all.each_with_index do |rs_user, index|
+  rs_user.rs_condos.create(
+    name: "name #{index}",
+    address: "address #{index}",
+    coordinates: [rand(-180..180), rand(-180..180)],
+    price_cents: rand(1000..9999),
+  )
+end
 
-#   )
-# end
 
 # UPLOAD IMAGE
 # 15.times do |n|
