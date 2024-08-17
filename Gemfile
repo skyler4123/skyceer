@@ -111,3 +111,4 @@ gem "elasticsearch-persistence"
 gem 'rack-attack'
 
 gem 'money-rails'
+gem 'eu_central_bank'

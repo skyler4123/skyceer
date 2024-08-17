@@ -161,6 +161,9 @@ GEM
     erubi (1.13.0)
     et-orbi (1.2.11)
       tzinfo
+    eu_central_bank (1.7.0)
+      money (~> 6.13, >= 6.13.6)
+      nokogiri (~> 1.9)
     eventmachine (1.2.7)
     factory_bot (6.4.6)
       activesupport (>= 5.0.0)
@@ -494,6 +497,7 @@ DEPENDENCIES
   elasticsearch-persistence
   elasticsearch-rails
   em-websocket
+  eu_central_bank
   factory_bot_rails
   faker
   graphwerk
