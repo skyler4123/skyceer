@@ -29,6 +29,7 @@ EnglishUser.destroy_all
 ArticleUser.destroy_all
 ArticlePost.destroy_all
 
+RsUser.destroy_all
 
 # APPLICATION PACKAGE
 10.times do |n|
@@ -40,7 +41,7 @@ ArticlePost.destroy_all
     name: "user name #{n + 1}"
   )
 end
-User.all.each do |user|
+User.first(10).each do |user|
   # Session.create!(
   #   name: user.name,
   #   email: user.email,
@@ -54,7 +55,7 @@ end
 
 # Vehicle Package
 ActiveRecord::Base.transaction do
-  # User.all.each do |user|
+  # User.first(10).each do |user|
   #   VehicleUser.create(user: user)
   # end
   VehicleUser.all.each do |vehicle_user|
@@ -89,7 +90,7 @@ end
 # CALENDAR PACKAGE
 # CalendarUser.destroy_all
 # ActiveRecord::Base.transaction do
-#   User.all.each_with_index do |user, index|
+#   User.first(10).each_with_index do |user, index|
 #     CalendarUser.create(name: "calendar_user_#{index}", user: user)
 #   endq
 #   CalendarUser.all.each_with_index do |calendar_user|
@@ -116,7 +117,7 @@ end
 # EducationClass.destroy_all
 
 # ActiveRecord::Base.transaction do
-#   User.all.each_with_index do |user, index|
+#   User.first(10).each_with_index do |user, index|
 #     EducationUser.create(name: "education_user_#{index}", user: user)
 #   end
 
@@ -144,7 +145,7 @@ end
 # AGRICULTURE PACKAGE
 # AgricultureUser.destroy_all
 # ActiveRecord::Base.transaction do
-#   User.all.each_with_index do |user, index|
+#   User.first(10).each_with_index do |user, index|
 #     AgricultureUser.create(name: "agriculture_user_#{index}", user: user)
 #   end
 #   AgricultureUser.all.each_with_index do |user, index|
@@ -196,6 +197,18 @@ end
 
 # ENGLISH Package
 
+# REAL ESTATE
+# User.first(10).each do |user|
+#   RsUser.create(user: user)
+# end
+
+# RsUser.each_with_index do |rs_user, index|
+#   rs_user.rs_condos.create(
+#     name: "rs condo name #{index}",
+#     address: "address #{index}",
+
+#   )
+# end
 
 # UPLOAD IMAGE
 # 15.times do |n|
