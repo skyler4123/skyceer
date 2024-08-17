@@ -26,7 +26,7 @@ export default class extends ApplicationController {
   openlayersParams() {
     return {
       variant: 'default',
-      iconUrl: 'https://www.svgrepo.com/show/13654/placeholder.svg',
+      iconUrl: 'https://www.svgrepo.com/show/533501/house-chimney-floor.svg',
       pointsCoordinates: [{ longitude: 20, latitude: 10, id: 10, price: 999, name: 'Name Demo' }, { longitude: 10, latitude: 10, id: 10, price: 999, name: 'Name Demo' }],
       viewCenter: [0, 0],
       viewZoom: 4,
