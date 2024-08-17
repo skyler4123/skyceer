@@ -9,7 +9,7 @@
     <h1 class="font-bold text-4xl">Rs condos</h1>
     <%= link_to "New rs condo", new_rs_condo_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
-
+  <div data-<%= view_controller(__FILE__) %>-target="map"></div>
   <div id="rs_condos" class="min-w-full">
     <% @rs_condos.each do |rs_condo| %>
       <%= render rs_condo %>

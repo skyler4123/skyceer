@@ -1,0 +1,3 @@
+class RsController < ApplicationController
+  
+end

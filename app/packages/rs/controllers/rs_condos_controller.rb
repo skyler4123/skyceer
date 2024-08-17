@@ -1,4 +1,4 @@
-class RsCondosController < ApplicationController
+class RsCondosController < RsController
   before_action :set_rs_condo, only: %i[ show edit update destroy ]
 
   # GET /rs_condos or /rs_condos.json

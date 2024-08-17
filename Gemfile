@@ -110,5 +110,7 @@ gem "elasticsearch-persistence"
 
 gem 'rack-attack'
 
+gem 'omniauth-google-oauth2'
+
 gem 'money-rails'
 gem 'eu_central_bank'

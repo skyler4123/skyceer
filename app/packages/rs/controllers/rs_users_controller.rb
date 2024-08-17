@@ -1,4 +1,4 @@
-class RsUsersController < ApplicationController
+class RsUsersController < RsController
   before_action :set_rs_user, only: %i[ show edit update destroy ]
 
   # GET /rs_users or /rs_users.json
