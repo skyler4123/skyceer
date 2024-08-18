@@ -62,6 +62,28 @@ export default class OpenlayersController extends ApplicationController {
     })
   } // initComplete
 
+  createPointFeature(point) {
+    let coordinates = this.fromLonLat([point.longitude, point.latitude])
+    let newPointFeature = new this.Feature({
+      geometry: new this.Point(coordinates),
+      ...this.pointValue,
+    })
+    newPointFeature.setStyle(this.pointStyle())
+    return newPointFeature
+  }
+
+  pointStyle() {
+    return new this.Style({
+      image: new this.Icon({
+        anchor: [0.5, 850],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'pixels',
+        src: this.iconUrlParams,
+        scale: 0.03
+      }),
+    })
+  }
+
   variantClass() {
     return {
       default: {
