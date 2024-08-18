@@ -68,20 +68,41 @@ export default class OpenlayersController extends ApplicationController {
       geometry: new this.Point(coordinates),
       ...this.pointValue,
     })
-    newPointFeature.setStyle(this.pointStyle())
+    newPointFeature.setStyle(this.pointStyle(point))
     return newPointFeature
   }
 
-  pointStyle() {
+  pointStyle(point) {
     return new this.Style({
-      image: new this.Icon({
-        anchor: [0.5, 850],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'pixels',
-        src: this.iconUrlParams,
-        scale: 0.03
-      }),
+      image: new this.Icon(this.pointStyleImageOptions(point)),
+      text: new this.Text(this.pointStyleTextOptions(point)),
     })
+  }
+  
+  pointStyleImageOptions(point) {
+    return {
+      anchor: [0.5, 850],
+      anchorXUnits: 'fraction',
+      anchorYUnits: 'pixels',
+      src: this.iconUrlParams,
+      scale: 0.03
+    }
+  }
+
+  pointStyleTextOptions(point) {
+    return {
+      font: '16px sans-serif',
+      text: point.name,
+      textAlign: 'center',
+      offsetY: -25,
+      fill: new this.Fill({
+        color: [255, 255, 255, 1],
+      }),
+      backgroundFill: new this.Fill({
+        color: [168, 50, 153, 0.6],
+      }),
+      padding: [2,2,2,2]
+    }
   }
 
   variantClass() {
