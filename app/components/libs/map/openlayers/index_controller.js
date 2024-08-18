@@ -15,6 +15,7 @@ export default class extends OpenlayersController {
   }
 
   initComplete() {
+    console.log(this)
     super.initComplete()
     this.initOpenlayersIndex()
   } // initComplete
@@ -50,7 +51,8 @@ export default class extends OpenlayersController {
   }
 
   pointFeature(point) {
-    let coordinates = this.fromLonLat([point.longitude, point.latitude])
+    let coordinates = this.fromLonLat([Number(point.longitude), Number(point.latitude)])
+    console.log(coordinates)
     return new this.Feature({
       geometry: new this.Point(coordinates),
       ...point,

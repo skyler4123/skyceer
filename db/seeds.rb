@@ -206,7 +206,8 @@ RsUser.all.each_with_index do |rs_user, index|
   rs_user.rs_condos.create(
     name: "name #{index}",
     address: "address #{index}",
-    coordinates: [rand(-180..180), rand(-180..180)],
+    longitude: rand(-180..180),
+    latitude: rand(-90..90),
     price_cents: rand(1000..9999),
   )
 end

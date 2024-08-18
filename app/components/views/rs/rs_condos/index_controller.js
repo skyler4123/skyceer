@@ -20,21 +20,22 @@ export default class extends ApplicationController {
 
   async initMain() {
     const res = await RsCondosApi.index()
-    this.mapTarget.innerHTML = `<div data-controller="libs--map--openlayers--index" data-libs--map--openlayers--index-params-value='${JSON.stringify(this.openlayersParams())}'><div data-libs--map--openlayers--index-target="map"></div></div>`
+    let points = res.data
+    this.mapTarget.innerHTML = `<div data-controller="libs--map--openlayers--index" data-libs--map--openlayers--index-params-value='${JSON.stringify(this.openlayersParams(points))}'><div data-libs--map--openlayers--index-target="map"></div></div>`
   }
 
-  openlayersParams() {
+  openlayersParams(points) {
     return {
       variant: 'default',
       iconUrl: 'https://www.svgrepo.com/show/533501/house-chimney-floor.svg',
-      pointsCoordinates: [{ longitude: 20, latitude: 10, id: 10, price: 999, name: 'Name Demo' }, { longitude: 10, latitude: 10, id: 10, price: 999, name: 'Name Demo' }],
+      points: points,
       viewCenter: [0, 0],
       viewZoom: 4,
     }
   }
 
   connect() {
-    console.log("Hello, Stimulus!", this.element);
+    // console.log("Hello, Stimulus!", this.element);
   }
 
 }
