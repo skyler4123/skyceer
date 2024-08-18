@@ -21,7 +21,9 @@ export default class extends ApplicationController {
   async initMain() {
     const res = await RsCondosApi.index()
     let points = res.data
-    this.mapTarget.innerHTML = `<div data-controller="libs--map--openlayers--index" data-libs--map--openlayers--index-params-value='${JSON.stringify(this.openlayersParams(points))}'><div data-libs--map--openlayers--index-target="map"></div></div>`
+    this.mapTarget.setAttribute('data-libs--map--openlayers--index-params-value', JSON.stringify(this.openlayersParams(points)))
+    this.mapTarget.innerHTML = `<div data-libs--map--openlayers--index-target="map">`
+    this.mapTarget.setAttribute('data-controller', 'libs--map--openlayers--index')
   }
 
   openlayersParams(points) {
@@ -38,4 +40,25 @@ export default class extends ApplicationController {
     // console.log("Hello, Stimulus!", this.element);
   }
 
+  // openlayersController() {
+  //   return this.application.getControllerForElementAndIdentifier(this.mapTarget, 'libs--map--openlayers--index')
+  // }
+
+  // initOpenlayers() {
+  //   this.openlayersController().pointStyleTextFunction = (point) => {
+  //     return {
+  //       font: '16px sans-serif',
+  //       text: point.name,
+  //       textAlign: 'center',
+  //       offsetY: -25,
+  //       fill: new this.Fill({
+  //         color: [255, 255, 255, 1],
+  //       }),
+  //       backgroundFill: new this.Fill({
+  //         color: [168, 50, 153, 0.6],
+  //       }),
+  //       padding: [2,2,2,2]
+  //     }
+  //   }
+  // }
 }

@@ -74,12 +74,12 @@ export default class OpenlayersController extends ApplicationController {
 
   pointStyle(point) {
     return new this.Style({
-      image: new this.Icon(this.pointStyleImageOptions(point)),
-      text: new this.Text(this.pointStyleTextOptions(point)),
+      image: new this.Icon(this.pointStyleImageFunction(point)),
+      text: new this.Text(this.pointStyleTextFunction(point)),
     })
   }
-  
-  pointStyleImageOptions(point) {
+
+  pointStyleImageFunction(point) {
     return {
       anchor: [0.5, 850],
       anchorXUnits: 'fraction',
@@ -89,19 +89,19 @@ export default class OpenlayersController extends ApplicationController {
     }
   }
 
-  pointStyleTextOptions(point) {
+  pointStyleTextFunction(point) {
     return {
-      font: '16px sans-serif',
-      text: point.name,
-      textAlign: 'center',
-      offsetY: -25,
-      fill: new this.Fill({
-        color: [255, 255, 255, 1],
-      }),
-      backgroundFill: new this.Fill({
-        color: [168, 50, 153, 0.6],
-      }),
-      padding: [2,2,2,2]
+      // font: '16px sans-serif',
+      // text: point.name,
+      // textAlign: 'center',
+      // offsetY: -25,
+      // fill: new this.Fill({
+      //   color: [255, 255, 255, 1],
+      // }),
+      // backgroundFill: new this.Fill({
+      //   color: [168, 50, 153, 0.6],
+      // }),
+      // padding: [2,2,2,2]
     }
   }
 
