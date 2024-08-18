@@ -63,7 +63,7 @@ export default class OpenlayersController extends ApplicationController {
   } // initComplete
 
   createPointFeature(point) {
-    let coordinates = this.fromLonLat([point.longitude, point.latitude])
+    let coordinates = this.fromLonLat([Number(point.longitude), Number(point.latitude)])
     let newPointFeature = new this.Feature({
       geometry: new this.Point(coordinates),
       ...this.pointValue,
