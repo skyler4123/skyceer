@@ -30,7 +30,7 @@ export default class extends ApplicationController {
       iconUrl: 'https://www.svgrepo.com/show/533501/house-chimney-floor.svg',
       points: points,
       viewCenter: [0, 0],
-      viewZoom: 4,
+      viewZoom: 2,
     }
   }
 
