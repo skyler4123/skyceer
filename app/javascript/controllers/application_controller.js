@@ -15,6 +15,7 @@ export default class ApplicationController extends Controller {
     isFocus: { type: Boolean },
     isActive: { type: Boolean },
     isHover: { type: Boolean },
+    canInitialize: { type: Boolean, default: true },
     isInitialized: { type: Boolean, default: false },
   }
 
@@ -42,9 +43,16 @@ export default class ApplicationController extends Controller {
   }
 
   canInitialize(isPreviousControllerInitialized) {
+    if (!this.canInitializeValue) { return false }
     if (this.isFirstController) { return true }
     if (isPreviousControllerInitialized) { return true }
     return false
+  }
+
+  canInitializeValueChanged(value, previousValue) {
+    if (value === true && previousValue === false) {
+      this.initialize()
+    }
   }
 
   initializeController() {
