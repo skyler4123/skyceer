@@ -21,9 +21,9 @@ export default class extends ApplicationController {
   async initMain() {
     const res = await RsCondosApi.index()
     let points = res.data
-    this.mapTarget.setAttribute('data-libs--map--openlayers--index-params-value', JSON.stringify(this.openlayersParams(points)))
-    this.mapTarget.innerHTML = `<div data-libs--map--openlayers--index-target="map">`
-    this.mapTarget.setAttribute('data-controller', 'libs--map--openlayers--index')
+    this.mapTarget.setAttribute(`data-${this.openlayersControllerIdentifier()}-params-value`, JSON.stringify(this.openlayersParams(points)))
+    this.mapTarget.innerHTML = `<div data-${this.openlayersControllerIdentifier()}-target="map">`
+    this.mapTarget.setAttribute('data-controller', this.openlayersControllerIdentifier())
   }
 
   openlayersParams(points) {
@@ -36,6 +36,13 @@ export default class extends ApplicationController {
     }
   }
 
+  openlayersControllerIdentifier() {
+    return "libs--map--openlayers--index"
+  }
+
+  openlayersController() {
+    return this.application.getControllerForElementAndIdentifier(this.element, name)
+  }
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }
