@@ -17,13 +17,18 @@ export default class extends ApplicationController {
   initHeader() { this.headerTarget.innerHTML = header() }
   initFooter() { this.footerTarget.innerHTML = footer() }
 
-
   async initMain() {
     const res = await RsCondosApi.index()
     let points = res.data
-    this.mapTarget.setAttribute(`data-${this.openlayersControllerIdentifier()}-params-value`, JSON.stringify(this.openlayersParams(points)))
-    this.mapTarget.innerHTML = `<div data-${this.openlayersControllerIdentifier()}-target="map">`
-    this.mapTarget.setAttribute('data-controller', this.openlayersControllerIdentifier())
+    let openlayersHTML = `
+      <div data-controller='${this.openlayersControllerIdentifier()}' data-${this.openlayersControllerIdentifier()}-params-value='${JSON.stringify(this.openlayersParams(points))}'>
+        <div data-${this.openlayersControllerIdentifier()}-target="map"></div>
+      </div>
+    `
+    this.mergeHTMLIntoElement(this.mapTarget, openlayersHTML)
+    setTimeout(() => {
+      console.log(this.openlayersController())
+    }, 2000)
   }
 
   openlayersParams(points) {
@@ -41,8 +46,9 @@ export default class extends ApplicationController {
   }
 
   openlayersController() {
-    return this.application.getControllerForElementAndIdentifier(this.element, name)
+    return this.application.getControllerForElementAndIdentifier(this.mapTarget, this.openlayersControllerIdentifier())
   }
+
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }

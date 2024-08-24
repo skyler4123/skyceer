@@ -43,7 +43,35 @@ export default class OpenlayersController extends ApplicationController {
   initComplete() {
     this.setParams({name: 'viewCenter', defaultValue: [0, 0]})
     this.setParams({name: 'viewZoom', defaultValue: 2})
+    this.initBlindingFunctions()
     this.initOpenlayers()
+  }
+
+  initBlindingFunctions() {
+    this.pointStyleImageFunction = (point) => {
+      return {
+        anchor: [0.5, 850],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'pixels',
+        src: this.iconUrlParams,
+        scale: 0.03
+      }
+    }
+    this.pointStyleTextFunction = (point) => {
+      return {
+      // font: '16px sans-serif',
+      // text: point.name,
+      // textAlign: 'center',
+      // offsetY: -25,
+      // fill: new this.Fill({
+      //   color: [255, 255, 255, 1],
+      // }),
+      // backgroundFill: new this.Fill({
+      //   color: [168, 50, 153, 0.6],
+      // }),
+      // padding: [2,2,2,2]
+      }
+    }
   }
 
   initOpenlayers() {
@@ -77,32 +105,6 @@ export default class OpenlayersController extends ApplicationController {
       image: new this.Icon(this.pointStyleImageFunction(point)),
       text: new this.Text(this.pointStyleTextFunction(point)),
     })
-  }
-
-  pointStyleImageFunction(point) {
-    return {
-      anchor: [0.5, 850],
-      anchorXUnits: 'fraction',
-      anchorYUnits: 'pixels',
-      src: this.iconUrlParams,
-      scale: 0.03
-    }
-  }
-
-  pointStyleTextFunction(point) {
-    return {
-      // font: '16px sans-serif',
-      // text: point.name,
-      // textAlign: 'center',
-      // offsetY: -25,
-      // fill: new this.Fill({
-      //   color: [255, 255, 255, 1],
-      // }),
-      // backgroundFill: new this.Fill({
-      //   color: [168, 50, 153, 0.6],
-      // }),
-      // padding: [2,2,2,2]
-    }
   }
 
   variantClass() {

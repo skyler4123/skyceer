@@ -12,10 +12,18 @@ const DomHelpers = {
     Object.keys(refAttributes).forEach((attributeKey) => {
       element.setAttribute(attributeKey, refAttributes[attributeKey])
     })
+    return element
   },
   
   createNodeFromHTML(html) {
     return document.createRange().createContextualFragment(html)
+  },
+
+  mergeHTMLIntoElement(element, html) {
+    let newNode = this.createNodeFromHTML(html)
+    this.cloneAttributes(element, newNode.firstElementChild)
+    element.innerHTML = newNode.firstElementChild.innerHTML
+    return element
   },
 
   appendChildFromHTML({element, html}) {
