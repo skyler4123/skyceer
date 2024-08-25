@@ -31,7 +31,7 @@ export default class extends ApplicationController {
         let Fill = this.openlayersController().Fill
         return {
           font: '16px sans-serif',
-          text: point.name,
+          text: point.price_cents.toString(),
           textAlign: 'center',
           offsetY: -25,
           fill: new Fill({
@@ -45,6 +45,19 @@ export default class extends ApplicationController {
       }
       this.openlayersController().canInitializeValue = true
     }, 2000)
+    setTimeout(() => {
+      this.map = this.openlayersController().map
+      console.log(this.map)
+      this.map.on("pointermove", (event) => {
+        const feature = this.openlayersController().pointsSource.getClosestFeatureToCoordinate(event.coordinate)
+        const isNear = this.openlayersController().isNearFromEventToPointFeature({event: event, feature: feature})
+        if (isNear) {
+          this.map.getViewport().style.cursor = "pointer"
+        } else {
+          this.map.getViewport().style.cursor = ""
+        }
+      })
+    }, 4000)
   }
 
   openlayersParams(points) {

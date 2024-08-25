@@ -61,20 +61,7 @@ export default class OpenlayersController extends ApplicationController {
     }
     if (this.isUndefined(this.pointStyleTextFunction)) {
       this.pointStyleTextFunction = (point) => {
-        console.log("OLD")
-        return {
-        // font: '16px sans-serif',
-        // text: point.name,
-        // textAlign: 'center',
-        // offsetY: -25,
-        // fill: new this.Fill({
-        //   color: [255, 255, 255, 1],
-        // }),
-        // backgroundFill: new this.Fill({
-        //   color: [168, 50, 153, 0.6],
-        // }),
-        // padding: [2,2,2,2]
-        }
+        return {}
       }
     }
   }
@@ -112,6 +99,49 @@ export default class OpenlayersController extends ApplicationController {
     })
   }
 
+  thresholdHover({zoomLevel = 2, factor = 2}) {
+    const basicZoomLevelWithThreshold = {
+      '1': 201988,
+      '2': 142574,
+      '3': 214104,
+      '4': 106014,
+      '5': 28809,
+      '6': 20110,
+      '7': 16654,
+      '8': 6762,
+      '9': 5572,
+      '10': 3216,
+      '11': 429,
+      '12': 403,
+      '13': 300,
+      '14': 150,
+      '15': 130,
+      '16': 110,
+      '17': 90,
+      '18': 70,
+    }
+    const roundZoomLevel = Math.round(zoomLevel)
+    return basicZoomLevelWithThreshold[`${roundZoomLevel}`] * factor
+  }
+
+  distanceBetween(coordinateA, coordinateB) {
+    const xDelta = Math.abs(coordinateA[0] - coordinateB[0])
+    const yDelta = Math.abs(coordinateA[1] - coordinateB[1])
+    const distance = Math.sqrt(Math.abs(Math.pow(xDelta, 2) - Math.pow(yDelta, 2)))
+    return distance
+  }
+
+  isNearFromEventToPointFeature({event, feature} = {}) {
+    if (!event || !feature ) { return false }
+    let isNear = false
+    const eventCoordinates = event.coordinate
+    const featureCoordinates = feature.getGeometry().getCoordinates()
+    const distance = this.distanceBetween(eventCoordinates, featureCoordinates)
+    const zoomLevel = this.map.getView().getZoom()
+    isNear = distance < this.thresholdHover({zoomLevel: zoomLevel})
+    return isNear
+  }
+  
   variantClass() {
     return {
       default: {
