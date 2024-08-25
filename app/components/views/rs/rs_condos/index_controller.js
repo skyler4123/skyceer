@@ -21,13 +21,29 @@ export default class extends ApplicationController {
     const res = await RsCondosApi.index()
     let points = res.data
     let openlayersHTML = `
-      <div data-controller='${this.openlayersControllerIdentifier()}' data-${this.openlayersControllerIdentifier()}-params-value='${JSON.stringify(this.openlayersParams(points))}'>
+      <div data-controller='${this.openlayersControllerIdentifier()}' data-${this.openlayersControllerIdentifier()}-params-value='${JSON.stringify(this.openlayersParams(points))}' data-${this.openlayersControllerIdentifier()}-can-initialize-value="false">
         <div data-${this.openlayersControllerIdentifier()}-target="map"></div>
       </div>
     `
     this.mergeHTMLIntoElement(this.mapTarget, openlayersHTML)
     setTimeout(() => {
-      console.log(this.openlayersController())
+      this.openlayersController().pointStyleTextFunction = (point) => {
+        let Fill = this.openlayersController().Fill
+        return {
+          font: '16px sans-serif',
+          text: point.name,
+          textAlign: 'center',
+          offsetY: -25,
+          fill: new Fill({
+            color: [255, 255, 255, 1],
+          }),
+          backgroundFill: new Fill({
+            color: [168, 50, 153, 0.6],
+          }),
+          padding: [2,2,2,2]
+        }
+      }
+      this.openlayersController().canInitializeValue = true
     }, 2000)
   }
 

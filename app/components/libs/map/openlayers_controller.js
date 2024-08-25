@@ -48,28 +48,33 @@ export default class OpenlayersController extends ApplicationController {
   }
 
   initBlindingFunctions() {
-    this.pointStyleImageFunction = (point) => {
-      return {
-        anchor: [0.5, 850],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'pixels',
-        src: this.iconUrlParams,
-        scale: 0.03
+    if (this.isUndefined(this.pointStyleImageFunction)) {
+      this.pointStyleImageFunction = (point) => {
+        return {
+          anchor: [0.5, 850],
+          anchorXUnits: 'fraction',
+          anchorYUnits: 'pixels',
+          src: this.iconUrlParams,
+          scale: 0.03
+        }
       }
     }
-    this.pointStyleTextFunction = (point) => {
-      return {
-      // font: '16px sans-serif',
-      // text: point.name,
-      // textAlign: 'center',
-      // offsetY: -25,
-      // fill: new this.Fill({
-      //   color: [255, 255, 255, 1],
-      // }),
-      // backgroundFill: new this.Fill({
-      //   color: [168, 50, 153, 0.6],
-      // }),
-      // padding: [2,2,2,2]
+    if (this.isUndefined(this.pointStyleTextFunction)) {
+      this.pointStyleTextFunction = (point) => {
+        console.log("OLD")
+        return {
+        // font: '16px sans-serif',
+        // text: point.name,
+        // textAlign: 'center',
+        // offsetY: -25,
+        // fill: new this.Fill({
+        //   color: [255, 255, 255, 1],
+        // }),
+        // backgroundFill: new this.Fill({
+        //   color: [168, 50, 153, 0.6],
+        // }),
+        // padding: [2,2,2,2]
+        }
       }
     }
   }
