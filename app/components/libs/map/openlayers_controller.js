@@ -99,29 +99,29 @@ export default class OpenlayersController extends ApplicationController {
     })
   }
 
-  thresholdHover({zoomLevel = 2, factor = 2}) {
+  thresholdHover({zoomLevel = 2}) {
     const basicZoomLevelWithThreshold = {
-      '1': 201988,
-      '2': 142574,
-      '3': 214104,
-      '4': 106014,
-      '5': 28809,
-      '6': 20110,
-      '7': 16654,
-      '8': 6762,
-      '9': 5572,
-      '10': 3216,
-      '11': 429,
-      '12': 403,
-      '13': 300,
-      '14': 150,
-      '15': 130,
-      '16': 110,
+      '1': 1000000,
+      '2': 400000,
+      '3': 200000,
+      '4': 100000,
+      '5': 50000,
+      '6': 25000,
+      '7': 16000,
+      '8': 8000,
+      '9': 4000,
+      '10': 3000,
+      '11': 2000,
+      '12': 1000,
+      '13': 500,
+      '14': 250,
+      '15': 125,
+      '16': 100,
       '17': 90,
       '18': 70,
     }
     const roundZoomLevel = Math.round(zoomLevel)
-    return basicZoomLevelWithThreshold[`${roundZoomLevel}`] * factor
+    return basicZoomLevelWithThreshold[`${roundZoomLevel}`]
   }
 
   distanceBetween(coordinateA, coordinateB) {
@@ -138,10 +138,33 @@ export default class OpenlayersController extends ApplicationController {
     const featureCoordinates = feature.getGeometry().getCoordinates()
     const distance = this.distanceBetween(eventCoordinates, featureCoordinates)
     const zoomLevel = this.map.getView().getZoom()
+    console.log(zoomLevel)
     isNear = distance < this.thresholdHover({zoomLevel: zoomLevel})
     return isNear
   }
   
+  initPointerHoverOnFeature() {
+    this.map.on("pointermove", (event) => {
+      const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
+      const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
+      if (isNear) {
+        this.map.getViewport().style.cursor = "pointer"
+      } else {
+        this.map.getViewport().style.cursor = ""
+      }
+    })
+  }
+
+  initOpenUrlOnClickFeature({url, featureGet} = {url: "/rs_condos/", featureGet: "id"}) {
+    this.map.on("singleclick", (event) => {
+      const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
+      const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
+      if (isNear) {
+        window.open(origin + url + feature.get(featureGet))
+      }
+    })
+  }
+
   variantClass() {
     return {
       default: {

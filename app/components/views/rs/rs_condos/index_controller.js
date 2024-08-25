@@ -46,24 +46,8 @@ export default class extends ApplicationController {
       this.openlayersController().canInitializeValue = true
     }, 2000)
     setTimeout(() => {
-      this.map = this.openlayersController().map
-      this.map.on("pointermove", (event) => {
-        const feature = this.openlayersController().pointsSource.getClosestFeatureToCoordinate(event.coordinate)
-        const isNear = this.openlayersController().isNearFromEventToPointFeature({event: event, feature: feature})
-        if (isNear) {
-          this.map.getViewport().style.cursor = "pointer"
-        } else {
-          this.map.getViewport().style.cursor = ""
-        }
-      })
-
-      this.map.on("singleclick", (event) => {
-        const feature = this.openlayersController().pointsSource.getClosestFeatureToCoordinate(event.coordinate)
-        const isNear = this.openlayersController().isNearFromEventToPointFeature({event: event, feature: feature})
-        if (isNear) {
-          window.open(origin + "/rs_condos/" + feature.get('id'))
-        }
-      })
+      this.openlayersController().initPointerHoverOnFeature()
+      this.openlayersController().initOpenUrlOnClickFeature()
     }, 4000)
   }
 
