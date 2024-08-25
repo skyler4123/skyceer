@@ -47,7 +47,6 @@ export default class extends ApplicationController {
     }, 2000)
     setTimeout(() => {
       this.map = this.openlayersController().map
-      console.log(this.map)
       this.map.on("pointermove", (event) => {
         const feature = this.openlayersController().pointsSource.getClosestFeatureToCoordinate(event.coordinate)
         const isNear = this.openlayersController().isNearFromEventToPointFeature({event: event, feature: feature})
@@ -55,6 +54,14 @@ export default class extends ApplicationController {
           this.map.getViewport().style.cursor = "pointer"
         } else {
           this.map.getViewport().style.cursor = ""
+        }
+      })
+
+      this.map.on("singleclick", (event) => {
+        const feature = this.openlayersController().pointsSource.getClosestFeatureToCoordinate(event.coordinate)
+        const isNear = this.openlayersController().isNearFromEventToPointFeature({event: event, feature: feature})
+        if (isNear) {
+          window.open(origin + "/rs_condos/" + feature.get('id'))
         }
       })
     }, 4000)
@@ -81,26 +88,4 @@ export default class extends ApplicationController {
   connect() {
     // console.log("Hello, Stimulus!", this.element);
   }
-
-  // openlayersController() {
-  //   return this.application.getControllerForElementAndIdentifier(this.mapTarget, 'libs--map--openlayers--index')
-  // }
-
-  // initOpenlayers() {
-  //   this.openlayersController().pointStyleTextFunction = (point) => {
-  //     return {
-  //       font: '16px sans-serif',
-  //       text: point.name,
-  //       textAlign: 'center',
-  //       offsetY: -25,
-  //       fill: new this.Fill({
-  //         color: [255, 255, 255, 1],
-  //       }),
-  //       backgroundFill: new this.Fill({
-  //         color: [168, 50, 153, 0.6],
-  //       }),
-  //       padding: [2,2,2,2]
-  //     }
-  //   }
-  // }
 }
