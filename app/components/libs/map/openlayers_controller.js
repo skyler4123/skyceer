@@ -138,7 +138,6 @@ export default class OpenlayersController extends ApplicationController {
     const featureCoordinates = feature.getGeometry().getCoordinates()
     const distance = this.distanceBetween(eventCoordinates, featureCoordinates)
     const zoomLevel = this.map.getView().getZoom()
-    console.log(zoomLevel)
     isNear = distance < this.thresholdHover({zoomLevel: zoomLevel})
     return isNear
   }
