@@ -44,11 +44,11 @@ export default class extends ApplicationController {
         }
       }
       this.openlayersController().canInitializeValue = true
-    }, 2000)
+    }, 1000)
     setTimeout(() => {
       this.openlayersController().initPointerHoverOnFeature()
       this.openlayersController().initOpenUrlOnClickFeature()
-    }, 4000)
+    }, 2000)
   }
 
   openlayersParams(points) {
