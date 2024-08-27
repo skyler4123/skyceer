@@ -1,6 +1,6 @@
 import OpenlayersController from "../openlayers_controller";
 
-export default class extends OpenlayersController {
+export default class OpenlayersIndexController extends OpenlayersController {
   static targets = ['map']
   static values = {
     points: { type: Array, default: [] }
