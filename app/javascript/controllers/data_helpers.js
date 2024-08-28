@@ -2,6 +2,12 @@ const DataHelpers = {
   normalizeParamsValue(object) {
     let params = object
     params = this.camelCaseForObjectKey(params)
+
+    if (params.controller) {
+      params.controllers ||= [params.controller]
+      delete(params.controller)
+    }
+    
     if (params.action) {
       params.actions ||= [params.action]
       delete(params.action)

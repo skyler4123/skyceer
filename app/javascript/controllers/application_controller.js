@@ -34,6 +34,7 @@ export default class ApplicationController extends Controller {
   functionsForInitialize() {
     this.paramsValue = this.normalizeParamsValue(this.paramsValue)
     this.initializeParams()
+    this.initializeControllers()
     if (this.isFirstController) {
       this.initializeID()
       this.initializeDir()
@@ -55,8 +56,15 @@ export default class ApplicationController extends Controller {
     }
   }
 
-  initializeController() {
-    this.element.dataset.controller = this.element.dataset.controller.trim()
+  initializeControllers() {
+    if (this.controllersParams) {
+      let currentControllers = this.element.dataset.controller
+      this.controllersParams.forEach((controller) => {
+        currentControllers = currentControllers.concat(' ', controller)
+      })
+      this.element.dataset.controller = currentControllers
+    }
+    // this.element.dataset.controller = this.element.dataset.controller.trim()
   }
 
   initializeParams() {
