@@ -14,7 +14,7 @@ export default class DarkmodeController extends ApplicationController {
 
 export const DarkmodeComponent = () => {
   return (
-    tab({controller: "views--global--darkmode", klass: 'flex justify-center items-center w-fit h-fit', action: {listener: 'click', action: 'tabNext'}}, () => (
+    tab({controller: "views--global--darkmode", klass: 'flex justify-center items-center w-fit h-fit cursor-pointer', action: {listener: 'click', action: 'tabNext'}}, () => (
       `
         <div>${icon({variant: ['outline', 'moon']})}</div>
         <div>${icon({variant: ['outline', 'sun']})}</div>
