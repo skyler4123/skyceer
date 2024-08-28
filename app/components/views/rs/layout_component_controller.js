@@ -9,8 +9,8 @@ export default class RsCondosLayoutController extends ApplicationController {
   init() {
     this.element.className = 'w-full h-full'
     this.initHeader()
-    if (this.isDefined(this.initMain)) { this.initMain() }
     this.initFooter()
+    this.initMain()
   }
 
   initHeader() { this.headerTarget.innerHTML = header() }
