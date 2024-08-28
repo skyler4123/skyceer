@@ -1,35 +1,15 @@
-// import { Controller } from "@hotwired/stimulus";
-import ApplicationController from "../../../../javascript/controllers/application_controller";
-import { footer } from "../footer";
-import { header } from "../header";
+import RsCondosLayoutController from "../layout_component_controller";
 
-export default class extends ApplicationController {
-  static targets = ['header', 'main', 'map', 'footer']
-
-  init() {
-    this.element.className = 'w-full h-full'
-    this.initHeader()
-    this.initMain()
-    this.initFooter()
-  }
-
-  initHeader() { this.headerTarget.innerHTML = header() }
-  initFooter() { this.footerTarget.innerHTML = footer() }
+export default class extends RsCondosLayoutController {
+  static targets = [...super.targets, "map"]
 
   initMain() {
     this.initRsCondosIndexMap()
   }
 
   initRsCondosIndexMap() {
-    let openlayersHTML = `<div data-controller='${this.openlayersControllerIdentifier()}'></div>`
+    let openlayersControllerIdentifier = "views--rs--rs-condos--index-map"
+    let openlayersHTML = `<div data-controller='${openlayersControllerIdentifier}'></div>`
     this.mergeHTMLIntoElement(this.mapTarget, openlayersHTML)
-  }
-
-  openlayersControllerIdentifier() {
-    return "views--rs--rs-condos--index-map"
-  }
-
-  connect() {
-    // console.log("Hello, Stimulus!", this.element);
   }
 }
