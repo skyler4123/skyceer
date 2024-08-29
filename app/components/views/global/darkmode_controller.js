@@ -1,7 +1,7 @@
 import { icon, tab } from "../../../javascript/controllers/components";
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
-export default class DarkmodeController extends ApplicationController {
+export default class Views_Global_DarkmodeController extends ApplicationController {
 
   initAction() {
     this.addAction(this.element, `click->${this.identifier}#darkmodeToggle`)
@@ -12,7 +12,7 @@ export default class DarkmodeController extends ApplicationController {
   }
 }
 
-export const DarkmodeComponent = () => {
+export const Views_Global_DarkmodeComponent = () => {
   return (
     tab({controller: "views--global--darkmode", klass: 'flex justify-center items-center w-fit h-fit cursor-pointer', action: {listener: 'click', action: 'tabNext'}}, () => (
       `

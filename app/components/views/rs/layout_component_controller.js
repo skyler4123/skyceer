@@ -1,9 +1,9 @@
 
-import { footer } from "./footer";
-import { header } from "./header";
+import { Views_Rs_Footer } from "./footer";
+import { Views_Rs_Header } from "./header";
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
-export default class RsCondosLayoutController extends ApplicationController {
+export default class Views_Rs_LayoutController extends ApplicationController {
   static targets = ['header', 'main', 'footer']
 
   init() {
@@ -13,6 +13,6 @@ export default class RsCondosLayoutController extends ApplicationController {
     this.initMain()
   }
 
-  initHeader() { this.headerTarget.innerHTML = header() }
-  initFooter() { this.footerTarget.innerHTML = footer() }
+  initHeader() { this.headerTarget.innerHTML = Views_Rs_Header() }
+  initFooter() { this.footerTarget.innerHTML = Views_Rs_Footer() }
 }

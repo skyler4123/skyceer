@@ -1,6 +1,6 @@
-import RsCondosLayoutController from "../layout_component_controller";
+import Views_Rs_LayoutController from "../layout_component_controller";
 
-export default class extends RsCondosLayoutController {
+export default class extends Views_Rs_LayoutController {
   static targets = [...super.targets, "map"]
 
   initMain() {
