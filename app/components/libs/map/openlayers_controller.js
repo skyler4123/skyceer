@@ -2,7 +2,7 @@ import openlayers from "openlayers"
 import colormap from 'colormap';
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
-export default class OpenlayersController extends ApplicationController {
+export default class Libs_Map_OpenlayersController extends ApplicationController {
   get Map() { return openlayers.Map }
   get View() { return openlayers.View }
   get Feature() { return openlayers.Feature }

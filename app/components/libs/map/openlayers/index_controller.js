@@ -1,6 +1,6 @@
-import OpenlayersController from "../openlayers_controller";
+import Libs_Map_OpenlayersController from "../openlayers_controller";
 
-export default class OpenlayersIndexController extends OpenlayersController {
+export default class Libs_Map_Openlayers_IndexController extends Libs_Map_OpenlayersController {
   static targets = ['map']
   static values = {
     points: { type: Array, default: [] }

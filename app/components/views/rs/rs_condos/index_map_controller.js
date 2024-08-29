@@ -1,7 +1,7 @@
 import { RsCondosApi } from "../../../../javascript/controllers/api/rs/rs_condos_api";
-import OpenlayersIndexController from "../../../libs/map/openlayers/index_controller";
+import Libs_Map_Openlayers_IndexController from "../../../libs/map/openlayers/index_controller";
 
-export default class RsCondosIndexMapController extends OpenlayersIndexController {
+export default class Views_Rs_RsCondos_IndexMapController extends Libs_Map_Openlayers_IndexController {
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/533501/house-chimney-floor.svg'})
