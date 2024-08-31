@@ -14,6 +14,8 @@ export default class Views_Rs_RsCondos_IndexMapController extends Libs_Map_Openl
     super.initComplete()
     this.initBlindingFunctions()
     this.initPointsValue()
+    this.initPointerHoverOnFeature()
+    this.initOpenUrlOnClickFeature()
   }
 
   initHTML() {
