@@ -1,15 +1,22 @@
-import { icon } from "../../../javascript/controllers/components"
+import { icon, link } from "../../../javascript/controllers/components"
 import { Views_Global_DarkmodeComponent } from "../global/darkmode_controller"
 
 export const Views_Rs_Header = () => {
   return `
     <div class="flex flex-row justify-between w-full h-full py-5 px-10">
-      <div class="flex flex-row gap-x-2 justify-center items-center">
-        ${icon({variant: ["outline", "rectangle-group"], klass: "h-10 w-10"})}
-        <div>Skyceer</div>
-      </div>
       <div>
-        Nav
+        ${link({url: "/"}, () => {
+          return `
+            <div class="flex flex-row gap-x-2 justify-center items-center">
+              ${icon({variant: ["outline", "rectangle-group"], klass: "h-10 w-10"})}
+              <div>Skyceer</div>
+            </div>
+          `
+        })}
+      </div>
+      <div class="flex flex-row gap-x-2">
+        <div>${link({label: 'Index', url: "/rs_condos"})}</div>
+        <div>${link({label: 'New', url: "/rs_condos/new"})}</div>
       </div>
       <div class="flex flex-row">
         ${Views_Global_DarkmodeComponent()}
