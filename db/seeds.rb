@@ -30,6 +30,7 @@ ArticleUser.destroy_all
 ArticlePost.destroy_all
 
 RsUser.destroy_all
+RsCondo.destroy_all
 
 # APPLICATION PACKAGE
 10.times do |n|

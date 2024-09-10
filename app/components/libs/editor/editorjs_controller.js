@@ -10,8 +10,8 @@ import Embed from '@editorjs/embed';
 import Quote from '@editorjs/quote';
 import Table from '@editorjs/table';
 
-import ApiHelpers from '../../../javascript/controllers/api/api_helpers';
 import ApplicationController from "../../../javascript/controllers/application_controller";
+import { csrfToken } from '../../../javascript/controllers/api/api_helpers';
 
 
 export default class EditorjsController extends ApplicationController {
@@ -50,7 +50,7 @@ export default class EditorjsController extends ApplicationController {
               byUrl: this.endpointUploadImageByUrlParams, // Your endpoint that provides uploading by Url
             },
             additionalRequestHeaders: {
-              'X-CSRF-Token': ApiHelpers.csrfToken()
+              'X-CSRF-Token': csrfToken()
             },
             additionalRequestData: {
               record_id: this.recordIdParams,

@@ -46,6 +46,7 @@ class User < ApplicationRecord
     ChatUser.create(user_id: self.id)
     EnglishUser.create(user_id: self.id)
     ArticleUser.create(user_id: self.id)
+    RsUser.create(user_id: self.id)
   end
 
   def acceptable_avatar

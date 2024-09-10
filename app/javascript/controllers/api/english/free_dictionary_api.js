@@ -1,5 +1,5 @@
 import "axios";
-import { defaultHeaders, origin } from "../base_api";
+import { defaultHeaders, origin } from "../api_helpers";
 
 export const FreeDictionaryApi = {
 

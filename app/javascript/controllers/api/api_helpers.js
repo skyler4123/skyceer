@@ -1,13 +1,11 @@
-const ApiHelpers = {
-  origin() {
-    return window.location.origin
-  },
-  csrfToken() {
-    return document.querySelector('meta[name="csrf-token"]').content
-  },
-  defaultHeaders() {
-    return { 'X-CSRF-Token': ApiHelpers.csrfToken(), 'Accept': 'application/json' }
-  },
+export const origin = () => {
+  return window.location.origin
 }
 
-export default ApiHelpers;
+export const csrfToken = () => {
+  return document.querySelector('meta[name="csrf-token"]').content
+}
+
+export const defaultHeaders = () => {
+  return { 'X-CSRF-Token': csrfToken(), 'Accept': 'application/json' }
+}

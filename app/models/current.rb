@@ -40,6 +40,14 @@ class Current < ActiveSupport::CurrentAttributes
     self.article_user.id.to_s
   end
 
+  def self.rs_user
+    RsUser.find_by(user_id: self.user_id)
+  end
+
+  def self.rs_user_id
+    self.rs_user.id.to_s
+  end
+
   def self.avatar
     self.session.avatar
   end
