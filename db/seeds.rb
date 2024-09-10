@@ -199,9 +199,9 @@ end
 # ENGLISH Package
 
 # REAL ESTATE
-User.first(10).each do |user|
-  RsUser.create(user: user)
-end
+# User.first(10).each do |user|
+#   RsUser.create(user: user)
+# end
 
 RsUser.all.each_with_index do |rs_user, index|
   rs_user.rs_condos.create(
