@@ -18,9 +18,16 @@ export default class extends ApplicationController {
     event.preventDefault()
     let formData = this.formData({formElement: this.formTarget})
     let response = await RsCondosApi.create({params: formData})
-    console.log(response)
+    this.handleResponse({response: response, resource: "rs_condos"})
   }
   
+
+
+
+
+
+
+
   formData({formElement}) {
     let formData = new FormData(formElement)
     let formDataObject = {}
@@ -35,28 +42,28 @@ export default class extends ApplicationController {
       <form class="contents" action="/rs_condos" accept-charset="UTF-8" method="post" data-${this.identifier}-target="form" data-action="submit->${this.identifier}#submit">
 
         <div class="my-5">
-          <label for="rs_condo_name">Name</label>
-          <input class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="rs_condo[name]" id="rs_condo_name">
+          <label for="name">Name</label>
+          <input class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="name" id="name">
         </div>
 
         <div class="my-5">
-          <label for="rs_condo_address">Address</label>
-          <input class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="rs_condo[address]" id="rs_condo_address">
+          <label for="address">Address</label>
+          <input class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="address" id="address">
         </div>
 
         <div class="my-5">
-          <label for="rs_condo_price_cents">Price cents</label>
-          <input class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="number" name="rs_condo[price_cents]" id="rs_condo_price_cents">
+          <label for="price_cents">Price cents</label>
+          <input class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="number" name="price_cents" id="price_cents">
         </div>
 
         <div class="my-5">
-          <label for="rs_condo_longitude">Longitude</label>
-          <input data-${this.identifier}-target="longitudeInput" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="rs_condo[longitude]" id="rs_condo_longitude">
+          <label for="longitude">Longitude</label>
+          <input data-${this.identifier}-target="longitudeInput" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="longitude" id="longitude">
         </div>
 
         <div class="my-5">
-          <label for="rs_condo_latitude">Latitude</label>
-          <input data-${this.identifier}-target="latitudeInput" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="rs_condo[latitude]" id="rs_condo_latitude">
+          <label for="latitude">Latitude</label>
+          <input data-${this.identifier}-target="latitudeInput" class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="latitude" id="latitude">
         </div>
 
         <div class="inline">

@@ -6,6 +6,7 @@ import DispatchHelpers from "./dispatch_helpers";
 import ControllerHelpers from "./controller_helpers";
 import ApiHelpers from "./api_helpers";
 import { CookieHelpers } from "./cookie_helpers";
+import ResponseHelpers from "./response_helpers";
 
 export default class ApplicationController extends Controller {
 
@@ -454,11 +455,6 @@ export default class ApplicationController extends Controller {
     this.element.setAttribute(`data-${this.identifier}-cookie-outlet`, 'body')
   }
 
-  redirect(url) {
-    if (this.isUndefined(url)) { return }
-    window.location.href = url;
-  }
-
   isSuccess(response) {
     return (response.status >= 200 && response.status < 300)
   }
@@ -474,3 +470,4 @@ Object.assign(ApplicationController.prototype, DispatchHelpers)
 Object.assign(ApplicationController.prototype, ControllerHelpers)
 Object.assign(ApplicationController.prototype, ApiHelpers)
 Object.assign(ApplicationController.prototype, CookieHelpers)
+Object.assign(ApplicationController.prototype, ResponseHelpers)
