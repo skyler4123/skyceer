@@ -45,7 +45,7 @@ class Current < ActiveSupport::CurrentAttributes
   end
 
   def self.rs_user_id
-    self.rs_user.id.to_s
+    self.session.rs_user_id
   end
 
   def self.avatar
