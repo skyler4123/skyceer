@@ -72,6 +72,7 @@ class RsCondosController < RsController
     # Only allow a list of trusted parameters through.
     def rs_condo_params
       # params.require(:rs_condo).permit(:rs_user_id, :name, :address, :price_cents, :longitude, :latitude)
-      params.permit(:name, :address, :price_cents, :longitude, :latitude)
+      # params.permit(:name, :address, :price_cents, :longitude, :latitude)
+      params.require(:rs_condo).permit(:name, :address, :price_cents, :longitude, :latitude)
     end
 end
