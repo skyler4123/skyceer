@@ -23,7 +23,7 @@ Rails
 Solid queue + cache
   ##
     docker build -t rails .
-    docker run -d --name solid -v $PWD:/rails rails rails solid_queue:start
+    docker run -d --name solid -v $PWD:/rails rails bin/jobs
   ##
 Solid
   ##

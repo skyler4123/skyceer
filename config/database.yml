@@ -12,9 +12,9 @@ session: &session
   <<: *default
   migrations_paths: db/session_migrate
 
-solid: &solid
+queue: &queue
   <<: *default
-  migrations_paths: db/solid_migrate
+  migrations_paths: db/queue_migrate
 
 development:
   primary:
@@ -23,9 +23,9 @@ development:
   session:
     <<: *session
     database: session_development
-  solid:
-    <<: *solid
-    database: solid_development
+  queue:
+    <<: *queue
+    database: queue_development
     
 test:
   primary:
@@ -34,9 +34,9 @@ test:
   session:
     <<: *session
     database: session_test
-  solid:
-    <<: *solid
-    database: solid_test
+  queue:
+    <<: *queue
+    database: queue_test
 
 production:
   primary:
@@ -45,6 +45,6 @@ production:
   session:
     <<: *session
     database: session_production
-  solid:
-    <<: *solid
-    database: solid_production
+  queue:
+    <<: *queue
+    database: queue_production

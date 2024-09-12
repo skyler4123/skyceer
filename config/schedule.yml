@@ -1,4 +1,4 @@
-my_first_job:
-  cron: "* * * * *"
-  class: "Rock::HardJob"
-  queue: low
+# my_first_job:
+#   cron: "* * * * *"
+#   class: "Rock::HardJob"
+#   queue: low

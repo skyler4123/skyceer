@@ -46,7 +46,7 @@ module Skyceer
     # Use a separate DB for Solid Queue
     # config/environments/production.rb
     config.active_job.queue_adapter = :solid_queue
-    config.solid_queue.connects_to = { database: { writing: :solid, reading: :solid } }
+    config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
     # config.solid_queue.silence_polling = false
   end
 end
