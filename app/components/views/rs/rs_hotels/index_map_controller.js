@@ -1,3 +1,4 @@
+import { RsHotelsApi } from "../../../../javascript/controllers/api/rs/rs_hotels_api";
 import Libs_Map_Openlayers_IndexController from "../../../libs/map/openlayers/index_controller";
 
 export default class Views_Rs_RsHotels_IndexMapController extends Libs_Map_Openlayers_IndexController {

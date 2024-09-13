@@ -29,7 +29,7 @@ export default class Libs_Map_Openlayers_IndexController extends Libs_Map_Openla
   }
 
   pointsValueChanged() {
-    if (!this.isInitializedValue) { return }
+    if (!this.isInitializedValue || this.isUndefined(this.pointsSource)) { return }
     this.pointsSource.clear()
     this.createPointsFeature()
   }

@@ -15,8 +15,8 @@ export const Views_Rs_Header = () => {
         })}
       </div>
       <div class="flex flex-row gap-x-2">
-        <div>${link({label: 'Index', url: "/rs_condos"})}</div>
-        <div>${link({label: 'New', url: "/rs_condos/new"})}</div>
+        <div>${link({label: 'Condominium', url: "/rs_condos"})}</div>
+        <div>${link({label: 'Hotel', url: "/rs_hotels"})}</div>
       </div>
       <div class="flex flex-row">
         ${Views_Global_DarkmodeComponent()}

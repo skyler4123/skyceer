@@ -8,7 +8,7 @@ export default class extends Views_Rs_LayoutController {
   }
 
   initRsCondosIndexMap() {
-    let openlayersControllerIdentifier = "views--rs--rs-condos--index-map"
+    let openlayersControllerIdentifier = "views--rs--rs-hotels--index-map"
     let openlayersHTML = `<div data-controller='${openlayersControllerIdentifier}'></div>`
     this.mergeHTMLIntoElement(this.mapTarget, openlayersHTML)
   }
