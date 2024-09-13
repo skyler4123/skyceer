@@ -1,0 +1,2 @@
+module RsHotelsHelper
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_18_040559) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_12_152754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -228,6 +228,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_18_040559) do
     t.index ["rs_user_id"], name: "index_rs_condos_on_rs_user_id"
   end
 
+  create_table "rs_hotels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "rs_user_id", null: false
+    t.string "name"
+    t.string "address"
+    t.integer "price_cents"
+    t.decimal "longitude"
+    t.decimal "latitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rs_user_id"], name: "index_rs_hotels_on_rs_user_id"
+  end
+
   create_table "rs_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
@@ -302,6 +314,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_18_040559) do
   add_foreign_key "map_points", "map_users"
   add_foreign_key "map_users", "users"
   add_foreign_key "rs_condos", "rs_users"
+  add_foreign_key "rs_hotels", "rs_users"
   add_foreign_key "rs_users", "users"
   add_foreign_key "vehicle_cars", "vehicle_stores"
   add_foreign_key "vehicle_cars", "vehicle_users"

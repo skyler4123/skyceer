@@ -31,6 +31,7 @@ ArticlePost.destroy_all
 
 RsUser.destroy_all
 RsCondo.destroy_all
+RsHotel.destroy_all
 
 # APPLICATION PACKAGE
 10.times do |n|
@@ -205,6 +206,13 @@ end
 
 RsUser.all.each_with_index do |rs_user, index|
   rs_user.rs_condos.create(
+    name: "name #{index}",
+    address: "address #{index}",
+    longitude: rand(-180..180),
+    latitude: rand(-90..90),
+    price_cents: rand(1000..9999),
+  )
+  rs_user.rs_hotels.create(
     name: "name #{index}",
     address: "address #{index}",
     longitude: rand(-180..180),
