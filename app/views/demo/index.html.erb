@@ -32,6 +32,10 @@
     <%= text(type: [:cookie, :email]) %>
     <%= text(type: [:cookie, :name]) %>
 
+    <%= render(TranslateComponent.new) do %>
+      Car
+    <% end %>
+
     <%= render(Libs::Carousel::SwiperComponent.new) do %>
       <div class="swiper-slide bg-blue-100">Slide 1</div>
       <div class="swiper-slide bg-blue-300">Slide 2</div>
