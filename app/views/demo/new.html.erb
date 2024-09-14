@@ -13,9 +13,10 @@
 
 
 
-<%= render(TranslateComponent.new) do %>
-  Car
-<% end %>
+    <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_text }) %>
+    <%= text(label: 'Test Copy Text 1111', event_id: id) %>
+    <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_text }) %>
+    <%= text(event_id: id) { "Test to copy 22222"} %>
 
 
 <div>/</div>

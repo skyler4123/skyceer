@@ -29,9 +29,6 @@
     
     <%= render(TimeComponent.new(klass: "text-red-500")) %>
 
-    <%= text(type: [:cookie, :email]) %>
-    <%= text(type: [:cookie, :name]) %>
-
     <%= render(TranslateComponent.new) do %>
       Car
     <% end %>
@@ -79,10 +76,10 @@
     <%= button(label: 'Test Variant', variant: :colored_shadows) %>
     <%= button(label: 'Test Variant', variant: :outline) %>
 
-
-    
     <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_text }) %>
-    <%= text(label: 'Test Copy Text', event_id: id) %>
+    <%= text(label: 'Test Copy Text 1111', event_id: id) %>
+    <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_text }) %>
+    <%= text(event_id: id) { "Test to copy 22222"} %>
     <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_link }) %>
     <%= link(label: "Test Copy Link", url: '/#', event: { id: id }) %>
 
