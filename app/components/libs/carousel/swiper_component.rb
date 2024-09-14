@@ -7,7 +7,6 @@ class Libs::Carousel::SwiperComponent < ApplicationComponent
       <div class="swiper-wrapper">
         <!-- Slides -->
         <%= content %>
-        ...
       </div>
       <!-- If we need pagination -->
       <div class="swiper-pagination"></div>
