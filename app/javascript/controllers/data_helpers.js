@@ -58,7 +58,10 @@ const DataHelpers = {
     }
 
     if (params.data) {
-      params.data = this.kebabCaseForObjectKey(params.data)
+      if (!this.isArray(params.data)) {
+        params.data = [params.data]
+      }
+      // params.data = this.kebabCaseForObjectKey(params.data)
       // params.data = this.camelCaseForObjectValue(params.data)
     }
 

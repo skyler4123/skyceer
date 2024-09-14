@@ -1,11 +1,9 @@
-import { HighlightJS } from "highlight.js"
 import dayjs from 'dayjs'
 import ApplicationController from "../javascript/controllers/application_controller";
 // import Dictionary from "../javascript/controllers/dictionary";
 import { button, tab } from "../javascript/controllers/components";
 
 export default class TextController extends ApplicationController {
-  static targets = ["pre", "code", "copyCode"]
   static values = {
     ...super.values,
     label: { type: String },
@@ -13,18 +11,12 @@ export default class TextController extends ApplicationController {
   }
   static outlets = ['cookie']
 
-  connect() {
-  }
-
   init() {
     this.initValue()
     this.initHTML()
-    this.initTarget()
   }
 
   initParams() {
-    this.setParams({name: 'codeLanguage', defaultValue: 'erb'})
-    // this.setParams({name: 'language', defaultValue: 'english'})
     if (this.typeParams === 'time') { this.setParams({name: 'timeFormat', defaultValue: 'HH:mm:ss'}) }
   }
 
@@ -39,12 +31,7 @@ export default class TextController extends ApplicationController {
   }
 
   initHTML() {
-    if (this.typeParams === 'code') {
-      this.element.innerHTML = this.typeHTML.code
-      this.codeTarget.textContent = this.labelValue
-      this.element.insertAdjacentHTML('beforeend', this.typeHTML.copyCode)
-      HighlightJS.highlightElement(this.codeTarget)
-    } else if (this.typeParams === 'time') {
+    if (this.typeParams === 'time') {
       setInterval(() => {
         this.element.innerHTML = dayjs().format('HH:mm:ss')
       }, 1000)
@@ -54,31 +41,7 @@ export default class TextController extends ApplicationController {
     this.element.setAttribute('open', '')
   }
 
-  initTarget() {
-    if (this.typeParams === 'code') {
-      const copyCodeElement = this.element.querySelector('[data-controller*=tab]')
-      copyCodeElement.setAttribute(`data-${this.identifier}-target`, 'copyCode')
-    }
-  }
-
-  initAction() {
-    if (this.typeParams === 'code') {
-      this.addAction(this.copyCodeTarget, `click->${this.identifier}#copyCode`)
-    }
-  }
-  
-  copyCode() {
-    this.copyText()
-  }
-
-  copyText() {
-    window.navigator.clipboard.writeText(this.labelValue)
-  }
-
   labelValueChanged(value, previousValue) {
-    if (this.typeParams === 'code') { return }
-    // if (previousValue === undefined || previousValue === '') { return }
-
     this.element.innerHTML = this.labelValue
   }
 
@@ -133,12 +96,6 @@ export default class TextController extends ApplicationController {
   // }
   get typeClass() {
     return {
-      code: {
-        element: 'flex flex-row w-full justify-between gap-x-4 bg-[#0D1117] relative rounded-md',
-        textTarget: 'w-full',
-        preTarget: 'w-full pr-4',
-        codeTarget: 'w-full no-scrollbar rounded-md'
-      },
       label: {
         element: '',
       },
@@ -148,19 +105,6 @@ export default class TextController extends ApplicationController {
       email: {
         element: ''
       }
-    }
-  }
-  get typeHTML() {
-    return {
-      code: `
-        <pre data-${this.identifier}-target="pre"><code data-${this.identifier}-target="code" class="${this.codeLanguageParams}"></code></pre>
-      `,
-      copyCode: tab({klass: 'absolute top-2 right-2', action: { listener: 'click', action: 'tabLast' }, restoreTimeout: 10000, restoreIndex: 0 }, () => {
-        return `
-          <div>${button({label: 'Copy', variant: 'pill'})}</div>
-          <div>${button({label: 'Copied', variant: 'pill'})}</div>
-        `
-      }),
     }
   }
   // get supportLanguagesObject() {
