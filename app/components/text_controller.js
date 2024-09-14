@@ -16,10 +16,6 @@ export default class TextController extends ApplicationController {
     this.initHTML()
   }
 
-  initParams() {
-    if (this.typeParams === 'time') { this.setParams({name: 'timeFormat', defaultValue: 'HH:mm:ss'}) }
-  }
-
   initValue() {
     // this.languageValue = this.languageParams
 
@@ -31,13 +27,7 @@ export default class TextController extends ApplicationController {
   }
 
   initHTML() {
-    if (this.typeParams === 'time') {
-      setInterval(() => {
-        this.element.innerHTML = dayjs().format('HH:mm:ss')
-      }, 1000)
-    } else {
-      this.element.innerText = this.labelValue
-    }
+    this.element.innerText = this.labelValue
     this.element.setAttribute('open', '')
   }
 

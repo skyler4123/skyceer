@@ -26,8 +26,9 @@
       <div>Test HR Component</div>
     <% end %>
     <%= icon %>
+    
+    <%= render(TimeComponent.new(klass: "text-red-500")) %>
 
-    <%= text(type: :time) %>
     <%= text(type: [:cookie, :email]) %>
     <%= text(type: [:cookie, :name]) %>
 
