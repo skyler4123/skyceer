@@ -7,10 +7,10 @@ const defaultHeaders = { 'X-CSRF-Token': csrfToken, 'Accept': 'application/json'
 
 export const MapPointsApi = {
   index({params, headers} = {}) {
-    return axios.get(`${origin}/map_points`, { params: params, headers: {...defaultHeaders, ...headers} })
+    return axios.get(`${origin()}/map_points`, { params: params, headers: {...defaultHeaders(), ...headers} })
   },
   create({params, headers} = {}) {
-    return axios.post(`${origin}/map_points`, params, { headers: {...defaultHeaders, ...headers}})
+    return axios.post(`${origin()}/map_points`, params, { headers: {...defaultHeaders(), ...headers}})
   }
 
 }
