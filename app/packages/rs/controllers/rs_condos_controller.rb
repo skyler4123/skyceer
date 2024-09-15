@@ -5,6 +5,7 @@ class RsCondosController < RsController
   # GET /rs_condos or /rs_condos.json
   def index
     @rs_condos = RsCondo.all
+    @rs_condos = @rs_condos.where('price_cents <= ?', params[:price_cents]) if params[:price_cents]
   end
 
   # GET /rs_condos/1 or /rs_condos/1.json

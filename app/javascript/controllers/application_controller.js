@@ -7,6 +7,7 @@ import ControllerHelpers from "./controller_helpers";
 import ApiHelpers from "./api_helpers";
 import { CookieHelpers } from "./cookie_helpers";
 import ResponseHelpers from "./response_helpers";
+import FormHelpers from "./form_helpers";
 
 export default class ApplicationController extends Controller {
 
@@ -471,3 +472,5 @@ Object.assign(ApplicationController.prototype, ControllerHelpers)
 Object.assign(ApplicationController.prototype, ApiHelpers)
 Object.assign(ApplicationController.prototype, CookieHelpers)
 Object.assign(ApplicationController.prototype, ResponseHelpers)
+Object.assign(ApplicationController.prototype, FormHelpers)
+

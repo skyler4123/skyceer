@@ -2,6 +2,11 @@ import { RsCondosApi } from "../../../../javascript/controllers/api/rs/rs_condos
 import Libs_Map_Openlayers_IndexController from "../../../libs/map/openlayers/index_controller";
 
 export default class Views_Rs_RsCondos_IndexMapController extends Libs_Map_Openlayers_IndexController {
+  static values = {
+    ...super.values,
+    queryParams: Object
+  }
+
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/533501/house-chimney-floor.svg'})
@@ -13,7 +18,7 @@ export default class Views_Rs_RsCondos_IndexMapController extends Libs_Map_Openl
     this.initHTML()
     super.initComplete()
     this.initBlindingFunctions()
-    this.initPointsValue()
+    // this.initPointsValue()
     this.initPointerHoverOnFeature()
     this.initOpenUrlOnClickFeature()
   }
@@ -44,10 +49,20 @@ export default class Views_Rs_RsCondos_IndexMapController extends Libs_Map_Openl
     }
   }
 
-  async initPointsValue() {
-    const res = await RsCondosApi.index()
+  // async initPointsValue() {
+  //   const res = await RsCondosApi.index()
+  //   let points = res.data
+  //   this.pointsValue = points
+  // }
+  
+  async queryParamsValueChanged(value, previousValue) {
+    const res = await RsCondosApi.index({params: value})
     let points = res.data
     this.pointsValue = points
   }
-  
+
+  receive(event) {
+    console.log(event)
+    this.queryParamsValue = event.detail.queryParams
+  }
 }

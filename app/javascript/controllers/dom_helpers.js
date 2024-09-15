@@ -76,6 +76,14 @@ const DomHelpers = {
   updateText(element, newText) {
     element.innerText = newText
   },
+
+  rawId(element) {
+    return element.id.split(":")[1]
+  },
+
+  rawIdentifier(element) {
+    return element.id.split(":")[0]
+  }
 }
 
 export default DomHelpers;
