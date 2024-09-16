@@ -22,12 +22,7 @@ export default class extends Views_Rs_LayoutController {
   }
 
   initConnection() {
-    setTimeout(() => {
-      this.addAction(this.mapTarget, `${this.searchTarget.id}@window->${this.rawIdentifier(this.mapTarget)}#receive`)
-  
-    }, 2000)
-    // event['payload'] = { ...this.getEventWithAction('close'), controller: this }
-    // this.dispatch('dispatch', { detail: { event: event } })
+    this.createEventBrige({fromElement: this.searchTarget, toElement: this.mapTarget, toAction: "receiveFromSearch"})
   }
 
 }

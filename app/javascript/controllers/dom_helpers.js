@@ -78,12 +78,23 @@ const DomHelpers = {
   },
 
   rawId(element) {
+    this.getId(element)
     return element.id.split(":")[1]
   },
 
   rawIdentifier(element) {
+    this.getId(element)
     return element.id.split(":")[0]
-  }
+  },
+
+  getId(element) {
+    if (element.id) {
+      return element.id
+    } else {
+      element.id = `${this.getControllerIdentifier(element)}:${this.newUUID}`
+      return element.id
+    }
+  } 
 }
 
 export default DomHelpers;

@@ -301,7 +301,12 @@ export default class ApplicationController extends Controller {
   }
 
   get id() {
-    return this.element.id
+    if (this.element.id) {
+      return this.element.id
+    } else {
+      this.element.id = `${this.getControllerIdentifier(this.element)}:${this.newUUID}`
+      return this.element.id
+    }
   }
   
   get eventParams() {
@@ -462,6 +467,14 @@ export default class ApplicationController extends Controller {
 
   isFail(response) {
     return !this.isSuccess(response)
+  }
+
+  createEventBrige({fromElement, toElement, toAction}) {
+    this.addAction(toElement, `${this.getId(fromElement)}@window->${this.rawIdentifier(toElement)}#${toAction}`)
+  }
+
+  dispatchGlobal({payload}) {
+    this.dispatch(this.rawId(this.element), { detail: payload })
   }
 }
 

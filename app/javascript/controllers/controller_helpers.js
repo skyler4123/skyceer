@@ -163,6 +163,10 @@ const ControllerHelpers = {
   getEventWithAction(action) {
     return this.eventsParams.find(event => event.action === action)
   },
+
+  getControllerIdentifier(element) {
+    return element.dataset.controller.split(" ")[0]
+  }
 }
 
 export default ControllerHelpers;

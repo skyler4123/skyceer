@@ -48,12 +48,6 @@ export default class Views_Rs_RsCondos_IndexMapController extends Libs_Map_Openl
       }
     }
   }
-
-  // async initPointsValue() {
-  //   const res = await RsCondosApi.index()
-  //   let points = res.data
-  //   this.pointsValue = points
-  // }
   
   async queryParamsValueChanged(value, previousValue) {
     const res = await RsCondosApi.index({params: value})
@@ -61,8 +55,7 @@ export default class Views_Rs_RsCondos_IndexMapController extends Libs_Map_Openl
     this.pointsValue = points
   }
 
-  receive(event) {
-    console.log(event)
+  receiveFromSearch(event) {
     this.queryParamsValue = event.detail.queryParams
   }
 }

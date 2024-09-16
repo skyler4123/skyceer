@@ -25,11 +25,7 @@ export default class extends ApplicationController {
   }
 
   queryParamsValueChanged(value, previousValue) {
-    this.dispatch(this.rawId(this.element), { detail: { queryParams: value } })
+    this.dispatchGlobal({payload: { queryParams: value }})
   }
-  // async initPointsValue() {
-  //   const res = await RsCondosApi.index()
-  //   let points = res.data
-  //   this.pointsValue = points
-  // }
+
 }
