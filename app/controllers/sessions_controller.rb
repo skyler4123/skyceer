@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
       @session = create_session_for_all_package(user: user)
       # cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
       set_cookie(session: @session, user: user)
-      redirect_to referer_params[:redirect_to] || root_path, notice: "Signed in successfully"
+      redirect_to referer_params&[:redirect_to] || root_path, notice: "Signed in successfully"
     else
       redirect_to sign_in_path(email_hint: params[:email]), alert: "That email or password is incorrect"
     end
