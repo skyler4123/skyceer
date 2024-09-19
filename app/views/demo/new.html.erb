@@ -11,12 +11,7 @@
 
 
 
-
-<%= turbo_stream_from("abc") %>
-<div><%= Turbo::StreamsChannel.signed_stream_name("abc") %></div>
-<% User.all.each do |user| %>
-  <div data-chat-chat-user-id-param="<%= ChatUser.find_by(user_id: user.id).id %>">User name: <%= user.name %></div>
-<% end %>
+<div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="66e3158ac43324d154e7f414" data-views--chat--box-chat-conversation-id-value="66e3158bc43324d154e7f417"></div>
 
 
 <div>/</div>
