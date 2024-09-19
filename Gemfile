@@ -102,6 +102,8 @@ gem 'rswag-api'
 gem 'rswag-ui'
 
 gem "solid_queue"
+gem "solid_cable"
+gem "solid_cache"
 gem "mission_control-jobs"
 
 gem "elasticsearch-model"

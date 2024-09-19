@@ -16,6 +16,10 @@ queue: &queue
   <<: *default
   migrations_paths: db/queue_migrate
 
+cable: &cable
+  <<: *default
+  migrations_paths: db/cable_migrate
+
 development:
   primary:
     <<: *default
@@ -26,6 +30,9 @@ development:
   queue:
     <<: *queue
     database: queue_development
+  cable:
+    <<: *cable
+    database: cable_development
     
 test:
   primary:
@@ -37,6 +44,9 @@ test:
   queue:
     <<: *queue
     database: queue_test
+  cable:
+    <<: *cable
+    database: cable_test
 
 production:
   primary:
@@ -48,3 +58,6 @@ production:
   queue:
     <<: *queue
     database: queue_production
+  cable:
+    <<: *cable
+    database: cable_production
