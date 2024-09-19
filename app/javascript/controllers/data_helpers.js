@@ -469,6 +469,29 @@ const DataHelpers = {
     newArray.sort(sortFunction)
     let newIndex = newArray.map(element => array.indexOf(element))
     return [newArray, newIndex]
+  },
+
+  onlyUniqueArray(value, index, array) {
+    return array.indexOf(value) === index;
+  },
+
+  unique(array) {
+    return array.filter(this.onlyUniqueArray)
+  },
+
+  difference(array1, array2) {
+    let result = {}
+    result["add"] = array1.filter((item) => !array2.includes(item));
+    result["subtract"] = array2.filter((item) => !array1.includes(item));
+    return result
+  },
+
+  removeFromArray({array, item}) {
+    const index = array.indexOf(item);
+    if (index > -1) { // only splice array when item is found
+      array.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    return array
   }
 
 }

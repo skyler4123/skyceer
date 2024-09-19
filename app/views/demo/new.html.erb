@@ -12,11 +12,11 @@
 
 
 
-
-    <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_text }) %>
-    <%= text(label: 'Test Copy Text 1111', event_id: id) %>
-    <%= button(label: 'Press to Copy', event: { id: new_id, listener: :click, action: :copy_text }) %>
-    <%= text(event_id: id) { "Test to copy 22222"} %>
+<%= turbo_stream_from("abc") %>
+<div><%= Turbo::StreamsChannel.signed_stream_name("abc") %></div>
+<% User.all.each do |user| %>
+  <div data-chat-chat-user-id-param="<%= ChatUser.find_by(user_id: user.id).id %>">User name: <%= user.name %></div>
+<% end %>
 
 
 <div>/</div>
