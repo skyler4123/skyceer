@@ -20,6 +20,10 @@ cable: &cable
   <<: *default
   migrations_paths: db/cable_migrate
 
+cache: &cache
+  <<: *default
+  migrations_paths: db/cache_migrate
+
 development:
   primary:
     <<: *default
@@ -33,6 +37,9 @@ development:
   cable:
     <<: *cable
     database: cable_development
+  cache:
+    <<: *cache
+    database: cache_development
     
 test:
   primary:
@@ -47,6 +54,9 @@ test:
   cable:
     <<: *cable
     database: cable_test
+  cache:
+    <<: *cache
+    database: cache_test
 
 production:
   primary:
@@ -61,3 +71,6 @@ production:
   cable:
     <<: *cable
     database: cable_production
+  cache:
+    <<: *cache
+    database: cache_production

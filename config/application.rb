@@ -48,5 +48,6 @@ module Skyceer
     config.active_job.queue_adapter = :solid_queue
     config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
     # config.solid_queue.silence_polling = false
+    config.cache_store = :solid_cache_store
   end
 end
