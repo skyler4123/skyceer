@@ -9,7 +9,7 @@
 
 
 return if ENV['RAILS_ENV'] == 'production'
-REDIS.set('time', Date.current.to_s)
+# REDIS.set('time', Date.current.to_s)
 
 
 
