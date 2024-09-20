@@ -5,14 +5,14 @@ default:
   size_estimate_samples: 1000
 
 development: &development
-  database: cache_development
+  database: cache
   store_options:
     <<: *default_store_options
     max_size: <%= 256.gigabytes %>
 
 production: &production
   # databases: [production_cache1, production_cache2]
-  databases: cache_production
+  databases: cache
   store_options:
     <<: *default_store_options
     max_entries: <%= 256.gigabytes %>
