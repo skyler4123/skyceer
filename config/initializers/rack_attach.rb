@@ -114,6 +114,6 @@
 #   end
 # end
 
-Rack::Attack.throttle('req/ip', limit: 3, period: 30.seconds) do |req|
-  req.ip
+Rack::Attack.throttle('req/ip', limit: 20, period: 20.seconds) do |req|
+  req.ip unless req.path.starts_with?('/assets')
 end
