@@ -1,3 +1,7 @@
+Rack::Attack.throttle('req/ip', limit: 20, period: 20.seconds) do |req|
+  req.ip unless req.path.starts_with?('/assets')
+end
+
 # # config/initializers/rack_attack.rb (for rails apps)
 # # Provided that trusted users use an HTTP request header named APIKey
 # Rack::Attack.safelist("mark any authenticated access safe") do |request|
@@ -113,7 +117,3 @@
 #     STATSD.increment("special_agent")
 #   end
 # end
-
-Rack::Attack.throttle('req/ip', limit: 20, period: 20.seconds) do |req|
-  req.ip unless req.path.starts_with?('/assets')
-end
