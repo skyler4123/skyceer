@@ -21,10 +21,7 @@
 
 
 
-<div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="<%= ChatConversation.first.chat_user_ids.sample %>" data-views--chat--box-chat-conversation-id-value="<%= ChatConversation.first.id %>"></div>
-<div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="<%= ChatConversation.second.chat_user_ids.sample %>" data-views--chat--box-chat-conversation-id-value="<%= ChatConversation.second.id %>"></div>
-
-<% User.first(10).each do |user| %>
+<% User.all.order(created_at: :asc).first(10).each do |user| %>
   <div data-chat-guest-chat-user-id-param="<%= ChatUser.find_by(user_id: user.id).id %>">User name: <%= user.name %></div>
 <% end %>
 

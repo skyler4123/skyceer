@@ -69,6 +69,21 @@ class ChatConversationsController < ApplicationController
     end
   end
 
+  def box
+    @chat_conversations = ChatConversation.all
+    @host_chat_user_id = Current.chat_user_id
+    @guest_chat_user_id = params[:guest_chat_user_id] if params[:guest_chat_user_id].present?
+    return if @guest_chat_user_id.include?(@host_chat_user_id)
+    chat_user_ids = [@host_chat_user_id, @guest_chat_user_id].flatten.sort
+    # @chat_conversations = @chat_conversations.all(chat_user_ids: chat_user_ids)
+    @chat_conversations = @chat_conversations.where(chat_user_ids: chat_user_ids)
+    if @chat_conversations.empty?
+      @chat_conversation = ChatConversation.create(chat_user_ids: chat_user_ids)
+    else
+      @chat_conversation = @chat_conversations.last
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_chat_conversation

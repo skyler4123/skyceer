@@ -1,3 +1,4 @@
+import { ChatConversationsApi } from "./api/chat/chat_conversations_api"
 import ApplicationController from "./application_controller"
 import { boxChat, icon } from "./components"
 
@@ -41,7 +42,6 @@ export default class ChatController extends ApplicationController {
   }
 
   removeGuestChatUserId(event) {
-    console.log(event)
     this.guestChatUserIdValue = this.removeFromArray({array: this.guestChatUserIdValue, item: event.params.guestChatUserId})
   }
 
@@ -52,6 +52,7 @@ export default class ChatController extends ApplicationController {
 
     if (addedGuestChatUserId) {
       // this.boxeseTarget.insertAdjacentHTML("beforeend", boxChat({guestChatUserId: , chatConversationId:}))
+      this.addChatBox({guestChatUserId: addedGuestChatUserId})
     }
 
     if (subtractedGuestChatUserId) {
@@ -62,6 +63,13 @@ export default class ChatController extends ApplicationController {
       })
     }
 
+  }
+
+  async addChatBox({guestChatUserId}) {
+    let response = await ChatConversationsApi.box({params: {guest_chat_user_id: guestChatUserId}})
+    let chatUserId = response.data.chat_user_id
+    let chatConversationId = response.data.id
+    this.boxeseTarget.insertAdjacentHTML("beforeend", boxChat({chatUserId: chatUserId, chatConversationId: chatConversationId}))
   }
 
   openChatBox(event) {
@@ -92,7 +100,7 @@ export default class ChatController extends ApplicationController {
       default: {
         element: "",
         triggerTarget: "cursor-pointer",
-        boxeseTarget: 'flex flex-row-reverse w-full h-[700px] fixed bottom-0 right-0 pointer-events-none'
+        boxeseTarget: 'flex flex-row-reverse w-full h-[700px] fixed bottom-0 right-0 -z-50'
       }
     }
   }

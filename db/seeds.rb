@@ -33,8 +33,9 @@ RsUser.destroy_all
 RsCondo.destroy_all
 RsHotel.destroy_all
 
+SEED_NUMBER = 10
 # APPLICATION PACKAGE
-10.times do |n|
+SEED_NUMBER.times do |n|
   user = User.create(
     email: "email#{n + 1}@gmail.com",
     password: "password1234",
@@ -43,7 +44,7 @@ RsHotel.destroy_all
     name: "user name #{n + 1}"
   )
 end
-User.first(10).each do |user|
+User.first(SEED_NUMBER).each do |user|
   # Session.create!(
   #   name: user.name,
   #   email: user.email,
@@ -164,10 +165,13 @@ end
 
 
 # CHAT PACKAGE
-ChatUser.each do |user|
+ChatUser.each do |chat_user|
   # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
-  ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..2).to_a.sample).map(&:to_s))
+  # ChatConversation.create(chat_user_ids: [ChatUser.first.id, ChatUser.second.id])
+  # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..2).to_a.sample).map(&:to_s))
+  ChatConversation.create(chat_user_ids: [chat_user.id.to_s, ChatUser.where.not(id: chat_user.id).first(SEED_NUMBER - 1).sample.id.to_s])
 end
+
 50.times do |n|
   chat_conversation = ChatConversation.all.sample
   chat_user_ids = chat_conversation.chat_user_ids
@@ -191,7 +195,7 @@ ArticleUser.each_with_index do |user, user_index|
     ArticlePost.create(article_user: user, package: 'vehicle', title: "title_#{n}", content: content)
   end
 end
-10.times do |n|
+SEED_NUMBER.times do |n|
   article_post = ArticlePost.all.sample
   article_user = ArticleUser.all.sample
   article_post.article_comments << ArticleComment.new(article_user_id: article_user.id, content: "comment_#{n}")

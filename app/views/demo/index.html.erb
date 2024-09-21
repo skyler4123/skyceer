@@ -39,8 +39,11 @@
       <div class="swiper-slide bg-blue-500">Slide 3</div>
     <% end %>
 
+    <div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="<%= ChatConversation.first.chat_user_ids.sample %>" data-views--chat--box-chat-conversation-id-value="<%= ChatConversation.first.id %>"></div>
+    <div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="<%= ChatConversation.second.chat_user_ids.sample %>" data-views--chat--box-chat-conversation-id-value="<%= ChatConversation.second.id %>"></div>
+
     <% User.first(10).each do |user| %>
-      <div data-chat-chat-user-id-param="<%= ChatUser.find_by(user_id: user.id).id %>">Chat with user name: <%= user.name %></div>
+      <div data-chat-guest-chat-user-id-param="<%= ChatUser.find_by(user_id: user.id).id %>">User name: <%= user.name %></div>
     <% end %>
 
     <%= render(Libs::Code::HighlightComponent.new) %>

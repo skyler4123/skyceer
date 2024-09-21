@@ -49,7 +49,11 @@ Rails.application.routes.draw do
   resources :calendar_users
 
   # CHAT package
-  resources :chat_conversations
+  resources :chat_conversations do
+    collection do
+      get :box
+    end
+  end
   resources :chat_messages
   resources :chat_users
 
