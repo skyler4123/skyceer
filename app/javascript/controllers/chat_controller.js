@@ -1,12 +1,12 @@
 import ApplicationController from "./application_controller"
-import { icon } from "./components"
+import { boxChat, icon } from "./components"
 
 export default class ChatController extends ApplicationController {
   static targets = ["trigger", "boxese", "box", "closeButton", "chatMessages", "input", "send"]
   static values = {
     ...super.values,
     chatConversationId: { type: Array, default: [] },
-    chatUserId: { type: Array, default: [] }
+    guestChatUserId: { type: Array, default: [] },
   }
 
   initParams() {
@@ -20,7 +20,7 @@ export default class ChatController extends ApplicationController {
   }
 
   initTarget() {
-    this.element.querySelectorAll(`[data-${this.identifier}-chat-user-id-param]`).forEach((target) => {
+    this.element.querySelectorAll(`[data-${this.identifier}-guest-chat-user-id-param]`).forEach((target) => {
       target.setAttribute(`data-${this.identifier}-target`, 'trigger')
     })
   }
@@ -32,31 +32,31 @@ export default class ChatController extends ApplicationController {
 
   initAction() {
     this.triggerTargets.forEach((target) => {
-      this.addAction(target, `click->${this.identifier}#addChatUserId`)
+      this.addAction(target, `click->${this.identifier}#addGuestChatUserId`)
     })
   }
 
-  addChatUserId(event) {
-    this.chatUserIdValue = this.unique([...this.chatUserIdValue, event.params.chatUserId])
+  addGuestChatUserId(event) {
+    this.guestChatUserIdValue = this.unique([...this.guestChatUserIdValue, event.params.guestChatUserId])
   }
 
-  removeChatUserId(event) {
+  removeGuestChatUserId(event) {
     console.log(event)
-    this.chatUserIdValue = this.removeFromArray({array: this.chatUserIdValue, item: event.params.chatUserId})
+    this.guestChatUserIdValue = this.removeFromArray({array: this.guestChatUserIdValue, item: event.params.guestChatUserId})
   }
 
-  chatUserIdValueChanged(value, previousValue) {
+  guestChatUserIdValueChanged(value, previousValue) {
     if (value.length < 1) { return }
-    let addedChatUserId = this.difference(value, previousValue)['add'][0]
-    let subtractedChatUserId = this.difference(value, previousValue)['subtract'][0]
+    let addedGuestChatUserId = this.difference(value, previousValue)['add'][0]
+    let subtractedGuestChatUserId = this.difference(value, previousValue)['subtract'][0]
 
-    if (addedChatUserId) {
-      this.boxeseTarget.insertAdjacentHTML("beforeend", this.boxHTML({chatUserId: addedChatUserId}))
+    if (addedGuestChatUserId) {
+      // this.boxeseTarget.insertAdjacentHTML("beforeend", boxChat({guestChatUserId: , chatConversationId:}))
     }
 
-    if (subtractedChatUserId) {
+    if (subtractedGuestChatUserId) {
       this.boxTargets.forEach((target) => {
-        if (target.getAttribute(`data-${this.identifier}-chat-user-id-param`) === subtractedChatUserId) {
+        if (target.getAttribute(`data-${this.identifier}-guest-chat-user-id-param`) === subtractedGuestChatUserId) {
           target.remove()
         }
       })
@@ -91,7 +91,8 @@ export default class ChatController extends ApplicationController {
     return {
       default: {
         element: "",
-        boxeseTarget: 'flex flex-row-reverse w-full h-[700px] fixed bottom-0 right-0'
+        triggerTarget: "cursor-pointer",
+        boxeseTarget: 'flex flex-row-reverse w-full h-[700px] fixed bottom-0 right-0 pointer-events-none'
       }
     }
   }
@@ -102,9 +103,9 @@ export default class ChatController extends ApplicationController {
     `
   }
 
-  boxHTML({chatUserId}) {
+  boxHTML({guestChatUserId}) {
     return `
-      <div data-${this.identifier}-target="box" data-${this.identifier}-chat-user-id-param="${chatUserId}" class="flex flex-col w-[400px] h-full border-2 rounded-md">
+      <div data-${this.identifier}-target="box" data-${this.identifier}-guest-chat-user-id-param="${guestChatUserId}" class="flex flex-col w-[400px] h-full border-2 rounded-md">
         <div class="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
           <div class="relative flex items-center space-x-4">
             <div class="relative">
@@ -122,7 +123,7 @@ export default class ChatController extends ApplicationController {
             </div>
           </div>
           <div class="flex items-center space-x-2">
-            <button data-${this.identifier}-target="closeButton" data-action="click->${this.identifier}#removeChatUserId" data-${this.identifier}-chat-user-id-param="${chatUserId}" type="button" class="inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+            <button data-${this.identifier}-target="closeButton" data-action="click->${this.identifier}#removeGuestChatUserId" data-${this.identifier}-guest-chat-user-id-param="${guestChatUserId}" type="button" class="inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
               ${icon({variant: ['outline', 'x-mark'], klass: 'w-5 h-5 fill-blue-950'})}
             </button>
           </div>

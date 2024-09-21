@@ -147,7 +147,7 @@ export default class extends ApplicationController {
   variantClass() {
     return {
       default: {
-        element: 'w-fit h-fit'
+        element: 'w-fit h-fit pointer-events-auto'
       }
     }
   }

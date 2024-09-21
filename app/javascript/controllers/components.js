@@ -144,3 +144,14 @@ export const video = (params = {}, content = null) => {
 export const editorjs = (params = {}, content = null) => {
   return Components('editorjs', params, content)
 }
+
+
+
+
+
+
+
+
+export const boxChat = ({chatUserId, chatConversationId}) => {
+  return `<div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="${chatUserId}" data-views--chat--box-chat-conversation-id-value="${chatConversationId}"></div>`
+}

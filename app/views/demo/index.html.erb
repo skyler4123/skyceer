@@ -39,6 +39,10 @@
       <div class="swiper-slide bg-blue-500">Slide 3</div>
     <% end %>
 
+    <% User.first(10).each do |user| %>
+      <div data-chat-chat-user-id-param="<%= ChatUser.find_by(user_id: user.id).id %>">Chat with user name: <%= user.name %></div>
+    <% end %>
+
     <%= render(Libs::Code::HighlightComponent.new) %>
 
     <%= box(event_id: new_id, klass: 'relative border-2 border-black m-4 h-[300px] overflow-hidden shadow-[inset_0_-40px_20px_-20px_rgba(0,0,0,0.5)]', expansable: {height: 300}) do %>
@@ -442,16 +446,6 @@
       <% end %>
     </div>
   
-
-
-
-    <% chat_conversation = ChatConversation.last %>
-    <% chat_user_id = chat_conversation.chat_user_ids.sample %>
-    <%= render(Views::Chat::BoxComponent.new(chat_user_id: chat_user_id.to_s, conversation_id: chat_conversation.id.to_s)) %>
-
-
-
-
 
 
 
