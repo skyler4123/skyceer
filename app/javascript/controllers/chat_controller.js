@@ -1,4 +1,5 @@
 import { ChatConversationsApi } from "./api/chat/chat_conversations_api"
+import { ChatUsersApi } from "./api/chat/chat_users_api"
 import ApplicationController from "./application_controller"
 import { boxChat, icon } from "./components"
 
@@ -6,6 +7,7 @@ export default class ChatController extends ApplicationController {
   static targets = ["trigger", "boxese", "box", "closeButton", "chatMessages", "input", "send"]
   static values = {
     ...super.values,
+    hostChatUserId: { type: String, default: "" },
     chatConversationId: { type: Array, default: [] },
     guestChatUserId: { type: Array, default: [] },
   }
@@ -38,11 +40,17 @@ export default class ChatController extends ApplicationController {
   }
 
   addGuestChatUserId(event) {
+    if (this.hostChatUserIdValue.length < 1) { this.initHostChatUserIdValue() }
     this.guestChatUserIdValue = this.unique([...this.guestChatUserIdValue, event.params.guestChatUserId])
   }
 
   removeGuestChatUserId(event) {
     this.guestChatUserIdValue = this.removeFromArray({array: this.guestChatUserIdValue, item: event.params.guestChatUserId})
+  }
+
+  async initHostChatUserIdValue() {
+    let response = await ChatUsersApi.host()
+    this.hostChatUserIdValue = response.data.host._id
   }
 
   guestChatUserIdValueChanged(value, previousValue) {
@@ -51,24 +59,15 @@ export default class ChatController extends ApplicationController {
     let subtractedGuestChatUserId = this.difference(value, previousValue)['subtract'][0]
 
     if (addedGuestChatUserId) {
-      // this.boxeseTarget.insertAdjacentHTML("beforeend", boxChat({guestChatUserId: , chatConversationId:}))
       this.addChatBox({guestChatUserId: addedGuestChatUserId})
     }
-
-    if (subtractedGuestChatUserId) {
-      this.boxTargets.forEach((target) => {
-        if (target.getAttribute(`data-${this.identifier}-guest-chat-user-id-param`) === subtractedGuestChatUserId) {
-          target.remove()
-        }
-      })
-    }
-
   }
 
   async addChatBox({guestChatUserId}) {
     let response = await ChatConversationsApi.box({params: {guest_chat_user_id: guestChatUserId}})
     let chatUserId = response.data.chat_user_id
     let chatConversationId = response.data.id
+    this.chatConversationIdValue = [...this.chatConversationIdValue, chatConversationId]
     this.boxeseTarget.insertAdjacentHTML("beforeend", boxChat({chatUserId: chatUserId, chatConversationId: chatConversationId}))
   }
 
@@ -77,15 +76,14 @@ export default class ChatController extends ApplicationController {
 
   }
 
-  closeBoxChat() {
+  // chatConversationIdValueChanged(value, previousValue) {
+  //   if (value.length < 1) { return }
+  //   let addedChatConversationId = this.difference(value, previousValue)['add'][0]
 
-  }
-
-  chatConversationIdValueChanged(value, previousValue) {
-    if (value.length < 1) { return }
-
-    console.log(value)
-  }
+  //   if (addedChatConversationId) {
+  //     this.boxeseTarget.insertAdjacentHTML("beforeend", boxChat({chatConversationId: addedChatConversationId}))
+  //   }
+  // }
 
 
 
@@ -98,9 +96,9 @@ export default class ChatController extends ApplicationController {
   variantClass() {
     return {
       default: {
-        element: "",
+        element: "z-50",
         triggerTarget: "cursor-pointer",
-        boxeseTarget: 'flex flex-row-reverse w-full h-[700px] fixed bottom-0 right-0 -z-50'
+        boxeseTarget: 'flex flex-row-reverse w-fit h-[700px] fixed bottom-0 right-0'
       }
     }
   }

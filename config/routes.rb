@@ -55,7 +55,11 @@ Rails.application.routes.draw do
     end
   end
   resources :chat_messages
-  resources :chat_users
+  resources :chat_users do
+    collection do
+      get :host
+    end
+  end
 
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"

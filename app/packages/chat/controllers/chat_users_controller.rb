@@ -63,6 +63,9 @@ class ChatUsersController < ApplicationController
     end
   end
 
+  def host
+    @chat_user = ChatUser.find(Current.chat_user_id)
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_chat_user

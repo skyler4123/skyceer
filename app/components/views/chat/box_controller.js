@@ -41,12 +41,16 @@ export default class extends ApplicationController {
     return chatUserId === this.chatUserIdValue
   }
 
-  closeBoxchat() {
+  closeBoxChat() {
     this.element.remove()
   }
 
   scrollToBottom() {
     this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight)
+  }
+
+  chatCOntrollerIdentifier() {
+    return "chat"
   }
 
   initTurboEvent() {
@@ -87,7 +91,7 @@ export default class extends ApplicationController {
           </div>
         </div>
         <div class="flex items-center space-x-2">
-          <button data-${this.identifier}-target="closeButton" data-action="click->${this.identifier}#closeBoxchat" type="button" class="inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+          <button data-${this.identifier}-target="closeButton" data-${this.chatCOntrollerIdentifier()}-chat-conversation-id-param="${this.chatConversationIdValue}" data-action="click->${this.identifier}#closeBoxChat click->${this.chatCOntrollerIdentifier()}#removeCHatConversationId" type="button" class="cursor-pointer inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
             ${icon({variant: ['outline', 'x-mark'], klass: 'w-5 h-5 fill-blue-950'})}
           </button>
         </div>
@@ -257,7 +261,7 @@ export default class extends ApplicationController {
   //   return !this.isHostChatUser(chatUserId)
   // }
 
-  // closeBoxchat() {
+  // closeBoxChat() {
   //   this.element.remove()
   // }
 
@@ -298,7 +302,7 @@ export default class extends ApplicationController {
   //         </div>
   //       </div>
   //       <div class="flex items-center space-x-2">
-  //         <button data-${this.identifier}-target="closeButton" data-action="click->${this.identifier}#closeBoxchat" type="button" class="inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+  //         <button data-${this.identifier}-target="closeButton" data-action="click->${this.identifier}#closeBoxChat" type="button" class="inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
   //           ${icon({variant: ['outline', 'x-mark'], klass: 'w-5 h-5 fill-blue-950'})}
   //         </button>
   //       </div>
