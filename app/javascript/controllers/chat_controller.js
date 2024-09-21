@@ -10,6 +10,7 @@ export default class ChatController extends ApplicationController {
     hostChatUserId: { type: String, default: "" },
     chatConversationId: { type: Array, default: [] },
     guestChatUserId: { type: Array, default: [] },
+    guestChatUserIdWithChatConversationId: { type: Array, default: [] }
   }
 
   initParams() {
