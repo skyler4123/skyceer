@@ -11,7 +11,9 @@
 
 
 
-<div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="66e3158ac43324d154e7f414" data-views--chat--box-chat-conversation-id-value="66e3158bc43324d154e7f417"></div>
+<div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="<%= ChatConversation.first.chat_user_ids.sample %>" data-views--chat--box-chat-conversation-id-value="<%= ChatConversation.first.id %>"></div>
+<div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="<%= ChatConversation.second.chat_user_ids.sample %>" data-views--chat--box-chat-conversation-id-value="<%= ChatConversation.second.id %>"></div>
+
 
 
 <div>/</div>

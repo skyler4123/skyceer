@@ -17,7 +17,7 @@ export default class extends ApplicationController {
   }
 
   init() {
-    // console.log('sakadjlkasjlk')
+    this.initTurboEvent()
   }
 
 
@@ -25,7 +25,6 @@ export default class extends ApplicationController {
     if (this.isUndefined(value)) { return }
 
     let response = await ChatConversationsApi.show({id: value})
-    console.log(response)
     this.guestChatUserIdValue = this.removeFromArray({array: response.data.chat_user_ids, item: this.chatUserIdValue})
     let chatMessages = response.data.chat_messages
 
@@ -35,6 +34,7 @@ export default class extends ApplicationController {
     chatMessages.forEach((message) => {
       this.messagesTarget.insertAdjacentHTML('beforeend', this.chatMessageHTML({chatUserId: message.chat_user_id, messageContent: message.content}))
     })
+    this.scrollToBottom()
   }
 
   isHostChatUser(chatUserId) {
@@ -43,6 +43,28 @@ export default class extends ApplicationController {
 
   closeBoxchat() {
     this.element.remove()
+  }
+
+  scrollToBottom() {
+    this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight)
+  }
+
+  initTurboEvent() {
+    document.addEventListener("turbo:before-stream-render", ((event) => {
+      let eventTurboStreamTargetId = event.target.target
+      if (eventTurboStreamTargetId === this.messagesTarget.id) { 
+        const fallbackToDefaultActions = event.detail.render
+        event.detail.render = (streamElement) => {
+          const template = streamElement.querySelector('template')
+          try {
+            const [chatUserId, content] = JSON.parse(template.innerHTML)
+            template.innerHTML = this.chatMessageHTML({chatUserId: chatUserId, messageContent: content})
+            fallbackToDefaultActions(streamElement)
+            this.scrollToBottom()
+          } catch(error) {}
+        }
+       }
+    }))
   }
 
   initHTML() {
@@ -106,7 +128,7 @@ export default class extends ApplicationController {
         ${this.isHostChatUser(chatUserId) ? "dir='rtl'" : "dir='ltr'"}
         class="flex flex-row items-end justify-center w-full h-fit gap-x-2"
         data-${this.identifier}-target="message"
-        data-chat-user-id="${chatUserId}"
+        data-${this.identifier}-chat-user-id-param="${chatUserId}"
       >
         <img
           class="w-6 h-6 rounded-full"
@@ -186,7 +208,7 @@ export default class extends ApplicationController {
   //         const [chatUserId, content] = JSON.parse(template.innerHTML)
   //         template.innerHTML = this.newChatMessageHTML({chatUserId: chatUserId, messageContent: content})
   //         fallbackToDefaultActions(streamElement)
-  //         this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight)
+  //         this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight)
   //       } catch(error) {}
   //     }
   //   }))
@@ -208,9 +230,9 @@ export default class extends ApplicationController {
   //   ChatConversationsApi.show({id: this.conversationIdParams}).then(response => {
   //     const messagesData = response.data
   //     messagesData.messages.forEach(message => {
-  //       this.chatMessagesTarget.insertAdjacentHTML('beforeend', this.newChatMessageHTML({chatUserId: message.chat_user_id, messageContent: message.content}))
+  //       this.messagesTarget.insertAdjacentHTML('beforeend', this.newChatMessageHTML({chatUserId: message.chat_user_id, messageContent: message.content}))
   //     })
-  //     this.chatMessagesTarget.scrollTo(0, this.chatMessagesTarget.scrollHeight) 
+  //     this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight) 
   //   })
   // }
 
