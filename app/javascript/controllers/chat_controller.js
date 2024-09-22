@@ -81,6 +81,10 @@ export default class ChatController extends ApplicationController {
     }
   }
 
+  removeChatConversationId(event) {
+    this.chatConversationIdValue = this.removeFromArray({array: this.chatConversationIdValue, item: event.params.chatConversationId})
+  }
+
   variantClass() {
     return {
       default: {
