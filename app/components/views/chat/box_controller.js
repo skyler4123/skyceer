@@ -1,6 +1,5 @@
 import { ChatConversationsApi } from "../../../javascript/controllers/api/chat/chat_conversations_api";
 import { ChatMessagesApi } from "../../../javascript/controllers/api/chat/chat_messages_api";
-import { ChatUsersApi } from "../../../javascript/controllers/api/chat/chat_users_api";
 import ApplicationController from "../../../javascript/controllers/application_controller";
 import { icon } from "../../../javascript/controllers/components";
 
@@ -70,6 +69,14 @@ export default class extends ApplicationController {
     }))
   }
 
+  createChatMessage(event) {
+    ChatMessagesApi.create({params: {
+      chat_conversation_id: this.chatConversationIdValue,
+      content: this.inputTarget.value
+    }})
+    this.inputTarget.value = ''
+    this.inputTarget.focus()
+  }
   initHTML() {
     const html = `
     <div class="flex-1 p:2 sm:p-6 justify-between flex flex-col w-[400px] h-[500px] border-2 rounded-md">
