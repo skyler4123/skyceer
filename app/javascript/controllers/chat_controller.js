@@ -10,12 +10,10 @@ export default class ChatController extends ApplicationController {
     hostChatUserId: { type: String, default: "" },
     chatConversationId: { type: Array, default: [] },
     guestChatUserId: { type: Array, default: [] },
-    guestChatUserIdWithChatConversationId: { type: Array, default: [] }
   }
 
   initParams() {
     this.setParams({ name: 'variant', defaultValue: 'default' })
-    // this.setParams({ name: 'id', defaultValue: 'chat_boxes' })
   }
 
   init() {
@@ -31,7 +29,6 @@ export default class ChatController extends ApplicationController {
 
   initHTML() {
     this.element.insertAdjacentHTML("beforeend", this.boxeseHTML())
-    // this.boxeseTarget.innerHTML = this.boxHTML()
   }
 
   initAction() {
@@ -41,8 +38,11 @@ export default class ChatController extends ApplicationController {
   }
 
   addGuestChatUserId(event) {
-    if (this.hostChatUserIdValue.length < 1) { this.initHostChatUserIdValue() }
+    if (this.hostChatUserIdValue.length < 1) {
+      this.initHostChatUserIdValue()
+    }
     this.guestChatUserIdValue = this.unique([...this.guestChatUserIdValue, event.params.guestChatUserId])
+    this.guestChatUserIdWithChatConversationIdHashValue = {...this.guestChatUserIdWithChatConversationIdHashValue, [event.params.guestChatUserId]: ""}
   }
 
   removeGuestChatUserId(event) {
@@ -58,7 +58,6 @@ export default class ChatController extends ApplicationController {
     if (value.length < 1) { return }
     let addedGuestChatUserId = this.difference(value, previousValue)['add'][0]
     let subtractedGuestChatUserId = this.difference(value, previousValue)['subtract'][0]
-
     if (addedGuestChatUserId) {
       this.addChatBox({guestChatUserId: addedGuestChatUserId})
     }
@@ -72,27 +71,15 @@ export default class ChatController extends ApplicationController {
     this.boxeseTarget.insertAdjacentHTML("beforeend", boxChat({chatUserId: chatUserId, chatConversationId: chatConversationId}))
   }
 
-  openChatBox(event) {
-    console.log(event.target)
-
+  chatConversationIdValueChanged(value, previousValue) {
+    if (value.length < 1) { return }
+    let addedGuestChatUserId = this.difference(value, previousValue)['add'][0]
+    let subtractedGuestChatUserId = this.difference(value, previousValue)['subtract'][0]
+    if (subtractedGuestChatUserId) {
+      let subtractIndex = previousValue.indexOf(subtractedGuestChatUserId)
+      this.guestChatUserIdValue = this.removeFromArray({array: this.guestChatUserIdValue, index: subtractIndex})
+    }
   }
-
-  // chatConversationIdValueChanged(value, previousValue) {
-  //   if (value.length < 1) { return }
-  //   let addedChatConversationId = this.difference(value, previousValue)['add'][0]
-
-  //   if (addedChatConversationId) {
-  //     this.boxeseTarget.insertAdjacentHTML("beforeend", boxChat({chatConversationId: addedChatConversationId}))
-  //   }
-  // }
-
-
-
-
-
-
-
-
 
   variantClass() {
     return {

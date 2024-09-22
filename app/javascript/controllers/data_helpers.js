@@ -486,12 +486,19 @@ const DataHelpers = {
     return result
   },
 
-  removeFromArray({array, item}) {
-    const index = array.indexOf(item);
-    if (index > -1) { // only splice array when item is found
-      array.splice(index, 1); // 2nd parameter means remove one item only
+  removeFromArray({array, item = undefined, index = undefined} = {}) {
+    if (this.isDefined(item)) {
+      const index = array.indexOf(item);
+      if (index > -1) { // only splice array when item is found
+        array.splice(index, 1); // 2nd parameter means remove one item only
+      }
+      return array
+    } else if (this.isDefined(index)) {
+      if (index > -1) { // only splice array when item is found
+        array.splice(index, 1); // 2nd parameter means remove one item only
+      }
+      return array
     }
-    return array
   }
 
 }
