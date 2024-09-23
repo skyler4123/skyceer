@@ -117,4 +117,4 @@ gem 'omniauth-google-oauth2'
 gem 'money-rails'
 gem 'eu_central_bank'
 
-gem "kamal"
+gem "kamal", "1.8.3"
