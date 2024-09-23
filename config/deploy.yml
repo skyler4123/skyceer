@@ -77,12 +77,12 @@ accessories:
     host: <%= ENV["KAMAL_ELASTICSEARCH_HOST"] %>
     port: <%= ENV["KAMAL_ELASTICSEARCH_PORT"] %>
     volumes:
-      - /var/lib/postgres:/data
+      - /var/lib/elasticsearch:/data
 
 # Configure a custom healthcheck (default is /up on port 3000)
 healthcheck:
   # path: /up
   interval: 10s
-  max_attempts: 50
+  max_attempts: 20
 #   port: 3000
 #   exposed_port: 3000
