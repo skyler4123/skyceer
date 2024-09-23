@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class Views::Users::IndexComponent < ApplicationComponent
+class Views::Application::Users::ShowComponent < ApplicationComponent
 end

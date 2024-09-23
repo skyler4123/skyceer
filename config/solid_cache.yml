@@ -12,7 +12,8 @@ development: &development
 
 production: &production
   # databases: [production_cache1, production_cache2]
-  databases: cache
+  databases: [cache]
+  # databases: cache
   store_options:
     <<: *default_store_options
     max_entries: <%= 256.gigabytes %>

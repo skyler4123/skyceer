@@ -11,10 +11,18 @@ servers:
       - <%= ENV["KAMAL_WEB_HOST"] %>
     # volumes:
     #   - ".:/rails"
+  # job:
+  #   hosts:
+  #     - <%= ENV["KAMAL_JOB_HOST"] %>
+  #   cmd: bundle exec sidekiq
   job:
     hosts:
       - <%= ENV["KAMAL_JOB_HOST"] %>
     cmd: bundle exec rails bin/jobs
+  # websocket:
+  #   hosts:
+  #     - <%= ENV[""] %>
+  #   cmd: bin/rails runner lib/websockets/websocket.rb
 
 # Credentials for your image host.
 registry:
@@ -43,15 +51,39 @@ env:
     - TINYMCE_URL
 
 # Use a different ssh user than root
-# ssh:
+ssh:
   # user: { AWS: ubuntu, DigitalOcean: root }
-  # user: <%= ENV["KAMAL_SSH_USER"] %>
+  user: <%= ENV["KAMAL_SSH_USER"] %>
   # proxy:
   #   - "ubuntu@13.250.29.204"
   #   - "ubuntu@54.255.170.174"
 
+# Configure builder setup.
+# builder:
+#   args:
+#     RUBY_VERSION: 3.2.0
+#   secrets:
+#     - GITHUB_TOKEN
+#   remote:
+#     arch: amd64
+#     host: ssh://app@192.168.0.1
+
 # Use accessory services (secrets come from .env).
 accessories:
+#   db:
+#     image: mysql:8.0
+#     host: 192.168.0.2
+#     port: 3306
+#     env:
+#       clear:
+#         MYSQL_ROOT_HOST: '%'
+#       secret:
+#         - MYSQL_ROOT_PASSWORD
+#     files:
+#       - config/mysql/production.cnf:/etc/mysql/my.cnf
+#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+#     directories:
+#       - data:/var/lib/mysql
   postgres:
     image: postgres:latest
     host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
@@ -78,6 +110,20 @@ accessories:
     port: <%= ENV["KAMAL_ELASTICSEARCH_PORT"] %>
     volumes:
       - /var/lib/postgres:/data
+  # redis:
+  #   image: redis:latest
+  #   host: <%= ENV["KAMAL_REDIS_HOST"] %>
+  #   port: <%= ENV["REDIS_PORT"] %>
+  #   volumes:
+  #     - /var/lib/redis:/data
+
+# Configure custom arguments for Traefik
+# traefik:
+#   options:
+#     network: "skyceer-network"
+#   args:
+#     accesslog: true
+#     accesslog.format: json
 
 # Configure a custom healthcheck (default is /up on port 3000)
 healthcheck:
@@ -86,3 +132,16 @@ healthcheck:
   max_attempts: 50
 #   port: 3000
 #   exposed_port: 3000
+
+# Bridge fingerprinted assets, like JS and CSS, between versions to avoid
+# hitting 404 on in-flight requests. Combines all files from new and old
+# version inside the asset_path.
+# asset_path: /rails/public/assets
+
+# Configure rolling deploys by setting a wait time between batches of restarts.
+# boot:
+#   limit: 10 # Can also specify as a percentage of total hosts, such as "25%"
+#   wait: 2
+# labels:
+  # traefik.http.routers.skyceer-web.rule: Host(`143.198.90.214`)
+  # traefik.http.routers.skyceerjob-web.rule: Host(`admin.143.198.90.214`)
