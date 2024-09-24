@@ -8,12 +8,12 @@ image: pkphung2001/skyceer
 servers:
   web:
     hosts:
-      - <%= ENV["KAMAL_WEB_HOST"] %>
+      - "<%= ENV["KAMAL_WEB_HOST"] %>"
     # volumes:
     #   - ".:/rails"
   job:
     hosts:
-      - <%= ENV["KAMAL_JOB_HOST"] %>
+      - "<%= ENV["KAMAL_JOB_HOST"] %>"
     cmd: bundle exec rails bin/jobs
 
 # Credentials for your image host.
@@ -45,7 +45,7 @@ env:
 # Use a different ssh user than root
 # ssh:
   # user: { AWS: ubuntu, DigitalOcean: root }
-  # user: <%= ENV["KAMAL_SSH_USER"] %>
+  # user: "<%= ENV["KAMAL_SSH_USER"] %>"
   # proxy:
   #   - "ubuntu@13.250.29.204"
   #   - "ubuntu@54.255.170.174"
@@ -54,8 +54,8 @@ env:
 accessories:
   postgres:
     image: postgres:latest
-    host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
-    port: <%= ENV["KAMAL_POSTGRES_PORT"] %>
+    host: "<%= ENV["KAMAL_POSTGRES_HOST"] %>"
+    port: "<%= ENV["KAMAL_POSTGRES_PORT"] %>"
     env:
       secret:
         - POSTGRES_USERNAME
@@ -67,22 +67,22 @@ accessories:
 
   mongo:
     image: mongo:latest
-    host: <%= ENV["KAMAL_MONGO_HOST"] %>
-    port: <%= ENV["KAMAL_MONGO_PORT"] %>
+    host: "<%= ENV["KAMAL_MONGO_HOST"] %>"
+    port: "<%= ENV["KAMAL_MONGO_PORT"] %>"
     volumes:
       - /var/lib/mongo:/data
 
   elasticsearch:
     image: elasticsearch:8.14.1
-    host: <%= ENV["KAMAL_ELASTICSEARCH_HOST"] %>
-    port: <%= ENV["KAMAL_ELASTICSEARCH_PORT"] %>
+    host: "<%= ENV["KAMAL_ELASTICSEARCH_HOST"] %>"
+    port: "<%= ENV["KAMAL_ELASTICSEARCH_PORT"] %>"
     volumes:
       - /var/lib/elasticsearch:/data
 
 # Configure a custom healthcheck (default is /up on port 3000)
-# healthcheck:
+healthcheck:
   # path: /up
-  # interval: 10s
-  # max_attempts: 20
+  interval: 10s
+  max_attempts: 20
 #   port: 3000
 #   exposed_port: 3000
