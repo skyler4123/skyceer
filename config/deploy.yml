@@ -8,12 +8,12 @@ image: pkphung2001/skyceer
 servers:
   web:
     hosts:
-      - 104.248.231.205
+      - <%= ENV["KAMAL_WEB_HOST"] %>
     # volumes:
     #   - ".:/rails"
   job:
     hosts:
-      - 104.248.231.205
+      - <%= ENV["KAMAL_JOB_HOST"] %>
     cmd: bundle exec rails bin/jobs
 
 # Credentials for your image host.
@@ -25,10 +25,7 @@ registry:
   # Always use an access token rather than real password when possible.
   password:
     - KAMAL_REGISTRY_PASSWORD
-# Configure builder setup.
-builder:
-  args:
-    RUBY_VERSION: 3.3.0
+
 # Inject ENV variables into containers (secrets come from .env).
 # Remember to run `kamal env push` after making changes!
 env:
@@ -57,8 +54,8 @@ env:
 accessories:
   postgres:
     image: postgres:latest
-    host: 104.248.231.205
-    port: 5432
+    host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
+    port: <%= ENV["KAMAL_POSTGRES_PORT"] %>
     env:
       secret:
         - POSTGRES_USERNAME
@@ -70,15 +67,15 @@ accessories:
 
   mongo:
     image: mongo:latest
-    host: 104.248.231.205
-    port: 27017
+    host: <%= ENV["KAMAL_MONGO_HOST"] %>
+    port: <%= ENV["KAMAL_MONGO_PORT"] %>
     volumes:
       - /var/lib/mongo:/data
 
   elasticsearch:
     image: elasticsearch:8.14.1
-    host: 104.248.231.205
-    port: 9200
+    host: <%= ENV["KAMAL_ELASTICSEARCH_HOST"] %>
+    port: <%= ENV["KAMAL_ELASTICSEARCH_PORT"] %>
     volumes:
       - /var/lib/elasticsearch:/data
 
