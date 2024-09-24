@@ -6,15 +6,17 @@ image: pkphung2001/skyceer
 
 # Deploy to these servers.
 servers:
-  web:
-    hosts:
-      - <%= ENV["KAMAL_WEB_HOST"] %>
-    # volumes:
-    #   - ".:/rails"
-  job:
-    hosts:
-      - <%= ENV["KAMAL_JOB_HOST"] %>
-    cmd: bundle exec rails bin/jobs
+  - 192.168.0.1
+  - 192.168.0.2
+  # web:
+  #   hosts:
+  #     - <%= ENV["KAMAL_WEB_HOST"] %>
+  #   # volumes:
+  #   #   - ".:/rails"
+  # job:
+  #   hosts:
+  #     - <%= ENV["KAMAL_JOB_HOST"] %>
+  #   cmd: bundle exec rails bin/jobs
 
 # Credentials for your image host.
 registry:

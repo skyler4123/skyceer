@@ -533,7 +533,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jwt
-  kamal
+  kamal (= 1.8.3)
   memory_profiler
   mission_control-jobs
   money-rails
