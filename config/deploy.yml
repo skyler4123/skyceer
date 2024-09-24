@@ -6,17 +6,15 @@ image: pkphung2001/skyceer
 
 # Deploy to these servers.
 servers:
-  - 192.168.0.1
-  - 192.168.0.2
-  # web:
-  #   hosts:
-  #     - <%= ENV["KAMAL_WEB_HOST"] %>
-  #   # volumes:
-  #   #   - ".:/rails"
-  # job:
-  #   hosts:
-  #     - <%= ENV["KAMAL_JOB_HOST"] %>
-  #   cmd: bundle exec rails bin/jobs
+  web:
+    hosts:
+      - 104.248.231.205
+    # volumes:
+    #   - ".:/rails"
+  job:
+    hosts:
+      - 104.248.231.205
+    cmd: bundle exec rails bin/jobs
 
 # Credentials for your image host.
 registry:
@@ -56,8 +54,8 @@ env:
 accessories:
   postgres:
     image: postgres:latest
-    host: <%= ENV["KAMAL_POSTGRES_HOST"] %>
-    port: <%= ENV["POSTGRES_PORT"] %>
+    host: 104.248.231.205
+    port: 5432
     env:
       secret:
         - POSTGRES_USERNAME
@@ -69,22 +67,22 @@ accessories:
 
   mongo:
     image: mongo:latest
-    host: <%= ENV["KAMAL_MONGO_HOST"] %>
-    port: <%= ENV["KAMAL_MONGO_PORT"] %>
+    host: 104.248.231.205
+    port: 27017
     volumes:
       - /var/lib/mongo:/data
 
   elasticsearch:
     image: elasticsearch:8.14.1
-    host: <%= ENV["KAMAL_ELASTICSEARCH_HOST"] %>
-    port: <%= ENV["KAMAL_ELASTICSEARCH_PORT"] %>
+    host: 104.248.231.205
+    port: 9200
     volumes:
       - /var/lib/elasticsearch:/data
 
 # Configure a custom healthcheck (default is /up on port 3000)
-# healthcheck:
+healthcheck:
   # path: /up
-  # interval: 10s
-  # max_attempts: 20
+  interval: 10s
+  max_attempts: 20
 #   port: 3000
 #   exposed_port: 3000
