@@ -1,0 +1,19 @@
+<div id="<%= dom_id image %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= image.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Rule:</strong>
+    <%= image.rule %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Image:</strong>
+    <% if image.image_attachment.attached? %>
+      <image src="<%= (url_for(image.image_attachment))%>">
+      <%= image_tag image.image_attachment.variant(:thumb) %>
+    <% end %>
+  </p>
+</div>

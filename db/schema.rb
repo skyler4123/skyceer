@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_12_152754) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_28_213257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -195,27 +195,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_152754) do
     t.index ["user_id"], name: "index_education_users_on_user_id"
   end
 
-  create_table "map_points", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
-    t.string "mapable_type"
-    t.uuid "mapable_id"
-    t.uuid "map_user_id"
-    t.boolean "verified"
-    t.boolean "expired"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["map_user_id"], name: "index_map_points_on_map_user_id"
-    t.index ["mapable_type", "mapable_id"], name: "index_map_points_on_mapable"
-  end
-
-  create_table "map_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_map_users_on_user_id"
-  end
-
   create_table "estate_condos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "estate_user_id", null: false
     t.string "name"
@@ -245,6 +224,34 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_152754) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_estate_users_on_user_id"
+  end
+
+  create_table "images", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "rule"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "map_points", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
+    t.string "mapable_type"
+    t.uuid "mapable_id"
+    t.uuid "map_user_id"
+    t.boolean "verified"
+    t.boolean "expired"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["map_user_id"], name: "index_map_points_on_map_user_id"
+    t.index ["mapable_type", "mapable_id"], name: "index_map_points_on_mapable"
+  end
+
+  create_table "map_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_map_users_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -311,11 +318,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_152754) do
   add_foreign_key "education_teachers", "education_schools"
   add_foreign_key "education_teachers", "education_users"
   add_foreign_key "education_users", "users"
-  add_foreign_key "map_points", "map_users"
-  add_foreign_key "map_users", "users"
   add_foreign_key "estate_condos", "estate_users"
   add_foreign_key "estate_hotels", "estate_users"
   add_foreign_key "estate_users", "users"
+  add_foreign_key "map_points", "map_users"
+  add_foreign_key "map_users", "users"
   add_foreign_key "vehicle_cars", "vehicle_stores"
   add_foreign_key "vehicle_cars", "vehicle_users"
   add_foreign_key "vehicle_stores", "vehicle_users"
