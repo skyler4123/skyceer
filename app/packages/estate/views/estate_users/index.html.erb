@@ -1,0 +1,21 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Estate users" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Estate users</h1>
+    <%= link_to "New rs user", new_estate_user_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="estate_users" class="min-w-full">
+    <% @estate_users.each do |estate_user| %>
+      <%= render estate_user %>
+      <p>
+        <%= link_to "Show this rs user", estate_user, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>

@@ -29,9 +29,9 @@ EnglishUser.destroy_all
 ArticleUser.destroy_all
 ArticlePost.destroy_all
 
-RsUser.destroy_all
-RsCondo.destroy_all
-RsHotel.destroy_all
+EstateUser.destroy_all
+EstateCondo.destroy_all
+EstateHotel.destroy_all
 
 SEED_NUMBER = 10
 # APPLICATION PACKAGE
@@ -205,18 +205,18 @@ end
 
 # REAL ESTATE
 # User.first(10).each do |user|
-#   RsUser.create(user: user)
+#   EstateUser.create(user: user)
 # end
 
-RsUser.all.each_with_index do |rs_user, index|
-  rs_user.rs_condos.create(
+EstateUser.all.each_with_index do |estate_user, index|
+  estate_user.estate_condos.create(
     name: "name #{index}",
     address: "address #{index}",
     longitude: rand(-180..180),
     latitude: rand(-90..90),
     price_cents: rand(1000..9999),
   )
-  rs_user.rs_hotels.create(
+  estate_user.estate_hotels.create(
     name: "name #{index}",
     address: "address #{index}",
     longitude: rand(-180..180),

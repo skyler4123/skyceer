@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
         chat_user_id: ChatUser.find_by(user_id: user.id).id,
         english_user_id: EnglishUser.find_by(user_id: user.id).id,
         article_user_id: ArticleUser.find_by(user_id: user.id).id,
-        rs_user_id: RsUser.find_by(user_id: user.id).id,
+        estate_user_id: EstateUser.find_by(user_id: user.id).id,
       )
     end
 

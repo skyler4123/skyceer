@@ -8,7 +8,7 @@ class CreateSessions < ActiveRecord::Migration[7.0]
       t.string :chat_user_id, null: false, foreign_key: true, type: :uuid
       t.string :english_user_id, null: false, foreign_key: true, type: :uuid
       t.string :article_user_id, null: false, foreign_key: true, type: :uuid
-      t.string :rs_user_id, null: false, foreign_key: true, type: :uuid
+      t.string :estate_user_id, null: false, foreign_key: true, type: :uuid
 
       t.string :avatar
 

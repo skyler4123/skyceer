@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_one :education_user, dependent: :destroy
   has_one :agriculture_user, dependent: :destroy
   has_one :vehicle_user, dependent: :destroy
-  has_one :rs_user, dependent: :destroy
+  has_one :estate_user, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
@@ -46,7 +46,7 @@ class User < ApplicationRecord
     ChatUser.create(user_id: self.id)
     EnglishUser.create(user_id: self.id)
     ArticleUser.create(user_id: self.id)
-    RsUser.create(user_id: self.id)
+    EstateUser.create(user_id: self.id)
   end
 
   def acceptable_avatar

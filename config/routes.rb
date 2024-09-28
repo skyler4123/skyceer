@@ -5,9 +5,9 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
-  resources :rs_hotels
-  resources :rs_condos
-  resources :rs_users
+  resources :estate_hotels
+  resources :estate_condos
+  resources :estate_users
   resources :article_comments
   resources :article_users
   resources :article_posts

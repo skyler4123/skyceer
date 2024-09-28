@@ -1,0 +1,3 @@
+class EstateController < ApplicationController
+  
+end
