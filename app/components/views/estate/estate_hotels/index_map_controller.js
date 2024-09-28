@@ -1,4 +1,4 @@
-import { EstateHotelsApi } from "../../../../javascript/controllers/api/rs/estate_hotels_api";
+import { EstateHotelsApi } from "../../../../javascript/controllers/api/estate/estate_hotels_api";
 import Libs_Map_Openlayers_IndexController from "../../../libs/map/openlayers/index_controller";
 
 export default class Views_Estate_EstateHotels_IndexMapController extends Libs_Map_Openlayers_IndexController {
