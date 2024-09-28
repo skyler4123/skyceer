@@ -1,19 +1,7 @@
-# redis setup
-# development:
-#   adapter: redis
-#   # url: redis://localhost:6379/1
-#   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-
-
-# test:
-#   adapter: test
-
-# production:
-#   adapter: redis
-#   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-#   channel_prefix: skyceer_production
-
-
+# Async adapter only works within the same process, so for manually triggering cable updates from a console,
+# and seeing results in the browser, you must do so from the web console (running inside the dev process),
+# not a terminal started via bin/rails console! Add "console" to any action or "" in any view
+# to make the web console appear.
 
 # solid_cable setup
 default: &default
@@ -31,6 +19,7 @@ development:
 
 test:
   adapter: test
+  # adapter: async
 
 production:
   <<: *default
@@ -39,3 +28,19 @@ production:
     database:
       writing: cable
       reading: cable
+
+
+# redis setup
+# development:
+#   adapter: redis
+#   # url: redis://localhost:6379/1
+#   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+
+
+# test:
+#   adapter: test
+
+# production:
+#   adapter: redis
+#   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+#   channel_prefix: skyceer_production
