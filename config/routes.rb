@@ -5,6 +5,7 @@ Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
 end
 
 Rails.application.routes.draw do
+  resources :estate_homes
   resources :estate_hotels
   resources :estate_condos
   resources :estate_users

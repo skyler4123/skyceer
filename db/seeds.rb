@@ -223,6 +223,13 @@ EstateUser.all.each_with_index do |estate_user, index|
     latitude: rand(-90..90),
     price_cents: rand(1000..9999),
   )
+  estate_user.estate_homes.create(
+    name: "name #{index}",
+    address: "address #{index}",
+    longitude: rand(-180..180),
+    latitude: rand(-90..90),
+    price_cents: rand(1000..9999),
+  )
 end
 
 
