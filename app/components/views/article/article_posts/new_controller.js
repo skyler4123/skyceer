@@ -1,22 +1,9 @@
 import { ArticlePostsApi } from "../../../../javascript/controllers/api/article/article_posts";
-import ApplicationController from "../../../../javascript/controllers/application_controller";
 import { editorjs } from "../../../../javascript/controllers/components";
-import { footer } from "../footer";
-import { header } from "../header";
+import Views_Article_LayoutController from "../layout_controller";
 
-export default class extends ApplicationController {
-  static targets = ['header', 'main', 'footer', 'editorjs', 'contentInput']
-
-  init() {
-    this.element.className = 'w-full h-full'
-    this.initHeader()
-    this.initMain()
-    this.initFooter()
-  }
-
-  initHeader() { this.headerTarget.innerHTML = header() }
-  initFooter() { this.footerTarget.innerHTML = footer() }
-
+export default class extends Views_Article_LayoutController {
+  static targets = [...super.targets, 'editorjs', 'contentInput']
 
   initMain() {
     this.mainTarget.className = 'flex flex-col justify-center items-center w-full h-full'

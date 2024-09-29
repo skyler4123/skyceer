@@ -1,13 +1,9 @@
 import { link, text } from "../../../javascript/controllers/components"
-import { logo } from "./logo"
 
-export const footer = () => {
+export const Views_Article_Footer = () => {
   return `
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
     <div class="flex flex-row justify-between">
-      <div class="flex flex-row">
-        ${logo()}
-      </div>
       <div class="flex flex-row">
         <div>© 2024 saaslit™. All Rights Reserved.</div>
         <div>${text({type: 'time'})}</div>
