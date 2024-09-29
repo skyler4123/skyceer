@@ -27,6 +27,9 @@ export default class EditorjsController extends ApplicationController {
   }
 
   initComplete() {
+    if (!this.hasEditorTarget) {
+      this.element.insertAdjacentHTML('afterbegin', `<div data-${this.identifier}-target="editor"></div>`)
+    }
     this.editorJS = new EditorJS({
       holder: this.editorTarget,
       autofocus: true,

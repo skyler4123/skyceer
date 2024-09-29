@@ -8,7 +8,7 @@ this.viewMoreInterval = setInterval(() => {
   } else {
     window.scrollTo(0, document.body.scrollHeight)
   }
-}, 3000)
+}, 2000)
 
 
 // Load more comments with Xem thêm bình luận
@@ -28,7 +28,7 @@ this.viewMoreInterval = setInterval(() => {
     scrollContainerElement.scrollTo(0, scrollContainerElement.scrollHeight)
     clearInterval(this.viewMoreInterval)
   }
-}, 3000)
+}, 2000)
 
 
 
@@ -44,7 +44,7 @@ document.querySelectorAll(`[class="${seeMoreClass}"]`).forEach(target => {
 
 // Search number of comments
 let numberFrom = 0
-let numberTo = 999
+let numberTo = 99
 let position = 1
 
 let commentGroupClass = "html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x18d9i69 x1swvt13 x1pi30zi x1n2onr6"
