@@ -25,7 +25,7 @@ export default class extends ApplicationController {
     this.mainTarget.insertAdjacentHTML('beforeend', 
       usersData.map((userData, index) => {
         return user(userData)
-      })
+      }).join('')
     )
   }
 }
