@@ -1,6 +1,6 @@
 import ApplicationController from "../javascript/controllers/application_controller";
 
-export default class extends ApplicationController {
+export default class FormController extends ApplicationController {
   static targets = [...super.targets, 'input']
   static values = {
     ...super.values,

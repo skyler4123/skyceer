@@ -31,6 +31,9 @@ const Components = (name, params = {}, content = null) => {
     case 'video':
       tag = 'video'
       break;
+    case 'form':
+      tag = 'form'
+      break;
     case 'editorjs':
         tag = 'form'
         break;
@@ -140,6 +143,9 @@ export const toast = (params = {}, content = null) => {
 }
 export const video = (params = {}, content = null) => {
   return Components('video', params, content)
+}
+export const form = (params = {}, content = null) => {
+  return Components('form', params, content)
 }
 export const editorjs = (params = {}, content = null) => {
   return Components('editorjs', params, content)
