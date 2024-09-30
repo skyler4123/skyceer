@@ -19,17 +19,16 @@
 
 
 
-<form data-controller="form">
+<div data-controller="views--article--article-posts--form">
   <label for="fname">First name:</label><br>
   <input type="text" id="fname" name="fname" value="John"><br>
   <label for="lname">Last name:</label><br>
   <input type="text" id="lname" name="lname" value="Doe"><br><br>
   <label for="lname">Dont submit:</label><br>
   <input type="text" id="lname" value="Doe"><br><br>
-  <input type="submit" value="Submit">
-</form> 
-
-
+  <div data-views--article--article-posts--form-target="editor" data-controller="libs--editor--editorjs"></div>
+  <button data-views--article--article-posts--form-target="submit">Submit</button>
+</div> 
 
 
 

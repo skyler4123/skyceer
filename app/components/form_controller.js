@@ -23,7 +23,12 @@ export default class FormController extends ApplicationController {
     })
   }
 
-  input(event) {
+  initComplete() {
+    // To init value with previous data
+    this.input()
+  }
+
+  input(event = null) {
     let newInput = {}
     this.inputTargets.forEach((target) => {
       newInput[target.name] = target.value
