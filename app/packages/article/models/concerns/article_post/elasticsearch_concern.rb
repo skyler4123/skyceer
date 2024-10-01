@@ -11,7 +11,7 @@ module ArticlePost::ElasticsearchConcern
     def as_indexed_json(options={})
       as_json(
         only: [:package, :title],
-        methods: [:raw_title]
+        methods: [:raw_content]
       )
     end
     after_save    { Elasticsearch::IndexerJob.perform_later(:index,  self.id, self.class.name) }

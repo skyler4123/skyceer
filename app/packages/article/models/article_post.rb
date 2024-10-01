@@ -2,6 +2,8 @@ class ArticlePost
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  include ArticlePost::ElasticsearchConcern
+
   field :package, type: String
   field :title, type: String
   field :content, type: Hash
@@ -12,17 +14,9 @@ class ArticlePost
   index({ chat_user_ids: '2d' }, { unique: true })
   index({ package: 1 }, { unique: false })
 
-  include ArticlePost::ElasticsearchConcern
-  
-  # include Elasticsearch::Model
-  # include Elasticsearch::Model::Callbacks
-  # def raw_title
-  #   'raw title'
-  # end
+  def raw_content
+    blocks = self.content.with_indifferent_access
+    blocks[:blocks].pluck(:data).pluck(:text).join("")
+  end
 
-  # def as_indexed_json(options={})
-  #   as_json(only: 'id')
-  # end
-  # after_save    { Elasticsearch::IndexerJob.perform_later(:index,  self.id, self.class.name) }
-  # after_destroy { Elasticsearch::IndexerJob.perform_later(:delete, self.id, self.class.name) }
 end
