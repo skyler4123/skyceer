@@ -3,7 +3,7 @@ module EditorjsHelper
     content_html = content['blocks'].map do |block|
       case block['type']
       when 'paragraph'
-        "<p>#{block['data']['text']}</p>"
+        "<div class='ce-block'><div class='ce-block__content'><div class='ce-paragraph cdx-block' contenteditable='true' data-placeholder-active='' data-empty='false'>#{block['data']['text']}</div></div></div>"
       when 'header'
         "<h#{block['data']['level']}>#{block['data']['text']}</h#{block['data']['level']}>"
       when 'list'
