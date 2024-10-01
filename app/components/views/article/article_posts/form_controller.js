@@ -1,3 +1,4 @@
+import { ArticlePostsApi } from "../../../../javascript/controllers/api/article/article_posts_api";
 import FormController from "../../../form_controller";
 
 export default class extends FormController {
@@ -17,7 +18,6 @@ export default class extends FormController {
     setTimeout(() => {
       this.input()
       this.syncEditorToForm()
-      // console.log(this.editorController())
     }, 500)
   }
 
@@ -33,6 +33,11 @@ export default class extends FormController {
   submit(event) {
     event.preventDefault()
     this.syncEditorToForm()
+    ArticlePostsApi.create({params: this.submitValue}).then((response) => {
+      console.log(response)
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 
   async syncEditorToForm(event = null) {
@@ -48,7 +53,7 @@ export default class extends FormController {
     return `
       <div class="my-5">
         <label for="article_post_title">Title</label>
-        <input class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="article_post[title]" id="article_post_title" value="${this.titleParams}">
+        <input class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" type="text" name="title" id="article_post_title" value="${this.titleParams}">
       </div>
 
       <div class="my-5 border-2 border-gray-950">

@@ -22,7 +22,7 @@ class ArticlePostsController < ArticleController
   # POST /article_posts or /article_posts.json
   def create
     @article_post = ArticlePost.new(article_post_params)
-    @article_post.content = JSON.parse(params[:article_post][:content])
+    @article_post.content = params[:article_post][:content].as_json
     @article_post.article_user_id = Current.article_user_id
     
     respond_to do |format|
@@ -67,6 +67,6 @@ class ArticlePostsController < ArticleController
 
     # Only allow a list of trusted parameters through.
     def article_post_params
-      params.require(:article_post).permit(:title, :content, :article_user_id)
+      params.require(:article_post).permit(:title, :content)
     end
 end

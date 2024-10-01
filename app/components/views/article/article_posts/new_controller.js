@@ -1,4 +1,4 @@
-import { ArticlePostsApi } from "../../../../javascript/controllers/api/article/article_posts";
+import { ArticlePostsApi } from "../../../../javascript/controllers/api/article/article_posts_api";
 import { button } from "../../../../javascript/controllers/components";
 import Views_Article_LayoutController from "../layout_controller";
 
