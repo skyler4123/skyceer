@@ -17,6 +17,7 @@ export default class extends FormController {
     setTimeout(() => {
       this.input()
       this.syncEditorToForm()
+      // console.log(this.editorController())
     }, 500)
   }
 
@@ -27,12 +28,11 @@ export default class extends FormController {
   initAction() {
     super.initAction()
     this.addAction(this.submitTarget, `click->${this.identifier}#submit`)
-    this.addAction(this.editorTarget, `keyup->${this.identifier}#syncEditorToForm`)
   }
 
   submit(event) {
     event.preventDefault()
-    console.log(this.submitValue)
+    this.syncEditorToForm()
   }
 
   async syncEditorToForm(event = null) {
@@ -53,7 +53,7 @@ export default class extends FormController {
 
       <div class="my-5 border-2 border-gray-950">
         <label for="article_post_content">Content</label>
-        <div data-controller="libs--editor--editorjs" data-libs--editor--editorjs-params-value="${JSON.stringify({savedData: this.contentParams})}" data-views--article--article-posts--form-target="editor"></div>
+        <div data-controller="libs--editor--editorjs" data-libs--editor--editorjs-params-value="${JSON.stringify({savedData: this.contentParams}).replace(/"/g, '&quot;')}" data-views--article--article-posts--form-target="editor"></div>
       </div>
 
       <div class="inline">

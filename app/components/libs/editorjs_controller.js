@@ -17,6 +17,7 @@ export default class Editorjs extends ApplicationController {
     ...super.values,
   }
   initParams() {
+    console.log(this)
     this.setParams({name: 'variant', defaultValue: 'default'})
   }
 
