@@ -187,12 +187,12 @@ ArticleUser.each_with_index do |user, user_index|
         id: "oUq2g_tl8y",
         type: "header",
         data: {
-           text: "content_#{user_index}",
+           text: Faker::Movies::HarryPotter.quote,
            level: 2
         }
      }],
     }
-    ArticlePost.create(article_user: user, package: 'vehicle', title: "title_#{n}", content: content)
+    ArticlePost.create(article_user: user, package: 'vehicle', title: Faker::Movies::HarryPotter.character, content: content)
   end
 end
 SEED_NUMBER.times do |n|
