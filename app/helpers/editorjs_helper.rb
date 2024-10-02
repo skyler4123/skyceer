@@ -12,9 +12,9 @@ module EditorjsHelper
           </div>
         </div>"
       when 'header'
-        "<div class="ce-block" data-id="oUq2g_tl8y">
-          <div class="ce-block__content">
-            <h#{block[:data][:level]} class="ce-header" contenteditable="true" data-placeholder="Enter a header" data-empty="false">
+        "<div class='ce-block' data-id='oUq2g_tl8y'>
+          <div class='ce-block__content'>
+            <h#{block[:data][:level]} class='ce-header' contenteditable='true' data-placeholder='Enter a header' data-empty='false'>
               #{block[:data][:text]}
             </h#{block[:data][:level]}>
           </div>
