@@ -1,9 +1,16 @@
 import { Controller } from "@hotwired/stimulus"
-import { CarConstants } from "./constants/vehicle/car_constants"
+import Swal from 'sweetalert2'
+
 export default class extends Controller {
 
   initialize() {
-    console.log(CarConstants)
+    console.log(Swal)
+    Swal.fire({
+      title: 'Error!',
+      text: 'Do you want to continue',
+      icon: 'error',
+      confirmButtonText: 'Cool'
+    })
   }
 
 
