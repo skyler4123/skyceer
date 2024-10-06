@@ -6,29 +6,34 @@ module EditorjsHelper
       when 'paragraph'
         "<div class='ce-block'>
           <div class='ce-block__content'>
-            <div class='ce-paragraph cdx-block' contenteditable='true' data-placeholder-active='' data-empty='false'>
+            <div class='ce-paragraph cdx-block'>
               #{block[:data][:text]}
+              <br>
             </div>
           </div>
         </div>"
       when 'header'
-        "<div class='ce-block' data-id='oUq2g_tl8y'>
+        "<div class='ce-block'>
           <div class='ce-block__content'>
-            <h#{block[:data][:level]} class='ce-header' contenteditable='true' data-placeholder='Enter a header' data-empty='false'>
+            <h#{block[:data][:level]} class='ce-header'>
               #{block[:data][:text]}
             </h#{block[:data][:level]}>
           </div>
         </div>"
       when 'list'
-        list_items = block[:data][:items].map do |item|
-          "<li>#{item}</li>"
-        end.join
-        "<ul>#{list_items}</ul>"
-      when 'code'
-        escapsed_code = block[:data][:code]
-        "<pre><code>#{escapsed_code}</code></pre>"
+        "<div class='ce-block'>
+          <div class='ce-block__content'>
+            <ul class='cdx-block cdx-list cdx-list--unordered'>
+              #{block[:data][:items].map do |item|
+                "<li class='cdx-list__item'>
+                  #{item}
+                </li>"
+              end.join}
+            </ul>
+          </div>
+        </div>"
       else
-        ""
+        "#{block[:data][:text]}"
       end
     end
     content_html.join.html_safe
