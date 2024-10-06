@@ -13,3 +13,9 @@ my_periodic_job:
   schedule: every 1 minutes
   queue: DemoJob-background
   # args: [ 1000, { batch_size: 500 } ]
+
+cleanup_articl_posts_periodic_job:
+  class: Article::ArticlePosts::CleanupJob
+  schedule: every 1 minutes
+  queue: Article::ArticlePosts::CleanupJob-background
+  # args: [ 1000, { batch_size: 500 } ]

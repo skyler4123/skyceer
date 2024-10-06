@@ -2,10 +2,6 @@ default: &default
   dispatchers:
     - polling_interval: 1
       batch_size: 500
-      # recurring_tasks:
-      #   my_periodic_job:
-      #     class: DemoJob
-      #     schedule: every 1 minutes
   workers:
     - queues: "*"
       threads: 3
