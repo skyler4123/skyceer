@@ -14,7 +14,7 @@ export default class extends Views_Article_LayoutController {
 
   initMain() {
     this.initArticlePostValue()
-    this.initHTML()
+    this.initMainHTML()
   }
 
   initArticlePostValue() {
@@ -26,15 +26,15 @@ export default class extends Views_Article_LayoutController {
     })
   }
 
-  initHTML() {
-    this.element.innerHTML = this.defaultHTML()
+  initMainHTML() {
+    this.mainTarget.innerHTML = this.defaultHTML()
   }
   
   defaultHTML() {
     return `
       <div
         data-controller="views--article--article-posts--form"
-        data-views--article--article-posts--form-params-value="${this.transferToValue({title: this.articlePostValue.title, content: this.articlePostValue.content})}"
+        data-views--article--article-posts--form-params-value="${this.transferToValue({id: this.articlePostValue.id, title: this.articlePostValue.title, content: this.articlePostValue.content})}"
         data-${this.identifier}-target="form"
       >
       </div>
