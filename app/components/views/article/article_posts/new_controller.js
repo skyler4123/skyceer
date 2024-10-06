@@ -10,11 +10,11 @@ export default class extends Views_Article_LayoutController {
   }
 
   initMain() {
-    this.initHTML()
+    this.initMainHTML()
   }
 
-  initHTML() {
-    this.element.innerHTML = this.defaultHTML()
+  initMainHTML() {
+    this.mainTarget.innerHTML = this.defaultHTML()
   }
   
   defaultHTML() {
