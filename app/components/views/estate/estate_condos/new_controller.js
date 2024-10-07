@@ -3,10 +3,10 @@ import Views_Estate_LayoutController from "../layout_controller";
 export default class extends Views_Estate_LayoutController {
   static targets = [...super.targets, "form", "map"]
 
-  initMain() {
-    this.initForm()
-    this.initEstateCondosNewMap() 
-  }
+  // initMain() {
+  //   this.initForm()
+  //   this.initEstateCondosNewMap() 
+  // }
 
   initForm() {
     this.formTarget.dataset.controller = "views--estate--estate-condos--form"

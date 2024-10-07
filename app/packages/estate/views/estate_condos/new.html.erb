@@ -3,5 +3,6 @@
 
   <div data-<%= view_controller(__FILE__) %>-target="form"></div>
   <div data-<%= view_controller(__FILE__) %>-target="map"></div>
+  <%= render "form", estate_condo: @estate_condo %>
   <%= link_to "Back to rs condos", estate_condos_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>
