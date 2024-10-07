@@ -207,7 +207,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
     t.index ["estate_user_id"], name: "index_estate_condos_on_estate_user_id"
   end
 
-  create_table "estate_homes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "estate_houses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "estate_user_id", null: false
     t.string "name"
     t.string "address"
@@ -216,7 +216,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
     t.decimal "latitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["estate_user_id"], name: "index_estate_homes_on_estate_user_id"
+    t.index ["estate_user_id"], name: "index_estate_houses_on_estate_user_id"
   end
 
   create_table "estate_hotels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -324,7 +324,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
   add_foreign_key "education_teachers", "education_users"
   add_foreign_key "education_users", "users"
   add_foreign_key "estate_condos", "estate_users"
-  add_foreign_key "estate_homes", "estate_users"
+  add_foreign_key "estate_houses", "estate_users"
   add_foreign_key "estate_hotels", "estate_users"
   add_foreign_key "estate_users", "users"
   add_foreign_key "map_points", "map_users"

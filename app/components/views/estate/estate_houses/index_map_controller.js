@@ -1,7 +1,7 @@
-import { EstateHomesApi } from "../../../../javascript/controllers/api/estate/estate_homes_api";
+import { EstateHousesApi } from "../../../../javascript/controllers/api/estate/estate_houses_api";
 import Libs_Map_Openlayers_IndexController from "../../../libs/map/openlayers/index_controller";
 
-export default class Views_Estate_EstateHomes_IndexMapController extends Libs_Map_Openlayers_IndexController {
+export default class Views_Estate_EstateHouses_IndexMapController extends Libs_Map_Openlayers_IndexController {
   static values = {
     ...super.values,
     queryParams: Object
@@ -50,7 +50,7 @@ export default class Views_Estate_EstateHomes_IndexMapController extends Libs_Ma
   }
   
   async queryParamsValueChanged(value, previousValue) {
-    const res = await EstateHomesApi.index({params: value})
+    const res = await EstateHousesApi.index({params: value})
     let points = res.data
     this.pointsValue = points
   }

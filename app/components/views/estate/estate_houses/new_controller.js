@@ -5,14 +5,14 @@ export default class extends Views_Estate_LayoutController {
 
   initMain() {
     this.initForm()
-    this.initEstateHomesNewMap() 
+    this.initEstateHousesNewMap() 
   }
 
   initForm() {
-    this.formTarget.dataset.controller = "views--estate--estate-homes--form"
+    this.formTarget.dataset.controller = "views--estate--estate-houses--form"
   }
 
-  initEstateHomesNewMap() {
+  initEstateHousesNewMap() {
     let openlayersControllerIdentifier = "libs--map--openlayers--new"
     let openlayersHTML = `<div data-controller='${openlayersControllerIdentifier}' data-${openlayersControllerIdentifier}-target="map" data-action="click->${this.identifier}#syncCoordinates"></div>`
     this.mergeHTMLIntoElement(this.mapTarget, openlayersHTML)
@@ -30,6 +30,6 @@ export default class extends Views_Estate_LayoutController {
   }
 
   formController() {
-    return this.application.getControllerForElementAndIdentifier(this.formTarget, "views--estate--estate-homes--form")
+    return this.application.getControllerForElementAndIdentifier(this.formTarget, "views--estate--estate-houses--form")
   }
 }

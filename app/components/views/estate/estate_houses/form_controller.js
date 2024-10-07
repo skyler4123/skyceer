@@ -1,5 +1,5 @@
 import "axios";
-import { EstateHomesApi } from "../../../../javascript/controllers/api/estate/estate_homes_api";
+import { EstateHousesApi } from "../../../../javascript/controllers/api/estate/estate_houses_api";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
 import { defaultHeaders, origin } from "../../../../javascript/controllers/api/api_helpers";
 
@@ -17,8 +17,8 @@ export default class extends ApplicationController {
   async submit(event) {
     event.preventDefault()
     let formData = this.formData({formElement: this.formTarget})
-    let response = await EstateHomesApi.create({params: formData})
-    this.handleResponse({response: response, resource: "estate_homes"})
+    let response = await EstateHousesApi.create({params: formData})
+    this.handleResponse({response: response, resource: "estate_houses"})
   }
   
 
@@ -39,7 +39,7 @@ export default class extends ApplicationController {
 
   formHTML() {
     return `
-      <form class="contents" action="/estate_homes" accept-charset="UTF-8" method="post" data-${this.identifier}-target="form" data-action="submit->${this.identifier}#submit">
+      <form class="contents" action="/estate_houses" accept-charset="UTF-8" method="post" data-${this.identifier}-target="form" data-action="submit->${this.identifier}#submit">
 
         <div class="my-5">
           <label for="name">Name</label>
@@ -67,7 +67,7 @@ export default class extends ApplicationController {
         </div>
 
         <div class="inline">
-          <input type="submit" name="commit" value="Create Estate home" class="rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" data-disable-with="Create Estate home">
+          <input type="submit" name="commit" value="Create Estate House" class="rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" data-disable-with="Create Estate House">
         </div>
       </form>
     `
