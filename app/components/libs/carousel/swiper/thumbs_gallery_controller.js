@@ -2,7 +2,7 @@ import Swiper from "swiper";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
 
 export default class extends ApplicationController {
-  static targets = [...super.targets, 'swiper', 'thumbs', 'wrapper', 'slide', 'pagination', 'buttonPrev', 'buttonNext', 'scrollbar']
+  static targets = [...super.targets, 'swiper', 'thumbs', 'thumbsScrollbar', 'wrapper', 'slide', 'pagination', 'buttonPrev', 'buttonNext', 'scrollbar']
   static values = {
     ...super.values
   }
@@ -16,14 +16,17 @@ export default class extends ApplicationController {
   }
 
   initComplete() {
-    var galleryThumbs = new Swiper(this.thumbsTarget, {
+    var thumbs = new Swiper(this.thumbsTarget, {
       spaceBetween: 10,
-      slidesPerView: 4,
+      slidesPerView: 2,
       loop: true,
-      freeMode: true,
+      // freeMode: true,
       loopedSlides: 5, //looped slides should be the same
       watchSlidesVisibility: true,
       watchSlidesProgress: true,
+      scrollbar: {
+        el: this.thumbsScrollbarTarget,
+      },
     });
 
     const swiper = new Swiper(this.swiperTarget, {
@@ -41,7 +44,7 @@ export default class extends ApplicationController {
         prevEl: this.buttonPrevTarget,
       },
       thumbs: {
-        swiper: galleryThumbs,
+        swiper: thumbs,
       },
     });
 
@@ -58,6 +61,9 @@ export default class extends ApplicationController {
           <div data-${this.identifier}-target="slide">Slide 1</div>
           <div data-${this.identifier}-target="slide">Slide 2</div>
           <div data-${this.identifier}-target="slide">Slide 3</div>
+          <div data-${this.identifier}-target="slide">Slide 4</div>
+          <div data-${this.identifier}-target="slide">Slide 5</div>
+          <div data-${this.identifier}-target="slide">Slide 6</div>
         </div>
         <div data-${this.identifier}-target="pagination"></div>
 
@@ -71,7 +77,11 @@ export default class extends ApplicationController {
           <div data-${this.identifier}-target="slide">Slide 1</div>
           <div data-${this.identifier}-target="slide">Slide 2</div>
           <div data-${this.identifier}-target="slide">Slide 3</div>
+          <div data-${this.identifier}-target="slide">Slide 4</div>
+          <div data-${this.identifier}-target="slide">Slide 5</div>
+          <div data-${this.identifier}-target="slide">Slide 6</div>
         </div>
+        <div data-${this.identifier}-target="thumbsScrollbar"></div>
       </div>
     `
   }
@@ -87,7 +97,8 @@ export default class extends ApplicationController {
         buttonPrevTarget: 'swiper-button-prev',
         buttonNextTarget: 'swiper-button-next',
         scrollbarTarget: 'swiper-scrollbar',
-        thumbsTarget: 'swiper'
+        thumbsTarget: 'swiper',
+        thumbsScrollbarTarget: 'swiper-scrollbar'
       }
     }
   }
