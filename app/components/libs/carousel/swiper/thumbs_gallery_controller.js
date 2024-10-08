@@ -9,6 +9,18 @@ export default class extends ApplicationController {
 
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'swiper'})
+    this.setParams({name: 'imageUrls', defaultValue: [
+      "https://swiperjs.com/demos/images/nature-1.jpg",
+      "https://swiperjs.com/demos/images/nature-2.jpg",
+      "https://swiperjs.com/demos/images/nature-3.jpg",
+      "https://swiperjs.com/demos/images/nature-4.jpg",
+      "https://swiperjs.com/demos/images/nature-5.jpg",
+      "https://swiperjs.com/demos/images/nature-6.jpg",
+      "https://swiperjs.com/demos/images/nature-7.jpg",
+      "https://swiperjs.com/demos/images/nature-8.jpg",
+      "https://swiperjs.com/demos/images/nature-9.jpg",
+      "https://swiperjs.com/demos/images/nature-10.jpg",
+    ]})
   }
 
   init() {
@@ -58,6 +70,9 @@ export default class extends ApplicationController {
     return `
       <div data-${this.identifier}-target="swiper">
         <div data-${this.identifier}-target="wrapper">
+          ${this.imageUrlsParams.map((url) => {
+            return `<div data-${this.identifier}-target="slide">Slide 1</div>`
+          }).join(',')}
           <div data-${this.identifier}-target="slide">Slide 1</div>
           <div data-${this.identifier}-target="slide">Slide 2</div>
           <div data-${this.identifier}-target="slide">Slide 3</div>
