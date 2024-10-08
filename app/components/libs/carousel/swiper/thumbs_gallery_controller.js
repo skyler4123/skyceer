@@ -2,7 +2,7 @@ import Swiper from "swiper";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
 
 export default class extends ApplicationController {
-  static targets = [...super.targets, 'wrapper', 'slide', 'pagination', 'buttonPrev', 'buttonNext', 'scrollbar']
+  static targets = [...super.targets, 'swiper', 'thumbs', 'wrapper', 'slide', 'pagination', 'buttonPrev', 'buttonNext', 'scrollbar']
   static values = {
     ...super.values
   }
@@ -16,23 +16,34 @@ export default class extends ApplicationController {
   }
 
   initComplete() {
-    setTimeout(() => {
-      const swiper = new Swiper(this.element, {
-        direction: 'horizontal',
-        loop: true,
-      
-        // If we need pagination
-        pagination: {
-          el: this.paginationTarget,
-        },
-      
-        // Navigation arrows
-        navigation: {
-          nextEl: this.buttonNextTarget,
-          prevEl: this.buttonPrevTarget,
-        },
-      });
-    }, 2000)
+    var galleryThumbs = new Swiper(this.thumbsTarget, {
+      spaceBetween: 10,
+      slidesPerView: 4,
+      loop: true,
+      freeMode: true,
+      loopedSlides: 5, //looped slides should be the same
+      watchSlidesVisibility: true,
+      watchSlidesProgress: true,
+    });
+
+    const swiper = new Swiper(this.swiperTarget, {
+      direction: 'horizontal',
+      loop: true,
+    
+      // If we need pagination
+      pagination: {
+        el: this.paginationTarget,
+      },
+    
+      // Navigation arrows
+      navigation: {
+        nextEl: this.buttonNextTarget,
+        prevEl: this.buttonPrevTarget,
+      },
+      thumbs: {
+        swiper: galleryThumbs,
+      },
+    });
 
   }
 
@@ -42,30 +53,41 @@ export default class extends ApplicationController {
 
   defaultHTML() {
     return `
-      <div data-${this.identifier}-target="wrapper">
-        <div data-${this.identifier}-target="slide">Slide 1</div>
-        <div data-${this.identifier}-target="slide">Slide 2</div>
-        <div data-${this.identifier}-target="slide">Slide 3</div>
+      <div data-${this.identifier}-target="swiper">
+        <div data-${this.identifier}-target="wrapper">
+          <div data-${this.identifier}-target="slide">Slide 1</div>
+          <div data-${this.identifier}-target="slide">Slide 2</div>
+          <div data-${this.identifier}-target="slide">Slide 3</div>
+        </div>
+        <div data-${this.identifier}-target="pagination"></div>
+
+        <div data-${this.identifier}-target="buttonPrev"></div>
+        <div data-${this.identifier}-target="buttonNext"></div>
+
+        <div data-${this.identifier}-target="scrollbar"></div>
       </div>
-      <div data-${this.identifier}-target="pagination"></div>
-
-      <div data-${this.identifier}-target="buttonPrev"></div>
-      <div data-${this.identifier}-target="buttonNext"></div>
-
-      <div data-${this.identifier}-target="scrollbar"></div>
+      <div data-${this.identifier}-target="thumbs">
+        <div data-${this.identifier}-target="wrapper">
+          <div data-${this.identifier}-target="slide">Slide 1</div>
+          <div data-${this.identifier}-target="slide">Slide 2</div>
+          <div data-${this.identifier}-target="slide">Slide 3</div>
+        </div>
+      </div>
     `
   }
 
   variantClass() {
     return {
       swiper: {
-        element: 'swiper w-[600px] h-[300px]',
+        element: '',
+        swiper: 'swiper w-[600px] h-[300px]',
         wrapperTarget: 'swiper-wrapper',
         slideTarget: 'swiper-slide',
         paginationTarget: 'swiper-pagination',
         buttonPrevTarget: 'swiper-button-prev',
         buttonNextTarget: 'swiper-button-next',
-        scrollbarTarget: 'swiper-scrollbar'
+        scrollbarTarget: 'swiper-scrollbar',
+        thumbsTarget: 'swiper'
       }
     }
   }
