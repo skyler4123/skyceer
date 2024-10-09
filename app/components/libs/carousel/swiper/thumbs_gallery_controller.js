@@ -103,14 +103,14 @@ export default class extends ApplicationController {
     return {
       swiper: {
         element: '',
-        swiper: 'swiper w-[600px] h-[300px]',
+        swiper: 'swiper w-[600px] h-[300px] rounded-t-xl',
         wrapperTarget: 'swiper-wrapper',
         slideTarget: 'swiper-slide',
         paginationTarget: 'swiper-pagination',
         buttonPrevTarget: 'swiper-button-prev',
         buttonNextTarget: 'swiper-button-next',
         scrollbarTarget: 'swiper-scrollbar',
-        thumbsSwiperTarget: 'swiper w-[600px]',
+        thumbsSwiperTarget: 'swiper w-[600px] rounded-b-xl mt-2',
         thumbsWrapperTarget: 'swiper-wrapper',
         thumbsSlideTarget: 'swiper-slide',
         thumbsScrollbarTarget: 'swiper-scrollbar'
