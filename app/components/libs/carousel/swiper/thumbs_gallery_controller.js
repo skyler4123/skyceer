@@ -1,8 +1,9 @@
 import Swiper from "swiper";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
+import { img } from "../../../../javascript/controllers/components";
 
 export default class extends ApplicationController {
-  static targets = [...super.targets, 'swiper', 'thumbs', 'thumbsScrollbar', 'wrapper', 'slide', 'pagination', 'buttonPrev', 'buttonNext', 'scrollbar']
+  static targets = [...super.targets, 'swiper', 'wrapper', 'slide', 'pagination', 'buttonPrev', 'buttonNext', 'scrollbar', 'thumbsSwiper', 'thumbsWrapper', 'thumbsSlide', 'thumbsScrollbar']
   static values = {
     ...super.values
   }
@@ -28,9 +29,9 @@ export default class extends ApplicationController {
   }
 
   initComplete() {
-    var thumbs = new Swiper(this.thumbsTarget, {
+    var thumbs = new Swiper(this.thumbsSwiperTarget, {
       spaceBetween: 10,
-      slidesPerView: 2,
+      slidesPerView: 4,
       loop: true,
       // freeMode: true,
       loopedSlides: 5, //looped slides should be the same
@@ -71,14 +72,11 @@ export default class extends ApplicationController {
       <div data-${this.identifier}-target="swiper">
         <div data-${this.identifier}-target="wrapper">
           ${this.imageUrlsParams.map((url) => {
-            return `<div data-${this.identifier}-target="slide">Slide 1</div>`
-          }).join(',')}
-          <div data-${this.identifier}-target="slide">Slide 1</div>
-          <div data-${this.identifier}-target="slide">Slide 2</div>
-          <div data-${this.identifier}-target="slide">Slide 3</div>
-          <div data-${this.identifier}-target="slide">Slide 4</div>
-          <div data-${this.identifier}-target="slide">Slide 5</div>
-          <div data-${this.identifier}-target="slide">Slide 6</div>
+            return `
+              <div data-${this.identifier}-target="slide">
+                ${img({src: url})}
+              </div>`
+          }).join('')}
         </div>
         <div data-${this.identifier}-target="pagination"></div>
 
@@ -87,14 +85,14 @@ export default class extends ApplicationController {
 
         <div data-${this.identifier}-target="scrollbar"></div>
       </div>
-      <div data-${this.identifier}-target="thumbs">
-        <div data-${this.identifier}-target="wrapper">
-          <div data-${this.identifier}-target="slide">Slide 1</div>
-          <div data-${this.identifier}-target="slide">Slide 2</div>
-          <div data-${this.identifier}-target="slide">Slide 3</div>
-          <div data-${this.identifier}-target="slide">Slide 4</div>
-          <div data-${this.identifier}-target="slide">Slide 5</div>
-          <div data-${this.identifier}-target="slide">Slide 6</div>
+      <div data-${this.identifier}-target="thumbsSwiper">
+        <div data-${this.identifier}-target="thumbsWrapper">
+          ${this.imageUrlsParams.map((url) => {
+            return `
+              <div data-${this.identifier}-target="thumbsSlide">
+                ${img({src: url, klass: 'object-fill w-full h-20'})}
+              </div>`
+          }).join('')}
         </div>
         <div data-${this.identifier}-target="thumbsScrollbar"></div>
       </div>
@@ -112,7 +110,9 @@ export default class extends ApplicationController {
         buttonPrevTarget: 'swiper-button-prev',
         buttonNextTarget: 'swiper-button-next',
         scrollbarTarget: 'swiper-scrollbar',
-        thumbsTarget: 'swiper',
+        thumbsSwiperTarget: 'swiper w-[600px]',
+        thumbsWrapperTarget: 'swiper-wrapper',
+        thumbsSlideTarget: 'swiper-slide',
         thumbsScrollbarTarget: 'swiper-scrollbar'
       }
     }
