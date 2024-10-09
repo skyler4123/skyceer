@@ -8,7 +8,7 @@ export const Views_Estate_Header = () => {
         ${link({url: "/"}, () => {
           return `
             <div class="flex flex-row gap-x-2 justify-center items-center">
-              ${icon({variant: ["outline", "rectangle-group"], klass: "h-10 w-10"})}
+              ${icon({variant: ["solid", "sparkles"], klass: "h-10 w-10 bg-red-500 text-white rounded-md bg-gradient-to-r from-cyan-500 to-blue-500"})}
               <div>Skyceer</div>
             </div>
           `
@@ -17,11 +17,12 @@ export const Views_Estate_Header = () => {
       <div class="flex flex-row gap-x-2">
         <div>${link({label: 'Condominium', url: "/estate_condos"})}</div>
         <div>${link({label: 'Hotel', url: "/estate_hotels"})}</div>
+        <div>${link({label: 'House', url: "/estate_houses"})}</div>
       </div>
       <div class="flex flex-row">
         ${Views_Global_DarkmodeComponent()}
         Authentication
-      </div>
+    </div>
     </div>
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"></hr>
   `

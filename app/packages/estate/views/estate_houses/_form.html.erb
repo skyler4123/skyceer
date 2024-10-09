@@ -1,10 +1,10 @@
-<%= form_with(model: estate_home, class: "contents") do |form| %>
-  <% if estate_home.errors.any? %>
+<%= form_with(model: estate_house, class: "contents") do |form| %>
+  <% if estate_house.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(estate_home.errors.count, "error") %> prohibited this estate_home from being saved:</h2>
+      <h2><%= pluralize(estate_house.errors.count, "error") %> prohibited this estate_house from being saved:</h2>
 
       <ul>
-        <% estate_home.errors.each do |error| %>
+        <% estate_house.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>

@@ -1,4 +1,4 @@
-class EstateHome < ApplicationRecord
+class EstateHouse < ApplicationRecord
   belongs_to :estate_user
 
   monetize :price_cents

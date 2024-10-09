@@ -70,6 +70,6 @@ class EstateCondosController < EstateController
     def estate_condo_params
       # params.require(:estate_condo).permit(:estate_user_id, :name, :address, :price_cents, :longitude, :latitude)
       # params.permit(:name, :address, :price_cents, :longitude, :latitude)
-      params.require(:estate_condo).permit(:name, :address, :price_cents, :longitude, :latitude)
+      params.require(:estate_condo).permit(:name, :address, :price_cents, :longitude, :latitude, images: [])
     end
 end

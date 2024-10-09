@@ -29,4 +29,9 @@
     <%= estate_condo.latitude %>
   </p>
 
+  <% if estate_condo.images.attached? %>
+    <% estate_condo.images.each do |image| %>
+      <%= image_tag image.variant(:full) %>
+    <% end %>
+  <% end %>
 </div>

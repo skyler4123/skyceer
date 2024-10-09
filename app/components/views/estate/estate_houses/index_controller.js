@@ -4,19 +4,19 @@ export default class extends Views_Estate_LayoutController {
   static targets = [...super.targets, "map", "search"]
 
   initMain() {
-    this.initEstateHomesSearch()
-    this.initEstateHomesIndexMap()
+    this.initEstateHousesSearch()
+    this.initEstateHousesIndexMap()
     this.initConnection()
   }
 
-  initEstateHomesSearch() {
-    let openlayersControllerIdentifier = "views--estate--estate-homes--search"
+  initEstateHousesSearch() {
+    let openlayersControllerIdentifier = "views--estate--estate-houses--search"
     let openlayersHTML = `<div data-controller='${openlayersControllerIdentifier}'></div>`
     this.mergeHTMLIntoElement(this.searchTarget, openlayersHTML)
   }
 
-  initEstateHomesIndexMap() {
-    let openlayersControllerIdentifier = "views--estate--estate-homes--index-map"
+  initEstateHousesIndexMap() {
+    let openlayersControllerIdentifier = "views--estate--estate-houses--index-map"
     let openlayersHTML = `<div data-controller='${openlayersControllerIdentifier}'></div>`
     this.mergeHTMLIntoElement(this.mapTarget, openlayersHTML)
   }
