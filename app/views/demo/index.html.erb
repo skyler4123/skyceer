@@ -33,6 +33,14 @@
       Car
     <% end %>
 
+    <% image_urls = ["https://swiperjs.com/demos/images/nature-1.jpg",
+          "https://swiperjs.com/demos/images/nature-2.jpg",
+          "https://swiperjs.com/demos/images/nature-3.jpg",
+          "https://swiperjs.com/demos/images/nature-4.jpg",
+          "https://swiperjs.com/demos/images/nature-5.jpg"] %>
+    <% params = {image_urls: image_urls} %>
+    <div data-controller="libs--carousel--swiper--thumbs-gallery" data-libs--carousel--swiper--thumbs-gallery-params-value="<%= params.to_json %>"></div> 
+
     <%= render(Libs::Carousel::SwiperComponent.new) do %>
       <div class="swiper-slide bg-blue-100">Slide 1</div>
       <div class="swiper-slide bg-blue-300">Slide 2</div>

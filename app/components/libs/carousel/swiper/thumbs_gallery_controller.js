@@ -40,6 +40,7 @@ export default class extends ApplicationController {
       scrollbar: {
         el: this.thumbsScrollbarTarget,
       },
+      cssMode: true
     });
 
     const swiper = new Swiper(this.swiperTarget, {
