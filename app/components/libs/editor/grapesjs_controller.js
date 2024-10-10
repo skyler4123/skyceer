@@ -1,3 +1,5 @@
+import grapesjs from 'grapesjs';
+import 'grapesjs-tailwind';
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
 export default class extends ApplicationController {
@@ -11,9 +13,10 @@ export default class extends ApplicationController {
   }
 
   initComplete() {
+    const escapeName = (name) => `${name}`.trim().replace(/([^a-z0-9\w-:/]+)/gi, '-');
     this.editor = grapesjs.init({
       // Indicate where to init the editor. You can also pass an HTMLElement
-      container: this.editorTarget,
+      container: this.element,
       // Get the content for the canvas directly from the element
       // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
       fromElement: true,
@@ -24,6 +27,7 @@ export default class extends ApplicationController {
       storageManager: false,
       // Avoid any default panel
       panels: { defaults: [] },
+      plugins: ['grapesjs-tailwind'],
     });
     
   }
