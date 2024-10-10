@@ -1,4 +1,4 @@
-module EstateHouse::ImagesConcern
+module EstateCondo::ImagesConcern
   extend ActiveSupport::Concern
   
   included do
