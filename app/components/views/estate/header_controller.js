@@ -8,7 +8,7 @@ export default class extends ApplicationController {
   }
 
   initHTML() {
-    this.parentElement.innerHTML = this.defaultHTML()
+    this.element.innerHTML = this.defaultHTML()
   }
 
   defaultHTML() {

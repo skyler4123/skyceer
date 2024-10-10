@@ -11,9 +11,9 @@ export default class Views_Estate_LayoutController extends ApplicationController
   }
 
   initHeader() {
-    this.headerTarget.innerHTML = `<div data-controller="views--estate--header"></div>`
+    this.headerTarget.setAttribute('data-controller', "views--estate--header")
   }
   initFooter() {
-    this.footerTarget.innerHTML = `<div data-controller="views--estate--footer"></div>`
+    this.footerTarget.setAttribute('data-controller', "views--estate--footer")
   }
 }
