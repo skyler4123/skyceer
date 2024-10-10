@@ -3,7 +3,7 @@ import ApplicationController from "../../../../javascript/controllers/applicatio
 import { img } from "../../../../javascript/controllers/components";
 
 export default class extends ApplicationController {
-  static targets = [...super.targets, 'swiper', 'wrapper', 'slide', 'pagination', 'buttonPrev', 'buttonNext', 'scrollbar', 'thumbsSwiper', 'thumbsWrapper', 'thumbsSlide', 'thumbsScrollbar']
+  static targets = [...super.targets, 'swiper', 'wrapper', 'slide', 'item', 'pagination', 'buttonPrev', 'buttonNext', 'scrollbar', 'thumbSwiper', 'thumbWrapper', 'thumbSlide', 'thumbItem', 'thumbScrollbar']
   static values = {
     ...super.values
   }
@@ -26,10 +26,20 @@ export default class extends ApplicationController {
 
   init() {
      this.initHTML()
+     this.initTarget()
   }
 
+  initTarget() {
+    this.slideTargets.forEach((slide) => {
+      slide.firstElementChild.setAttribute(`data-${this.identifier}-target`, 'item')
+    })
+    this.thumbSlideTargets.forEach((slide) => {
+      slide.firstElementChild.setAttribute(`data-${this.identifier}-target`, 'thumbItem')
+    })
+  }
+  
   initComplete() {
-    var thumbs = new Swiper(this.thumbsSwiperTarget, {
+    var thumb = new Swiper(this.thumbSwiperTarget, {
       spaceBetween: 10,
       slidesPerView: 4,
       loop: true,
@@ -38,9 +48,10 @@ export default class extends ApplicationController {
       watchSlidesVisibility: true,
       watchSlidesProgress: true,
       scrollbar: {
-        el: this.thumbsScrollbarTarget,
+        el: this.thumbScrollbarTarget,
       },
-      cssMode: true
+      cssMode: true,
+      // centeredSlides: true
     });
 
     const swiper = new Swiper(this.swiperTarget, {
@@ -57,9 +68,11 @@ export default class extends ApplicationController {
         nextEl: this.buttonNextTarget,
         prevEl: this.buttonPrevTarget,
       },
-      thumbs: {
-        swiper: thumbs,
+      thumb: {
+        swiper: thumb,
       },
+      centeredSlides: true,
+      // centeredSlidesBounds: true,
     });
 
   }
@@ -86,16 +99,16 @@ export default class extends ApplicationController {
 
         <div data-${this.identifier}-target="scrollbar"></div>
       </div>
-      <div data-${this.identifier}-target="thumbsSwiper">
-        <div data-${this.identifier}-target="thumbsWrapper">
+      <div data-${this.identifier}-target="thumbSwiper">
+        <div data-${this.identifier}-target="thumbWrapper">
           ${this.imageUrlsParams.map((url) => {
             return `
-              <div data-${this.identifier}-target="thumbsSlide">
+              <div data-${this.identifier}-target="thumbSlide">
                 ${img({src: url, klass: 'object-fill w-full h-20'})}
               </div>`
           }).join('')}
         </div>
-        <div data-${this.identifier}-target="thumbsScrollbar"></div>
+        <div data-${this.identifier}-target="thumbScrollbar"></div>
       </div>
     `
   }
@@ -107,14 +120,16 @@ export default class extends ApplicationController {
         swiper: 'swiper w-[600px] h-[300px] rounded-t-xl',
         wrapperTarget: 'swiper-wrapper',
         slideTarget: 'swiper-slide',
+        itemTarget: 'm-auto',
         paginationTarget: 'swiper-pagination',
         buttonPrevTarget: 'swiper-button-prev',
         buttonNextTarget: 'swiper-button-next',
         scrollbarTarget: 'swiper-scrollbar',
-        thumbsSwiperTarget: 'swiper w-[600px] rounded-b-xl mt-2',
-        thumbsWrapperTarget: 'swiper-wrapper',
-        thumbsSlideTarget: 'swiper-slide',
-        thumbsScrollbarTarget: 'swiper-scrollbar'
+        thumbSwiperTarget: 'swiper w-[600px] rounded-b-xl mt-2',
+        thumbWrapperTarget: 'swiper-wrapper',
+        thumbSlideTarget: 'swiper-slide',
+        thumbItemTarget: 'm-auto',
+        thumbScrollbarTarget: 'swiper-scrollbar'
       }
     }
   }

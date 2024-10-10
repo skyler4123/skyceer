@@ -1,4 +1,10 @@
 <div id="<%= dom_id estate_house %>">
+  <% if estate_house.images.attached? %>
+    <% image_urls = estate_house.images.map { |image| Rails.application.routes.url_helpers.rails_blob_path(image, only_path: true) } %>
+    <% controller_params = { image_urls: image_urls } %>
+    <div data-controller="libs--carousel--swiper--thumbs-gallery" data-libs--carousel--swiper--thumbs-gallery-params-value="<%= controller_params.to_json %>"></div> 
+  <% end %>
+
   <p class="my-5">
     <strong class="block font-medium mb-1">Estate user:</strong>
     <%= estate_house.estate_user_id %>
