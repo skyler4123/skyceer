@@ -1,6 +1,3 @@
-
-import { Views_Estate_Footer } from "./footer";
-import { Views_Estate_Header } from "./header";
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
 export default class Views_Estate_LayoutController extends ApplicationController {
@@ -13,6 +10,10 @@ export default class Views_Estate_LayoutController extends ApplicationController
     this.initMain()
   }
 
-  initHeader() { this.headerTarget.innerHTML = Views_Estate_Header() }
-  initFooter() { this.footerTarget.innerHTML = Views_Estate_Footer() }
+  initHeader() {
+    this.headerTarget.innerHTML = `<div data-controller="views--estate--header"></div>`
+  }
+  initFooter() {
+    this.footerTarget.innerHTML = `<div data-controller="views--estate--footer"></div>`
+  }
 }
