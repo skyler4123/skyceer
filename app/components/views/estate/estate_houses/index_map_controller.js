@@ -20,7 +20,7 @@ export default class Views_Estate_EstateHouses_IndexMapController extends Libs_M
     this.initBlindingFunctions()
     // this.initPointsValue()
     this.initPointerHoverOnFeature()
-    this.initOpenUrlOnClickFeature()
+    this.initOpenUrlOnClickFeature({url: '/estate_houses/'})
   }
 
   initHTML() {
