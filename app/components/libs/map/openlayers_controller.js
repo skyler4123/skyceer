@@ -154,7 +154,7 @@ export default class Libs_Map_OpenlayersController extends ApplicationController
     })
   }
 
-  initOpenUrlOnClickFeature({url = "/estate_condos/", featureGet = "id"}) {
+  initOpenUrlOnClickFeature({url, featureGet = "id"}) {
     this.map.on("singleclick", (event) => {
       const feature = this.pointsSource.getClosestFeatureToCoordinate(event.coordinate)
       const isNear = this.isNearFromEventToPointFeature({event: event, feature: feature})
