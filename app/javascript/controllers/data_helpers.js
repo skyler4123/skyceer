@@ -499,6 +499,13 @@ const DataHelpers = {
       }
       return array
     }
+  },
+
+  isEmpty(x) {
+    if (this.isObject(x)) { return this.isObjectNull(x) }
+    if (this.isArray(x)) { return x.length === 0 }
+    if (this.isString(x)) { return x === "" }
+    if (this.isNumber(x)) { return false }
   }
 
 }

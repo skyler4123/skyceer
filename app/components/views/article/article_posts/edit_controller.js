@@ -51,11 +51,6 @@ export default class extends Views_Article_LayoutController {
       }
   }
 
-  transferToValue(value) {
-    let newValue = JSON.stringify(value).replace(/"/g, '&quot;')
-    return newValue
-  }
-
   variantClass() {
     return {
       default: {

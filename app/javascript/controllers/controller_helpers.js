@@ -166,6 +166,11 @@ const ControllerHelpers = {
 
   getControllerIdentifier(element) {
     return element.dataset.controller.split(" ")[0]
+  },
+
+  transferToValue(value) {
+    let newValue = JSON.stringify(value).replace(/"/g, '&quot;')
+    return newValue
   }
 }
 
