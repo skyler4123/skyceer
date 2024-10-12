@@ -1,5 +1,5 @@
 import { darkmodeButton } from "./darkmode_button"
-import { logo } from "./logo"
+import { Application_Logo } from "./logo"
 import { nav } from "./nav"
 import { userBox } from "./user_box"
 
@@ -7,7 +7,7 @@ export const header = () => {
   return `
     <div class="flex flex-row justify-between w-full h-full py-5 px-10">
       <div class="flex flex-row">
-        ${logo()}
+        ${Application_Logo()}
       </div>
       <div class="flex flex-row">
         ${nav()}

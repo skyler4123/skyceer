@@ -3,13 +3,13 @@ import { link } from "../../../javascript/controllers/components"
 import { darkmodeButton } from "../application/darkmode_button"
 import { languageButton } from "../application/language_button"
 import { userBox } from "../application/user_box"
-import { logo } from "./logo"
+import { Vehicle_Logo } from "./logo"
 
 export const header = () => {
   return `
     <div class="flex flex-row justify-between items-center w-full h-full py-5 px-10">
       <div class="flex flex-row">
-        ${logo()}
+        ${Vehicle_Logo()}
       </div>
       <div class="flex flex-row gap-x-4">
         <div>${link({label: 'Find Your Car', url: '/vehicle_cars', data: {'language-target': 'text'}})}</div>
