@@ -13,7 +13,7 @@ export default class extends ApplicationController {
 
   defaultHTML() {
     return `
-      <div class="flex flex-row justify-between w-full h-full py-5 px-10">
+      <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 mb-4 border-b-2 shadow-lg shadow-gray-300">
         <div>
           ${link({url: "/"}, () => {
             return `
@@ -34,7 +34,6 @@ export default class extends ApplicationController {
           Authentication
       </div>
     </div>
-    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"></hr>
     `
   }
 }
