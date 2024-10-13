@@ -17,11 +17,9 @@ export default class extends ApplicationController {
     if (value.length === 0) { return }
 
     EstateHousesApi.show({id: value}).then(response => {
-      console.log(response.data)
       this.houseValue = response.data
     }).catch(error => {
-      console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW')
-      console.log(error)
+      console.log(error.message)
       this.houseValue = {}
     })
   }

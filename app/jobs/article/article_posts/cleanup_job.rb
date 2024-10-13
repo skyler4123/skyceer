@@ -1,3 +1,5 @@
+# Because article_post need id to upload image at new action, so we need to create n new post at everytime trigger new action 
+
 class Article::ArticlePosts::CleanupJob < ApplicationJob
   # queue_as :default
   # self.queue_adapter = :solid_queue
