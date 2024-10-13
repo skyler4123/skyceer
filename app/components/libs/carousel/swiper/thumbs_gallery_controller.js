@@ -29,6 +29,10 @@ export default class extends ApplicationController {
      this.initTarget()
   }
 
+  initHTML() {
+    this.element.innerHTML = this.defaultHTML()
+  }
+
   initTarget() {
     this.slideTargets.forEach((slide) => {
       slide.firstElementChild.setAttribute(`data-${this.identifier}-target`, 'item')
@@ -39,7 +43,7 @@ export default class extends ApplicationController {
   }
   
   initComplete() {
-    var thumb = new Swiper(this.thumbSwiperTarget, {
+    const thumb = new Swiper(this.thumbSwiperTarget, {
       spaceBetween: 10,
       slidesPerView: 4,
       loop: true,
@@ -68,17 +72,12 @@ export default class extends ApplicationController {
         nextEl: this.buttonNextTarget,
         prevEl: this.buttonPrevTarget,
       },
-      thumb: {
+      thumbs: {
         swiper: thumb,
       },
-      centeredSlides: true,
+      // centeredSlides: true,
       // centeredSlidesBounds: true,
     });
-
-  }
-
-  initHTML() {
-    this.element.innerHTML = this.defaultHTML()
   }
 
   defaultHTML() {
@@ -96,15 +95,13 @@ export default class extends ApplicationController {
 
         <div data-${this.identifier}-target="buttonPrev"></div>
         <div data-${this.identifier}-target="buttonNext"></div>
-
-        <div data-${this.identifier}-target="scrollbar"></div>
       </div>
       <div data-${this.identifier}-target="thumbSwiper">
         <div data-${this.identifier}-target="thumbWrapper">
           ${this.imageUrlsParams.map((url) => {
             return `
               <div data-${this.identifier}-target="thumbSlide">
-                ${img({src: url, klass: 'object-fill w-full h-20'})}
+                ${img({src: url})}
               </div>`
           }).join('')}
         </div>
@@ -116,19 +113,18 @@ export default class extends ApplicationController {
   variantClass() {
     return {
       swiper: {
-        element: '',
-        swiper: 'swiper w-[600px] h-[300px] rounded-t-xl',
+        element: 'w-1/2 h-[300px]',
+        swiperTarget: 'swiper w-full h-5/6',
         wrapperTarget: 'swiper-wrapper',
         slideTarget: 'swiper-slide',
         itemTarget: 'm-auto w-full h-full object-contain',
         paginationTarget: 'swiper-pagination',
         buttonPrevTarget: 'swiper-button-prev',
         buttonNextTarget: 'swiper-button-next',
-        scrollbarTarget: 'swiper-scrollbar',
-        thumbSwiperTarget: 'swiper w-[600px] rounded-b-xl mt-2',
+        thumbSwiperTarget: 'swiper w-full h-1/6',
         thumbWrapperTarget: 'swiper-wrapper',
         thumbSlideTarget: 'swiper-slide',
-        thumbItemTarget: 'm-auto',
+        thumbItemTarget: 'm-auto object-fill w-full h-20',
         thumbScrollbarTarget: 'swiper-scrollbar'
       }
     }
