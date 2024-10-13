@@ -42,10 +42,13 @@ export default class extends ApplicationController {
 
   initHTML() {
     this.element.innerHTML = `
-      <div>
-        <div data-controller="libs--carousel--swiper--navigation" data-libs--carousel--swiper--navigation-params-value="${this.transferToValue({imageUrls: this.houseValue.image_urls})}"></div>
+      <div class="w-full h-5/6 rounded-xl overflow-hidden">
+        <div
+          data-controller="libs--carousel--swiper--navigation" data-libs--carousel--swiper--navigation-params-value="${this.transferToValue({imageUrls: this.houseValue.image_urls})}"
+        >
+        </div>
       </div>
-      <div>
+      <div class="h-1/6">
         <div>${this.houseValue.name}</div>
         <div>${link({label: this.houseValue.user.name, url: `/users/${this.houseValue.user.id}`})}</div>
         <div>$${this.houseValue.price_cents/100}</div>
@@ -56,7 +59,7 @@ export default class extends ApplicationController {
   variantClass() {
     return {
       default: {
-        element: ''
+        element: 'w-1/3 h-[400px]'
       }
     }
   }

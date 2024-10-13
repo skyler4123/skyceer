@@ -82,11 +82,11 @@ export default class extends ApplicationController {
   variantClass() {
     return {
       swiper: {
-        element: '',
-        swiper: 'swiper w-[600px] h-[300px]',
-        wrapperTarget: 'swiper-wrapper',
-        slideTarget: 'swiper-slide',
-        itemTarget: 'm-auto',
+        element: 'w-full h-full',
+        swiper: 'swiper w-full h-full',
+        wrapperTarget: 'swiper-wrapper w-full h-full',
+        slideTarget: 'swiper-slide w-full h-full',
+        itemTarget: 'm-auto w-full h-full',
         buttonPrevTarget: 'swiper-button-prev',
         buttonNextTarget: 'swiper-button-next',
       }
