@@ -210,21 +210,21 @@ end
 
 EstateUser.all.each_with_index do |estate_user, index|
   estate_user.estate_condos.create(
-    name: "name #{index}",
+    name: "estate user name #{index}",
     address: "address #{index}",
     longitude: rand(-180..180),
     latitude: rand(-90..90),
     price_cents: rand(1000..9999),
   )
   estate_user.estate_hotels.create(
-    name: "name #{index}",
+    name: "estate hotel name #{index}",
     address: "address #{index}",
     longitude: rand(-180..180),
     latitude: rand(-90..90),
     price_cents: rand(1000..9999),
   )
   estate_user.estate_houses.create(
-    name: "name #{index}",
+    name: "estate house name #{index}",
     address: "address #{index}",
     longitude: rand(-180..180),
     latitude: rand(-90..90),
