@@ -20,6 +20,7 @@ export default class extends ApplicationController {
       console.log(response.data)
       this.houseValue = response.data
     }).catch(error => {
+      console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW')
       console.log(error)
       this.houseValue = {}
     })

@@ -1,6 +1,17 @@
-Rack::Attack.throttle('req/ip', limit: 20, period: 20.seconds) do |req|
-  req.ip unless req.path.starts_with?('/assets')
-end
+# Rack::Attack.throttle('req/ip', limit: 20, period: 20.seconds) do |req|
+#   req.ip unless req.path.starts_with?('/assets')
+# end
+
+# Rack::Attack.throttle('req/ip', limit: 20, period: 20.seconds) do |req|
+#   req.ip unless req.path.starts_with?('/rails/active_storage/blobs')
+# end
+
+
+
+
+
+
+
 
 # # config/initializers/rack_attack.rb (for rails apps)
 # # Provided that trusted users use an HTTP request header named APIKey

@@ -49,10 +49,16 @@ export default class Views_Estate_EstateHouses_IndexMapController extends Libs_M
     }
   }
   
-  async queryParamsValueChanged(value, previousValue) {
-    const res = await EstateHousesApi.index({params: value})
-    let points = res.data
-    this.pointsValue = points
+  queryParamsValueChanged(value, previousValue) {
+    EstateHousesApi.index({params: value}).then(response => {
+      console.log(response)
+      let points = response.data
+      this.pointsValue = points
+    }).catch(error => {
+      console.log('111111111111111111111111111')
+      console.log(error)
+    })
+
   }
 
   receiveFromSearch(event) {

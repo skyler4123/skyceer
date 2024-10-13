@@ -19,3 +19,9 @@ cleanup_articl_posts_periodic_job:
   schedule: every 1 minutes
   queue: Article::ArticlePosts::CleanupJob-background
   # args: [ 1000, { batch_size: 500 } ]
+
+auto_upload_image_periodic_job:
+  class: Development::Image::AutoUploadJob
+  schedule: every 1 minutes
+  queue: Development::Image::AutoUploadJob-background
+  # args: [ 1000, { batch_size: 500 } ]
