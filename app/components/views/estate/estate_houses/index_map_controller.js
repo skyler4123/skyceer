@@ -51,11 +51,9 @@ export default class Views_Estate_EstateHouses_IndexMapController extends Libs_M
   
   queryParamsValueChanged(value, previousValue) {
     EstateHousesApi.index({params: value}).then(response => {
-      console.log(response)
       let points = response.data
       this.pointsValue = points
     }).catch(error => {
-      console.log('111111111111111111111111111')
       console.log(error)
     })
 
