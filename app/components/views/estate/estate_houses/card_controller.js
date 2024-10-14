@@ -49,7 +49,7 @@ export default class extends ApplicationController {
         </div>
       </div>
       <div class="h-1/6">
-        <div>${this.houseValue.name}</div>
+        <div>${link({label: this.houseValue.name, url: `/estate_houses/${this.houseValue.id}`})}</div>
         <div>${link({label: this.houseValue.user.name, url: `/users/${this.houseValue.user.id}`})}</div>
         <div>$${this.houseValue.price_cents/100}</div>
       </div>
@@ -59,7 +59,7 @@ export default class extends ApplicationController {
   variantClass() {
     return {
       default: {
-        element: ''
+        element: 'w-full h-[400px]'
       }
     }
   }
