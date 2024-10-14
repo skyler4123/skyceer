@@ -113,7 +113,7 @@ export default class extends ApplicationController {
   variantClass() {
     return {
       swiper: {
-        element: 'w-1/2 h-[300px]',
+        element: 'w-1/2 h-[400px]',
         swiperTarget: 'swiper w-full h-5/6',
         wrapperTarget: 'swiper-wrapper',
         slideTarget: 'swiper-slide',
