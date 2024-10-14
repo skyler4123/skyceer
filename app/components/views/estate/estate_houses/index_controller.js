@@ -51,7 +51,7 @@ export default class extends Views_Estate_LayoutController {
 
   initEstateHouseCards() {
     let cardsHTML = this.housesValue.map((house) => {
-      return `<div class="w-1/2" data-controller="views--estate--estate-houses--card" data-views--estate--estate-houses--card-house-value="${this.transferToValue(house)}"></div>`
+      return `<div class="w-full" data-controller="views--estate--estate-houses--card" data-views--estate--estate-houses--card-house-value="${this.transferToValue(house)}"></div>`
     }).join('')
     this.cardsTarget.innerHTML = cardsHTML
   }
@@ -60,9 +60,10 @@ export default class extends Views_Estate_LayoutController {
     return {
       default: {
         element: '',
-        mapTarget: "",
+        mainTarget: "gap-y-10",
+        mapTarget: "w-full",
         searchTarget: "",
-        cardsTarget: "w-full"
+        cardsTarget: "w-full grid grid-cols-3 gap-4"
       }
     }
   }

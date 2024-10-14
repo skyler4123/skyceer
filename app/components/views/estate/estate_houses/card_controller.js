@@ -59,7 +59,7 @@ export default class extends ApplicationController {
   variantClass() {
     return {
       default: {
-        element: 'w-1/3 h-[400px]'
+        element: ''
       }
     }
   }

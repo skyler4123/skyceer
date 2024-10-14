@@ -156,11 +156,12 @@ export default class ApplicationController extends Controller {
   }
 
   initializeClass() {
-    this.mergeClass(this.element, this.identifier)
+    const originalClass = this.element.className
     this.initializeVariantClass()
     this.initializePositionClass()
     this.initializeTypeClass()
     this.initializeCustomClass()
+    this.mergeClass(this.element, originalClass)
   }
 
   initializeTypeClass() {

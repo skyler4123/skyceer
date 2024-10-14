@@ -167,8 +167,8 @@ export default class Libs_Map_OpenlayersController extends ApplicationController
   variantClass() {
     return {
       default: {
-        element: 'relative w-full h-[500px]',
-        mapTarget: 'w-full h-full',
+        element: 'relative w-full',
+        mapTarget: 'w-full',
       }
     }
   }
