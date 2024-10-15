@@ -2,10 +2,10 @@ import { EstateHousesApi } from "../../../../javascript/controllers/api/estate/e
 import Libs_Map_Openlayers_IndexController from "../../../libs/map/openlayers/index_controller";
 
 export default class Views_Estate_EstateHouses_IndexMapController extends Libs_Map_Openlayers_IndexController {
-  static values = {
-    ...super.values,
-    queryParams: Object
-  }
+  // static values = {
+  //   ...super.values,
+  //   queryParams: Object
+  // }
 
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})

@@ -2,9 +2,10 @@ import { EstateHousesApi } from "../../../../javascript/controllers/api/estate/e
 import Views_Estate_LayoutController from "../layout_controller";
 
 export default class extends Views_Estate_LayoutController {
-  static targets = [...super.targets, "map", "search", "cards"]
+  static targets = [...super.targets, "map", "search", "cards", "card"]
   static values = {
-    houses: { type: Array, default: [] }
+    houses: { type: Array, default: [] },
+    queryParams: { type: Object, default: {} }
   }
 
   initParams() {
@@ -12,15 +13,22 @@ export default class extends Views_Estate_LayoutController {
   }
 
   initMain() {
-    this.initValues()
-    this.initEstateHousesSearch()
-    this.initEstateHousesIndexMap()
-    this.initConnection()
-    // this.initEstateHouseCards()
+    this.initHTML()
+    this.initHousesValue()
+    this.createEventBrige({fromElement: this.searchTarget, toElement: this.element, toAction: "listenFromSearch"})
   }
 
-  initValues() {
-    EstateHousesApi.index().then(response => {
+  initHTML() {
+    const defaultHTML = `
+      <div data-controller="${this.searchControllerIdentifier()}" data-${this.identifier}-target="search"></div>
+      <div data-controller="${this.mapControllerIdentifier()}" data-${this.identifier}-target="map"></div>
+      <div data-${this.identifier}-target="cards"></div>
+    `
+    this.element.innerHTML = defaultHTML
+  }
+
+  initHousesValue() {
+    EstateHousesApi.index({params: this.queryParamsValue}).then(response => {
       let data = response.data
       this.housesValue = data
     }).catch(error => {
@@ -28,32 +36,45 @@ export default class extends Views_Estate_LayoutController {
     })
   }
 
+  listenFromSearch(event) {
+    this.queryParamsValue = event.detail.queryParams
+  }
+
+  searchController() {
+    return this.application.getControllerForElementAndIdentifier(this.searchTarget, this.searchControllerIdentifier())
+  }
+
+  mapController() {
+    return this.application.getControllerForElementAndIdentifier(this.mapTarget, this.mapControllerIdentifier())
+  }
+
   housesValueChanged(value, previousValue) {
-    if (value.length === 0) { return }
-    this.initEstateHouseCards()
+    setTimeout(() => {
+      if (value.length === 0) { return }
+      this.mapController().pointsValue = value
+  
+      let cardsHTML = value.map((house) => {
+        return `<div class="w-full" data-controller="${this.cardControllerIdentifier()}" data-${this.identifier}-target="card" data-${this.cardControllerIdentifier()}-house-value="${this.transferToValue(house)}"></div>`
+      }).join('')
+      this.cardsTarget.innerHTML = cardsHTML
+    }, 2000)
+
   }
 
-  initEstateHousesSearch() {
-    let searchControllerIdentifier = "views--estate--estate-houses--search"
-    let openlayersHTML = `<div data-controller='${searchControllerIdentifier}'></div>`
-    this.mergeHTMLIntoElement(this.searchTarget, openlayersHTML)
+  queryParamsValueChanged(value, previousValue) {
+    this.initHousesValue()
   }
 
-  initEstateHousesIndexMap() {
-    let openlayersControllerIdentifier = "views--estate--estate-houses--index-map"
-    let openlayersHTML = `<div data-controller='${openlayersControllerIdentifier}'></div>`
-    this.mergeHTMLIntoElement(this.mapTarget, openlayersHTML)
+  searchControllerIdentifier() {
+    return "views--estate--estate-houses--search"
   }
 
-  initConnection() {
-    this.createEventBrige({fromElement: this.searchTarget, toElement: this.mapTarget, toAction: "receiveFromSearch"})
+  mapControllerIdentifier() {
+    return "views--estate--estate-houses--index-map"
   }
 
-  initEstateHouseCards() {
-    let cardsHTML = this.housesValue.map((house) => {
-      return `<div class="w-full" data-controller="views--estate--estate-houses--card" data-views--estate--estate-houses--card-house-value="${this.transferToValue(house)}"></div>`
-    }).join('')
-    this.cardsTarget.innerHTML = cardsHTML
+  cardControllerIdentifier() {
+    return "views--estate--estate-houses--card"
   }
 
   variantClass() {
