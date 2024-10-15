@@ -1,8 +1,8 @@
-<div id="<%= dom_id estate_house %>">
+<div class="w-full" id="<%= dom_id estate_house %>">
   <% if estate_house.images.attached? %>
     <% image_urls = estate_house.images.map { |image| Rails.application.routes.url_helpers.rails_blob_path(image, only_path: true) } %>
-    <% controller_params = { image_urls: image_urls } %>
-    <div data-controller="libs--carousel--swiper--thumbs-gallery" data-libs--carousel--swiper--thumbs-gallery-params-value="<%= controller_params.to_json %>"></div> 
+    <% controller_params = { image_urls: image_urls, itemClass: "rounded-full" } %>
+    <div class="flex flex-col gap-y-4 w-1/2 mx-auto" data-controller="libs--carousel--swiper--thumbs-gallery" data-libs--carousel--swiper--thumbs-gallery-params-value="<%= controller_params.to_json %>"></div> 
   <% end %>
 
   <p class="my-5">
