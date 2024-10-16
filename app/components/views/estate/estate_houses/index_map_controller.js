@@ -8,7 +8,7 @@ export default class Views_Estate_EstateHouses_IndexMapController extends Libs_M
   // }
 
   initParams() {
-    this.setParams({name: 'variant', defaultValue: 'default'})
+    // this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/533501/house-chimney-floor.svg'})
     this.setParams({name: 'viewCenter', defaultValue: [0, 0]})
     this.setParams({name: 'viewZoom', defaultValue: 4})
