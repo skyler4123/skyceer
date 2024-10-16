@@ -82,7 +82,7 @@ export default class extends Views_Estate_LayoutController {
         footerTarget: "flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2",
         mainTarget: "gap-y-10",
         mapTarget: "",
-        searchTarget: "",
+        searchTarget: "w-full h-full flex flex-row justify-start",
         cardsTarget: "w-full grid grid-cols-3 gap-4"
       }
     }
