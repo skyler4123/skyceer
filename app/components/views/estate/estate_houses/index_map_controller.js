@@ -25,7 +25,7 @@ export default class Views_Estate_EstateHouses_IndexMapController extends Libs_M
 
   initHTML() {
     if (!this.hasMapTarget) {
-      this.element.innerHTML = `<div class="w-full" data-${this.identifier}-target="map"></div>`
+      this.element.innerHTML = `<div class="w-full h-full" data-${this.identifier}-target="map"></div>`
     }
   }
 

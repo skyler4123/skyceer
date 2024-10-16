@@ -20,11 +20,11 @@ export default class extends Views_Estate_LayoutController {
 
   initHTML() {
     const defaultHTML = `
-      <div data-controller="${this.searchControllerIdentifier()}" data-${this.identifier}-target="search"></div>
-      <div class="w-5/6 h-[500px] test" data-controller="${this.mapControllerIdentifier()}" data-${this.identifier}-target="map"></div>
+      <div class="" data-controller="${this.searchControllerIdentifier()}" data-${this.identifier}-target="search"></div>
+      <div class="w-5/6 h-[500px] rounded-2xl overflow-hidden" data-controller="${this.mapControllerIdentifier()}" data-${this.identifier}-target="map"></div>
       <div data-${this.identifier}-target="cards"></div>
     `
-    this.element.innerHTML = defaultHTML
+    this.mainTarget.innerHTML = defaultHTML
   }
 
   initHousesValue() {
@@ -78,6 +78,8 @@ export default class extends Views_Estate_LayoutController {
     return {
       default: {
         element: '',
+        headerTarget: "flex flex-row w-full h-full",
+        footerTarget: "flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2",
         mainTarget: "gap-y-10",
         mapTarget: "",
         searchTarget: "",

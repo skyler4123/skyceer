@@ -12,13 +12,11 @@ export default class extends ApplicationController {
 
   defaultHTML() {
     return `
-      <div class="flex flex-row justify-between items-center py-4 px-20 mt-4 border-t-2">
-        <div>${Application_Logo()}</div>
-        <div>Home</div>
-        <div>Estate</div>
-        <div>About</div>
-        <div>Contact</div>
-      </div>
+      <div>${Application_Logo()}</div>
+      <div>Home</div>
+      <div>Estate</div>
+      <div>About</div>
+      <div>Contact</div>
     `
   }
 }
