@@ -21,7 +21,7 @@ export default class extends Views_Estate_LayoutController {
   initHTML() {
     const defaultHTML = `
       <div data-controller="${this.searchControllerIdentifier()}" data-${this.identifier}-target="search"></div>
-      <div data-controller="${this.mapControllerIdentifier()}" data-${this.identifier}-target="map"></div>
+      <div class="w-5/6 h-[500px] test" data-controller="${this.mapControllerIdentifier()}" data-${this.identifier}-target="map"></div>
       <div data-${this.identifier}-target="cards"></div>
     `
     this.element.innerHTML = defaultHTML
@@ -49,16 +49,13 @@ export default class extends Views_Estate_LayoutController {
   }
 
   housesValueChanged(value, previousValue) {
-    setTimeout(() => {
-      if (value.length === 0) { return }
-      this.mapController().pointsValue = value
-  
-      let cardsHTML = value.map((house) => {
-        return `<div class="w-full" data-controller="${this.cardControllerIdentifier()}" data-${this.identifier}-target="card" data-${this.cardControllerIdentifier()}-house-value="${this.transferToValue(house)}"></div>`
-      }).join('')
-      this.cardsTarget.innerHTML = cardsHTML
-    }, 2000)
+    if (value.length === 0) { return }
+    this.mapController().pointsValue = value
 
+    let cardsHTML = value.map((house) => {
+      return `<div class="w-full" data-controller="${this.cardControllerIdentifier()}" data-${this.identifier}-target="card" data-${this.cardControllerIdentifier()}-house-value="${this.transferToValue(house)}"></div>`
+    }).join('')
+    this.cardsTarget.innerHTML = cardsHTML
   }
 
   queryParamsValueChanged(value, previousValue) {
@@ -82,7 +79,7 @@ export default class extends Views_Estate_LayoutController {
       default: {
         element: '',
         mainTarget: "gap-y-10",
-        mapTarget: "w-full",
+        mapTarget: "",
         searchTarget: "",
         cardsTarget: "w-full grid grid-cols-3 gap-4"
       }

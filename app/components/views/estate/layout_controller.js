@@ -4,7 +4,6 @@ export default class Views_Estate_LayoutController extends ApplicationController
   static targets = ['header', 'main', 'footer']
 
   init() {
-    this.element.className = 'w-full h-full'
     this.initHeader()
     this.initFooter()
     this.initMain()
