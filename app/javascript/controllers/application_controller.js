@@ -23,6 +23,7 @@ export default class ApplicationController extends Controller {
 
   initialize({isPreviousControllerInitialized = false} = {}) {
     if (!this.canInitialize(isPreviousControllerInitialized)) { return }
+    this.isInitializedValue = false
     if (this.isBasicController) {
       this.functionsForInitialize()
     } else {
