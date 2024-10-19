@@ -70,6 +70,7 @@ export default class Libs_Map_Openlayers_OpenlayersController extends Applicatio
   }
 
   initOpenlayers() {
+    this.mapTarget.innerHTML = ""
     const osmLayer = new this.TiltLayer({
       source: new this.OSM()
     })

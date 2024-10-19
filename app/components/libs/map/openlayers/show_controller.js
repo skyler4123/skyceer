@@ -17,6 +17,7 @@ export default class extends Libs_Map_Openlayers_OpenlayersController {
   initComplete() {
     super.initComplete()
     this.initOpenlayersShow()
+    this.initPoint()
   } // initComplete
 
   initOpenlayersShow() {
@@ -25,12 +26,18 @@ export default class extends Libs_Map_Openlayers_OpenlayersController {
       source: this.pointSource,
     })
     this.map.addLayer(this.pointLayer)
-    this.pointValue = this.pointParams
+  }
+
+  initPoint() {
+    if (this.isEmpty(this.pointValue)) {
+      this.pointValue = this.pointParams
+    }
+    this.pointSource.clear()
+    this.pointSource.addFeature(this.createPointFeature(this.pointValue))
   }
 
   pointValueChanged() {
     if (!this.isInitializedValue) { return }
-    this.pointSource.clear()
-    this.pointSource.addFeature(this.createPointFeature(this.pointValue))
+    this.initPoint()
   }
 }
