@@ -15,6 +15,8 @@ export default class extends Views_Estate_LayoutController {
   initMain() {
     this.initHTML()
     this.initHousesValue()
+    this.initMap()
+    this.initCards()
     this.createEventBrige({fromElement: this.searchTarget, toElement: this.element, toAction: "listenFromSearch"})
   }
 
@@ -36,30 +38,38 @@ export default class extends Views_Estate_LayoutController {
     })
   }
 
+  initMap() {
+    this.mapTarget.setAttribute(`data-${this.mapControllerIdentifier()}-points-value`, JSON.stringify(this.housesValue))
+  }
+
+  initCards() {
+    let cardsHTML = this.housesValue.map((house) => {
+      return `<div class="w-full" data-controller="${this.cardControllerIdentifier()}" data-${this.identifier}-target="card" data-${this.cardControllerIdentifier()}-house-value="${this.transferToValue(house)}"></div>`
+    }).join('')
+    this.cardsTarget.innerHTML = cardsHTML
+  }
+
+  housesValueChanged(value, previousValue) {
+    if (value.length === 0) { return }
+
+    this.initMap()
+    this.initCards()
+  }
+
   listenFromSearch(event) {
     this.queryParamsValue = event.detail.queryParams
   }
 
+  queryParamsValueChanged(value, previousValue) {
+    this.initHousesValue()
+  }
+  
   searchController() {
     return this.application.getControllerForElementAndIdentifier(this.searchTarget, this.searchControllerIdentifier())
   }
 
   mapController() {
     return this.application.getControllerForElementAndIdentifier(this.mapTarget, this.mapControllerIdentifier())
-  }
-
-  housesValueChanged(value, previousValue) {
-    if (value.length === 0) { return }
-    this.mapController().pointsValue = value
-
-    let cardsHTML = value.map((house) => {
-      return `<div class="w-full" data-controller="${this.cardControllerIdentifier()}" data-${this.identifier}-target="card" data-${this.cardControllerIdentifier()}-house-value="${this.transferToValue(house)}"></div>`
-    }).join('')
-    this.cardsTarget.innerHTML = cardsHTML
-  }
-
-  queryParamsValueChanged(value, previousValue) {
-    this.initHousesValue()
   }
 
   searchControllerIdentifier() {
