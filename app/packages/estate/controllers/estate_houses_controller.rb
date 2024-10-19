@@ -1,4 +1,5 @@
 class EstateHousesController < EstateController
+  skip_before_action :authenticate, only: [:index]
   before_action :set_estate_house, only: %i[ show edit update destroy ]
 
   # GET /estate_houses or /estate_houses.json
