@@ -88,8 +88,6 @@ export default class extends Views_Estate_LayoutController {
     return {
       default: {
         element: '',
-        headerTarget: "flex flex-row w-full h-full",
-        footerTarget: "flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2",
         mainTarget: "gap-y-10",
         mapTarget: "",
         searchTarget: "w-full h-full flex flex-row justify-start",

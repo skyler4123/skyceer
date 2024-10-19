@@ -3,6 +3,11 @@ import { Views_Global_DarkmodeComponent } from "../global/darkmode_controller"
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
 export default class extends ApplicationController {
+
+  initParams() {
+    this.setParams({name: 'variant', defaultValue: 'default'})
+  }
+
   init() {
     this.initHTML()
   }
@@ -35,5 +40,13 @@ export default class extends ApplicationController {
       </div>
     </div>
     `
+  }
+  
+  variantClass() {
+    return {
+      default: {
+        element: 'flex flex-row w-full h-full'
+      }
+    }
   }
 }
