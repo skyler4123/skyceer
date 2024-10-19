@@ -1,6 +1,6 @@
-import Libs_Map_OpenlayersController from "../openlayers_controller";
+import Libs_Map_Openlayers_OpenlayersController from "./openlayers_controller"
 
-export default class Libs_Map_Openlayers_IndexController extends Libs_Map_OpenlayersController {
+export default class Libs_Map_Openlayers_IndexController extends Libs_Map_Openlayers_OpenlayersController {
   static targets = ['map']
   static values = {
     points: { type: Array, default: [] }
@@ -17,6 +17,7 @@ export default class Libs_Map_Openlayers_IndexController extends Libs_Map_Openla
   initComplete() {
     super.initComplete()
     this.initOpenlayersIndex()
+    this.initPointsFeature()
   } // initComplete
 
   initOpenlayersIndex() {
@@ -25,13 +26,19 @@ export default class Libs_Map_Openlayers_IndexController extends Libs_Map_Openla
       source: this.pointsSource,
     })
     this.map.addLayer(this.pointsLayer)
-    this.pointsValue = this.pointsParams
   }
 
+  initPointsFeature() {
+    if (this.isEmpty(this.pointsValue)) {
+      this.pointsValue = this.pointsParams
+    }
+    this.pointsSource.clear()
+    this.pointsSource.addFeature(this.createPointsFeature(this.pointValue))
+  }
+  
   pointsValueChanged() {
     if (!this.isInitializedValue || this.isUndefined(this.pointsSource)) { return }
-    this.pointsSource.clear()
-    this.createPointsFeature()
+    this.initPointsFeature()
   }
 
   createPointsFeature() {
