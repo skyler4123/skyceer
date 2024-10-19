@@ -33,17 +33,13 @@ export default class Libs_Map_Openlayers_IndexController extends Libs_Map_Openla
       this.pointsValue = this.pointsParams
     }
     this.pointsSource.clear()
-    this.pointsSource.addFeature(this.createPointsFeature(this.pointValue))
+    this.pointsValue.forEach((point) => {
+      this.pointsSource.addFeature(this.createPointFeature(point))
+    })
   }
   
   pointsValueChanged() {
     if (!this.isInitializedValue || this.isUndefined(this.pointsSource)) { return }
     this.initPointsFeature()
-  }
-
-  createPointsFeature() {
-    this.pointsValue.forEach((point) => {
-      this.pointsSource.addFeature(this.createPointFeature(point))
-    })
   }
 }
