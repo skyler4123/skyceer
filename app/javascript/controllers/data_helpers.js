@@ -30,6 +30,10 @@ const DataHelpers = {
       params.dispatchers ||= [params.dispatcher]
       delete(params.dispatcher)
     }
+    if (params.receiver) {
+      params.receivers ||= [params.receiver]
+      delete(params.receiver)
+    }
     if (params.events) {
       params.events = params.events.map((event) => {
         event = this.camelCaseForObjectKeyAndValue(event, 'id')

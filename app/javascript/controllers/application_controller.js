@@ -91,6 +91,8 @@ export default class ApplicationController extends Controller {
   initializeComplete() {
     this.initializeClass()
     this.initializeAction()
+    this.initializeDispatcher()
+    this.initializeReceiver()
     this.initializeDataAttribute()
     this.initializeShow()
     if (this.isDefined(this.initComplete)) { this.initComplete() }
@@ -281,6 +283,14 @@ export default class ApplicationController extends Controller {
       })
     }
     if (this.isDefined(this.initAction)) { this.initAction() }
+  }
+
+  initializeDispatcher() {
+    if (this.dispatchersParams.length === 0) { return }
+  }
+
+  initializeReceiver() {
+    if (this.receiversParams.length === 0) { return }
   }
 
   initializeNextController() {
