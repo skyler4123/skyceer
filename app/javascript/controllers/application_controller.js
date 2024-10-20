@@ -79,7 +79,7 @@ export default class ApplicationController extends Controller {
 
   initializeID() {
     if (!this.element.id) {
-      this.element.id = `${this.identifier}:${this.newUUID}`
+      this.element.id = `${this.identifier}:${this.newUUID()}`
     }
   }
   initializeDir() {
@@ -261,7 +261,7 @@ export default class ApplicationController extends Controller {
               this.addAction(this.element, `${this.identifier}:click:outside->${this.identifier}#${event.action}Dispatch`)
               break;
             default:
-              this.addAction(this.element, `${event.listener}->${this.identifier}#${event.action}Dispatch`)
+              this.addAction(this.element, `${event.listener}@window->${this.identifier}#dispatchToGlobal`)
           }
         }
       })
@@ -281,6 +281,12 @@ export default class ApplicationController extends Controller {
       })
     }
     if (this.isDefined(this.initAction)) { this.initAction() }
+  }
+
+  dispatchToGlobal(event) {
+    console.log(event)
+    const eventId = this.eventsParams.findEventIdWithAction({action: event.type})
+    this.dispatch(event, { detail: { content: this.sourceTarget.value } })
   }
 
   initializeNextController() {
@@ -309,7 +315,7 @@ export default class ApplicationController extends Controller {
     if (this.element.id) {
       return this.element.id
     } else {
-      this.element.id = `${this.getControllerIdentifier(this.element)}:${this.newUUID}`
+      this.element.id = `${this.getControllerIdentifier(this.element)}:${this.newUUID()}`
       return this.element.id
     }
   }
@@ -356,7 +362,7 @@ export default class ApplicationController extends Controller {
   get hasContent() {
     return this.element.childElementCount > 0
   }
-  get newUUID() {
+  newUUID() {
     if (this.protocol === 'https') {
       return crypto.randomUUID()
     } else {

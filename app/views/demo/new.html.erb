@@ -8,21 +8,7 @@
 <div>/</div>
 
 
-<div data-controller="hello"></div>
-
-
-
-<%= button do %>
-  <div>kjasdjlkfajkl</div>
-  <button>Button inside</button>
-<% end %>
-
-<button>Button inside2
-  <div>
-  <button> Button inside 3</button>
-  </div>
-</button>
-
+    <%= button(label: 'Toggle Accordion', event: { id: new_id, listener: :click, action: :toggle }) %>
 
 
 
