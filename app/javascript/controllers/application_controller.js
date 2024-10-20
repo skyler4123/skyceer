@@ -261,7 +261,7 @@ export default class ApplicationController extends Controller {
               this.addAction(this.element, `${this.identifier}:click:outside->${this.identifier}#${event.action}Dispatch`)
               break;
             default:
-              this.addAction(this.element, `${event.listener}@window->${this.identifier}#dispatchToGlobal`)
+              this.addAction(this.element, `${event.listener}->${this.identifier}#${event.action}Dispatch`)
           }
         }
       })
@@ -281,12 +281,6 @@ export default class ApplicationController extends Controller {
       })
     }
     if (this.isDefined(this.initAction)) { this.initAction() }
-  }
-
-  dispatchToGlobal(event) {
-    console.log(event)
-    const eventId = this.eventsParams.findEventIdWithAction({action: event.type})
-    this.dispatch(event, { detail: { content: this.sourceTarget.value } })
   }
 
   initializeNextController() {
