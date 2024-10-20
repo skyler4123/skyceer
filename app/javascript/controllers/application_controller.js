@@ -286,11 +286,25 @@ export default class ApplicationController extends Controller {
   }
 
   initializeDispatcher() {
-    if (this.dispatchersParams.length === 0) { return }
+    if (!this.hasDispatchersParams) { return }
+    this.dispatchersParams.forEach((dispatcher) => {
+      this.addAction(this.element, `${dispatcher.listener}->${this.identifier}#dispatchToGlobal`)
+    })
   }
 
+  dispatchToGlobal(event) {
+    const dispatcher = this.findElementFromObjectArrayByObject(this.dispatchersParams, {listener: event.type})
+    this.dispatch(dispatcher.id, { detail: dispatcher })
+    console.log(dispatcher)
+  }
   initializeReceiver() {
-    if (this.receiversParams.length === 0) { return }
+    if (!this.hasReceiversParams) { return }
+    this.receiversParams.forEach((receiver) => {
+      this.addAction(this.element, `${receiver.id}@window->${this.identifier}#receiveFromGlobal`)
+    })
+  }
+  receiveFromGlobal(event) {
+    console.log(event)
   }
 
   initializeNextController() {

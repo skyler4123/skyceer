@@ -8,8 +8,10 @@
 <div>/</div>
 
 
-    <%= button(label: 'Toggle Accordion', dispatcher: { id: new_id, listener: :click, action: :toggle }) %>
-
+    <%= button(label: 'Toggle Accordion', dispatchers: [{ id: new_id, listener: :mouse_enter, action: :open }, { id: new_id, listener: :click, action: :toggle }]) %>
+    <%= accordion(type: :horizontal, klass: "open:bg-red-500", receiver: {id: id}) do %>
+      <div>1 2 3 4 5 6 7 8 9 0</div>
+    <% end %>
 
 
 

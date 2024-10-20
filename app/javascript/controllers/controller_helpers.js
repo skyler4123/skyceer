@@ -23,13 +23,11 @@ const ControllerHelpers = {
   },
 
   isOpenValueChanged(value, previousValue) {
-    this.startViewTransition(() => {
-      if (this.isOpenValue) {
-        this.element.setAttribute('open', '')
-      } else {
-        this.element.removeAttribute('open')
-      }
-    })
+    if (this.isOpenValue) {
+      this.element.setAttribute('open', '')
+    } else {
+      this.element.removeAttribute('open')
+    }
   },
 
   getTargetIndex({targets, target}) {
