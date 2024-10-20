@@ -1,6 +1,6 @@
 import { HighlightJS } from "highlight.js"
 import ApplicationController from "../../../javascript/controllers/application_controller";
-import { button, tab } from "../../../javascript/controllers/components";
+import { Button, Tab } from "../../../javascript/controllers/components";
 
 export default class extends ApplicationController {
   static targets = [...super.targets, 'text', 'pre', 'code', 'copy']
@@ -69,10 +69,10 @@ export default class extends ApplicationController {
         <code data-${this.identifier}-target="code" class="${this.codeLanguageParams}">
         </code>
       </pre>
-      ${tab({klass: 'absolute top-2 right-2', action: { listener: 'click', action: 'tabLast' }, restoreTimeout: 10000, restoreIndex: 0 }, () => {
+      ${Tab({klass: 'absolute top-2 right-2', action: { listener: 'click', action: 'tabLast' }, restoreTimeout: 10000, restoreIndex: 0 }, () => {
         return `
-          <div>${button({label: 'Copy', variant: 'pill'})}</div>
-          <div>${button({label: 'Copied', variant: 'pill'})}</div>
+          <div>${Button({label: 'Copy', variant: 'pill'})}</div>
+          <div>${Button({label: 'Copied', variant: 'pill'})}</div>
         `
       })}
     `

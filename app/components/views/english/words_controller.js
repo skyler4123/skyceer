@@ -1,6 +1,6 @@
 import { FreeDictionaryApi } from "../../../javascript/controllers/api/english/free_dictionary_api";
 import ApplicationController from "../../../javascript/controllers/application_controller";
-import { icon } from "../../../javascript/controllers/components";
+import { Icon } from "../../../javascript/controllers/components";
 
 export default class extends ApplicationController {
   static targets = ['input', 'submit', 'form', 'ipa']
@@ -48,7 +48,7 @@ export default class extends ApplicationController {
         <input data-${this.identifier}-target="input" data-action="keydown.enter->${this.identifier}#submit" type="text" name="word"/>
         <label data-${this.identifier}-target="submit">
           <input type="submit" class="hidden"/>
-          ${icon({variant: ['outline', 'magnifying-glass']})}
+          ${Icon({variant: ['outline', 'magnifying-glass']})}
         </label>
       </form>
       <div data-${this.identifier}-target="ipa"></div>

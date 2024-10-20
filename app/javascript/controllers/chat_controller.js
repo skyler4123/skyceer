@@ -1,7 +1,7 @@
 import { ChatConversationsApi } from "./api/chat/chat_conversations_api"
 import { ChatUsersApi } from "./api/chat/chat_users_api"
 import ApplicationController from "./application_controller"
-import { boxChat, icon } from "./components"
+import { BoxChat, Icon } from "./components"
 
 export default class ChatController extends ApplicationController {
   static targets = ["trigger", "boxese", "box", "closeButton", "chatMessages", "input", "send"]
@@ -122,7 +122,7 @@ export default class ChatController extends ApplicationController {
           </div>
           <div class="flex items-center space-x-2">
             <button data-${this.identifier}-target="closeButton" data-action="click->${this.identifier}#removeGuestChatUserId" data-${this.identifier}-guest-chat-user-id-param="${guestChatUserId}" type="button" class="inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
-              ${icon({variant: ['outline', 'x-mark'], klass: 'w-5 h-5 fill-blue-950'})}
+              ${Icon({variant: ['outline', 'x-mark'], klass: 'w-5 h-5 fill-blue-950'})}
             </button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { tab } from "../../../javascript/controllers/components"
+import { Tab } from "../../../javascript/controllers/components"
 
 
 export const languageButton = () => {

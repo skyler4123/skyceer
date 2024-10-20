@@ -1,7 +1,7 @@
 import { ChatConversationsApi } from "../../../javascript/controllers/api/chat/chat_conversations_api";
 import { ChatMessagesApi } from "../../../javascript/controllers/api/chat/chat_messages_api";
 import ApplicationController from "../../../javascript/controllers/application_controller";
-import { icon } from "../../../javascript/controllers/components";
+import { Icon } from "../../../javascript/controllers/components";
 
 export default class extends ApplicationController {
   static targets = ['message', 'messages', 'input', 'closeButton']
@@ -98,7 +98,7 @@ export default class extends ApplicationController {
         </div>
         <div class="flex items-center space-x-2">
           <button data-${this.identifier}-target="closeButton" data-${this.chatControllerIdentifier()}-chat-conversation-id-param="${this.chatConversationIdValue}" data-action="click->${this.chatControllerIdentifier()}#removeChatConversationId click->${this.identifier}#closeBoxChat" type="button" class="cursor-pointer inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
-            ${icon({variant: ['outline', 'x-mark'], klass: 'w-5 h-5 fill-blue-950'})}
+            ${Icon({variant: ['outline', 'x-mark'], klass: 'w-5 h-5 fill-blue-950'})}
           </button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid"
-import { box, link, popover, text } from "../../../javascript/controllers/components"
+import { Box, Link, Popover, Text } from "../../../javascript/controllers/components"
 
 export const userBox = () => {
   const eventId = uuidv4()
@@ -12,8 +12,8 @@ export const userBox = () => {
         popover({klass: 'hidden', position: ['outside', 'bottomCenter'], event: {id: eventId}}, () => {
           return (
             `<div>
-              <div>${link({url: '/users/profile', label: 'Profile'})}</div>
-              <div>${link({url: '/sign_out', label: 'Sign Out'})}</div>
+              <div>${Link({url: '/users/profile', label: 'Profile'})}</div>
+              <div>${Link({url: '/sign_out', label: 'Sign Out'})}</div>
             </div>`
           )
         })

@@ -1,7 +1,7 @@
 import { VehicleCarsApi } from "../../../../javascript/controllers/api/vehicle/vehicle_cars_api";
 import { VehicleStoresApi } from "../../../../javascript/controllers/api/vehicle/vehicle_stores_api";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
-import { link } from "../../../../javascript/controllers/components";
+import { Link } from "../../../../javascript/controllers/components";
 import { CarConstants } from "../../../../javascript/controllers/constants/vehicle/car_constants";
 import { footer } from "../footer";
 import { form } from "../form";
@@ -31,10 +31,10 @@ export default class extends ApplicationController {
       <div class="mx-auto md:w-2/3 w-full">
         <h1 class="font-bold text-4xl">New car car</h1>
         <div>
-          ${form(this.identifier)}
+          ${Form(this.identifier)}
           <div data-${this.identifier}-target="map" data-controller="libs--openlayers--point"></div>
         </div>
-        ${link({label: 'Back to car cars', url: '/vehicle_cars', klass: 'ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium'})}
+        ${Link({label: 'Back to car cars', url: '/vehicle_cars', klass: 'ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium'})}
       </div>
     `
     this.initForm()
