@@ -12,7 +12,7 @@ class AutoGeneratorJob < ApplicationJob
         password: "password1234",
         password_confirmation: "password1234",
         verified: true,
-        name: "user name #{time_key}"
+        name: "user name #{Faker::Movies::HarryPotter.character}"
       )
     end
 
@@ -20,14 +20,14 @@ class AutoGeneratorJob < ApplicationJob
     vehicle_user = VehicleUser.all.sample
     1.times do
       vehicle_store = VehicleStore.create(
-        name: "vehicle store name #{time_key}",
+        name: "vehicle store name #{Faker::Movies::HarryPotter.character}",
         vehicle_user_id: vehicle_user.id,
         coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
       )
       1.times do
         VehicleCar.create(
-          name: "vehicle car name #{time_key}",
-          model: "model_#{time_key}",
+          name: "vehicle car name #{Faker::Movies::HarryPotter.character}",
+          model: "model #{Faker::Movies::HarryPotter.character}",
           brand: ['tesla', 'toyota', 'honda'].sample,
           vehicle_store: vehicle_store,
           vehicle_user: vehicle_user,
@@ -50,7 +50,7 @@ class AutoGeneratorJob < ApplicationJob
     10.times do |n|
       chat_conversation = ChatConversation.all.sample
       chat_user_ids = chat_conversation.chat_user_ids
-      chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_ids.sample, content: "content_#{n}")
+      chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_ids.sample, content: "content #{time_key}")
     end
     
     
@@ -73,27 +73,27 @@ class AutoGeneratorJob < ApplicationJob
     seed_number.times do |n|
       article_post = ArticlePost.all.sample
       article_user = ArticleUser.all.sample
-      article_post.article_comments << ArticleComment.new(article_user_id: article_user.id, content: "comment_#{time_key}")
+      article_post.article_comments << ArticleComment.new(article_user_id: article_user.id, content: "comment #{time_key}")
     end
     
     
     EstateUser.all.sample(1).each_with_index do |estate_user, index|
       estate_user.estate_condos.create(
-        name: "estate user name #{time_key}",
+        name: "estate user name #{Faker::Movies::HarryPotter.character}",
         address: "address #{time_key}",
         longitude: rand(-180..180),
         latitude: rand(-90..90),
         price_cents: rand(1000..9999),
       )
       estate_user.estate_hotels.create(
-        name: "estate hotel name #{time_key}",
+        name: "estate hotel name #{Faker::Movies::HarryPotter.character}",
         address: "address #{time_key}",
         longitude: rand(-180..180),
         latitude: rand(-90..90),
         price_cents: rand(1000..9999),
       )
       estate_user.estate_houses.create(
-        name: "estate house name #{time_key}",
+        name: "estate house name #{Faker::Movies::HarryPotter.character}",
         address: "address #{time_key}",
         longitude: rand(-180..180),
         latitude: rand(-90..90),
