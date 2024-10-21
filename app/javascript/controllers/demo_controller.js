@@ -4,10 +4,11 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 
   initialize() {
-    
+
   }
 
-  flash({ detail: { content } }) {
-    console.log(content) // 1234
+  copy() {
+    this.dispatch("copy", { detail: { content: "From Demo" } })
+    console.log("sent event from demo")
   }
 }

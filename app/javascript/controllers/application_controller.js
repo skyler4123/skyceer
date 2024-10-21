@@ -289,6 +289,7 @@ export default class ApplicationController extends Controller {
     if (!this.hasDispatchersParams) { return }
     this.dispatchersParams.forEach((dispatcher) => {
       this.addAction(this.element, `${dispatcher.listener}->${this.identifier}#dispatchToGlobal`)
+      this.addClass(this.element, `dispatcher-id-${dispatcher.id}`)
     })
   }
 
