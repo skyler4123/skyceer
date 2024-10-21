@@ -8,10 +8,10 @@
 #   priority: 2
 #   schedule: at 5am every day
 
-my_periodic_job:
-  class: DemoJob
-  schedule: every 1 minutes
-  queue: DemoJob-background
+# my_periodic_job:
+#   class: DemoJob
+#   schedule: every 1 minutes
+#   queue: DemoJob-background
   # args: [ 1000, { batch_size: 500 } ]
 
 cleanup_articl_posts_periodic_job:
@@ -24,4 +24,10 @@ estate_houses_auto_upload_image_periodic_job:
   class: Estate::EstateHouses::AutoUploadImageJob
   schedule: every 1 minutes
   queue: Estate::EstateHouses::AutoUploadImageJob-background
+  # args: [ 1000, { batch_size: 500 } ]
+
+auto_generator_periodic_job:
+  class: AutoGeneratorJob
+  schedule: every 1 minutes
+  queue: AutoGeneratorJob-background
   # args: [ 1000, { batch_size: 500 } ]

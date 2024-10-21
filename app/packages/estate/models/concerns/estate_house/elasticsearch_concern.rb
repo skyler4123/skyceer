@@ -1,4 +1,4 @@
-module User::ElasticsearchConcern
+module EstateHouse::ElasticsearchConcern
   extend ActiveSupport::Concern
   
   included do
@@ -9,21 +9,21 @@ module User::ElasticsearchConcern
     settings index: { number_of_shards: 1 } do
       mappings dynamic: 'false' do
         indexes :name, analyzer: 'english', index_options: 'offsets'#, type: 'keyword'
-        indexes :email, analyzer: 'snowball'
+        # indexes :email, analyzer: 'snowball'
         # Do not index verified
-        indexes :verified, index: false
+        # indexes :verified, index: false
       end
     end
 
-    def raw_title
-      'raw title'
-    end
+    # def raw_title
+    #   'raw title'
+    # end
   
     # Define what fields need to import to Elasticsearch
     def as_indexed_json(options={})
       as_json(
-        only: [:name, :email],
-        methods: [:raw_title]
+        only: [:name],
+        # methods: [:raw_title]
       )
     end
 
