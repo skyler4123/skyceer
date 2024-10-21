@@ -296,16 +296,21 @@ export default class ApplicationController extends Controller {
   dispatchToGlobal(event) {
     const dispatcher = this.findElementFromObjectArrayByObject(this.dispatchersParams, {listener: event.type})
     this.dispatch(dispatcher.id, { detail: dispatcher })
-    console.log(dispatcher)
+    console.log(`dispatcher: ${JSON.stringify(dispatcher)} `)
   }
   initializeReceiver() {
     if (!this.hasReceiversParams) { return }
-    this.receiversParams.forEach((receiver) => {
-      this.addAction(this.element, `${receiver.id}@window->${this.identifier}#receiveFromGlobal`)
-    })
+    setTimeout(() => {
+      this.receiversParams.forEach((receiver) => {
+        const dispatcherElement = document.querySelector(`.dispatcher-id-${receiver.id}`)
+        const dispatcherIdentifier = this.getIdentifierFromElement(dispatcherElement)
+        this.addAction(this.element, `${dispatcherIdentifier}:${receiver.id}@window->${this.identifier}#receiveFromGlobal`)
+      })
+    }, 3000)
   }
   receiveFromGlobal(event) {
-    console.log(event)
+    const eventAction = event.detail.action
+    this[eventAction]()
   }
 
   initializeNextController() {

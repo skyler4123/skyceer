@@ -1,3 +1,4 @@
+import { Addresses } from "../../../../javascript/controllers/addresses/addresses";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
 import { Button, Popover, Link, Box } from "../../../../javascript/controllers/components";
 
@@ -31,8 +32,8 @@ export default class extends ApplicationController {
           <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
             Email</label>
           ${Box({
-            klass: "flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600",
-            event: {id: dropdownEventId, action: "click", listener: "open"}
+            klass: "relative flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600 cursor-pointer",
+            dispatcher: {id: dropdownEventId, action: "toggle", listener: "click"}
           }, () => (
             `
               All categories
@@ -40,11 +41,12 @@ export default class extends ApplicationController {
                 viewBox="0 0 10 6">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
               </svg>
-              ${Popover({}, () => (
-                `
-                  ${Link({label: "Link 1", url: "/#"})}
-                  ${Link({label: "Link 1", url: "/#"})}
-                  ${Link({label: "Link 1", url: "/#"})}
+              ${Popover({receiver: {id: dropdownEventId}, position: ["outside", "bottomCenter"]}, () => (
+                `<div class="flex flex-col">
+                  ${Object.keys(Addresses).map((address) => (
+                    `<div>${address}</div>`
+                  )).join("")}
+                </div>
                 `
               ))}
             `
@@ -66,7 +68,6 @@ export default class extends ApplicationController {
           </div>
         </div>
       </form>
- 
     `
   }
 

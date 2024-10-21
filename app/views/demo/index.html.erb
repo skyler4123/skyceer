@@ -16,6 +16,11 @@
   <div id="components" class="flex flex-col justify-center items-center min-w-full pb-4">
     <div>&#x1F44d</div>
 
+    <%= button(label: 'Toggle Accordion', dispatchers: [{ id: new_id, listener: :mouse_enter, action: :open }, { id: new_id, listener: :click, action: :toggle }]) %>
+    <%= accordion(type: :horizontal, klass: "open:bg-red-500", receiver: {id: id}) do %>
+      <div>1 2 3 4 5 6 7 8 9 0</div>
+    <% end %>
+    
     <%= editorjs %>
 
     <div data-controller="libs--map--openlayers--show"></div>
