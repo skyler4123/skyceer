@@ -7,14 +7,14 @@ export default class PopoverController extends ApplicationController {
     isOpen: { type: Boolean, default: false },
   }
 
-  init() {
-    this.addClass(this.element, 'hidden')
-    this.initHTML()
-  }
-
   initParams() {
     this.setParams({name: 'position', defaultValue: ['inside', 'bottomCenter']})
     this.setParams({name: 'isShowAfterInitialize', defaultValue: false})
+  }
+
+  init() {
+    this.addClass(this.element, 'hidden')
+    this.initHTML()
   }
 
   initHTML() {

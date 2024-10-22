@@ -1,6 +1,6 @@
 import Swiper from "swiper";
 import ApplicationController from "../../../../javascript/controllers/application_controller";
-import { img } from "../../../../javascript/controllers/components";
+import { Img } from "../../../../javascript/controllers/components";
 
 export default class extends ApplicationController {
   static targets = [...super.targets, 'swiper', 'wrapper', 'slide', 'item', 'buttonPrev', 'buttonNext']
@@ -69,7 +69,7 @@ export default class extends ApplicationController {
           ${this.imageUrlsParams.map((url) => {
             return `
               <div data-${this.identifier}-target="slide">
-                ${img({src: url})}
+                ${Img({src: url})}
               </div>`
           }).join('')}
         </div>

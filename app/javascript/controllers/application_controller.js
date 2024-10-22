@@ -79,7 +79,7 @@ export default class ApplicationController extends Controller {
 
   initializeID() {
     if (!this.element.id) {
-      this.element.id = `${this.identifier}:${this.newUUID}`
+      this.element.id = `${this.identifier}:${this.newUUID()}`
     }
   }
   initializeDir() {
@@ -91,6 +91,8 @@ export default class ApplicationController extends Controller {
   initializeComplete() {
     this.initializeClass()
     this.initializeAction()
+    this.initializeDispatcher()
+    this.initializeReceiver()
     this.initializeDataAttribute()
     this.initializeShow()
     if (this.isDefined(this.initComplete)) { this.initComplete() }
@@ -283,6 +285,34 @@ export default class ApplicationController extends Controller {
     if (this.isDefined(this.initAction)) { this.initAction() }
   }
 
+  initializeDispatcher() {
+    if (!this.hasDispatchersParams) { return }
+    this.dispatchersParams.forEach((dispatcher) => {
+      this.addAction(this.element, `${dispatcher.listener}->${this.identifier}#dispatchToGlobal`)
+      this.addClass(this.element, `dispatcher-id-${dispatcher.id}`)
+    })
+  }
+
+  dispatchToGlobal(event) {
+    const dispatcher = this.findElementFromObjectArrayByObject(this.dispatchersParams, {listener: event.type})
+    this.dispatch(dispatcher.id, { detail: dispatcher })
+    console.log(`dispatcher: ${JSON.stringify(dispatcher)} `)
+  }
+  initializeReceiver() {
+    if (!this.hasReceiversParams) { return }
+    setTimeout(() => {
+      this.receiversParams.forEach((receiver) => {
+        const dispatcherElement = document.querySelector(`.dispatcher-id-${receiver.id}`)
+        const dispatcherIdentifier = this.getIdentifierFromElement(dispatcherElement)
+        this.addAction(this.element, `${dispatcherIdentifier}:${receiver.id}@window->${this.identifier}#receiveFromGlobal`)
+      })
+    }, 3000)
+  }
+  receiveFromGlobal(event) {
+    const eventAction = event.detail.action
+    this[eventAction]()
+  }
+
   initializeNextController() {
     if (this.nextController) {
       this.nextController.initialize({isPreviousControllerInitialized: true})
@@ -309,7 +339,7 @@ export default class ApplicationController extends Controller {
     if (this.element.id) {
       return this.element.id
     } else {
-      this.element.id = `${this.getControllerIdentifier(this.element)}:${this.newUUID}`
+      this.element.id = `${this.getControllerIdentifier(this.element)}:${this.newUUID()}`
       return this.element.id
     }
   }
@@ -356,7 +386,7 @@ export default class ApplicationController extends Controller {
   get hasContent() {
     return this.element.childElementCount > 0
   }
-  get newUUID() {
+  newUUID() {
     if (this.protocol === 'https') {
       return crypto.randomUUID()
     } else {

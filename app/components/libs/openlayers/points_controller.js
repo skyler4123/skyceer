@@ -32,7 +32,7 @@ export default class PointsController extends OpenlayersController {
     this.map.addLayer(this.pointsLayer)
     this.map.on('singleclick', (event) => {
       const newPoint = {
-        id: this.newUUID,
+        id: this.newUUID(),
         coordinates: event.coordinate
       }
       this.points = this.pointsValue

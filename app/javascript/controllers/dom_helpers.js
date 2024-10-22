@@ -91,7 +91,7 @@ const DomHelpers = {
     if (element.id) {
       return element.id
     } else {
-      element.id = `${this.getControllerIdentifier(element)}:${this.newUUID}`
+      element.id = `${this.getControllerIdentifier(element)}:${this.newUUID()}`
       return element.id
     }
   } 

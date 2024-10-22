@@ -22,7 +22,7 @@ export default class extends Views_Estate_LayoutController {
 
   initHTML() {
     const defaultHTML = `
-      <div class="" data-controller="${this.searchControllerIdentifier()}" data-${this.identifier}-target="search"></div>
+      <div class="pb-24" data-controller="${this.searchControllerIdentifier()}" data-${this.identifier}-target="search"></div>
       <div class="w-5/6 h-[500px] rounded-2xl overflow-hidden" data-controller="${this.mapControllerIdentifier()}" data-${this.identifier}-target="map"></div>
       <div data-${this.identifier}-target="cards"></div>
     `
@@ -50,7 +50,7 @@ export default class extends Views_Estate_LayoutController {
   }
 
   housesValueChanged(value, previousValue) {
-    if (value.length === 0) { return }
+    if (this.isUndefined(previousValue)) { return }
 
     this.initMap()
     this.initCards()

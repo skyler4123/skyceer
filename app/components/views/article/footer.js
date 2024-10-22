@@ -1,4 +1,4 @@
-import { link, text } from "../../../javascript/controllers/components"
+import { Link, Text } from "../../../javascript/controllers/components"
 
 export const Views_Article_Footer = () => {
   return `
@@ -6,17 +6,17 @@ export const Views_Article_Footer = () => {
     <div class="flex flex-row justify-between">
       <div class="flex flex-row">
         <div>© 2024 saaslit™. All Rights Reserved.</div>
-        <div>${text({type: 'time'})}</div>
+        <div>${Text({type: 'time'})}</div>
       </div>
       <div class="flex flex-row">
         <div>
-          ${link({label: 'Home', url: 'https://saaslit.com/blog'})}
+          ${Link({label: 'Home', url: 'https://saaslit.com/blog'})}
         </div>
         <div>
-          ${link({label: 'Contact', url: 'https://saaslit.com/blog'})}
+          ${Link({label: 'Contact', url: 'https://saaslit.com/blog'})}
         </div>
         <div>
-          ${link({label: 'About', url: 'https://saaslit.com/blog'})}
+          ${Link({label: 'About', url: 'https://saaslit.com/blog'})}
         </div>
       </div>
     </div>

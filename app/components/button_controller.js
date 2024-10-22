@@ -11,6 +11,7 @@ export default class ButtonController extends ApplicationController {
   init() {
     this.initHTML()
   }
+
   connect() {
     super.connect()
     useClickOutside(this)
@@ -41,19 +42,6 @@ export default class ButtonController extends ApplicationController {
         this.toggleTarget.removeAttribute('open')
       }
     }
-  }
-
-  runActionOnOtherControllers(action) {
-    this.controllers.forEach((controller) => {
-      if (this === controller) { return }
-      if (typeof controller[action] !== 'undefined') {
-        controller[action]()
-      }
-    })
-  }
-
-  darkMode() {
-    this.htmlTag.classList.toggle('dark')
   }
 
   upToTop() {

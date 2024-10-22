@@ -1,4 +1,4 @@
-import { link } from "../../../../javascript/controllers/components"
+import { Link } from "../../../../javascript/controllers/components"
 
 export const user = (user) => {
   return `
@@ -18,8 +18,8 @@ export const user = (user) => {
         ${ user.verified }
       </p>
 
-      ${link({label: 'Show this user', url: `/users/${user.id}`, klass: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium"})}
-      ${link({label: 'Edit this user', url: `/users/${user.id}/edit`, klass: 'rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium'})}
+      ${Link({label: 'Show this user', url: `/users/${user.id}`, klass: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium"})}
+      ${Link({label: 'Edit this user', url: `/users/${user.id}/edit`, klass: 'rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium'})}
     </div>
 
   `

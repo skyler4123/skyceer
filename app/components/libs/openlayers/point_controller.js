@@ -31,7 +31,7 @@ export default class PointController extends OpenlayersController {
     this.map.addLayer(this.pointLayer)
     this.map.on('singleclick', (event) => {
       // this.pointValue = {
-      //   id: this.newUUID,
+      //   id: this.newUUID(),
       //   coordinates: event.coordinate
       // }
       this.pointValue = event.coordinate

@@ -84,70 +84,70 @@ const Components = (name, params = {}, content = null) => {
 
 export default Components;
 
-export const accordion = (params = {}, content = null) => {
+export const Accordion = (params = {}, content = null) => {
   return Components('accordion', params, content)
 }
-export const box = (params = {}, content = null) => {
+export const Box = (params = {}, content = null) => {
   return Components('box', params, content)
 }
-export const button = (params = {}, content = null) => {
+export const Button = (params = {}, content = null) => {
   return Components('button', params, content)
 }
-export const carousel = (params = {}, content = null) => {
+export const Carousel = (params = {}, content = null) => {
   return Components('carousel', params, content)
 }
-export const hr = (params = {}, content = null) => {
+export const Hr = (params = {}, content = null) => {
   return Components('hr', params, content)
 }
-export const icon = (params = {}, content = null) => {
+export const Icon = (params = {}, content = null) => {
   return Components('icon', params, content)
 }
-export const img = (params = {}, content = null) => {
+export const Img = (params = {}, content = null) => {
   return Components('img', params, content)
 }
-export const input = (params = {}, content = null) => {
+export const Input = (params = {}, content = null) => {
   return Components('input', params, content)
 }
-export const link = (params = {}, content = null) => {
+export const Link = (params = {}, content = null) => {
   return Components('link', params, content)
 }
-export const list = (params = {}, content = null) => {
+export const List = (params = {}, content = null) => {
   return Components('list', params, content)
 }
-export const mockup = (params = {}, content = null) => {
+export const Mockup = (params = {}, content = null) => {
   return Components('mockup', params, content)
 }
-export const modal = (params = {}, content = null) => {
+export const Modal = (params = {}, content = null) => {
   return Components('modal', params, content)
 }
-export const popover = (params = {}, content = null) => {
+export const Popover = (params = {}, content = null) => {
   return Components('popover', params, content)
 }
-export const ratio = (params = {}, content = null) => {
+export const Ratio = (params = {}, content = null) => {
   return Components('ratio', params, content)
 }
-export const select = (params = {}, content = null) => {
+export const Select = (params = {}, content = null) => {
   return Components('select', params, content)
 }
-export const skeleton = (params = {}, content = null) => {
+export const Skeleton = (params = {}, content = null) => {
   return Components('skeleton', params, content)
 }
-export const tab = (params = {}, content = null) => {
+export const Tab = (params = {}, content = null) => {
   return Components('tab', params, content)
 }
-export const text = (params = {}, content = null) => {
+export const Text = (params = {}, content = null) => {
   return Components('text', params, content)
 }
-export const toast = (params = {}, content = null) => {
+export const Toast = (params = {}, content = null) => {
   return Components('toast', params, content)
 }
-export const video = (params = {}, content = null) => {
+export const Video = (params = {}, content = null) => {
   return Components('video', params, content)
 }
-export const form = (params = {}, content = null) => {
+export const Form = (params = {}, content = null) => {
   return Components('form', params, content)
 }
-export const editorjs = (params = {}, content = null) => {
+export const Editorjs = (params = {}, content = null) => {
   return Components('editorjs', params, content)
 }
 
@@ -158,6 +158,6 @@ export const editorjs = (params = {}, content = null) => {
 
 
 
-export const boxChat = ({chatUserId, chatConversationId}) => {
+export const BoxChat = ({chatUserId, chatConversationId}) => {
   return `<div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="${chatUserId}" data-views--chat--box-chat-conversation-id-value="${chatConversationId}"></div>`
 }

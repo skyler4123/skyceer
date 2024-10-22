@@ -1,8 +1,8 @@
-import { link } from "../../../javascript/controllers/components"
+import { Link } from "../../../javascript/controllers/components"
 
 export const nav = () => {
   return `
-    <div>${link({label: 'Home', url: '/vehicle_cars'})}</div>
-    <div>${link({label: 'Sell', url: '/vehicle_cars/new'})}</div>
+    <div>${Link({label: 'Home', url: '/vehicle_cars'})}</div>
+    <div>${Link({label: 'Sell', url: '/vehicle_cars/new'})}</div>
   `
 }

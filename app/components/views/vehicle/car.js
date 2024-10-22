@@ -1,4 +1,4 @@
-import { icon, link } from "../../../javascript/controllers/components"
+import { Icon, Link } from "../../../javascript/controllers/components"
 
 export const car = (car) => {
   return `
@@ -54,8 +54,8 @@ export const car = (car) => {
       </p>
 
     </div>
-    ${link({label: "Edit this vehicle_car", url: `/vehicle_cars/${car.id}/edit`, klass: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium"})}
-    ${link({label: "Destroy this vehicle_car", url: `/vehicle_cars/${car.id}`, method: 'delete', klass: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium"})}
-    ${link({label: "Back to vehicle_cars", url: '/vehicle_cars', klass: 'ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium'})}
+    ${Link({label: "Edit this vehicle_car", url: `/vehicle_cars/${car.id}/edit`, klass: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium"})}
+    ${Link({label: "Destroy this vehicle_car", url: `/vehicle_cars/${car.id}`, method: 'delete', klass: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium"})}
+    ${Link({label: "Back to vehicle_cars", url: '/vehicle_cars', klass: 'ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium'})}
   `
 }
