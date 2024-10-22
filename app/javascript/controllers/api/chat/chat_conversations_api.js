@@ -7,7 +7,7 @@ export const ChatConversationsApi = {
     return axios.get(`${origin()}/chat_conversations/${id}`, { params: params, headers: {...defaultHeaders(), ...headers} })
   },
 
-  box({params, headers} = {}) {
+  Box({params, headers} = {}) {
     return axios.get(`${origin()}/chat_conversations/box`, { params: params, headers: {...defaultHeaders(), ...headers} })
   },
 }

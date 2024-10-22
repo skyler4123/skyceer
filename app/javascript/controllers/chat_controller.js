@@ -64,7 +64,7 @@ export default class ChatController extends ApplicationController {
   }
 
   async addChatBox({guestChatUserId}) {
-    let response = await ChatConversationsApi.box({params: {guest_chat_user_id: guestChatUserId}})
+    let response = await ChatConversationsApi.Box({params: {guest_chat_user_id: guestChatUserId}})
     let chatUserId = response.data.chat_user_id
     let chatConversationId = response.data.id
     this.chatConversationIdValue = [...this.chatConversationIdValue, chatConversationId]
