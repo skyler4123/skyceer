@@ -3,8 +3,8 @@ class AutoGeneratorJob < ApplicationJob
   self.queue_adapter = :solid_queue
 
   def perform
-    # Run generator to create x*seed_number* records
-    AutoGenerator::SeedService.run(seed_number: 1)
+    # Run generator to create x*record, x*image*
+    AutoGenerator::SeedService.run(seed_record: 1, seed_image: 10)
 
     # Upload image to a random record
     # EstateHouse::AutoUploadImageService.run

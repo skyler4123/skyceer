@@ -41,4 +41,4 @@ EstateHotel.destroy_all
     name: "user name #{Faker::Movies::HarryPotter.character}"
   )
 end
-AutoGenerator::SeedService.run(seed_number: 10)
+AutoGenerator::SeedService.run(seed_record: 10, seed_image: 50)
