@@ -1,18 +1,28 @@
-class AutoGenerator::Estate::EstateHouse::AutoUploadImageService
+class EstateHouse::AutoUploadImageService
 
-  def self.run
+  def self.run(record: nil)
     return unless Rails.env.development?
-    
-    # Check 3 times to select
-    record = EstateHouse.all.sample
-    if record.images.size > 10
-      record = EstateHouse.all.sample
-    end
-    if record.images.size > 10
-      record = EstateHouse.all.sample
-    end
-    return if record.images.size > 10
+    record ||= random_record
+    return unless record
 
+    fetch_and_upload_image_to_record(record)
+  end
+
+  private
+
+  def random_record
+    # Check 3 times to select
+    random_record = EstateHouse.all.sample
+    if random_record.images.size > 10
+      random_record = EstateHouse.all.sample
+    end
+    if random_record.images.size > 10
+      random_record = EstateHouse.all.sample
+    end
+    return nil if random_record.images.size > 10
+  end
+  
+  def fetch_and_upload_image_to_record(record)
     image_urls = [
       'https://picsum.photos/200/300',
       'https://picsum.photos/500/1000',
@@ -28,5 +38,4 @@ class AutoGenerator::Estate::EstateHouse::AutoUploadImageService
     record.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
     file.unlink
   end
-  
 end

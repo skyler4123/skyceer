@@ -3,16 +3,7 @@ class AutoGenerator::SeedService
   def self.run(seed_number: 10)
 
     # APPLICATION PACKAGE
-    5.times do |n|
-      user = User.create(
-        email: "email#{n}@gmail.com",
-        password: "password1234",
-        password_confirmation: "password1234",
-        verified: true,
-        name: "user name #{Faker::Movies::HarryPotter.character}"
-      )
-    end
-    (seed_number - 5).times do |n|
+    seed_number.times do |n|
       user = User.create(
         email: "email#{Time.now.to_i}_#{n}@gmail.com",
         password: "password1234",
@@ -27,8 +18,8 @@ class AutoGenerator::SeedService
       # User.first(10).each do |user|
       #   VehicleUser.create(user: user)
       # end
-      VehicleUser.all.each do |vehicle_user|
-        2.times do
+      VehicleUser.all.sample(seed_number).each do |vehicle_user|
+        1.times do
           vehicle_store = VehicleStore.create(
             name: "vehicle store name #{Faker::Movies::HarryPotter.character}",
             vehicle_user_id: vehicle_user.id,
@@ -131,14 +122,14 @@ class AutoGenerator::SeedService
     
     
     # CHAT PACKAGE
-    ChatUser.each do |chat_user|
+    ChatUser.all.sample(seed_number).each do |chat_user|
       # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
       # ChatConversation.create(chat_user_ids: [ChatUser.first.id, ChatUser.second.id])
       # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..2).to_a.sample).map(&:to_s))
       ChatConversation.create(chat_user_ids: [chat_user.id.to_s, ChatUser.where.not(id: chat_user.id).first(seed_number).sample.id.to_s])
     end
     
-    50.times do |n|
+    (seed_number * 5).times do |n|
       chat_conversation = ChatConversation.all.sample
       chat_user_ids = chat_conversation.chat_user_ids
       chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_ids.sample, content: "content #{Time.now.to_i}_#{n}")
@@ -146,7 +137,7 @@ class AutoGenerator::SeedService
     
     
     # ARTICLE package
-    ArticleUser.each_with_index do |user, user_index|
+    ArticleUser.all.sample(seed_number).each_with_index do |user, user_index|
       1.times do |n|
         content = {
           blocks: [{
@@ -161,7 +152,7 @@ class AutoGenerator::SeedService
         ArticlePost.create(article_user: user, package: 'vehicle', title: Faker::Movies::HarryPotter.character, content: content)
       end
     end
-    seed_number.times do |n|
+    (seed_number * 5).times do |n|
       article_post = ArticlePost.all.sample
       article_user = ArticleUser.all.sample
       article_post.article_comments << ArticleComment.new(article_user_id: article_user.id, content: "comment #{Time.now.to_i}_#{n}")
@@ -174,24 +165,24 @@ class AutoGenerator::SeedService
     #   EstateUser.create(user: user)
     # end
     
-    EstateUser.all.each_with_index do |estate_user, index|
+    EstateUser.all.sample(seed_number).each_with_index do |estate_user, index|
       estate_user.estate_condos.create(
-        name: "estate user name #{Faker::Movies::HarryPotter.character} #{Faker::Movies::HarryPotter.character}",
-        address: "address #{Faker::Movies::HarryPotter.character} #{Faker::Movies::HarryPotter.character}",
+        name: "estate user name #{Faker::Movies::HarryPotter.character}",
+        address: "address #{Faker::Movies::HarryPotter.character}",
         longitude: rand(-180..180),
         latitude: rand(-90..90),
         price_cents: rand(1000..9999),
       )
       estate_user.estate_hotels.create(
-        name: "estate hotel name #{Faker::Movies::HarryPotter.character} #{Faker::Movies::HarryPotter.character}",
-        address: "address #{Faker::Movies::HarryPotter.character} #{Faker::Movies::HarryPotter.character}",
+        name: "estate hotel name #{Faker::Movies::HarryPotter.character}",
+        address: "address #{Faker::Movies::HarryPotter.character}",
         longitude: rand(-180..180),
         latitude: rand(-90..90),
         price_cents: rand(1000..9999),
       )
       estate_user.estate_houses.create(
-        name: "estate house name #{Faker::Movies::HarryPotter.character} #{Faker::Movies::HarryPotter.character}",
-        address: "address #{Faker::Movies::HarryPotter.character} #{Faker::Movies::HarryPotter.character}",
+        name: "estate house name #{Faker::Movies::HarryPotter.character}",
+        address: "address #{Faker::Movies::HarryPotter.character}",
         longitude: rand(-180..180),
         latitude: rand(-90..90),
         price_cents: rand(1000..9999),
@@ -206,6 +197,13 @@ class AutoGenerator::SeedService
     #     Laptop.all.sample.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
     #   end
     # end
+    (seed_number * 5).times do |n|
+      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+        file_name, file_type = file.path.split('/').last.split('.')
+
+        EstateHouse.all.sample.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+      end
+    end
     
     
     puts "db:seed done!"

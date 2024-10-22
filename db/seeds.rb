@@ -32,4 +32,13 @@ EstateCondo.destroy_all
 EstateHotel.destroy_all
 
 # Run generator
+5.times do |n|
+  user = User.create(
+    email: "email#{n}@gmail.com",
+    password: "password1234",
+    password_confirmation: "password1234",
+    verified: true,
+    name: "user name #{Faker::Movies::HarryPotter.character}"
+  )
+end
 AutoGenerator::SeedService.run(seed_number: 10)

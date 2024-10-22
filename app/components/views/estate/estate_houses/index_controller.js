@@ -50,7 +50,7 @@ export default class extends Views_Estate_LayoutController {
   }
 
   housesValueChanged(value, previousValue) {
-    if (value.length === 0) { return }
+    if (this.isUndefined(previousValue)) { return }
 
     this.initMap()
     this.initCards()
