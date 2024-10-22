@@ -3,7 +3,16 @@ class AutoGenerator::SeedService
   def self.run(seed_number: 10)
 
     # APPLICATION PACKAGE
-    seed_number.times do |n|
+    5.times do |n|
+      user = User.create(
+        email: "email#{n}@gmail.com",
+        password: "password1234",
+        password_confirmation: "password1234",
+        verified: true,
+        name: "user name #{Faker::Movies::HarryPotter.character}"
+      )
+    end
+    (seed_number - 5).times do |n|
       user = User.create(
         email: "email#{Time.now.to_i}_#{n}@gmail.com",
         password: "password1234",
