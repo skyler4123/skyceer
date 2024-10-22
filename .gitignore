@@ -36,5 +36,4 @@
 # Ignore all environment files (except templates).
 /.env*
 !/.env*.erb
-/faker/*
 coverage
