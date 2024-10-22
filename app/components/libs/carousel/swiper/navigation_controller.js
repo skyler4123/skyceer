@@ -36,16 +36,6 @@ export default class extends ApplicationController {
   }
   
   initComplete() {
-    var thumb = new Swiper(this.thumbSwiperTarget, {
-      spaceBetween: 10,
-      slidesPerView: 4,
-      loop: true,
-      loopedSlides: 5, //looped slides should be the same
-      watchSlidesVisibility: true,
-      watchSlidesProgress: true,
-      cssMode: true,
-    });
-
     const swiper = new Swiper(this.swiperTarget, {
       direction: 'horizontal',
       loop: true,    

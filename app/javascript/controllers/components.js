@@ -53,7 +53,7 @@ const Components = (name, params = {}, content = null) => {
           </div>
         </${tag}>
       `
-    case 'hr': case 'img': case 'input':
+    case 'hr': case 'input':
       return `<${tag} data-controller="${name}" data-${name}-params-value='${JSON.stringify(params)}'>`
     case 'modal':
       return `
@@ -67,6 +67,16 @@ const Components = (name, params = {}, content = null) => {
     case 'editorjs':
       return `
         <${tag} data-controller="libs--${name}" data-libs--${name}-params-value='${JSON.stringify(params)}'>
+          ${content ? content() : ``}
+        </${tag}>
+      `
+    case 'img':
+      return `
+        <${tag}
+          data-controller="${name}"
+          data-${name}-params-value='${JSON.stringify(params)}'
+          loading="lazy"
+        >
           ${content ? content() : ``}
         </${tag}>
       `
