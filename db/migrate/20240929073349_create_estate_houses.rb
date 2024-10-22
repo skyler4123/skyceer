@@ -7,6 +7,7 @@ class CreateEstateHouses < ActiveRecord::Migration[7.2]
       t.integer :price_cents
       t.decimal :longitude
       t.decimal :latitude
+      t.references :address, null: false, foreign_key: true, type: :uuid
 
       t.timestamps
     end
