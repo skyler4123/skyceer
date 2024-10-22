@@ -8,9 +8,9 @@ module User::AvatarConcern
     end
     
     after_update_commit do
-      if avatar.attached? && (Time.now  > avatar.attachment.created_at)
-        sessions.last.update(avatar: Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true))
-      end
+      return unless avatar.attached?
+      return unless Time.now  > avatar.attachment.created_at
+      sessions.last.update(avatar: Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)) unless sessions.empty?
     end
     
     validate :acceptable_avatar

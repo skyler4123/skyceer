@@ -31,7 +31,7 @@ EstateUser.destroy_all
 EstateCondo.destroy_all
 EstateHotel.destroy_all
 
-# Run generator
+# Run generator for development
 5.times do |n|
   user = User.create(
     email: "email#{n}@gmail.com",
@@ -40,5 +40,10 @@ EstateHotel.destroy_all
     verified: true,
     name: "user name #{Faker::Movies::HarryPotter.character}"
   )
+  (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+    file_name, file_type = file.path.split('/').last.split('.')
+    user.avatar.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+  end
 end
+
 AutoGenerator::SeedService.run(seed_record: 10, seed_image: 50)

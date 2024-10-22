@@ -11,6 +11,10 @@ class AutoGenerator::SeedService
         verified: true,
         name: "user name #{Faker::Movies::HarryPotter.character}"
       )
+      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+        file_name, file_type = file.path.split('/').last.split('.')
+        user.avatar.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+      end
     end
     
     # Vehicle Package
