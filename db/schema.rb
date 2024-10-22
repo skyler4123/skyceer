@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_22_161920) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,6 +41,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "unit_number"
+    t.string "street_number"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "city"
+    t.string "country_code"
+    t.string "postal_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "agriculture_farmers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -207,18 +219,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
     t.index ["estate_user_id"], name: "index_estate_condos_on_estate_user_id"
   end
 
-  create_table "estate_houses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "estate_user_id", null: false
-    t.string "name"
-    t.string "address"
-    t.integer "price_cents"
-    t.decimal "longitude"
-    t.decimal "latitude"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["estate_user_id"], name: "index_estate_houses_on_estate_user_id"
-  end
-
   create_table "estate_hotels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "estate_user_id", null: false
     t.string "name"
@@ -229,6 +229,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["estate_user_id"], name: "index_estate_hotels_on_estate_user_id"
+  end
+
+  create_table "estate_houses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "estate_user_id", null: false
+    t.string "name"
+    t.string "address"
+    t.integer "price_cents"
+    t.decimal "longitude"
+    t.decimal "latitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estate_user_id"], name: "index_estate_houses_on_estate_user_id"
   end
 
   create_table "estate_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -324,8 +336,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
   add_foreign_key "education_teachers", "education_users"
   add_foreign_key "education_users", "users"
   add_foreign_key "estate_condos", "estate_users"
-  add_foreign_key "estate_houses", "estate_users"
   add_foreign_key "estate_hotels", "estate_users"
+  add_foreign_key "estate_houses", "estate_users"
   add_foreign_key "estate_users", "users"
   add_foreign_key "map_points", "map_users"
   add_foreign_key "map_users", "users"
