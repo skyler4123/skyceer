@@ -14,6 +14,7 @@ return if ENV['RAILS_ENV'] == 'production'
 # DESTROY ALL
 User.destroy_all
 Session.destroy_all
+Address.destroy_all
 
 VehicleUser.destroy_all
 VehicleStore.destroy_all
@@ -33,12 +34,22 @@ EstateHotel.destroy_all
 
 # Run generator for development
 5.times do |n|
+  address = Address.create(
+    unit_number: SecureRandom.hex(3),
+    street_number: Faker::Address.street_address,
+    address_line_1: Faker::Movies::HarryPotter.character,
+    address_line_2: Faker::Movies::HarryPotter.character,
+    city: Faker::Address.city,
+    country_code: COUNTRY.pluck(:alpha_2_code).sample,
+    postal_code: Faker::Address.postcode,
+  )
   user = User.create(
     email: "email#{n}@gmail.com",
     password: "password1234",
     password_confirmation: "password1234",
     verified: true,
-    name: "user name #{Faker::Movies::HarryPotter.character}"
+    name: "user name #{Faker::Movies::HarryPotter.character}",
+    address: address
   )
   (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
     file_name, file_type = file.path.split('/').last.split('.')

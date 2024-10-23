@@ -12,8 +12,6 @@ class User < ApplicationRecord
     password_salt.last(10)
   end
 
-  has_many :sessions, dependent: :destroy
-
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
 
@@ -26,5 +24,8 @@ class User < ApplicationRecord
   after_update if: :password_digest_previously_changed? do
     sessions.where.not(id: Current.session).delete_all
   end
+
+  belongs_to :address
+  has_many :sessions, dependent: :destroy
 
 end

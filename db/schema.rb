@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_22_161920) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -234,12 +234,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_161920) do
   create_table "estate_houses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "estate_user_id", null: false
     t.string "name"
-    t.string "address"
     t.integer "price_cents"
     t.decimal "longitude"
     t.decimal "latitude"
+    t.uuid "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_estate_houses_on_address_id"
     t.index ["estate_user_id"], name: "index_estate_houses_on_estate_user_id"
   end
 
@@ -276,8 +277,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_161920) do
     t.string "password_digest", null: false
     t.string "name"
     t.boolean "verified", default: false, null: false
+    t.uuid "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -337,10 +340,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_22_161920) do
   add_foreign_key "education_users", "users"
   add_foreign_key "estate_condos", "estate_users"
   add_foreign_key "estate_hotels", "estate_users"
+  add_foreign_key "estate_houses", "addresses"
   add_foreign_key "estate_houses", "estate_users"
   add_foreign_key "estate_users", "users"
   add_foreign_key "map_points", "map_users"
   add_foreign_key "map_users", "users"
+  add_foreign_key "users", "addresses"
   add_foreign_key "vehicle_cars", "vehicle_stores"
   add_foreign_key "vehicle_cars", "vehicle_users"
   add_foreign_key "vehicle_stores", "vehicle_users"

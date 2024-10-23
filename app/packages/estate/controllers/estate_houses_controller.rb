@@ -23,6 +23,8 @@ class EstateHousesController < EstateController
 
   # POST /estate_houses or /estate_houses.json
   def create
+    debugger
+    return
     @estate_house = EstateHouse.new(estate_house_params)
     @estate_house.estate_user_id = Current.estate_user_id
 
@@ -68,6 +70,6 @@ class EstateHousesController < EstateController
 
     # Only allow a list of trusted parameters through.
     def estate_house_params
-      params.require(:estate_house).permit(:name, :address, :price_cents, :longitude, :latitude, images: [], address: [:unit_number, :street_number, :address_line_1, :address_line_2, :city, :country_code, :postal_code])
+      params.require(:estate_house).permit(:name, :price_cents, :longitude, :latitude, images: [], address: [:unit_number, :street_number, :address_line_1, :address_line_2, :city, :country_code, :postal_code])
     end
 end
