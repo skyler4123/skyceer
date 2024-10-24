@@ -4,7 +4,7 @@ export default class FormController extends ApplicationController {
   static targets = [...super.targets, 'input']
   static values = {
     ...super.values,
-    submit: { type: Object, default: {} }
+    form: { type: Object, default: {} }
   }
 
   init() {
@@ -33,6 +33,12 @@ export default class FormController extends ApplicationController {
     this.inputTargets.forEach((target) => {
       newInput[target.name] = target.value
     })
-    this.submitValue = newInput
+    this.formValue = newInput
+  }
+
+  formValueChanged(value, previousValue) {
+    this.inputTargets.forEach((target) => {
+      target.value = this.formValue[target.name]
+    })
   }
 }

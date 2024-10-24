@@ -33,7 +33,7 @@ export default class extends FormController {
   submit(event) {
     event.preventDefault()
     this.syncEditorToForm()
-    ArticlePostsApi.create({params: this.submitValue}).then((response) => {
+    ArticlePostsApi.create({params: this.formValue}).then((response) => {
       console.log(response)
     }).catch((error) => {
       console.log(error)
@@ -42,7 +42,7 @@ export default class extends FormController {
 
   async syncEditorToForm(event = null) {
     let editorData = await this.editorController().render()
-    this.submitValue = {...this.submitValue, content: editorData}
+    this.formValue = {...this.formValue, content: editorData}
   }
 
   editorController() {
