@@ -43,3 +43,6 @@ pin "editorjs-html" # @3.4.3
 pin "tinymce", to: "https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js"
 pin "swiper"#, to: "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" # @11.1.12
 pin "sweetalert2" # @11.14.1
+pin "choices" # @0.1.3
+pin "colors" # @0.6.2
+pin "process" # @2.1.0
