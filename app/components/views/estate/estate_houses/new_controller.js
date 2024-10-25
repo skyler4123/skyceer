@@ -24,20 +24,20 @@ export default class extends Views_Estate_LayoutController {
   initValueCallback() {
     setTimeout(() => {
       this.newFormController().formValueCallback = () => {
-        this.syncFromFormToMap(null)
+        this.syncFromFormToMap()
       }
       this.newMapController().pointValueCallback = () => {
-        this.syncFromMapToForm(null)
+        this.syncFromMapToForm()
       }
     }, 1000)
   }
 
-  syncFromFormToMap(event) {
+  syncFromFormToMap() {
     const { "estate_house[address][longitude]": longitude, "estate_house[address][latitude]": latitude } = this.newFormController().formValue
     this.newMapController().pointValue = {...this.newMapController().pointValue, longitude: Number(longitude), latitude: Number(latitude)}
   }
 
-  syncFromMapToForm(event) {
+  syncFromMapToForm() {
     const { longitude, latitude } = this.newMapController().pointValue
     this.newFormController().formValue = {...this.newFormController().formValue, "estate_house[address][longitude]": Number(longitude), "estate_house[address][latitude]": Number(latitude)}
   }
