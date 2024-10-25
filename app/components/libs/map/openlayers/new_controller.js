@@ -50,6 +50,7 @@ export default class extends Libs_Map_Openlayers_OpenlayersController {
     if (!this.isInitializedValue) { return }
     this.pointSource.clear()
     this.pointSource.addFeature(this.pointFeature())
+    if (this.isDefined(this.pointValueCallback)) { this.pointValueCallback() }
   }
 
   pointFeature() {

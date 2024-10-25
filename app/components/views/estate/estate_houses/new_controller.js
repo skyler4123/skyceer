@@ -10,7 +10,7 @@ export default class extends Views_Estate_LayoutController {
   initMain() {
     this.initNewForm()
     this.initNewMap()
-    // this.initEstateHousesNewMap()
+    this.initValueCallback()
   }
 
   initNewForm() {
@@ -21,24 +21,28 @@ export default class extends Views_Estate_LayoutController {
     this.mergeAttributesHTML(this.newMapTarget, `data-controller="${this.newMapIdentifier()}"`)
   }
 
-  initAction() {
-    this.addAction(this.newFormTarget, `keydown->${this.identifier}#syncFromFormToMap`)
-    this.addAction(this.newMapTarget, `click->${this.identifier}#syncFromMapToForm`)
+  initValueCallback() {
+    setTimeout(() => {
+      this.newFormController().formValueCallback = () => {
+        this.syncFromFormToMap(null)
+      }
+      this.newMapController().pointValueCallback = () => {
+        this.syncFromMapToForm(null)
+      }
+    }, 1000)
   }
 
   syncFromFormToMap(event) {
     setTimeout(() => {
-      console.log(this.newFormController().formValue)
       const { "estate_house[longitude]": longitude, "estate_house[latitude]": latitude } = this.newFormController().formValue
-      this.newMapController().pointValue = {...this.newMapController().pointValue, longitude: longitude, latitude: latitude}
+      this.newMapController().pointValue = {...this.newMapController().pointValue, longitude: Number(longitude), latitude: Number(latitude)}
     }, 1000)
   }
 
   syncFromMapToForm(event) {
     setTimeout(() => {
       const { longitude, latitude } = this.newMapController().pointValue
-      console.log(longitude, latitude)
-      this.newFormController().formValue = {...this.newFormController().formValue, "estate_house[longitude]": longitude, "estate_house[latitude]": latitude}
+      this.newFormController().formValue = {...this.newFormController().formValue, "estate_house[longitude]": Number(longitude), "estate_house[latitude]": Number(latitude)}
     }, 1000)
   }
 

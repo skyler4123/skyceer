@@ -40,5 +40,6 @@ export default class FormController extends ApplicationController {
     this.inputTargets.forEach((target) => {
       target.value = this.formValue[target.name]
     })
+    if (this.isDefined(this.formValueCallback)) { this.formValueCallback() }
   }
 }
