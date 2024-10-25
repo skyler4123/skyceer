@@ -94,7 +94,15 @@ const DomHelpers = {
       element.id = `${this.getControllerIdentifier(element)}:${this.newUUID()}`
       return element.id
     }
-  } 
+  },
+
+  mergeAttributesHTML(element, attributesHTML) {
+    const attributes = attributesHTML.split(" ").map((attribute) => attribute.split("="))
+    attributes.forEach((attribute) => {
+      element.setAttribute(attribute[0], attribute[1].substring(1, attribute[1].length - 1))
+    })
+    return element
+  }
 }
 
 export default DomHelpers;
