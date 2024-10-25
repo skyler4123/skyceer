@@ -13,6 +13,8 @@ class AutoGenerator::SeedService
         city: Faker::Address.city,
         country_code: COUNTRY.pluck(:alpha_2_code).sample,
         postal_code: Faker::Address.postcode,
+        longitude: rand(-180..180),
+        latitude: rand(-90..90),
       )
     end
     # User
@@ -203,8 +205,6 @@ class AutoGenerator::SeedService
       estate_user.estate_houses.create(
         name: "estate house name #{Faker::Movies::HarryPotter.character}",
         address: Address.all.sample,
-        longitude: rand(-180..180),
-        latitude: rand(-90..90),
         price_cents: rand(1000..9999),
       )
     end
