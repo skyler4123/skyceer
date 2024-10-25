@@ -24,8 +24,8 @@ class AutoGenerator::SeedService
         password: "password1234",
         password_confirmation: "password1234",
         verified: true,
-        name: "user name #{Faker::Movies::HarryPotter.character}"
-        
+        name: "user name #{Faker::Movies::HarryPotter.character}",
+        address: Address.all.sample,
       )
       (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
         file_name, file_type = file.path.split('/').last.split('.')
@@ -206,6 +206,7 @@ class AutoGenerator::SeedService
         name: "estate house name #{Faker::Movies::HarryPotter.character}",
         address: Address.all.sample,
         price_cents: rand(1000..9999),
+        address: Address.all.sample
       )
     end
     
