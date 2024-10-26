@@ -1,4 +1,4 @@
-// Load more comments
+// Load more comments - auto scroll down
 this.viewMoreInterval = setInterval(() => {
   let clientHeight = document.body.clientHeight
   let scrollHeight = document.body.scrollHeight
