@@ -55,6 +55,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
     t.decimal "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["address_line_1"], name: "index_addresses_on_address_line_1"
+    t.index ["address_line_2"], name: "index_addresses_on_address_line_2"
+    t.index ["city"], name: "index_addresses_on_city"
+    t.index ["country_code"], name: "index_addresses_on_country_code"
+    t.index ["postal_code"], name: "index_addresses_on_postal_code"
+    t.index ["street_number"], name: "index_addresses_on_street_number"
+    t.index ["unit_number"], name: "index_addresses_on_unit_number"
   end
 
   create_table "agriculture_farmers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
