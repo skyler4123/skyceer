@@ -1,13 +1,25 @@
-import { Addresses } from "../../../../javascript/controllers/addresses/addresses";
-import ApplicationController from "../../../../javascript/controllers/application_controller";
+import "choices"
+
+import { Countries } from "../../../../javascript/controllers/addresses/countries";
 import { Button, Popover, Link, Box } from "../../../../javascript/controllers/components";
 import FormController from "../../../form_controller";
 
 export default class extends FormController {
+  static targets = ["country", 'city']
+  static values = {
+    country: { type: String, default: "" },
+    city: { type: String, default: "" },
+  }
 
   init() {
     this.initHTML()
     super.init()
+    const choices = new Choices(this.countryTarget, {
+      classNames: {
+        containerOuter: ['choices w-full']
+      }
+    });
+    console.log(Countries)
   }
 
   initHTML() {
@@ -33,14 +45,16 @@ export default class extends FormController {
         </button>
       </div>
       <div role="select-box" class="flex flex-row">
-        <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <select data-${this.identifier}-target="country" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option selected>Choose a country</option>
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="FR">France</option>
-          <option value="DE">Germany</option>
+          ${Countries.where({
+            name: ['hahahahahahahah', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Viet Nam'],
+            alpha_2_code: ['VN']
+          }).map((country) => (
+            `<option value="${country.alpha_2_code}">${country.name}</option>`
+          ))}
         </select>
-        <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option selected>Choose a country</option>
           <option value="US">United States</option>
           <option value="CA">Canada</option>
