@@ -118,3 +118,4 @@ gem 'money-rails'
 gem 'eu_central_bank'
 
 gem "kamal"
+gem 'silencer', require: false
