@@ -3,9 +3,9 @@ class AutoGenerator::SeedService
   def self.run(seed_record: 1, seed_image: 1)
 
     ### APPLICATION PACKAGE
-    # Address
+    # User
     seed_record.times do |n|
-      Address.create(
+      address = Address.create(
         unit_number: SecureRandom.hex(3),
         street_number: Faker::Address.street_address,
         address_line_1: Faker::Movies::HarryPotter.character,
@@ -16,16 +16,13 @@ class AutoGenerator::SeedService
         longitude: rand(-180..180),
         latitude: rand(-90..90),
       )
-    end
-    # User
-    seed_record.times do |n|
       user = User.create(
         email: "email#{Time.now.to_i}_#{n}@gmail.com",
         password: "password1234",
         password_confirmation: "password1234",
         verified: true,
         name: "user name #{Faker::Movies::HarryPotter.character}",
-        address: Address.all.sample,
+        address: address,
       )
       (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
         file_name, file_type = file.path.split('/').last.split('.')
@@ -188,6 +185,17 @@ class AutoGenerator::SeedService
     # end
     
     EstateUser.all.sample(seed_record).each_with_index do |estate_user, index|
+      address = Address.create(
+        unit_number: SecureRandom.hex(3),
+        street_number: Faker::Address.street_address,
+        address_line_1: Faker::Movies::HarryPotter.character,
+        address_line_2: Faker::Movies::HarryPotter.character,
+        city: Faker::Address.city,
+        country_code: COUNTRY.pluck(:alpha_2_code).sample,
+        postal_code: Faker::Address.postcode,
+        longitude: rand(-180..180),
+        latitude: rand(-90..90),
+      )
       estate_user.estate_condos.create(
         name: "estate user name #{Faker::Movies::HarryPotter.character}",
         address: "address #{Faker::Movies::HarryPotter.character}",
@@ -206,7 +214,7 @@ class AutoGenerator::SeedService
         name: "estate house name #{Faker::Movies::HarryPotter.character}",
         address: Address.all.sample,
         price_cents: rand(1000..9999),
-        address: Address.all.sample
+        address: address,
       )
     end
     

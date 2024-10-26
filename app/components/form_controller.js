@@ -4,7 +4,8 @@ export default class FormController extends ApplicationController {
   static targets = [...super.targets, 'input']
   static values = {
     ...super.values,
-    form: { type: Object, default: {} }
+    form: { type: Object, default: {} },
+    submit: { type: Object, default: {} },
   }
 
   init() {
@@ -18,6 +19,7 @@ export default class FormController extends ApplicationController {
   }
 
   initAction() {
+    this.addAction(this.element, `submit->${this.identifier}#submit`)
     this.inputTargets.forEach((target) => {
       this.addAction(target, `input->${this.identifier}#input`)
     })
@@ -41,5 +43,14 @@ export default class FormController extends ApplicationController {
       target.value = this.formValue[target.name]
     })
     if (this.isDefined(this.formValueCallback)) { this.formValueCallback() }
+  }
+
+  submit(event) {
+    event.preventDefault()
+    this.submitValue = this.formValue
+  }
+
+  submitValueChanged(value, previousValue) {
+    if (this.isDefined(this.submitValueCallback)) { this.submitValueCallback(value, previousValue) }
   }
 }

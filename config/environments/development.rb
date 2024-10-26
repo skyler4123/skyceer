@@ -77,8 +77,7 @@ Rails.application.configure do
   config.importmap.cache_sweepers << Rails.root.join("app/components") 
   config.assets.debug = true
   # config.active_job.queue_adapter = :solid_queue
-  config.logger = ActiveSupport::Logger.new(STDOUT)
-  config.hosts << "localhostdev:3000"
-  config.logger = ActiveSupport::Logger.new(STDOUT)
+  # config.logger = ActiveSupport::Logger.new(STDOUT)
+  # config.hosts << "localhostdev:3000"
 
 end

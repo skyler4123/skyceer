@@ -14,17 +14,17 @@ export default class extends Views_Estate_LayoutController {
 
   initMain() {
     this.initHTML()
-    this.initHousesValue()
     this.initMap()
     this.initCards()
-    this.createEventBrige({fromElement: this.searchTarget, toElement: this.element, toAction: "listenFromSearch"})
+    this.initValueCallback()
+    this.initHousesValue()
   }
 
   initHTML() {
     const defaultHTML = `
-      <div class="pb-24" data-controller="${this.searchControllerIdentifier()}" data-${this.identifier}-target="search"></div>
+      <form class="w-full h-full flex flex-col px-10" data-controller="${this.searchControllerIdentifier()}" data-${this.identifier}-target="search"></form>
       <div class="w-5/6 h-[500px] rounded-2xl overflow-hidden" data-controller="${this.mapControllerIdentifier()}" data-${this.identifier}-target="map"></div>
-      <div data-${this.identifier}-target="cards"></div>
+      <div class="w-full grid grid-cols-3 gap-4" data-${this.identifier}-target="cards"></div>
     `
     this.mainTarget.innerHTML = defaultHTML
   }
@@ -32,7 +32,8 @@ export default class extends Views_Estate_LayoutController {
   initHousesValue() {
     EstateHousesApi.index({params: this.queryParamsValue}).then(response => {
       let data = response.data
-      this.housesValue = data
+      let dataWithCoordinates = data.map((house) => ({...house, longitude: house.address.longitude, latitude: house.address.latitude}))
+      this.housesValue = dataWithCoordinates
     }).catch(error => {
       console.log(error)
     })
@@ -49,6 +50,14 @@ export default class extends Views_Estate_LayoutController {
     this.cardsTarget.innerHTML = cardsHTML
   }
 
+  initValueCallback() {
+    setTimeout(() => {
+      this.searchController().submitValueCallback = (value, previousValue) => {
+        this.queryParamsValue = value
+      }
+    }, 1000)
+  }
+
   housesValueChanged(value, previousValue) {
     if (this.isUndefined(previousValue)) { return }
 
@@ -56,11 +65,8 @@ export default class extends Views_Estate_LayoutController {
     this.initCards()
   }
 
-  listenFromSearch(event) {
-    this.queryParamsValue = event.detail.queryParams
-  }
-
   queryParamsValueChanged(value, previousValue) {
+    if (this.isUndefined(previousValue)) { return }
     this.initHousesValue()
   }
   
@@ -89,9 +95,6 @@ export default class extends Views_Estate_LayoutController {
       default: {
         element: '',
         mainTarget: "gap-y-10",
-        mapTarget: "",
-        searchTarget: "w-full h-full flex flex-row justify-start",
-        cardsTarget: "w-full grid grid-cols-3 gap-4"
       }
     }
   }
