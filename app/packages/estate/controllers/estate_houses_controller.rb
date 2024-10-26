@@ -4,7 +4,7 @@ class EstateHousesController < EstateController
 
   # GET /estate_houses or /estate_houses.json
   def index
-    @estate_houses = EstateHouse.all
+    @estate_houses = EstateHouse.all.includes(:address)
     @estate_houses = @estate_houses.where('price_cents <= ?', params[:price_cents]) if params[:price_cents]
   end
 
