@@ -5,7 +5,7 @@ class AutoGenerator::SeedService
     ### APPLICATION PACKAGE
     # User
     seed_record.times do |n|
-      address = Address.create(
+      address = Address.create!(
         unit_number: SecureRandom.hex(3),
         street_number: Faker::Address.street_address,
         address_line_1: Faker::Movies::HarryPotter.character,
@@ -16,7 +16,7 @@ class AutoGenerator::SeedService
         longitude: rand(-180..180),
         latitude: rand(-90..90),
       )
-      user = User.create(
+      user = User.create!(
         email: "email#{Time.now.to_i}_#{n}@gmail.com",
         password: "password1234",
         password_confirmation: "password1234",
@@ -35,17 +35,17 @@ class AutoGenerator::SeedService
     # Vehicle Package
     ActiveRecord::Base.transaction do
       # User.first(10).each do |user|
-      #   VehicleUser.create(user: user)
+      #   VehicleUser.create!(user: user)
       # end
       VehicleUser.all.sample(seed_record).each do |vehicle_user|
         1.times do
-          vehicle_store = VehicleStore.create(
+          vehicle_store = VehicleStore.create!(
             name: "vehicle store name #{Faker::Movies::HarryPotter.character}",
             vehicle_user_id: vehicle_user.id,
             coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
           )
           1.times do
-            VehicleCar.create(
+            VehicleCar.create!(
               name: "vehicle car name #{Faker::Movies::HarryPotter.character}",
               model: "model #{Faker::Movies::HarryPotter.character}",
               brand: ['tesla', 'toyota', 'honda'].sample,
@@ -70,11 +70,11 @@ class AutoGenerator::SeedService
     # CalendarUser.destroy_all
     # ActiveRecord::Base.transaction do
     #   User.first(10).each_with_index do |user, index|
-    #     CalendarUser.create(name: "calendar_user_#{index}", user: user)
+    #     CalendarUser.create!(name: "calendar_user_#{index}", user: user)
     #   endq
     #   CalendarUser.all.each_with_index do |calendar_user|
     #     2.times do |n|
-    #       CalendarSchedule.create(
+    #       CalendarSchedule.create!(
     #         calendar_user: calendar_user,
     #         name: "calendar_schedule_#{n}",
     #         color: '#' + SecureRandom.hex(3),
@@ -97,25 +97,25 @@ class AutoGenerator::SeedService
     
     # ActiveRecord::Base.transaction do
     #   User.first(10).each_with_index do |user, index|
-    #     EducationUser.create(name: "education_user_#{index}", user: user)
+    #     EducationUser.create!(name: "education_user_#{index}", user: user)
     #   end
     
     #   EducationUser.all.each_with_index do |user, index|
     #     if index < 2
-    #       school = EducationSchool.create(name: "education_school_#{index}", education_user: user)
+    #       school = EducationSchool.create!(name: "education_school_#{index}", education_user: user)
     #       5.times do |n|
-    #         EducationRoom.create(name: "education_room_#{n}", education_school: school)
+    #         EducationRoom.create!(name: "education_room_#{n}", education_school: school)
     #       end
     #       5.times do |n|
-    #         EducationClass.create(name: "education_class_#{n}", education_school: school)
+    #         EducationClass.create!(name: "education_class_#{n}", education_school: school)
     #       end
     #     end
     #     school = EducationSchool.all.sample
     #     if index >=2 && index < 6
-    #       EducationTeacher.create(name: "education_teacher_#{index}", education_user: user, education_school: school)
+    #       EducationTeacher.create!(name: "education_teacher_#{index}", education_user: user, education_school: school)
     #     end
     #     if index >= 6
-    #       EducationStudent.create(name: "education_student_#{index}", education_user: user, education_school: school, education_class: school.education_classes.sample)
+    #       EducationStudent.create!(name: "education_student_#{index}", education_user: user, education_school: school, education_class: school.education_classes.sample)
     #     end
     #   end
     # end
@@ -125,27 +125,27 @@ class AutoGenerator::SeedService
     # AgricultureUser.destroy_all
     # ActiveRecord::Base.transaction do
     #   User.first(10).each_with_index do |user, index|
-    #     AgricultureUser.create(name: "agriculture_user_#{index}", user: user)
+    #     AgricultureUser.create!(name: "agriculture_user_#{index}", user: user)
     #   end
     #   AgricultureUser.all.each_with_index do |user, index|
     #     if (index % 2 == 0)
-    #       AgricultureFarmer.create(name: "agriculture_farmer_#{index}", agriculture_user: user)
+    #       AgricultureFarmer.create!(name: "agriculture_farmer_#{index}", agriculture_user: user)
     #     else
-    #       AgricultureMerchant.create(name: "agriculture_merchant_#{index}", agriculture_user: user)
+    #       AgricultureMerchant.create!(name: "agriculture_merchant_#{index}", agriculture_user: user)
     #     end
     #   end
     #   AgricultureFarmer.all.each_with_index do |farmer, index|
-    #     AgricultureFarm.create(name: "agriculture_farm_#{index}", agriculture_farmer: farmer)
+    #     AgricultureFarm.create!(name: "agriculture_farm_#{index}", agriculture_farmer: farmer)
     #   end
     # end
     
     
     # CHAT PACKAGE
     ChatUser.all.sample(seed_record).each do |chat_user|
-      # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
-      # ChatConversation.create(chat_user_ids: [ChatUser.first.id, ChatUser.second.id])
-      # ChatConversation.create(chat_user_ids: ChatUser.pluck(:id).sample((2..2).to_a.sample).map(&:to_s))
-      ChatConversation.create(chat_user_ids: [chat_user.id.to_s, ChatUser.where.not(id: chat_user.id).first(seed_record).sample.id.to_s])
+      # ChatConversation.create!(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
+      # ChatConversation.create!(chat_user_ids: [ChatUser.first.id, ChatUser.second.id])
+      # ChatConversation.create!(chat_user_ids: ChatUser.pluck(:id).sample((2..2).to_a.sample).map(&:to_s))
+      ChatConversation.create!(chat_user_ids: [chat_user.id.to_s, ChatUser.where.not(id: chat_user.id).first(seed_record).sample.id.to_s])
     end
     
     (seed_record * 5).times do |n|
@@ -168,7 +168,7 @@ class AutoGenerator::SeedService
             }
          }],
         }
-        ArticlePost.create(article_user: user, package: 'vehicle', title: Faker::Movies::HarryPotter.character, content: content)
+        ArticlePost.create!(article_user: user, package: 'vehicle', title: Faker::Movies::HarryPotter.character, content: content)
       end
     end
     (seed_record * 5).times do |n|
@@ -181,11 +181,11 @@ class AutoGenerator::SeedService
     
     # REAL ESTATE
     # User.first(10).each do |user|
-    #   EstateUser.create(user: user)
+    #   EstateUser.create!(user: user)
     # end
     
-    EstateUser.all.sample(seed_record).each_with_index do |estate_user, index|
-      address = Address.create(
+    User.all.sample(seed_record).each_with_index do |user, index|
+      address = Address.create!(
         unit_number: SecureRandom.hex(3),
         street_number: Faker::Address.street_address,
         address_line_1: Faker::Movies::HarryPotter.character,
@@ -196,23 +196,40 @@ class AutoGenerator::SeedService
         longitude: rand(-180..180),
         latitude: rand(-90..90),
       )
-      estate_user.estate_condos.create(
+      user.estate_condos.create!(
         name: "estate user name #{Faker::Movies::HarryPotter.character}",
-        address: "address #{Faker::Movies::HarryPotter.character}",
+        price_cents: rand(1000..9999),
+        address: address,
+      )
+      address = Address.create!(
+        unit_number: SecureRandom.hex(3),
+        street_number: Faker::Address.street_address,
+        address_line_1: Faker::Movies::HarryPotter.character,
+        address_line_2: Faker::Movies::HarryPotter.character,
+        city: Faker::Address.city,
+        country_code: COUNTRY.pluck(:alpha_2_code).sample,
+        postal_code: Faker::Address.postcode,
         longitude: rand(-180..180),
         latitude: rand(-90..90),
-        price_cents: rand(1000..9999),
       )
-      estate_user.estate_hotels.create(
+      user.estate_hotels.create!(
         name: "estate hotel name #{Faker::Movies::HarryPotter.character}",
-        address: "address #{Faker::Movies::HarryPotter.character}",
+        price_cents: rand(1000..9999),
+        address: address,
+      )
+      address = Address.create!(
+        unit_number: SecureRandom.hex(3),
+        street_number: Faker::Address.street_address,
+        address_line_1: Faker::Movies::HarryPotter.character,
+        address_line_2: Faker::Movies::HarryPotter.character,
+        city: Faker::Address.city,
+        country_code: COUNTRY.pluck(:alpha_2_code).sample,
+        postal_code: Faker::Address.postcode,
         longitude: rand(-180..180),
         latitude: rand(-90..90),
-        price_cents: rand(1000..9999),
       )
-      estate_user.estate_houses.create(
+      user.estate_houses.create!(
         name: "estate house name #{Faker::Movies::HarryPotter.character}",
-        address: Address.all.sample,
         price_cents: rand(1000..9999),
         address: address,
       )

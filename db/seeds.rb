@@ -3,8 +3,8 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+#   movies = Movie.create!([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   Character.create!(name: "Luke", movie: movies.first)
 
 
 
@@ -34,7 +34,7 @@ EstateHotel.destroy_all
 
 # Run generator for development
 5.times do |n|
-  address = Address.create(
+  address = Address.create!(
     unit_number: SecureRandom.hex(3),
     street_number: Faker::Address.street_address,
     address_line_1: Faker::Movies::HarryPotter.character,
@@ -42,8 +42,10 @@ EstateHotel.destroy_all
     city: Faker::Address.city,
     country_code: COUNTRY.pluck(:alpha_2_code).sample,
     postal_code: Faker::Address.postcode,
+    longitude: rand(-180..180),
+    latitude: rand(-90..90),
   )
-  user = User.create(
+  user = User.create!(
     email: "email#{n}@gmail.com",
     password: "password1234",
     password_confirmation: "password1234",

@@ -26,8 +26,8 @@
 #   queue: Estate::EstateHouses::AutoUploadImageJob-background
   # args: [ 1000, { batch_size: 500 } ]
 
-auto_generator_periodic_job:
-  class: AutoGeneratorJob
-  schedule: every 1 minutes
-  queue: AutoGeneratorJob-background
+# auto_generator_periodic_job:
+#   class: AutoGeneratorJob
+#   schedule: every 1 minutes
+#   queue: AutoGeneratorJob-background
   # args: [ 1000, { batch_size: 500 } ]

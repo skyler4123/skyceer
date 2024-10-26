@@ -6,7 +6,11 @@ module User::PackageConcern
     has_one :education_user, dependent: :destroy
     has_one :agriculture_user, dependent: :destroy
     has_one :vehicle_user, dependent: :destroy
+
     has_one :estate_user, dependent: :destroy
+    has_many :estate_houses, dependent: :destroy
+    has_many :estate_condos, dependent: :destroy
+    has_many :estate_hotels, dependent: :destroy
     
     after_create :create_package_users
 

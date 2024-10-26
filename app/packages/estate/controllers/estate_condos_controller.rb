@@ -1,5 +1,5 @@
 class EstateCondosController < EstateController
-  # before_action :set_estate_user
+  # before_action :set_user
   before_action :set_estate_condo, only: %i[ show edit update destroy ]
 
   # GET /estate_condos or /estate_condos.json
@@ -24,7 +24,7 @@ class EstateCondosController < EstateController
   # POST /estate_condos or /estate_condos.json
   def create
     @estate_condo = EstateCondo.new(estate_condo_params)
-    @estate_condo.estate_user_id = Current.estate_user_id
+    @estate_condo.user_id = Current.user_id
 
     respond_to do |format|
       if @estate_condo.save
@@ -68,8 +68,8 @@ class EstateCondosController < EstateController
 
     # Only allow a list of trusted parameters through.
     def estate_condo_params
-      # params.require(:estate_condo).permit(:estate_user_id, :name, :address, :price_cents, :longitude, :latitude)
+      # params.require(:estate_condo).permit(:user_id, :name, :address, :price_cents, :longitude, :latitude)
       # params.permit(:name, :address, :price_cents, :longitude, :latitude)
-      params.require(:estate_condo).permit(:name, :address, :price_cents, :longitude, :latitude, images: [])
+      params.require(:estate_condo).permit(:name, :price_cents, images: [])
     end
 end

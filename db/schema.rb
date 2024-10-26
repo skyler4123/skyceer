@@ -217,40 +217,36 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
   end
 
   create_table "estate_condos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "estate_user_id", null: false
+    t.uuid "user_id", null: false
+    t.uuid "address_id"
     t.string "name"
-    t.string "address"
     t.integer "price_cents"
-    t.decimal "longitude"
-    t.decimal "latitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["estate_user_id"], name: "index_estate_condos_on_estate_user_id"
+    t.index ["address_id"], name: "index_estate_condos_on_address_id"
+    t.index ["user_id"], name: "index_estate_condos_on_user_id"
   end
 
   create_table "estate_hotels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "estate_user_id", null: false
+    t.uuid "user_id", null: false
+    t.uuid "address_id"
     t.string "name"
-    t.string "address"
     t.integer "price_cents"
-    t.decimal "longitude"
-    t.decimal "latitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["estate_user_id"], name: "index_estate_hotels_on_estate_user_id"
+    t.index ["address_id"], name: "index_estate_hotels_on_address_id"
+    t.index ["user_id"], name: "index_estate_hotels_on_user_id"
   end
 
   create_table "estate_houses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "estate_user_id", null: false
+    t.uuid "user_id", null: false
+    t.uuid "address_id"
     t.string "name"
     t.integer "price_cents"
-    t.decimal "longitude"
-    t.decimal "latitude"
-    t.uuid "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_estate_houses_on_address_id"
-    t.index ["estate_user_id"], name: "index_estate_houses_on_estate_user_id"
+    t.index ["user_id"], name: "index_estate_houses_on_user_id"
   end
 
   create_table "estate_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -347,10 +343,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_073349) do
   add_foreign_key "education_teachers", "education_schools"
   add_foreign_key "education_teachers", "education_users"
   add_foreign_key "education_users", "users"
-  add_foreign_key "estate_condos", "estate_users"
-  add_foreign_key "estate_hotels", "estate_users"
+  add_foreign_key "estate_condos", "addresses"
+  add_foreign_key "estate_condos", "users"
+  add_foreign_key "estate_hotels", "addresses"
+  add_foreign_key "estate_hotels", "users"
   add_foreign_key "estate_houses", "addresses"
-  add_foreign_key "estate_houses", "estate_users"
+  add_foreign_key "estate_houses", "users"
   add_foreign_key "estate_users", "users"
   add_foreign_key "map_points", "map_users"
   add_foreign_key "map_users", "users"
