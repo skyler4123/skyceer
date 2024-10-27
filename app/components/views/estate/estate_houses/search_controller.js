@@ -33,7 +33,7 @@ export default class extends FormController {
   countryChanged(event) {
     this.countryValue = event.detail.value
     const countryAddress = Countries.where({iso2: this.countryValue})[0].address
-    const countryChoicesValue = countryAddress.map((address) => ({...address, value: address.city, label: address.city}))
+    const countryChoicesValue = countryAddress.map((address) => ({...address, value: address.province, label: address.province}))
     this.choicesCity.setValue(countryChoicesValue);
   }
 
