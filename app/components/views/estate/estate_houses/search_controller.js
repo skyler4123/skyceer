@@ -1,6 +1,6 @@
 import "choices"
+import country from 'country-list-js';
 
-import { Countries } from "../../../../javascript/controllers/addresses/countries";
 import { Button, Popover, Link, Box } from "../../../../javascript/controllers/components";
 import FormController from "../../../form_controller";
 
@@ -31,10 +31,10 @@ export default class extends FormController {
   }
 
   countryChanged(event) {
-    this.countryValue = event.detail.value
-    const countryAddress = Countries.where({iso2: this.countryValue})[0].address
-    const countryChoicesValue = countryAddress.map((address) => ({...address, value: address.province, label: address.province}))
-    this.choicesCity.setValue(countryChoicesValue);
+    // this.countryValue = event.detail.value
+    // const countryAddress = Countries.where({iso2: this.countryValue})[0].address
+    // const countryChoicesValue = countryAddress.map((address) => ({...address, value: address.province, label: address.province}))
+    // this.choicesCity.setValue(countryChoicesValue);
   }
 
   defaultHTML() {
@@ -65,11 +65,8 @@ export default class extends FormController {
       <div role="select-box" class="flex flex-row">
         <select data-${this.identifier}-target="country" data-action="change->${this.identifier}#countryChanged" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option selected>Choose a country</option>
-          ${Countries.where({
-            name: ['hahahahahahahah', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Viet Nam'],
-            iso2: ['VN']
-          }).map((country) => (
-            `<option value="${country.iso2}">${country.name}</option>`
+          ${country.names().map((countryName) => (
+            `<option value="${country.findByName(countryName).code.iso2}">${countryName}</option>`
           ))}
         </select>
         <select data-placeholder="This is a placeholder" data-${this.identifier}-target="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

@@ -46,3 +46,4 @@ pin "sweetalert2" # @11.14.1
 pin "choices" # @0.1.3
 pin "colors" # @0.6.2
 pin "process" # @2.1.0
+pin "country-list-js" # @3.1.8
