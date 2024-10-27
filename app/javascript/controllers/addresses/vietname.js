@@ -54,7 +54,7 @@ export const Addresses_Vietnam = [
   { city: "Thái Bình" },
   { city: "Thái Nguyên" },
   { city: "Thanh Hóa" },
-  { city: "Thành phố Hồ Chí Minh" },
+  { city: "Thành phố Hồ Chí Minh", ditrict: ["Quận 1", "Quận 2", "Quận 3", "Quận 4", "Quận 5", "Quận 6", "Quận 7", "Quận 8", "Quận 9", "Quận 10", "Quận 11", "Quận 12", "Quận Bình Thạnh", "Quận Gò Vấp", "Quận Phú Nhuận", "Quận Tân Bình", "Quận Tân Phú", "Quận Bình Tân", "Thành phố Thủ Đức", "Huyện Nhà Bè", "Huyện Hóc Môn", "Huyện Bình Chánh", "Huyện Củ Chi", "Huyện Cần Giờ"] },
   { city: "Thừa Thiên Huế" },
   { city: "Tiền Giang" },
   { city: "Trà Vinh" },
