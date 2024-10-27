@@ -31,10 +31,12 @@ export default class extends FormController {
   }
 
   countryChanged(event) {
-    // this.countryValue = event.detail.value
+    this.countryValue = event.detail.value
+    const provinces = country.findByIso2(this.countryValue).provinces
+    const provincesChoices = provinces.map((province) => ({...province, value: province.name, label: province.name}))
     // const countryAddress = Countries.where({iso2: this.countryValue})[0].address
     // const countryChoicesValue = countryAddress.map((address) => ({...address, value: address.province, label: address.province}))
-    // this.choicesCity.setValue(countryChoicesValue);
+    this.choicesCity.setValue(provincesChoices);
   }
 
   defaultHTML() {
