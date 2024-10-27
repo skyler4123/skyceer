@@ -5,24 +5,13 @@ class AutoGenerator::SeedService
     ### APPLICATION PACKAGE
     # User
     seed_record.times do |n|
-      address = Address.create!(
-        unit_number: SecureRandom.hex(3),
-        street_number: Faker::Address.street_address,
-        address_line_1: Faker::Movies::HarryPotter.character,
-        address_line_2: Faker::Movies::HarryPotter.character,
-        city: Faker::Address.city,
-        country_code: COUNTRY.pluck(:iso2).sample,
-        postal_code: Faker::Address.postcode,
-        longitude: rand(-180..180),
-        latitude: rand(-90..90),
-      )
       user = User.create!(
         email: "email#{Time.now.to_i}_#{n}@gmail.com",
         password: "password1234",
         password_confirmation: "password1234",
         verified: true,
         name: "user name #{Faker::Movies::HarryPotter.character}",
-        address: address,
+        address: Address.create_random,
       )
       (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
         file_name, file_type = file.path.split('/').last.split('.')
@@ -185,53 +174,20 @@ class AutoGenerator::SeedService
     # end
     
     User.all.sample(seed_record).each_with_index do |user, index|
-      address = Address.create!(
-        unit_number: SecureRandom.hex(3),
-        street_number: Faker::Address.street_address,
-        address_line_1: Faker::Movies::HarryPotter.character,
-        address_line_2: Faker::Movies::HarryPotter.character,
-        city: Faker::Address.city,
-        country_code: COUNTRY.pluck(:iso2).sample,
-        postal_code: Faker::Address.postcode,
-        longitude: rand(-180..180),
-        latitude: rand(-90..90),
-      )
       user.estate_condos.create!(
         name: "estate user name #{Faker::Movies::HarryPotter.character}",
         price_cents: rand(1000..9999),
-        address: address,
-      )
-      address = Address.create!(
-        unit_number: SecureRandom.hex(3),
-        street_number: Faker::Address.street_address,
-        address_line_1: Faker::Movies::HarryPotter.character,
-        address_line_2: Faker::Movies::HarryPotter.character,
-        city: Faker::Address.city,
-        country_code: COUNTRY.pluck(:iso2).sample,
-        postal_code: Faker::Address.postcode,
-        longitude: rand(-180..180),
-        latitude: rand(-90..90),
+        address: Address.create_random,
       )
       user.estate_hotels.create!(
         name: "estate hotel name #{Faker::Movies::HarryPotter.character}",
         price_cents: rand(1000..9999),
-        address: address,
-      )
-      address = Address.create!(
-        unit_number: SecureRandom.hex(3),
-        street_number: Faker::Address.street_address,
-        address_line_1: Faker::Movies::HarryPotter.character,
-        address_line_2: Faker::Movies::HarryPotter.character,
-        city: Faker::Address.city,
-        country_code: COUNTRY.pluck(:iso2).sample,
-        postal_code: Faker::Address.postcode,
-        longitude: rand(-180..180),
-        latitude: rand(-90..90),
+        address: Address.create_random,
       )
       user.estate_houses.create!(
         name: "estate house name #{Faker::Movies::HarryPotter.character}",
         price_cents: rand(1000..9999),
-        address: address,
+        address: Address.create_random,
       )
     end
     
