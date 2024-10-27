@@ -40,7 +40,7 @@ EstateHotel.destroy_all
     address_line_1: Faker::Movies::HarryPotter.character,
     address_line_2: Faker::Movies::HarryPotter.character,
     city: Faker::Address.city,
-    country_code: COUNTRY.pluck(:alpha_2_code).sample,
+    country_code: COUNTRY.pluck(:iso2).sample,
     postal_code: Faker::Address.postcode,
     longitude: rand(-180..180),
     latitude: rand(-90..90),

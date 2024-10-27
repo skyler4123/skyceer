@@ -32,7 +32,7 @@ export default class extends FormController {
 
   countryChanged(event) {
     this.countryValue = event.detail.value
-    const countryAddress = Countries.where({alpha_2_code: this.countryValue})[0].address
+    const countryAddress = Countries.where({iso2: this.countryValue})[0].address
     const countryChoicesValue = countryAddress.map((address) => ({...address, value: address.city, label: address.city}))
     this.choicesCity.setValue(countryChoicesValue);
   }
@@ -67,9 +67,9 @@ export default class extends FormController {
           <option selected>Choose a country</option>
           ${Countries.where({
             name: ['hahahahahahahah', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Viet Nam'],
-            alpha_2_code: ['VN']
+            iso2: ['VN']
           }).map((country) => (
-            `<option value="${country.alpha_2_code}">${country.name}</option>`
+            `<option value="${country.iso2}">${country.name}</option>`
           ))}
         </select>
         <select data-placeholder="This is a placeholder" data-${this.identifier}-target="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
