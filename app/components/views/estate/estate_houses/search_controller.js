@@ -33,6 +33,7 @@ export default class extends FormController {
   countryChanged(event) {
     this.countryValue = event.detail.value
     const provinces = country.findByIso2(this.countryValue).provinces
+    if (this.isUndefined(provinces)) { return }
     const provincesChoices = provinces.map((province) => ({...province, value: province.name, label: province.name}))
     this.choicesCity.setValue(provincesChoices);
   }
@@ -70,7 +71,7 @@ export default class extends FormController {
           ))}
         </select>
         <select data-placeholder="This is a placeholder" data-${this.identifier}-target="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected disabled>This is a placeholder</option>
+          <option selected disabled>Choose a state/province</option>
         </select>
       </div>
     `
