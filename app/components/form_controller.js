@@ -14,6 +14,7 @@ export default class FormController extends ApplicationController {
 
   initTarget() {
     this.element.querySelectorAll('input[name]').forEach((target) => {
+      if (target.type === "submit") { return }
       target.setAttribute(`data-${this.identifier}-target`, 'input')
     })
   }

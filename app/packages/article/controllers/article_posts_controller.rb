@@ -13,6 +13,8 @@ class ArticlePostsController < ArticleController
   # GET /article_posts/new
   def new
     @article_post = ArticlePost.new
+    @article_post.save
+    redirect_to edit_article_post_path(@article_post)
   end
 
   # GET /article_posts/1/edit
@@ -38,8 +40,13 @@ class ArticlePostsController < ArticleController
 
   # PATCH/PUT /article_posts/1 or /article_posts/1.json
   def update
+    # debugger
+    article_post_update_params = {
+      title: params[:article_post][:title],
+      content: params[:article_post][:content].as_json,
+    }
     respond_to do |format|
-      if @article_post.update(article_post_params)
+      if @article_post.update(article_post_update_params)
         format.html { redirect_to @article_post, notice: "Article post was successfully updated." }
         format.json { render :show, status: :ok, location: @article_post }
       else

@@ -3,9 +3,9 @@ import { Button } from "../../../../javascript/controllers/components";
 import Views_Article_LayoutController from "../layout_controller";
 
 export default class extends Views_Article_LayoutController {
-  static targets = [...super.targets, 'form']
+  static targets = [...super.targets, 'editForm', 'titleInput', 'contentInput', 'editor']
   static values = {
-    articlePost: { type: Object, default: {} }
+    id: { type: String, default: "" }
   }
 
   initParams() {
@@ -13,42 +13,37 @@ export default class extends Views_Article_LayoutController {
   }
 
   initMain() {
-    this.initArticlePostValue()
-    this.initMainHTML()
+    // console.log(this)
   }
 
-  initArticlePostValue() {
-    ArticlePostsApi.show({id: this.getIdFromUrl()}).then((response) => {
-      let responseData = response.data
-      this.articlePostValue = responseData
-    }).catch((error) => {
-      console.log(error)
-    })
-  }
-
-  initMainHTML() {
-    this.mainTarget.innerHTML = this.defaultHTML()
-  }
-  
-  defaultHTML() {
-    return `
-      <div
-        data-controller="views--article--article-posts--form"
-        data-views--article--article-posts--form-params-value="${this.transferToValue({id: this.articlePostValue.id, title: this.articlePostValue.title, content: this.articlePostValue.content})}"
-        data-${this.identifier}-target="form"
-      >
-      </div>
-    `
-  }
-
-  getIdFromUrl(url = null) {
-    url = url || window.location.href
-    let urlObject = new URL(window.location.href)
-    let pathnameArray = urlObject.pathname.split('/')
-      if (pathnameArray.includes('edit')) {
-        let editIndex = pathnameArray.indexOf('edit')
-        return pathnameArray[editIndex - 1]
+  initAction() {
+    setTimeout(() => {
+      this.editFormController().submitValueCallback = async (value, previousValue) => {
+        const content = await this.editorController().render()
+        const newValue = {...value, content: content}
+        ArticlePostsApi.update({id: this.idValue, params: newValue}).then(response => {
+          console.log(response)
+        }).catch(error => {
+          console.log(error)
+        })
       }
+    }, 1000)
+  }
+
+  editFormIdentifier() {
+    return "form"
+  }
+
+  editFormController() {
+    return this.application.getControllerForElementAndIdentifier(this.editFormTarget, this.editFormIdentifier())
+  }
+
+  editorIdentifier() {
+    return "libs--editor--editorjs"
+  }
+
+  editorController() {
+    return this.application.getControllerForElementAndIdentifier(this.editorTarget, this.editorIdentifier())
   }
 
   variantClass() {
