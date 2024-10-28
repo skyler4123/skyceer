@@ -23,11 +23,11 @@ class ArticlePostsController < ArticleController
   def create
     @article_post = ArticlePost.new(article_post_params)
     @article_post.content = params[:article_post][:content].as_json
-    @article_post.article_user_id = Current.article_user_id
-    
+    @article_post.user_id = Current.user_id
+
     respond_to do |format|
       if @article_post.save
-        format.html { redirect_to article_post_url(@article_post), notice: "Article post was successfully created." }
+        format.html { redirect_to @article_post, notice: "Article post was successfully created." }
         format.json { render :show, status: :created, location: @article_post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class ArticlePostsController < ArticleController
   def update
     respond_to do |format|
       if @article_post.update(article_post_params)
-        format.html { redirect_to article_post_url(@article_post), notice: "Article post was successfully updated." }
+        format.html { redirect_to @article_post, notice: "Article post was successfully updated." }
         format.json { render :show, status: :ok, location: @article_post }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class ArticlePostsController < ArticleController
     @article_post.destroy!
 
     respond_to do |format|
-      format.html { redirect_to article_posts_url, notice: "Article post was successfully destroyed." }
+      format.html { redirect_to article_posts_path, status: :see_other, notice: "Article post was successfully destroyed." }
       format.json { head :no_content }
     end
   end

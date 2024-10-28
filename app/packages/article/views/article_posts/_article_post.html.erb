@@ -1,17 +1,17 @@
 <div id="<%= dom_id article_post %>">
   <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= article_post.user_id %>
+  </p>
+
+  <p class="my-5">
     <strong class="block font-medium mb-1">Title:</strong>
     <%= article_post.title %>
   </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Content:</strong>
-    <%= editorjs_to_html(article_post.content) %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Article user:</strong>
-    <%= article_post.article_user_id %>
+    <%= article_post.content %>
   </p>
 
 </div>

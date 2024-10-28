@@ -10,17 +10,6 @@ export default class extends Views_Article_LayoutController {
   }
 
   initMain() {
-    this.initMainHTML()
-  }
-
-  initMainHTML() {
-    this.mainTarget.innerHTML = this.defaultHTML()
-  }
-  
-  defaultHTML() {
-    return `
-      <div data-controller="views--article--article-posts--form"></div>
-    `
   }
 
   variantClass() {

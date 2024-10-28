@@ -4,11 +4,10 @@ class ArticlePost
 
   include ArticlePost::ElasticsearchConcern
 
-  field :package, type: String
+  field :user_id, type: String
   field :title, type: String
   field :content, type: Hash
   
-  belongs_to :article_user
   embeds_many :article_comments
 
   index({ chat_user_ids: '2d' }, { unique: true })
