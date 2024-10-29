@@ -1,10 +1,28 @@
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
     <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+      <div class="flex justify-center">
+        <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+      </div>
     <% end %>
 
-    <%= render @article_post %>
+    <div id="<%= dom_id @article_post %>">
+      <p class="my-5">
+        <strong class="block font-medium mb-1">User:</strong>
+        <%= @article_post.user_id %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Title:</strong>
+        <%= @article_post.title %>
+      </p>
+
+      <p class="my-5">
+        <strong class="block font-medium mb-1">Content:</strong>
+        <%= editorjs_to_html @article_post.content %>
+      </p>
+
+    </div>
 
     <%= link_to "Edit this article post", edit_article_post_path(@article_post), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Back to article posts", article_posts_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

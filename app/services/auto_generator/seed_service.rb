@@ -145,7 +145,7 @@ class AutoGenerator::SeedService
     
     
     # ARTICLE package
-    ArticleUser.all.sample(seed_record).each_with_index do |user, user_index|
+    User.all.sample(seed_record).each_with_index do |user, user_index|
       1.times do |n|
         content = {
           blocks: [{
@@ -157,13 +157,13 @@ class AutoGenerator::SeedService
             }
          }],
         }
-        ArticlePost.create!(article_user: user, package: 'vehicle', title: Faker::Movies::HarryPotter.character, content: content)
+        ArticlePost.create!(user_id: user.id, title: Faker::Movies::HarryPotter.character, content: content)
       end
     end
     (seed_record * 5).times do |n|
       article_post = ArticlePost.all.sample
-      article_user = ArticleUser.all.sample
-      article_post.article_comments << ArticleComment.new(article_user_id: article_user.id, content: "comment #{Time.now.to_i}_#{n}")
+      user = User.all.sample
+      article_post.article_comments << ArticleComment.new(user_id: user.id, content: "comment #{Time.now.to_i}_#{n}")
     end
     
     # ENGLISH Package

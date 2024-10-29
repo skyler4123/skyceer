@@ -99,7 +99,7 @@ export default class extends ApplicationController {
     const response = await VehicleCarsApi.create({params: formData})
     if (this.isSuccess(response)) {
       const id = response.data.id
-      this.redirect(`/vehicle_cars/${id}`)
+      this.redirectTo(`/vehicle_cars/${id}`)
     }
   }
 

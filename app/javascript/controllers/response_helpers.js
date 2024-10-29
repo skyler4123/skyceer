@@ -1,8 +1,9 @@
 import { origin } from "./api/api_helpers";
 
 const ResponseHelpers = {
-  redirect(url) {
-    window.location.href = url;
+  redirectTo(url) {
+    // window.location.href = url;
+    window.location.replace(url)
   },
 
   isStatusOk(response) {
@@ -16,10 +17,10 @@ const ResponseHelpers = {
   handleResponse({response, resource}) {
     if (this.isStatusOk(response)) {
       let id = response.data.id
-      this.redirect(origin() + "/" + resource + "/" + id)
+      this.redirectTo(origin() + "/" + resource + "/" + id)
     } else if (this.isStatusCreated(response)) {
       let id = response.data.id
-      this.redirect(origin() + "/" + resource + "/" + id)
+      this.redirectTo(origin() + "/" + resource + "/" + id)
     }
   }
 

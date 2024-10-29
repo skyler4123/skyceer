@@ -23,6 +23,8 @@ export default class extends Views_Article_LayoutController {
         const newValue = {...value, content: content}
         ArticlePostsApi.update({id: this.idValue, params: newValue}).then(response => {
           console.log(response)
+          const response_data = response.data
+          this.redirectTo(response_data.url)
         }).catch(error => {
           console.log(error)
         })
