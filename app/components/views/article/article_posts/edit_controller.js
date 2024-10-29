@@ -19,8 +19,9 @@ export default class extends Views_Article_LayoutController {
   initAction() {
     setTimeout(() => {
       this.editFormController().submitValueCallback = async (value, previousValue) => {
+        const title = this.titleInputTarget.value
         const content = await this.editorController().render()
-        const newValue = {...value, content: content}
+        const newValue = { article_post: {title: title, content: content} }
         ArticlePostsApi.update({id: this.idValue, params: newValue}).then(response => {
           console.log(response)
           const response_data = response.data

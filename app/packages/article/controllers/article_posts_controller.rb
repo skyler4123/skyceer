@@ -41,7 +41,6 @@ class ArticlePostsController < ArticleController
 
   # PATCH/PUT /article_posts/1 or /article_posts/1.json
   def update
-    # debugger
     article_post_update_params = {
       title: params[:article_post][:title],
       content: params[:article_post][:content].as_json,
