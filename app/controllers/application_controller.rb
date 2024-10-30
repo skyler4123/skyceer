@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
   # include Rails.application.routes.url_helpers
   include Pagy::Backend
   append_view_path(Dir.glob(Rails.root.join('app/packages/*/views')))
@@ -7,6 +8,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate
 
   private
+    def current_user
+      Current.session
+    end
+
     def authenticate
       if session_record = Session.find_by_id(cookies.signed[:session_token])
         Current.session = session_record
