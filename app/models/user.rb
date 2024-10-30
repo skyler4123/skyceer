@@ -25,7 +25,7 @@ class User < ApplicationRecord
     sessions.where.not(id: Current.session).delete_all
   end
 
-  belongs_to :address
+  belongs_to :address, optional: true
   has_many :sessions, dependent: :destroy
 
 end
