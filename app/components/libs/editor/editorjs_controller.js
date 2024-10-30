@@ -9,6 +9,13 @@ import Checklist from '@editorjs/checklist';
 import Embed from '@editorjs/embed';
 import Quote from '@editorjs/quote';
 import Table from '@editorjs/table';
+import Delimiter from '@editorjs/delimiter';
+import InlineCode from '@editorjs/inline-code';
+import Marker from '@editorjs/marker';
+import AttachesTool from '@editorjs/attaches';
+import CodeTool from '@editorjs/code';
+import Warning from '@editorjs/warning';
+import NestedList from '@editorjs/nested-list';
 
 import ApplicationController from "../../../javascript/controllers/application_controller";
 import { csrfToken } from '../../../javascript/controllers/api/api_helpers';
@@ -38,15 +45,13 @@ export default class EditorjsController extends ApplicationController {
       tools: {
         header: {
           class: Header,
+          shortcut: 'CMD+SHIFT+H',
           config: {
             placeholder: 'Enter a header',
             levels: [1, 2, 3, 4],
             defaultLevel: 3
           }
         },
-        linkTool: LinkTool,
-        raw: RawTool,
-        // image: SimpleImage,
         image: {
           class: ImageTool,
           config: {
@@ -63,13 +68,19 @@ export default class EditorjsController extends ApplicationController {
             }
           }
         },
-        checklist: { class: Checklist, inlineToolbar: true },
         list: {
           class: List,
           inlineToolbar: true,
           config: {
             defaultStyle: 'unordered'
           }
+        },
+        nestedList: {
+          class: NestedList,
+          inlineToolbar: true,
+          config: {
+            defaultStyle: 'unordered'
+          },
         },
         embed: {
           class: Embed,
@@ -79,8 +90,43 @@ export default class EditorjsController extends ApplicationController {
             }
           }
         },
+        inlineCode: {
+          class: InlineCode,
+          shortcut: 'CMD+SHIFT+M',
+        },
+        Marker: {
+          class: Marker,
+          shortcut: 'CMD+SHIFT+M',
+        },
+        attaches: {
+          class: AttachesTool,
+          config: {
+            endpoint: 'http://localhost:8008/uploadFile'
+          }
+        },
+        checklist: {
+          class: Checklist,
+          inlineToolbar: true,
+        },
+        raw: {
+          class: RawTool,
+          // placeholder: "Your HTML code",
+        },
+        warning: {
+          class: Warning,
+          inlineToolbar: true,
+          shortcut: 'CMD+SHIFT+W',
+          config: {
+            titlePlaceholder: 'Title',
+            messagePlaceholder: 'Message',
+          },
+        },
+        code: CodeTool,
         quote: Quote,
         table: Table,
+        delimiter: Delimiter,
+        linkTool: LinkTool,
+        image: SimpleImage,
       }
     });
   }
