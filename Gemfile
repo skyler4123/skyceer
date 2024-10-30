@@ -87,8 +87,8 @@ gem "view_component"
 gem "faker"
 gem "jwt"
 gem "em-websocket"
-gem "sidekiq"
-gem "sidekiq-cron"
+# gem "sidekiq"
+# gem "sidekiq-cron"
 # gem 'newrelic_rpm'
 gem "aws-sdk-s3", require: false
 gem 'rack-mini-profiler', require: false
@@ -120,3 +120,4 @@ gem 'eu_central_bank'
 gem "kamal"
 gem 'silencer', require: false
 gem 'country_select'
+gem "pundit"

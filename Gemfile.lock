@@ -337,6 +337,8 @@ GEM
     public_suffix (6.0.1)
     puma (6.4.3)
       nio4r (~> 2.0)
+    pundit (2.4.0)
+      activesupport (>= 3.0.0)
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.8)
@@ -392,8 +394,6 @@ GEM
     rake (13.2.1)
     rdoc (6.7.0)
       psych (>= 4.0.0)
-    redis-client (0.22.2)
-      connection_pool
     regexp_parser (2.9.2)
     reline (0.5.10)
       io-console (~> 0.5)
@@ -434,15 +434,6 @@ GEM
     securerandom (0.3.1)
     shoulda-matchers (6.4.0)
       activesupport (>= 5.2.0)
-    sidekiq (7.3.4)
-      connection_pool (>= 2.3.0)
-      logger
-      rack (>= 2.2.4)
-      redis-client (>= 0.22.2)
-    sidekiq-cron (1.12.0)
-      fugit (~> 1.8)
-      globalid (>= 1.0.1)
-      sidekiq (>= 6)
     silencer (2.0.0)
     simplecov (0.22.0)
       docile (~> 1.1)
@@ -556,6 +547,7 @@ DEPENDENCIES
   pagy
   pg
   puma
+  pundit
   rack-attack
   rack-cors
   rack-mini-profiler
@@ -567,8 +559,6 @@ DEPENDENCIES
   rswag-specs
   rswag-ui
   shoulda-matchers
-  sidekiq
-  sidekiq-cron
   silencer
   simplecov
   solid_cable
