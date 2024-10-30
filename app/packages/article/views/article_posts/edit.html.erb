@@ -25,7 +25,7 @@
     </div>
 
     <div class="my-5">
-      <div data-<%= view_controller(__FILE__) %>-target="editor" data-controller="libs--editor--editorjs"></div>
+      <div data-<%= view_controller(__FILE__) %>-target="editor" data-controller="libs--editor--editorjs" data-libs--editor--editorjs-params-value="<%= {savedData: @article_post.content}.to_json %>"></div>
     </div>
 
     <div class="inline">
