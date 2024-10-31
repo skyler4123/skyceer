@@ -33,6 +33,8 @@ export default class extends ApplicationController {
           <div>${Link({label: 'Condominium', url: "/estate_condos"})}</div>
           <div>${Link({label: 'Hotel', url: "/estate_hotels"})}</div>
           <div>${Link({label: 'House', url: "/estate_houses"})}</div>
+          <div>${Link({label: 'News', url: "/article_posts"})}</div>
+
         </div>
         <div class="flex flex-row">
           ${Views_Global_DarkmodeComponent()}

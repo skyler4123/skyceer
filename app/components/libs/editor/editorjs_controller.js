@@ -1,3 +1,5 @@
+// https://github.com/editor-js/awesome-editorjs?tab=readme-ov-file
+
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import LinkTool from '@editorjs/link';

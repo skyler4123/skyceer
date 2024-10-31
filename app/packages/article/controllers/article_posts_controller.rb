@@ -14,7 +14,7 @@ class ArticlePostsController < ArticleController
 
   # GET /article_posts/new
   def new
-    @article_post = ArticlePost.new
+    @article_post = ArticlePost.new(user_id: current_user.user_id)
     @article_post.save
     redirect_to edit_article_post_path(@article_post)
   end

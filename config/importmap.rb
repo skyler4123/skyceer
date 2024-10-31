@@ -54,3 +54,4 @@ pin "@editorjs/attaches", to: "@editorjs--attaches.js" # @1.3.0
 pin "@editorjs/marker", to: "@editorjs--marker.js" # @1.4.0
 pin "@editorjs/inline-code", to: "@editorjs--inline-code.js" # @1.5.1
 pin "@editorjs/nested-list", to: "@editorjs--nested-list.js" # @1.4.3
+pin "editorjs-text-alignment-blocktune" # @1.0.3
