@@ -18,6 +18,8 @@ import AttachesTool from '@editorjs/attaches';
 import CodeTool from '@editorjs/code';
 import Warning from '@editorjs/warning';
 import NestedList from '@editorjs/nested-list';
+import AlignmentTuneTool from 'editorjs-text-alignment-blocktune';
+
 
 import ApplicationController from "../../../javascript/controllers/application_controller";
 import { csrfToken } from '../../../javascript/controllers/api/api_helpers';
@@ -48,6 +50,7 @@ export default class EditorjsController extends ApplicationController {
         header: {
           class: Header,
           shortcut: 'CMD+SHIFT+H',
+          tunes: ['alignmentTuneTool'],
           config: {
             placeholder: 'Enter a header',
             levels: [1, 2, 3, 4],
@@ -121,6 +124,16 @@ export default class EditorjsController extends ApplicationController {
           config: {
             titlePlaceholder: 'Title',
             messagePlaceholder: 'Message',
+          },
+        },
+        alignmentTuneTool: {
+          class:AlignmentTuneTool,
+          config:{
+            default: "left",
+            blocks: {
+              header: 'left',
+              list: 'left'
+            }
           },
         },
         code: CodeTool,
