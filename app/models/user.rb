@@ -2,7 +2,8 @@ class User < ApplicationRecord
   include User::ElasticsearchConcern
   include User::AvatarConcern
   include User::PackageConcern
-  
+  include User::ArticlePostImageConcern
+
   has_secure_password
 
   generates_token_for :email_verification, expires_in: 2.days do

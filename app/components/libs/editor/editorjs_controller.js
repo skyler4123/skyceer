@@ -57,6 +57,7 @@ export default class EditorjsController extends ApplicationController {
             defaultLevel: 3
           }
         },
+        // image: SimpleImage,
         image: {
           class: ImageTool,
           config: {
@@ -141,7 +142,6 @@ export default class EditorjsController extends ApplicationController {
         table: Table,
         delimiter: Delimiter,
         linkTool: LinkTool,
-        image: SimpleImage,
       }
     });
   }

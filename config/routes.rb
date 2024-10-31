@@ -85,8 +85,12 @@ Rails.application.routes.draw do
   
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
-  post 'images/upload_by_file'
-  post 'images/upload_by_url'
+  resources :images, only: [] do
+    collection do
+      post :editorjs_upload_by_file
+      post :editorjs_upload_by_url
+    end
+  end
   # mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
   get "/up", to: Proc.new { [200, {}, ["OK"]] }
   # get "up" => "rails/health#show", as: :rails_health_check
