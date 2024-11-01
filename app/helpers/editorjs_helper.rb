@@ -4,13 +4,13 @@ module EditorjsHelper
     content_html = content[:blocks].map do |block|
       case block[:type]
       when 'paragraph'
-        paragraph(block)
+        editorjs_paragraph(block)
       when 'header'
-        header(block)
+        editorjs_header(block)
       when 'list'
-        list(block)
+        editorjs_list(block)
       when 'image'
-        image(block)
+        editorjs_image(block)
       else
         "#{block[:data][:text]}"
       end
@@ -20,7 +20,7 @@ module EditorjsHelper
 
   private
 
-  def paragraph(block)
+  def editorjs_paragraph(block)
     "<div class='ce-block'>
       <div class='ce-block__content'>
         <div class='ce-paragraph cdx-block'>
@@ -31,7 +31,7 @@ module EditorjsHelper
     </div>"
   end
 
-  def header(block)
+  def editorjs_header(block)
     "<div class='ce-block'>
       <div class='ce-block__content'>
         <h#{block[:data][:level]} class='ce-header'>
@@ -41,22 +41,22 @@ module EditorjsHelper
     </div>"
   end
 
-  def attaches(block)
+  def editorjs_attaches(block)
   end
 
-  def checklist(block)
+  def editorjs_checklist(block)
   end
 
-  def code(block)
+  def editorjs_code(block)
   end
 
-  def delimiter(block)
+  def editorjs_delimiter(block)
   end
 
-  def embed(block)
+  def editorjs_embed(block)
   end
 
-  def image(block)
+  def editorjs_image(block)
     "<div class='ce-block'>
       <div class='ce-block__content'>
         <div class='cdx-block image-tool image-tool--caption image-tool--filled'>
@@ -65,7 +65,7 @@ module EditorjsHelper
             </div>
             <img class='image-tool__image-picture' src='#{block[:data][:file][:url]}'>
           </div>
-          <div class='cdx-input image-tool__caption' contenteditable='true' data-placeholder='Caption' data-empty='false'>
+          <div class='cdx-input image-tool__caption text-center' contenteditable='true' data-placeholder='Caption' data-empty='false'>
             #{block[:data][:caption]}
           </div>
           <div class='cdx-button'>
@@ -77,14 +77,14 @@ module EditorjsHelper
     </div>"
   end
 
-  def inline_code(block)
+  def editorjs_inline_code(block)
   end
 
-  def link(block)
+  def editorjs_link(block)
   end
 
-  def list(block)
-    ordered_list(block) if block[:data][:style] == "ordered"
+  def editorjs_list(block)
+    return ordered_list(block) if block[:data][:style] == "ordered"
     unordered_list(block) if block[:data][:style] == "unordered"
   end
 
@@ -112,24 +112,24 @@ module EditorjsHelper
     </div>"
   end
 
-  def marker(block)
+  def editorjs_marker(block)
   end
 
-  def nested_list(block)
+  def editorjs_nested_list(block)
   end
 
-  def quote(block)
+  def editorjs_quote(block)
   end
 
-  def raw(block)
+  def editorjs_raw(block)
   end
 
-  def simple_image(block)
+  def editorjs_simple_image(block)
   end
 
-  def table(block)
+  def editorjs_table(block)
   end
 
-  def warning(block)
+  def editorjs_warning(block)
   end
 end
