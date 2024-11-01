@@ -1,8 +1,8 @@
-require 'sidekiq/web'
-require 'sidekiq/cron/web'
-Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
-  [user, password] == [SIDEKIQ_UI_USER, SIDEKIQ_UI_PASSWORD]
-end
+# require 'sidekiq/web'
+# require 'sidekiq/cron/web'
+# Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
+#   [user, password] == [SIDEKIQ_UI_USER, SIDEKIQ_UI_PASSWORD]
+# end
 
 Rails.application.routes.draw do
   resources :addresses
@@ -87,7 +87,7 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
   post 'images/upload_by_file'
   post 'images/upload_by_url'
-  mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
+  # mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
   get "/up", to: Proc.new { [200, {}, ["OK"]] }
   # get "up" => "rails/health#show", as: :rails_health_check
 
