@@ -55,3 +55,5 @@ pin "@editorjs/marker", to: "@editorjs--marker.js" # @1.4.0
 pin "@editorjs/inline-code", to: "@editorjs--inline-code.js" # @1.5.1
 pin "@editorjs/nested-list", to: "@editorjs--nested-list.js" # @1.4.3
 pin "editorjs-text-alignment-blocktune" # @1.0.3
+pin "@calumk/editorjs-codeflask", to: "@calumk--editorjs-codeflask.js" # @1.0.10
+pin "editorjs-toggle-block" # @0.3.16

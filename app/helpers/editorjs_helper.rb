@@ -1,5 +1,7 @@
 module EditorjsHelper
   def editorjs_to_html(content)
+    return "" unless content
+
     content = content.with_indifferent_access
     content_html = content[:blocks].map do |block|
       case block[:type]
@@ -11,6 +13,34 @@ module EditorjsHelper
         editorjs_list(block)
       when 'image'
         editorjs_image(block)
+      when 'attaches'
+        editorjs_attaches(block)
+      when 'checklist'
+        editorjs_checklist(block)
+      when 'code'
+        editorjs_code(block)
+      when 'delimiter'
+        editorjs_delimiter(block)
+      when 'embed'
+        editorjs_embed(block)
+      when 'inline_code'
+        editorjs_inline_code(block)
+      when 'link'
+        editorjs_link(block)
+      when 'marker'
+        editorjs_marker(block)
+      when 'nested_list'
+        editorjs_nested_list(block)
+      when 'quote'
+        editorjs_quote(block)
+      when 'raw'
+        editorjs_raw(block)
+      when 'simple_image'
+        editorjs_simple_image(block)
+      when 'table'
+        editorjs_table(block)
+      when 'warning'
+        editorjs_warning(block)
       else
         "#{block[:data][:text]}"
       end
@@ -41,21 +71,6 @@ module EditorjsHelper
     </div>"
   end
 
-  def editorjs_attaches(block)
-  end
-
-  def editorjs_checklist(block)
-  end
-
-  def editorjs_code(block)
-  end
-
-  def editorjs_delimiter(block)
-  end
-
-  def editorjs_embed(block)
-  end
-
   def editorjs_image(block)
     "<div class='ce-block'>
       <div class='ce-block__content'>
@@ -75,12 +90,6 @@ module EditorjsHelper
         </div>
       </div>
     </div>"
-  end
-
-  def editorjs_inline_code(block)
-  end
-
-  def editorjs_link(block)
   end
 
   def editorjs_list(block)
@@ -112,6 +121,57 @@ module EditorjsHelper
     </div>"
   end
 
+  def editorjs_attaches(block)
+  end
+
+  def editorjs_checklist(block)
+    "<div class='ce-block'>
+      <div class='ce-block__content'>
+        <div class='cdx-block cdx-checklist'>
+          #{block[:data][:items].map do |item|
+            if item[:checked]
+              "<div class='cdx-checklist__item cdx-checklist__item--checked'>
+                <div class='cdx-checklist__item-checkbox'><span class='cdx-checklist__item-checkbox-check'><svg
+                      xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'>
+                      <path stroke='currentColor' stroke-linecap='round' stroke-width='2'
+                        d='M7 12L10.4884 15.8372C10.5677 15.9245 10.705 15.9245 10.7844 15.8372L17 9'
+                        style='--darkreader-inline-stroke: currentColor;' data-darkreader-inline-stroke=''></path>
+                    </svg></span></div>
+                <div class='cdx-checklist__item-text' contenteditable='true' data-empty='false'>#{item[:text]}</div>
+              </div>"
+            else
+              "<div class='cdx-checklist__item'>
+                <div class='cdx-checklist__item-checkbox'><span class='cdx-checklist__item-checkbox-check'><svg
+                      xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'>
+                      <path stroke='currentColor' stroke-linecap='round' stroke-width='2'
+                        d='M7 12L10.4884 15.8372C10.5677 15.9245 10.705 15.9245 10.7844 15.8372L17 9'
+                        style='--darkreader-inline-stroke: currentColor;' data-darkreader-inline-stroke=''></path>
+                    </svg></span></div>
+                <div class='cdx-checklist__item-text' contenteditable='true' data-empty='false'>#{item[:text]}</div>
+              </div>"
+            end
+          end.join}
+        </div>
+      </div>
+    </div>"
+  end
+
+  def editorjs_code(block)
+  end
+
+  def editorjs_delimiter(block)
+    "<div class='ce-block' data-id='ss0zLTq_XL'><div class='ce-block__content'><div class='ce-delimiter cdx-block'></div></div></div>"
+  end
+
+  def editorjs_embed(block)
+  end
+
+  def editorjs_inline_code(block)
+  end
+
+  def editorjs_link(block)
+  end
+
   def editorjs_marker(block)
   end
 
@@ -128,6 +188,23 @@ module EditorjsHelper
   end
 
   def editorjs_table(block)
+    "<div class='ce-block' data-id='qkhbFzjyyM'>
+      <div class='ce-block__content'>
+        <div class='cdx-block'>
+          <div class='tc-wrap'>
+            <div class='tc-table #{block[:data][:withHeadings] ? 'tc-table--heading' : ''}'>
+              #{block[:data][:content].map do |cells|
+                "<div class='tc-row'>
+                  #{cells.map do |cell|
+                    "<div class='tc-cell' contenteditable='true' data-empty='false'>#{cell}</div>"
+                  end.join}
+                </div>"
+              end.join}            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>"
   end
 
   def editorjs_warning(block)

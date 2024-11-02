@@ -1,0 +1,11 @@
+.tc-row::after {
+  color: red;
+	content: "";
+	pointer-events: none;
+	position: absolute;
+	/* width: var(--cell-size); */
+	height: 100%;
+	bottom: -1px;
+	right: calc(var(--cell-size)*-1);
+	border-bottom: 1px solid var(--color-border);
+}

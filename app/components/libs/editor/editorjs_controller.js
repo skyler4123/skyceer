@@ -19,7 +19,8 @@ import CodeTool from '@editorjs/code';
 import Warning from '@editorjs/warning';
 import NestedList from '@editorjs/nested-list';
 import AlignmentTuneTool from 'editorjs-text-alignment-blocktune';
-
+import editorjsCodeflask from '@calumk/editorjs-codeflask';
+import ToggleBlock from 'editorjs-toggle-block';
 
 import ApplicationController from "../../../javascript/controllers/application_controller";
 import { csrfToken } from '../../../javascript/controllers/api/api_helpers';
@@ -82,13 +83,13 @@ export default class EditorjsController extends ApplicationController {
             defaultStyle: 'unordered'
           }
         },
-        nestedList: {
-          class: NestedList,
-          inlineToolbar: true,
-          config: {
-            defaultStyle: 'unordered'
-          },
-        },
+        // nestedList: {
+        //   class: NestedList,
+        //   inlineToolbar: true,
+        //   config: {
+        //     defaultStyle: 'unordered'
+        //   },
+        // },
         embed: {
           class: Embed,
           config: {
@@ -105,20 +106,20 @@ export default class EditorjsController extends ApplicationController {
           class: Marker,
           shortcut: 'CMD+SHIFT+M',
         },
-        attaches: {
-          class: AttachesTool,
-          config: {
-            endpoint: 'http://localhost:8008/uploadFile'
-          }
-        },
+        // attaches: {
+        //   class: AttachesTool,
+        //   config: {
+        //     endpoint: 'http://localhost:8008/uploadFile'
+        //   }
+        // },
         checklist: {
           class: Checklist,
           inlineToolbar: true,
         },
-        raw: {
-          class: RawTool,
-          // placeholder: "Your HTML code",
-        },
+        // raw: {
+        //   class: RawTool,
+        //   // placeholder: "Your HTML code",
+        // },
         warning: {
           class: Warning,
           inlineToolbar: true,
@@ -138,7 +139,12 @@ export default class EditorjsController extends ApplicationController {
             }
           },
         },
+        toggle: {
+          class: ToggleBlock,
+          inlineToolbar: true,
+        },
         code: CodeTool,
+        // codeFlask : editorjsCodeflask,
         quote: Quote,
         table: Table,
         delimiter: Delimiter,
