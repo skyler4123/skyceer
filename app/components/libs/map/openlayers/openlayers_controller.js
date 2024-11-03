@@ -77,7 +77,7 @@ export default class Libs_Map_Openlayers_OpenlayersController extends Applicatio
     this.map = new this.Map({
       target: this.mapTarget,
       view: new this.View({
-        center: this.viewCenterParams,
+        center: this.fromLonLat(this.viewCenterParams),
         zoom: this.viewZoomParams,
       }),
       layers: [

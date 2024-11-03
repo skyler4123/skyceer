@@ -514,7 +514,7 @@ export default class ApplicationController extends Controller {
   }
 
   country() {
-    countryAlpha2 = document.documentElement.dataset.countryAlpha2
+    const countryAlpha2 = document.documentElement.dataset.countryAlpha2
     return COUNTRY.where({alpha2: countryAlpha2})
   }
 }
