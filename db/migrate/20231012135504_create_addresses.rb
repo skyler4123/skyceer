@@ -6,6 +6,7 @@ class CreateAddresses < ActiveRecord::Migration[7.2]
       t.string :continent
       t.string :nationality
       t.string :region
+      t.string :subdivision
       t.decimal :longitude
       t.decimal :latitude
       t.integer :level_total

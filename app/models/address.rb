@@ -1,6 +1,7 @@
 # rails g scaffold Address alpha2:string:index alpha3:string:index continent:string:index nationality:string:index region:string:index longitude:decimal latitude:decimal level_total:integer level_1:string:index level_2:string:index level_3:string:index level_4:string:index level_5:string:index level_6:string:index level_7:string:index level_8:string:index level_9:string:index level_10:string:index --force
 
 class Address < ApplicationRecord
+  include Address::SeedConcern
 
   before_save :update_level_total
 
@@ -10,16 +11,4 @@ class Address < ApplicationRecord
     self.level_total = level_total
   end
 
-  def self.create_random
-    country = ISO3166::Country.all.sample
-    Address.create!(
-      alpha2: country.alpha2,
-      alpha3: country.alpha3,
-      continent: country.continent,
-      nationality: country.nationality,
-      region: country.region,
-      longitude: rand(country.min_longitude..country.max_longitude),
-      latitude: rand(country.min_latitude..country.max_latitude)
-    )
-  end
 end

@@ -40,7 +40,7 @@ EstateHotel.destroy_all
     password_confirmation: "password1234",
     verified: true,
     name: "user name #{Faker::Movies::HarryPotter.character}",
-    address: Address.create_random,
+    address: Address.create_random_vietnam,
   )
   (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
     file_name, file_type = file.path.split('/').last.split('.')

@@ -11,7 +11,7 @@ class AutoGenerator::SeedService
         password_confirmation: "password1234",
         verified: true,
         name: "user name #{Faker::Movies::HarryPotter.character}",
-        address: Address.create_random,
+        address: Address.create_random_vietnam,
       )
       (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
         file_name, file_type = file.path.split('/').last.split('.')
@@ -177,17 +177,17 @@ class AutoGenerator::SeedService
       user.estate_condos.create!(
         name: "estate user name #{Faker::Movies::HarryPotter.character}",
         price_cents: rand(1000..9999),
-        address: Address.create_random,
+        address: Address.create_random_vietnam,
       )
       user.estate_hotels.create!(
         name: "estate hotel name #{Faker::Movies::HarryPotter.character}",
         price_cents: rand(1000..9999),
-        address: Address.create_random,
+        address: Address.create_random_vietnam,
       )
       user.estate_houses.create!(
         name: "estate house name #{Faker::Movies::HarryPotter.character}",
         price_cents: rand(1000..9999),
-        address: Address.create_random,
+        address: Address.create_random_vietnam,
       )
     end
     
