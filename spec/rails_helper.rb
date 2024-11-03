@@ -73,7 +73,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.before(:each) do
-    Sidekiq::Worker.clear_all
+    # Sidekiq::Worker.clear_all
   end
 
   config.include FactoryBot::Syntax::Methods
