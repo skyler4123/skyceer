@@ -31,7 +31,12 @@ export default class extends Views_Estate_LayoutController {
         this.syncFromMapToForm()
       }
       this.newFormController().submitValueCallback = (value, previousValue) => {
-        EstateHousesApi.create({params: this.newFormController().formData()})
+        EstateHousesApi.create({params: this.newFormController().formData()}).then(response => {
+          const responseData = response.data
+          this.redirectTo(responseData.url)
+        }).catch(error => {
+          console.log(error)
+        })
       }
     }, 1000)
   }

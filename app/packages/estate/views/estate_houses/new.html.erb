@@ -21,7 +21,7 @@
 
     <div class="my-5">
       <%= form.label :price_cents %>
-      <%= form.number_field :price_cents, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.number_field :price_cents, value: 0, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
     <div class="my-5">
@@ -66,11 +66,6 @@
       <div class="my-5">
         <%= address_form.label :latitude %>
         <%= address_form.text_field :latitude, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-      </div>
-
-      <div class="my-5">
-        <%= address_form.label :level_total %>
-        <%= address_form.number_field :level_total, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
 
       <div class="my-5">
