@@ -1,3 +1,4 @@
+import { EstateHousesApi } from "../../../../javascript/controllers/api/estate/estate_houses_api";
 import Views_Estate_LayoutController from "../layout_controller";
 
 export default class extends Views_Estate_LayoutController {
@@ -28,6 +29,9 @@ export default class extends Views_Estate_LayoutController {
       }
       this.newMapController().pointValueCallback = () => {
         this.syncFromMapToForm()
+      }
+      this.newFormController().submitValueCallback = (value, previousValue) => {
+        EstateHousesApi.create({params: this.newFormController().formData()})
       }
     }, 1000)
   }

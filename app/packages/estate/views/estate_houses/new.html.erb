@@ -34,48 +34,93 @@
 
     <%= form.fields_for(:address, class: "contents") do |address_form| %>
       <div class="my-5">
-        <%= address_form.label :unit_number %>
-        <%= address_form.text_field :unit_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= address_form.label :alpha2 %>
+        <%= address_form.text_field :alpha2, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
 
       <div class="my-5">
-        <%= address_form.label :street_number %>
-        <%= address_form.text_field :street_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= address_form.label :alpha3 %>
+        <%= address_form.text_field :alpha3, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
 
       <div class="my-5">
-        <%= address_form.label :address_line_1 %>
-        <%= address_form.text_field :address_line_1, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= address_form.label :continent %>
+        <%= address_form.text_field :continent, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
 
       <div class="my-5">
-        <%= address_form.label :address_line_2 %>
-        <%= address_form.text_field :address_line_2, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= address_form.label :nationality %>
+        <%= address_form.text_field :nationality, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
 
       <div class="my-5">
-        <%= address_form.label :city %>
-        <%= address_form.text_field :city, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= address_form.label :region %>
+        <%= address_form.text_field :region, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
 
       <div class="my-5">
-        <%= address_form.label :country_code %>
-        <%= address_form.text_field :country_code, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= address_form.label :longitude %>
+        <%= address_form.text_field :longitude, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
 
-      <div class="my-5">
-        <%= address_form.label :postal_code %>
-        <%= address_form.text_field :postal_code, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-      </div>
-      
       <div class="my-5">
         <%= address_form.label :latitude %>
         <%= address_form.text_field :latitude, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
 
       <div class="my-5">
-        <%= address_form.label :longitude %>
-        <%= address_form.text_field :longitude, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= address_form.label :level_total %>
+        <%= address_form.number_field :level_total, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= address_form.label :level_1 %>
+        <%= address_form.text_field :level_1, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= address_form.label :level_2 %>
+        <%= address_form.text_field :level_2, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= address_form.label :level_3 %>
+        <%= address_form.text_field :level_3, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= address_form.label :level_4 %>
+        <%= address_form.text_field :level_4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= address_form.label :level_5 %>
+        <%= address_form.text_field :level_5, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= address_form.label :level_6 %>
+        <%= address_form.text_field :level_6, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= address_form.label :level_7 %>
+        <%= address_form.text_field :level_7, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= address_form.label :level_8 %>
+        <%= address_form.text_field :level_8, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= address_form.label :level_9 %>
+        <%= address_form.text_field :level_9, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="my-5">
+        <%= address_form.label :level_10 %>
+        <%= address_form.text_field :level_10, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
       </div>
     <% end %>
 

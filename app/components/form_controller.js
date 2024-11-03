@@ -39,6 +39,10 @@ export default class FormController extends ApplicationController {
     this.formValue = newInput
   }
 
+  formData() {
+    return new FormData(this.element)
+  }
+
   formValueChanged(value, previousValue) {
     this.inputTargets.forEach((target) => {
       target.value = this.formValue[target.name]
