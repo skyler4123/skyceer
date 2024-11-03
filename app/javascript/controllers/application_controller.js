@@ -8,6 +8,7 @@ import ApiHelpers from "./api_helpers";
 import { CookieHelpers } from "./cookie_helpers";
 import ResponseHelpers from "./response_helpers";
 import FormHelpers from "./form_helpers";
+import { COUNTRY } from "./constants/country";
 
 export default class ApplicationController extends Controller {
 
@@ -510,6 +511,11 @@ export default class ApplicationController extends Controller {
 
   dispatchGlobal({payload}) {
     this.dispatch(this.rawId(this.element), { detail: payload })
+  }
+
+  country() {
+    countryAlpha2 = document.documentElement.dataset.countryAlpha2
+    return COUNTRY.where({alpha2: countryAlpha2})
   }
 }
 

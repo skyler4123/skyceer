@@ -1,4 +1,5 @@
 import { EstateHousesApi } from "../../../../javascript/controllers/api/estate/estate_houses_api";
+import { COUNTRY } from "../../../../javascript/controllers/constants/country";
 import Libs_Map_Openlayers_IndexController from "../../../libs/map/openlayers/index_controller";
 
 export default class Views_Estate_EstateHouses_IndexMapController extends Libs_Map_Openlayers_IndexController {
@@ -10,6 +11,7 @@ export default class Views_Estate_EstateHouses_IndexMapController extends Libs_M
   }
 
   initComplete() {
+    console.log(COUNTRY)
     super.initComplete()
     this.initBlindingFunctions()
     this.initPointerHoverOnFeature()

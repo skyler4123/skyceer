@@ -11,4 +11,8 @@ module ApplicationHelper
   def id
     @id
   end
+
+  def country_alpha2
+    "VN"
+  end
 end

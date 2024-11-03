@@ -249,3 +249,7 @@ export const COUNTRY = [
   {nationality: "Zambian", alpha2: "ZM", alpha3: "ZMB", longitude: 27.849332, latitude: -13.133897},
   {nationality: "Zimbabwean", alpha2: "ZW", alpha3: "ZWE", longitude: 29.154857, latitude: -19.015438}
 ]
+
+COUNTRY.where = ({alpha2}) => {
+  return COUNTRY.filter(country => country.alpha2 === alpha2)[0]
+}
