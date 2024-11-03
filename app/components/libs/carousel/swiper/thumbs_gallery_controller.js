@@ -117,7 +117,7 @@ export default class extends ApplicationController {
         swiperTarget: 'swiper w-full h-5/6',
         wrapperTarget: 'swiper-wrapper',
         slideTarget: 'swiper-slide',
-        itemTarget: 'm-auto w-full h-full object-contain',
+        itemTarget: 'm-auto h-full object-contain',
         paginationTarget: 'swiper-pagination',
         buttonPrevTarget: 'swiper-button-prev',
         buttonNextTarget: 'swiper-button-next',
