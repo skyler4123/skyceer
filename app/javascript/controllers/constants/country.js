@@ -1,3 +1,5 @@
+// choices js dont provide coordinates, so this constant use for this purpose
+
 export const COUNTRY = [
   {nationality: "Andorran", alpha2: "AD", alpha3: "AND", longitude: 1.521801, latitude: 42.506285},
   {nationality: "Emirian", alpha2: "AE", alpha3: "ARE", longitude: 53.847818, latitude: 23.424076},
