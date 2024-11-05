@@ -51,6 +51,7 @@ export default class FormController extends ApplicationController {
   }
 
   submit(event) {
+    console.log(event)
     event.preventDefault()
     this.submitValue = this.formValue
   }
