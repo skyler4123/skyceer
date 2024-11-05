@@ -9,6 +9,7 @@ import { CookieHelpers } from "./cookie_helpers";
 import ResponseHelpers from "./response_helpers";
 import FormHelpers from "./form_helpers";
 import { COUNTRY } from "./constants/country";
+import AddressHelpers from "./address_helpers";
 
 export default class ApplicationController extends Controller {
 
@@ -512,11 +513,6 @@ export default class ApplicationController extends Controller {
   dispatchGlobal({payload}) {
     this.dispatch(this.rawId(this.element), { detail: payload })
   }
-
-  country() {
-    const countryCode = document.documentElement.dataset.countryCode
-    return COUNTRY.where({alpha2: countryCode})
-  }
 }
 
 Object.assign(ApplicationController.prototype, DataHelpers)
@@ -527,4 +523,4 @@ Object.assign(ApplicationController.prototype, ApiHelpers)
 Object.assign(ApplicationController.prototype, CookieHelpers)
 Object.assign(ApplicationController.prototype, ResponseHelpers)
 Object.assign(ApplicationController.prototype, FormHelpers)
-
+Object.assign(ApplicationController.prototype, AddressHelpers)

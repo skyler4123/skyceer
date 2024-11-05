@@ -16,7 +16,7 @@ export default class extends Views_Estate_LayoutController {
     this.initHTML()
     this.initMap()
     this.initCards()
-    this.initValueCallback()
+    this.initConnectionBetweenController()
     this.initHousesValue()
   }
 
@@ -50,7 +50,7 @@ export default class extends Views_Estate_LayoutController {
     this.cardsTarget.innerHTML = cardsHTML
   }
 
-  initValueCallback() {
+  initConnectionBetweenController() {
     setTimeout(() => {
       this.searchController().submitValueCallback = (value, previousValue) => {
         this.queryParamsValue = value
