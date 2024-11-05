@@ -12,7 +12,7 @@ module ApplicationHelper
     @id
   end
 
-  def country_alpha2
+  def country_code
     "VN"
   end
 end

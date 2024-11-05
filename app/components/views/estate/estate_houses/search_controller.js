@@ -5,7 +5,7 @@ import { Button, Popover, Link, Box } from "../../../../javascript/controllers/c
 import FormController from "../../../form_controller";
 
 export default class extends FormController {
-  static targets = ["country", 'city']
+  static targets = ["addressLevel2Input", 'addressLevel3Input', 'priceFromInput', 'priceToInput']
   static values = {
     country: { type: String, default: "" },
     city: { type: String, default: "" },
@@ -19,24 +19,24 @@ export default class extends FormController {
         containerOuter: ['choices w-full']
       }
     });
-    this.choicesCity = new Choices(this.cityTarget, {
-      classNames: {
-        containerOuter: ['choices w-full']
-      },
-    });
+    // this.choicesCity = new Choices(this.cityTarget, {
+    //   classNames: {
+    //     containerOuter: ['choices w-full']
+    //   },
+    // });
   }
 
   initHTML() {
     this.element.innerHTML = this.defaultHTML()
   }
 
-  countryChanged(event) {
-    this.countryValue = event.detail.value
-    const provinces = country.findByIso2(this.countryValue).provinces
-    if (this.isUndefined(provinces)) { return }
-    const provincesChoices = provinces.map((province) => ({...province, value: province.name, label: province.name}))
-    this.choicesCity.setValue(provincesChoices);
-  }
+  // countryChanged(event) {
+  //   this.countryValue = event.detail.value
+  //   const provinces = country.findByIso2(this.countryValue).provinces
+  //   if (this.isUndefined(provinces)) { return }
+  //   const provincesChoices = provinces.map((province) => ({...province, value: province.name, label: province.name}))
+  //   this.choicesCity.setValue(provincesChoices);
+  // }
 
   defaultHTML() {
     return `      
@@ -56,14 +56,14 @@ export default class extends FormController {
         </button>
       </div>
       <div role="select-box" class="flex flex-row">
-        <select data-${this.identifier}-target="country" data-action="change->${this.identifier}#countryChanged" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected>Choose a country</option>
-          ${country.names().map((countryName) => (
-            `<option value="${country.findByName(countryName).code.iso2}">${countryName}</option>`
-          ))}
+        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected disabled>Address Level 1</option>
         </select>
-        <select data-placeholder="This is a placeholder" data-${this.identifier}-target="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected disabled>Choose a state/province</option>
+        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected disabled>Address Level 2</option>
+        </select>
+        <select data-placeholder="This is a placeholder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected disabled>Choose a category</option>
         </select>
       </div>
     `
