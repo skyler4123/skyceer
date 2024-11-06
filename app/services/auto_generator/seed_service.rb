@@ -191,8 +191,6 @@ class AutoGenerator::SeedService
       )
     end
     
-    
-    # UPLOAD IMAGE
     # 15.times do |n|
     #   (Dir.glob("/rails/faker/images/laptop/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
     #     file_name, file_type = file.path.split('/').last.split('.')
@@ -207,7 +205,22 @@ class AutoGenerator::SeedService
       end
     end
     
-    
+    # REPORT
+    (seed_record * 2).times do |n|
+      report_ticket = ReportTicket.create(
+        title: "report ticket title #{n}",
+        content: Faker::Movies::HarryPotter.quote,
+        category: rand(0..3),
+        status: rand(0..3),
+        reporter_email: ["", User.all.sample.email].sample
+      )
+
+      (Dir.glob("./faker/images/randoms/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
+        file_name, file_type = file.path.split('/').last.split('.')
+        report_ticket.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+      end
+    end
+
     puts "db:seed done!"
   end
 end

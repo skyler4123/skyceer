@@ -1,0 +1,2 @@
+module ReportTicketsHelper
+end
