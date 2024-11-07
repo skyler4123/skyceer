@@ -5,6 +5,7 @@
 # end
 
 Rails.application.routes.draw do
+  resources :report_frontends
   resources :report_tickets
   resources :addresses
   resources :estate_houses
