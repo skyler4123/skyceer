@@ -24,7 +24,7 @@ export default class extends Views_Estate_LayoutController {
     const defaultHTML = `
       <form class="w-full h-full flex flex-col px-10" data-controller="${this.searchControllerIdentifier()}" data-${this.identifier}-target="search"></form>
       <div class="w-5/6 h-[500px] rounded-2xl overflow-hidden" data-controller="${this.mapControllerIdentifier()}" data-${this.identifier}-target="map"></div>
-      <div class="w-full grid grid-cols-3 gap-4" data-${this.identifier}-target="cards"></div>
+      <div class="w-5/6 grid grid-cols-3 gap-4" data-${this.identifier}-target="cards"></div>
     `
     this.mainTarget.innerHTML = defaultHTML
   }

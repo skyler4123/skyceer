@@ -58,16 +58,13 @@ export default class extends FormController {
       </div>
       <div role="select-box" class="flex flex-row">
         <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected disabled>Address Level 2</option>
+          <option selected disabled>State/Province</option>
           ${this.provinces().map(province => `
             <option value="${province.name}">${province.name}</option>
             `).join("")}
         </select>
         <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected disabled>Address Level 3</option>
-        </select>
-        <select data-placeholder="This is a placeholder" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected disabled>Choose a category</option>
+          <option selected disabled>Category</option>
         </select>
         <input type="range" id="points" name="price_cents" min="0" max="10000">
       </div>

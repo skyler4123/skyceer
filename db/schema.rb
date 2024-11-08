@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_06_213222) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_07_201931) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -295,6 +295,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_213222) do
     t.index ["user_id"], name: "index_map_users_on_user_id"
   end
 
+  create_table "report_frontends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_report_frontends_on_user_id"
+  end
+
   create_table "report_tickets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
     t.string "content"
@@ -380,6 +388,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_213222) do
   add_foreign_key "estate_users", "users"
   add_foreign_key "map_points", "map_users"
   add_foreign_key "map_users", "users"
+  add_foreign_key "report_frontends", "users"
   add_foreign_key "users", "addresses"
   add_foreign_key "vehicle_cars", "vehicle_stores"
   add_foreign_key "vehicle_cars", "vehicle_users"
