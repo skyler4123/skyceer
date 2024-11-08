@@ -77,56 +77,55 @@ class AutoGenerator::SeedService
     
     
     # EDUCATION PACKAGE
-    # EducationUser.destroy_all
-    # EducationSchool.destroy_all
-    # EducationTeacher.destroy_all
-    # EducationStudent.destroy_all
-    # EducationRoom.destroy_all
-    # EducationClass.destroy_all
-    
-    # ActiveRecord::Base.transaction do
-    #   User.first(10).each_with_index do |user, index|
-    #     EducationUser.create!(name: "education_user_#{index}", user: user)
-    #   end
-    
-    #   EducationUser.all.each_with_index do |user, index|
-    #     if index < 2
-    #       school = EducationSchool.create!(name: "education_school_#{index}", education_user: user)
-    #       5.times do |n|
-    #         EducationRoom.create!(name: "education_room_#{n}", education_school: school)
-    #       end
-    #       5.times do |n|
-    #         EducationClass.create!(name: "education_class_#{n}", education_school: school)
-    #       end
-    #     end
-    #     school = EducationSchool.all.sample
-    #     if index >=2 && index < 6
-    #       EducationTeacher.create!(name: "education_teacher_#{index}", education_user: user, education_school: school)
-    #     end
-    #     if index >= 6
-    #       EducationStudent.create!(name: "education_student_#{index}", education_user: user, education_school: school, education_class: school.education_classes.sample)
-    #     end
-    #   end
-    # end
-    
-    
-    # AGRICULTURE PACKAGE
-    # AgricultureUser.destroy_all
-    # ActiveRecord::Base.transaction do
-    #   User.first(10).each_with_index do |user, index|
-    #     AgricultureUser.create!(name: "agriculture_user_#{index}", user: user)
-    #   end
-    #   AgricultureUser.all.each_with_index do |user, index|
-    #     if (index % 2 == 0)
-    #       AgricultureFarmer.create!(name: "agriculture_farmer_#{index}", agriculture_user: user)
-    #     else
-    #       AgricultureMerchant.create!(name: "agriculture_merchant_#{index}", agriculture_user: user)
-    #     end
-    #   end
-    #   AgricultureFarmer.all.each_with_index do |farmer, index|
-    #     AgricultureFarm.create!(name: "agriculture_farm_#{index}", agriculture_farmer: farmer)
-    #   end
-    # end
+    EducationSchool.destroy_all
+    EducationTeacher.destroy_all
+    EducationStudent.destroy_all
+    EducationRoom.destroy_all
+    EducationClass.destroy_all
+    EductionClassTable.destroy_all
+    EductionRoomTable.destroy_all    
+    EductionTeacherTable.destroy_all
+    EductionStudentTable.destroy_all
+
+    seed_record.times do |n|
+      education_school = EducationSchool.create!(name: "education school #{n}", user: User.all.sample)
+      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+        file_name, file_type = file.path.split('/').last.split('.')
+        education_school.avatar.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+      end
+    end
+
+    seed_record.times do |n|
+      education_class = EducationClass.create!(name: "education class #{n}", education_school: EducationSchool.all.sample)
+      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+        file_name, file_type = file.path.split('/').last.split('.')
+        education_class.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+      end
+    end
+
+    seed_record.times do |n|
+      education_room = EducationRoom.create!(name: "education room #{n}", education_school: EducationSchool.all.sample)
+      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+        file_name, file_type = file.path.split('/').last.split('.')
+        education_room.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+      end
+    end
+
+    seed_record.times do |n|
+      education_teacher = EducationTeacher.create!(name: "education teacher #{n}", user: User.all.sample)
+      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+        file_name, file_type = file.path.split('/').last.split('.')
+        education_teacher.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+      end
+    end
+
+    seed_record.times do |n|
+      education_student = EducationStudent.create!(name: "education student #{n}", user: User.all.sample)
+      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+        file_name, file_type = file.path.split('/').last.split('.')
+        education_student.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+      end
+    end
     
     
     # CHAT PACKAGE

@@ -5,19 +5,30 @@
 # end
 
 Rails.application.routes.draw do
+  # EDUCATION package
+  resources :education_rooms
+  resources :education_students
+  resources :education_teachers
+  resources :education_schools
+  resources :education_classes
+
+  # REPORT
   resources :report_frontends
   resources :report_tickets
+
   resources :addresses
+  
+  # ESTATE
   resources :estate_houses
   resources :estate_hotels
   resources :estate_condos
   resources :estate_users
+
+  # ARTICLE
   resources :article_comments
   resources :article_users
   resources :article_posts
 
-  resources :english_words
-  resources :english_users
   resources :users do
     collection do
       get :profile
@@ -27,25 +38,8 @@ Rails.application.routes.draw do
   resources :vehicle_cars
   resources :vehicle_brands
   resources :vehicle_users
-  resources :map_points
   mount MissionControl::Jobs::Engine, at: "/jobs"
   resources :demo, only: [:index, :new]
-
-  resources :map_users
-
-  # AGRICULTURE packge
-  resources :agriculture_merchants
-  resources :agriculture_farms
-  resources :agriculture_farmers
-  resources :agriculture_users
-
-  # EDUCATION package
-  resources :education_rooms
-  resources :education_classes
-  resources :education_students
-  resources :education_teachers
-  resources :education_schools
-  resources :education_users
 
   # CALENDAR package
   resources :calendar_schedules
