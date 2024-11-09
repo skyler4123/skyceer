@@ -22,27 +22,23 @@ class CalendarEventsController < ApplicationController
   # POST /calendar_events or /calendar_events.json
   def create
     @calendar_event = CalendarEvent.new(calendar_event_params)
-    if @calendar_event.save
-      return render json: @calendar_event, status: :created
-    else
-      return render json: @calendar_event.errors, status: :unprocessable_entity
+
+    respond_to do |format|
+      if @calendar_event.save
+        format.html { redirect_to @calendar_event, notice: "Calendar event was successfully created." }
+        format.json { render :show, status: :created, location: @calendar_event }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @calendar_event.errors, status: :unprocessable_entity }
+      end
     end
-    # respond_to do |format|
-    #   if @calendar_event.save
-    #     format.html { redirect_to calendar_event_url(@calendar_event), notice: "Calendar event was successfully created." }
-    #     format.json { render :show, status: :created, location: @calendar_event }
-    #   else
-    #     format.html { render :new, status: :unprocessable_entity }
-    #     format.json { render json: @calendar_event.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /calendar_events/1 or /calendar_events/1.json
   def update
     respond_to do |format|
       if @calendar_event.update(calendar_event_params)
-        format.html { redirect_to calendar_event_url(@calendar_event), notice: "Calendar event was successfully updated." }
+        format.html { redirect_to @calendar_event, notice: "Calendar event was successfully updated." }
         format.json { render :show, status: :ok, location: @calendar_event }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,7 +52,7 @@ class CalendarEventsController < ApplicationController
     @calendar_event.destroy!
 
     respond_to do |format|
-      format.html { redirect_to calendar_events_url, notice: "Calendar event was successfully destroyed." }
+      format.html { redirect_to calendar_events_path, status: :see_other, notice: "Calendar event was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -69,6 +65,6 @@ class CalendarEventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calendar_event_params
-      params.require(:calendar_event).permit(:lib, :calendar_group_id, :title, :body, :is_allday, :start, :end, :going_duration, :coming_duration, :location, :attendees, :category, :recurrence_rule, :state, :is_visible, :is_pending, :is_focused, :is_readOnly, :is_private, :color, :background_color, :drag_background_color, :border_color, :custom_style, :raw)
+      params.require(:calendar_event).permit(:calendar_group_id, :lib, :title, :body, :is_allday, :start, :end, :going_duration, :coming_duration, :location, :attendees, :category, :recurrence_rule, :state, :is_visible, :is_pending, :is_focused, :is_read_only, :is_private, :color, :background_color, :drag_background_color, :border_color, :custom_style, :raw)
     end
 end

@@ -1,2 +1,2 @@
-json.extract! calendar_event, :id, :calendar_user_id, :name, :created_at, :updated_at
+json.extract! calendar_event, :id, :calendar_group_id, :lib, :title, :body, :is_allday, :start, :end, :going_duration, :coming_duration, :location, :attendees, :category, :recurrence_rule, :state, :is_visible, :is_pending, :is_focused, :is_read_only, :is_private, :color, :background_color, :drag_background_color, :border_color, :custom_style, :raw, :created_at, :updated_at
 json.url calendar_event_url(calendar_event, format: :json)

@@ -1,17 +1,127 @@
 <div id="<%= dom_id calendar_event %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Calendar user:</strong>
-    <%= calendar_event.calendar_user_id %>
+    <strong class="block font-medium mb-1">Calendar group:</strong>
+    <%= calendar_event.calendar_group_id %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= calendar_event.name %>
+    <strong class="block font-medium mb-1">Lib:</strong>
+    <%= calendar_event.lib %>
   </p>
 
-  <% if action_name != "show" %>
-    <%= link_to "Show this calendar event", calendar_event, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this calendar event", edit_calendar_event_path(calendar_event), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= calendar_event.title %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Body:</strong>
+    <%= calendar_event.body %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Is allday:</strong>
+    <%= calendar_event.is_allday %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Start:</strong>
+    <%= calendar_event.start %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">End:</strong>
+    <%= calendar_event.end %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Going duration:</strong>
+    <%= calendar_event.going_duration %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Coming duration:</strong>
+    <%= calendar_event.coming_duration %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Location:</strong>
+    <%= calendar_event.location %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Attendees:</strong>
+    <%= calendar_event.attendees %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Category:</strong>
+    <%= calendar_event.category %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Recurrence rule:</strong>
+    <%= calendar_event.recurrence_rule %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">State:</strong>
+    <%= calendar_event.state %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Is visible:</strong>
+    <%= calendar_event.is_visible %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Is pending:</strong>
+    <%= calendar_event.is_pending %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Is focused:</strong>
+    <%= calendar_event.is_focused %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Is read only:</strong>
+    <%= calendar_event.is_read_only %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Is private:</strong>
+    <%= calendar_event.is_private %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Color:</strong>
+    <%= calendar_event.color %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Background color:</strong>
+    <%= calendar_event.background_color %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Drag background color:</strong>
+    <%= calendar_event.drag_background_color %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Border color:</strong>
+    <%= calendar_event.border_color %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Custom style:</strong>
+    <%= calendar_event.custom_style %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Raw:</strong>
+    <%= calendar_event.raw %>
+  </p>
+
 </div>

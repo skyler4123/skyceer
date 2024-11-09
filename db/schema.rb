@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_09_105902) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_09_233411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -84,7 +84,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_105902) do
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "calendar_group_id"
-    t.integer "lib"
+    t.string "lib"
     t.string "title"
     t.string "body"
     t.boolean "is_allday"
@@ -100,14 +100,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_105902) do
     t.boolean "is_visible", default: true
     t.boolean "is_pending", default: false
     t.boolean "is_focused", default: false
-    t.boolean "is_readOnly", default: false
+    t.boolean "is_read_only", default: false
     t.boolean "is_private", default: false
     t.string "color", default: "#000"
     t.string "background_color", default: "#a1b56c"
     t.string "drag_background_color", default: "#a1b56c"
     t.string "border_color", default: "#000"
     t.json "custom_style", default: {}
-    t.json "raw"
+    t.json "raw", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calendar_group_id"], name: "index_calendar_events_on_calendar_group_id"
@@ -159,7 +159,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_105902) do
   end
 
   create_table "education_schools", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
+    t.uuid "user_id"
     t.uuid "address_id"
     t.string "name"
     t.string "category"

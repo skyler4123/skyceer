@@ -86,14 +86,14 @@ class AutoGenerator::SeedService
             is_visible: true,
             is_pending: false,
             is_focused: false,
-            is_readOnly: false,
+            is_read_only: false,
             is_private: false,
             color: '#' + SecureRandom.hex(3),
             background_color: '#' + SecureRandom.hex(3),
             drag_background_color: '#' + SecureRandom.hex(3),
             border_color: '#' + SecureRandom.hex(3),
-            custom_style: "",
-            raw: "",
+            custom_style: {},
+            raw: {},
           )
         end
       end
