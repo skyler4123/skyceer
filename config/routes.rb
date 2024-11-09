@@ -42,9 +42,8 @@ Rails.application.routes.draw do
   resources :demo, only: [:index, :new]
 
   # CALENDAR package
-  resources :calendar_schedules
   resources :calendar_events
-  resources :calendar_users
+  resources :calendar_groups
 
   # CHAT package
   resources :chat_conversations do

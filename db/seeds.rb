@@ -32,6 +32,9 @@ EducationStudent.destroy_all
 EducationRoom.destroy_all
 EducationClass.destroy_all
 
+CalendarGroup.destroy_all
+CalendarEvent.destroy_all
+
 # Run generator for development
 5.times do |n|
   user = User.create!(

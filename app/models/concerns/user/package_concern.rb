@@ -12,6 +12,8 @@ module User::PackageConcern
     has_many :education_schools, dependent: :destroy
     has_one :education_teacher, dependent: :destroy
     has_one :education_student, dependent: :destroy
+
+    has_many :calendar_groups
   end
 
 end

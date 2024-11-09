@@ -1,5 +1,5 @@
 class CalendarEvent < ApplicationRecord
-  belongs_to :calendar_schedule
+  belongs_to :calendar_group, optional: true
 
   enum lib: { tui: 0 }
   enum category: { milestone: 0, task: 1, allday: 2, time: 3 }
