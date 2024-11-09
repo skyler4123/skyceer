@@ -1,9 +1,19 @@
-
 class AutoGenerator::SeedService
   def self.run(seed_record: 1, seed_image: 1)
+    self.seed_for_application(seed_record, seed_image)
+    self.seed_for_vehicle(seed_record, seed_image)
+    self.seed_for_calendar(seed_record, seed_image)
+    self.seed_for_education(seed_record, seed_image)
+    self.seed_for_chat(seed_record, seed_image)
+    self.seed_for_article(seed_record, seed_image)
+    self.seed_for_estate(seed_record, seed_image)
+    self.seed_for_report(seed_record, seed_image)
+    puts "db:seed done!"
+    return true
+  end
 
-    ### APPLICATION PACKAGE
-    # User
+
+  def self.seed_for_application(seed_record, seed_image)
     seed_record.times do |n|
       user = User.create!(
         email: "email#{Time.now.to_i}_#{n}@gmail.com",
@@ -15,10 +25,9 @@ class AutoGenerator::SeedService
       )
       self.attach(record: user, relation: :avatar, number: 1)
     end
-    
+  end
 
-
-    # Vehicle Package
+  def self.seed_for_vehicle(seed_record, seed_image)
     User.all.first(seed_record).each do |user|
       1.times do
         vehicle_store = VehicleStore.create!(
@@ -45,10 +54,9 @@ class AutoGenerator::SeedService
         end
       end
     end
-    
-    
-    
-    # CALENDAR PACKAGE
+  end
+
+  def self.seed_for_calendar(seed_record, seed_image)
     User.all.first(seed_record).each do |user|
       2.times do |n|
         calendar_group = CalendarGroup.create!(
@@ -90,9 +98,9 @@ class AutoGenerator::SeedService
         end
       end
     end
-    
-    
-    # EDUCATION PACKAGE
+  end
+
+  def self.seed_for_education(seed_record, seed_image)
     seed_record.times do |n|
       education_school = EducationSchool.create!(name: "education school #{n}", user: User.all.sample, address: Address.create_random)
       self.attach(record: education_school, relation: :avatar, number: 1)
@@ -117,8 +125,9 @@ class AutoGenerator::SeedService
         
       end
     end
-    
-    # CHAT PACKAGE
+  end
+
+  def self.seed_for_chat(seed_record, seed_image)
     ChatUser.all.sample(seed_record).each do |chat_user|
       # ChatConversation.create!(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
       # ChatConversation.create!(chat_user_ids: [ChatUser.first.id, ChatUser.second.id])
@@ -131,9 +140,9 @@ class AutoGenerator::SeedService
       chat_user_ids = chat_conversation.chat_user_ids
       chat_conversation.chat_messages << ChatMessage.new(chat_user_id: chat_user_ids.sample, content: "content #{Time.now.to_i}_#{n}")
     end
-    
-    
-    # ARTICLE package
+  end
+
+  def self.seed_for_article(seed_record, seed_image)
     User.all.first(seed_record).each_with_index do |user, user_index|
       1.times do |n|
         content = {
@@ -154,8 +163,9 @@ class AutoGenerator::SeedService
       user = User.all.sample
       article_post.article_comments << ArticleComment.new(user_id: user.id, content: "comment #{Time.now.to_i}_#{n}")
     end
-    
-    # REAL ESTATE
+  end
+
+  def self.seed_for_estate(seed_record, seed_image)
     User.all.first(seed_record).each_with_index do |user, index|
       estate_condo = EstateCondo.create!(
         user: user,
@@ -180,10 +190,10 @@ class AutoGenerator::SeedService
         address: Address.create_random_vietnam,
       )
       self.attach(record: estate_house, relation: :images, number: 2)
-
     end
-    
-    # REPORT
+  end
+
+  def self.seed_for_report(seed_record, seed_image)
     seed_record.times do |n|
       report_ticket = ReportTicket.create(
         title: "report ticket title #{n}",
@@ -193,10 +203,7 @@ class AutoGenerator::SeedService
         reporter_email: ["", User.all.sample.email].sample
       )
       self.attach(record: report_ticket, relation: :images, number: 2)
-
     end
-
-    puts "db:seed done!"
   end
 
   def self.attach(record: ,relation: :images, number: 2)
