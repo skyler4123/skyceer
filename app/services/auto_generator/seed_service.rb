@@ -56,24 +56,6 @@ class AutoGenerator::SeedService
     
     
     # CALENDAR PACKAGE
-    # CalendarUser.destroy_all
-    # ActiveRecord::Base.transaction do
-    #   User.first(10).each_with_index do |user, index|
-    #     CalendarUser.create!(name: "calendar_user_#{index}", user: user)
-    #   endq
-    #   CalendarUser.all.each_with_index do |calendar_user|
-    #     2.times do |n|
-    #       CalendarSchedule.create!(
-    #         calendar_user: calendar_user,
-    #         name: "calendar_schedule_#{n}",
-    #         color: '#' + SecureRandom.hex(3),
-    #         background_color: '#' + SecureRandom.hex(3),
-    #         drag_background_color: '#' + SecureRandom.hex(3),
-    #         border_color: '#' + SecureRandom.hex(3),
-    #         )
-    #     end
-    #   end
-    # end
     User.all.first(seed_record).each do |user|
       2.times do |n|
         calendar_group = CalendarGroup.create!(
@@ -86,29 +68,29 @@ class AutoGenerator::SeedService
         )
         2.times do |n|
           CalendarEvent.create!(
-            calendar_group: calendar_group
+            calendar_group: calendar_group,
             lib: "tui",
             title: "#{Faker::Movie.title}",
             body: "#{Faker::Movie.quote}",
             is_allday: false,
-            start: Time.now,
-            end: Time.now + 1.hours,
+            start: Time.now + n.hours,
+            end: Time.now + 1.hours + n.hours,
             going_duration: 0,
             coming_duration: 0,
             location: Address.create_random,
             attendees: [],
-            category: "",
+            category: ['milestone', 'task', 'time', 'allday'].sample,
             recurrence_rule: "",
-            state: "",
-            is_visible: "",
-            is_pending: "",
-            is_focused: "",
-            is_readOnly: "",
-            is_private: "",
-            color: "",
-            background_color: "",
-            drag_background_color: "",
-            border_color: "",
+            state: ["Busy", "Free"].sample,
+            is_visible: true,
+            is_pending: false,
+            is_focused: false,
+            is_readOnly: false,
+            is_private: false,
+            color: '#' + SecureRandom.hex(3),
+            background_color: '#' + SecureRandom.hex(3),
+            drag_background_color: '#' + SecureRandom.hex(3),
+            border_color: '#' + SecureRandom.hex(3),
             custom_style: "",
             raw: "",
           )
@@ -124,40 +106,36 @@ class AutoGenerator::SeedService
         file_name, file_type = file.path.split('/').last.split('.')
         education_school.avatar.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
       end
-    end
-
-    seed_record.times do |n|
-      education_class = EducationClass.create!(name: "education class #{n}", education_school: EducationSchool.all.sample)
-      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-        file_name, file_type = file.path.split('/').last.split('.')
-        education_class.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+      2.times do |n_1|
+        education_class = EducationClass.create!(name: "education class #{n_1}", education_school: education_school)
+        (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+          file_name, file_type = file.path.split('/').last.split('.')
+          education_class.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+        end
+        
+        education_room = EducationRoom.create!(name: "education room #{n}_1", education_school: education_school)
+        (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+          file_name, file_type = file.path.split('/').last.split('.')
+          education_room.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+        end
       end
     end
 
-    seed_record.times do |n|
-      education_room = EducationRoom.create!(name: "education room #{n}", education_school: EducationSchool.all.sample)
-      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-        file_name, file_type = file.path.split('/').last.split('.')
-        education_room.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+    User.all.first(seed_record).each_with_index do |user, index|
+      if index.odd?
+        education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user)
+        (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+          file_name, file_type = file.path.split('/').last.split('.')
+          education_teacher.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+        end
+      else
+        education_student = EducationStudent.create!(name: "education student #{index}", user: user)
+        (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
+          file_name, file_type = file.path.split('/').last.split('.')
+          education_student.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+        end
       end
     end
-
-    seed_record.times do |n|
-      education_teacher = EducationTeacher.create!(name: "education teacher #{n}", user: User.all.sample)
-      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-        file_name, file_type = file.path.split('/').last.split('.')
-        education_teacher.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-      end
-    end
-
-    seed_record.times do |n|
-      education_student = EducationStudent.create!(name: "education student #{n}", user: User.all.sample)
-      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-        file_name, file_type = file.path.split('/').last.split('.')
-        education_student.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-      end
-    end
-    
     
     # CHAT PACKAGE
     ChatUser.all.sample(seed_record).each do |chat_user|

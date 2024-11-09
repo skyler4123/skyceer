@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_08_204233) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_09_105902) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -83,7 +83,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_204233) do
   end
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "calendar_schedule_id", null: false
+    t.uuid "calendar_group_id"
     t.integer "lib"
     t.string "title"
     t.string "body"
@@ -110,19 +110,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_204233) do
     t.json "raw"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_schedule_id"], name: "index_calendar_events_on_calendar_schedule_id"
+    t.index ["calendar_group_id"], name: "index_calendar_events_on_calendar_group_id"
   end
 
-  create_table "calendar_schedules", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "calendar_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.string "name"
     t.string "color"
+    t.string "border_color"
     t.string "background_color"
     t.string "drag_background_color"
-    t.string "border_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_calendar_schedules_on_user_id"
+    t.index ["user_id"], name: "index_calendar_groups_on_user_id"
   end
 
   create_table "demos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -279,8 +279,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_204233) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "calendar_events", "calendar_schedules"
-  add_foreign_key "calendar_schedules", "users"
+  add_foreign_key "calendar_events", "calendar_groups"
+  add_foreign_key "calendar_groups", "users"
   add_foreign_key "education_classes", "education_schools"
   add_foreign_key "education_rooms", "education_schools"
   add_foreign_key "education_schools", "addresses"
