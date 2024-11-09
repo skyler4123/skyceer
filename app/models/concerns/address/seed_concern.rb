@@ -5,7 +5,7 @@ module Address::SeedConcern
     def self.create_random(alpha2: nil, name: nil)
       country = ISO3166::Country.find_country_by_alpha2(alpha2) if alpha2
       country = ISO3166::Country.find_country_by_iso_short_name(name) if name
-      country = ISO3166::Country.all.samle unless country
+      country = ISO3166::Country.all.sample
       subdivisions = country.subdivisions.values
       Address.create!(
         alpha2: country.alpha2,
@@ -13,7 +13,7 @@ module Address::SeedConcern
         continent: country.continent,
         nationality: country.nationality,
         region: country.region,
-        subdivision: subdivisions.sample.name,
+        subdivision: subdivisions.sample&.name || "",
         longitude: rand(country.min_longitude..country.max_longitude),
         latitude: rand(country.min_latitude..country.max_latitude)
       )

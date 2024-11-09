@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_07_201931) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_08_204233) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -82,38 +82,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_201931) do
     t.index ["region"], name: "index_addresses_on_region"
   end
 
-  create_table "agriculture_farmers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "agriculture_user_id", null: false
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["agriculture_user_id"], name: "index_agriculture_farmers_on_agriculture_user_id"
-  end
-
-  create_table "agriculture_farms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "agriculture_farmer_id", null: false
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["agriculture_farmer_id"], name: "index_agriculture_farms_on_agriculture_farmer_id"
-  end
-
-  create_table "agriculture_merchants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "agriculture_user_id", null: false
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["agriculture_user_id"], name: "index_agriculture_merchants_on_agriculture_user_id"
-  end
-
-  create_table "agriculture_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_agriculture_users_on_user_id"
-  end
-
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "calendar_schedule_id", null: false
     t.integer "lib"
@@ -146,7 +114,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_201931) do
   end
 
   create_table "calendar_schedules", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "calendar_user_id", null: false
+    t.uuid "user_id", null: false
     t.string "name"
     t.string "color"
     t.string "background_color"
@@ -154,15 +122,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_201931) do
     t.string "border_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_user_id"], name: "index_calendar_schedules_on_calendar_user_id"
-  end
-
-  create_table "calendar_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_calendar_users_on_user_id"
+    t.index ["user_id"], name: "index_calendar_schedules_on_user_id"
   end
 
   create_table "demos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -183,6 +143,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_201931) do
   create_table "education_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
     t.string "name"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["education_school_id"], name: "index_education_classes_on_education_school_id"
@@ -191,47 +152,37 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_201931) do
   create_table "education_rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
     t.string "name"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["education_school_id"], name: "index_education_rooms_on_education_school_id"
   end
 
   create_table "education_schools", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "education_user_id", null: false
+    t.uuid "user_id", null: false
+    t.uuid "address_id"
     t.string "name"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_user_id"], name: "index_education_schools_on_education_user_id"
+    t.index ["address_id"], name: "index_education_schools_on_address_id"
+    t.index ["user_id"], name: "index_education_schools_on_user_id"
   end
 
   create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "education_user_id", null: false
-    t.uuid "education_school_id"
-    t.uuid "education_class_id"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["education_class_id"], name: "index_education_students_on_education_class_id"
-    t.index ["education_school_id"], name: "index_education_students_on_education_school_id"
-    t.index ["education_user_id"], name: "index_education_students_on_education_user_id"
-  end
-
-  create_table "education_teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "education_user_id", null: false
-    t.uuid "education_school_id"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["education_school_id"], name: "index_education_teachers_on_education_school_id"
-    t.index ["education_user_id"], name: "index_education_teachers_on_education_user_id"
-  end
-
-  create_table "education_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_education_users_on_user_id"
+    t.index ["user_id"], name: "index_education_students_on_user_id"
+  end
+
+  create_table "education_teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_education_teachers_on_user_id"
   end
 
   create_table "estate_condos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -265,34 +216,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_201931) do
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_estate_houses_on_address_id"
     t.index ["user_id"], name: "index_estate_houses_on_user_id"
-  end
-
-  create_table "estate_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_estate_users_on_user_id"
-  end
-
-  create_table "map_points", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
-    t.string "mapable_type"
-    t.uuid "mapable_id"
-    t.uuid "map_user_id"
-    t.boolean "verified"
-    t.boolean "expired"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["map_user_id"], name: "index_map_points_on_map_user_id"
-    t.index ["mapable_type", "mapable_id"], name: "index_map_points_on_mapable"
-  end
-
-  create_table "map_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_map_users_on_user_id"
   end
 
   create_table "report_frontends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -330,7 +253,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_201931) do
     t.string "model"
     t.string "brand"
     t.uuid "vehicle_store_id"
-    t.uuid "vehicle_user_id"
+    t.uuid "user_id"
     t.integer "price"
     t.string "version"
     t.integer "year"
@@ -341,57 +264,38 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_201931) do
     t.boolean "expired"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_vehicle_cars_on_user_id"
     t.index ["vehicle_store_id"], name: "index_vehicle_cars_on_vehicle_store_id"
-    t.index ["vehicle_user_id"], name: "index_vehicle_cars_on_vehicle_user_id"
   end
 
   create_table "vehicle_stores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
-    t.uuid "vehicle_user_id", null: false
+    t.uuid "user_id", null: false
     t.decimal "coordinates", default: ["0.0", "0.0"], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["vehicle_user_id"], name: "index_vehicle_stores_on_vehicle_user_id"
-  end
-
-  create_table "vehicle_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_vehicle_users_on_user_id"
+    t.index ["user_id"], name: "index_vehicle_stores_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "agriculture_farmers", "agriculture_users"
-  add_foreign_key "agriculture_farms", "agriculture_farmers"
-  add_foreign_key "agriculture_merchants", "agriculture_users"
-  add_foreign_key "agriculture_users", "users"
   add_foreign_key "calendar_events", "calendar_schedules"
-  add_foreign_key "calendar_schedules", "calendar_users"
-  add_foreign_key "calendar_users", "users"
+  add_foreign_key "calendar_schedules", "users"
   add_foreign_key "education_classes", "education_schools"
   add_foreign_key "education_rooms", "education_schools"
-  add_foreign_key "education_schools", "education_users"
-  add_foreign_key "education_students", "education_classes"
-  add_foreign_key "education_students", "education_schools"
-  add_foreign_key "education_students", "education_users"
-  add_foreign_key "education_teachers", "education_schools"
-  add_foreign_key "education_teachers", "education_users"
-  add_foreign_key "education_users", "users"
+  add_foreign_key "education_schools", "addresses"
+  add_foreign_key "education_schools", "users"
+  add_foreign_key "education_students", "users"
+  add_foreign_key "education_teachers", "users"
   add_foreign_key "estate_condos", "addresses"
   add_foreign_key "estate_condos", "users"
   add_foreign_key "estate_hotels", "addresses"
   add_foreign_key "estate_hotels", "users"
   add_foreign_key "estate_houses", "addresses"
   add_foreign_key "estate_houses", "users"
-  add_foreign_key "estate_users", "users"
-  add_foreign_key "map_points", "map_users"
-  add_foreign_key "map_users", "users"
   add_foreign_key "report_frontends", "users"
   add_foreign_key "users", "addresses"
+  add_foreign_key "vehicle_cars", "users"
   add_foreign_key "vehicle_cars", "vehicle_stores"
-  add_foreign_key "vehicle_cars", "vehicle_users"
-  add_foreign_key "vehicle_stores", "vehicle_users"
-  add_foreign_key "vehicle_users", "users"
+  add_foreign_key "vehicle_stores", "users"
 end

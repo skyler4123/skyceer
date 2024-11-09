@@ -16,21 +16,21 @@ User.destroy_all
 Session.destroy_all
 Address.destroy_all
 
-VehicleUser.destroy_all
 VehicleStore.destroy_all
 VehicleCar.destroy_all
 
-ChatUser.destroy_all
 ChatConversation.destroy_all
 
-EnglishUser.destroy_all
-
-ArticleUser.destroy_all
 ArticlePost.destroy_all
 
-EstateUser.destroy_all
 EstateCondo.destroy_all
 EstateHotel.destroy_all
+
+EducationSchool.destroy_all
+EducationTeacher.destroy_all
+EducationStudent.destroy_all
+EducationRoom.destroy_all
+EducationClass.destroy_all
 
 # Run generator for development
 5.times do |n|

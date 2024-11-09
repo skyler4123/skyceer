@@ -26,11 +26,11 @@ class AutoGenerator::SeedService
       # User.first(10).each do |user|
       #   VehicleUser.create!(user: user)
       # end
-      VehicleUser.all.sample(seed_record).each do |vehicle_user|
+      User.all.sample(seed_record).each do |user|
         1.times do
           vehicle_store = VehicleStore.create!(
             name: "vehicle store name #{Faker::Movies::HarryPotter.character}",
-            vehicle_user_id: vehicle_user.id,
+            user: user,
             coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
           )
           1.times do
@@ -39,7 +39,7 @@ class AutoGenerator::SeedService
               model: "model #{Faker::Movies::HarryPotter.character}",
               brand: ['tesla', 'toyota', 'honda'].sample,
               vehicle_store: vehicle_store,
-              vehicle_user: vehicle_user,
+              user: user,
               price: rand(1..1000),
               year: rand(1900..2024),
               post_purpose: [0, 1, 2].sample,
@@ -77,18 +77,8 @@ class AutoGenerator::SeedService
     
     
     # EDUCATION PACKAGE
-    EducationSchool.destroy_all
-    EducationTeacher.destroy_all
-    EducationStudent.destroy_all
-    EducationRoom.destroy_all
-    EducationClass.destroy_all
-    EductionClassTable.destroy_all
-    EductionRoomTable.destroy_all    
-    EductionTeacherTable.destroy_all
-    EductionStudentTable.destroy_all
-
     seed_record.times do |n|
-      education_school = EducationSchool.create!(name: "education school #{n}", user: User.all.sample)
+      education_school = EducationSchool.create!(name: "education school #{n}", user: User.all.sample, address: Address.create_random)
       (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
         file_name, file_type = file.path.split('/').last.split('.')
         education_school.avatar.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
@@ -221,5 +211,12 @@ class AutoGenerator::SeedService
     end
 
     puts "db:seed done!"
+  end
+
+  def self.attach(record: ,relation: :images, number: 2)
+    (Dir.glob("./faker/images/randoms/*.*").sample(number).map {|dir| File.open(dir)}).each_with_index do |file, index|
+      file_name, file_type = file.path.split('/').last.split('.')
+      record.send(relation).attach(io: file, filename: file_name, content_type: "image/#{file_type}")
+    end
   end
 end

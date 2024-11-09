@@ -3,7 +3,7 @@ class EstateHouse < ApplicationRecord
   include EstateHouse::ElasticsearchConcern
   
   belongs_to :user
-  belongs_to :address
+  belongs_to :address, optional: true
 
   monetize :price_cents
 end
