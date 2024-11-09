@@ -2,6 +2,7 @@ import Calendar from '@toast-ui/calendar';
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
 export default class extends ApplicationController {
+  static targets= ["calendar"]
   static values = {
     ...super.values,
     schedules: { type: Array },
@@ -16,7 +17,10 @@ export default class extends ApplicationController {
   }
 
   initComplete() {
-    this.calendar = new Calendar(this.element, this.options());
+    if (!this.hasCalendarTarget) {
+      this.element.insertAdjacentHTML('beforeend', `<div class="w-full h-full" data-${this.identifier}-target="calendar"></div>`)
+    }
+    this.calendar = new Calendar(this.calendarTarget, this.options());
     this.schedulesValue = this.schedulesParams
     this.eventsValue = this.eventsParams
     this.initCalendarAction()
@@ -66,13 +70,13 @@ export default class extends ApplicationController {
   selectDateTime(event) {console.log(event)}
 
   beforeCreateEvent(event) {
-    const response = this.Api.calendar_events.post({ params: this.normalizeForBackend(event) })
-    response.then((response) => {
-      console.log(response)
-      this.createEvents([event])
-    }).catch(function (error) {
-      console.log(error);
-    })
+    // const response = this.Api.calendar_events.post({ params: this.normalizeForBackend(event) })
+    // response.then((response) => {
+    //   console.log(response)
+    //   this.createEvents([event])
+    // }).catch(function (error) {
+    //   console.log(error);
+    // })
   }
 
   beforeUpdateEvent(event) {

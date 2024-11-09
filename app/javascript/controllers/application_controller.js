@@ -395,9 +395,6 @@ export default class ApplicationController extends Controller {
       return uuidv4()
     }
   }
-  get Api() {
-    return Api
-  }
 
   get controllerNames() {
     return this.element.dataset.controller.trim().split(' ')
