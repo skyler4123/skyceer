@@ -13,7 +13,7 @@ module User::PackageConcern
     has_one :education_teacher, dependent: :destroy
     has_one :education_student, dependent: :destroy
 
-    has_many :calendar_groups
+    has_many :calendar_groups, dependent: :destroy
   end
 
 end

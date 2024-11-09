@@ -13,46 +13,39 @@ class AutoGenerator::SeedService
         name: "user name #{Faker::Movie.title}",
         address: Address.create_random_vietnam,
       )
-      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-        file_name, file_type = file.path.split('/').last.split('.')
-        user.avatar.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-      end
+      self.attach(record: user, relation: :avatar, number: 1)
     end
     
 
 
     # Vehicle Package
-    ActiveRecord::Base.transaction do
-      # User.first(10).each do |user|
-      #   VehicleUser.create!(user: user)
-      # end
-      User.all.first(seed_record).each do |user|
+    User.all.first(seed_record).each do |user|
+      1.times do
+        vehicle_store = VehicleStore.create!(
+          name: "vehicle store name #{Faker::Movie.title}",
+          user: user,
+          coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
+        )
         1.times do
-          vehicle_store = VehicleStore.create!(
-            name: "vehicle store name #{Faker::Movie.title}",
+          VehicleCar.create!(
+            name: "vehicle car name #{Faker::Movie.title}",
+            model: "model #{Faker::Movie.title}",
+            brand: ['tesla', 'toyota', 'honda'].sample,
+            vehicle_store: vehicle_store,
             user: user,
-            coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
+            price: rand(1..1000),
+            year: rand(1900..2024),
+            post_purpose: [0, 1, 2].sample,
+            version: "version #{Faker::Movie.title}",
+            coordinates: vehicle_store.coordinates,
+            released_at: rand(10.years).seconds.from_now,
+            verified: true,
+            expired: false,
           )
-          1.times do
-            VehicleCar.create!(
-              name: "vehicle car name #{Faker::Movie.title}",
-              model: "model #{Faker::Movie.title}",
-              brand: ['tesla', 'toyota', 'honda'].sample,
-              vehicle_store: vehicle_store,
-              user: user,
-              price: rand(1..1000),
-              year: rand(1900..2024),
-              post_purpose: [0, 1, 2].sample,
-              version: "version #{Faker::Movie.title}",
-              coordinates: vehicle_store.coordinates,
-              released_at: rand(10.years).seconds.from_now,
-              verified: true,
-              expired: false,
-            )
-          end
         end
       end
     end
+    
     
     
     # CALENDAR PACKAGE
@@ -102,38 +95,26 @@ class AutoGenerator::SeedService
     # EDUCATION PACKAGE
     seed_record.times do |n|
       education_school = EducationSchool.create!(name: "education school #{n}", user: User.all.sample, address: Address.create_random)
-      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-        file_name, file_type = file.path.split('/').last.split('.')
-        education_school.avatar.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-      end
+      self.attach(record: education_school, relation: :avatar, number: 1)
       2.times do |n_1|
         education_class = EducationClass.create!(name: "education class #{n_1}", education_school: education_school)
-        (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-          file_name, file_type = file.path.split('/').last.split('.')
-          education_class.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-        end
+        self.attach(record: education_class, relation: :images, number: 2)
         
         education_room = EducationRoom.create!(name: "education room #{n}_1", education_school: education_school)
-        (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-          file_name, file_type = file.path.split('/').last.split('.')
-          education_room.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-        end
+        self.attach(record: education_room, relation: :images, number: 2)
+
       end
     end
 
     User.all.first(seed_record).each_with_index do |user, index|
       if index.odd?
         education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user)
-        (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-          file_name, file_type = file.path.split('/').last.split('.')
-          education_teacher.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-        end
+        self.attach(record: education_teacher, relation: :images, number: 2)
+        
       else
         education_student = EducationStudent.create!(name: "education student #{index}", user: user)
-        (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-          file_name, file_type = file.path.split('/').last.split('.')
-          education_student.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-        end
+        self.attach(record: education_student, relation: :images, number: 2)
+        
       end
     end
     
@@ -153,7 +134,7 @@ class AutoGenerator::SeedService
     
     
     # ARTICLE package
-    User.all.sample(seed_record).each_with_index do |user, user_index|
+    User.all.first(seed_record).each_with_index do |user, user_index|
       1.times do |n|
         content = {
           blocks: [{
@@ -174,47 +155,36 @@ class AutoGenerator::SeedService
       article_post.article_comments << ArticleComment.new(user_id: user.id, content: "comment #{Time.now.to_i}_#{n}")
     end
     
-    # ENGLISH Package
-    
     # REAL ESTATE
-    # User.first(10).each do |user|
-    #   EstateUser.create!(user: user)
-    # end
-    
-    User.all.sample(seed_record).each_with_index do |user, index|
-      user.estate_condos.create!(
+    User.all.first(seed_record).each_with_index do |user, index|
+      estate_condo = EstateCondo.create!(
+        user: user,
         name: "estate user name #{Faker::Movie.title}",
         price_cents: rand(1000..9999),
         address: Address.create_random_vietnam,
       )
-      user.estate_hotels.create!(
+      self.attach(record: estate_condo, relation: :images, number: 2)
+
+      estate_hotel = EstateHotel.create!(
+        user: user,
         name: "estate hotel name #{Faker::Movie.title}",
         price_cents: rand(1000..9999),
         address: Address.create_random_vietnam,
       )
-      user.estate_houses.create!(
+      self.attach(record: estate_hotel, relation: :images, number: 2)
+
+      estate_house = EstateHouse.create!(
+        user: user,
         name: "estate house name #{Faker::Movie.title}",
         price_cents: rand(1000..9999),
         address: Address.create_random_vietnam,
       )
-    end
-    
-    # 15.times do |n|
-    #   (Dir.glob("/rails/faker/images/laptop/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
-    #     file_name, file_type = file.path.split('/').last.split('.')
-    #     Laptop.all.sample.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-    #   end
-    # end
-    (seed_image).times do |n|
-      (Dir.glob("./faker/images/randoms/*.*").sample(1).map {|dir| File.open(dir)}).each_with_index do |file, index|
-        file_name, file_type = file.path.split('/').last.split('.')
+      self.attach(record: estate_house, relation: :images, number: 2)
 
-        EstateHouse.all.sample.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-      end
     end
     
     # REPORT
-    (seed_record * 2).times do |n|
+    seed_record.times do |n|
       report_ticket = ReportTicket.create(
         title: "report ticket title #{n}",
         content: Faker::Movie.quote,
@@ -222,11 +192,8 @@ class AutoGenerator::SeedService
         status: rand(0..3),
         reporter_email: ["", User.all.sample.email].sample
       )
+      self.attach(record: report_ticket, relation: :images, number: 2)
 
-      (Dir.glob("./faker/images/randoms/*.*").sample(2).map {|dir| File.open(dir)}).each_with_index do |file, index|
-        file_name, file_type = file.path.split('/').last.split('.')
-        report_ticket.images.attach(io: file, filename: file_name, content_type: "image/#{file_type}")
-      end
     end
 
     puts "db:seed done!"
