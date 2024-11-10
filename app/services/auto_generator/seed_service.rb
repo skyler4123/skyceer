@@ -61,7 +61,7 @@ class AutoGenerator::SeedService
       2.times do |n|
         calendar_group = CalendarGroup.create!(
           user: user,
-          name: "calendars group #{n}",
+          name: "user #{user_index} group #{n}",
           color: '#' + SecureRandom.hex(3),
           backgroundColor: '#' + SecureRandom.hex(3),
           dragBackgroundColor: '#' + SecureRandom.hex(3),
