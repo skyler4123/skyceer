@@ -30,10 +30,13 @@ export default class extends ApplicationController {
           })}
         </div>
         <div class="flex flex-row gap-x-2">
-          <div>${Link({label: 'Condominium', url: "/estate_condos"})}</div>
-          <div>${Link({label: 'Hotel', url: "/estate_hotels"})}</div>
-          <div>${Link({label: 'House', url: "/estate_houses"})}</div>
-          <div>${Link({label: 'News', url: "/article_posts"})}</div>
+          <div>${Link({label: 'Home', url: "/"})}</div>
+          <div>${Link({label: 'Admission', url: "/education_hotels"})}</div>
+          <div>${Link({label: 'Academic', url: "/education_houses"})}</div>
+          <div>${Link({label: 'Teacher', url: "/educatione_posts"})}</div>
+          <div>${Link({label: 'Student', url: "/educatione_posts"})}</div>
+          <div>${Link({label: 'Contact', url: "/educatione_posts"})}</div>
+
 
         </div>
         <div class="flex flex-row">
