@@ -14,6 +14,11 @@ class AutoGenerator::SeedService
 
 
   def self.seed_for_application(seed_record, seed_image)
+    self.seed_for_user(seed_record, seed_image)
+    self.seed_for_category(seed_record, seed_image)
+  end
+
+  def self.seed_for_user(seed_record, seed_image)
     seed_record.times do |n|
       user = User.create!(
         email: "email#{Time.now.to_i}_#{n}@gmail.com",
@@ -24,6 +29,15 @@ class AutoGenerator::SeedService
         address: Address.create_random_vietnam,
       )
       self.attach(record: user, relation: :avatar, number: 1)
+    end
+  end
+
+  def self.seed_for_category(seed_record, seed_image)
+    seed_record.times do |n|
+      category = Category.create!(
+        name: "category #{n}",
+        parent_category: [Category.all.sample, nil].sample
+      )
     end
   end
 

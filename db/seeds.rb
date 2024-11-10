@@ -15,6 +15,7 @@ return if ENV['RAILS_ENV'] == 'production'
 User.destroy_all
 Session.destroy_all
 Address.destroy_all
+Category.destroy_all
 
 VehicleStore.destroy_all
 VehicleCar.destroy_all

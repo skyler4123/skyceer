@@ -5,6 +5,7 @@
 # end
 
 Rails.application.routes.draw do
+  resources :categories
   # EDUCATION package
   resources :education_rooms
   resources :education_students
