@@ -57,7 +57,7 @@ class AutoGenerator::SeedService
   end
 
   def self.seed_for_calendar(seed_record, seed_image)
-    User.all.first(seed_record).each do |user|
+    User.all.first(seed_record).each_with_index do |user, user_index|
       2.times do |n|
         calendar_group = CalendarGroup.create!(
           user: user,
@@ -74,8 +74,8 @@ class AutoGenerator::SeedService
             title: "#{Faker::Movie.title}",
             body: "#{Faker::Movie.quote}",
             isAllday: false,
-            start: Time.now + n.hours,
-            end: Time.now + 1.hours + n.hours,
+            start: Time.now + user_index.days,
+            end: Time.now + 1.hours + user_index.days,
             goingDuration: 0,
             comingDuration: 0,
             location: Address.create_random,

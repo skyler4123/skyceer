@@ -21,6 +21,8 @@
       <div>1 2 3 4 5 6 7 8 9 0</div>
     <% end %>
     
+    <div data-controller="libs--calendar--tui" data-libs--calendar--tui-groups-value="<%= CalendarGroup.all.to_json %>" data-libs--calendar--tui-events-value="<%= CalendarEvent.all.to_json(only: [:id, :title, :end, :start], methods: [:calendarId]) %>"></div>
+
     <%= editorjs %>
 
     <div data-controller="libs--map--openlayers--show"></div>
@@ -69,7 +71,7 @@
     <% end %>
 
     <% User.all.order(created_at: :asc).first(10).each do |user| %>
-      <div data-chat-guest-chat-user-id-param="<%= ChatUser.find_by(user_id: user.id).id %>">User name: <%= user.name %></div>
+      <div data-chat-guest-chat-user-id-param="<%= user.id %>">User name: <%= user.name %></div>
     <% end %>
 
     <%

@@ -15,13 +15,14 @@ export default class extends ApplicationController {
   }
 
   initComplete() {
-    console.log(this)
     if (!this.hasCalendarTarget) {
       this.element.insertAdjacentHTML('beforeend', `<div class="w-full h-full" data-${this.identifier}-target="calendar"></div>`)
     }
     this.calendar = new Calendar(this.calendarTarget, this.options());
     this.initCalendarAction()
     this.initValues()
+    this.setCalendars(this.groupsValue)
+    this.createEvents(this.eventsValue)
   }
 
   initValues() {
@@ -36,7 +37,6 @@ export default class extends ApplicationController {
 
   eventsValueChanged(value, previousValue) {
     if (!this.isInitializedValue) { return }
-    console.log(value)
     this.calendar.clear()
     this.createEvents(value)
     if (this.isDefined(this.eventsValueCallback)) { this.eventsValueCallback(value, previousValue) }
