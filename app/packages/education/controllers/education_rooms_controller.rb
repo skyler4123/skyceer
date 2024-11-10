@@ -1,4 +1,4 @@
-class EducationRoomsController < ApplicationController
+class EducationRoomsController < EducationController
   before_action :set_education_room, only: %i[ show edit update destroy ]
 
   # GET /education_rooms or /education_rooms.json
