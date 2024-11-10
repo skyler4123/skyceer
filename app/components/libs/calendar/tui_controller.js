@@ -5,36 +5,49 @@ export default class extends ApplicationController {
   static targets= ["calendar"]
   static values = {
     ...super.values,
-    schedules: { type: Array },
-    events: { type: Array }
+    groups: { type: Array, default: [] },
+    events: { type: Array, default: [] }
   }
 
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'options', defaultValue: this.optionsParamsDefault()})
-    this.setParams({name: 'schedules', defaultValue: this.schedulesParamsDefault()})
-    this.setParams({name: 'events', defaultValue: this.eventsParamsDefault()})
   }
 
   initComplete() {
+    console.log(this)
     if (!this.hasCalendarTarget) {
       this.element.insertAdjacentHTML('beforeend', `<div class="w-full h-full" data-${this.identifier}-target="calendar"></div>`)
     }
     this.calendar = new Calendar(this.calendarTarget, this.options());
-    this.schedulesValue = this.schedulesParams
-    this.eventsValue = this.eventsParams
     this.initCalendarAction()
+    this.initValues()
   }
 
-  schedulesValueChanged() {
+  initValues() {
+    if (this.groupsValue.length < 1) { this.groupsValue = this.defaultGroups()}
+    if (this.eventsValue.length < 1) { this.eventsValue = this.defaultEvents()}
+  }
+  groupsValueChanged(value, previousValue) {
     if (!this.isInitializedValue) { return }
-    this.calendar.setCalendars(this.schedulesValue)
+    this.setCalendars(value)
+    if (this.isDefined(this.groupsValueCallback)) { this.groupsValueCallback(value, previousValue) }
   }
 
-  eventsValueChanged() {
+  eventsValueChanged(value, previousValue) {
     if (!this.isInitializedValue) { return }
+    console.log(value)
     this.calendar.clear()
-    this.calendar.createEvents(this.eventsValue)
+    this.createEvents(value)
+    if (this.isDefined(this.eventsValueCallback)) { this.eventsValueCallback(value, previousValue) }
+  }
+
+  setCalendars(groups) {
+    this.calendar.setCalendars(groups)
+  }
+
+  createEvents(events) {
+    this.calendar.createEvents(events)
   }
 
   initCalendarAction() {
@@ -213,7 +226,7 @@ export default class extends ApplicationController {
     }
   }
 
-  schedulesParamsDefault() {
+  defaultGroups() {
     return [
       {
         id: 'cal1',
@@ -228,12 +241,12 @@ export default class extends ApplicationController {
     ]
   }
 
-  eventsParamsDefault() {
+  defaultEvents() {
     return [
       {
         id: 'event1',
         calendarId: 'cal1',
-        title: 'Weekly meeting for schedule with id = cal1',
+        title: 'Weekly meeting for group with id = cal1',
         start: new Date().toISOString(),
         end: new Date().toISOString(),
       },
