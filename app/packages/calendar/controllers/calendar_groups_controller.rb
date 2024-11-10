@@ -65,6 +65,6 @@ class CalendarGroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calendar_group_params
-      params.require(:calendar_group).permit(:user_id, :name, :color, :border_color, :background_color, :drag_background_color)
+      params.require(:calendar_group).permit(:user_id, :name, :color, :borderColor, :backgroundColor, :dragBackgroundColor)
     end
 end

@@ -4,9 +4,9 @@ class CreateCalendarGroups < ActiveRecord::Migration[7.2]
       t.references :user, null: false, foreign_key: true, type: :uuid
       t.string :name
       t.string :color
-      t.string :border_color
-      t.string :background_color
-      t.string :drag_background_color
+      t.string :borderColor
+      t.string :backgroundColor
+      t.string :dragBackgroundColor
 
       t.timestamps
     end

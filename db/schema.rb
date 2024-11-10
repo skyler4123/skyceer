@@ -87,26 +87,27 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_233411) do
     t.string "lib"
     t.string "title"
     t.string "body"
-    t.boolean "is_allday"
+    t.boolean "isAllday"
     t.datetime "start"
     t.datetime "end"
-    t.integer "going_duration"
-    t.integer "coming_duration"
+    t.integer "goingDuration"
+    t.integer "comingDuration"
     t.string "location"
     t.text "attendees", default: [], array: true
     t.integer "category"
-    t.string "recurrence_rule"
+    t.integer "dueDateClass"
+    t.string "recurrenceRule"
     t.integer "state"
-    t.boolean "is_visible", default: true
-    t.boolean "is_pending", default: false
-    t.boolean "is_focused", default: false
-    t.boolean "is_read_only", default: false
-    t.boolean "is_private", default: false
+    t.boolean "isVisible", default: true
+    t.boolean "isPending", default: false
+    t.boolean "isFocused", default: false
+    t.boolean "isReadOnly", default: false
+    t.boolean "isPrivate", default: false
     t.string "color", default: "#000"
-    t.string "background_color", default: "#a1b56c"
-    t.string "drag_background_color", default: "#a1b56c"
-    t.string "border_color", default: "#000"
-    t.json "custom_style", default: {}
+    t.string "backgroundColor", default: "#a1b56c"
+    t.string "dragBackgroundColor", default: "#a1b56c"
+    t.string "borderColor", default: "#000"
+    t.json "customStyle", default: {}
     t.json "raw", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -117,9 +118,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_233411) do
     t.uuid "user_id", null: false
     t.string "name"
     t.string "color"
-    t.string "border_color"
-    t.string "background_color"
-    t.string "drag_background_color"
+    t.string "borderColor"
+    t.string "backgroundColor"
+    t.string "dragBackgroundColor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_calendar_groups_on_user_id"

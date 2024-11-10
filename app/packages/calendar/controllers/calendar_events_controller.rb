@@ -65,6 +65,6 @@ class CalendarEventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calendar_event_params
-      params.require(:calendar_event).permit(:calendar_group_id, :lib, :title, :body, :is_allday, :start, :end, :going_duration, :coming_duration, :location, :attendees, :category, :recurrence_rule, :state, :is_visible, :is_pending, :is_focused, :is_read_only, :is_private, :color, :background_color, :drag_background_color, :border_color, :custom_style, :raw)
+      params.require(:calendar_event).permit(:calendar_group_id, :lib, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw)
     end
 end
