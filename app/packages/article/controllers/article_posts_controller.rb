@@ -9,7 +9,7 @@ class ArticlePostsController < ArticleController
 
   # GET /article_posts/1 or /article_posts/1.json
   def show
-    flash[:notice] = "Article post was successfully created."
+    # flash[:notice] = "Article post was successfully created."
   end
 
   # GET /article_posts/new

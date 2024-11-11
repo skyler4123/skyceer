@@ -160,17 +160,59 @@ class AutoGenerator::SeedService
   def self.seed_for_article(seed_record, seed_image)
     User.all.first(seed_record).each_with_index do |user, user_index|
       1.times do |n|
+        article_post = ArticlePost.create!(user_id: user.id, title: Faker::Movie.title)
+        article_post_images = self.attach(record: user, relation: :article_post_images, number: 2)        
         content = {
-          blocks: [{
-            id: "oUq2g_tl8y",
-            type: "header",
-            data: {
-               text: Faker::Movie.quote,
-               level: 2
-            }
-         }],
+          blocks: [
+            {
+              type: "header",
+              data: {
+                text: Faker::Movie.title,
+                level: 2
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: Faker::Movie.quote
+              }
+            },
+            {
+              type: "list",
+              data: {
+                style: "unordered",
+                items: [Faker::Movie.quote, Faker::Movie.quote, Faker::Movie.quote]
+              }
+            },
+            {
+              type: "image",
+              data: {
+                caption: Faker::Movie.title,
+                file: { url: article_post_images.first },
+                stretched: false,
+                withBackground: false,
+                withBorder: false,
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: Faker::Movie.quote
+              }
+            },
+            {
+              type: "image",
+              data: {
+                caption: Faker::Movie.title,
+                file: { url: article_post_images.second },
+                stretched: false,
+                withBackground: false,
+                withBorder: false,
+              }
+            },
+          ],
         }
-        ArticlePost.create!(user_id: user.id, title: Faker::Movie.title, content: content)
+        article_post.update!(content: content)
       end
     end
     (seed_record * 5).times do |n|
@@ -226,5 +268,11 @@ class AutoGenerator::SeedService
       file_name, file_type = file.path.split('/').last.split('.')
       record.send(relation).attach(io: file, filename: file_name, content_type: "image/#{file_type}")
     end
+    [record.send(relation)].flatten.map { |attachment| Rails.application.routes.url_helpers.rails_blob_url(attachment, only_path: true) }
   end
 end
+
+
+
+
+
