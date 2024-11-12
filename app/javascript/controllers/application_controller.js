@@ -21,6 +21,7 @@ export default class ApplicationController extends Controller {
     isHover: { type: Boolean },
     canInitialize: { type: Boolean, default: true },
     isInitialized: { type: Boolean, default: false },
+    className: { type: String, default: "" }
   }
 
   initialize({isPreviousControllerInitialized = false} = {}) {
@@ -162,6 +163,7 @@ export default class ApplicationController extends Controller {
 
   initializeClass() {
     const originalClass = this.element.className
+    this.addClass(this.element, this.classNameValue)
     this.initializeVariantClass()
     this.initializePositionClass()
     this.initializeTypeClass()

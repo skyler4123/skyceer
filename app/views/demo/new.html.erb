@@ -15,8 +15,13 @@
 
 
 
-<div data-controller="libs--calendar--tui" data-libs--calendar--tui-groups-value="<%= CalendarGroup.all.to_json %>" data-libs--calendar--tui-events-value="<%= CalendarEvent.all.to_json(only: [:id, :title, :end, :start], methods: [:calendarId]) %>"></div>
-
+<div
+  data-controller="views--article--article-posts--card"
+  data-views--article--article-posts--card-image-url-value="<%= ArticlePost.first.image_urls.first %>"
+  data-views--article--article-posts--card-title-value="<%= ArticlePost.first.title %>"
+  data-views--article--article-posts--card-content-value="<%= ArticlePost.first.raw_content %>"
+>
+</div>
 
 
 
