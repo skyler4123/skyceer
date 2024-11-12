@@ -6,7 +6,8 @@ export default class Views_Article_ArticlePosts_CardController extends Applicati
     className: { type: String, default: "w-full h-full p-4 h-64" },
     imageUrl: { type: String, default: "" },
     title: { type: String, default: "" },
-    content: { type: String, default: "" }
+    content: { type: String, default: "" },
+    url: { type: String, default: "" }
   }
 
   init() {
@@ -19,7 +20,7 @@ export default class Views_Article_ArticlePosts_CardController extends Applicati
 
   defaultHTML() {
     return `
-      <a href="#" class="w-full h-full flex flex-col items-center shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      <a href="${this.urlValue}" class="w-full h-full flex flex-col items-center shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
           <div class="w-1/2 h-full flex justify-center items-center">
             <img class="w-full h-full object-cover rounded-lg" src="${this.imageUrlValue}" alt="">
           </div>
