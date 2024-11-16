@@ -3,7 +3,7 @@ class EducationSchoolsController < EducationController
 
   # GET /education_schools or /education_schools.json
   def index
-    @education_schools = EducationSchool.all
+    @education_schools = [Current.education_school]
   end
 
   # GET /education_schools/1 or /education_schools/1.json
@@ -22,6 +22,7 @@ class EducationSchoolsController < EducationController
   # POST /education_schools or /education_schools.json
   def create
     @education_school = EducationSchool.new(education_school_params)
+    @education_school.user = Current.user
 
     respond_to do |format|
       if @education_school.save
@@ -65,6 +66,6 @@ class EducationSchoolsController < EducationController
 
     # Only allow a list of trusted parameters through.
     def education_school_params
-      params.require(:education_school).permit(:user_id, :address_id, :name, :category)
+      params.require(:education_school).permit(:address_id, :name, :category)
     end
 end

@@ -31,7 +31,6 @@ export default class extends ApplicationController {
         </div>
         <div class="flex flex-row gap-x-2">
           <div>${Link({label: 'Home', url: "/"})}</div>
-          <div>${Link({label: 'Admission', url: "/education_hotels"})}</div>
           <div>${Link({label: 'Academic', url: "/education_houses"})}</div>
           <div>${Link({label: 'Teacher', url: "/educatione_posts"})}</div>
           <div>${Link({label: 'Student', url: "/educatione_posts"})}</div>

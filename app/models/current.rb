@@ -1,4 +1,6 @@
 class Current < ActiveSupport::CurrentAttributes
+  include Current::PackageConcern
+
   attribute :session
   attribute :user_agent, :ip_address
 
@@ -14,38 +16,6 @@ class Current < ActiveSupport::CurrentAttributes
 
   def self.user_id
     self.session.user_id
-  end
-
-  def self.vehicle_user
-    VehicleUser.find_by(user_id: self.user_id)
-  end
-
-  def self.vehicle_user_id
-    self.vehicle_user.id
-  end
-
-  def self.chat_user
-    ChatUser.find_by(user_id: self.user_id)
-  end
-
-  def self.chat_user_id
-    self.chat_user.id.to_s
-  end
-
-  def self.article_user
-    ArticleUser.find_by(user_id: self.user_id)
-  end
-
-  def self.article_user_id
-    self.article_user.id.to_s
-  end
-
-  def self.estate_user
-    EstateUser.find_by(user_id: self.user_id)
-  end
-
-  def self.estate_user_id
-    self.session.estate_user_id
   end
 
   def self.avatar
