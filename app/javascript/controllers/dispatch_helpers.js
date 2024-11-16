@@ -109,6 +109,41 @@ const DispatchHelpers = {
     event['payload'] = { ...this.getEventWithAction('seeMore'), controller: this }
     this.dispatch('dispatch', { detail: { event: event } })
   },
+
+  dispatchGlobal({payload}) {
+    this.dispatch(this.rawId(this.element), { detail: payload })
+  },
+
+  getAttributes(element) {
+    let result = {}
+    Array.from(element.attributes).forEach(((nodeMap) => {
+      result = { ...result, [nodeMap.nodeName]: nodeMap.nodeValue }
+    }))
+    return result
+  },
+  
+  dispatchToGlobal(event) {
+    const dispatcher = this.findElementFromObjectArrayByObject(this.dispatchersParams, {listener: event.type})
+    this.dispatch(dispatcher.id, { detail: dispatcher })
+    console.log(`dispatcher: ${JSON.stringify(dispatcher)} `)
+  },
+  initializeReceiver() {
+    if (!this.hasReceiversParams) { return }
+    setTimeout(() => {
+      this.receiversParams.forEach((receiver) => {
+        const dispatcherElement = document.querySelector(`.dispatcher-id-${receiver.id}`)
+        const dispatcherIdentifier = this.getIdentifierFromElement(dispatcherElement)
+        this.addAction(this.element, `${dispatcherIdentifier}:${receiver.id}@window->${this.identifier}#receiveFromGlobal`)
+      })
+    }, 3000)
+  },
+  receiveFromGlobal(event) {
+    const eventAction = event.detail.action
+    this[eventAction]()
+  },
+  createEventBrige({fromElement, toElement, toAction}) {
+    this.addAction(toElement, `${this.getId(fromElement)}@window->${this.rawIdentifier(toElement)}#${toAction}`)
+  }
 }
 
 export default DispatchHelpers;
