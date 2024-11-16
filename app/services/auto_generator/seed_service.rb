@@ -1,38 +1,42 @@
 class AutoGenerator::SeedService
-  def self.run(seed_record: 1, seed_image: 1)
-    self.seed_for_application(seed_record, seed_image)
-    self.seed_for_vehicle(seed_record, seed_image)
-    self.seed_for_calendar(seed_record, seed_image)
-    self.seed_for_education(seed_record, seed_image)
-    self.seed_for_chat(seed_record, seed_image)
-    self.seed_for_article(seed_record, seed_image)
-    self.seed_for_estate(seed_record, seed_image)
-    self.seed_for_report(seed_record, seed_image)
-    puts "db:seed done!"
+  def self.run(seed_user: 20,seed_record: 1, seed_image: 1)
+    self.seed_for_application(seed_user, seed_record, seed_image)
+    self.seed_for_vehicle(seed_user, seed_record, seed_image)
+    self.seed_for_calendar(seed_user, seed_record, seed_image)
+    self.seed_for_education(seed_user, seed_record, seed_image)
+    self.seed_for_chat(seed_user, seed_record, seed_image)
+    self.seed_for_article(seed_user, seed_record, seed_image)
+    self.seed_for_estate(seed_user, seed_record, seed_image)
+    self.seed_for_report(seed_user, seed_record, seed_image)
+    puts "db:seed DONEEEEEEEEEEEEEEEEE!"
     return true
   end
 
 
-  def self.seed_for_application(seed_record, seed_image)
-    self.seed_for_user(seed_record, seed_image)
-    self.seed_for_category(seed_record, seed_image)
+  def self.seed_for_application(seed_user, seed_record, seed_image)
+    self.seed_for_user(seed_user, seed_record, seed_image)
+    self.seed_for_category(seed_user, seed_record, seed_image)
   end
 
-  def self.seed_for_user(seed_record, seed_image)
-    seed_record.times do |n|
+  def self.seed_for_user(seed_user, seed_record, seed_image)
+    seed_user.times do |n|
+      email = "email#{n}@gmail.com" if n <= 5
+      email = "email#{Time.now.to_i}_#{n + 1}@gmail.com" if n > 5
+
       user = User.create!(
-        email: "email#{Time.now.to_i}_#{n}@gmail.com",
+        email: email,
         password: "password1234",
         password_confirmation: "password1234",
         verified: true,
         name: "user name #{Faker::Movie.title}",
+        role: User.roles.values.sample,
         address: Address.create_random_vietnam,
       )
       self.attach(record: user, relation: :avatar, number: 1)
     end
   end
 
-  def self.seed_for_category(seed_record, seed_image)
+  def self.seed_for_category(seed_user, seed_record, seed_image)
     seed_record.times do |n|
       category = Category.create!(
         name: "category #{n}",
@@ -41,7 +45,7 @@ class AutoGenerator::SeedService
     end
   end
 
-  def self.seed_for_vehicle(seed_record, seed_image)
+  def self.seed_for_vehicle(seed_user, seed_record, seed_image)
     User.all.first(seed_record).each do |user|
       1.times do
         vehicle_store = VehicleStore.create!(
@@ -70,7 +74,7 @@ class AutoGenerator::SeedService
     end
   end
 
-  def self.seed_for_calendar(seed_record, seed_image)
+  def self.seed_for_calendar(seed_user, seed_record, seed_image)
     User.all.first(seed_record).each_with_index do |user, user_index|
       2.times do |n|
         calendar_group = CalendarGroup.create!(
@@ -115,9 +119,9 @@ class AutoGenerator::SeedService
     end
   end
 
-  def self.seed_for_education(seed_record, seed_image)
-    seed_record.times do |n|
-      education_school = EducationSchool.create!(name: "education school #{n}", user: User.all.sample, address: Address.create_random)
+  def self.seed_for_education(seed_user, seed_record, seed_image)
+    User.normal.each_with_index do |normal_user, index|
+      education_school = EducationSchool.create!(name: "education school #{index}", user: normal_user, address: Address.create_random)
       self.attach(record: education_school, relation: :avatar, number: 1)
       2.times do |n_1|
         education_class = EducationClass.create!(name: "education class #{n_1}", education_school: education_school)
@@ -137,12 +141,11 @@ class AutoGenerator::SeedService
       else
         education_student = EducationStudent.create!(name: "education student #{index}", user: user)
         self.attach(record: education_student, relation: :images, number: 2)
-        
       end
     end
   end
 
-  def self.seed_for_chat(seed_record, seed_image)
+  def self.seed_for_chat(seed_user, seed_record, seed_image)
     ChatUser.all.sample(seed_record).each do |chat_user|
       # ChatConversation.create!(chat_user_ids: ChatUser.pluck(:id).sample((2..5).to_a.sample).map(&:to_s))
       # ChatConversation.create!(chat_user_ids: [ChatUser.first.id, ChatUser.second.id])
@@ -157,7 +160,7 @@ class AutoGenerator::SeedService
     end
   end
 
-  def self.seed_for_article(seed_record, seed_image)
+  def self.seed_for_article(seed_user, seed_record, seed_image)
     User.all.first(seed_record).each_with_index do |user, user_index|
       1.times do |n|
         article_post = ArticlePost.create!(user_id: user.id, title: Faker::Movie.title)
@@ -222,7 +225,7 @@ class AutoGenerator::SeedService
     end
   end
 
-  def self.seed_for_estate(seed_record, seed_image)
+  def self.seed_for_estate(seed_user, seed_record, seed_image)
     User.all.first(seed_record).each_with_index do |user, index|
       estate_condo = EstateCondo.create!(
         user: user,
@@ -250,7 +253,7 @@ class AutoGenerator::SeedService
     end
   end
 
-  def self.seed_for_report(seed_record, seed_image)
+  def self.seed_for_report(seed_user, seed_record, seed_image)
     seed_record.times do |n|
       report_ticket = ReportTicket.create(
         title: "report ticket title #{n}",

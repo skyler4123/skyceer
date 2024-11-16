@@ -3,6 +3,7 @@ class User < ApplicationRecord
   include User::AvatarConcern
   include User::PackageConcern
   include User::ArticlePostImageConcern
+  include User::EnumConcern
 
   has_secure_password
 
