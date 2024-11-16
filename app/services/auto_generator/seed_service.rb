@@ -120,28 +120,26 @@ class AutoGenerator::SeedService
   end
 
   def self.seed_for_education(seed_user, seed_record, seed_image)
-    User.normal.each_with_index do |normal_user, index|
-      education_school = EducationSchool.create!(name: "education school #{index}", user: normal_user, address: Address.create_random)
+    User.normal.each_with_index do |user, index|
+      education_school = EducationSchool.create!(name: "education school #{index}", user: user, address: Address.create_random)
       self.attach(record: education_school, relation: :avatar, number: 1)
       2.times do |n_1|
         education_class = EducationClass.create!(name: "education class #{n_1}", education_school: education_school)
         self.attach(record: education_class, relation: :images, number: 2)
         
-        education_room = EducationRoom.create!(name: "education room #{n}_1", education_school: education_school)
+        education_room = EducationRoom.create!(name: "education room #{n_1}", education_school: education_school)
         self.attach(record: education_room, relation: :images, number: 2)
 
       end
     end
 
-    User.all.first(seed_record).each_with_index do |user, index|
-      if index.odd?
-        education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user)
-        self.attach(record: education_teacher, relation: :images, number: 2)
-        
-      else
-        education_student = EducationStudent.create!(name: "education student #{index}", user: user)
-        self.attach(record: education_student, relation: :images, number: 2)
-      end
+    User.education_teacher.each_with_index do |user, index|
+      education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user)
+      self.attach(record: education_teacher, relation: :images, number: 2)
+    end
+    User.education_student.each_with_index do |user, index|
+      education_student = EducationStudent.create!(name: "education student #{index}", user: user)
+      self.attach(record: education_student, relation: :images, number: 2)
     end
   end
 
