@@ -2,8 +2,8 @@ import ApplicationController from "../../../javascript/controllers/application_c
 import { Application_Logo } from "../application/logo";
 
 export default class extends ApplicationController {
-  initParams() {
-    this.setParams({name: 'variant', defaultValue: 'default'})
+  static values = {
+    className: { type: String, default: "flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2" }
   }
 
   init() {
@@ -22,13 +22,5 @@ export default class extends ApplicationController {
       <div>About</div>
       <div>Contact</div>
     `
-  }
-
-  variantClass() {
-    return {
-      default: {
-        element: 'flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2'
-      }
-    }
   }
 }

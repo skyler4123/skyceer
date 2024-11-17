@@ -1,9 +1,10 @@
-import { Icon, Link } from "../../../javascript/controllers/components"
 import { Views_Global_DarkmodeComponent } from "../global/darkmode_controller"
 import ApplicationController from "../../../javascript/controllers/application_controller";
 
 export default class extends ApplicationController {
-
+  static values = {
+    className: { type: String, default: 'flex flex-row w-full h-full' }
+  }
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})
   }
@@ -20,23 +21,19 @@ export default class extends ApplicationController {
     return `
       <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 mb-4 border-b-2 shadow-lg shadow-gray-300">
         <div>
-          ${Link({url: "/"}, () => {
-            return `
-              <div class="flex flex-row gap-x-2 justify-center items-center">
-                ${Icon({variant: ["solid", "sparkles"], klass: "h-10 w-10 bg-red-500 text-white rounded-md bg-gradient-to-r from-cyan-500 to-blue-500"})}
-                <div>Skyceer</div>
-              </div>
-            `
-          })}
+          <a href="/education_schools">
+            <div class="flex flex-row gap-x-2 justify-center items-center">
+              <svg data-controller="svg" data-svg-params-value="${this.transferToValue({variant: ["solid", "sparkles"]})}" class="h-10 w-10 bg-red-500 text-white rounded-md bg-gradient-to-r from-cyan-500 to-blue-500"></svg>
+              <div>Skyceer</div>
+            </div>
+          </a>
         </div>
         <div class="flex flex-row gap-x-2">
-          <div>${Link({label: 'Home', url: "/"})}</div>
-          <div>${Link({label: 'Academic', url: "/education_houses"})}</div>
-          <div>${Link({label: 'Teacher', url: "/educatione_posts"})}</div>
-          <div>${Link({label: 'Student', url: "/educatione_posts"})}</div>
-          <div>${Link({label: 'Contact', url: "/educatione_posts"})}</div>
-
-
+          <a href="/"">Home</a>
+          <a href="/education_houses">Academic</a>
+          <a href="/educatione_posts">Teacher</a>
+          <a href="/educatione_posts">Student</a>
+          <a href="/educatione_posts">Contact</a>
         </div>
         <div class="flex flex-row">
           ${Views_Global_DarkmodeComponent()}
@@ -44,13 +41,5 @@ export default class extends ApplicationController {
       </div>
     </div>
     `
-  }
-  
-  variantClass() {
-    return {
-      default: {
-        element: 'flex flex-row w-full h-full'
-      }
-    }
   }
 }

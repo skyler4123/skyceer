@@ -8,8 +8,6 @@ import ApiHelpers from "./api_helpers";
 import { CookieHelpers } from "./cookie_helpers";
 import ResponseHelpers from "./response_helpers";
 import FormHelpers from "./form_helpers";
-import { COUNTRY } from "./constants/country";
-import AddressHelpers from "./address_helpers";
 
 export default class ApplicationController extends Controller {
 
@@ -53,6 +51,7 @@ export default class ApplicationController extends Controller {
   }
 
   initializeComplete() {
+    this.addClass(this.element, this.classNameValue)
     if (this.isDefined(this.initClass)) { this.initClass() }
     if (this.isDefined(this.initAction)) { this.initAction() }
     if (this.isDefined(this.initComplete)) { this.initComplete() }
@@ -100,4 +99,3 @@ Object.assign(ApplicationController.prototype, ApiHelpers)
 Object.assign(ApplicationController.prototype, CookieHelpers)
 Object.assign(ApplicationController.prototype, ResponseHelpers)
 Object.assign(ApplicationController.prototype, FormHelpers)
-Object.assign(ApplicationController.prototype, AddressHelpers)
