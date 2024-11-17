@@ -62,15 +62,15 @@ const DomHelpers = {
   },
 
   fitHeight() {
-    this.addClass(this.element, 'h-fit')
+    this.mergeClass(this.element, 'h-fit')
   },
 
   noneShadow() {
-    this.addClass(this.element, 'shadow-none')
+    this.mergeClass(this.element, 'shadow-none')
   },
 
   hide() {
-    this.addClass(this.element, 'hidden')
+    this.mergeClass(this.element, 'hidden')
   },
 
   updateText(element, newText) {
@@ -102,6 +102,11 @@ const DomHelpers = {
       element.setAttribute(attribute[0], attribute[1].substring(1, attribute[1].length - 1))
     })
     return element
+  },
+  
+  transferToValue(value) {
+    let newValue = JSON.stringify(value).replace(/"/g, '&quot;')
+    return newValue
   }
 }
 

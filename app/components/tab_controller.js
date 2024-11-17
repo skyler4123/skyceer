@@ -70,12 +70,10 @@ export default class TabController extends ApplicationController {
   }
 
   tabIndexValueChanged(value, previousValue) {
-    this.startViewTransition(() => {
-      this.tabTargets.forEach((target) => {
-        target.removeAttribute('open')
-      })
-      this.tabTargets[this.tabIndexValue].setAttribute('open', '')
+    this.tabTargets.forEach((target) => {
+      target.removeAttribute('open')
     })
+    this.tabTargets[this.tabIndexValue].setAttribute('open', '')
     if (this.hasRestoreTimeoutParams || this.hasRestoreIndexParams) {
       this.restore({timeout: this.restoreTimeoutParams || 3000, index: this.restoreIndexParams || 0})
     }

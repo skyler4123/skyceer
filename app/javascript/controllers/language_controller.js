@@ -7,6 +7,8 @@ export default class LanguageController extends ApplicationController {
     language: { type: String, default: 'english' }
   }
 
+  initializeID() { }
+
   init() {
     this.initLanguageKey()
   }

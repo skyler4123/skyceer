@@ -2,12 +2,12 @@ import { v4 as uuidv4 } from "uuid"
 import { Controller } from "@hotwired/stimulus"
 import DataHelpers from "./data_helpers";
 import DomHelpers from "./dom_helpers";
-import DispatchHelpers from "./dispatch_helpers";
-import ControllerHelpers from "./controller_helpers";
-import ApiHelpers from "./api_helpers";
-import { CookieHelpers } from "./cookie_helpers";
-import ResponseHelpers from "./response_helpers";
-import FormHelpers from "./form_helpers";
+// import DispatchHelpers from "./dispatch_helpers";
+// import ControllerHelpers from "./controller_helpers";
+// import ApiHelpers from "./api_helpers";
+// import { CookieHelpers } from "./cookie_helpers";
+// import ResponseHelpers from "./response_helpers";
+// import FormHelpers from "./form_helpers";
 
 export default class ApplicationController extends Controller {
 
@@ -51,13 +51,17 @@ export default class ApplicationController extends Controller {
   }
 
   initializeComplete() {
-    this.addClass(this.element, this.classNameValue)
+    this.initializeClass()
     if (this.isDefined(this.initClass)) { this.initClass() }
     if (this.isDefined(this.initAction)) { this.initAction() }
     if (this.isDefined(this.initComplete)) { this.initComplete() }
     this.isInitializedValue = true
   }
 
+  initializeClass() {
+    if (this.classNameValue.length < 1) { return }
+    this.addClass(this.element, this.classNameValue)
+  }
   setParams({name, defaultValue}) {
     if (this.isDefined(this[`${name}Params`])) { return }
     this[`${name}Params`] = this.paramsValue[name] || defaultValue
@@ -87,15 +91,48 @@ export default class ApplicationController extends Controller {
     return location.protocol
   }
 
+  addClass(element, klass) {
+    if (element.tagName === 'svg') {
+      element.className.baseVal = element.className.baseVal.concat(klass)
+      element.className.baseVal = element.className.baseVal.trim()
+    } else {
+      element.className = element.className.concat(klass)
+      element.className = element.className.trim()
+    }
+  }
 
+  mergeElementWithHTML(element, html) {
+    const newNode = this.createNodeFromHTML(html).firstElementChild
+    this.cloneAttributes(element, newNode)
+    element.innerHTML = newNode.innerHTML
+  }
 
+  createNodeFromHTML(html) {
+    return document.createRange().createContextualFragment(html)
+  }
+
+  cloneAttributes(element, refElement) {
+    const refAttributes = this.getAttributes(refElement)
+    Object.keys(refAttributes).forEach((attributeKey) => {
+      element.setAttribute(attributeKey, refAttributes[attributeKey])
+    })
+    return element
+  }
+
+  getAttributes(element) {
+    let result = {}
+    Array.from(element.attributes).forEach(((nodeMap) => {
+      result = { ...result, [nodeMap.nodeName]: nodeMap.nodeValue }
+    }))
+    return result
+  }
 }
 
 Object.assign(ApplicationController.prototype, DataHelpers)
 Object.assign(ApplicationController.prototype, DomHelpers)
-Object.assign(ApplicationController.prototype, DispatchHelpers)
-Object.assign(ApplicationController.prototype, ControllerHelpers)
-Object.assign(ApplicationController.prototype, ApiHelpers)
-Object.assign(ApplicationController.prototype, CookieHelpers)
-Object.assign(ApplicationController.prototype, ResponseHelpers)
-Object.assign(ApplicationController.prototype, FormHelpers)
+// Object.assign(ApplicationController.prototype, DispatchHelpers)
+// Object.assign(ApplicationController.prototype, ControllerHelpers)
+// Object.assign(ApplicationController.prototype, ApiHelpers)
+// Object.assign(ApplicationController.prototype, CookieHelpers)
+// Object.assign(ApplicationController.prototype, ResponseHelpers)
+// Object.assign(ApplicationController.prototype, FormHelpers)
