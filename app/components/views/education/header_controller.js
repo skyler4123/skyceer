@@ -19,7 +19,7 @@ export default class extends ApplicationController {
 
   defaultHTML() {
     return `
-      <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 mb-4 border-b-2 shadow-lg shadow-gray-300">
+      <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 border-b-2">
         <div>
           <a href="/education_schools">
             <div class="flex flex-row gap-x-2 justify-center items-center">

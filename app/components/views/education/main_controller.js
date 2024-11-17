@@ -2,7 +2,7 @@ import ApplicationController from "../../../javascript/controllers/application_c
 
 export default class extends ApplicationController {
   static values = {
-    className: { type: String, default: "flex flex-row" }
+    className: { type: String, default: "relative flex flex-row w-full h-full" }
   }
   // connect() {
   //   console.log("Hello, Stimulus!", this.element);

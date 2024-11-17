@@ -51,11 +51,19 @@ export default class ApplicationController extends Controller {
   }
 
   initializeComplete() {
+    this.initializeAttribute()
     this.initializeClass()
     if (this.isDefined(this.initClass)) { this.initClass() }
     if (this.isDefined(this.initAction)) { this.initAction() }
     if (this.isDefined(this.initComplete)) { this.initComplete() }
     this.isInitializedValue = true
+  }
+
+  initializeAttribute() {
+    if (this.isUndefined(this.attributesValue)) { return }
+    Object.keys(this.attributesValue).forEach(key => {
+      this.element.setAttribute(key, this.attributesValue[key])
+    })
   }
 
   initializeClass() {
