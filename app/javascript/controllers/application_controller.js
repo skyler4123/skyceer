@@ -13,13 +13,9 @@ export default class ApplicationController extends Controller {
 
   static values = {
     params: { type: Object },
-    isOpen: { type: Boolean },
-    isFocus: { type: Boolean },
-    isActive: { type: Boolean },
-    isHover: { type: Boolean },
-    canInitialize: { type: Boolean, default: true },
     isInitialized: { type: Boolean },
-    className: { type: String }
+    className: { type: String },
+    attributes: { type: Object }
   }
 
   initialize() {
@@ -60,7 +56,6 @@ export default class ApplicationController extends Controller {
   }
 
   initializeAttribute() {
-    if (this.isUndefined(this.attributesValue)) { return }
     Object.keys(this.attributesValue).forEach(key => {
       this.element.setAttribute(key, this.attributesValue[key])
     })

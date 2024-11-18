@@ -2,18 +2,30 @@ import ApplicationController from "../../../javascript/controllers/application_c
 
 export default class extends ApplicationController {
   static values = {
-    // className: { type: String, default: "w-1/4 h-screen open:" },
     attributes: { type: Object, default: {
       open: true,
       role: "toggle",
-      class: 'w-1/4 h-screen'
-    } }
+      class: 'open:w-1/4 h-screen'
+    } },
+    isOpen: { type: Boolean, default: true }
   }
 
   init() {
     this.element.innerHTML = this.defaultHTML()
   }
 
+  open() {
+
+  }
+
+  close() {
+
+  }
+
+  isOpenValueCHanged() {
+
+  }
+  
   defaultHTML() {
     return `
 <ul>
