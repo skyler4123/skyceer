@@ -107,7 +107,14 @@ const DomHelpers = {
   transferToValue(value) {
     let newValue = JSON.stringify(value).replace(/"/g, '&quot;')
     return newValue
+  },
+  
+  id() {
+    if (this.element.id) { return this.element.id }
+    this.element.id = `${this.getControllerIdentifier(this.element)}:${this.newUUID()}`
+    return this.element.id
   }
+
 }
 
 export default DomHelpers;

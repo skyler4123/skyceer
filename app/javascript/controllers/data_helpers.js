@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid"
+
 const DataHelpers = {
   normalizeParamsValue(object) {
     let params = object
@@ -520,6 +522,14 @@ const DataHelpers = {
     if (this.isArray(x)) { return x.length === 0 }
     if (this.isString(x)) { return x === "" }
     if (this.isNumber(x)) { return false }
+  },
+
+  newUUID() {
+    if (this.protocol() === 'https') {
+      return crypto.randomUUID()
+    } else {
+      return uuidv4()
+    }
   }
 
 }

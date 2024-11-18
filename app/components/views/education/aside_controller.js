@@ -5,7 +5,7 @@ export default class extends ApplicationController {
     attributes: { type: Object, default: {
       open: true,
       role: "toggle",
-      class: 'open:w-1/4 h-screen'
+      class: 'hidden open:flex w-1/4 h-screen'
     } },
     isOpen: { type: Boolean, default: true }
   }
@@ -13,23 +13,12 @@ export default class extends ApplicationController {
   init() {
     this.element.innerHTML = this.defaultHTML()
   }
-
-  open() {
-
-  }
-
-  close() {
-
-  }
-
-  isOpenValueCHanged() {
-
-  }
   
   defaultHTML() {
     return `
-<ul>
-  <li><a
+<ul class="w-full h-full">
+  <li class="w-full">
+    <a
       class="group flex items-center lg:text-sm lg:leading-6 mb-4 font-medium text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
       href="https://tailwindui.com/components?ref=sidebar">
       <div
@@ -44,8 +33,10 @@ export default class extends ApplicationController {
             class="fill-indigo-400 group-hover:fill-indigo-500 dark:group-hover:fill-indigo-400 dark:fill-slate-600">
           </path>
         </svg></div>Components
-    </a></li>
-  <li><a
+    </a>
+  </li>
+  <li>
+    <a
       class="group flex items-center lg:text-sm lg:leading-6 mb-4 font-medium text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
       href="https://tailwindui.com/templates?ref=sidebar">
       <div
@@ -60,7 +51,8 @@ export default class extends ApplicationController {
             d="M13 12C13 11.4477 13.4477 11 14 11H17C17.5523 11 18 11.4477 18 12V17C18 17.5523 17.5523 18 17 18H14C13.4477 18 13 17.5523 13 17V12Z"
             fill="#F0ABFC" class="fill-fuchsia-300 group-hover:fill-fuchsia-400 dark:fill-slate-500"></path>
         </svg></div>Templates
-    </a></li>
+    </a>
+  </li>
 </ul>
     `
   }

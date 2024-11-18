@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid"
 import { Controller } from "@hotwired/stimulus"
 import DataHelpers from "./data_helpers";
 import DomHelpers from "./dom_helpers";
@@ -13,6 +12,7 @@ export default class ApplicationController extends Controller {
 
   static values = {
     params: { type: Object },
+    isOpen: { type: Boolean },
     isInitialized: { type: Boolean },
     className: { type: String },
     attributes: { type: Object }
@@ -75,18 +75,23 @@ export default class ApplicationController extends Controller {
     if (this.isTestParams) { console.log(this) }
   }
 
-
-  get id() {
-    if (this.element.id) { return this.element.id }
-    this.element.id = `${this.getControllerIdentifier(this.element)}:${this.newUUID()}`
-    return this.element.id
+  open() {
+    this.isOpenValue = true
   }
-  
-  newUUID() {
-    if (this.protocol() === 'https') {
-      return crypto.randomUUID()
+
+  close() {
+    this.isOpenValue = false
+  }
+
+  toggle() {
+    this.isOpenValue = !this.isOpenValue
+  }
+
+  isOpenValueChanged(value, previousValue) {
+    if (value) {
+      this.element.setAttribute('open', '')
     } else {
-      return uuidv4()
+      this.element.removeAttribute('open')
     }
   }
 
