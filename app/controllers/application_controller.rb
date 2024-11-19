@@ -35,10 +35,7 @@ class ApplicationController < ActionController::Base
       Session.create!(
         name: user.name,
         email: user.email,
-        user_id: user.id,
-        education_school_id: user.education_school,
-        education_teacher_id: user.education_teacher,
-        education_student_id: user.education_student,
+        user_id: user.id
       )
     end
 

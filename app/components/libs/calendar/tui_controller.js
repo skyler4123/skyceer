@@ -4,20 +4,17 @@ import ApplicationController from "../../../javascript/controllers/application_c
 export default class extends ApplicationController {
   static targets= ["calendar"]
   static values = {
-    ...super.values,
+    className: { type: String, default: "w-full h-[700px]" },
     groups: { type: Array, default: [] },
     events: { type: Array, default: [] }
   }
 
   initParams() {
-    this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'options', defaultValue: this.optionsParamsDefault()})
   }
 
-  initComplete() {
-    if (!this.hasCalendarTarget) {
-      this.element.insertAdjacentHTML('beforeend', `<div class="w-full h-full" data-${this.identifier}-target="calendar"></div>`)
-    }
+  init() {
+    this.initHTML()
     this.calendar = new Calendar(this.calendarTarget, this.options());
     this.initCalendarAction()
     this.initValues()
@@ -25,6 +22,12 @@ export default class extends ApplicationController {
     this.createEvents(this.eventsValue)
   }
 
+  initHTML() {
+    if (!this.hasCalendarTarget) {
+      this.element.insertAdjacentHTML('beforeend', `<div class="w-full h-full" data-${this.identifier}-target="calendar"></div>`)
+    }
+  }
+  
   initValues() {
     if (this.groupsValue.length < 1) { this.groupsValue = this.defaultGroups()}
     if (this.eventsValue.length < 1) { this.eventsValue = this.defaultEvents()}
