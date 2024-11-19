@@ -3,7 +3,6 @@ import ApplicationController from "../javascript/controllers/application_control
 export default class FormController extends ApplicationController {
   static targets = [...super.targets, 'input']
   static values = {
-    ...super.values,
     form: { type: Object, default: {} },
     submit: { type: Object, default: {} },
   }
@@ -20,9 +19,9 @@ export default class FormController extends ApplicationController {
   }
 
   initAction() {
-    this.addAction(this.element, `submit->${this.identifier}#submit`)
+    this.element.dataset.action += ` submit->${this.identifier}#submit`
     this.inputTargets.forEach((target) => {
-      this.addAction(target, `input->${this.identifier}#input`)
+      target.dataset.action += ` input->${this.identifier}#input`
     })
   }
 
@@ -51,7 +50,6 @@ export default class FormController extends ApplicationController {
   }
 
   submit(event) {
-    console.log(event)
     event.preventDefault()
     this.submitValue = this.formValue
   }

@@ -29,21 +29,28 @@ import { csrfToken } from '../../../javascript/controllers/api/api_helpers';
 export default class EditorjsController extends ApplicationController {
   static targets = ["editor"]
   static values = {
-    ...super.values,
+    className: { type: String, default: "w-full h-fit border-2 border-gray-200 rounded-md p-4" }
   }
 
   initParams() {
-    this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'savedData', defaultValue: this.demoSavedData()})
     this.setParams({name: 'endpointUploadImageByFile', defaultValue: '/images/editorjs_upload_by_file'})
     this.setParams({name: 'endpointUploadImageByUrl', defaultValue: '/images/editorjs_upload_by_url'})
   }
 
   initComplete() {
-    console.log(this)
+    this.initHTML()
+    this.initEditor()
+  }
+
+  initHTML() {
     if (!this.hasEditorTarget) {
       this.element.insertAdjacentHTML('afterbegin', `<div data-${this.identifier}-target="editor"></div>`)
     }
+  }
+
+  initEditor() {
+    console.log(this)
     this.editorJS = new EditorJS({
       holder: this.editorTarget,
       autofocus: true,
@@ -158,14 +165,14 @@ export default class EditorjsController extends ApplicationController {
     return outputData
   }
 
-  variantClass() {
-    return {
-      default: {
-        element: 'w-full h-fit border-2 border-gray-200 rounded-md p-4',
-        editorTarget: 'w-full'
-      }
-    }
-  }
+  // variantClass() {
+  //   return {
+  //     default: {
+  //       element: 'w-full h-fit border-2 border-gray-200 rounded-md p-4',
+  //       editorTarget: 'w-full'
+  //     }
+  //   }
+  // }
 
   demoSavedData() {
     return {
