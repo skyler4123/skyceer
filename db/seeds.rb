@@ -38,3 +38,4 @@ CalendarEvent.destroy_all
 
 # Run generator for development
 AutoGenerator::SeedService.run(seed_record: 10, seed_image: 50)
+puts "db:seed doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!!"

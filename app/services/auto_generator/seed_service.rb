@@ -8,7 +8,7 @@ class AutoGenerator::SeedService
     self.seed_for_article(seed_user, seed_record, seed_image)
     self.seed_for_estate(seed_user, seed_record, seed_image)
     self.seed_for_report(seed_user, seed_record, seed_image)
-    puts "db:seed DONEEEEEEEEEEEEEEEEE!"
+    puts "AutoGenerator::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"
     return true
   end
 
@@ -134,11 +134,11 @@ class AutoGenerator::SeedService
     end
 
     User.education_teacher.each_with_index do |user, index|
-      education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user)
+      education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user, education_school: EducationSchool.all.sample)
       self.attach(record: education_teacher, relation: :images, number: 2)
     end
     User.education_student.each_with_index do |user, index|
-      education_student = EducationStudent.create!(name: "education student #{index}", user: user)
+      education_student = EducationStudent.create!(name: "education student #{index}", user: user, education_school: EducationSchool.all.sample)
       self.attach(record: education_student, relation: :images, number: 2)
     end
   end

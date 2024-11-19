@@ -3,4 +3,5 @@ class EducationStudent < ApplicationRecord
   include EducationStudent::ImagesConcern
 
   belongs_to :user
+  belongs_to :education_school
 end
