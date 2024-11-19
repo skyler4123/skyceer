@@ -35,6 +35,7 @@ module Skyceer
 
 
 
+    # Customize configurations
 
     # Don't generate system test files.
     config.generators.system_tests = nil
@@ -49,5 +50,6 @@ module Skyceer
     config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
     # config.solid_queue.silence_polling = false
     config.cache_store = :solid_cache_store
+    config.action_dispatch.tld_length = 0
   end
 end

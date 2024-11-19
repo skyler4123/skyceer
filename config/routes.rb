@@ -5,6 +5,17 @@
 # end
 
 Rails.application.routes.draw do
+  # namespace :admin do
+  scope module: :admin do
+    constraints subdomain: "admin" do
+      resources :education_rooms
+      resources :education_students
+      resources :education_teachers
+      resources :education_schools
+      resources :education_classes
+    end
+  end
+  
   resources :categories
   # EDUCATION package
   resources :education_rooms
