@@ -157,9 +157,9 @@ class AutoGenerator::SeedService
       ChatConversation.create!(user_ids: [user.id, User.where.not(id: user.id).first(2).pluck(:id)].flatten)
     end
     
-    ChatConversation.all.first(1).each_with_index do |chat_conversation, n|
+    ChatConversation.all.each_with_index do |chat_conversation, n|
       user_ids = chat_conversation.user_ids
-      1.times do |n_1|
+      5.times do |n_1|
         chat_conversation.chat_messages << ChatMessage.new(user_id: user_ids.sample, content: "content #{Time.now.to_i}_#{n}_#{n_1}")
       end
     end
