@@ -5,7 +5,10 @@
 # end
 
 Rails.application.routes.draw do
-  # namespace :admin do
+
+  
+  resources :categories
+  # EDUCATION package
   scope module: :admin do
     constraints subdomain: "admin" do
       resources :education_rooms
@@ -15,15 +18,20 @@ Rails.application.routes.draw do
       resources :education_classes
     end
   end
-  
-  resources :categories
-  # EDUCATION package
+  scope module: :school do
+    constraints subdomain: "school" do
+      resources :education_rooms
+      resources :education_students
+      resources :education_teachers
+      resources :education_schools
+      resources :education_classes
+    end
+  end
   resources :education_rooms
   resources :education_students
   resources :education_teachers
   resources :education_schools
   resources :education_classes
-
   # REPORT
   resources :report_frontends
   resources :report_tickets

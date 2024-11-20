@@ -27,7 +27,25 @@ class User < ApplicationRecord
     sessions.where.not(id: Current.session).delete_all
   end
 
+  # Customize the user model here
+
   belongs_to :address, optional: true
   has_many :sessions, dependent: :destroy
 
+  def subdomain
+    case role
+    when :normal
+      ""
+    when :admin
+      :admin
+    when :education_school
+      :school
+    when :education_teacher
+      :teacher
+    when :education_student
+      :student
+    else
+      ""
+    end
+  end
 end

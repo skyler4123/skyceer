@@ -36,6 +36,9 @@ EducationClass.destroy_all
 CalendarGroup.destroy_all
 CalendarEvent.destroy_all
 
+ReportTicket.destroy_all
+ReportFrontend.destroy_all
+
 # Run generator for development
-AutoGenerator::SeedService.run(seed_record: 10, seed_image: 50)
+AutoGenerator::SeedService.run(seed_number: 50)
 puts "db:seed doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!!"

@@ -1,9 +1,10 @@
-class EducationSchoolsController < EducationController
+class School::EducationSchoolsController < School::EducationController
   before_action :set_education_school, only: %i[ show edit update destroy ]
 
   # GET /education_schools or /education_schools.json
   def index
-    @education_schools = EducationSchool.where(user_id: Current.user_id)
+    # debugger
+    @education_schools = [Current.education_school]
   end
 
   # GET /education_schools/1 or /education_schools/1.json

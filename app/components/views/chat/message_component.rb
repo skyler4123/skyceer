@@ -3,12 +3,12 @@
 class Views::Chat::MessageComponent < ApplicationComponent
 
   erb_template <<-ERB
-      <%= [@chat_message.chat_user_id, @chat_message.content] %>
-    </<%= @tag %>>
+      <%= [@user_id, @content] %>
   ERB
 
-  def initialize(chat_message:)
-    @chat_message = chat_message
+  def initialize(user_id:, content:)
+    @user_id = user_id
+    @content = content
   end
   # def call
   #   content_tag :h1, "Hello world!", data: { controller: "views--chat--message-component" }
