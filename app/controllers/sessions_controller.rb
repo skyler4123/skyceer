@@ -11,13 +11,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user = User.authenticate_by(email: params[:email], password: params[:password])
+    if @user = User.authenticate_by(email: params[:email], password: params[:password])
       # @session = user.sessions.create!
-      Session.where(user_id: user.id).destroy_all
-      @session = create_session_for_all_package(user: user)
+      Session.where(user_id: @user.id).destroy_all
+      @session = create_session_for_all_package(user: @user)
       # cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
-      set_cookie(session: @session, user: user)
-      redirect_to redirect_url_after_create, notice: "Signed in successfully"
+      set_cookie(session: @session, user: @user)
+      redirect_to redirect_url_after_create, allow_other_host: true, notice: "Signed in successfully"
     else
       redirect_to sign_in_path(email_hint: params[:email]), alert: "That email or password is incorrect"
     end
@@ -32,13 +32,14 @@ class SessionsController < ApplicationController
   end
   
   private
+
     def set_session
       @session = Current.user.sessions.find(params[:id])
     end
 
     def redirect_url_after_create
-      return root_path unless referer_params
-      return root_path unless referer_params[:redirect_to]
+      return root_url(subdomain: @user.subdomain) unless referer_params
+      return root_url(subdomain: @user.subdomain) unless referer_params[:redirect_to]
       referer_params[:redirect_to]
     end
 end

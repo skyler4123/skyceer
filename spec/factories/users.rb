@@ -5,5 +5,6 @@ FactoryBot.define do
     password_confirmation { "password1234" }
     verified { true }
     sequence(:name) { |n| "user_name_#{n}" }
+    education_role { User.education_roles.keys.sample }
   end
 end

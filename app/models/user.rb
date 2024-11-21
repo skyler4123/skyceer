@@ -1,3 +1,4 @@
+
 class User < ApplicationRecord
   include User::ElasticsearchConcern
   include User::AvatarConcern
@@ -33,9 +34,9 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
 
   def subdomain
-    case role
+    case education_role.to_sym
     when :normal
-      ""
+      nil
     when :admin
       :admin
     when :education_school
@@ -45,7 +46,7 @@ class User < ApplicationRecord
     when :education_student
       :student
     else
-      ""
+      nil
     end
   end
 end
