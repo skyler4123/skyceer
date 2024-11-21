@@ -253,14 +253,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_204200) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "name"
-    t.integer "role"
+    t.integer "education_role"
     t.boolean "verified", default: false, null: false
     t.uuid "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_users_on_address_id"
+    t.index ["education_role"], name: "index_users_on_education_role"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["role"], name: "index_users_on_role"
   end
 
   create_table "vehicle_cars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
