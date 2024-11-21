@@ -5,7 +5,7 @@ browser_options = {
   'no-sandbox': nil,
 }
 options = {
-  headless: ENABLE_HEADLESS_MODE_BROWSER, # (String | Boolean) - Set browser as headless or not, true by default. You can set "new" to support new headless mode.
+  headless: false, # (String | Boolean) - Set browser as headless or not, true by default. You can set "new" to support new headless mode.
   # xvfb: false, # (Boolean) - Run browser in a virtual framebuffer, false by default.
   # flatten: true, # (Boolean) - Use one websocket connection to the browser and all the pages in flatten mode.
   window_size: [1024, 768], # (Array) - The dimensions of the browser window in which to test, expressed as a 2-element array, e.g. [1024, 768]. Default: [1024, 768]
@@ -33,3 +33,9 @@ options = {
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app, options)
 end
+
+Capybara.default_driver = :cuprite
+Capybara.use_default_driver
+Capybara.app_host = 'http://lvh.me'
+Capybara.always_include_port = true
+

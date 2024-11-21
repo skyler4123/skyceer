@@ -1,20 +1,19 @@
 require 'rails_helper'
 
 RSpec.feature "Authentication::SignIns", type: :feature do
-  let(:user) { create(:user, education_role: :school) }
-  # before do
-  #   Capybara.default_driver = :selenium_chrome_headless
-  #   Capybara.use_default_driver
-  # end
+  let(:user) { create(:user, education_role: :education_school) }
 
   it "signs me in" do
+    # debugger
     visit '/sign_in'
     fill_in 'email', with: user.email
     fill_in 'password', with: user.password
-    fill_in 'password_confirmation', with: user.password_confirmation
     submit_button = find('input[type="submit"]')
+    # page.driver.debug
+    # debugger
+    
     submit_button.click
-    page.driver.debug
-    expect(page).to have_content('Skip initial efforts')
+    
+    expect(page).to be_subdomain_of("school")
   end
 end
