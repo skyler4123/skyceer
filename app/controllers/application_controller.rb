@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
-  include Pundit::Authorization
   # include Rails.application.routes.url_helpers
+  include ApplicationController::PunditConcern
+  include ApplicationController::FlashConcern
   include Pagy::Backend
   append_view_path(Dir.glob(Rails.root.join('app/packages/*/views')))
 
@@ -35,7 +36,9 @@ class ApplicationController < ActionController::Base
       Session.create!(
         name: user.name,
         email: user.email,
-        user_id: user.id
+        user_id: user.id,
+        role: user.role,
+        education_role: user.education_role
       )
     end
 

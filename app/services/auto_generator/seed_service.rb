@@ -19,15 +19,13 @@ class AutoGenerator::SeedService
   end
 
   def self.seed_for_user(seed_number)
-    education_role_number = User.education_roles.keys.length
+    self.seed_user_with_role
+    self.seed_user_with_education_role
+
     seed_number.times do |n|
-      if n <= (education_role_number - 1)
-        education_role = User.education_roles.keys[n]
-        email = "#{education_role}@example.com"
-      else
-        education_role = User.education_roles.keys.sample
-        email = "#{education_role}_#{n}_#{Time.now.to_i}@example.com"
-      end
+      role = :normal
+      education_role = User.education_roles.keys.sample
+      email = "#{role}_#{education_role}_#{n}_#{Time.now.to_i}@example.com"
 
       user = User.create!(
         email: email,
@@ -35,7 +33,39 @@ class AutoGenerator::SeedService
         password_confirmation: "password1234",
         verified: true,
         name: "user name #{Faker::Movie.title}",
+        role: role,
         education_role: education_role,
+        address: Address.create_random_vietnam,
+      )
+      self.attach(record: user, relation: :avatar, number: 1)
+    end
+  end
+
+  def self.seed_user_with_role
+    User.roles.each do |key, value|
+      user = User.create!(
+        email: "#{key}@example.com",
+        password: "password1234",
+        password_confirmation: "password1234",
+        verified: true,
+        name: "user name #{Faker::Movie.title}",
+        role: key,
+        address: Address.create_random_vietnam,
+      )
+      self.attach(record: user, relation: :avatar, number: 1)
+    end
+  end
+
+  def self.seed_user_with_education_role
+    User.education_roles.each do |key, value|
+      user = User.create!(
+        email: "#{key}@example.com",
+        password: "password1234",
+        password_confirmation: "password1234",
+        verified: true,
+        name: "user name #{Faker::Movie.title}",
+        role: :normal,
+        education_role: key,
         address: Address.create_random_vietnam,
       )
       self.attach(record: user, relation: :avatar, number: 1)

@@ -4,7 +4,8 @@ class CreateSessions < ActiveRecord::Migration[7.0]
       t.string :email
       t.string :name
       t.string :user_id, null: false, foreign_key: true, type: :uuid
-
+      t.integer :role
+      t.integer :education_role
       t.string :avatar
       t.string :user_agent
       t.string :ip_address

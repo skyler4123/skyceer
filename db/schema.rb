@@ -253,6 +253,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_10_204200) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "name"
+    t.integer "role"
     t.integer "education_role"
     t.boolean "verified", default: false, null: false
     t.uuid "address_id"

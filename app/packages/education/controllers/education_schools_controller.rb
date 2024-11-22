@@ -4,6 +4,7 @@ class EducationSchoolsController < EducationController
   # GET /education_schools or /education_schools.json
   def index
     @education_schools = EducationSchool.where(user_id: Current.user_id)
+    authorize @education_schools
   end
 
   # GET /education_schools/1 or /education_schools/1.json

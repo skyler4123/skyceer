@@ -19,6 +19,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_05_04_105020) do
     t.string "email"
     t.string "name"
     t.string "user_id", null: false
+    t.integer "role"
+    t.integer "education_role"
     t.string "avatar"
     t.string "user_agent"
     t.string "ip_address"

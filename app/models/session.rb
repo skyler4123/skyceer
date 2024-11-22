@@ -1,4 +1,6 @@
 class Session < SessionApplicationRecord
+  include User::EnumConcern
+
   belongs_to :user
 
   before_create do

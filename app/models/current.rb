@@ -6,6 +6,14 @@ class Current < ActiveSupport::CurrentAttributes
 
   delegate :user, to: :session, allow_nil: true
 
+  def self.current_user
+    self.session
+  end
+
+  def self.education_role
+    self.session.education_role
+  end
+
   def self.user_name
     self.session.name
   end
