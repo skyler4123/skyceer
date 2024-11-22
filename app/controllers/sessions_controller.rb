@@ -38,8 +38,8 @@ class SessionsController < ApplicationController
     end
 
     def redirect_url_after_create
-      return root_url(subdomain: @user.subdomain) unless referer_params
-      return root_url(subdomain: @user.subdomain) unless referer_params[:redirect_to]
+      return root_url unless referer_params
+      return root_url unless referer_params[:redirect_to]
       referer_params[:redirect_to]
     end
 end

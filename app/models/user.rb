@@ -33,20 +33,4 @@ class User < ApplicationRecord
   belongs_to :address, optional: true
   has_many :sessions, dependent: :destroy
 
-  def subdomain
-    case education_role.to_sym
-    when :normal
-      nil
-    when :admin
-      :admin
-    when :education_school
-      :school
-    when :education_teacher
-      :teacher
-    when :education_student
-      :student
-    else
-      nil
-    end
-  end
 end

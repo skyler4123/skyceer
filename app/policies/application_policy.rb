@@ -43,7 +43,8 @@ class ApplicationPolicy
     end
 
     def resolve
-      raise NoMethodError, "You must define #resolve in #{self.class}"
+      redirect_to root_path
+      # raise NoMethodError, "You must define #resolve in #{self.class}"
     end
 
     private

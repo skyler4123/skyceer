@@ -9,29 +9,38 @@ Rails.application.routes.draw do
   
   resources :categories
   # EDUCATION package
-  scope module: :admin do
-    constraints subdomain: "admin" do
-      resources :education_rooms
-      resources :education_students
-      resources :education_teachers
-      resources :education_schools
-      resources :education_classes
-    end
-  end
-  scope module: :school do
-    constraints subdomain: "school" do
-      resources :education_rooms
-      resources :education_students
-      resources :education_teachers
-      resources :education_schools
-      resources :education_classes
-    end
-  end
   resources :education_rooms
-  resources :education_students
-  resources :education_teachers
-  resources :education_schools
-  resources :education_classes
+  resources :education_students do
+    scope module: :education_students do
+      resources :education_schools
+      resources :education_teachers
+      resources :education_students
+      resources :education_classes
+    end
+  end
+  resources :education_teachers do
+    scope module: :education_teachers do
+      resources :education_schools
+      resources :education_teachers
+      resources :education_students
+      resources :education_classes
+    end
+  end
+  resources :education_schools do
+    scope module: :education_schools do
+      resources :education_teachers
+      resources :education_rooms
+      resources :education_students
+      resources :education_classes
+    end
+  end
+  resources :education_classes do
+    scope module: :education_classes do
+      resources :education_schools
+      resources :education_teachers
+      resources :education_students
+    end
+  end
   # REPORT
   resources :report_frontends
   resources :report_tickets
