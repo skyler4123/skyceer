@@ -3,6 +3,7 @@ module ApplicationHelper
   include PackagesHelper
   include EditorjsHelper
   include ComponentsHelper
+  include FlashHelper
 
   def new_id
     @id = SecureRandom.uuid

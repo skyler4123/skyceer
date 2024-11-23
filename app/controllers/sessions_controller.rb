@@ -17,9 +17,9 @@ class SessionsController < ApplicationController
       @session = create_session_for_all_package(user: @user)
       # cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
       set_cookie(session: @session, user: @user)
-      redirect_to redirect_url_after_create, allow_other_host: true, notice: "Signed in successfully"
+      redirect_to redirect_url_after_create, allow_other_host: true, notice: SIGN_IN_SUCCESS_MESSAGE
     else
-      redirect_to sign_in_path(email_hint: params[:email]), alert: "That email or password is incorrect"
+      redirect_to sign_in_path(email_hint: params[:email]), alert: SIGN_IN_FAILED_MESSAGE
     end
   end
 

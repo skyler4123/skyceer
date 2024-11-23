@@ -7,7 +7,6 @@ class RegistrationsController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
     if @user.save
       # session_record = @user.sessions.create!
       @session = create_session_for_all_package(user: @user)
@@ -15,7 +14,7 @@ class RegistrationsController < ApplicationController
       set_cookie(session: @session, user: @user)
 
       send_email_verification
-      redirect_to root_path, notice: "Welcome! You have signed up successfully"
+      redirect_to root_path, notice: SIGN_UP_SUCCESS_MESSAGE
     else
       render :new, status: :unprocessable_entity
     end
