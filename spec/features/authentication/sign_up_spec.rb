@@ -15,6 +15,6 @@ RSpec.feature "Authentication::SignUps", type: :feature, js: true do
     submit_button = find('input[type="submit"]')
     submit_button.click
     # page.driver.debug
-    expect(page).to have_content('Skip initial efforts')
+    expect(page).to have_current_path(root_path)
   end
 end

@@ -11,7 +11,8 @@ module ApplicationController::PunditConcern
     def user_not_authorized(exception)
       policy_name = exception.policy.class.to_s.underscore
    
-      flash[:error] = t "#{policy_name}.#{exception.query}", scope: "pundit", default: :default
+      # flash[:error] = t "You are not authorized to perform this action.", scope: "pundit", default: :default
+      flash[:error] = "You are not authorized to perform this action."
       redirect_back_or_to(root_path)
     end
   end

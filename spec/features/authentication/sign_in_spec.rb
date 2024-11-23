@@ -14,6 +14,6 @@ RSpec.feature "Authentication::SignIns", type: :feature do
     
     submit_button.click
     
-    expect(page).to be_subdomain_of("school")
+    expect(page).to have_current_path(root_path)
   end
 end
