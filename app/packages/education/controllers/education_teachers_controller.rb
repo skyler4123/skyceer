@@ -3,7 +3,7 @@ class EducationTeachersController < EducationController
 
   # GET /education_teachers or /education_teachers.json
   def index
-    @education_teachers = Current.education_school.education_teachers
+    @education_teachers = EducationTeacher.all
   end
 
   # GET /education_teachers/1 or /education_teachers/1.json

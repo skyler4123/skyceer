@@ -1,35 +1,20 @@
 class EducationSchoolPolicy < ApplicationPolicy
-  attr_reader :user, :resources
+  attr_reader :user, :resource
 
-  def initialize(user, resources)
+  def initialize(user, resource)
     @user = user
-    @resources = resources
+    @resource = resource
   end
 
   def index?
-    false
+    @user.admin?
   end
 
   # def edit?
-  #   user.user_id == resources.user_id
+  #   user.user_id == resource.user_id
   # end
 
   # def update?
-  #   user.admin? || !resources.published?
+  #   user.admin? || !resource.published?
   # end
-  class Scope
-    def initialize(user, scope)
-      @user = user
-      @scope = scope
-    end
-
-    def resolve
-      redirect_to root_path
-      # raise NoMethodError, "You must define #resolve in #{self.class}"
-    end
-
-    private
-
-    attr_reader :user, :scope
-  end
 end
