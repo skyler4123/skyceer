@@ -1,5 +1,5 @@
 class AutoGenerator::SeedService
-  def self.run(seed_number: 20)
+  def self.run(seed_number: 0)
     self.seed_for_application(seed_number)
     self.seed_for_vehicle
     self.seed_for_calendar
@@ -73,7 +73,7 @@ class AutoGenerator::SeedService
   end
 
   def self.seed_for_category
-    30.times do |n|
+    20.times do |n|
       category = Category.create!(
         name: "category #{n}",
         parent_category: [Category.all.sample, nil].sample
@@ -83,13 +83,13 @@ class AutoGenerator::SeedService
 
   def self.seed_for_vehicle
     User.all.each do |user|
-      1.times do
+      2.times do
         vehicle_store = VehicleStore.create!(
           name: "vehicle store name #{Faker::Movie.title}",
           user: user,
           coordinates: [rand(-10e6..10e6), rand(-10e6..10e6)],
         )
-        1.times do
+        2.times do
           VehicleCar.create!(
             name: "vehicle car name #{Faker::Movie.title}",
             model: "model #{Faker::Movie.title}",
@@ -189,7 +189,7 @@ class AutoGenerator::SeedService
     
     ChatConversation.all.each_with_index do |chat_conversation, n|
       user_ids = chat_conversation.user_ids
-      5.times do |n_1|
+      2.times do |n_1|
         chat_conversation.chat_messages << ChatMessage.new(user_id: user_ids.sample, content: "content #{Time.now.to_i}_#{n}_#{n_1}")
       end
     end
@@ -197,7 +197,7 @@ class AutoGenerator::SeedService
 
   def self.seed_for_article
     User.all.each_with_index do |user, user_index|
-      1.times do |n|
+      2.times do |n|
         article_post = ArticlePost.create!(user_id: user.id, title: Faker::Movie.title)
         article_post_images = self.attach(record: user, relation: :article_post_images, number: 2)        
         content = {
@@ -253,7 +253,7 @@ class AutoGenerator::SeedService
         article_post.update!(content: content)
       end
     end
-    5.times do |n|
+    2.times do |n|
       article_post = ArticlePost.all.sample
       user = User.all.sample
       article_post.article_comments << ArticleComment.new(user_id: user.id, content: "comment #{Time.now.to_i}_#{n}")
@@ -290,7 +290,7 @@ class AutoGenerator::SeedService
 
   def self.seed_for_report
     User.all.each_with_index do |user, n|
-      report_ticket = ReportTicket.create(
+      report_ticket = ReportTicket.create!(
         title: "report ticket title #{n}",
         content: Faker::Movie.quote,
         category: rand(0..3),
