@@ -15,7 +15,7 @@ class User < ApplicationRecord
     password_salt.last(10)
   end
 
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: { case_sensitive: true }, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
 
   normalizes :email, with: -> { _1.strip.downcase }
