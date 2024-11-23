@@ -85,4 +85,8 @@ MoneyRails.configure do |config|
   # Default value is false
   #
   # config.raise_error_on_money_parsing = true
+
+
+  ### Customize here:
+  config.locale_backend = :i18n
 end
