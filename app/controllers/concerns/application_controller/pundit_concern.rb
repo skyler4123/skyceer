@@ -12,7 +12,7 @@ module ApplicationController::PunditConcern
       policy_name = exception.policy.class.to_s.underscore
    
       # flash[:error] = t "You are not authorized to perform this action.", scope: "pundit", default: :default
-      flash[:error] = "You are not authorized to perform this action."
+      flash[:error] = UNAUTHORIZE_MESSAGE
       redirect_back_or_to(root_path)
     end
   end

@@ -36,6 +36,6 @@ end
 
 Capybara.default_driver = :cuprite
 Capybara.use_default_driver
-Capybara.app_host = 'http://lvh.me'
-Capybara.always_include_port = true
+# Capybara.app_host = 'http://lvh.me'
+# Capybara.always_include_port = true
 

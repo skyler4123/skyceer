@@ -78,7 +78,7 @@ RSpec.configure do |config|
   end
 
   config.include FactoryBot::Syntax::Methods
-  config.include AuthenticationHelper, :type => :feature
+  # config.include AuthenticationHelper, :type => :feature
 end
 
 Shoulda::Matchers.configure do |config|

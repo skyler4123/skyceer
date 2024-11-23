@@ -24,3 +24,5 @@ TEXT
 ENABLE_HEADLESS_MODE_BROWSER = TrueOrFalse(ENV.fetch('ENABLE_HEADLESS_MODE_BROWSER') { 'true' })
 
 TINYMCE_URL = ENV.fetch('TINYMCE_URL') { "https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" }
+
+UNAUTHORIZE_MESSAGE = "You are not authorized to perform this action!"
