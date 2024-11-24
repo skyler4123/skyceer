@@ -20,7 +20,9 @@
     <header data-<%= view_controller(__FILE__) %>-target="header"></header>
     <%= flash_content %>
     <main data-<%= view_controller(__FILE__) %>-target="main" class="flex flex-col items-center w-full">
-      <%= yield %>
+      <article data-<%= view_controller(__FILE__) %>-target="content" class="w-full h-full">
+        <%= yield %>      
+      </article>
     </main>
     <footer data-<%= view_controller(__FILE__) %>-target="footer"></footer>
   </body>
