@@ -4,7 +4,7 @@ import { CookieHelpers } from "../../../javascript/controllers/cookie_helpers";
 
 export default class extends ApplicationController {
   static values = {
-    className: { type: String, default: 'flex flex-row w-full h-full' }
+    class: { type: String, default: 'flex flex-row w-full h-full' }
   }
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})

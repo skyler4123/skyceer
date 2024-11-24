@@ -4,7 +4,7 @@ import ApplicationController from "../../../javascript/controllers/application_c
 export default class extends ApplicationController {
   static targets= ["calendar"]
   static values = {
-    className: { type: String, default: "w-full h-[700px]" },
+    class: { type: String, default: "w-full h-[700px]" },
     groups: { type: Array, default: [] },
     events: { type: Array, default: [] }
   }

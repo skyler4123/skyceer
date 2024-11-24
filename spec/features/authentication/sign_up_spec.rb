@@ -10,7 +10,8 @@ RSpec.feature "Authentication::SignUps", type: :feature, js: true do
 
   it "signs me in" do
     sign_up(params: new_user_params)
-    expect(page).to have_current_path(user_path(created_user))
     expect(created_user).to be_truthy
+    expect(page).to have_current_path(user_path(created_user))
+    expect(page).to have_content(created_user.name)
   end
 end

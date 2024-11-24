@@ -13,7 +13,7 @@ export default class PopoverController extends ApplicationController {
   }
 
   init() {
-    this.mergeClass(this.element, 'hidden')
+    this.addClass(this.element, 'hidden')
     this.initHTML()
   }
 

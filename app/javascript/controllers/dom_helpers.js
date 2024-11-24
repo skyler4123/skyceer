@@ -62,15 +62,15 @@ const DomHelpers = {
   },
 
   fitHeight() {
-    this.mergeClass(this.element, 'h-fit')
+    this.addClass(this.element, 'h-fit')
   },
 
   noneShadow() {
-    this.mergeClass(this.element, 'shadow-none')
+    this.addClass(this.element, 'shadow-none')
   },
 
   hide() {
-    this.mergeClass(this.element, 'hidden')
+    this.addClass(this.element, 'hidden')
   },
 
   updateText(element, newText) {

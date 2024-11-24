@@ -14,7 +14,7 @@ export default class ApplicationController extends Controller {
     params: { type: Object },
     isOpen: { type: Boolean },
     isInitialized: { type: Boolean },
-    className: { type: String },
+    class: { type: String },
     attributes: { type: Object }
   }
 
@@ -62,8 +62,26 @@ export default class ApplicationController extends Controller {
   }
 
   initializeClass() {
-    if (this.classNameValue.length < 1) { return }
-    this.addClass(this.element, this.classNameValue)
+    if (this.isEmpty(this.classValue)) { return }
+
+    if (this.isString(this.classValue)) {
+      this.addClass(this.element, this.classValue)
+      return
+    }
+
+    if (this.isObject(this.classValue)) {
+      const targets = Object.keys(this.classValue)
+      targets.forEach(target => {
+        if (target === 'element') {
+          this.addClass(this.element, this.classValue['class'])
+        } else {
+          this[`${target}Targets`].forEach((targetElement) => {
+            this.addClass(targetElement, this.classValue[target])
+          })
+        }
+      })
+      return
+    }
   }
   setParams({name, defaultValue}) {
     if (this.isDefined(this[`${name}Params`])) { return }

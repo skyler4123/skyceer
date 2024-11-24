@@ -3,7 +3,7 @@ import { Application_Logo } from "../application/logo";
 
 export default class extends ApplicationController {
   static values = {
-    className: { type: String, default: "flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2" }
+    class: { type: String, default: "flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2" }
   }
 
   init() {

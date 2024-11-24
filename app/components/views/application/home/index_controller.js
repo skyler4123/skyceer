@@ -1,9 +1,8 @@
-import { CookieHelpers } from "../../../../javascript/controllers/cookie_helpers";
-import Views_Education_LayoutController from "../../education/layout_controller";
+import Views_Application_LayoutController from "../layout_controller";
 
-export default class extends Views_Education_LayoutController {
-  connect() {
-    console.log(CookieHelpers)
-    console.log("Hello, Stimulus!", this.element);
-  }
+export default class extends Views_Application_LayoutController {
+  // connect() {
+  //   console.log(CookieHelpers)
+  //   console.log("Hello, Stimulus!", this.element);
+  // }
 }

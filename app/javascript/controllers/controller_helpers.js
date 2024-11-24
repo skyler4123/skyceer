@@ -98,17 +98,13 @@ const ControllerHelpers = {
     this.replaceAction(element, action, '')
   },
 
-  mergeClass(element, klass) {
+  addClass(element, klass) {
     if (this.isUndefined(element)) { return }
     if (element.tagName === 'svg') {
-      element.className.baseVal = this.twMerge(element.className.baseVal, klass)
+      element.className.baseVal += ` ${klass}`
     } else {
-      element.className = this.twMerge(element.className, klass)
+      element.className += ` ${klass}`
     }
-  },
-
-  addClass(element, klass) {
-    this.mergeClass(element, klass)
   },
 
   removeClass(element, klass) {

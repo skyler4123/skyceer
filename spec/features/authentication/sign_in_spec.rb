@@ -9,6 +9,7 @@ RSpec.feature "Authentication::SignIns", type: :feature do
       
       expect(page).to have_current_path(user_path(user))
       expect(page).to have_content(SIGN_IN_SUCCESS_MESSAGE)
+      expect(page).to have_content(user.name)
     end
   end
 end

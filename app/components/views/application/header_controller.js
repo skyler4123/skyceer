@@ -3,7 +3,7 @@ import { CookieHelpers } from "../../../javascript/controllers/cookie_helpers";
 
 export default class extends ApplicationController {
   static values = {
-    className: { type: String, default: 'flex flex-row w-full h-full' }
+    class: { type: String, default: 'flex flex-row w-full h-full' }
   }
   initParams() {
     this.setParams({name: 'variant', defaultValue: 'default'})
@@ -36,7 +36,11 @@ export default class extends ApplicationController {
           <a href="/educatione_posts">Contact</a>
         </div>
         <div class="flex flex-row">
-          <a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a>
+          ${CookieHelpers.email() ? 
+            `<a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a>`
+            :
+            `<a href="/sign_in">Sign In</a>`
+          }
       </div>
     </div>
     `

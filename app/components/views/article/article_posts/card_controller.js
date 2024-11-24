@@ -3,7 +3,7 @@ import ApplicationController from "../../../../javascript/controllers/applicatio
 export default class Views_Article_ArticlePosts_CardController extends ApplicationController {
   static targets = ["image", "title", "content"]
   static values = {
-    className: { type: String, default: "w-full h-full p-4 h-64" },
+    class: { type: String, default: "w-full h-full p-4 h-64" },
     imageUrl: { type: String, default: "" },
     title: { type: String, default: "" },
     content: { type: String, default: "" },

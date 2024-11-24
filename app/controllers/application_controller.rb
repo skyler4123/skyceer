@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
       cookies[:id] = user.id
       cookies[:email] = user.email
       cookies[:name] = user.name
+      cookies[:education_role] = user.education_role
     end
 
     def create_session_for_all_package(user:)

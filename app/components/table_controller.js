@@ -83,7 +83,7 @@ export default class TableController extends ApplicationController {
 
   hideRow(rowIndex) {
     [rowIndex].flat().forEach((index) => {
-      this.mergeClass(this.trTargets[index], 'hidden')
+      this.addClass(this.trTargets[index], 'hidden')
     })
   }
 
@@ -95,10 +95,10 @@ export default class TableController extends ApplicationController {
 
   hideColumn(columnIndex) {
     this.element.querySelectorAll('th').forEach((target) => {
-      if (target.cellIndex === columnIndex) { this.mergeClass(target, 'hidden') }
+      if (target.cellIndex === columnIndex) { this.addClass(target, 'hidden') }
     })
     this.element.querySelectorAll('td').forEach((target) => {
-      if (target.cellIndex === columnIndex) { this.mergeClass(target, 'hidden') }
+      if (target.cellIndex === columnIndex) { this.addClass(target, 'hidden') }
     })
   }
 

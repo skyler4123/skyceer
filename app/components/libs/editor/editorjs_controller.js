@@ -29,7 +29,7 @@ import { csrfToken } from '../../../javascript/controllers/api/api_helpers';
 export default class EditorjsController extends ApplicationController {
   static targets = ["editor"]
   static values = {
-    className: { type: String, default: "w-full h-fit border-2 border-gray-200 rounded-md p-4" }
+    class: { type: String, default: "w-full h-fit border-2 border-gray-200 rounded-md p-4" }
   }
 
   initParams() {
