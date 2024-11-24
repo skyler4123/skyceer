@@ -48,7 +48,7 @@ class AutoGenerator::SeedService
         password: "password1234",
         password_confirmation: "password1234",
         verified: true,
-        name: "user name #{Faker::Movie.title}",
+        name: Faker::Movies::HarryPotter.character,
         role: key,
         address: Address.create_random_vietnam,
       )
@@ -63,7 +63,7 @@ class AutoGenerator::SeedService
         password: "password1234",
         password_confirmation: "password1234",
         verified: true,
-        name: "user name #{Faker::Movie.title}",
+        name: Faker::Movies::HarryPotter.character,
         role: :normal,
         education_role: key,
         address: Address.create_random_vietnam,
