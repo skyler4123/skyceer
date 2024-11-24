@@ -1,8 +1,6 @@
 
 import { Link } from "../../../javascript/controllers/components"
-import { darkmodeButton } from "../application/darkmode_button"
 import { languageButton } from "../application/language_button"
-import { userBox } from "../application/user_box"
 import { Vehicle_Logo } from "./logo"
 
 export const header = () => {
@@ -18,8 +16,6 @@ export const header = () => {
       </div>
       <div class="flex flex-row gap-x-2">
         ${languageButton()}
-        ${darkmodeButton()}
-        ${userBox()}
       </div>
     </div>
     <hr class="border-gray-200 sm:mx-auto dark:border-gray-700"></hr>

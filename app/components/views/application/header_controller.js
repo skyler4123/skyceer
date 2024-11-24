@@ -20,14 +20,7 @@ export default class extends ApplicationController {
   defaultHTML() {
     return `
       <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 border-b-2">
-        <div>
-          <a href="/education_schools">
-            <div class="flex flex-row gap-x-2 justify-center items-center">
-              <svg data-controller="svg" data-svg-params-value="${this.transferToValue({variant: ["solid", "sparkles"]})}" class="h-10 w-10 bg-red-500 text-white rounded-md bg-gradient-to-r from-cyan-500 to-blue-500"></svg>
-              <div>Skyceer</div>
-            </div>
-          </a>
-        </div>
+        <div data-controller="views--application--logo"></div>
         <div class="flex flex-row gap-x-2">
           <a href="/"">Home</a>
           <a href="/education_houses">Education School</a>
@@ -36,6 +29,7 @@ export default class extends ApplicationController {
           <a href="/educatione_posts">Contact</a>
         </div>
         <div class="flex flex-row">
+          <div data-controller="views--application--darkmode"></div>
           ${CookieHelpers.email() ? 
             `<a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a>`
             :

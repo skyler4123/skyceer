@@ -1,5 +1,4 @@
 import ApplicationController from "../../../javascript/controllers/application_controller";
-import { Application_Logo } from "../application/logo";
 
 export default class extends ApplicationController {
   initParams() {
@@ -16,7 +15,7 @@ export default class extends ApplicationController {
 
   defaultHTML() {
     return `
-      <div>${Application_Logo()}</div>
+      <div data-controller="views--application--logo"></div>
       <div>Home</div>
       <div>Estate</div>
       <div>About</div>
