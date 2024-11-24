@@ -6,10 +6,8 @@ export default class Views_Education_LayoutController extends ApplicationControl
   init() {
     this.initHeader()
     this.initFooter()
-    this.initAside()
-    this.initMain()
-    // if (this.hasMainTarget && this.isDefined(this.initMain)) { this.initMain() }
-    // if (this.hasAsideTarget && this.isDefined(this.initAside)) { this.initAside() }
+    if (this.hasMainTarget && this.isDefined(this.initMain)) { this.initMain() }
+    if (this.hasAsideTarget && this.isDefined(this.initAside)) { this.initAside() }
     if (this.hasContentTarget && this.isDefined(this.initContent)) { this.initContent() }
   }
 

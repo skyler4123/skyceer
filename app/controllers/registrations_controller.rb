@@ -14,7 +14,7 @@ class RegistrationsController < ApplicationController
       set_cookie(session: @session, user: @user)
 
       send_email_verification
-      redirect_to root_path, notice: SIGN_UP_SUCCESS_MESSAGE
+      redirect_to user_path(@user), notice: SIGN_UP_SUCCESS_MESSAGE
     else
       render :new, status: :unprocessable_entity
     end

@@ -32,7 +32,7 @@ class AutoGenerator::SeedService
         password: "password1234",
         password_confirmation: "password1234",
         verified: true,
-        name: "user name #{Faker::Movie.title}",
+        name: Faker::Movies::HarryPotter.character,
         role: role,
         education_role: education_role,
         address: Address.create_random_vietnam,

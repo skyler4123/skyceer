@@ -1,5 +1,6 @@
 import { Views_Global_DarkmodeComponent } from "../global/darkmode_controller"
 import ApplicationController from "../../../javascript/controllers/application_controller";
+import { CookieHelpers } from "../../../javascript/controllers/cookie_helpers";
 
 export default class extends ApplicationController {
   static values = {
@@ -37,7 +38,7 @@ export default class extends ApplicationController {
         </div>
         <div class="flex flex-row">
           ${Views_Global_DarkmodeComponent()}
-          Authentication
+          <a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a>
       </div>
     </div>
     `

@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
 
     def set_cookie(session:, user:)
       cookies.signed.permanent[:session_token] = { value: session.id, httponly: true }
+      cookies[:id] = user.id
       cookies[:email] = user.email
       cookies[:name] = user.name
     end

@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
       @session = create_session_for_all_package(user: @user)
       # cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
       set_cookie(session: @session, user: @user)
-      redirect_to redirect_url_after_create, allow_other_host: true, notice: SIGN_IN_SUCCESS_MESSAGE
+      redirect_to redirect_url_after_sign_in, allow_other_host: true, notice: SIGN_IN_SUCCESS_MESSAGE
     else
       redirect_to sign_in_path(email_hint: params[:email]), alert: SIGN_IN_FAILED_MESSAGE
     end
@@ -37,9 +37,9 @@ class SessionsController < ApplicationController
       @session = Current.user.sessions.find(params[:id])
     end
 
-    def redirect_url_after_create
-      return root_url unless referer_params
-      return root_url unless referer_params[:redirect_to]
+    def redirect_url_after_sign_in
+      return url_for(@user) unless referer_params
+      return url_for(@user) unless referer_params[:redirect_to]
       referer_params[:redirect_to]
     end
 end

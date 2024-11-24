@@ -4,7 +4,11 @@ export const CookieHelpers = {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
   },
-  
+
+  id() {
+    return this.getCookie('id')
+  },
+
   email() {
     return this.getCookie('email')
   },
