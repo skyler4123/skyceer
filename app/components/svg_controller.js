@@ -1,16 +1,12 @@
 import ApplicationController from "../javascript/controllers/application_controller";
 
 export default class SvgController extends ApplicationController {
-  static values = {
-    ...super.values,
-  }
 
   init() {
     this.initHTML()
   }
 
   initParams() {
-    this.setParams({name: 'type', defaultValue: 'default'})
     this.setParams({name: 'variant', defaultValue: ['outline', 'star']})
   }
 
@@ -18,13 +14,6 @@ export default class SvgController extends ApplicationController {
     this.mergeElementWithHTML(this.element, this.dig({object: this.variantHTML, digArray: this.toKebabCaseForArray(this.variantParams) }))
   }
 
-  get typeClass() {
-    return {
-      default: {
-        element: 'w-6 h-6'
-      }
-    }
-  }
   get variantHTML() {
     return {
       animation: {

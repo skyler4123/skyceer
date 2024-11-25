@@ -14,7 +14,7 @@ export const CookieHelpers = {
   },
 
   name() {
-    return this.getCookie('name')
+    return this.getCookie('name').replace("+", " ")
   },
 
   sessionId() {

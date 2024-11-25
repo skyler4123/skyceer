@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   
   resources :categories
   # EDUCATION package
+  resources :educations, only: [:index]
+  resources :education_courses
   resources :education_rooms
   resources :education_students do
     scope module: :education_students do
@@ -41,6 +43,7 @@ Rails.application.routes.draw do
       resources :education_students
     end
   end
+
   # REPORT
   resources :report_frontends
   resources :report_tickets

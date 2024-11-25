@@ -4,7 +4,7 @@ FactoryBot.define do
     password { "password1234" }
     password_confirmation { "password1234" }
     verified { true }
-    sequence(:name) { |n| "user_name_#{n}" }
+    name { Faker::Movies::HarryPotter.character }
     role { :normal }
   end
 end

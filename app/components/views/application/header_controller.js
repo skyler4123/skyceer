@@ -22,7 +22,12 @@ export default class extends ApplicationController {
       <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 border-b-2">
         <div data-controller="views--application--logo"></div>
         <div class="flex flex-row gap-x-2">
-          <a href="/education_students/${CookieHelpers.id()}/education_schools">School</a>
+          <a href="/educations">Education</a>
+          <a href="/stores">Store</a>
+          <a href="/restaurents">Restaurant</a>
+          <a href="/vehicles">Vehicle</a>
+          <a href="/estates">Real Estate</a>
+          <a href="/articles">News</a>
         </div>
         <div class="flex flex-row">
           <div data-controller="views--application--darkmode"></div>
