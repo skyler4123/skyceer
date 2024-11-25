@@ -12,37 +12,13 @@ Rails.application.routes.draw do
   resources :educations, only: [:index]
   resources :education_courses
   resources :education_rooms
-  resources :education_students do
-    scope module: :education_students do
-      resources :education_schools
-      resources :education_teachers
-      resources :education_students
-      resources :education_classes
-    end
+  resources :education_students
+  resources :education_teachers
+  resources :education_schools
+  namespace :education_school do
+    resources :education_schools
   end
-  resources :education_teachers do
-    scope module: :education_teachers do
-      resources :education_schools
-      resources :education_teachers
-      resources :education_students
-      resources :education_classes
-    end
-  end
-  resources :education_schools do
-    scope module: :education_schools do
-      resources :education_teachers
-      resources :education_rooms
-      resources :education_students
-      resources :education_classes
-    end
-  end
-  resources :education_classes do
-    scope module: :education_classes do
-      resources :education_schools
-      resources :education_teachers
-      resources :education_students
-    end
-  end
+  resources :education_classes
 
   # REPORT
   resources :report_frontends

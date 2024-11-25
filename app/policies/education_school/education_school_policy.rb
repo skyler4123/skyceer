@@ -1,4 +1,4 @@
-class EducationSchoolPolicy < ApplicationPolicy
+class EducationSchool::EducationSchoolPolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -7,7 +7,8 @@ class EducationSchoolPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.admin?
+    debugger
+    # @user.education_school?
   end
 
   # def edit?

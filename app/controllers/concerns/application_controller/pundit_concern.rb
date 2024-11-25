@@ -4,7 +4,7 @@ module ApplicationController::PunditConcern
   included do
     include Pundit::Authorization
 
-    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+    # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
     private
 
