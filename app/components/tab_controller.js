@@ -3,19 +3,15 @@ import ApplicationController from "../javascript/controllers/application_control
 export default class TabController extends ApplicationController {
   static targets = ["tab"]
   static values = {
-    ...super.values,
+    class: { type: Object, default: {
+      element: "",
+      tab: "hidden open:flex"
+    } },
     tabIndex: { type: Number }
   }
 
   init() {
     this.initTarget()
-  }
-
-  initParams() {
-    this.setParams({name: 'type', defaultValue: 'default'})
-    // this.setParams({name: 'isRestore', defaultValue: false})
-    // this.setParams({name: 'restoreIndex', defaultValue: 0})
-    // this.setParams({name: 'restoreTimeout', defaultValue: 5000})
   }
 
   initTarget() {
@@ -85,14 +81,6 @@ export default class TabController extends ApplicationController {
     }, timeout)
   }
 
-  get typeClass() {
-    return {
-      default: {
-        element: '',
-        tabTarget: 'hidden open:flex'
-      }
-    }
-  }
   get maxIndex() {
     return this.tabTargets.length - 1
   }
