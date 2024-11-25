@@ -7,8 +7,7 @@ class EducationSchool::EducationSchoolPolicy < ApplicationPolicy
   end
 
   def index?
-    debugger
-    # @user.education_school?
+    @user.education_school?
   end
 
   # def edit?

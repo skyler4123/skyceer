@@ -1,1 +1,21 @@
-<div>kajhsdkjsa</div>
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="w-full text-center py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Education schools" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Education schools</h1>
+    <%= link_to "New education school", new_education_school_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="education_schools" class="min-w-full">
+    <% @education_schools.each do |education_school| %>
+      <%= render education_school %>
+      <p>
+        <%= link_to "Show this education school", education_school, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>

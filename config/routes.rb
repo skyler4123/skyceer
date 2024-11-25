@@ -14,9 +14,12 @@ Rails.application.routes.draw do
   resources :education_rooms
   resources :education_students
   resources :education_teachers
-  resources :education_schools
-  namespace :education_school do
-    resources :education_schools
+  resources :education_schools do
+    collection do
+      get :education_school
+      get :education_teacher
+      get :education_student
+    end
   end
   resources :education_classes
 
