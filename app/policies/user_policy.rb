@@ -12,7 +12,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    debugger
     true
   end
 end
