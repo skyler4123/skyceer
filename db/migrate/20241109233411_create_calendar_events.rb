@@ -27,8 +27,10 @@ class CreateCalendarEvents < ActiveRecord::Migration[7.2]
       t.string :borderColor, default: 	'#000'
       t.json :customStyle, default: {}
       t.json :raw, default: {}
+      t.datetime :discarded_at
 
       t.timestamps
     end
+    add_index :calendar_events, :discarded_at
   end
 end

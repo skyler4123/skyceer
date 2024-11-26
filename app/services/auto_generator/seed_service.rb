@@ -10,11 +10,7 @@ class AutoGenerator::SeedService
       self.seed_for_estate
       self.seed_for_report
     end
-    puts "Users: ", User.count
-    puts "Categories: ", Category.count
-    puts "Calendar Groups: ", CalendarGroup.count
-    puts "Calendar Events: ", CalendarEvent.count
-    
+    self.puts_count
     puts "AutoGenerator::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"
     return true
   end
@@ -163,7 +159,7 @@ class AutoGenerator::SeedService
   end
 
   def self.seed_for_education
-    User.normal.each_with_index do |user, index|
+    User.education_school.each_with_index do |user, index|
       education_school = EducationSchool.create!(name: "education school #{index}", user: user, address: Address.create_random)
       self.attach(record: education_school, relation: :avatar, number: 1)
       2.times do |n_1|
@@ -306,6 +302,43 @@ class AutoGenerator::SeedService
       )
       self.attach(record: report_ticket, relation: :images, number: 2)
     end
+  end
+
+  def self.puts_count
+    user_count = User.count
+    category_count = Category.count
+    calendar_group_count = CalendarGroup.count
+    calendar_event_count = CalendarEvent.count
+    education_school_count = EducationSchool.count
+    education_class_count = EducationClass.count
+    education_room_count = EducationRoom.count
+    education_teacher_count = EducationTeacher.count
+    education_student_count = EducationStudent.count
+    chat_conversation_count = ChatConversation.count
+    article_post_count = ArticlePost.count
+    estate_condo_count = EstateCondo.count
+    estate_hotel_count = EstateHotel.count
+    estate_house_count = EstateHouse.count
+    report_ticket_count = ReportTicket.count
+    vehicle_store_count = VehicleStore.count
+    vehicle_car_count = VehicleCar.count
+    puts "Users: ", user_count
+    puts "Categories: ", category_count
+    puts "Calendar Groups: ", calendar_group_count
+    puts "Calendar Events: ", calendar_event_count
+    puts "Education Schools: ", education_school_count
+    puts "Education Classes: ", education_class_count
+    puts "Education Rooms: ", education_room_count
+    puts "Education Teachers: ", education_teacher_count
+    puts "Education Students: ", education_student_count
+    puts "Chat Conversations: ", chat_conversation_count
+    puts "Article Posts: ", article_post_count
+    puts "Estate Condos: ", estate_condo_count
+    puts "Estate Hotels: ", estate_hotel_count
+    puts "Estate Houses: ", estate_house_count
+    puts "Report Tickets: ", report_ticket_count
+    puts "Vehicle Stores: ", vehicle_store_count
+    puts "Vehicle Cars: ", vehicle_car_count
   end
 
   def self.attach(record: ,relation: :images, number: 2)

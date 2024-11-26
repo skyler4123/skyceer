@@ -7,8 +7,10 @@ class CreateCalendarGroups < ActiveRecord::Migration[7.2]
       t.string :borderColor
       t.string :backgroundColor
       t.string :dragBackgroundColor
+      t.datetime :discarded_at
 
       t.timestamps
     end
+    add_index :calendar_groups, :discarded_at
   end
 end

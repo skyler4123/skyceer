@@ -121,3 +121,4 @@ gem "kamal"
 gem 'silencer', require: false
 gem 'country_select'
 gem "pundit"
+gem 'discard'

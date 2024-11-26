@@ -8,9 +8,11 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.integer :education_role
       t.boolean :verified, null: false, default: false
       t.references :address, null: true, foreign_key: true, type: :uuid
+      t.datetime :discarded_at
 
       t.timestamps
     end
     add_index :users, :education_role
+    add_index :users, :discarded_at
   end
 end

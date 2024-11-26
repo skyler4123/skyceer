@@ -32,5 +32,4 @@ class User < ApplicationRecord
 
   belongs_to :address, optional: true
   has_many :sessions, dependent: :destroy
-
 end

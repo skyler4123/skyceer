@@ -14,8 +14,10 @@ class CreateVehicleCars < ActiveRecord::Migration[7.1]
       t.datetime :released_at
       t.boolean :verified
       t.boolean :expired
+      t.datetime :discarded_at
 
       t.timestamps
     end
+    add_index :vehicle_cars, :discarded_at
   end
 end

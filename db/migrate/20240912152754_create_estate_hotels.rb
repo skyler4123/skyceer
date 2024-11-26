@@ -5,8 +5,10 @@ class CreateEstateHotels < ActiveRecord::Migration[7.1]
       t.references :address, null: true, foreign_key: true, type: :uuid
       t.string :name
       t.integer :price_cents
+      t.datetime :discarded_at
 
       t.timestamps
     end
+    add_index :estate_hotels, :discarded_at
   end
 end

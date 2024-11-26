@@ -109,9 +109,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.string "borderColor", default: "#000"
     t.json "customStyle", default: {}
     t.json "raw", default: {}
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calendar_group_id"], name: "index_calendar_events_on_calendar_group_id"
+    t.index ["discarded_at"], name: "index_calendar_events_on_discarded_at"
   end
 
   create_table "calendar_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -121,8 +123,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.string "borderColor"
     t.string "backgroundColor"
     t.string "dragBackgroundColor"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_calendar_groups_on_discarded_at"
     t.index ["user_id"], name: "index_calendar_groups_on_user_id"
   end
 
@@ -153,8 +157,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.uuid "education_school_id", null: false
     t.string "name"
     t.string "category"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_education_classes_on_discarded_at"
     t.index ["education_school_id"], name: "index_education_classes_on_education_school_id"
   end
 
@@ -162,19 +168,23 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.uuid "education_school_id", null: false
     t.string "name"
     t.string "category"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_education_rooms_on_discarded_at"
     t.index ["education_school_id"], name: "index_education_rooms_on_education_school_id"
   end
 
   create_table "education_schools", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id"
+    t.uuid "user_id", null: false
     t.uuid "address_id"
     t.string "name"
     t.string "category"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_education_schools_on_address_id"
+    t.index ["discarded_at"], name: "index_education_schools_on_discarded_at"
     t.index ["user_id"], name: "index_education_schools_on_user_id"
   end
 
@@ -182,8 +192,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.uuid "user_id", null: false
     t.uuid "education_school_id", null: false
     t.string "name"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_education_students_on_discarded_at"
     t.index ["education_school_id"], name: "index_education_students_on_education_school_id"
     t.index ["user_id"], name: "index_education_students_on_user_id"
   end
@@ -192,8 +204,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.uuid "user_id", null: false
     t.uuid "education_school_id", null: false
     t.string "name"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_education_teachers_on_discarded_at"
     t.index ["education_school_id"], name: "index_education_teachers_on_education_school_id"
     t.index ["user_id"], name: "index_education_teachers_on_user_id"
   end
@@ -203,9 +217,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.uuid "address_id"
     t.string "name"
     t.integer "price_cents"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_estate_condos_on_address_id"
+    t.index ["discarded_at"], name: "index_estate_condos_on_discarded_at"
     t.index ["user_id"], name: "index_estate_condos_on_user_id"
   end
 
@@ -214,9 +230,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.uuid "address_id"
     t.string "name"
     t.integer "price_cents"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_estate_hotels_on_address_id"
+    t.index ["discarded_at"], name: "index_estate_hotels_on_discarded_at"
     t.index ["user_id"], name: "index_estate_hotels_on_user_id"
   end
 
@@ -225,17 +243,21 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.uuid "address_id"
     t.string "name"
     t.integer "price_cents"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_estate_houses_on_address_id"
+    t.index ["discarded_at"], name: "index_estate_houses_on_discarded_at"
     t.index ["user_id"], name: "index_estate_houses_on_user_id"
   end
 
   create_table "report_frontends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "content"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_report_frontends_on_discarded_at"
     t.index ["user_id"], name: "index_report_frontends_on_user_id"
   end
 
@@ -245,8 +267,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.integer "category"
     t.integer "status"
     t.string "reporter_email"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_report_tickets_on_discarded_at"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -257,9 +281,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.integer "education_role"
     t.boolean "verified", default: false, null: false
     t.uuid "address_id"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_users_on_address_id"
+    t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["education_role"], name: "index_users_on_education_role"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
@@ -278,8 +304,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.datetime "released_at"
     t.boolean "verified"
     t.boolean "expired"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_vehicle_cars_on_discarded_at"
     t.index ["user_id"], name: "index_vehicle_cars_on_user_id"
     t.index ["vehicle_store_id"], name: "index_vehicle_cars_on_vehicle_store_id"
   end
@@ -288,8 +316,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.string "name"
     t.uuid "user_id", null: false
     t.decimal "coordinates", default: ["0.0", "0.0"], array: true
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_vehicle_stores_on_discarded_at"
     t.index ["user_id"], name: "index_vehicle_stores_on_user_id"
   end
 

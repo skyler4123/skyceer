@@ -5,8 +5,10 @@ class CreateEstateCondos < ActiveRecord::Migration[7.1]
       t.references :address, null: true, foreign_key: true, type: :uuid
       t.string :name
       t.integer :price_cents
+      t.datetime :discarded_at
 
       t.timestamps
     end
+    add_index :estate_condos, :discarded_at
   end
 end

@@ -133,6 +133,8 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     diff-lcs (1.5.1)
+    discard (1.4.0)
+      activerecord (>= 4.2, < 9.0)
     docile (1.4.1)
     dotenv (3.1.4)
     dotenv-rails (3.1.4)
@@ -530,6 +532,7 @@ DEPENDENCIES
   country_select
   cuprite
   debug
+  discard
   dotenv-rails
   elasticsearch-model
   elasticsearch-persistence
