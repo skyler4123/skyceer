@@ -4,9 +4,15 @@ module ApplicationController::PunditConcern
   included do
     include Pundit::Authorization
 
-    # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+    before_action :authorization
 
     private
+
+    def authorization
+      authorize controller_name.classify.constantize
+    end
 
     def user_not_authorized(exception)
       policy_name = exception.policy.class.to_s.underscore
