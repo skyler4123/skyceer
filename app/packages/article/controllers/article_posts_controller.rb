@@ -4,13 +4,11 @@ class ArticlePostsController < ArticleController
   # GET /article_posts or /article_posts.json
   def index
     @article_posts = ArticlePost.all
-    authorize @article_posts
   end
 
   # GET /article_posts/1 or /article_posts/1.json
   def show
     # flash[:notice] = "Article post was successfully created."
-    debugger
   end
 
   # GET /article_posts/new
@@ -22,7 +20,6 @@ class ArticlePostsController < ArticleController
 
   # GET /article_posts/1/edit
   def edit
-    authorize @article_post
   end
 
   # POST /article_posts or /article_posts.json

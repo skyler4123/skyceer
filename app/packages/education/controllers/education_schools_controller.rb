@@ -4,7 +4,6 @@ class EducationSchoolsController < EducationsController
   # GET /education_schools or /education_schools.json
   def index
     @education_schools = EducationSchool.all
-    authorize @education_schools
   end
 
   # GET /education_schools/1 or /education_schools/1.json
@@ -14,7 +13,6 @@ class EducationSchoolsController < EducationsController
   # GET /education_schools/new
   def new
     @education_school = EducationSchool.new
-    authorize @education_school
   end
 
   # GET /education_schools/1/edit
@@ -24,7 +22,6 @@ class EducationSchoolsController < EducationsController
   # POST /education_schools or /education_schools.json
   def create
     @education_school = EducationSchool.new(education_school_params)
-    authorize @education_school
     @education_school.user = Current.user
 
     respond_to do |format|
@@ -63,24 +60,20 @@ class EducationSchoolsController < EducationsController
 
   def education_school
     @education_schools = EducationSchool.where(user_id: Current.user_id)
-    authorize @education_schools
   end
 
   def education_teacher
     @education_schools = EducationSchool.where(user_id: Current.user_id)
-    authorize @education_schools
   end
 
   def education_student
     @education_schools = EducationSchool.where(user_id: Current.user_id)
-    authorize @education_schools
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_education_school
       @education_school = EducationSchool.find(params[:id])
-      authorize @education_school
     end
 
     # Only allow a list of trusted parameters through.
