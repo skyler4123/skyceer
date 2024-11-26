@@ -1,13 +1,20 @@
 class AutoGenerator::SeedService
   def self.run(seed_number: 0)
     self.seed_for_application(seed_number)
-    self.seed_for_vehicle
-    self.seed_for_calendar
-    self.seed_for_education
-    self.seed_for_chat
-    self.seed_for_article
-    self.seed_for_estate
-    self.seed_for_report
+    2.times do
+      self.seed_for_vehicle
+      self.seed_for_calendar
+      self.seed_for_education
+      self.seed_for_chat
+      self.seed_for_article
+      self.seed_for_estate
+      self.seed_for_report
+    end
+    puts "Users: ", User.count
+    puts "Categories: ", Category.count
+    puts "Calendar Groups: ", CalendarGroup.count
+    puts "Calendar Events: ", CalendarEvent.count
+    
     puts "AutoGenerator::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"
     return true
   end
@@ -83,7 +90,7 @@ class AutoGenerator::SeedService
 
   def self.seed_for_vehicle
     User.all.each do |user|
-      2.times do
+      1.times do
         vehicle_store = VehicleStore.create!(
           name: "vehicle store name #{Faker::Movie.title}",
           user: user,
@@ -112,7 +119,7 @@ class AutoGenerator::SeedService
 
   def self.seed_for_calendar
     User.all.each_with_index do |user, user_index|
-      2.times do |n|
+      1.times do |n|
         calendar_group = CalendarGroup.create!(
           user: user,
           name: "user #{user_index} group #{n}",
@@ -197,7 +204,7 @@ class AutoGenerator::SeedService
 
   def self.seed_for_article
     User.all.each_with_index do |user, user_index|
-      2.times do |n|
+      1.times do |n|
         article_post = ArticlePost.create!(user_id: user.id, title: Faker::Movie.title)
         article_post_images = self.attach(record: user, relation: :article_post_images, number: 2)        
         content = {
