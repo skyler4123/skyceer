@@ -124,6 +124,9 @@ GEM
       unaccent (~> 0.3)
     country_select (10.0.0)
       countries (> 5.0, < 8.0)
+    crack (1.0.0)
+      bigdecimal
+      rexml
     crass (1.0.6)
     cuprite (0.15.1)
       capybara (~> 3.0)
@@ -201,6 +204,7 @@ GEM
       packwerk
       ruby-graphviz
       sorbet-runtime
+    hashdiff (1.1.2)
     hashie (5.0.0)
     http_parser.rb (0.8.0)
     i18n (1.14.6)
@@ -502,6 +506,8 @@ GEM
     unaccent (0.4.0)
     uri (1.0.2)
     useragent (0.16.10)
+    vcr (6.3.1)
+      base64
     version_gem (1.1.4)
     view_component (3.20.0)
       activesupport (>= 5.2.0, < 8.1)
@@ -512,6 +518,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webmock (3.24.0)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.9.0)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -579,8 +589,10 @@ DEPENDENCIES
   tailwindcss-rails
   turbo-rails
   tzinfo-data
+  vcr
   view_component
   web-console
+  webmock
 
 RUBY VERSION
    ruby 3.3.0p0

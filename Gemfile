@@ -78,6 +78,8 @@ group :test do
   gem 'capybara'
   gem 'simplecov', require: false
   gem 'rack-test'
+  gem 'webmock'
+  gem 'vcr'
 end
 
 gem "packwerk"
