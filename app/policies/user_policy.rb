@@ -7,7 +7,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    debugger
     true
   end
 

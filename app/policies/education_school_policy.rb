@@ -7,6 +7,7 @@ class EducationSchoolPolicy < ApplicationPolicy
   end
 
   def index?
+    debugger
     @user.admin?
   end
 

@@ -2,6 +2,8 @@ module ApplicationController::CurrentConcern
   extend ActiveSupport::Concern
   
   included do
+    before_action :set_current_request_details
+
     def current_user
       Current.session
     end
