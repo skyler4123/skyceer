@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   include ApplicationController::FlashConcern
   include ApplicationController::CookieConcern
   include ApplicationController::RequestConcern
-  include ApplicationController::PunditConcern
+  include ApplicationController::AuthorizationConcern
   include ApplicationController::PaginationConcern
 
 end

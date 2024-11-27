@@ -1,4 +1,4 @@
-module ApplicationController::PunditConcern
+module ApplicationController::AuthorizationConcern
   extend ActiveSupport::Concern
   
   included do
