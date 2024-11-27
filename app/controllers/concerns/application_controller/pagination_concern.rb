@@ -1,4 +1,4 @@
-module ApplicationController::Pagination
+module ApplicationController::PaginationConcern
   extend ActiveSupport::Concern
   
   included do

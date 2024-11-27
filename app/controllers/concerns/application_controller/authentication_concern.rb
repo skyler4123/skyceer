@@ -1,4 +1,4 @@
-module ApplicationController::Authentication
+module ApplicationController::AuthenticationConcern
   extend ActiveSupport::Concern
   
   included do
