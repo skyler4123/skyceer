@@ -10,6 +10,10 @@ class ArticlePostPolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    true
+  end
+
   def edit?
     user.user_id == article_post.user_id
   end
