@@ -60,14 +60,17 @@ class EducationSchoolsController < EducationsController
 
   def education_school
     @education_schools = EducationSchool.where(user_id: Current.user_id)
+    render :index
   end
 
   def education_teacher
     @education_schools = EducationSchool.where(user_id: Current.user_id)
+    render :index
   end
 
   def education_student
     @education_schools = EducationSchool.where(user_id: Current.user_id)
+    render :index
   end
 
   private

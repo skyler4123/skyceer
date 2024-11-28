@@ -37,19 +37,19 @@ class EducationSchoolPolicy < ApplicationPolicy
     false
   end
 
-  def education_school
+  def education_school?
     return true if @user.admin?
     return true if @user.education_school?
     false
   end
 
-  def education_teacher
+  def education_teacher?
     return true if @user.admin?
     return true if @user.education_teacher?
     false
   end
   
-  def education_student
+  def education_student?
     return true if @user.admin?
     return true if @user.education_student?
     false

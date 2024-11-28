@@ -1,4 +1,4 @@
-class UserPolicy < ApplicationPolicy
+class EducationPolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -7,10 +7,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def index?
-    true
-  end
-
-  def show?
-    true
+    @user.education_role.present?
   end
 end

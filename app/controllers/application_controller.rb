@@ -9,4 +9,5 @@ class ApplicationController < ActionController::Base
   include ApplicationController::AuthorizationConcern
   include ApplicationController::PaginationConcern
 
+  layout 'education'
 end
