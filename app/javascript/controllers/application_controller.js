@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
-import DataHelpers from "./data_helpers";
-import DomHelpers from "./dom_helpers";
+import DataHelpers from "./helpers/data_helpers";
+import DomHelpers from "./helpers/dom_helpers";
 // import DispatchHelpers from "./dispatch_helpers";
 // import ControllerHelpers from "./controller_helpers";
 // import ApiHelpers from "./api_helpers";

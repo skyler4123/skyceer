@@ -1,7 +1,5 @@
 import "axios";
-import ApiHelpers from "../../api_helpers";
-
-const { origin, defaultHeaders } = ApiHelpers
+import { defaultHeaders, origin } from "../api_helpers";
 
 export const UsersApi = {
 

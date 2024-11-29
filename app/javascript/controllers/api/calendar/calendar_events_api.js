@@ -1,7 +1,6 @@
 import "axios";
-import ApiHelpers from "../api_helpers";
+import { defaultHeaders, origin } from "../api_helpers";
 
-const { origin, defaultHeaders } = ApiHelpers
 export const ReviewArticlesApi = {
 
   create({params, headers} = {}) {
