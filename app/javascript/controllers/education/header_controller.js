@@ -5,9 +5,6 @@ export default class extends ApplicationController {
   static values = {
     class: { type: String, default: 'flex flex-row w-full h-full' }
   }
-  initParams() {
-    this.setParams({name: 'variant', defaultValue: 'default'})
-  }
 
   init() {
     this.initHTML()
@@ -36,7 +33,7 @@ export default class extends ApplicationController {
           <a href="/educatione_posts">Contact</a>
         </div>
         <div class="flex flex-row">
-          ${Views_Global_DarkmodeComponent()}
+          ${Global_DarkmodeComponent()}
           <a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a>
       </div>
     </div>

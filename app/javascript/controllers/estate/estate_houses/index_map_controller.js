@@ -1,6 +1,6 @@
 import Libs_Map_Openlayers_IndexController from "../../libs/map/openlayers/index_controller"
 
-export default class Views_Estate_EstateHouses_IndexMapController extends Libs_Map_Openlayers_IndexController {
+export default class Estate_EstateHouses_IndexMapController extends Libs_Map_Openlayers_IndexController {
 
   initParams() {
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/533501/house-chimney-floor.svg'})

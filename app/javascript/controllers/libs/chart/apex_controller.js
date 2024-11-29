@@ -8,7 +8,7 @@ export default class Apex extends ApplicationController {
   }
 
   initParams() {
-    this.setParams({name: 'variant', defaultValue: 'default'})
+
     this.setParams({name: 'options', defaultValue: this.options()})
   }
 
@@ -31,14 +31,6 @@ export default class Apex extends ApplicationController {
   seriesValueChanged(value, previousValue) {
     if (!this.isInitializedValue) { return }
     this.chart.updateSeries(this.seriesValue)
-  }
-
-  variantClass() {
-    return {
-      default: {
-        element: 'w-full'
-      }
-    }
   }
 
   options() {

@@ -7,7 +7,6 @@ export default class Libs_Map_Openlayers_IndexController extends Libs_Map_Openla
   }
 
   initParams() {
-    this.setParams({name: 'variant', defaultValue: 'default'})
     this.setParams({name: 'iconUrl', defaultValue: 'https://www.svgrepo.com/show/13654/placeholder.svg'})
     this.setParams({name: 'points', defaultValue: [{ longitude: 20, latitude: 10, id: 10, price: 999, name: 'Name Demo' }, { longitude: 10, latitude: 10, id: 10, price: 999, name: 'Name Demo' }]})
     this.setParams({name: 'viewCenter', defaultValue: [0, 0]})

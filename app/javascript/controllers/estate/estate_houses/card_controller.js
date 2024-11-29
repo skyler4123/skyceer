@@ -10,10 +10,6 @@ export default class extends ApplicationController {
     house: { type: Object, default: {} }
   }
 
-  initParams() {
-    this.setParams({name: 'variant', defaultValue: 'default'})
-  }
-
   houseIdValueChanged(value, previousValue) {
     if (value.length === 0) { return }
 
@@ -57,11 +53,4 @@ export default class extends ApplicationController {
     `
   }
 
-  variantClass() {
-    return {
-      default: {
-        element: 'w-full h-[400px]'
-      }
-    }
-  }
 }

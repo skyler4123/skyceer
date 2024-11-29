@@ -1,6 +1,6 @@
 import ApplicationController from "../application_controller"
 
-export default class Views_Education_LayoutController extends ApplicationController {
+export default class Education_LayoutController extends ApplicationController {
   static targets = ['header', 'main', 'aside', 'content', 'footer']
 
   init() {

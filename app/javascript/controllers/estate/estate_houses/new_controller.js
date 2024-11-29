@@ -1,7 +1,7 @@
 import { EstateHousesApi } from "../../api/estate/estate_houses_api";
-import Views_Estate_LayoutController from "../layout_controller";
+import Estate_LayoutController from "../layout_controller";
 
-export default class extends Views_Estate_LayoutController {
+export default class extends Estate_LayoutController {
   static targets = [...super.targets, "newForm", "newMap"]
 
   initParams() {
