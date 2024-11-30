@@ -9,7 +9,19 @@ import DomHelpers from "./helpers/dom_helpers";
 // import FormHelpers from "./form_helpers";
 
 export default class ApplicationController extends Controller {
-
+  static get identifier() {
+    let identifier
+    identifier = this.name
+    identifier = identifier.replace('Controller', '')
+    identifier = identifier.replace('_', 'NAMESPACE')
+    identifier = identifier
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .map(x => x.toLowerCase())
+    .join('-');
+    identifier = identifier.replace('namespace', '')
+    identifier = "data-controller=" + identifier
+    return identifier
+  }
   static values = {
     params: { type: Object },
     isOpen: { type: Boolean },
@@ -42,7 +54,7 @@ export default class ApplicationController extends Controller {
   }
   initializeHead() {
     if (this.isDefined(this.headValue) && this.headValue.length > 0) {
-      document.insertAdjacentHTML(this.headValue, document.head)
+      document.head.insertAdjacentHTML('beforeend', this.headValue)
     }
   }
 

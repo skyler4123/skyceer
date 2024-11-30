@@ -1,5 +1,7 @@
 import ApplicationController from "../application_controller";
 import { CookieHelpers } from "../helpers/cookie_helpers";
+import Education_AvatarController from "./avatar_controller";
+import Education_UserProfileDropdownController from "./user_profile_dropdown_controller";
 
 export default class extends ApplicationController {
   static values = {
@@ -32,11 +34,8 @@ export default class extends ApplicationController {
           <a href="/educatione_posts">Student</a>
           <a href="/educatione_posts">Contact</a>
         </div>
-        <div class="flex flex-row">
-          <img class="w-10 h-10 rounded-full" src="${CookieHelpers.avatarPath()}" alt="Rounded avatar">
-          <a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a>
+        <div class="flex flex-row" ${Education_UserProfileDropdownController.identifier}></div>
       </div>
-    </div>
     `
   }
 }

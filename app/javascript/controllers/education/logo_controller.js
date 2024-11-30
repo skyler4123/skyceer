@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 
-export default class extends Controller {
+export default class Education_LogoController extends Controller {
   static values = {
     name: { type: String, default: "Skyler" },
     url: { type: String, default: "/" },
