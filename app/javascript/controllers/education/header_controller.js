@@ -29,10 +29,7 @@ export default class extends ApplicationController {
         </div>
         <div class="flex flex-row gap-x-2">
           <a href="/"">Home</a>
-          <a href="/education_houses">Academic</a>
-          <a href="/educatione_posts">Teacher</a>
-          <a href="/educatione_posts">Student</a>
-          <a href="/educatione_posts">Contact</a>
+          <a href="/educations">Education</a>
         </div>
         <div class="flex flex-row" ${Education_UserProfileDropdownController.identifier}></div>
       </div>
