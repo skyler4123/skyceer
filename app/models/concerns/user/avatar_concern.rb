@@ -28,6 +28,7 @@ module User::AvatarConcern
     end
 
     def avatar_path
+      return "" unless self.avatar.attached?
       Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)
     end
   end

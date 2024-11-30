@@ -14,7 +14,6 @@ Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
 # require 'capybara_helper'
 require 'cuprite_helper'
-require 'vcr_helper'
 
 
 
