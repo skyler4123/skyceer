@@ -17,6 +17,6 @@ class ChatMessage
   end
 
   def render_component
-    ApplicationController.render(Views::Chat::MessageComponent.new(user_id: self.user_id, message_content: self.content), layout: false)
+    ApplicationController.render(Chat::MessageComponent.new(user_id: self.user_id, message_content: self.content), layout: false)
   end
 end

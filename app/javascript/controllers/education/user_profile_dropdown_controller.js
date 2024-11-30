@@ -28,7 +28,7 @@ export default class Education_UserProfileDropdownController extends Application
     tippy(this.avatarTarget, {
       duration: 0,
       arrow: true,
-      delay: [1000, 200],
+      // delay: [1000, 200],
       theme: 'light',
       content: this.dropdownHTML(),
       interactive: true,
