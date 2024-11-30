@@ -1,4 +1,5 @@
 class DemoController < ApplicationController
+  skip_before_action :authorization
   def index
     @sample_erb_code = <<~TEXT
       <div class="w-full flex flex-row">

@@ -23,6 +23,7 @@ export default class ApplicationController extends Controller {
     this.paramsValue = this.normalizeParamsValue(this.paramsValue)
     this.initializeParams()
     this.initializeID()
+    this.initializeHead()
     this.initializeDir()
     if (this.isDefined(this.init)) { this.init() }
     this.initializeComplete()
@@ -39,6 +40,12 @@ export default class ApplicationController extends Controller {
     if (this.element.id) { return } 
     this.element.id = `${this.identifier}:${this.newUUID()}`
   }
+  initializeHead() {
+    if (this.isDefined(this.headValue) && this.headValue.length > 0) {
+      document.insertAdjacentHTML(this.headValue, document.head)
+    }
+  }
+
   initializeDir() {
     if (this.element.hasAttribute('dir')) { return }
     if (this.hasDirParams) {
