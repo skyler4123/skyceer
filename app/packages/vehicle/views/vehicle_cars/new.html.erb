@@ -1,10 +1,10 @@
 <%
 =begin%>
- <div data-controller="views--vehicle--cars--new" class="mx-auto md:w-2/3 w-full">
+ <div data-controller="vehicle--cars--new" class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">New car car</h1>
   <div>
     <%= render "form", vehicle_car: @vehicle_car %>
-    <%= render(Libs::Openlayers::PointComponent.new(data: {'views--vehicle--cars--new-target' => 'map'})) %>
+    <%= render(Libs::Openlayers::PointComponent.new(data: {'vehicle--cars--new-target' => 'map'})) %>
 
   </div>
   <%= link_to "Back to car cars", vehicle_cars_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

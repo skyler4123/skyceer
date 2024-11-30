@@ -19,5 +19,8 @@ export const CookieHelpers = {
 
   sessionId() {
     return this.getCookie('session_id')
+  },
+  avatarPath() {
+    return this.getCookie('avatar_path')
   }
 }

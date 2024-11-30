@@ -26,6 +26,10 @@ module User::AvatarConcern
         errors.add(:avatar, "must be a JPEG or PNG")
       end
     end
+
+    def avatar_path
+      Rails.application.routes.url_helpers.rails_blob_path(self.avatar, only_path: true)
+    end
   end
 
 end

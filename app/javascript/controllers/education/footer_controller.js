@@ -15,7 +15,7 @@ export default class extends ApplicationController {
 
   defaultHTML() {
     return `
-      <div data-controller="views--application--logo"></div>
+      <div data-controller="application--logo"></div>
       <div>Home</div>
       <div>Estate</div>
       <div>About</div>

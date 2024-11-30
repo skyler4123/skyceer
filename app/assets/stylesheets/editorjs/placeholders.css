@@ -7,7 +7,7 @@
  * 2. Current-block placeholders. Will be visible when element is empty and the block is focused.
       -- Best choice for common-used blocks like Paragraphs.
  */
- .views--article--article-posts--show {
+ .article--article-posts--show {
   :root {
     --placeholder {
       pointer-events: none;

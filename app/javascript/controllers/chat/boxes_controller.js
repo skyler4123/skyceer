@@ -20,7 +20,7 @@ export default class extends ApplicationController {
     document.addEventListener("turbo:before-stream-render", ((event) => {
       if (event.target.target !== this.idParams) { return }
 
-      const chatboxControllers = this.getChildrenControllersFromIdentifier('views--chat--box')
+      const chatboxControllers = this.getChildrenControllersFromIdentifier('chat--box')
       const conversationIds = this.pluck({object: chatboxControllers, key: 'conversationIdParams'})
       const fallbackToDefaultActions = event.detail.render
       event.detail.render = (streamElement) => {

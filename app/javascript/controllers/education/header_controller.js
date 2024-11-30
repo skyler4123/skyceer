@@ -33,7 +33,7 @@ export default class extends ApplicationController {
           <a href="/educatione_posts">Contact</a>
         </div>
         <div class="flex flex-row">
-          ${Global_DarkmodeComponent()}
+          <img class="w-10 h-10 rounded-full" src="${CookieHelpers.avatarPath()}" alt="Rounded avatar">
           <a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a>
       </div>
     </div>

@@ -75,15 +75,15 @@ export default class extends Estate_LayoutController {
   }
 
   searchControllerIdentifier() {
-    return "views--estate--estate-houses--search"
+    return "estate--estate-houses--search"
   }
 
   mapControllerIdentifier() {
-    return "views--estate--estate-houses--index-map"
+    return "estate--estate-houses--index-map"
   }
 
   cardControllerIdentifier() {
-    return "views--estate--estate-houses--card"
+    return "estate--estate-houses--card"
   }
 
 }

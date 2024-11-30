@@ -8,7 +8,7 @@
   }
 }
 
-.views--article--article-posts--show {
+.article--article-posts--show {
   .ce-block {
     animation: fade-in 300ms ease;
     animation-fill-mode: initial;

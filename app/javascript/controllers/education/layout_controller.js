@@ -12,16 +12,16 @@ export default class Education_LayoutController extends ApplicationController {
   }
 
   initHeader() {
-    this.headerTarget.setAttribute('data-controller', "views--education--header")
+    this.headerTarget.setAttribute('data-controller', "education--header")
   }
   initMain() {
-    this.mainTarget.setAttribute('data-controller', "views--education--main")
+    this.mainTarget.setAttribute('data-controller', "education--main")
   }
   initAside() {
-    this.asideTarget.setAttribute('data-controller', "views--education--aside")
+    this.asideTarget.setAttribute('data-controller', "education--aside")
   }
   initFooter() {
-    this.footerTarget.setAttribute('data-controller', "views--education--footer")
+    this.footerTarget.setAttribute('data-controller', "education--footer")
   }
 
 }

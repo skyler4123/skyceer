@@ -169,5 +169,5 @@ export const Editorjs = (params = {}, content = null) => {
 
 
 export const BoxChat = ({chatUserId, chatConversationId}) => {
-  return `<div data-controller="views--chat--box" data-views--chat--box-chat-user-id-value="${chatUserId}" data-views--chat--box-chat-conversation-id-value="${chatConversationId}"></div>`
+  return `<div data-controller="chat--box" data-chat--box-chat-user-id-value="${chatUserId}" data-chat--box-chat-conversation-id-value="${chatConversationId}"></div>`
 }
