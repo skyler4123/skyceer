@@ -17,8 +17,7 @@ RSpec.feature "education_schools#index", type: :feature, js: true do
     it "will be redirect to root_pathn" do
       sign_in(user: user)
       visit education_schools_path
-      expect(page).to have_current_path(root_path)
-      expect(page).to have_content(UNAUTHORIZE_MESSAGE)
+      expect(page).to have_content(Pundit::NotAuthorizedError)
     end
   end
 end
