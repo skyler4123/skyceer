@@ -53,4 +53,8 @@ class EducationSchoolPolicy < ApplicationPolicy
     return true if @user.education_student?
     false
   end
+
+  def teachers?
+    @user.user_id == @record.user_id
+  end
 end

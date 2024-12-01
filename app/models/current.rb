@@ -10,6 +10,10 @@ class Current < ActiveSupport::CurrentAttributes
     self.session
   end
 
+  def self.role
+    self.session.role
+  end
+
   def self.education_role
     self.session.education_role
   end

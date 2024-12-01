@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       get :education_teacher
       get :education_student
     end
+    member do
+      get :teachers
+    end
   end
   resources :education_classes
 

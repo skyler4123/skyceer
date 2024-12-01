@@ -1,5 +1,6 @@
 class EducationsController < ApplicationController
   def index
+    return redirect_to education_schools_path if Current.current_user.admin?
     case Current.education_role.to_sym
     when :education_school
       redirect_to education_school_education_schools_path

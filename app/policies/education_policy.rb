@@ -7,6 +7,7 @@ class EducationPolicy < ApplicationPolicy
   end
 
   def index?
+    return true if @user.admin?
     @user.education_role.present?
   end
 end

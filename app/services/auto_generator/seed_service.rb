@@ -169,17 +169,22 @@ class AutoGenerator::SeedService
         education_room = EducationRoom.create!(name: "education room #{n_1}", education_school: education_school)
         self.attach(record: education_room, relation: :images, number: 2)
 
+        education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user, education_school: education_school)
+        self.attach(record: education_teacher, relation: :images, number: 2)
+
+        education_student = EducationStudent.create!(name: "education student #{index}", user: user, education_school: education_school)
+        self.attach(record: education_student, relation: :images, number: 2)
       end
     end
 
-    User.education_teacher.each_with_index do |user, index|
-      education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user, education_school: EducationSchool.all.sample)
-      self.attach(record: education_teacher, relation: :images, number: 2)
-    end
-    User.education_student.each_with_index do |user, index|
-      education_student = EducationStudent.create!(name: "education student #{index}", user: user, education_school: EducationSchool.all.sample)
-      self.attach(record: education_student, relation: :images, number: 2)
-    end
+    # User.education_teacher.each_with_index do |user, index|
+    #   education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user, education_school: EducationSchool.all.sample)
+    #   self.attach(record: education_teacher, relation: :images, number: 2)
+    # end
+    # User.education_student.each_with_index do |user, index|
+    #   education_student = EducationStudent.create!(name: "education student #{index}", user: user, education_school: EducationSchool.all.sample)
+    #   self.attach(record: education_student, relation: :images, number: 2)
+    # end
   end
 
   def self.seed_for_chat
