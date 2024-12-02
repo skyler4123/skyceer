@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :education_students
   resources :education_teachers
   resources :education_schools do
+    resources :education_teachers
     collection do
       get :education_school
       get :education_teacher

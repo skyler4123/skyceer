@@ -11,7 +11,7 @@ module ApplicationController::AuthorizationConcern
     private
 
     def authorization
-      authorize :application, policy_class: "#{controller_name.classify}Policy".constantize
+      # authorize :application, policy_class: "#{controller_name.classify}Policy".constantize
     end
 
     def user_not_authorized(exception)

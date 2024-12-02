@@ -1,4 +1,5 @@
 class EducationTeachersController < EducationsController
+  before_action :set_education_school
   before_action :set_education_teacher, only: %i[ show edit update destroy ]
 
   # GET /education_teachers or /education_teachers.json
@@ -21,7 +22,9 @@ class EducationTeachersController < EducationsController
 
   # POST /education_teachers or /education_teachers.json
   def create
-    @education_teacher = EducationTeacher.new(education_teacher_params)
+    @teacher_user = User.find_by(email: params[:education_teacher][:email])
+    # @education_teacher = EducationTeachers.build(education_teacher_params)
+    @education_teacher = EducationTeacher.build(user: @teacher_user, education_school: @education_school)
 
     respond_to do |format|
       if @education_teacher.save
@@ -59,6 +62,10 @@ class EducationTeachersController < EducationsController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_education_school
+      @education_school = EducationSchool.find(params[:education_school_id])
+    end
+
     def set_education_teacher
       @education_teacher = EducationTeacher.find(params[:id])
     end
