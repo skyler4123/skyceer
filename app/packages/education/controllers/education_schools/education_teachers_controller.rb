@@ -1,9 +1,10 @@
-class EducationTeachersController < EducationsController
+class EducationSchools::EducationTeachersController < EducationsController
+  before_action :set_education_school
   before_action :set_education_teacher, only: %i[ show edit update destroy ]
 
   # GET /education_teachers or /education_teachers.json
   def index
-    @education_teachers = EducationTeacher.all
+    @education_teachers = @education_school.education_teachers.all
   end
 
   # GET /education_teachers/1 or /education_teachers/1.json
@@ -61,6 +62,14 @@ class EducationTeachersController < EducationsController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_education_school
+      @education_school = EducationSchool.find(params[:education_school_id])
+    end
+
+    def set_education_school
+      @education_school = EducationSchool.find(params[:education_school_id])
+    end
+
     def set_education_teacher
       @education_teacher = EducationTeacher.find(params[:id])
     end

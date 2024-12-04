@@ -14,10 +14,11 @@ Rails.application.routes.draw do
   resources :education_rooms
   resources :education_students
   resources :education_teachers
+
   resources :education_schools do
-    resources :education_teachers
-    resources :education_students
-    resources :education_courses
+    scope module: :education_schools do
+      resources :education_teachers
+    end
     collection do
       get :education_school
       get :education_teacher
