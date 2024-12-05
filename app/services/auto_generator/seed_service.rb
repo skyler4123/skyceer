@@ -1,15 +1,13 @@
 class AutoGenerator::SeedService
   def self.run(seed_number: 0)
     self.seed_for_application(seed_number)
-    2.times do
-      self.seed_for_vehicle
-      self.seed_for_calendar
-      self.seed_for_education
-      self.seed_for_chat
-      self.seed_for_article
-      self.seed_for_estate
-      self.seed_for_report
-    end
+    self.seed_for_education(seed_number)
+    self.seed_for_vehicle
+    self.seed_for_calendar
+    self.seed_for_chat
+    self.seed_for_article
+    self.seed_for_estate
+    self.seed_for_report
     self.puts_count
     puts "AutoGenerator::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"
     return true
@@ -17,34 +15,27 @@ class AutoGenerator::SeedService
 
 
   def self.seed_for_application(seed_number)
-    self.seed_for_user(seed_number)
+    self.seed_user_with_application_role
     self.seed_for_category
   end
 
-  def self.seed_for_user(seed_number)
-    self.seed_user_with_role
-    self.seed_user_with_education_role
-
-    seed_number.times do |n|
-      role = :normal
-      education_role = User.education_roles.keys.sample
-      email = "#{role}_#{education_role}_#{n}_#{Time.now.to_i}@example.com"
-
-      user = User.create!(
-        email: email,
-        password: "password1234",
-        password_confirmation: "password1234",
-        verified: true,
-        name: Faker::Movies::HarryPotter.character,
-        role: role,
-        education_role: education_role,
-        address: Address.create_random_vietnam,
-      )
-      self.attach(record: user, relation: :avatar, number: 1)
-    end
+  def self.user_with_role(role: :normal, education_role: :education_school)
+    email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
+    user = User.create!(
+      email: email,
+      password: "password1234",
+      password_confirmation: "password1234",
+      verified: true,
+      name: Faker::Movies::HarryPotter.character,
+      role: role,
+      education_role: education_role,
+      address: Address.create_random_vietnam,
+    )
+    self.attach(record: user, relation: :avatar, number: 1)
+    user
   end
 
-  def self.seed_user_with_role
+  def self.seed_user_with_application_role
     User.roles.each do |key, value|
       user = User.create!(
         email: "#{key}@example.com",
@@ -59,28 +50,32 @@ class AutoGenerator::SeedService
     end
   end
 
-  def self.seed_user_with_education_role
-    User.education_roles.each do |key, value|
-      user = User.create!(
-        email: "#{key}@example.com",
-        password: "password1234",
-        password_confirmation: "password1234",
-        verified: true,
-        name: Faker::Movies::HarryPotter.character,
-        role: :normal,
-        education_role: key,
-        address: Address.create_random_vietnam,
-      )
-      self.attach(record: user, relation: :avatar, number: 1)
-    end
-  end
-
   def self.seed_for_category
     20.times do |n|
       category = Category.create!(
         name: "category #{n}",
         parent_category: [Category.all.sample, nil].sample
       )
+    end
+  end
+
+  def self.seed_for_education(seed_number)
+    seed_number.times do |index|
+      education_school = EducationSchool.create!(name: "education school #{index}", user: user_with_role(education_role: :education_school), address: Address.create_random)
+      self.attach(record: education_school, relation: :avatar, number: 1)
+      2.times do |n_1|
+        education_class = EducationClass.create!(name: "education class #{n_1}", education_school: education_school)
+        self.attach(record: education_class, relation: :images, number: 2)
+        
+        education_room = EducationRoom.create!(name: "education room #{n_1}", education_school: education_school)
+        self.attach(record: education_room, relation: :images, number: 2)
+
+        education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user_with_role(education_role: :education_teacher), education_school: education_school)
+        self.attach(record: education_teacher, relation: :images, number: 2)
+
+        education_student = EducationStudent.create!(name: "education student #{index}", user: user_with_role(education_role: :education_student), education_school: education_school)
+        self.attach(record: education_student, relation: :images, number: 2)
+      end
     end
   end
 
@@ -156,35 +151,6 @@ class AutoGenerator::SeedService
         end
       end
     end
-  end
-
-  def self.seed_for_education
-    User.education_school.each_with_index do |user, index|
-      education_school = EducationSchool.create!(name: "education school #{index}", user: user, address: Address.create_random)
-      self.attach(record: education_school, relation: :avatar, number: 1)
-      2.times do |n_1|
-        education_class = EducationClass.create!(name: "education class #{n_1}", education_school: education_school)
-        self.attach(record: education_class, relation: :images, number: 2)
-        
-        education_room = EducationRoom.create!(name: "education room #{n_1}", education_school: education_school)
-        self.attach(record: education_room, relation: :images, number: 2)
-
-        education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user, education_school: education_school)
-        self.attach(record: education_teacher, relation: :images, number: 2)
-
-        education_student = EducationStudent.create!(name: "education student #{index}", user: user, education_school: education_school)
-        self.attach(record: education_student, relation: :images, number: 2)
-      end
-    end
-
-    # User.education_teacher.each_with_index do |user, index|
-    #   education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user, education_school: EducationSchool.all.sample)
-    #   self.attach(record: education_teacher, relation: :images, number: 2)
-    # end
-    # User.education_student.each_with_index do |user, index|
-    #   education_student = EducationStudent.create!(name: "education student #{index}", user: user, education_school: EducationSchool.all.sample)
-    #   self.attach(record: education_student, relation: :images, number: 2)
-    # end
   end
 
   def self.seed_for_chat
