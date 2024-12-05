@@ -20,7 +20,26 @@ class AutoGenerator::SeedService
   end
 
   def self.user_with_role(role: :normal, education_role: :education_school)
-    email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
+    case education_role.to_sym
+    when :education_school
+      if User.education_school.count.zero?
+        email = "#{education_role}@example.com"
+      else
+        email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
+      end
+    when :education_teacher
+      if User.education_teacher.count.zero?
+        email = "#{education_role}@example.com"
+      else
+        email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
+      end
+    when :education_student
+      if User.education_student.count.zero?
+        email = "#{education_role}@example.com"
+      else
+        email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
+      end
+    end
     user = User.create!(
       email: email,
       password: "password1234",

@@ -40,5 +40,5 @@ ReportTicket.destroy_all
 ReportFrontend.destroy_all
 
 # Run generator for development
-AutoGenerator::SeedService.run(seed_number: 20)
+AutoGenerator::SeedService.run(seed_number: 10)
 puts "db:seed doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!!"
