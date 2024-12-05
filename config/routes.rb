@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :education_schools do
     scope module: :education_schools do
       resources :education_teachers
+      resources :education_students
     end
     collection do
       get :education_school

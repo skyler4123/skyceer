@@ -66,10 +66,6 @@ class EducationSchools::EducationTeachersController < EducationsController
       @education_school = EducationSchool.find(params[:education_school_id])
     end
 
-    def set_education_school
-      @education_school = EducationSchool.find(params[:education_school_id])
-    end
-
     def set_education_teacher
       @education_teacher = EducationTeacher.find(params[:id])
     end

@@ -60,29 +60,26 @@ class EducationSchoolsController < EducationsController
   end
 
   def education_school
-    @education_schools = EducationSchool.where(user_id: Current.user_id)
-    return redirect_to @education_schools.first if @education_schools.count == 1
-    render :index
+    @education_school = EducationSchool.find_by(user_id: Current.user_id)
+    return redirect_to @education_school
   end
 
-  def education_teacher
-    @education_schools = EducationSchool.where(user_id: Current.user_id)
-    return redirect_to @education_schools.first if @education_schools.count == 1
-    render :index
-  end
+  # def education_teacher
+  #   @education_schools = EducationSchool.where(user_id: Current.user_id, education_school: @education_school).first
+  #   return redirect_to @education_schools.first if @education_schools.count == 1
+  #   render :index
+  # end
 
-  def education_student
-    @education_schools = EducationSchool.where(user_id: Current.user_id)
-    return redirect_to @education_schools.first if @education_schools.count == 1
-    render :index
-  end
+  # def education_student
+  #   @education_schools = EducationSchool.where(user_id: Current.user_id, education_school: @education_school).first
+  #   return redirect_to @education_schools.first if @education_schools.count == 1
+  #   render :index
+  # end
 
-  def teachers
-    @education_school = EducationSchool.find(params[:id])
-    authorize @education_school
-    @education_teachers = @education_school.education_teachers.all
-    render "education_teachers/index"
-  end
+  # def teachers
+  #   @education_teachers = @education_school.education_teachers.all
+  #   render "education_teachers/index"
+  # end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_education_school
