@@ -19,7 +19,8 @@ module ApplicationController::CurrentConcern
         email: user.email,
         user_id: user.id,
         role: user.role,
-        education_role: user.education_role
+        education_role: user.education_role,
+        education_school_id: user.education_school.id,
       )
     end
   end

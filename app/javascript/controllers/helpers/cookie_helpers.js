@@ -22,5 +22,11 @@ export const CookieHelpers = {
   },
   avatarPath() {
     return this.getCookie('avatar_path')
+  },
+  educationRole() {
+    return this.getCookie('education_role')
+  },
+  educationSchoolId() {
+    return this.getCookie('education_school_id')
   }
 }
