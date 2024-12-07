@@ -40,7 +40,7 @@ export default class Education_UserProfileDropdownController extends Application
   dropdownHTML() {
     return `
       <ul class="bg-red-500 text-2xl">
-        <li>${CookieHelpers.name()}</li>
+        <li><a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a></li>
       </ul>
     `
   }
