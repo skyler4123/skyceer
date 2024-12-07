@@ -20,7 +20,9 @@ module ApplicationController::CurrentConcern
         user_id: user.id,
         role: user.role,
         education_role: user.education_role,
-        education_school_id: user.education_school.id,
+        education_school_id: user.education_role_school? ? user.education_school.id : nil,
+        education_teacher_id: user.education_role_teacher? ? user.education_teacher.id : nil,
+        education_student_id: user.education_role_student? ? user.education_student.id : nil,
       )
     end
   end

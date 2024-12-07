@@ -19,22 +19,22 @@ class AutoGenerator::SeedService
     self.seed_for_category
   end
 
-  def self.user_with_role(role: :normal, education_role: :education_school)
+  def self.user_with_role(role: :normal, education_role: :school)
     case education_role.to_sym
-    when :education_school
-      if User.education_school.count.zero?
+    when :school
+      if User.education_role_school.count.zero?
         email = "#{education_role}@example.com"
       else
         email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
       end
-    when :education_teacher
-      if User.education_teacher.count.zero?
+    when :teacher
+      if User.education_role_teacher.count.zero?
         email = "#{education_role}@example.com"
       else
         email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
       end
-    when :education_student
-      if User.education_student.count.zero?
+    when :student
+      if User.education_role_student.count.zero?
         email = "#{education_role}@example.com"
       else
         email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
@@ -80,7 +80,7 @@ class AutoGenerator::SeedService
 
   def self.seed_for_education(seed_number)
     seed_number.times do |index|
-      education_school = EducationSchool.create!(name: "education school #{index}", user: user_with_role(education_role: :education_school), address: Address.create_random)
+      education_school = EducationSchool.create!(name: "education school #{index}", user: user_with_role(education_role: :school), address: Address.create_random)
       self.attach(record: education_school, relation: :avatar, number: 1)
       2.times do |n_1|
         education_class = EducationClass.create!(name: "education class #{n_1}", education_school: education_school)
@@ -89,10 +89,10 @@ class AutoGenerator::SeedService
         education_room = EducationRoom.create!(name: "education room #{n_1}", education_school: education_school)
         self.attach(record: education_room, relation: :images, number: 2)
 
-        education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user_with_role(education_role: :education_teacher), education_school: education_school)
+        education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user_with_role(education_role: :teacher), education_school: education_school)
         self.attach(record: education_teacher, relation: :images, number: 2)
 
-        education_student = EducationStudent.create!(name: "education student #{index}", user: user_with_role(education_role: :education_student), education_school: education_school)
+        education_student = EducationStudent.create!(name: "education student #{index}", user: user_with_role(education_role: :student), education_school: education_school)
         self.attach(record: education_student, relation: :images, number: 2)
       end
     end

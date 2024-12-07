@@ -3,6 +3,6 @@ module User::EnumConcern
   
   included do
     enum :role, { normal: 0, admin: 1 }
-    enum :education_role, { education_school: 0, education_teacher: 1, education_student: 2 }
+    enum :education_role, { school: 0, teacher: 1, student: 2 }, prefix: true
   end
 end
