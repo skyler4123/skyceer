@@ -10,6 +10,7 @@ module ApplicationController::CookieConcern
       cookies.permanent[:role] = user.role
       cookies.permanent[:education_role] = user.education_role
       cookies.permanent[:education_id] = user.education.id if user.education
+      cookies.permanent[:education_school_id] = user.education_school&.id || user.education&.education_school&.id
       cookies.permanent[:avatar_path] = user.avatar_path
     end
   end
