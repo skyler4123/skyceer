@@ -18,4 +18,8 @@ class EducationsController < ApplicationController
   def set_education_school
     @education_school = EducationSchool.find(params[:education_school_id])
   end
+
+  def set_education_student
+    @education_school = EducationStudent.find(params[:education_student_id])
+  end
 end

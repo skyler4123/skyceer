@@ -12,10 +12,13 @@ Rails.application.routes.draw do
   resources :educations, only: [:index]
   resources :education_courses
   resources :education_rooms
-  resources :education_students
   resources :education_teachers
   resources :education_classes
-
+  resources :education_students do
+    scope module: :education_schools do
+      resources :education_schools, only: [:index]
+    end
+  end
   resources :education_schools do
     scope module: :education_schools do
       resources :education_teachers

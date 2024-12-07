@@ -10,8 +10,8 @@ module User::PackageConcern
     has_many :vehicle_cars, dependent: :destroy
 
     has_one :education_school, dependent: :destroy
-    has_one :education_teacher, dependent: :destroy
-    has_one :education_student, dependent: :destroy
+    has_many :education_teacher, dependent: :destroy
+    has_many :education_student, dependent: :destroy
 
     has_many :calendar_groups, dependent: :destroy
 
@@ -24,6 +24,11 @@ module User::PackageConcern
       when :student
         self.education_student
       end
+    end
+
+    def navigation_record
+      return self.education_school if self.education_school
+      self
     end
   end
 

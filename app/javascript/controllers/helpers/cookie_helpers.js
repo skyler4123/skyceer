@@ -28,5 +28,8 @@ export const CookieHelpers = {
   },
   educationSchoolId() {
     return this.getCookie('education_school_id')
-  }
+  },
+  educationRole() {
+    return this.getCookie('education_role')
+  },
 }
