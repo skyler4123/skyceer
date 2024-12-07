@@ -32,4 +32,10 @@ export const CookieHelpers = {
   educationRole() {
     return this.getCookie('education_role')
   },
+  navigationName() {
+    return this.getCookie('navigation_name')
+  },
+  navigationId() {
+    return this.getCookie('navigation_id')
+  },
 }

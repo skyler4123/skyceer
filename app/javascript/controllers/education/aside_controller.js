@@ -19,7 +19,7 @@ export default class extends ApplicationController {
     return [
       {
         name: "School",
-        url: `/education_${CookieHelpers.educationRole()}s/${CookieHelpers.educationSchoolId()}`,
+        url: `/${CookieHelpers.navigationName()}/${CookieHelpers.navigationId()}`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -27,7 +27,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Teachers",
-        url: `/education_${CookieHelpers.educationRole()}s/${CookieHelpers.educationSchoolId()}/education_teachers`,
+        url: `/${CookieHelpers.navigationName()}/${CookieHelpers.navigationId()}/education_teachers`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -35,7 +35,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Students",
-        url: `/education_${CookieHelpers.educationRole()}s/${CookieHelpers.educationSchoolId()}/education_students`,
+        url: `/${CookieHelpers.navigationName()}/${CookieHelpers.navigationId()}/education_students`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -43,7 +43,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Classes",
-        url: `/education_${CookieHelpers.educationRole()}s/${CookieHelpers.educationSchoolId()}/education_classes`,
+        url: `/${CookieHelpers.navigationName()}/${CookieHelpers.navigationId()}/education_classes`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -51,7 +51,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Rooms",
-        url: `/education_${CookieHelpers.educationRole()}s/${CookieHelpers.educationSchoolId()}/education_rooms`,
+        url: `/${CookieHelpers.navigationName()}/${CookieHelpers.navigationId()}/education_rooms`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
