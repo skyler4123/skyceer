@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
   end
 
   def sign_out
-    Current.session.destroy; redirect_to(sessions_path, notice: "That session has been logged out")
+    Current.session.destroy; redirect_to(sign_in_path, notice: "That session has been logged out")
   end
   
   private

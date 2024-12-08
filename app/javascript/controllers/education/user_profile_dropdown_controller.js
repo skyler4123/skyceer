@@ -41,6 +41,7 @@ export default class Education_UserProfileDropdownController extends Application
     return `
       <ul class="bg-red-500 text-2xl">
         <li><a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a></li>
+        <li><a href="/sign_out">Sign Out</a></li>
       </ul>
     `
   }
