@@ -4,7 +4,8 @@ class Users::EducationSchoolsController < EducationsController
 
   # GET /education_schools or /education_schools.json
   def index
-    @education_schools = EducationSchool.all
+    @education_students = @user.education_students
+    @education_schools = EducationSchool.includes(:education_students).where(education_students: @user.education_students)
   end
 
   # GET /education_schools/1 or /education_schools/1.json
