@@ -52,7 +52,8 @@ Rails.application.routes.draw do
 
   resources :users do
     scope module: :users do
-      resources :education_schools, only: [:index]
+      resources :education_schools, only: [:index, :show]
+      resources :education_teachers, only: [:index, :show]
     end
     collection do
       get :profile
