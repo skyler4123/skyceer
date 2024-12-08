@@ -14,11 +14,7 @@ Rails.application.routes.draw do
   resources :education_rooms
   resources :education_teachers
   resources :education_classes
-  resources :education_students do
-    scope module: :education_schools do
-      resources :education_schools, only: [:index]
-    end
-  end
+  resources :education_students
   resources :education_schools do
     scope module: :education_schools do
       resources :education_teachers
@@ -55,6 +51,9 @@ Rails.application.routes.draw do
   resources :article_posts
 
   resources :users do
+    scope module: :users do
+      resources :education_schools, only: [:index]
+    end
     collection do
       get :profile
     end

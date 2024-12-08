@@ -19,6 +19,10 @@ class EducationsController < ApplicationController
     @education_school = EducationSchool.find(params[:education_school_id])
   end
 
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
   def set_education_student
     @education_school = EducationStudent.find(params[:education_student_id])
   end
