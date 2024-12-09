@@ -22,13 +22,12 @@ class EducationSchools::EducationTeachersController < EducationsController
 
   # POST /education_teachers or /education_teachers.json
   def create
-    @teacher_user = User.find_by(email: params[:education_teacher][:email])
-    # @education_teacher = EducationTeachers.build(education_teacher_params)
+    @teacher_user = Education::Teacher::UserService.find_or_create(name: params[:education_teacher][:name], email: params[:education_teacher][:email])
     @education_teacher = EducationTeacher.build(user: @teacher_user, education_school: @education_school)
 
     respond_to do |format|
       if @education_teacher.save
-        format.html { redirect_to @education_teacher, notice: "Education teacher was successfully created." }
+        format.html { redirect_to education_school_education_teachers, notice: "Education teacher was successfully created." }
         format.json { render :show, status: :created, location: @education_teacher }
       else
         format.html { render :new, status: :unprocessable_entity }
