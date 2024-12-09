@@ -22,7 +22,8 @@ class EducationSchools::EducationStudentsController < EducationsController
 
   # POST /education_students or /education_students.json
   def create
-    @education_student = EducationStudent.new(education_student_params)
+    @student_user = Education::Student::UserService.find_or_create(name: params[:education_student][:name], email: params[:education_student][:email])
+    @education_student = EducationStudent.build(user: @student_user, education_school: @education_school)
 
     respond_to do |format|
       if @education_student.save
