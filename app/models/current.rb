@@ -33,4 +33,8 @@ class Current < ActiveSupport::CurrentAttributes
   def self.avatar
     self.session.avatar
   end
+
+  def self.education_school
+    EducationSchool.find_by(user_id: self.user_id)
+  end
 end
