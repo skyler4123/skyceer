@@ -80,7 +80,8 @@ class AutoGenerator::SeedService
 
   def self.seed_for_education(seed_number)
     seed_number.times do |index|
-      education_school = EducationSchool.create!(name: "education school #{index}", user: user_with_role(education_role: :school), address: Address.create_random)
+      user = user_with_role(education_role: :school)
+      education_school = EducationSchool.create!(name: "#{EmailService.username(user.email)} education school name", user: user, address: Address.create_random)
       self.attach(record: education_school, relation: :avatar, number: 1)
       2.times do |n_1|
         education_class = EducationClass.create!(name: "education class #{n_1}", education_school: education_school)
@@ -89,10 +90,12 @@ class AutoGenerator::SeedService
         education_room = EducationRoom.create!(name: "education room #{n_1}", education_school: education_school)
         self.attach(record: education_room, relation: :images, number: 2)
 
-        education_teacher = EducationTeacher.create!(name: "education teacher #{index}", user: user_with_role(education_role: :teacher), education_school: education_school)
+        teacher_user = user_with_role(education_role: :teacher)
+        education_teacher = EducationTeacher.create!(name: "#{EmailService.username(teacher_user.email)} education teacher name", user: teacher_user, education_school: education_school)
         self.attach(record: education_teacher, relation: :images, number: 2)
 
-        education_student = EducationStudent.create!(name: "education student #{index}", user: user_with_role(education_role: :student), education_school: education_school)
+        student_user = user_with_role(education_role: :student)
+        education_student = EducationStudent.create!(name: "#{EmailService.username(student_user.email)} education student name", user: student_user, education_school: education_school)
         self.attach(record: education_student, relation: :images, number: 2)
       end
     end

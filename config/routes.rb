@@ -23,13 +23,8 @@ Rails.application.routes.draw do
       resources :education_rooms
       resources :education_classes
     end
-    collection do
-      get :education_school
-      get :education_teacher
-      get :education_student
-    end
     member do
-      get :teachers
+      get :education_schools
     end
   end
 

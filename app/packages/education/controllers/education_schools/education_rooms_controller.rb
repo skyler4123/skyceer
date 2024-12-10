@@ -22,7 +22,8 @@ class EducationSchools::EducationRoomsController < EducationsController
 
   # POST /education_rooms or /education_rooms.json
   def create
-    @education_room = EducationRoom.new(education_room_params)
+    debugger
+    @education_room = EducationRoom.new(education_school: @education_school, **education_room_params)
 
     respond_to do |format|
       if @education_room.save
@@ -66,6 +67,6 @@ class EducationSchools::EducationRoomsController < EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_room_params
-      params.require(:education_room).permit(:education_school_id, :name, :category)
+      params.require(:education_room).permit(:name, :category)
     end
 end

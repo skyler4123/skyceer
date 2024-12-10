@@ -30,7 +30,9 @@ class EducationSchools::EducationTeachersController < EducationsController
         format.html { redirect_to education_school_education_teachers_path, notice: "Education teacher was successfully created." }
         format.json { render :show, status: :created, location: @education_teacher }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        # format.html { render :new, status: :created }
+        format.html { redirect_to request.referrer, error: @education_teacher.errors.full_messages.join(', ') }
+        # format.html { redirect_to new_education_school_education_teacher_path, status: :unprocessable_entity, notice: "Education teacher was successfully created." }
         format.json { render json: @education_teacher.errors, status: :unprocessable_entity }
       end
     end
