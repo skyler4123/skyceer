@@ -22,8 +22,7 @@ class EducationSchools::EducationRoomsController < EducationsController
 
   # POST /education_rooms or /education_rooms.json
   def create
-    debugger
-    @education_room = EducationRoom.new(education_school: @education_school, **education_room_params)
+    @education_room = EducationRoom.build(**education_room_params, education_school: @education_school)
 
     respond_to do |format|
       if @education_room.save

@@ -23,7 +23,7 @@ class EducationSchools::EducationStudentsController < EducationsController
   # POST /education_students or /education_students.json
   def create
     @student_user = Education::Student::UserService.find_or_create(name: params[:education_student][:name], email: params[:education_student][:email])
-    @education_student = EducationStudent.build(user: @student_user, education_school: @education_school)
+    @education_student = EducationStudent.build(**education_student_params, user: @student_user, education_school: @education_school)
 
     respond_to do |format|
       if @education_student.save
@@ -67,6 +67,6 @@ class EducationSchools::EducationStudentsController < EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_student_params
-      params.require(:education_student).permit(:user_id, :name)
+      params.require(:education_student).permit(:name)
     end
 end
