@@ -26,7 +26,7 @@ class EducationSchools::EducationClassesController < EducationsController
 
     respond_to do |format|
       if @education_class.save
-        format.html { redirect_to @education_class, notice: "Education class was successfully created." }
+        format.html { redirect_to education_school_education_classes_path, notice: "Education class was successfully created." }
         format.json { render :show, status: :created, location: @education_class }
       else
         format.html { render :new, status: :unprocessable_entity }

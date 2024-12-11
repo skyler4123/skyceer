@@ -1,4 +1,4 @@
-class Education::Teacher::UserService
+class Education::Student::UserService
   def self.find_or_create(name:, email:)
     if User.exists?(email:)
       user = User.find_by(email:)
