@@ -11,20 +11,18 @@ export default class Education_UserProfileDropdownController extends Application
 
   init() {
     this.initHTML()
-    this.initDropdown()
+    if (this.isSignedIn()) { this.initSignedInDropdown() }
   }
 
   initHTML() {
-    this.element.innerHTML = `
-     <img
-      ${Education_AvatarController.identifier}
-      class="w-10 h-10 rounded-full"
-      data-${this.identifier}-target="avatar">
-    </img>
-    `
+    if (this.isSignedIn()) {
+      this.element.innerHTML = this.signedInHTML()
+    } else {
+      this.element.innerHTML = this.notSignedInHTML()
+    }
   }
 
-  initDropdown() {
+  initSignedInDropdown() {
     tippy(this.avatarTarget, {
       duration: 0,
       arrow: true,
@@ -37,12 +35,32 @@ export default class Education_UserProfileDropdownController extends Application
     });
   }
 
+  isSignedIn() {
+    return !!CookieHelpers.email()
+  }
+
   dropdownHTML() {
     return `
-      <ul class="bg-red-500 text-2xl">
+      <ul class="bg-gray-100 text-2xl">
         <li><a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a></li>
         <li><a href="/sign_out">Sign Out</a></li>
       </ul>
+    `
+  }
+
+  signedInHTML() {
+    return `
+      <img
+        ${Education_AvatarController.identifier}
+        class="w-10 h-10 rounded-full"
+        data-${this.identifier}-target="avatar">
+      </img>
+    `
+  }
+
+  notSignedInHTML() {
+    return `
+      <a href="/sign_in">Sign In</a>
     `
   }
 }

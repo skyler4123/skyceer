@@ -24,6 +24,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_05_04_105021) do
     t.string "avatar"
     t.string "user_agent"
     t.string "ip_address"
+    t.string "app_version", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

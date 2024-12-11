@@ -12,5 +12,16 @@ module ApplicationController::CookieConcern
       cookies.permanent[:navigation_id] = user.navigation_record.id
       cookies.permanent[:avatar_path] = user.avatar_path
     end
+
+    def delete_cookie
+      cookies.delete(:session_token)
+      cookies.delete(:id)
+      cookies.delete(:email)
+      cookies.delete(:name)
+      cookies.delete(:role)
+      cookies.delete(:navigation_name)
+      cookies.delete(:navigation_id)
+      cookies.delete(:avatar_path)
+    end
   end
 end

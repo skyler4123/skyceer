@@ -3,6 +3,8 @@ class HomeController < ApplicationController
   skip_before_action :authenticate
 
   def index
+    session_record = Session.find_by_id(cookies.signed[:session_token])
+    cookies.clear unless session_record
   end
 
   def education

@@ -29,6 +29,7 @@ class SessionsController < ApplicationController
   end
 
   def sign_out
+    cookies.clear
     Current.session.destroy; redirect_to(sign_in_path, notice: "That session has been logged out")
   end
   
@@ -39,8 +40,10 @@ class SessionsController < ApplicationController
     end
 
     def redirect_url_after_sign_in
-      return url_for(@user) unless referer_params
-      return url_for(@user) unless referer_params[:redirect_to]
+      # return url_for(@user) unless referer_params
+      # return url_for(@user) unless referer_params[:redirect_to]
+      return root_path unless referer_params
+      return root_path unless referer_params[:redirect_to]
       referer_params[:redirect_to]
     end
 end

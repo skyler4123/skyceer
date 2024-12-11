@@ -9,6 +9,7 @@ class CreateSessions < ActiveRecord::Migration[7.0]
       t.string :avatar
       t.string :user_agent
       t.string :ip_address
+      t.string :app_version, null: false
 
       t.timestamps
     end

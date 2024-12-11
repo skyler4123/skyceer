@@ -22,6 +22,7 @@ export default class ApplicationController extends Controller {
     identifier = "data-controller=" + identifier
     return identifier
   }
+  static targets = ['header', 'main', 'aside', 'content', 'footer']
   static values = {
     params: { type: Object },
     isOpen: { type: Boolean },
@@ -92,7 +93,7 @@ export default class ApplicationController extends Controller {
       const targets = Object.keys(this.classValue)
       targets.forEach(target => {
         if (target === 'element') {
-          this.addClass(this.element, this.classValue['class'])
+          this.addClass(this.element, this.classValue[target])
         } else {
           this[`${target}Targets`].forEach((targetElement) => {
             this.addClass(targetElement, this.classValue[target])

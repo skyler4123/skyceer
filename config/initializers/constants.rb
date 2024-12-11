@@ -2,6 +2,8 @@ def TrueOrFalse(value_need_to_check)
   ActiveModel::Type::Boolean.new.cast(value_need_to_check)
 end
 
+APP_VERSION = ENV.fetch('APP_VERSION') { "0.0.1" }
+
 MAIN_PACKAGE = ENV.fetch('MAIN_PACKAGE') { "education" }
 WEBSOCKET_HOST = ENV.fetch('KAMAL_WEBSOCKET_HOST') { "0.0.0.0" }
 WEBSOCKET_PORT = ENV.fetch('KAMAL_WEBSOCKET_PORT') { "8080" }

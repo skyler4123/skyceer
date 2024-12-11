@@ -4,6 +4,12 @@ import ApplicationController from "../../application_controller"
 // Connects to data-controller="education--home--index"
 export default class extends ApplicationController {
   static targets = ['header', 'main', 'aside', 'content', 'footer']
+  static values = {
+    class: { type: Object, default: {
+      element: "w-full",
+      content: "w-full"
+    } }
+  }
 
   init() {
     this.initHeader()

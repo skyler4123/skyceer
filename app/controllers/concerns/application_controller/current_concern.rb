@@ -20,6 +20,7 @@ module ApplicationController::CurrentConcern
         user_id: user.id,
         role: user.role,
         education_role: user.education_role,
+        app_version: APP_VERSION,
       )
     end
   end
