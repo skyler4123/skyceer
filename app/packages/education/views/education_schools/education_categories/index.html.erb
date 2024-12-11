@@ -1,0 +1,17 @@
+<div class="w-full">
+  <% content_for :title, "Education categories" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Education categories</h1>
+    <%= link_to "New education category", new_education_school_education_category_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="education_categories" class="min-w-full">
+    <% @education_categories.each do |education_category| %>
+      <%= render education_category %>
+      <p>
+        <%= link_to "Show this education category", education_category, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>

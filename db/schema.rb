@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_09_233411) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -153,25 +153,39 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "education_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.uuid "education_school_id", null: false
+    t.uuid "parent_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_school_id"], name: "index_education_categories_on_education_school_id"
+    t.index ["parent_category_id"], name: "index_education_categories_on_parent_category_id"
+  end
+
   create_table "education_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
+    t.uuid "education_category_id"
     t.string "name"
     t.string "category"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_classes_on_discarded_at"
+    t.index ["education_category_id"], name: "index_education_classes_on_education_category_id"
     t.index ["education_school_id"], name: "index_education_classes_on_education_school_id"
   end
 
   create_table "education_rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
+    t.uuid "education_category_id"
     t.string "name"
     t.string "category"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_rooms_on_discarded_at"
+    t.index ["education_category_id"], name: "index_education_rooms_on_education_category_id"
     t.index ["education_school_id"], name: "index_education_rooms_on_education_school_id"
   end
 
@@ -191,11 +205,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
   create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "education_school_id", null: false
+    t.uuid "education_category_id"
     t.string "name"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_students_on_discarded_at"
+    t.index ["education_category_id"], name: "index_education_students_on_education_category_id"
     t.index ["education_school_id"], name: "index_education_students_on_education_school_id"
     t.index ["user_id"], name: "index_education_students_on_user_id"
   end
@@ -203,11 +219,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
   create_table "education_teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "education_school_id", null: false
+    t.uuid "education_category_id"
     t.string "name"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_teachers_on_discarded_at"
+    t.index ["education_category_id"], name: "index_education_teachers_on_education_category_id"
     t.index ["education_school_id"], name: "index_education_teachers_on_education_school_id"
     t.index ["user_id"], name: "index_education_teachers_on_user_id"
   end
@@ -328,12 +346,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_10_204200) do
   add_foreign_key "calendar_events", "calendar_groups"
   add_foreign_key "calendar_groups", "users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
+  add_foreign_key "education_categories", "education_categories", column: "parent_category_id"
+  add_foreign_key "education_categories", "education_schools"
+  add_foreign_key "education_classes", "education_categories"
   add_foreign_key "education_classes", "education_schools"
+  add_foreign_key "education_rooms", "education_categories"
   add_foreign_key "education_rooms", "education_schools"
   add_foreign_key "education_schools", "addresses"
   add_foreign_key "education_schools", "users"
+  add_foreign_key "education_students", "education_categories"
   add_foreign_key "education_students", "education_schools"
   add_foreign_key "education_students", "users"
+  add_foreign_key "education_teachers", "education_categories"
   add_foreign_key "education_teachers", "education_schools"
   add_foreign_key "education_teachers", "users"
   add_foreign_key "estate_condos", "addresses"

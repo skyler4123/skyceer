@@ -28,6 +28,7 @@ EstateCondo.destroy_all
 EstateHotel.destroy_all
 
 EducationSchool.destroy_all
+EducationCategory.destroy_all
 EducationTeacher.destroy_all
 EducationStudent.destroy_all
 EducationRoom.destroy_all

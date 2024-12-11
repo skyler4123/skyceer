@@ -82,6 +82,13 @@ class AutoGenerator::SeedService
     seed_number.times do |index|
       user = user_with_role(education_role: :school)
       education_school = EducationSchool.create!(name: "#{EmailService.username(user.email)} education school name", user: user, address: Address.create_random)
+      10.times do |n|
+        education_category = EducationCategory.create!(
+          name: "education category #{n}",
+          parent_category: [EducationCategory.all.sample, nil].sample,
+          education_school: education_school
+        )
+      end
       self.attach(record: education_school, relation: :avatar, number: 1)
       2.times do |n_1|
         education_class = EducationClass.create!(name: "education class #{n_1}", education_school: education_school)
@@ -302,6 +309,7 @@ class AutoGenerator::SeedService
     category_count = Category.count
     calendar_group_count = CalendarGroup.count
     calendar_event_count = CalendarEvent.count
+    education_category_count = EducationCategory.count
     education_school_count = EducationSchool.count
     education_class_count = EducationClass.count
     education_room_count = EducationRoom.count
@@ -319,6 +327,7 @@ class AutoGenerator::SeedService
     puts "Categories: ", category_count
     puts "Calendar Groups: ", calendar_group_count
     puts "Calendar Events: ", calendar_event_count
+    puts "Education Categories: ", education_category_count
     puts "Education Schools: ", education_school_count
     puts "Education Classes: ", education_class_count
     puts "Education Rooms: ", education_room_count
