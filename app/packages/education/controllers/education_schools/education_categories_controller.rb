@@ -22,11 +22,11 @@ class EducationSchools::EducationCategoriesController < EducationsController
 
   # POST /education_categories or /education_categories.json
   def create
-    @education_category = EducationCategory.new(education_category_params)
+    @education_category = EducationCategory.build(**education_category_params,  education_school: @education_school)
 
     respond_to do |format|
       if @education_category.save
-        format.html { redirect_to @education_category, notice: "Education category was successfully created." }
+        format.html { redirect_to education_school_education_categories_path, notice: "Education category was successfully created." }
         format.json { render :show, status: :created, location: @education_category }
       else
         format.html { render :new, status: :unprocessable_entity }
