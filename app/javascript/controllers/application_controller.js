@@ -22,7 +22,7 @@ export default class ApplicationController extends Controller {
     identifier = "data-controller=" + identifier
     return identifier
   }
-  static targets = ['header', 'main', 'aside', 'content', 'footer']
+  static targets = ['header', 'main', 'aside', 'content', 'footer', 'data']
   static values = {
     params: { type: Object },
     isOpen: { type: Boolean },

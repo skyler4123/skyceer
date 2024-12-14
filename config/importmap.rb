@@ -57,3 +57,4 @@ pin "@editorjs/nested-list", to: "@editorjs--nested-list.js" # @1.4.3
 pin "editorjs-text-alignment-blocktune" # @1.0.3
 pin "@calumk/editorjs-codeflask", to: "@calumk--editorjs-codeflask.js" # @1.0.10
 pin "editorjs-toggle-block" # @0.3.16
+pin "tabulator"
