@@ -15,4 +15,6 @@
     <% end %>
   </div>
 </div>
-<div data-<%= view_controller(__FILE__) %>-target="data"></div>
+<div class="hidden" data-<%= view_controller(__FILE__) %>-target="contentData">
+  <%= @education_students.to_json %>
+</div>

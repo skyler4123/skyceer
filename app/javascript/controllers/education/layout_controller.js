@@ -3,7 +3,7 @@ import ApplicationController from "../application_controller"
 export default class Education_LayoutController extends ApplicationController {
   static targets = ['header', 'main', 'aside', 'content', 'footer']
 
-  init() {
+  initLayout() {
     this.initHeader()
     this.initFooter()
     if (this.hasMainTarget && this.isDefined(this.initMain)) { this.initMain() }

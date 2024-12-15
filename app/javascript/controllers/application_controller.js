@@ -22,7 +22,7 @@ export default class ApplicationController extends Controller {
     identifier = "data-controller=" + identifier
     return identifier
   }
-  static targets = ['header', 'main', 'aside', 'content', 'footer', 'data']
+  static targets = ['header', 'main', 'aside', 'content', 'footer', 'contentData']
   static values = {
     params: { type: Object },
     isOpen: { type: Boolean },
@@ -38,6 +38,7 @@ export default class ApplicationController extends Controller {
     this.initializeID()
     this.initializeHead()
     this.initializeDir()
+    if (this.isDefined(this.initLayout)) { this.initLayout() }
     if (this.isDefined(this.init)) { this.init() }
     this.initializeComplete()
   }
@@ -82,6 +83,8 @@ export default class ApplicationController extends Controller {
   }
 
   initializeClass() {
+    if (this.hasContentDataTarget) { this.contentDataTarget.classList.remove('hidden') }
+
     if (this.isEmpty(this.classValue)) { return }
 
     if (this.isString(this.classValue)) {
@@ -171,6 +174,10 @@ export default class ApplicationController extends Controller {
       result = { ...result, [nodeMap.nodeName]: nodeMap.nodeValue }
     }))
     return result
+  }
+
+  contentData() {
+    return JSON.parse(this.contentDataTarget.innerHTML)
   }
 }
 
