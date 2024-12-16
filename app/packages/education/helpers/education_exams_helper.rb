@@ -1,0 +1,2 @@
+module EducationExamsHelper
+end

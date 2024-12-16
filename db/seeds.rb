@@ -33,6 +33,11 @@ EducationTeacher.destroy_all
 EducationStudent.destroy_all
 EducationRoom.destroy_all
 EducationClass.destroy_all
+EducationCourse.destroy_all
+EducationSubject.destroy_all
+EducationExam.destroy_all
+EducationQuestion.destroy_all
+EducationExamQuestion.destroy_all
 
 CalendarGroup.destroy_all
 CalendarEvent.destroy_all
@@ -41,5 +46,5 @@ ReportTicket.destroy_all
 ReportFrontend.destroy_all
 
 # Run generator for development
-AutoGenerator::SeedService.run(seed_number: 10)
+AutoGenerator::SeedService.run
 puts "db:seed doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!!"

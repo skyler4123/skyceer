@@ -1,2 +1,9 @@
 rails g scaffold CalendarEvent calendar_group:references lib title body is_allday:boolean start:datetime end:datetime going_duration:integer coming_duration:integer location attendees:text category:integer recurrence_rule state:integer is_visible:boolean is_pending:boolean is_focused:boolean is_read_only:boolean is_private:boolean color background_color drag_background_color border_color custom_style:json raw:json
 rails g scaffold Address alpha2:string:index alpha3:string:index continent:string:index nationality:string:index region:string:index longitude:decimal latitude:decimal level_total:integer level_1:string:index level_2:string:index level_3:string:index level_4:string:index level_5:string:index level_6:string:index level_7:string:index level_8:string:index level_9:string:index level_10:string:index --force
+
+EDUCATION
+rails g scaffold EducationSubject name description education_school:references education_category:references --force
+rails g scaffold EducationCourse name description education_school:references education_category:references --force
+rails g scaffold EducationExam name description score:decimal status:integer education_school:references education_subject:references education_student:references education_category:references education_course:references --force
+rails g scaffold EducationQuestion education_school:references education_teacher:references education_category:references question_type:integer title content anwser choice_1 choice_2 choice_3 choice_4 --force
+rails g scaffold EducationExamQuestion education_exam:references education_question:references score:decimal time:integer status anwser result:integer --force

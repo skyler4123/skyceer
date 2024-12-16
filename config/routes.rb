@@ -5,16 +5,9 @@
 # end
 
 Rails.application.routes.draw do
-  
   resources :categories
+
   # EDUCATION package
-  resources :educations, only: [:index]
-  resources :education_courses
-  resources :education_rooms
-  resources :education_teachers
-  resources :education_classes
-  resources :education_students
-  resources :education_categories
   resources :education_schools do
     scope module: :education_schools do
       resources :education_teachers
@@ -28,6 +21,18 @@ Rails.application.routes.draw do
       get :education_schools
     end
   end
+  resources :educations, only: [:index]
+  resources :education_courses
+  resources :education_rooms
+  resources :education_teachers
+  resources :education_classes
+  resources :education_students
+  resources :education_categories
+  resources :education_exam_questions
+  resources :education_questions
+  resources :education_exams
+  resources :education_subjects
+
 
   # REPORT
   resources :report_frontends
