@@ -1,4 +1,4 @@
-class EducationSchools::EducationCoursesontroller < EducationsController
+class EducationSchools::EducationCoursesController < EducationsController
     before_action :set_education_school
     before_action :set_education_couses, only: %i[ show edit update destroy ]
   

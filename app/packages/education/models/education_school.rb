@@ -9,4 +9,6 @@ class EducationSchool < ApplicationRecord
   has_many :education_classes, dependent: :destroy
   has_many :education_teachers, dependent: :destroy
   has_many :education_students, dependent: :destroy
+  has_many :education_courses, dependent: :destroy
+
 end
