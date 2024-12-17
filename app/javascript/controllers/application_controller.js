@@ -83,8 +83,6 @@ export default class ApplicationController extends Controller {
   }
 
   initializeClass() {
-    if (this.hasContentDataTarget) { this.contentDataTarget.classList.remove('hidden') }
-
     if (this.isEmpty(this.classValue)) { return }
 
     if (this.isString(this.classValue)) {

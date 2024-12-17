@@ -16,16 +16,21 @@ Rails.application.routes.draw do
       resources :education_rooms
       resources :education_classes
       resources :education_categories
+      resources :education_exam_questions
+      resources :education_questions
+      resources :education_exams
+      resources :education_subjects
     end
     member do
       get :education_schools
     end
   end
+
   resources :educations, only: [:index]
   resources :education_courses
   resources :education_rooms
-  resources :education_teachers
   resources :education_classes
+  resources :education_teachers
   resources :education_students
   resources :education_categories
   resources :education_exam_questions
@@ -51,15 +56,6 @@ Rails.application.routes.draw do
   resources :article_users
   resources :article_posts
 
-  resources :users do
-    scope module: :users do
-      resources :education_schools, only: [:index, :show]
-      resources :education_teachers, only: [:index, :show]
-    end
-    collection do
-      get :profile
-    end
-  end
   resources :vehicle_stores
   resources :vehicle_cars
   resources :vehicle_brands
@@ -112,6 +108,22 @@ Rails.application.routes.draw do
       post :editorjs_upload_by_url
     end
   end
+
+  # USER
+  resources :users do
+    scope module: :users do
+      resources :education_schools, only: [:index]
+      resources :education_teachers, only: [:index]
+      resources :education_students, only: [:index]
+      resources :education_exams, only: [:index]
+      resources :education_courses, only: [:index]
+      resources :education_classes, only: [:index]
+    end
+    collection do
+      get :profile
+    end
+  end
+
   # mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
   get "/up", to: Proc.new { [200, {}, ["OK"]] }
   # get "up" => "rails/health#show", as: :rails_health_check
