@@ -5,6 +5,7 @@
 # end
 
 Rails.application.routes.draw do
+  resources :education_class_appointments
   resources :education_subject_teacher_appointments
   resources :education_class_room_appointments
   resources :education_exam_question_appointments

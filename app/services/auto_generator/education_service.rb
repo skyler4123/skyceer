@@ -32,16 +32,16 @@ class AutoGenerator::EducationService
       100.times do
         self.education_exam_question_appointment(education_school:)
       end
-      5.times do
+      (EducationStudent.count).times do
         self.education_class_student_appointment(education_school:)
       end
-      5.times do
+      (EducationTeacher.count).times do
         self.education_class_teacher_appointment(education_school:)
       end
-      5.times do
+      (EducationRoom.count).times do
         self.education_class_room_appointment(education_school:)
       end
-      5.times do
+      (EducationSubject.count).times do
         self.education_class_subject_appointment(education_school:)
       end
       5.times do
@@ -156,9 +156,9 @@ class AutoGenerator::EducationService
     )
     education_exam_question_appointment
   end
-
+#################################################################
   def self.education_class_student_appointment(education_school:)
-    education_class_student_appointment = EducationClassStudentAppointment.create!(
+    education_class_student_appointment = EducationClassAppointment.create!(
       education_class: education_school.education_classes.sample,
       education_student: education_school.education_students.sample,
     )
@@ -166,7 +166,7 @@ class AutoGenerator::EducationService
   end
 
   def self.education_class_teacher_appointment(education_school:)
-    education_class_teacher_appointment = EducationClassTeacherAppointment.create!(
+    education_class_teacher_appointment = EducationClassAppointment.create!(
       education_class: education_school.education_classes.sample,
       education_teacher: education_school.education_teachers.sample,
     )
@@ -174,7 +174,7 @@ class AutoGenerator::EducationService
   end
 
   def self.education_class_room_appointment(education_school:)
-    education_class_room_appointment = EducationClassRoomAppointment.create!(
+    education_class_room_appointment = EducationClassAppointment.create!(
       education_class: education_school.education_classes.sample,
       education_room: education_school.education_rooms.sample,
     )
@@ -182,7 +182,7 @@ class AutoGenerator::EducationService
   end
 
   def self.education_class_subject_appointment(education_school:)
-    education_class_subject_appointment = EducationClassSubjectAppointment.create!(
+    education_class_subject_appointment = EducationClassAppointment.create!(
       education_class: education_school.education_classes.sample,
       education_subject: education_school.education_subjects.sample,
     )

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_18_065556) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_18_220722) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -163,40 +163,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_18_065556) do
     t.index ["parent_category_id"], name: "index_education_categories_on_parent_category_id"
   end
 
-  create_table "education_class_room_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "education_class_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_class_id", null: false
-    t.uuid "education_room_id", null: false
+    t.uuid "education_teacher_id"
+    t.uuid "education_student_id"
+    t.uuid "education_subject_id"
+    t.uuid "education_room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_class_id"], name: "index_education_class_room_appointments_on_education_class_id"
-    t.index ["education_room_id"], name: "index_education_class_room_appointments_on_education_room_id"
-  end
-
-  create_table "education_class_student_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "education_class_id", null: false
-    t.uuid "education_student_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["education_class_id"], name: "idx_on_education_class_id_1fe691ee43"
-    t.index ["education_student_id"], name: "idx_on_education_student_id_2a493dcefc"
-  end
-
-  create_table "education_class_subject_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "education_class_id", null: false
-    t.uuid "education_subject_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["education_class_id"], name: "idx_on_education_class_id_09d3045ae5"
-    t.index ["education_subject_id"], name: "idx_on_education_subject_id_f6d8d00b07"
-  end
-
-  create_table "education_class_teacher_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "education_class_id", null: false
-    t.uuid "education_teacher_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["education_class_id"], name: "idx_on_education_class_id_9a691a0284"
-    t.index ["education_teacher_id"], name: "idx_on_education_teacher_id_e4fec0c5d7"
+    t.index ["education_class_id"], name: "index_education_class_appointments_on_education_class_id"
+    t.index ["education_room_id"], name: "index_education_class_appointments_on_education_room_id"
+    t.index ["education_student_id"], name: "index_education_class_appointments_on_education_student_id"
+    t.index ["education_subject_id"], name: "index_education_class_appointments_on_education_subject_id"
+    t.index ["education_teacher_id"], name: "index_education_class_appointments_on_education_teacher_id"
   end
 
   create_table "education_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -502,14 +481,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_18_065556) do
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "education_categories", "education_categories", column: "parent_category_id"
   add_foreign_key "education_categories", "education_schools"
-  add_foreign_key "education_class_room_appointments", "education_classes"
-  add_foreign_key "education_class_room_appointments", "education_rooms"
-  add_foreign_key "education_class_student_appointments", "education_classes"
-  add_foreign_key "education_class_student_appointments", "education_students"
-  add_foreign_key "education_class_subject_appointments", "education_classes"
-  add_foreign_key "education_class_subject_appointments", "education_subjects"
-  add_foreign_key "education_class_teacher_appointments", "education_classes"
-  add_foreign_key "education_class_teacher_appointments", "education_teachers"
+  add_foreign_key "education_class_appointments", "education_classes"
+  add_foreign_key "education_class_appointments", "education_rooms"
+  add_foreign_key "education_class_appointments", "education_students"
+  add_foreign_key "education_class_appointments", "education_subjects"
+  add_foreign_key "education_class_appointments", "education_teachers"
   add_foreign_key "education_classes", "education_categories"
   add_foreign_key "education_classes", "education_schools"
   add_foreign_key "education_courses", "education_categories"

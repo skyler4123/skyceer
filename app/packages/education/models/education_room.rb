@@ -4,6 +4,6 @@ class EducationRoom < ApplicationRecord
 
   belongs_to :education_school
 
-  has_many :education_class_room_appointments, dependent: :destroy
-  has_many :education_classes, through: :education_class_room_appointments
+  has_many :education_class_appointments, dependent: :destroy
+  has_many :education_classes, through: :education_class_appointments
 end
