@@ -6,4 +6,14 @@ rails g scaffold EducationSubject name description education_school:references e
 rails g scaffold EducationCourse name description education_school:references education_category:references --force
 rails g scaffold EducationExam name description score:decimal status:integer education_school:references education_subject:references education_student:references education_category:references education_course:references --force
 rails g scaffold EducationQuestion education_school:references education_teacher:references education_category:references question_type:integer title content anwser choice_1 choice_2 choice_3 choice_4 --force
-rails g scaffold EducationExamQuestion education_exam:references education_question:references score:decimal time:integer status anwser result:integer --force
+rails g scaffold EducationExamQuestionAppointment education_exam:references education_question:references score:decimal time:integer status anwser result:integer --force
+rails g scaffold EducationClassTeacherAppointment education_class:references education_teacher:references --force
+rails g scaffold EducationClassStudentAppointment education_class:references education_student:references --force
+rails g scaffold EducationClassSubjectAppointment education_class:references education_subject:references --force
+rails g scaffold EducationClassRoomAppointment education_class:references education_room:references --force
+rails g scaffold EducationSubjectTeacherAppointment education_subject:references education_teacher:references --force
+
+rails g scaffold EducationLesson title content education_school:references education_class:references education_subject:references education_teacher:references --force
+rails g scaffold EducationShift title location start_time:datetime end_time:datetime duration:integer education_school:references education_class:references education_subject:references education_teacher:references --force
+
+

@@ -6,6 +6,7 @@ class CreateEducationExams < ActiveRecord::Migration[8.0]
       t.decimal :score
       t.integer :status
       t.references :education_school, null: false, foreign_key: true, type: :uuid
+      t.references :education_teacher, null: false, foreign_key: true, type: :uuid
       t.references :education_subject, null: false, foreign_key: true, type: :uuid
       t.references :education_student, null: false, foreign_key: true, type: :uuid
       t.references :education_category, null: true, foreign_key: true, type: :uuid

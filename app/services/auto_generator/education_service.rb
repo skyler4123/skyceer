@@ -1,101 +1,203 @@
 class AutoGenerator::EducationService
-  def self.run(seed_number: 5)
+  def self.run(seed_number: 3)
     seed_number.times do |index|
-      user = AutoGenerator::UserService.create(education_role: :school)
-      education_school = EducationSchool.create!(name: "#{EmailService.username(user.email)} education school name", user: user, address: Address.create_random)
-      10.times do |n|
-        education_category = EducationCategory.create!(
-          name: "education category #{n}",
-          parent_category: [EducationCategory.all.sample, nil].sample,
-          education_school: education_school
-        )
-        education_subject = EducationSubject.create!(
-          name: Faker::Educator.subject,
-          description: Faker::Movie.quote,
-          education_category: education_category,
-          education_school: education_school
-        )
-        education_course = EducationCourse.create!(
-          name: Faker::Educator.course_name,
-          description: Faker::Movie.quote,
-          education_category: education_category,
-          education_school: education_school
-        )
+      education_school = self.education_school
+      5.times do
+        self.education_category(education_school:)
       end
-
-      AutoGenerator::AttachmentService.attach(record: education_school, relation: :avatar, number: 1)
-      education_classses = (1..5).map do |n|
-        education_class = EducationClass.create!(name: "education class #{n}", education_school: education_school)
-        AutoGenerator::AttachmentService.attach(record: education_class, relation: :images, number: 2)
-        education_class
+      10.times do
+        self.education_subject(education_school:)
       end
-
-      education_rooms = education_classses.map do |education_class|
-        education_room = EducationRoom.create!(name: "education room #{SecureRandom.hex(3)}", education_school: education_school)
-        AutoGenerator::AttachmentService.attach(record: education_room, relation: :images, number: 2)
-        education_room
+      10.times do
+        self.education_course(education_school:)
       end
-
-      education_teachers = (1..5).map do |n|
-        teacher_user = AutoGenerator::UserService.create(education_role: :teacher)
-        education_teacher = EducationTeacher.create!(name: "#{EmailService.username(teacher_user.email)} education teacher name", user: teacher_user, education_school: education_school)
-        AutoGenerator::AttachmentService.attach(record: education_teacher, relation: :images, number: 2)
-        education_teacher
+      10.times do
+        self.education_class(education_school:)
       end
-
-      education_students = (1..10).map do |n|
-        student_user = AutoGenerator::UserService.create(education_role: :student)
-        education_student = EducationStudent.create!(name: "#{EmailService.username(student_user.email)} education student name", user: student_user, education_school: education_school)
-        AutoGenerator::AttachmentService.attach(record: education_student, relation: :images, number: 2)
-        education_student
+      5.times do
+        self.education_room(education_school:)
       end
-
-      education_questions = (1..20).map do |n|
-        education_question = EducationQuestion.create!(
-          education_school: education_school,
-          education_category: education_school.education_categories.all.sample,
-          education_teacher: education_school.education_teachers.all.sample,
-          question_type: rand(0..3),
-          title: Faker::Movie.title,
-          content: Faker::Movie.quote,
-          anwser: ['A', 'B', 'C', 'D'].sample,
-          choice_1: 'A',
-          choice_2: 'B',
-          choice_3: 'C',
-          choice_4: 'D',
-        )
-        education_question
+      5.times do
+        self.education_teacher(education_school:)
       end
-
-      education_school.education_students.each do |education_student|
-        5.times do |n|
-          education_exam = EducationExam.create!(
-            education_school: education_school,
-            education_student: education_student,
-            education_course: education_school.education_courses.all.sample,
-            education_subject: education_school.education_subjects.all.sample,
-            education_category: education_school.education_categories.all.sample,
-            name: "education exam name #{n}",
-            description: Faker::Movie.quote,
-            score: rand(0..10),
-            status: rand(0..3)
-          )
-        end
+      30.times do
+        self.education_student(education_school:)
       end
-
-      education_school.education_exams.each do |education_exam|
-        5.times do |n|
-          education_exam_question = EducationExamQuestion.create!(
-            education_exam: education_exam,
-            education_question: education_questions.sample,
-            score: rand(0..10),
-            time: rand(0..10),
-            status: rand(0..3),
-            anwser: ['A', 'B', 'C', 'D'].sample,
-            result: rand(0..1),
-          )
-        end
+      20.times do
+        self.education_question(education_school:)
+      end
+      10.times do
+        self.education_exam(education_school:)
+      end
+      100.times do
+        self.education_exam_question_appointment(education_school:)
+      end
+      5.times do
+        self.education_class_student_appointment(education_school:)
+      end
+      5.times do
+        self.education_class_teacher_appointment(education_school:)
+      end
+      5.times do
+        self.education_class_room_appointment(education_school:)
+      end
+      5.times do
+        self.education_class_subject_appointment(education_school:)
+      end
+      5.times do
+        self.education_subject_teacher_appointment(education_school:)
       end
     end
   end
+
+  def self.education_school
+    user = AutoGenerator::UserService.create(education_role: :school)
+    education_school = EducationSchool.create!(name: "#{EmailService.username(user.email)} education school name", user: user, address: Address.create_random)
+    AutoGenerator::AttachmentService.attach(record: education_school, relation: :avatar, number: 1)
+    education_school
+  end
+
+  def self.education_category(education_school:)
+    education_category = EducationCategory.create!(
+      name: "education category #{SecureRandom.hex(3)}",
+      parent_category: [EducationCategory.all.sample, nil].sample,
+      education_school: education_school
+    )
+    education_category
+  end
+
+  def self.education_subject(education_school:)
+    education_subject = EducationSubject.create!(
+      name: Faker::Educator.subject,
+      description: Faker::Movie.quote,
+      education_category: education_school.education_categories.sample,
+      education_school: education_school
+    )
+    education_subject
+  end
+
+  def self.education_course(education_school:)
+    education_course = EducationCourse.create!(
+      name: Faker::Educator.course_name,
+      description: Faker::Movie.quote,
+      education_category: education_school.education_categories.sample,
+      education_school: education_school
+    )
+    education_course
+  end
+  def self.education_class(education_school:)
+    education_class = EducationClass.create!(name: "education class #{SecureRandom.hex(3)}", education_school: education_school)
+    AutoGenerator::AttachmentService.attach(record: education_class, relation: :images, number: 1)
+    education_class
+  end
+
+  def self.education_room(education_school:)
+    education_room = EducationRoom.create!(name: "education room #{SecureRandom.hex(3)}", education_school: education_school)
+    AutoGenerator::AttachmentService.attach(record: education_room, relation: :images, number: 1)
+    education_room
+  end
+
+  def self.education_teacher(education_school:)
+    teacher_user = AutoGenerator::UserService.create(education_role: :teacher)
+    education_teacher = EducationTeacher.create!(name: "#{EmailService.username(teacher_user.email)} education teacher name", user: teacher_user, education_school: education_school)
+    AutoGenerator::AttachmentService.attach(record: education_teacher, relation: :images, number: 1)
+    education_teacher
+  end
+
+  def self.education_student(education_school:)
+    student_user = AutoGenerator::UserService.create(education_role: :student)
+    education_student = EducationStudent.create!(name: "#{EmailService.username(student_user.email)} education student name", user: student_user, education_school: education_school)
+    AutoGenerator::AttachmentService.attach(record: education_student, relation: :images, number: 1)
+    education_student
+  end
+
+  def self.education_question(education_school:)
+    education_question = EducationQuestion.create!(
+      education_school: education_school,
+      education_category: education_school.education_categories.sample,
+      education_teacher: education_school.education_teachers.sample,
+      question_type: rand(0..3),
+      title: Faker::Movie.title,
+      content: Faker::Movie.quote,
+      anwser: ['A', 'B', 'C', 'D'].sample,
+      choice_1: 'A',
+      choice_2: 'B',
+      choice_3: 'C',
+      choice_4: 'D',
+    )
+    education_question
+  end
+
+  def self.education_exam(education_school:)
+    education_exam = EducationExam.create!(
+      education_school: education_school,
+      education_teacher: education_school.education_teachers.sample,
+      education_student: education_school.education_students.sample,
+      education_course: education_school.education_courses.sample,
+      education_subject: education_school.education_subjects.sample,
+      education_category: education_school.education_categories.sample,
+      name: "education exam name #{SecureRandom.hex(3)}",
+      description: Faker::Movie.quote,
+      score: rand(0..10),
+      status: rand(0..3)
+    )
+    education_exam
+  end
+
+  def self.education_exam_question_appointment(education_school:)
+    education_exam_question_appointment = EducationExamQuestionAppointment.create!(
+      education_exam: education_school.education_exams.sample ,
+      education_question: education_school.education_questions.sample,
+      score: rand(0..10),
+      time: rand(0..10),
+      status: rand(0..3),
+      anwser: ['A', 'B', 'C', 'D'].sample,
+      result: rand(0..1),
+    )
+    education_exam_question_appointment
+  end
+
+  def self.education_class_student_appointment(education_school:)
+    education_class_student_appointment = EducationClassStudentAppointment.create!(
+      education_class: education_school.education_classes.sample,
+      education_student: education_school.education_students.sample,
+    )
+    education_class_student_appointment
+  end
+
+  def self.education_class_teacher_appointment(education_school:)
+    education_class_teacher_appointment = EducationClassTeacherAppointment.create!(
+      education_class: education_school.education_classes.sample,
+      education_teacher: education_school.education_teachers.sample,
+    )
+    education_class_teacher_appointment
+  end
+
+  def self.education_class_room_appointment(education_school:)
+    education_class_room_appointment = EducationClassRoomAppointment.create!(
+      education_class: education_school.education_classes.sample,
+      education_room: education_school.education_rooms.sample,
+    )
+    education_class_room_appointment
+  end
+
+  def self.education_class_subject_appointment(education_school:)
+    education_class_subject_appointment = EducationClassSubjectAppointment.create!(
+      education_class: education_school.education_classes.sample,
+      education_subject: education_school.education_subjects.sample,
+    )
+    education_class_subject_appointment
+  end
+
+  def self.education_subject_teacher_appointment(education_school:)
+    education_subject_teacher_appointment = EducationSubjectTeacherAppointment.create!(
+      education_teacher: education_school.education_teachers.sample,
+      education_subject: education_school.education_subjects.sample,
+    )
+    education_subject_teacher_appointment
+  end
+
+
+
+
 end

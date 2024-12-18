@@ -1,0 +1,1 @@
+json.array! @education_class_teacher_appointments, partial: "education_class_teacher_appointments/education_class_teacher_appointment", as: :education_class_teacher_appointment

@@ -1,0 +1,21 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Education lessons" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Education lessons</h1>
+    <%= link_to "New education lesson", new_education_lesson_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="education_lessons" class="min-w-full">
+    <% @education_lessons.each do |education_lesson| %>
+      <%= render education_lesson %>
+      <p>
+        <%= link_to "Show this education lesson", education_lesson, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>
