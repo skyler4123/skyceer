@@ -1,5 +1,5 @@
 class AutoGenerator::EducationService
-  def self.run(seed_number: 3)
+  def self.run(seed_number: 2)
     seed_number.times do |index|
       education_school = self.education_school
       5.times do
@@ -11,13 +11,13 @@ class AutoGenerator::EducationService
       10.times do
         self.education_course(education_school:)
       end
-      10.times do
+      5.times do
         self.education_class(education_school:)
       end
       5.times do
         self.education_room(education_school:)
       end
-      5.times do
+      10.times do
         self.education_teacher(education_school:)
       end
       30.times do

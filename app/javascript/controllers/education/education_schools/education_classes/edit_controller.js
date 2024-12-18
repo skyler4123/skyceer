@@ -4,9 +4,8 @@ import Education_LayoutController from "../../layout_controller";
 export default class extends Education_LayoutController {
   
   connect() {
-    console.log("Hello, Stimulus!", this, Choices);
-    new Choices("#education_class_education_student_id", {
-      choices: [{
+    const choices = new Choices("#education_class_education_student_id", {
+      items: [{
         value: 'Value 1',
         label: 'Label 1',
         id: 1
@@ -22,6 +21,8 @@ export default class extends Education_LayoutController {
       removeItems: true,
       removeItemButton: true,
     });
+    console.log(choices);
+
   }
 
 }

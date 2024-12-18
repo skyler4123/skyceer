@@ -9,6 +9,8 @@ class EducationSchools::EducationClassesController < EducationsController
 
   # GET /education_classes/1 or /education_classes/1.json
   def show
+    @education_students = @education_class.education_students
+    @education_teachers = @education_class.education_teachers
   end
 
   # GET /education_classes/new
