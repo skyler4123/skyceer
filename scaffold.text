@@ -13,6 +13,8 @@ rails g scaffold EducationClassStudentAppointment education_class:references edu
 rails g scaffold EducationClassSubjectAppointment education_class:references education_subject:references --force
 rails g scaffold EducationClassRoomAppointment education_class:references education_room:references --force
 rails g scaffold EducationClassAppointment education_class:references education_teacher:references education_student:references education_subject:references education_room:references --force
+rails g scaffold EducationCategoryAppointment education_class:references education_room:references education_teacher:references education_student:references education_subject:references education_course:references education_exam:references education_question:references education_lesson:references education_shift:references --force
+
 
 
 rails g scaffold EducationSubjectTeacherAppointment education_subject:references education_teacher:references --force
