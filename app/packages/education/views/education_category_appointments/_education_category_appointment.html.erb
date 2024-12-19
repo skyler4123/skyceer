@@ -1,5 +1,10 @@
 <div id="<%= dom_id education_category_appointment %>">
   <p class="my-5">
+    <strong class="block font-medium mb-1">Education category:</strong>
+    <%= education_category_appointment.education_category_id %>
+  </p>
+
+  <p class="my-5">
     <strong class="block font-medium mb-1">Education class:</strong>
     <%= education_category_appointment.education_class_id %>
   </p>
@@ -47,6 +52,11 @@
   <p class="my-5">
     <strong class="block font-medium mb-1">Education shift:</strong>
     <%= education_category_appointment.education_shift_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Level:</strong>
+    <%= education_category_appointment.level %>
   </p>
 
 </div>

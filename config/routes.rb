@@ -9,14 +9,10 @@ Rails.application.routes.draw do
   resources :education_question_appointments
   resources :education_category_appointments
   resources :education_class_appointments
-  resources :education_subject_teacher_appointments
   resources :education_class_room_appointments
-  resources :education_exam_question_appointments
+  resources :education_question_appointments
   resources :education_shifts
   resources :education_lessons
-  resources :education_class_subject_appointments
-  resources :education_class_teacher_appointments
-  resources :education_class_student_appointments
   resources :categories
 
   # EDUCATION package
