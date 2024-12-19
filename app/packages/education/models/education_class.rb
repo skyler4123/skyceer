@@ -8,8 +8,8 @@ class EducationClass < ApplicationRecord
   has_many :education_students, through: :education_class_appointments
   has_many :education_teachers, through: :education_class_appointments
   has_many :education_subjects, through: :education_class_appointments
-  
   has_many :education_rooms, through: :education_class_appointments
-
+  has_many :education_category_appointments, through: :education_class_appointments
+  has_many :education_categories, through: :education_category_appointments
 
 end

@@ -1,5 +1,5 @@
 class EducationCategoryAppointment < ApplicationRecord
-  belongs_to :education_class
+  belongs_to :education_category
   belongs_to :education_room, optional: true
   belongs_to :education_teacher, optional: true
   belongs_to :education_student, optional: true

@@ -11,6 +11,7 @@ class CreateEducationCategoryAppointments < ActiveRecord::Migration[8.0]
       t.references :education_question, null: true, foreign_key: true, type: :uuid
       t.references :education_lesson, null: true, foreign_key: true, type: :uuid
       t.references :education_shift, null: true, foreign_key: true, type: :uuid
+      t.integer :level, default: 0
 
       t.timestamps
     end

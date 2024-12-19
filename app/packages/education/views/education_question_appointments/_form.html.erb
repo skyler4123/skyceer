@@ -1,10 +1,10 @@
-<%= form_with(model: education_exam_question_appointment, class: "contents") do |form| %>
-  <% if education_exam_question_appointment.errors.any? %>
+<%= form_with(model: education_question_appointment, class: "contents") do |form| %>
+  <% if education_question_appointment.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(education_exam_question_appointment.errors.count, "error") %> prohibited this education_exam_question_appointment from being saved:</h2>
+      <h2><%= pluralize(education_question_appointment.errors.count, "error") %> prohibited this education_question_appointment from being saved:</h2>
 
       <ul>
-        <% education_exam_question_appointment.errors.each do |error| %>
+        <% education_question_appointment.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -12,13 +12,13 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :education_exam_id %>
-    <%= form.text_field :education_exam_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :education_question_id %>
+    <%= form.text_field :education_question_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :education_question_id %>
-    <%= form.text_field :education_question_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :education_exam_id %>
+    <%= form.text_field :education_exam_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">

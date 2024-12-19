@@ -1,10 +1,10 @@
-<%= form_with(model: education_subject_teacher_appointment, class: "contents") do |form| %>
-  <% if education_subject_teacher_appointment.errors.any? %>
+<%= form_with(model: education_subject_appointment, class: "contents") do |form| %>
+  <% if education_subject_appointment.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(education_subject_teacher_appointment.errors.count, "error") %> prohibited this education_subject_teacher_appointment from being saved:</h2>
+      <h2><%= pluralize(education_subject_appointment.errors.count, "error") %> prohibited this education_subject_appointment from being saved:</h2>
 
       <ul>
-        <% education_subject_teacher_appointment.errors.each do |error| %>
+        <% education_subject_appointment.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -14,6 +14,11 @@
   <div class="my-5">
     <%= form.label :education_subject_id %>
     <%= form.text_field :education_subject_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :education_class_id %>
+    <%= form.text_field :education_class_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
