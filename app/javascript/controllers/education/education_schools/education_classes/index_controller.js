@@ -7,7 +7,7 @@ export default class extends Education_LayoutController {
     let tableData = this.contentData().map((row) => {
       return {
         ...row,
-        name: `<a href="/${CookieHelpers.navigationName()}/${CookieHelpers.navigationId()}/education_classes/${row.id}">${row.name}</a>`,
+        name: `<a href="/${CookieHelpers.navigationUrl()}/education_classes/${row.id}">${row.name}</a>`,
       }
     })
     var table = new Tabulator('#education_classes', {

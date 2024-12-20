@@ -31,14 +31,6 @@ module User::EducationConcern
       end
     end
 
-    def education_courses
-      if self.education_role == 'teacher'
-        self.education_schools.map(&:education_courses).flatten
-      elsif self.education_role == 'student'
-        self.education_schools.map(&:education_courses).flatten
-      end
-    end
-
     def education_classes
       if self.education_role == 'teacher'
         self.education_teachers.map(&:education_classes).flatten
@@ -55,7 +47,13 @@ module User::EducationConcern
       end
     end
 
-
+    def education_courses
+      if self.education_role == 'teacher'
+        self.education_classes.map(&:education_courses).flatten
+      elsif self.education_role == 'student'
+        self.education_classes.map(&:education_courses).flatten
+      end
+    end
 
   end
 
