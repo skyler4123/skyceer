@@ -172,6 +172,7 @@ class AutoGenerator::EducationService
       education_student: [education_school.education_students.sample, nil].sample,
       education_subject: [education_school.education_subjects.sample, nil].sample,
       education_room: [education_school.education_rooms.sample, nil].sample,
+      education_course: [education_school.education_courses.sample, nil].sample,
     )
   end
 

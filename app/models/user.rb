@@ -2,7 +2,7 @@
 class User < ApplicationRecord
   include User::ElasticsearchConcern
   include User::AvatarConcern
-  include User::PackageConcern
+  include User::EducationConcern
   include User::ArticlePostImageConcern
   include User::EnumConcern
 
@@ -32,4 +32,12 @@ class User < ApplicationRecord
 
   belongs_to :address, optional: true
   has_many :sessions, dependent: :destroy
+
+  has_many :estate_houses, dependent: :destroy
+  has_many :estate_condos, dependent: :destroy
+  has_many :estate_hotels, dependent: :destroy
+
+  has_many :vehicle_stores, dependent: :destroy
+  has_many :vehicle_cars, dependent: :destroy
+  has_many :calendar_groups, dependent: :destroy
 end

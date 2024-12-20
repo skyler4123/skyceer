@@ -197,9 +197,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
     t.uuid "education_student_id"
     t.uuid "education_subject_id"
     t.uuid "education_room_id"
+    t.uuid "education_course_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["education_class_id"], name: "index_education_class_appointments_on_education_class_id"
+    t.index ["education_course_id"], name: "index_education_class_appointments_on_education_course_id"
     t.index ["education_room_id"], name: "index_education_class_appointments_on_education_room_id"
     t.index ["education_student_id"], name: "index_education_class_appointments_on_education_student_id"
     t.index ["education_subject_id"], name: "index_education_class_appointments_on_education_subject_id"
@@ -505,6 +507,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
   add_foreign_key "education_category_appointments", "education_subjects"
   add_foreign_key "education_category_appointments", "education_teachers"
   add_foreign_key "education_class_appointments", "education_classes"
+  add_foreign_key "education_class_appointments", "education_courses"
   add_foreign_key "education_class_appointments", "education_rooms"
   add_foreign_key "education_class_appointments", "education_students"
   add_foreign_key "education_class_appointments", "education_subjects"

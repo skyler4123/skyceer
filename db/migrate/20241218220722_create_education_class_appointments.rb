@@ -6,6 +6,7 @@ class CreateEducationClassAppointments < ActiveRecord::Migration[8.0]
       t.references :education_student, null: true, foreign_key: true, type: :uuid
       t.references :education_subject, null: true, foreign_key: true, type: :uuid
       t.references :education_room, null: true, foreign_key: true, type: :uuid
+      t.references :education_course, null: true, foreign_key: true, type: :uuid
 
       t.timestamps
     end
