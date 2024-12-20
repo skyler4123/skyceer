@@ -5,3 +5,4 @@
 //= link_tree ../builds
 
 //= link_tree ../../components .js
+//= link hotwire_spark.js
