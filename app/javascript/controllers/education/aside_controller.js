@@ -9,8 +9,6 @@ export default class extends ApplicationController {
       class: 'hidden open:flex w-1/4 h-screen'
     } },
     isOpen: { type: Boolean, default: true },
-    navigationName: String,
-    navigationId: String,
     navigationUrl: String,
   }
 
@@ -19,8 +17,8 @@ export default class extends ApplicationController {
   }
   
   initValue() {
-    this.navigationNameValue = CookieHelpers.navigationName()
-    this.navigationIdValue = CookieHelpers.navigationId()
+    // this.navigationNameValue = CookieHelpers.navigationName()
+    // this.navigationIdValue = CookieHelpers.navigationId()
     this.navigationUrlValue = CookieHelpers.navigationUrl()
   }
 
@@ -29,18 +27,13 @@ export default class extends ApplicationController {
   }
 
   asideData() {
-    switch (this.navigationNameValue) {
-      case "admin":
-        return this.adminAsideData()
-      case "education_schools":
+    switch (CookieHelpers.educationRole()) {
+      case "school":
         return this.schoolAsideData()
-      case "education_teachers":
+      case "teacher":
         return this.teacherAsideData()
-      case "education_students":
+      case "student":
         return this.studentAsideData()
-      case "users":
-        if (CookieHelpers.educationRole() === "teacher") { return this.teacherAsideData() }
-        if (CookieHelpers.educationRole() === "student") { return this.studentAsideData() }
       default:
         return []
     }

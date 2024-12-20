@@ -20,8 +20,8 @@ export const CookieHelpers = {
   sessionId() {
     return this.getCookie('session_id')
   },
-  avatarPath() {
-    return this.getCookie('avatar_path')
+  avatar() {
+    return this.getCookie('avatar')
   },
   educationRole() {
     return this.getCookie('education_role')

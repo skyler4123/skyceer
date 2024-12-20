@@ -5,6 +5,6 @@ import { CookieHelpers } from "../helpers/cookie_helpers"
 export default class Education_AvatarController extends ApplicationController {
   init() {
     // console.log(this)
-    this.element.src = CookieHelpers.avatarPath()
+    this.element.src = CookieHelpers.avatar()
   }
 }
