@@ -176,7 +176,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
     t.uuid "education_question_id"
     t.uuid "education_lesson_id"
     t.uuid "education_shift_id"
-    t.integer "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["education_category_id"], name: "index_education_category_appointments_on_education_category_id"

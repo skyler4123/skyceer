@@ -10,7 +10,8 @@ export default class extends ApplicationController {
     } },
     isOpen: { type: Boolean, default: true },
     navigationName: String,
-    navigationId: String
+    navigationId: String,
+    navigationUrl: String,
   }
 
   init() {
@@ -20,9 +21,10 @@ export default class extends ApplicationController {
   initValue() {
     this.navigationNameValue = CookieHelpers.navigationName()
     this.navigationIdValue = CookieHelpers.navigationId()
+    this.navigationUrlValue = CookieHelpers.navigationUrl()
   }
 
-  navigationIdValueChanged(value, previousValue) {
+  navigationUrlValueChanged(value, previousValue) {
     this.element.innerHTML = this.defaultHTML()
   }
 
@@ -48,7 +50,7 @@ export default class extends ApplicationController {
     return [
       {
         name: "School",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_schools`,
+        url: `/${this.navigationUrlValue}/education_schools`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -56,7 +58,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Teachers",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_teachers`,
+        url: `/${this.navigationUrlValue}/education_teachers`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -64,7 +66,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Students",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_students`,
+        url: `/${this.navigationUrlValue}/education_students`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -72,7 +74,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Classes",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_classes`,
+        url: `/${this.navigationUrlValue}/education_classes`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -80,7 +82,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Rooms",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_rooms`,
+        url: `/${this.navigationUrlValue}/education_rooms`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -88,7 +90,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Courses",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_courses`,
+        url: `/${this.navigationUrlValue}/education_courses`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -96,7 +98,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Categories",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_categories`,
+        url: `/${this.navigationUrlValue}/education_categories`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -104,7 +106,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Subjects",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_subjects`,
+        url: `/${this.navigationUrlValue}/education_subjects`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -112,7 +114,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Exams",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_exams`,
+        url: `/${this.navigationUrlValue}/education_exams`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -120,7 +122,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Questions",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_questions`,
+        url: `/${this.navigationUrlValue}/education_questions`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -133,7 +135,7 @@ export default class extends ApplicationController {
     return [
       {
         name: "School",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_schools`,
+        url: `/${this.navigationUrlValue}/education_schools`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -141,7 +143,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Teachers",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_teachers`,
+        url: `/${this.navigationUrlValue}/education_teachers`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -149,7 +151,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Students",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_students`,
+        url: `/${this.navigationUrlValue}/education_students`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -157,7 +159,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Classes",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_classes`,
+        url: `/${this.navigationUrlValue}/education_classes`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -165,7 +167,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Courses",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_courses`,
+        url: `/${this.navigationUrlValue}/education_courses`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -173,7 +175,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Exams",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_exams`,
+        url: `/${this.navigationUrlValue}/education_exams`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -181,7 +183,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Calendar",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_exams`,
+        url: `/${this.navigationUrlValue}/education_exams`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -194,7 +196,7 @@ export default class extends ApplicationController {
     return [
       {
         name: "School",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_schools`,
+        url: `/${this.navigationUrlValue}/education_schools`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -202,7 +204,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Teachers",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_teachers`,
+        url: `/${this.navigationUrlValue}/education_teachers`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -210,7 +212,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Students",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_students`,
+        url: `/${this.navigationUrlValue}/education_students`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -218,7 +220,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Classes",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_classes`,
+        url: `/${this.navigationUrlValue}/education_classes`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -226,7 +228,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Courses",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_courses`,
+        url: `/${this.navigationUrlValue}/education_courses`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -234,7 +236,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Exams",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_exams`,
+        url: `/${this.navigationUrlValue}/education_exams`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -242,7 +244,7 @@ export default class extends ApplicationController {
       },
       {
         name: "Calendar",
-        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_exams`,
+        url: `/${this.navigationUrlValue}/education_exams`,
         icon: `
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />

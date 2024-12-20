@@ -12,6 +12,7 @@ module ApplicationController::CookieConcern
       cookies.permanent[:navigation_name] = user.navigation_record.class.name.underscore.pluralize
       cookies.permanent[:navigation_id] = user.navigation_record.id
       cookies.permanent[:avatar_path] = user.avatar_path
+      cookies.permanent[:navigation_url] = "/#{user.navigation_record.class.name.underscore.pluralize}/#{user.navigation_record.id}"
     end
 
     def delete_cookie

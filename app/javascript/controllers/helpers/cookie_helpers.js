@@ -38,4 +38,8 @@ export const CookieHelpers = {
   navigationId() {
     return this.getCookie('navigation_id')
   },
+  navigationUrl() {
+    return this.getCookie('navigation_url')
+  },
+
 }
