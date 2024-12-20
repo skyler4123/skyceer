@@ -7,12 +7,16 @@
   </div>
 
   <div id="education_students" class="min-w-full">
-    <% @education_students.each do |education_student| %>
+    <%
+=begin%>
+ <% @education_students.each do |education_student| %>
       <%= render education_student %>
       <p>
         <%= link_to "Show this education student", education_student, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       </p>
-    <% end %>
+    <% end %> 
+<%
+=end%>
   </div>
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>

@@ -23,11 +23,11 @@ class EducationSchools::EducationCoursesController < EducationsController
 
   # POST /education_courses or /education_courses.json
   def create
-    @education_course = EducationCourse.new(education_course_params)
+    @education_course = EducationCourse.build(**education_course_params, education_school: @education_school)
 
     respond_to do |format|
       if @education_course.save
-        format.html { redirect_to @education_course, notice: "Education course was successfully created." }
+        format.html { redirect_to education_school_education_courses_path, notice: "Education course was successfully created." }
         format.json { render :show, status: :created, location: @education_course }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -67,6 +67,6 @@ class EducationSchools::EducationCoursesController < EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_course_params
-      params.expect(education_course: [ :name, :description, :education_school_id, :education_category_id ])
+      params.expect(education_course: [ :name, :description, :education_category_id ])
     end
 end
