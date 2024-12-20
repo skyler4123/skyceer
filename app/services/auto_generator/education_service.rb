@@ -29,24 +29,9 @@ class AutoGenerator::EducationService
       10.times do
         self.education_exam(education_school:)
       end
-      # 100.times do
-      #   self.education_exam_question_appointment(education_school:)
-      # end
-      # (EducationStudent.count).times do
-      #   self.education_class_student_appointment(education_school:)
-      # end
-      # (EducationTeacher.count).times do
-      #   self.education_class_teacher_appointment(education_school:)
-      # end
-      # (EducationRoom.count).times do
-      #   self.education_class_room_appointment(education_school:)
-      # end
-      # (EducationSubject.count).times do
-      #   self.education_class_subject_appointment(education_school:)
-      # end
-      # (EducationTeacher.count).times do
-      #   self.education_subject_teacher_appointment(education_school:)
-      # end
+      10.times do
+        self.education_lesson(education_school:)
+      end
       100.times do
         self.education_class_appointments(education_school:)
       end
@@ -152,59 +137,31 @@ class AutoGenerator::EducationService
     education_exam
   end
 
-  # def self.education_exam_question_appointment(education_school:)
-  #   education_exam_question_appointment = EducationExamQuestionAppointment.create!(
-  #     education_exam: education_school.education_exams.sample ,
-  #     education_question: education_school.education_questions.sample,
-  #     score: rand(0..10),
-  #     time: rand(0..10),
-  #     status: rand(0..3),
-  #     anwser: ['A', 'B', 'C', 'D'].sample,
-  #     result: rand(0..1),
-  #   )
-  #   education_exam_question_appointment
-  # end
-#################################################################
-  # def self.education_class_student_appointment(education_school:)
-  #   education_class_student_appointment = EducationClassAppointment.create!(
-  #     education_class: education_school.education_classes.sample,
-  #     education_student: education_school.education_students.sample,
-  #   )
-  #   education_class_student_appointment
-  # end
+  def self.education_lesson(education_school:)
+    EducationLesson.create!(
+      title: Faker::Movie.title,
+      content: Faker::Movie.quote,
+      education_school: education_school,
+      education_class: education_school.education_classes.sample,
+      education_subject: education_school.education_subjects.sample,
+      education_teacher: education_school.education_teachers.sample,
+    )
+  end
 
-  # def self.education_class_teacher_appointment(education_school:)
-  #   education_class_teacher_appointment = EducationClassAppointment.create!(
-  #     education_class: education_school.education_classes.sample,
-  #     education_teacher: education_school.education_teachers.sample,
-  #   )
-  #   education_class_teacher_appointment
-  # end
-
-  # def self.education_class_room_appointment(education_school:)
-  #   education_class_room_appointment = EducationClassAppointment.create!(
-  #     education_class: education_school.education_classes.sample,
-  #     education_room: education_school.education_rooms.sample,
-  #   )
-  #   education_class_room_appointment
-  # end
-
-  # def self.education_class_subject_appointment(education_school:)
-  #   education_class_subject_appointment = EducationClassAppointment.create!(
-  #     education_class: education_school.education_classes.sample,
-  #     education_subject: education_school.education_subjects.sample,
-  #   )
-  #   education_class_subject_appointment
-  # end
-
-  # def self.education_subject_teacher_appointment(education_school:)
-  #   education_subject_teacher_appointment = EducationSubjectTeacherAppointment.create!(
-  #     education_teacher: education_school.education_teachers.sample,
-  #     education_subject: education_school.education_subjects.sample,
-  #   )
-  #   education_subject_teacher_appointment
-  # end
-
+  def self.education_shift(education_school:)
+    EducationShift.create!(
+      title: Faker::Movie.title,
+      location: nil,
+      start_time: Time.now.utc,
+      end_time: nil,
+      duration: [45, 90, 135, 180].sample,
+      education_school: education_school,
+      education_class: education_school.education_classes.sample,
+      education_subject: education_school.education_subjects.sample,
+      education_teacher: education_school.education_teachers.sample,
+    )
+  end
+  
   def self.education_class_appointments(education_school:)
     EducationClassAppointment.create!(
       education_class: education_school.education_classes.sample,
