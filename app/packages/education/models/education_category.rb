@@ -1,7 +1,9 @@
 class EducationCategory < ApplicationRecord
+  before_save :set_level
+  validate :parent_category_cannot_be_duplicate
   # before_destroy :remove_association
-  # a category can have many subcategories.
-  has_many :subcategories, class_name: "EducationCategory", foreign_key: "parent_category_id", dependent: :destroy
+  # a category can have many child_categories.
+  has_many :child_categories, class_name: "EducationCategory", foreign_key: "parent_category_id", dependent: :destroy
 
   # a category can have one parent category.
   belongs_to :parent_category, class_name: "EducationCategory", optional: true
@@ -19,14 +21,47 @@ class EducationCategory < ApplicationRecord
   has_many :education_shifts, through: :education_category_appointments
   has_many :education_lessons, through: :education_category_appointments
 
-  # def remove_association
-  #   education_courses.each { |course| course.update(education_category: nil) }
-  #   education_exams.each { |exam| exam.update(education_category: nil) }
-  #   education_questions.each { |question| question.update(education_category: nil) }
-  #   education_subjects.each { |subject| subject.update(education_category: nil) }
-  #   education_classes.each { |klass| klass.update(education_category: nil) }
-  #   education_rooms.each { |room| room.update(education_category: nil) }
-  #   education_students.each { |student| student.update(education_category: nil) }
-  #   education_teachers.each { |teacher| teacher.update(education_category: nil) }
-  # end
+  def set_level
+    self.level = parent_category.present? ? parent_category.level + 1 : 0
+  end
+
+  def parent_categories
+    parent = self.parent_category
+    parents = []
+    visited = Set.new
+
+    while parent
+      break if visited.include?(parent.id) # Detect cycle
+      parents << parent
+      visited.add(parent.id)
+      parent = parent.parent_category
+    end
+
+    parents
+  end
+
+  def child_categories
+    children = []
+    queue = [self]
+    visited = Set.new
+
+    until queue.empty?
+      current = queue.shift
+      next if visited.include?(current.id) # Detect cycle
+      visited.add(current.id)
+      children << current unless current == self
+      queue.concat(current.child_categories)
+    end
+
+    children
+  end
+
+  private
+
+  def parent_category_cannot_be_duplicate
+    if parent_categories.include?(self)
+      errors.add(:parent_id, "cannot be a duplicate or create a cycle")
+    end
+  end
+
 end

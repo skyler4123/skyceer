@@ -5,6 +5,7 @@ class EducationSchools::EducationExamsController < EducationsController
   # GET /education_exams or /education_exams.json
   def index
     @education_exams = @education_school.education_exams.all
+    @pagy, @education_exams = pagy(@education_exams)
   end
 
   # GET /education_exams/1 or /education_exams/1.json

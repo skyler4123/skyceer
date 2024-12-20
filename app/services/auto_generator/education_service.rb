@@ -32,6 +32,9 @@ class AutoGenerator::EducationService
       10.times do
         self.education_lesson(education_school:)
       end
+      20.times do
+        self.education_shift(education_school:)
+      end
       100.times do
         self.education_class_appointments(education_school:)
       end

@@ -23,11 +23,28 @@ export default class extends ApplicationController {
   }
 
   navigationIdValueChanged(value, previousValue) {
-    console.log("navigationNameValueChange", value, previousValue)
     this.element.innerHTML = this.defaultHTML()
   }
 
   asideData() {
+    switch (this.navigationNameValue) {
+      case "admin":
+        return this.adminAsideData()
+      case "education_schools":
+        return this.schoolAsideData()
+      case "education_teachers":
+        return this.teacherAsideData()
+      case "education_students":
+        return this.studentAsideData()
+      case "users":
+        if (CookieHelpers.educationRole() === "teacher") { return this.teacherAsideData() }
+        if (CookieHelpers.educationRole() === "student") { return this.studentAsideData() }
+      default:
+        return []
+    }
+  }
+
+  schoolAsideData() {
     return [
       {
         name: "School",
@@ -111,7 +128,132 @@ export default class extends ApplicationController {
       },
     ]
   }
+
+  teacherAsideData() {
+    return [
+      {
+        name: "School",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_schools`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Teachers",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_teachers`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Students",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_students`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Classes",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_classes`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Courses",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_courses`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Exams",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_exams`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Calendar",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_exams`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+    ]
+  }
+
+  studentAsideData() {
+    return [
+      {
+        name: "School",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_schools`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Teachers",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_teachers`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Students",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_students`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Classes",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_classes`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Courses",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_courses`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Exams",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_exams`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+      {
+        name: "Calendar",
+        url: `/${this.navigationNameValue}/${this.navigationIdValue}/education_exams`,
+        icon: `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>`
+      },
+    ]
+  }
+
   defaultHTML() {
+    if (this.asideData().length === 0) { return "" }
+
     return `
       <ul class="w-full h-full">
         ${this.asideData().map((data) => {
