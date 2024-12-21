@@ -8,26 +8,27 @@ class CreateEducationShifts < ActiveRecord::Migration[8.0]
       t.string :lib
       t.string :title
       t.string :body
-      t.boolean :is_allday
+      t.boolean :isAllday
       t.datetime :start
       t.datetime :end
-      t.integer :going_duration
-      t.integer :coming_duration
+      t.integer :goingDuration
+      t.integer :comingDuration
       t.string :location
       t.text :attendees
       t.integer :category
-      t.string :recurrence_rule
+      t.string :dueDateClass
+      t.string :recurrenceRule
       t.integer :state
-      t.boolean :is_visible
-      t.boolean :is_pending
-      t.boolean :is_focused
-      t.boolean :is_read_only
-      t.boolean :is_private
+      t.boolean :isVisible
+      t.boolean :isPending
+      t.boolean :isFocused
+      t.boolean :isReadOnly
+      t.boolean :isPrivate
       t.string :color
-      t.string :background_color
-      t.string :drag_background_color
-      t.string :border_color
-      t.json :custom_style
+      t.string :backgroundColor
+      t.string :dragBackgroundColor
+      t.string :borderColor
+      t.json :customStyle
       t.json :raw
 
       t.timestamps

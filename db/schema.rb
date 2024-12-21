@@ -318,15 +318,34 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
   end
 
   create_table "education_shifts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "title"
-    t.string "location"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.integer "duration"
     t.uuid "education_school_id", null: false
     t.uuid "education_class_id", null: false
     t.uuid "education_subject_id", null: false
     t.uuid "education_teacher_id", null: false
+    t.string "lib"
+    t.string "title"
+    t.string "body"
+    t.boolean "isAllday"
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "goingDuration"
+    t.integer "comingDuration"
+    t.string "location"
+    t.text "attendees"
+    t.integer "category"
+    t.string "recurrenceRule"
+    t.integer "state"
+    t.boolean "isVisible"
+    t.boolean "isPending"
+    t.boolean "isFocused"
+    t.boolean "isReadOnly"
+    t.boolean "isPrivate"
+    t.string "color"
+    t.string "backgroundColor"
+    t.string "dragBackgroundColor"
+    t.string "borderColor"
+    t.json "customStyle"
+    t.json "raw"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["education_class_id"], name: "index_education_shifts_on_education_class_id"

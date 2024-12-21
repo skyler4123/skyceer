@@ -65,6 +65,6 @@ class EducationShiftsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def education_shift_params
-      params.expect(education_shift: [ :education_school_id, :education_class_id, :education_subject_id, :education_teacher_id, :lib, :title, :body, :is_allday, :start, :end, :going_duration, :coming_duration, :location, :attendees, :category, :recurrence_rule, :state, :is_visible, :is_pending, :is_focused, :is_read_only, :is_private, :color, :background_color, :drag_background_color, :border_color, :custom_style, :raw ])
+      params.expect(education_shift: [ :education_school_id, :education_class_id, :education_subject_id, :education_teacher_id, :lib, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw ])
     end
 end

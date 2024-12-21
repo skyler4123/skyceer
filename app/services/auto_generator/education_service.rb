@@ -152,19 +152,18 @@ class AutoGenerator::EducationService
   end
 
   def self.education_shift(education_school:)
+    start = Time.now + rand(1..50000).minutes
     EducationShift.create!(
-      duration: [45, 90, 135, 180].sample,
       education_school: education_school,
       education_class: education_school.education_classes.sample,
       education_subject: education_school.education_subjects.sample,
       education_teacher: education_school.education_teachers.sample,
-
       lib: "tui",
       title: "#{Faker::Movie.title}",
       body: "#{Faker::Movie.quote}",
       isAllday: false,
-      start: Time.now + user_index.days,
-      end: Time.now + 1.hours + user_index.days,
+      start: start,
+      end: start + rand(10..60).hours,
       goingDuration: 0,
       comingDuration: 0,
       location: Address.create_random.id,
