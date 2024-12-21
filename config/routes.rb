@@ -5,14 +5,7 @@
 # end
 
 Rails.application.routes.draw do
-  resources :education_subject_appointments
-  resources :education_question_appointments
-  resources :education_category_appointments
-  resources :education_class_appointments
-  resources :education_class_room_appointments
-  resources :education_question_appointments
-  resources :education_shifts
-  resources :education_lessons
+
   resources :categories
 
   # EDUCATION package
@@ -23,7 +16,11 @@ Rails.application.routes.draw do
       resources :education_courses
       resources :education_rooms
       resources :education_classes
-      resources :education_categories
+      resources :education_categories do
+        collection do
+          get :select
+        end
+      end
       resources :education_exam_questions
       resources :education_questions
       resources :education_exams
@@ -33,7 +30,6 @@ Rails.application.routes.draw do
       get :education_schools
     end
   end
-
   resources :educations, only: [:index]
   resources :education_courses
   resources :education_rooms
@@ -45,6 +41,15 @@ Rails.application.routes.draw do
   resources :education_questions
   resources :education_exams
   resources :education_subjects
+  resources :education_subject_appointments
+  resources :education_question_appointments
+  resources :education_category_appointments
+  resources :education_class_appointments
+  resources :education_class_room_appointments
+  resources :education_question_appointments
+  resources :education_shifts
+  resources :education_lessons
+
 
 
   # REPORT
