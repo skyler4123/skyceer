@@ -14,11 +14,9 @@ export default class extends Education_LayoutController {
   calendarHTML() {
     
     return `
-      <div ${Libs_Calendar_TuiController.identifier} >
+      <div class="w-full h-[700px]" data-controller="${Libs_Calendar_TuiController.identifier}" data-${Libs_Calendar_TuiController.identifier}-events-value="${this.transferToValue(this.contentData())}">
       </div>
     `
   }
-  // connect() {
-  //   console.log("Hello, Stimulus!", this.element);
-  // }
+
 }

@@ -19,7 +19,7 @@ export default class ApplicationController extends Controller {
     .map(x => x.toLowerCase())
     .join('-');
     identifier = identifier.replaceAll('namespace', '')
-    identifier = "data-controller=" + identifier
+    // identifier = "data-controller=" + identifier
     return identifier
   }
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'contentData']
