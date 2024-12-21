@@ -131,7 +131,7 @@ Rails.application.routes.draw do
       resources :education_exams, only: [:index]
       resources :education_courses, only: [:index]
       resources :education_classes, only: [:index]
-      resources :calendars, only: [:index]
+      resources :education_shifts, only: [:index]
     end
     collection do
       get :profile
