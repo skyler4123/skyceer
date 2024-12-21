@@ -4,7 +4,7 @@
 import Calendar from '@toast-ui/calendar';
 import ApplicationController from '../../application_controller';
 
-export default class extends ApplicationController {
+export default class Libs_Calendar_TuiController extends ApplicationController {
   static targets= ["calendar"]
   static values = {
     class: { type: String, default: "w-full h-[700px]" },
