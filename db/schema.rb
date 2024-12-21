@@ -333,6 +333,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
     t.string "location"
     t.text "attendees"
     t.integer "category"
+    t.string "dueDateClass"
     t.string "recurrenceRule"
     t.integer "state"
     t.boolean "isVisible"
