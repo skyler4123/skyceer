@@ -60,8 +60,8 @@ class EducationSchools::EducationCategoriesController < EducationsController
   end
 
   def select
-    level = params[:level] || 0
-    @education_categories = EducationCategory.where(education_school: @education_school, level: level)
+    parent_category_id = params[:parent_category_id].present? ? params[:parent_category_id] : nil
+    @education_categories = EducationCategory.where(education_school: @education_school, parent_category_id: parent_category_id)
     render json: @education_categories
   end
 

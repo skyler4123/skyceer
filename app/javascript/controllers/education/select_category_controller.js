@@ -9,6 +9,7 @@ export default class Education_SelectCategoryController extends ApplicationContr
       select: " hidden"
     } },
     schoolId: { type: String, default: "" },
+    categoryId: { type: String, default: null }
   }
 
   init() {
@@ -22,15 +23,50 @@ export default class Education_SelectCategoryController extends ApplicationContr
   }
 
   initHTML() {
-    this.selectTarget.insertAdjacentHTML("afterend", this.selectCategoryHTML())
+    this.addNewSelectHTML()
   }
 
-  selectCategoryHTML() {
-    EducationSchools_EducationCategoryApi.select({params: {level: 1}}).then(response => {
-      console.log(response)
-    }).catch(error => {
-      console.log(error)
-    })
-    return `<select class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" data-${this.identifier}-target="category"></select>`
+  async addNewSelectHTML() {
+    const selectCategoryHTML = await this.selectCategoryHTML()
+    if (selectCategoryHTML.length === 0) { return }
+    this.element.insertAdjacentHTML("beforeend", selectCategoryHTML)
+  }
+
+  selectChanged(event) {
+    this.removeChildCategory(event)
+    this.categoryIdValue = event.target.value
+  }
+
+  removeChildCategory(event) {
+    const removeAfterIndex = event.params.categoryIndex
+    this.categoryTargets.forEach((target, index) => {
+      if (index > removeAfterIndex) { target.remove() }
+    }) 
+  }
+
+  categoryIdValueChanged(value, previousValue) {
+    this.selectTarget.innerHTML = `<option value="${value}"></option>`
+    this.addNewSelectHTML()
+  }
+
+  async selectCategoryHTML() {
+    const response = await EducationSchools_EducationCategoryApi.select({params: {parent_category_id: this.categoryIdValue}})
+    const responseData = response.data
+    if (responseData.length < 1) { return "" }
+    return `
+    <select
+      class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full"
+      data-${this.identifier}-target="category"
+      data-action="change->${this.identifier}#selectChanged"
+      data-${this.identifier}-category-index-param="${this.categoryTargets.length}"
+    >
+      <option></option>
+      ${responseData.map((category) => {
+        return `
+          <option value="${category.id}">${category.name}</option>
+        `
+      }).join("")}
+    </select>`
+    
   }
 }
