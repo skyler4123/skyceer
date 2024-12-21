@@ -1,3 +1,6 @@
+//  How to use:
+//  <div data-controller="libs--calendar--tui" data-libs--calendar--tui-groups-value="<%= CalendarGroup.all.to_json %>" data-libs--calendar--tui-events-value="<%= CalendarEvent.all.to_json(only: [:id, :title, :end, :start], methods: [:calendarId]) %>"></div>
+
 import Calendar from '@toast-ui/calendar';
 import ApplicationController from '../../application_controller';
 

@@ -153,15 +153,37 @@ class AutoGenerator::EducationService
 
   def self.education_shift(education_school:)
     EducationShift.create!(
-      title: Faker::Movie.title,
-      location: nil,
-      start_time: Time.now.utc,
-      end_time: nil,
       duration: [45, 90, 135, 180].sample,
       education_school: education_school,
       education_class: education_school.education_classes.sample,
       education_subject: education_school.education_subjects.sample,
       education_teacher: education_school.education_teachers.sample,
+
+      lib: "tui",
+      title: "#{Faker::Movie.title}",
+      body: "#{Faker::Movie.quote}",
+      isAllday: false,
+      start: Time.now + user_index.days,
+      end: Time.now + 1.hours + user_index.days,
+      goingDuration: 0,
+      comingDuration: 0,
+      location: Address.create_random.id,
+      attendees: [],
+      category: ['milestone', 'task', 'time', 'allday'].sample,
+      dueDateClass: "",
+      recurrenceRule: "",
+      state: ["Busy", "Free"].sample,
+      isVisible: true,
+      isPending: false,
+      isFocused: false,
+      isReadOnly: false,
+      isPrivate: false,
+      color: '#' + SecureRandom.hex(3),
+      backgroundColor: '#' + SecureRandom.hex(3),
+      dragBackgroundColor: '#' + SecureRandom.hex(3),
+      borderColor: '#' + SecureRandom.hex(3),
+      customStyle: {},
+      raw: {},
     )
   end
   

@@ -8,6 +8,8 @@ rails g scaffold EducationExam name description score:decimal status:integer edu
 rails g scaffold EducationQuestion education_school:references education_teacher:references education_category:references question_type:integer title content anwser choice_1 choice_2 choice_3 choice_4 --force
 rails g scaffold EducationLesson title content education_school:references education_class:references education_subject:references education_teacher:references --force
 rails g scaffold EducationShift title location start_time:datetime end_time:datetime duration:integer education_school:references education_class:references education_subject:references education_teacher:references --force
+rails g scaffold EducationShift education_school:references education_class:references education_subject:references education_teacher:references lib title body is_allday:boolean start:datetime end:datetime going_duration:integer coming_duration:integer location attendees:text category:integer recurrence_rule state:integer is_visible:boolean is_pending:boolean is_focused:boolean is_read_only:boolean is_private:boolean color background_color drag_background_color border_color custom_style:json raw:json --force
+
 
 rails g scaffold EducationClassAppointment education_class:references education_teacher:references education_student:references education_subject:references education_room:references --force
 rails g scaffold EducationCategoryAppointment education_category:references education_class:references education_room:references education_teacher:references education_student:references education_subject:references education_course:references education_exam:references education_question:references education_lesson:references education_shift:references level:integer --force
