@@ -2,7 +2,7 @@ class AutoGenerator::EducationService
   def self.run(seed_number: 2)
     seed_number.times do |index|
       education_school = self.education_school
-      5.times do
+      30.times do
         self.education_category(education_school:)
       end
       10.times do
@@ -44,7 +44,7 @@ class AutoGenerator::EducationService
       100.times do
         self.education_subject_appointments(education_school:)
       end
-      100.times do
+      200.times do
         self.education_category_appointments(education_school:)
       end
     end
