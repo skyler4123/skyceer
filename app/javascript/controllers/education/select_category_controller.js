@@ -1,3 +1,9 @@
+// How to use:
+//  <div class="my-5"  data-controller="education--select-category" data-education--select-category-school-id-value="<%=@education_school.id %>" >
+//    <%= form.label :education_category_id %>
+//    <%= form.select :education_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+//  </div>
+
 import "choices"
 import ApplicationController from "../application_controller";
 import { EducationSchools_EducationCategoryApi } from "./api/education_schools/education_category_api";
