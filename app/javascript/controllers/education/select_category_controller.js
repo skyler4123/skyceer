@@ -26,7 +26,7 @@ export default class Education_SelectCategoryController extends ApplicationContr
   }
 
   selectCategoryHTML() {
-    EducationSchools_EducationCategoryApi.select().then(response => {
+    EducationSchools_EducationCategoryApi.select({params: {level: 1}}).then(response => {
       console.log(response)
     }).catch(error => {
       console.log(error)

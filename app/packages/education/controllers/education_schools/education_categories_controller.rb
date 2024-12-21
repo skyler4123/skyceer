@@ -60,7 +60,9 @@ class EducationSchools::EducationCategoriesController < EducationsController
   end
 
   def select
-    render json: {name: "kjhajkdhasjksdkjdjjkl"}
+    level = params[:level] || 0
+    @education_categories = EducationCategory.where(education_school: @education_school, level: level)
+    render json: @education_categories
   end
 
   private
