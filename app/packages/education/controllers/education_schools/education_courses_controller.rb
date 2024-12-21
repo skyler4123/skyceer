@@ -24,6 +24,8 @@ class EducationSchools::EducationCoursesController < EducationsController
   # POST /education_courses or /education_courses.json
   def create
     @education_course = EducationCourse.build(**education_course_params, education_school: @education_school)
+    @education_category = EducationCategory.find(params[:education_course][:education_category_id])
+    @education_course.education_categories << @education_category
 
     respond_to do |format|
       if @education_course.save
@@ -67,6 +69,6 @@ class EducationSchools::EducationCoursesController < EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_course_params
-      params.expect(education_course: [ :name, :description, :education_category_id ])
+      params.expect(education_course: [ :name, :description ])
     end
 end
