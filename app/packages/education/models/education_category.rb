@@ -40,7 +40,7 @@ class EducationCategory < ApplicationRecord
     parents
   end
 
-  def child_categories
+  def children_categories
     children = []
     queue = [self]
     visited = Set.new
