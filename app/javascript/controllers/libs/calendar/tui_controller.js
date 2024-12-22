@@ -189,7 +189,8 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
 
   optionsParamsDefault() {
     return {
-      defaultView: 'month',
+      // defaultView: 'month',
+      defaultView: 'week',
       useFormPopup: true,
       useDetailPopup: true,
       isReadOnly: false,

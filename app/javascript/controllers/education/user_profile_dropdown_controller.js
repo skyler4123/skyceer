@@ -51,7 +51,7 @@ export default class Education_UserProfileDropdownController extends Application
   signedInHTML() {
     return `
       <div
-        ${Education_AvatarController.identifier}
+        data-controller="${Education_AvatarController.identifier}"
         data-${this.identifier}-target="avatar">
       </div>
     `

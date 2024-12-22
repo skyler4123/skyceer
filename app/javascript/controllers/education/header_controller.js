@@ -31,7 +31,7 @@ export default class extends ApplicationController {
           <a href="/"">Home</a>
           <a href="/educations">Education</a>
         </div>
-        <div class="flex flex-row" ${Education_UserProfileDropdownController.identifier}></div>
+        <div class="flex flex-row" data-controller="${Education_UserProfileDropdownController.identifier}"></div>
       </div>
     `
   }

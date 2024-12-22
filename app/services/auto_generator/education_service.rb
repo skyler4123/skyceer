@@ -163,7 +163,7 @@ class AutoGenerator::EducationService
       body: "#{Faker::Movie.quote}",
       isAllday: false,
       start: start,
-      end: start + rand(10..60).hours,
+      end: start + rand(10..60).minutes,
       goingDuration: 0,
       comingDuration: 0,
       location: Address.create_random.id,
