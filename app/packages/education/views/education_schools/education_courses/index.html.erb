@@ -18,5 +18,9 @@
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
 <div style="display: none;" data-<%= view_controller(__FILE__) %>-target="contentData">
-  <%= @education_courses.to_json %>
+  <%=
+    { education_classes: EducationClass.all,
+      education_shifts: @education_shifts.select(:id, :title, :end, :start, :education_class_id).map { |shift| shift.attributes.merge(calendarId: shift.education_class_id) }
+    }.to_json
+  %>
 </div>
