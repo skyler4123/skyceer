@@ -22,12 +22,12 @@ class EducationSchools::EducationCoursesController < EducationsController
   
     # POST /education_courses or /education_courses.json
     def create
-      debugger
+      
       @education_course = EducationCourse.new(education_school: @education_school, **education_course_params)
   
       respond_to do |format|
         if @education_course.save
-          format.html { redirect_to @education_course, notice: "Education course was successfully created." }
+          format.html { redirect_to education_school_education_courses_path, notice: "Education course was successfully created." }
           format.json { render :show, status: :created, location: @education_course }
         else
           format.html { render :new, status: :unprocessable_entity }
