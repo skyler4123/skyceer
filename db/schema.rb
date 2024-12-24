@@ -458,6 +458,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
     t.index ["discarded_at"], name: "index_report_tickets_on_discarded_at"
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "user_agent"
+    t.string "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "password_digest", null: false
@@ -471,7 +480,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
-    t.index ["education_role"], name: "index_users_on_education_role"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -568,6 +576,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
   add_foreign_key "estate_houses", "addresses"
   add_foreign_key "estate_houses", "users"
   add_foreign_key "report_frontends", "users"
+  add_foreign_key "sessions", "users"
   add_foreign_key "users", "addresses"
   add_foreign_key "vehicle_cars", "users"
   add_foreign_key "vehicle_cars", "vehicle_stores"

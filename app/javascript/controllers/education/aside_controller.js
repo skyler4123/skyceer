@@ -9,7 +9,7 @@ export default class extends ApplicationController {
       class: 'hidden open:flex w-1/4 h-screen'
     } },
     isOpen: { type: Boolean, default: true },
-    navigationUrl: String,
+    navigationUrl: {  type: String, default: undefined },
   }
 
   init() {

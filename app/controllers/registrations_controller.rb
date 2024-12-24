@@ -1,6 +1,5 @@
 class RegistrationsController < ApplicationController
   skip_before_action :authenticate
-  skip_before_action :authorization
 
   def new
     @user = User.new
@@ -8,14 +7,13 @@ class RegistrationsController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      # session_record = @user.sessions.create!
-      @session = create_session_for_all_package(user: @user)
-      # cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
-      set_cookie(session: @session, user: @user)
 
+    if @user.save
+      session_record = @user.sessions.create!
+      # cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
+      set_cookie(session: session_record, user: @user)
       send_email_verification
-      redirect_to user_path(@user), notice: SIGN_UP_SUCCESS_MESSAGE
+      redirect_to root_path, notice: "Welcome! You have signed up successfully"
     else
       render :new, status: :unprocessable_entity
     end

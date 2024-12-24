@@ -3,8 +3,8 @@ class HomeController < ApplicationController
   skip_before_action :authenticate
 
   def index
-    session_record = Session.find_by_id(cookies.signed[:session_token])
-    cookies.clear unless session_record
+    # session_record = Session.find_by_id(cookies.signed[:session_token])
+    # cookies.clear unless session_record
   end
 
   def education
@@ -18,8 +18,8 @@ class HomeController < ApplicationController
 
   private
   
-  def layout_for_actions
-    return 'application' if action_name == 'index' || action_name == 'about'
-    action_name
-  end
+  # def layout_for_actions
+  #   return 'application' if action_name == 'index' || action_name == 'about'
+  #   action_name
+  # end
 end

@@ -1,10 +1,10 @@
 class EducationSchoolsController < EducationsController
   before_action :set_education_school, only: %i[ show edit update destroy education_schools]
-  skip_before_action :authorization, only: [:teachers]
 
   # GET /education_schools or /education_schools.json
   def index
-    @education_schools = EducationSchool.all
+    @education_schools = current_user.education_schools
+    @pagy, @education_schools = pagy(@education_schools)
   end
 
   # GET /education_schools/1 or /education_schools/1.json

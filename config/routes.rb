@@ -73,7 +73,6 @@ Rails.application.routes.draw do
   resources :vehicle_cars
   resources :vehicle_brands
   resources :vehicle_users
-  mount MissionControl::Jobs::Engine, at: "/jobs"
   resources :demo, only: [:index, :new]
 
   # CALENDAR package
@@ -87,34 +86,8 @@ Rails.application.routes.draw do
     end
   end
   resources :chat_messages
-  resources :chat_users do
-    collection do
-      get :host
-    end
-  end
 
-  get  "sign_in", to: "sessions#new"
-  post "sign_in", to: "sessions#create"
-  get "sign_out", to: "sessions#sign_out"
-  get  "sign_up", to: "registrations#new"
-  post "sign_up", to: "registrations#create"
 
-  resources :sessions, only: [:index, :show, :destroy]
-  resource  :password, only: [:edit, :update]
-  namespace :identity do
-    resource :email,              only: [:edit, :update]
-    resource :email_verification, only: [:show, :create]
-    resource :password_reset,     only: [:new, :edit, :create, :update]
-  end
-
-  # HOME for packages
-  get  "about", to: "home#about"
-  get  "agriculture", to: "home#agriculture"
-  get  "education", to: "home#education"
-  get  "home", to: "home#index"
-  
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
   resources :images, only: [] do
     collection do
       post :editorjs_upload_by_file
@@ -122,25 +95,38 @@ Rails.application.routes.draw do
     end
   end
 
-  # USER
-  resources :users do
-    scope module: :users do
-      resources :education_schools, only: [:index]
-      resources :education_teachers, only: [:index]
-      resources :education_students, only: [:index]
-      resources :education_exams, only: [:index]
-      resources :education_courses, only: [:index]
-      resources :education_classes, only: [:index]
-      resources :education_shifts, only: [:index]
-    end
-    collection do
-      get :profile
-    end
-  end
+  resources :users
 
+  # Default routes
   # mount Sidekiq::Web => "/sidekiq" # mount Sidekiq::Web in your Rails app
-  get "/up", to: Proc.new { [200, {}, ["OK"]] }
-  # get "up" => "rails/health#show", as: :rails_health_check
-
+  mount MissionControl::Jobs::Engine, at: "/jobs"
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+  
+  get  "sign_in", to: "sessions#new"
+  post "sign_in", to: "sessions#create"
+  get "sign_out", to: "sessions#sign_out"
+  get  "sign_up", to: "registrations#new"
+  post "sign_up", to: "registrations#create"
+  resources :sessions, only: [:index, :show, :destroy]
+  resource  :password, only: [:edit, :update]
+  namespace :identity do
+    resource :email,              only: [:edit, :update]
+    resource :email_verification, only: [:show, :create]
+    resource :password_reset,     only: [:new, :edit, :create, :update]
+  end
   root "home#index"
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "up" => "rails/health#show", as: :rails_health_check
+  # get "/up", to: Proc.new { [200, {}, ["OK"]] }
+
+  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
+  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+
+  # Defines the root path route ("/")
+  # root "posts#index"
 end
