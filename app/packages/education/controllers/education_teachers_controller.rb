@@ -3,7 +3,8 @@ class EducationTeachersController < EducationsController
 
   # GET /education_teachers or /education_teachers.json
   def index
-    @education_teachers = EducationTeacher.all
+    @education_schools = current_user.education_schools
+    @education_teachers = EducationTeacher.where(education_school: @education_schools)
     @pagy, @education_teachers = pagy(@education_teachers)
   end
 
