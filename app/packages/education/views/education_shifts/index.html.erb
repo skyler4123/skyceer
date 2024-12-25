@@ -7,12 +7,7 @@
     <%= link_to "New education shift", new_education_shift_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="education_shifts" class="min-w-full">
-    <% @education_shifts.each do |education_shift| %>
-      <%= render education_shift %>
-      <p>
-        <%= link_to "Show this education shift", education_shift, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
-  </div>
+  <div id="education_shifts" class="min-w-full"></div>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
+<%= content_data(@education_shifts).html_safe %>

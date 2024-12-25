@@ -6,12 +6,7 @@
     <%= link_to "New education room", new_education_room_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="education_rooms" class="min-w-full">
-    <% @education_rooms.each do |education_room| %>
-      <%= render education_room %>
-      <p>
-        <%= link_to "Show this education room", education_room, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
-  </div>
+  <div id="education_rooms" class="min-w-full"></div>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
+<%= content_data(@education_rooms).html_safe %>

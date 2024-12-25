@@ -1,4 +1,4 @@
-class EducationShiftsController < ApplicationController
+class EducationShiftsController < EducationsController
   before_action :set_education_shift, only: %i[ show edit update destroy ]
 
   # GET /education_shifts or /education_shifts.json

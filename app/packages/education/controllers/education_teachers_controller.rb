@@ -1,10 +1,10 @@
 class EducationTeachersController < EducationsController
+  before_action :set_education_schools, only: %i[ index ]
   before_action :set_education_teacher, only: %i[ show edit update destroy ]
 
   # GET /education_teachers or /education_teachers.json
   def index
-    @education_schools = current_user.education_schools
-    @education_teachers = EducationTeacher.where(education_school: @education_schools)
+    @education_teachers = EducationTeacher.all.includes(:education_school).where(education_school: @education_schools)
     @pagy, @education_teachers = pagy(@education_teachers)
   end
 

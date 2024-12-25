@@ -1,7 +1,7 @@
 import ApplicationController from "../application_controller";
 
 export default class FormController extends ApplicationController {
-  static targets = [...super.targets, 'input']
+  static targets = [...super.targets, 'input', 'select']
   static values = {
     form: { type: Object, default: {} },
     submit: { type: Object, default: {} },
@@ -16,12 +16,20 @@ export default class FormController extends ApplicationController {
       if (target.type === "submit") { return }
       target.setAttribute(`data-${this.identifier}-target`, 'input')
     })
+
+    this.element.querySelectorAll('select[name]').forEach((target) => {
+      if (target.type === "submit") { return }
+      target.setAttribute(`data-${this.identifier}-target`, 'select')
+    })
   }
 
   initAction() {
     this.element.dataset.action += ` submit->${this.identifier}#submit`
     this.inputTargets.forEach((target) => {
       target.dataset.action += ` input->${this.identifier}#input`
+    })
+    this.selectTargets.forEach((target) => {
+      target.dataset.action += ` change->${this.identifier}#input`
     })
   }
 
@@ -35,7 +43,11 @@ export default class FormController extends ApplicationController {
     this.inputTargets.forEach((target) => {
       newInput[target.name] = target.value
     })
+    this.selectTargets.forEach((target) => {
+      newInput[target.name] = target.value
+    })
     this.formValue = newInput
+    return newInput
   }
 
   formData() {
@@ -46,12 +58,12 @@ export default class FormController extends ApplicationController {
     this.inputTargets.forEach((target) => {
       target.value = this.formValue[target.name]
     })
-    if (this.isDefined(this.formValueCallback)) { this.formValueCallback() }
+    if (this.isDefined(this.formValueCallback)) { this.formValueCallback(value, previousValue) }
   }
 
   submit(event) {
     event.preventDefault()
-    this.submitValue = this.formValue
+    this.submitValue = this.input()
   }
 
   submitValueChanged(value, previousValue) {

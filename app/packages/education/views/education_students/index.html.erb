@@ -1,17 +1,15 @@
 <div class="w-full">
   <% content_for :title, "Education students" %>
-
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Education students</h1>
-    <%= link_to "New education student", new_education_student_path[@education_school], class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <%= link_to "New education student", new_education_student_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="education_students" class="min-w-full">
-    <% @education_students.each do |education_student| %>
-      <%= render education_student %>
-      <p>
-        <%= link_to "Show this education student", education_student, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
+  <form data-controller="education--filter" data-<%= view_controller(__FILE__) %>-target="filter"></form>
+
+  <div id="education_students" class="min-w-full"></div>
+  <div data-controller="education--pagination">
+    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
   </div>
 </div>
+<%= content_data(@education_students).html_safe %>

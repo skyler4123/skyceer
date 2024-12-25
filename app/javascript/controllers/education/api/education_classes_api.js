@@ -1,11 +1,11 @@
 import "axios";
-import { defaultHeaders } from "../api_helpers";
+import { defaultHeaders } from "./api_helpers";
 
-export const EducationSchools_EducationCategoryApi = {
+export const EducationClassesApi = {
 
-  // select({params, headers} = {}) {
-  //   return axios.get(`/education_schools/${educationSchoolId()}/education_categories/select`, { params: params, headers: {...defaultHeaders(), ...headers} })
-  // },
+  index({params, headers} = {}) {
+    return axios.get(`/education_classes`, { params: params, headers: {...defaultHeaders(), ...headers} })
+  },
 
   // show({id, params, headers} = {}) {
   //   return axios.get(`/education_schools/${educationSchoolId()}/education_categories/${id}`, { params: params, headers: {...defaultHeaders(), ...headers} })

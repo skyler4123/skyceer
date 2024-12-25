@@ -1,9 +1,11 @@
 class EducationClassesController < EducationsController
+  before_action :set_education_schools, only: %i[ index ]
   before_action :set_education_class, only: %i[ show edit update destroy ]
 
   # GET /education_classes or /education_classes.json
   def index
-    @education_classes = EducationClass.all
+    @education_classes = EducationClass.where(education_school: @education_schools)
+    @pagy, @education_classes = pagy(@education_classes)
   end
 
   # GET /education_classes/1 or /education_classes/1.json

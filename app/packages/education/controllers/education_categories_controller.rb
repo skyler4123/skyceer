@@ -1,9 +1,11 @@
-class EducationCategoriesController < ApplicationController
+class EducationCategoriesController < EducationsController
+  before_action :set_education_schools, only: %i[ index ]
   before_action :set_education_category, only: %i[ show edit update destroy ]
 
   # GET /education_categories or /education_categories.json
   def index
-    @education_categories = EducationCategory.all
+    @education_categories = EducationCategory.where(education_school: @education_schools)
+    @pagy, @education_categories = pagy(@education_categories)
   end
 
   # GET /education_categories/1 or /education_categories/1.json

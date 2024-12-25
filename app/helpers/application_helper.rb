@@ -16,4 +16,10 @@ module ApplicationHelper
   def country_code
     "VN"
   end
+
+  def content_data(resources, **options)
+    "<div style='display: none;' data-#{view_controller(__FILE__)}-target='contentData'>
+      #{resources.to_json(options)}
+    </div>"
+  end
 end

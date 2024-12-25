@@ -6,16 +6,10 @@
     <%= link_to "New education teacher", new_education_teacher_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="education_teachers" class="min-w-full">
-    <% @education_teachers.each do |education_teacher| %>
-      <%= render education_teacher %>
-      <p>
-        <%= link_to "Show this education teacher", education_teacher, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
-  </div>
+  <div id="education_teachers" class="min-w-full"></div>
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
 <div style="display: none;" data-<%= view_controller(__FILE__) %>-target="contentData">
-  <%= @education_teachers.to_json %>
+
+  <%= @education_teachers.to_json(methods: [:school_name]) %>
 </div>

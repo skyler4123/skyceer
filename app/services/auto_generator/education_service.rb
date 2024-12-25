@@ -1,57 +1,59 @@
 class AutoGenerator::EducationService
   def self.run(seed_number: 2)
     seed_number.times do |index|
-      education_school = self.education_school
-      30.times do
-        self.education_category(education_school:)
-      end
-      10.times do
-        self.education_subject(education_school:)
-      end
-      10.times do
-        self.education_course(education_school:)
-      end
-      5.times do
-        self.education_class(education_school:)
-      end
-      5.times do
-        self.education_room(education_school:)
-      end
-      10.times do
-        self.education_teacher(education_school:)
-      end
-      30.times do
-        self.education_student(education_school:)
-      end
-      20.times do
-        self.education_question(education_school:)
-      end
-      10.times do
-        self.education_exam(education_school:)
-      end
-      10.times do
-        self.education_lesson(education_school:)
-      end
-      20.times do
-        self.education_shift(education_school:)
-      end
-      100.times do
-        self.education_class_appointments(education_school:)
-      end
-      100.times do
-        self.education_question_appointments(education_school:)
-      end
-      100.times do
-        self.education_subject_appointments(education_school:)
-      end
-      200.times do
-        self.education_category_appointments(education_school:)
+      user = AutoGenerator::UserService.create(education_role: :school)
+      2.times do
+        education_school = self.education_school(user:)
+        30.times do
+          self.education_category(education_school:)
+        end
+        10.times do
+          self.education_subject(education_school:)
+        end
+        10.times do
+          self.education_course(education_school:)
+        end
+        5.times do
+          self.education_class(education_school:)
+        end
+        5.times do
+          self.education_room(education_school:)
+        end
+        5.times do
+          self.education_teacher(education_school:)
+        end
+        10.times do
+          self.education_student(education_school:)
+        end
+        20.times do
+          self.education_question(education_school:)
+        end
+        5.times do
+          self.education_exam(education_school:)
+        end
+        3.times do
+          self.education_lesson(education_school:)
+        end
+        20.times do
+          self.education_shift(education_school:)
+        end
+        50.times do
+          self.education_class_appointments(education_school:)
+        end
+        50.times do
+          self.education_question_appointments(education_school:)
+        end
+        20.times do
+          self.education_subject_appointments(education_school:)
+        end
+        50.times do
+          self.education_category_appointments(education_school:)
+        end
       end
     end
   end
 
-  def self.education_school
-    user = AutoGenerator::UserService.create(education_role: :school)
+  def self.education_school(user:)
     education_school = EducationSchool.create!(name: "#{EmailService.username(user.email)} education school name", user: user, address: Address.create_random)
     AutoGenerator::AttachmentService.attach(record: education_school, relation: :avatar, number: 1)
     education_school

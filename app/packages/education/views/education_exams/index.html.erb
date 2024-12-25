@@ -7,12 +7,7 @@
     <%= link_to "New education exam", new_education_exam_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="education_exams" class="min-w-full">
-    <% @education_exams.each do |education_exam| %>
-      <%= render education_exam %>
-      <p>
-        <%= link_to "Show this education exam", education_exam, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
-  </div>
+  <div id="education_exams" class="min-w-full"></div>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
+<%= content_data(@education_exams).html_safe %>

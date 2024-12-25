@@ -8,10 +8,10 @@ export default class extends Education_LayoutController {
     let tableData = this.contentData().map((row) => {
       return {
         ...row,
-        name: `<a href="${CookieHelpers.navigationUrl()}/education_teachers/${row.id}">${row.name}</a>`,
+        name: `<a href="${CookieHelpers.navigationUrl()}/education_categories/${row.id}">${row.name}</a>`,
       }
     })
-    var table = new Tabulator('#education_teachers', {
+    var table = new Tabulator('#education_categories', {
       data: tableData,           //load row data from array
       layout:"fitColumns",      //fit columns to width of table
       responsiveLayout:"hide",  //hide columns that don't fit on the table
@@ -30,8 +30,6 @@ export default class extends Education_LayoutController {
       columns:[                 //define the table columns
           // {title:"Name", field:"name", editor:"input"},
           {title:"Name", field: "name", formatter: "html"},
-          {title: "School", field: "education_school_id", width: 150},
-          {title: "School Name", field: "school_name", width: 150},
           {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
           {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
 

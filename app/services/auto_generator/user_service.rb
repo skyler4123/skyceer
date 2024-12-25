@@ -1,7 +1,7 @@
 class AutoGenerator::UserService
   def self.create(role: :normal, education_role: nil)
     user = User.create!(
-      email: EmailService.demo_email_with_roles(role:, education_role:),
+      email: AutoGenerator::EmailService.demo_email_with_roles(role:, education_role:),
       password: "password1234",
       password_confirmation: "password1234",
       verified: true,
