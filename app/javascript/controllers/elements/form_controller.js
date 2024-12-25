@@ -62,7 +62,7 @@ export default class FormController extends ApplicationController {
   }
 
   submit(event) {
-    event.preventDefault()
+    // event.preventDefault()
     this.submitValue = this.input()
   }
 

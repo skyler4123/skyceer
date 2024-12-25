@@ -57,8 +57,8 @@ export default class extends Education_LayoutController {
           {title:"Name", field: "name", formatter: "html"},
           {title:"School", field:"school_name", sorter:"string", hozAlign:"center"},
           {title:"Class", field:"class_names", sorter:"string", hozAlign:"center"},
-          {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
-          {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
+          // {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
+          // {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
 
       ],
     });
@@ -80,7 +80,7 @@ export default class extends Education_LayoutController {
     const response = await EducationStudentsApi.index({params: this.filterParamsValue})
     const responseData = response.data
     this.tableValue = responseData
-    // this.paginationController().additionalParamsValue = value
+    this.paginationController().additionalParamsValue = value
   }
 
   paginationController() {

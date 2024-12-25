@@ -42,7 +42,7 @@ export default class Education_FilterController extends FormController {
   }
 
   async initSelect(event) {
-    // event.preventDefault()
+    if (event.target.tagName !== "SELECT") { return }
     if (event.target.childElementCount > 0) { return }
     const inputName = event.target.name
     const response = await eval(event.params.apiFunction)

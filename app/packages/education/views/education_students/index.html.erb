@@ -8,7 +8,10 @@
   <form data-controller="education--filter" data-<%= view_controller(__FILE__) %>-target="filter"></form>
 
   <div id="education_students" class="min-w-full"></div>
-  <div data-controller="education--pagination">
+  <div
+    data-controller="education--pagination"
+    data-<%= view_controller(__FILE__) %>-target="pagination"
+  >
     <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
   </div>
 </div>

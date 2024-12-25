@@ -18,7 +18,12 @@ export default class Education_PaginationController extends ApplicationControlle
 
   additionalParamsValueChanged(value, previousValue) {
     this.linkTargets.forEach((link) => {
-      link.href += `?${new URLSearchParams(this.additionalParamsValue).toString()}`
+      const linkObject = new URL(link.href)
+      Object.entries(this.additionalParamsValue).forEach(([key, value]) => {
+        linkObject.searchParams.set(key, value)
+      })
+      link.href = linkObject.href
+      // link.href += `?${new URLSearchParams(this.additionalParamsValue).toString()}`
     })
   }
 }
