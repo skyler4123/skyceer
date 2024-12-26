@@ -51,7 +51,7 @@ export default class extends ApplicationController {
             <li class="w-full">
               <a class="group flex justify-start items-center mb-4"
                 href="${data.url}">
-                <div class="w-10 h-10 flex justify-center items-center mr-4">
+                <div class="w-6 h-6 flex justify-center items-center mr-4">
                   ${data.icon}
                 </div>
                 <div class="text-slate-200 leading-6">${data.name}</div>
