@@ -73,6 +73,12 @@ export default class extends Education_LayoutController {
   initFilter() {
     this.filterTarget.innerHTML = `
       <form action="/education_students">
+        <input
+          type="text"
+          name="full_text_search"
+          placeholder="Name, Email, Phone, ..."
+          class="w-64"
+        >
         <select
           name="education_school_id"
           class="w-64"

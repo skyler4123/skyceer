@@ -1,10 +1,14 @@
+require 'pagy/extras/elasticsearch_rails'
+
 class EducationStudentsController < EducationsController
   # before_action :set_education_schools, only: %i[ index ]
   before_action :set_education_student, only: %i[ show edit update destroy ]
 
   # GET /education_students or /education_students.json
   def index
-    if params[:education_school_id].present? || params[:education_class_id].present?
+    if params[:full_text_search].present?
+      @education_students = EducationStudent.search(params[:full_text_search]).records
+    elsif params[:education_school_id].present? || params[:education_class_id].present?
       @education_students = EducationStudent.all
       @education_students = @education_students.where(education_school_id: params[:education_school_id]) if params[:education_school_id].present?
       @education_students = @education_students.includes(:education_classes).where(education_classes: {id: params[:education_class_id] }) if params[:education_class_id].present?
