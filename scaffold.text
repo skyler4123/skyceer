@@ -15,6 +15,10 @@ rails g scaffold EducationCategoryAppointment education_category:references educ
 rails g scaffold EducationQuestionAppointment education_question:references education_exam:references score:decimal time:integer status anwser result:integer --force
 rails g scaffold EducationSubjectAppointment education_subject:references education_class:references education_teacher:references --force
 
-
+PAYMENT
+rails g scaffold PaymentItem chargeable_type chargeable_id
+rails g scaffold PaymentOrder status:integer
+rails g scaffold PaymentOrderAppointment
+rails g scaffold PaymentInvoice payment_order:references status:integer
 
 
