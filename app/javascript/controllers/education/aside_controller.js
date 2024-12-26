@@ -8,7 +8,7 @@ export default class extends ApplicationController {
     attributes: { type: Object, default: {
       open: true,
       role: "toggle",
-      class: 'hidden open:flex w-1/4 h-screen bg-gray-800',
+      class: 'hidden open:flex w-1/4 h-screen bg-gray-800 pr-4 pl-4 pt-4',
     } },
     isOpen: { type: Boolean, default: true },
     navigationUrl: {  type: String, default: undefined },
@@ -49,13 +49,14 @@ export default class extends ApplicationController {
         ${this.asideData().map((data) => {
           return `
             <li class="w-full">
-              <a class="group flex justify-start items-center mb-4"
+              <a class="group flex justify-start items-center"
                 href="${data.url}">
                 <div class="w-6 h-6 flex justify-center items-center mr-4">
                   ${data.icon}
                 </div>
                 <div class="text-slate-200 leading-6">${data.name}</div>
               </a>
+              <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
             </li>
           `
         }).join("")}
