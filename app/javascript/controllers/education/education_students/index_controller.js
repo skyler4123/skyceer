@@ -1,12 +1,12 @@
 import Education_LayoutController from "../layout_controller";
-import { CookieHelpers } from '../../helpers/cookie_helpers';
 import {TabulatorFull as Tabulator} from 'tabulator';
-import Education_FilterController from "../filter_controller";
 import { EducationStudentsApi } from "../api/education_students_api";
-import Education_PaginationController from "../pagination_controller";
+import { EducationSchoolsApi } from "../api/education_schools_api";
+import { EducationClassesApi } from "../api/education_classes_api";
+import { params } from "../api/api_helpers";
 
 export default class extends Education_LayoutController {
-  static targets = ["filter", "pagination"]
+  static targets = ["index", "select", "filter", "pagination"]
   static values = {
     class: { type: Object, default: {
       element: "w-full h-full",
@@ -14,16 +14,22 @@ export default class extends Education_LayoutController {
     } },
     table: { type: Array, default: [] },
     filterParams: { type: Object, default: {} },
+    mapping: { type: Object, default: {
+      education_school_id: {value: "id", label: "name"},
+      education_class_id: {value: "id", label: "name"}
+
+    } },
   }
 
   init() {
-    // this.initValues()
+    this.initValues()
     this.initFilter()
+    this.initFilterSelect()
   }
 
-  // initValues() {
-  //   this.tableValue = this.contentData()
-  // }
+  initValues() {
+    this.tableValue = this.contentData()
+  }
 
   tableValueChanged() {
     this.initTable()
@@ -33,10 +39,10 @@ export default class extends Education_LayoutController {
     let tableData = this.tableValue.map((row) => {
       return {
         ...row,
-        name: `<a href="${CookieHelpers.navigationUrl()}/education_students/${row.id}">${row.name}</a>`,
+        name: `<a href="/education_students/${row.id}">${row.name}</a>`,
       }
     })
-    this.table = new Tabulator('#education_students', {
+    this.table = new Tabulator(this.indexTarget, {
       data: tableData,           //load row data from array
       layout:"fitColumns",      //fit columns to width of table
       responsiveLayout:"hide",  //hide columns that don't fit on the table
@@ -65,25 +71,46 @@ export default class extends Education_LayoutController {
   }
 
   initFilter() {
-    setTimeout(() => {
-      this.filterController().submitValueCallback = (value, previousValue) => {
-        this.filterParamsValue = value
-      }
-    }, 1000)
+    this.filterTarget.innerHTML = `
+      <form action="/education_students">
+        <select
+          name="education_school_id"
+          class="w-64"
+          data-${this.identifier}-target="select"
+          data-${this.identifier}-api-function-param="EducationSchoolsApi.index()"
+        >
+        </select>
+        <select
+          name="education_class_id"
+          class="w-64"
+          data-${this.identifier}-target="select"
+          data-${this.identifier}-api-function-param="EducationClassesApi.index()"
+        >
+        </select>
+        <input type="submit" value="Submit">
+      </form>
+    `
   }
 
-  filterController() {
-    return this.application.getControllerForElementAndIdentifier(this.filterTarget, Education_FilterController.identifier)
-  }
-
-  async filterParamsValueChanged(value, previousValue) {
-    const response = await EducationStudentsApi.index({params: this.filterParamsValue})
-    const responseData = response.data
-    this.tableValue = responseData
-    this.paginationController().additionalParamsValue = value
-  }
-
-  paginationController() {
-    return this.application.getControllerForElementAndIdentifier(this.paginationTarget, Education_PaginationController.identifier)
+  initFilterSelect() {
+    this.selectTargets.forEach(async (select) => {
+      if (select.childElementCount > 0) { return }
+      const inputName = select.name
+      const apiFunction = select.getAttribute(`data-${this.identifier}-api-function-param`)
+      const response = await eval(apiFunction)
+      const responseData = response.data
+      select.innerHTML = `
+        <option value="">Select ${inputName}</option>
+        ${responseData.map((data) => {
+          return `
+            <option
+              value="${data[this.mappingValue[inputName].value]}"
+              ${params(inputName) == data[this.mappingValue[inputName].value] ? "selected" : ""}
+            >
+                ${data[this.mappingValue[inputName].label]}
+            </option>`
+        }).join("")}
+      `
+    })
   }
 }

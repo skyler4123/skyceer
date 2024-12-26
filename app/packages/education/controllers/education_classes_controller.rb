@@ -5,7 +5,10 @@ class EducationClassesController < EducationsController
   # GET /education_classes or /education_classes.json
   def index
     @education_classes = EducationClass.where(education_school: @education_schools)
-    @pagy, @education_classes = pagy(@education_classes)
+    respond_to do |format|
+      format.html { @pagy, @education_classes = pagy(@education_classes) }
+      format.json { render json: @education_classes }
+    end
   end
 
   # GET /education_classes/1 or /education_classes/1.json

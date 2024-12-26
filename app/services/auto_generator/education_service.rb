@@ -54,14 +54,14 @@ class AutoGenerator::EducationService
   end
 
   def self.education_school(user:)
-    education_school = EducationSchool.create!(name: "#{EmailService.username(user.email)} education school name", user: user, address: Address.create_random)
+    education_school = EducationSchool.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: user, address: Address.create_random)
     AutoGenerator::AttachmentService.attach(record: education_school, relation: :avatar, number: 1)
     education_school
   end
 
   def self.education_category(education_school:)
     education_category = EducationCategory.create!(
-      name: "education category #{SecureRandom.hex(3)}",
+      name: "Category #{Faker::Number.number}",
       parent_category: [EducationCategory.all.sample, nil].sample,
       education_school: education_school
     )
@@ -86,27 +86,27 @@ class AutoGenerator::EducationService
     education_course
   end
   def self.education_class(education_school:)
-    education_class = EducationClass.create!(name: "education class #{SecureRandom.hex(3)}", education_school: education_school)
+    education_class = EducationClass.create!(name: "Class #{Faker::Number.number}", education_school: education_school)
     AutoGenerator::AttachmentService.attach(record: education_class, relation: :images, number: 1)
     education_class
   end
 
   def self.education_room(education_school:)
-    education_room = EducationRoom.create!(name: "education room #{SecureRandom.hex(3)}", education_school: education_school)
+    education_room = EducationRoom.create!(name: "Room #{Faker::Number.number}", education_school: education_school)
     AutoGenerator::AttachmentService.attach(record: education_room, relation: :images, number: 1)
     education_room
   end
 
   def self.education_teacher(education_school:)
     teacher_user = AutoGenerator::UserService.create(education_role: :teacher)
-    education_teacher = EducationTeacher.create!(name: "#{EmailService.username(teacher_user.email)} education teacher name", user: teacher_user, education_school: education_school)
+    education_teacher = EducationTeacher.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: teacher_user, education_school: education_school)
     AutoGenerator::AttachmentService.attach(record: education_teacher, relation: :images, number: 1)
     education_teacher
   end
 
   def self.education_student(education_school:)
     student_user = AutoGenerator::UserService.create(education_role: :student)
-    education_student = EducationStudent.create!(name: "#{EmailService.username(student_user.email)} education student name", user: student_user, education_school: education_school)
+    education_student = EducationStudent.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: student_user, education_school: education_school)
     AutoGenerator::AttachmentService.attach(record: education_student, relation: :images, number: 1)
     education_student
   end
@@ -134,7 +134,7 @@ class AutoGenerator::EducationService
       education_student: education_school.education_students.sample,
       education_course: education_school.education_courses.sample,
       education_subject: education_school.education_subjects.sample,
-      name: "education exam name #{SecureRandom.hex(3)}",
+      name: "Exam #{Faker::Number.number}",
       description: Faker::Movie.quote,
       score: rand(0..10),
       status: rand(0..3)

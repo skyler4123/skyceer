@@ -5,14 +5,9 @@
     <%= link_to "New education student", new_education_student_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <form data-controller="education--filter" data-<%= view_controller(__FILE__) %>-target="filter"></form>
+  <div data-<%= view_controller(__FILE__) %>-target="filter"></div>
 
-  <div id="education_students" class="min-w-full"></div>
-  <div
-    data-controller="education--pagination"
-    data-<%= view_controller(__FILE__) %>-target="pagination"
-  >
-    <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
-  </div>
+  <div data-<%= view_controller(__FILE__) %>-target="index" id="education_students" class="min-w-full"></div>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
-<%= content_data(@education_students).html_safe %>
+<%= content_data(@education_students, methods: [:school_name, :class_names]).html_safe %>

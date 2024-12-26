@@ -18,3 +18,8 @@ export const defaultHeaders = () => {
 //   const educationSchoolIdIndex = educationSchoolsIndex + 1
 //   return splitedPathname[educationSchoolIdIndex]
 // }
+
+export const params = (name) => { 
+  const urlObject = new URL(window.location.href)
+  return urlObject.searchParams.get(name)
+}
