@@ -40,6 +40,7 @@ export default class extends Education_LayoutController {
       return {
         ...row,
         name: `<a href="/education_students/${row.id}">${row.name}</a>`,
+        avatar: `<div class="flex justify-center"><img src="${row.avatar}" class="w-10 h-10 rounded-full"></div>`,
       }
     })
     this.table = new Tabulator(this.indexTarget, {
@@ -60,6 +61,7 @@ export default class extends Education_LayoutController {
       },
       columns:[                 //define the table columns
           // {title:"Name", field:"name", editor:"input"},
+          {title:"Avatar", field:"avatar", formatter: "html", hozAlign:"center", width: 100},
           {title:"Name", field: "name", formatter: "html"},
           {title:"School", field:"school_name", sorter:"string", hozAlign:"center"},
           {title:"Class", field:"class_names", sorter:"string", hozAlign:"center"},
@@ -84,14 +86,18 @@ export default class extends Education_LayoutController {
           class="w-64"
           data-${this.identifier}-target="select"
           data-${this.identifier}-api-function-param="EducationSchoolsApi.index()"
+          data-action="mousedown->${this.identifier}#loadFilterSelectOptionsEvent"
         >
+          <option value="" disabled selected>Select School</option>
         </select>
         <select
           name="education_class_id"
           class="w-64"
           data-${this.identifier}-target="select"
           data-${this.identifier}-api-function-param="EducationClassesApi.index()"
+          data-action="mousedown->${this.identifier}#loadFilterSelectOptionsEvent"
         >
+          <option value="" disabled selected>Select Class</option>
         </select>
         <input type="submit" value="Submit">
       </form>
@@ -100,23 +106,40 @@ export default class extends Education_LayoutController {
 
   initFilterSelect() {
     this.selectTargets.forEach(async (select) => {
-      if (select.childElementCount > 0) { return }
-      const inputName = select.name
-      const apiFunction = select.getAttribute(`data-${this.identifier}-api-function-param`)
-      const response = await eval(apiFunction)
-      const responseData = response.data
-      select.innerHTML = `
-        <option value="">Select ${inputName}</option>
-        ${responseData.map((data) => {
-          return `
-            <option
-              value="${data[this.mappingValue[inputName].value]}"
-              ${params(inputName) == data[this.mappingValue[inputName].value] ? "selected" : ""}
-            >
-                ${data[this.mappingValue[inputName].label]}
-            </option>`
-        }).join("")}
-      `
+      if (this.hasParamsAtUrl(select)) {
+        await this.loadFilterSelectOptions(select)
+      }
     })
+  }
+
+  loadFilterSelectOptionsEvent(event) {
+    this.loadFilterSelectOptions(event.target)
+  }
+
+  async loadFilterSelectOptions(selectElement) {
+    if (selectElement.tagName != "SELECT") { return }
+    if (selectElement.childElementCount > 1) { return }
+
+    const inputName = selectElement.name
+    const apiFunction = selectElement.getAttribute(`data-${this.identifier}-api-function-param`)
+    const response = await eval(apiFunction)
+    const responseData = response.data
+    selectElement.innerHTML = `
+      <option value="">Select ${inputName}</option>
+      ${responseData.map((data) => {
+        return `
+          <option
+            value="${data[this.mappingValue[inputName].value]}"
+            ${params(inputName) == data[this.mappingValue[inputName].value] ? "selected" : ""}
+          >
+              ${data[this.mappingValue[inputName].label]}
+          </option>`
+      }).join("")}
+    `
+  }
+
+  hasParamsAtUrl(selectElement) {
+    const inputName = selectElement.name
+    return !!params(inputName)
   }
 }
