@@ -9,7 +9,7 @@ module EducationCourse::PaymentConcern
     private
 
     def create_payment_item
-      PaymentItem.create!(payment_itemable: self)
+      PaymentItem.create!(payment_itemable: self, payment_user: self.education_school.user.payment_user)
     end
   end
 

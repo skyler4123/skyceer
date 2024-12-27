@@ -65,6 +65,6 @@ class PaymentUsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def payment_user_params
-      params.expect(payment_user: [ :payment_userable_id, :payment_userable_type ])
+      params.expect(payment_user: [ :user_id ])
     end
 end

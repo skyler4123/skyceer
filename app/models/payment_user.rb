@@ -1,3 +1,3 @@
 class PaymentUser < ApplicationRecord
-  belongs_to :payment_userable, polymorphic: true
+  belongs_to :user
 end

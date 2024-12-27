@@ -2,8 +2,9 @@ module User::PaymentConcern
   extend ActiveSupport::Concern
   
   included do
-    has_one :payment_user, as: :payment_userable, dependent: :destroy
-
+    has_one :payment_user, dependent: :destroy
+    has_one :payment_customer, dependent: :destroy
+    
     after_create :create_payment_user
 
     private

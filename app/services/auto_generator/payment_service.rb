@@ -1,11 +1,18 @@
 class AutoGenerator::PaymentService
   def self.run
+    5.times { self.payment_customer }
     5.times { self.payment_method }
     self.payment_method_appointment
     self.payment_discount
     5.times { self.payment_order }
     5.times { self.payment_item_appointment }
     5.times { self.payment_log }
+  end
+
+  def self.payment_customer
+    PaymentCustomer.create!(
+      user: User.all.sample,
+    )
   end
 
   def self.payment_method
@@ -28,7 +35,7 @@ class AutoGenerator::PaymentService
   def self.payment_discount
     PaymentUser.all.each do |payment_user|
       PaymentDiscount.create!(
-        publisher: payment_user,
+        payment_user: payment_user,
         name: "payment discount name #{Faker::Movie.title}",
         code: Faker::Alphanumeric.alphanumeric(number: 6),
         description: Faker::Movie.quote,
@@ -41,14 +48,13 @@ class AutoGenerator::PaymentService
   end
 
   def self.payment_order
-    seller = PaymentUser.all.sample
-    buyer = PaymentUser.all.sample
-    payment_method = seller.payment_methods.sample
-    payment_discount = seller.payment_discounts.sample
-    debugger
+    payment_user = PaymentUser.all.sample
+    payment_customer = PaymentCustomer.all.sample
+    payment_method = payment_user.payment_methods.sample
+    payment_discount = payment_user.payment_discounts.sample
     PaymentOrder.create!(
-      seller: seller,
-      buyer: buyer,
+      payment_user: payment_user,
+      payment_customer: payment_customer,
       payment_method: payment_method,
       payment_discount: payment_discount,
       status: rand(0..3),
@@ -60,9 +66,9 @@ class AutoGenerator::PaymentService
   end
   
   def self.payment_item_appointment
-    seller = PaymentUser.all.sample
-    payment_order = seller.payment_orders.sample
-    payment_item = seller.payment_items.sample
+    payment_user = PaymentUser.all.sample
+    payment_order = payment_user.payment_orders.sample
+    payment_item = payment_user.payment_items.sample
     PaymentItemAppointment.create!(
       payment_item: payment_item,
       payment_order: payment_order,
@@ -73,8 +79,8 @@ class AutoGenerator::PaymentService
 
   def self.payment_log
     PaymentLog.create!(
-      seller: PaymentUser.all.sample,
-      buyer: PaymentUser.all.sample,
+      payment_user: PaymentUser.all.sample,
+      payment_customer: PaymentCustomer.all.sample,
       payment_order: PaymentOrder.all.sample,
       payment_method: PaymentMethod.all.sample,
       payment_discount: PaymentDiscount.all.sample,
