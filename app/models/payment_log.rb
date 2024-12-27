@@ -5,4 +5,5 @@ class PaymentLog < ApplicationRecord
   belongs_to :payment_method
   belongs_to :payment_discount
   belongs_to :payment_invoice
+  
 end
