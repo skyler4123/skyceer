@@ -1,0 +1,2 @@
+module PaymentDiscountAppointmentsHelper
+end

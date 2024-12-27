@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_27_143715) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_27_150055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -436,9 +436,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_143715) do
     t.index ["user_id"], name: "index_estate_houses_on_user_id"
   end
 
+  create_table "payment_discount_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_user_id", null: false
+    t.uuid "payment_discount_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_discount_id"], name: "index_payment_discount_appointments_on_payment_discount_id"
+    t.index ["payment_user_id"], name: "index_payment_discount_appointments_on_payment_user_id"
+  end
+
   create_table "payment_discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "publisher_type", null: false
-    t.uuid "publisher_id", null: false
+    t.uuid "payment_user_id", null: false
     t.string "name"
     t.string "description"
     t.string "code"
@@ -448,7 +456,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_143715) do
     t.integer "kind"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["publisher_type", "publisher_id"], name: "index_payment_discounts_on_publisher"
+    t.index ["payment_user_id"], name: "index_payment_discounts_on_payment_user_id"
   end
 
   create_table "payment_invoices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -688,6 +696,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_143715) do
   add_foreign_key "estate_hotels", "users"
   add_foreign_key "estate_houses", "addresses"
   add_foreign_key "estate_houses", "users"
+  add_foreign_key "payment_discount_appointments", "payment_discounts"
+  add_foreign_key "payment_discount_appointments", "payment_users"
+  add_foreign_key "payment_discounts", "payment_users"
   add_foreign_key "payment_invoices", "payment_orders"
   add_foreign_key "payment_item_appointments", "payment_items"
   add_foreign_key "payment_item_appointments", "payment_orders"
@@ -699,8 +710,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_143715) do
   add_foreign_key "payment_method_appointments", "payment_users"
   add_foreign_key "payment_orders", "payment_discounts"
   add_foreign_key "payment_orders", "payment_methods"
-  add_foreign_key "payment_orders", "payment_users", column: "buyer_id"
-  add_foreign_key "payment_orders", "payment_users", column: "seller_id"
   add_foreign_key "report_frontends", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "addresses"

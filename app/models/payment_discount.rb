@@ -1,3 +1,3 @@
 class PaymentDiscount < ApplicationRecord
-  belongs_to :publisher, polymorphic: true
+  belongs_to :payment_user
 end

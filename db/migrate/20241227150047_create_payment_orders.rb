@@ -13,8 +13,5 @@ class CreatePaymentOrders < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-
-    add_foreign_key :payment_orders, :payment_users, column: :seller_id, type: :uuid
-    add_foreign_key :payment_orders, :payment_users, column: :buyer_id, type: :uuid
   end
 end

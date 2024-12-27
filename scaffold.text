@@ -21,11 +21,12 @@ rails g scaffold EducationSubjectAppointment education_subject:references educat
 PAYMENT
 rails g scaffold PaymentUser payment_userable:references{polymorphic} --force
 rails g scaffold PaymentMethod name description region:integer --force
-rails g scaffold PaymentDiscount publisher:references{polymorphic} name description code expire:datetime amount:decimal status:integer kind:integer --force
+rails g scaffold PaymentDiscount payment_user:references name description code expire:datetime amount:decimal status:integer kind:integer --force
 rails g scaffold PaymentItem payment_itemable:references{polymorphic} price:decimal --force
 rails g scaffold PaymentOrder seller_id:uuid buyer_id:uuid payment_method:references payment_discount:references status:integer total:decimal paid:decimal due:decimal expire:datetime --force
 rails g scaffold PaymentInvoice payment_order:references transaction_id status:integer due_date:datetime amount:decimal tax_code --force
 
+rails g scaffold PaymentDiscountAppointment payment_user:references payment_discount:references --force
 rails g scaffold PaymentItemAppointment seller:references{polymorphic} payment_item:references payment_order:references item_quantity:integer unit_price:decimal --force
 rails g scaffold PaymentMethodAppointment payment_user:references payment_method:references --force
 
