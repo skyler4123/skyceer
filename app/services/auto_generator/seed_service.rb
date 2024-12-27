@@ -10,7 +10,7 @@ class AutoGenerator::SeedService
     # AutoGenerator::ArticleService.run
     # AutoGenerator::EstateService.run
     # AutoGenerator::ReportService.run
-    AutoGenerator::PaymentService.run
+    # AutoGenerator::PaymentService.run
     
     self.puts_count
     puts "AutoGenerator::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"
@@ -32,10 +32,12 @@ class AutoGenerator::SeedService
     category_count = Category.count
     calendar_group_count = CalendarGroup.count
     calendar_event_count = CalendarEvent.count
+
     education_category_count = EducationCategory.count
     education_school_count = EducationSchool.count
     education_class_count = EducationClass.count
     education_room_count = EducationRoom.count
+
     education_teacher_count = EducationTeacher.count
     education_student_count = EducationStudent.count
     chat_conversation_count = ChatConversation.count
@@ -46,6 +48,16 @@ class AutoGenerator::SeedService
     report_ticket_count = ReportTicket.count
     vehicle_store_count = VehicleStore.count
     vehicle_car_count = VehicleCar.count
+
+    payment_user_count = PaymentUser.count
+    payment_customer_count = PaymentCustomer.count
+    payment_order_count = PaymentOrder.count
+    payment_method_count = PaymentMethod.count
+    payment_discount_count = PaymentDiscount.count
+    payment_log_count = PaymentLog.count
+    payment_item_count = PaymentItem.count
+    payment_invoice_count = PaymentInvoice.count
+
     puts "Users: ", user_count
     puts "Categories: ", category_count
     puts "Calendar Groups: ", calendar_group_count
@@ -64,5 +76,14 @@ class AutoGenerator::SeedService
     puts "Report Tickets: ", report_ticket_count
     puts "Vehicle Stores: ", vehicle_store_count
     puts "Vehicle Cars: ", vehicle_car_count
+
+    puts "Payment Users: ", payment_user_count
+    puts "Payment Customers: ", payment_customer_count
+    puts "Payment Orders: ", payment_order_count
+    puts "Payment Methods: ", payment_method_count
+    puts "Payment Discounts: ", payment_discount_count
+    puts "Payment Logs: ", payment_log_count
+    puts "Payment Items: ", payment_item_count
+    puts "Payment Invoices: ", payment_invoice_count
   end
 end

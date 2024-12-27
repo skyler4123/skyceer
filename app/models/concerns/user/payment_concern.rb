@@ -10,7 +10,7 @@ module User::PaymentConcern
     private
 
     def create_payment_user
-      PaymentUser.create!(payment_userable: self)
+      PaymentUser.create!(user: self)
     end
   end
 
