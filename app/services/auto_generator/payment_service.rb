@@ -45,6 +45,7 @@ class AutoGenerator::PaymentService
     buyer = PaymentUser.all.sample
     payment_method = seller.payment_methods.sample
     payment_discount = seller.payment_discounts.sample
+    debugger
     PaymentOrder.create!(
       seller: seller,
       buyer: buyer,
