@@ -1,0 +1,1 @@
+json.partial! "payment_item_appointments/payment_item_appointment", payment_item_appointment: @payment_item_appointment

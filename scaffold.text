@@ -1,4 +1,7 @@
-rails g scaffold CalendarEvent calendar_group:references lib title body is_allday:boolean start:datetime end:datetime going_duration:integer coming_duration:integer location attendees:text category:integer recurrence_rule state:integer is_visible:boolean is_pending:boolean is_focused:boolean is_read_only:boolean is_private:boolean color background_color drag_background_color border_color custom_style:json raw:json
+APPLICATION
+rails g scaffold NosqlUser user_id --force 
+
+rails g scaffold CalendarEvent calendar_group:references calendarable:references{polymorphic} lib title body is_allday:boolean start:datetime end:datetime going_duration:integer coming_duration:integer location attendees:text category:integer recurrence_rule state:integer is_visible:boolean is_pending:boolean is_focused:boolean is_read_only:boolean is_private:boolean color background_color drag_background_color border_color custom_style:json raw:json
 rails g scaffold Address alpha2:string:index alpha3:string:index continent:string:index nationality:string:index region:string:index longitude:decimal latitude:decimal level_total:integer level_1:string:index level_2:string:index level_3:string:index level_4:string:index level_5:string:index level_6:string:index level_7:string:index level_8:string:index level_9:string:index level_10:string:index --force
 
 EDUCATION
@@ -16,9 +19,14 @@ rails g scaffold EducationQuestionAppointment education_question:references educ
 rails g scaffold EducationSubjectAppointment education_subject:references education_class:references education_teacher:references --force
 
 PAYMENT
-rails g scaffold PaymentItem chargeable_type chargeable_id
-rails g scaffold PaymentOrder status:integer
-rails g scaffold PaymentOrderAppointment
-rails g scaffold PaymentInvoice payment_order:references status:integer
+rails g scaffold PaymentUser payment_userable:references{polymorphic} --force
+rails g scaffold PaymentMethod name description region:integer --force
+rails g scaffold PaymentDiscount publisher:references{polymorphic} name description code expire:datetime amount:decimal status:integer kind:integer --force
+rails g scaffold PaymentItem payment_itemable:references{polymorphic} price:decimal --force
+rails g scaffold PaymentOrder seller:references{polymorphic} buyer:references{polymorphic} payment_method:references payment_discount:references status:integer total:decimal paid:decimal due:decimal expire:datetime --force
+rails g scaffold PaymentInvoice payment_order:references transaction_id status:integer due_date:datetime amount:decimal tax_code --force
 
+rails g scaffold PaymentItemAppointment seller:references{polymorphic} payment_item:references payment_order:references item_quantity:integer unit_price:decimal --force
+rails g scaffold PaymentMethodAppointment payment_user:references payment_method:references --force
 
+rails g scaffold PaymentLog seller:references{polymorphic} buyer:references{polymorphic} payment_order:references payment_method:references payment_discount:references payment_invoice:references action amount:decimal note --force

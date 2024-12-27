@@ -1,8 +1,8 @@
 class AutoGenerator::EducationService
-  def self.run(seed_number: 2)
+  def self.run(seed_number: 1)
     seed_number.times do |index|
       user = AutoGenerator::UserService.create(education_role: :school)
-      2.times do
+      1.times do
         education_school = self.education_school(user:)
         30.times do
           self.education_category(education_school:)

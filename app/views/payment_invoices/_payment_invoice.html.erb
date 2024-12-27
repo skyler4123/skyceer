@@ -1,0 +1,32 @@
+<div id="<%= dom_id payment_invoice %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Payment order:</strong>
+    <%= payment_invoice.payment_order_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Transaction:</strong>
+    <%= payment_invoice.transaction_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= payment_invoice.status %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Due date:</strong>
+    <%= payment_invoice.due_date %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Amount:</strong>
+    <%= payment_invoice.amount %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Tax code:</strong>
+    <%= payment_invoice.tax_code %>
+  </p>
+
+</div>

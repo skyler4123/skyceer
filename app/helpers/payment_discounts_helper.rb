@@ -1,0 +1,2 @@
+module PaymentDiscountsHelper
+end

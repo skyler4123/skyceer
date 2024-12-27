@@ -1,5 +1,5 @@
 class EducationStudent < ApplicationRecord
-  include EducationStudent::AvatarConcern
+  # include EducationStudent::AvatarConcern
   include EducationStudent::ImagesConcern
   include EducationStudent::ElasticsearchConcern
 
@@ -18,6 +18,10 @@ class EducationStudent < ApplicationRecord
 
   def class_names
     self.education_classes.pluck(:name).join(", ")
+  end
+
+  def avatar_attachment
+    self.user.avatar
   end
 
   def avatar

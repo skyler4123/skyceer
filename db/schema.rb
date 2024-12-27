@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_27_103307) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -436,6 +436,123 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
     t.index ["user_id"], name: "index_estate_houses_on_user_id"
   end
 
+  create_table "payment_discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "publisher_type", null: false
+    t.uuid "publisher_id", null: false
+    t.string "name"
+    t.string "description"
+    t.string "code"
+    t.datetime "expire"
+    t.decimal "amount"
+    t.integer "status"
+    t.integer "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["publisher_type", "publisher_id"], name: "index_payment_discounts_on_publisher"
+  end
+
+  create_table "payment_invoices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_order_id", null: false
+    t.string "transaction_id"
+    t.integer "status"
+    t.datetime "due_date"
+    t.decimal "amount"
+    t.string "tax_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_order_id"], name: "index_payment_invoices_on_payment_order_id"
+  end
+
+  create_table "payment_item_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "seller_type", null: false
+    t.uuid "seller_id", null: false
+    t.uuid "payment_item_id", null: false
+    t.uuid "payment_order_id", null: false
+    t.integer "item_quantity"
+    t.decimal "unit_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_item_id"], name: "index_payment_item_appointments_on_payment_item_id"
+    t.index ["payment_order_id"], name: "index_payment_item_appointments_on_payment_order_id"
+    t.index ["seller_type", "seller_id"], name: "index_payment_item_appointments_on_seller"
+  end
+
+  create_table "payment_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "payment_itemable_type", null: false
+    t.uuid "payment_itemable_id", null: false
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_itemable_type", "payment_itemable_id"], name: "index_payment_items_on_payment_itemable"
+  end
+
+  create_table "payment_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "seller_type", null: false
+    t.uuid "seller_id", null: false
+    t.string "buyer_type", null: false
+    t.uuid "buyer_id", null: false
+    t.uuid "payment_order_id", null: false
+    t.uuid "payment_method_id", null: false
+    t.uuid "payment_discount_id", null: false
+    t.uuid "payment_invoice_id", null: false
+    t.string "action"
+    t.decimal "amount"
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_type", "buyer_id"], name: "index_payment_logs_on_buyer"
+    t.index ["payment_discount_id"], name: "index_payment_logs_on_payment_discount_id"
+    t.index ["payment_invoice_id"], name: "index_payment_logs_on_payment_invoice_id"
+    t.index ["payment_method_id"], name: "index_payment_logs_on_payment_method_id"
+    t.index ["payment_order_id"], name: "index_payment_logs_on_payment_order_id"
+    t.index ["seller_type", "seller_id"], name: "index_payment_logs_on_seller"
+  end
+
+  create_table "payment_method_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_user_id", null: false
+    t.uuid "payment_method_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_method_id"], name: "index_payment_method_appointments_on_payment_method_id"
+    t.index ["payment_user_id"], name: "index_payment_method_appointments_on_payment_user_id"
+  end
+
+  create_table "payment_methods", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "region"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payment_orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "seller_type", null: false
+    t.uuid "seller_id", null: false
+    t.string "buyer_type", null: false
+    t.uuid "buyer_id", null: false
+    t.uuid "payment_method_id", null: false
+    t.uuid "payment_discount_id", null: false
+    t.integer "status"
+    t.decimal "total"
+    t.decimal "paid"
+    t.decimal "due"
+    t.datetime "expire"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_type", "buyer_id"], name: "index_payment_orders_on_buyer"
+    t.index ["payment_discount_id"], name: "index_payment_orders_on_payment_discount_id"
+    t.index ["payment_method_id"], name: "index_payment_orders_on_payment_method_id"
+    t.index ["seller_type", "seller_id"], name: "index_payment_orders_on_seller"
+  end
+
+  create_table "payment_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "payment_userable_type", null: false
+    t.uuid "payment_userable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_userable_type", "payment_userable_id"], name: "index_payment_users_on_payment_userable"
+  end
+
   create_table "report_frontends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "content"
@@ -575,6 +692,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_19_142435) do
   add_foreign_key "estate_hotels", "users"
   add_foreign_key "estate_houses", "addresses"
   add_foreign_key "estate_houses", "users"
+  add_foreign_key "payment_invoices", "payment_orders"
+  add_foreign_key "payment_item_appointments", "payment_items"
+  add_foreign_key "payment_item_appointments", "payment_orders"
+  add_foreign_key "payment_logs", "payment_discounts"
+  add_foreign_key "payment_logs", "payment_invoices"
+  add_foreign_key "payment_logs", "payment_methods"
+  add_foreign_key "payment_logs", "payment_orders"
+  add_foreign_key "payment_method_appointments", "payment_methods"
+  add_foreign_key "payment_method_appointments", "payment_users"
+  add_foreign_key "payment_orders", "payment_discounts"
+  add_foreign_key "payment_orders", "payment_methods"
   add_foreign_key "report_frontends", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "addresses"

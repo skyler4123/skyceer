@@ -4,12 +4,13 @@ class AutoGenerator::SeedService
     self.seed_for_category
     
     AutoGenerator::EducationService.run
-    AutoGenerator::VehicleService.run
-    AutoGenerator::CalendarService.run
-    AutoGenerator::ChatService.run
-    AutoGenerator::ArticleService.run
-    AutoGenerator::EstateService.run
-    AutoGenerator::ReportService.run
+    # AutoGenerator::VehicleService.run
+    # AutoGenerator::CalendarService.run
+    # AutoGenerator::ChatService.run
+    # AutoGenerator::ArticleService.run
+    # AutoGenerator::EstateService.run
+    # AutoGenerator::ReportService.run
+    AutoGenerator::PaymentService.run
     
     self.puts_count
     puts "AutoGenerator::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"

@@ -5,6 +5,15 @@
 # end
 
 Rails.application.routes.draw do
+  resources :payment_method_appointments
+  resources :payment_item_appointments
+  resources :payment_logs
+  resources :payment_invoices
+  resources :payment_orders
+  resources :payment_items
+  resources :payment_discounts
+  resources :payment_methods
+  resources :payment_users
 
   resources :categories
 
