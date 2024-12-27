@@ -1,9 +1,9 @@
 class AutoGenerator::PaymentService
   def self.run
     5.times { self.payment_method }
-    5.times { self.payment_discount }
+    self.payment_method_appointment
+    self.payment_discount
     5.times { self.payment_order }
-    5.times { self.payment_method_appointment }
     5.times { self.payment_item_appointment }
     5.times { self.payment_log }
   end
@@ -16,18 +16,28 @@ class AutoGenerator::PaymentService
     )
   end
 
+  def self.payment_method_appointment
+    PaymentUser.all.each do |payment_user|
+      PaymentMethodAppointment.create!(
+        payment_user: payment_user,
+        payment_method: PaymentMethod.all.sample
+      )
+    end
+  end
+
   def self.payment_discount
-    publisher = PaymentUser.all.sample
-    PaymentDiscount.create!(
-      publisher: publisher,
-      name: "payment discount name #{Faker::Movie.title}",
-      code: Faker::Alphanumeric.alphanumeric(number: 6),
-      description: Faker::Movie.quote,
-      expire: Faker::Date.between(from: Date.today, to: 1.year.from_now),
-      amount: rand(1000..9999),
-      status: rand(0..3),
-      kind: rand(0..3)
-    )
+    PaymentUser.all.each do |payment_user|
+      PaymentDiscount.create!(
+        publisher: payment_user,
+        name: "payment discount name #{Faker::Movie.title}",
+        code: Faker::Alphanumeric.alphanumeric(number: 6),
+        description: Faker::Movie.quote,
+        expire: Faker::Date.between(from: Date.today, to: 1.year.from_now),
+        amount: rand(1000..9999),
+        status: rand(0..3),
+        kind: rand(0..3)
+      )
+    end
   end
 
   def self.payment_order
@@ -45,13 +55,6 @@ class AutoGenerator::PaymentService
       paid: rand(1000..9999),
       due: rand(1000..9999),
       expire: Faker::Date.between(from: Date.today, to: 1.year.from_now)
-    )
-  end
-
-  def self.payment_method_appointment
-    PaymentMethodAppointment.create!(
-      payment_user: PaymentUser.all.sample,
-      payment_method: PaymentMethod.all.sample
     )
   end
   
