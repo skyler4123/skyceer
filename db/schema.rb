@@ -526,10 +526,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_103307) do
   end
 
   create_table "payment_orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "seller_type", null: false
-    t.uuid "seller_id", null: false
-    t.string "buyer_type", null: false
-    t.uuid "buyer_id", null: false
+    t.uuid "seller", null: false
+    t.uuid "buyer", null: false
     t.uuid "payment_method_id", null: false
     t.uuid "payment_discount_id", null: false
     t.integer "status"
@@ -539,10 +537,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_103307) do
     t.datetime "expire"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["buyer_type", "buyer_id"], name: "index_payment_orders_on_buyer"
     t.index ["payment_discount_id"], name: "index_payment_orders_on_payment_discount_id"
     t.index ["payment_method_id"], name: "index_payment_orders_on_payment_method_id"
-    t.index ["seller_type", "seller_id"], name: "index_payment_orders_on_seller"
   end
 
   create_table "payment_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -703,6 +699,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_103307) do
   add_foreign_key "payment_method_appointments", "payment_users"
   add_foreign_key "payment_orders", "payment_discounts"
   add_foreign_key "payment_orders", "payment_methods"
+  add_foreign_key "payment_orders", "payment_users", column: "buyer"
+  add_foreign_key "payment_orders", "payment_users", column: "seller"
   add_foreign_key "report_frontends", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "addresses"
