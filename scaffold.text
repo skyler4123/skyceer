@@ -5,6 +5,7 @@ rails g scaffold CalendarEvent calendar_group:references calendarable:references
 rails g scaffold Address alpha2:string:index alpha3:string:index continent:string:index nationality:string:index region:string:index longitude:decimal latitude:decimal level_total:integer level_1:string:index level_2:string:index level_3:string:index level_4:string:index level_5:string:index level_6:string:index level_7:string:index level_8:string:index level_9:string:index level_10:string:index --force
 
 EDUCATION
+rails g scaffold EducationUser user:references
 rails g scaffold EducationSubject name description education_school:references education_category:references --force
 rails g scaffold EducationCourse name description education_school:references education_category:references --force
 rails g scaffold EducationExam name description score:decimal status:integer education_school:references education_subject:references education_student:references education_category:references education_course:references --force
@@ -28,7 +29,7 @@ rails g scaffold PaymentOrder payment_user:references payment_customer:reference
 rails g scaffold PaymentInvoice payment_order:references transaction_id status:integer due_date:datetime amount:decimal tax_code --force
 
 rails g scaffold PaymentDiscountAppointment payment_user:references payment_discount:references --force
-rails g scaffold PaymentItemAppointment payment_user:references payment_item:references payment_order:references item_quantity:integer unit_price:decimal --force
+rails g scaffold PaymentItemAppointment payment_item:references payment_order:references item_quantity:integer unit_price:decimal --force
 rails g scaffold PaymentMethodAppointment payment_user:references payment_method:references --force
 
 rails g scaffold PaymentLog payment_user:references payment_customer:references payment_order:references payment_method:references payment_discount:references payment_invoice:references action amount:decimal note --force

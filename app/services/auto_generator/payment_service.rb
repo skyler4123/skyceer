@@ -3,10 +3,11 @@ class AutoGenerator::PaymentService
     5.times { self.payment_customer }
     5.times { self.payment_method }
     self.payment_method_appointment
-    # OK
     self.payment_discount
-    5.times { self.payment_order }
-    5.times { self.payment_item_appointment }
+    self.payment_order
+    # OK
+
+    self.payment_item_appointment
     5.times { self.payment_log }
   end
 
@@ -49,33 +50,35 @@ class AutoGenerator::PaymentService
   end
 
   def self.payment_order
-    payment_user = PaymentUser.all.sample
-    payment_customer = PaymentCustomer.all.sample
-    payment_method = payment_user.payment_methods.sample
-    payment_discount = payment_user.payment_discounts.sample
-    PaymentOrder.create!(
-      payment_user: payment_user,
-      payment_customer: payment_customer,
-      payment_method: payment_method,
-      payment_discount: payment_discount,
-      status: rand(0..3),
-      total: rand(1000..9999),
-      paid: rand(1000..9999),
-      due: rand(1000..9999),
-      expire: Faker::Date.between(from: Date.today, to: 1.year.from_now)
-    )
+    PaymentCustomer.all.each do |payment_customer|
+      payment_user = PaymentUser.all.sample
+      payment_method = payment_user.payment_methods.sample
+      payment_discount = payment_user.payment_discounts.sample
+      PaymentOrder.create!(
+        payment_user: payment_user,
+        payment_customer: payment_customer,
+        payment_method: payment_method,
+        payment_discount: payment_discount,
+        status: rand(0..3),
+        total: rand(1000..9999),
+        paid: rand(1000..9999),
+        due: rand(1000..9999),
+        expire: Faker::Date.between(from: Date.today, to: 1.year.from_now)
+      )
+    end
   end
   
   def self.payment_item_appointment
-    payment_user = PaymentUser.all.sample
-    payment_order = payment_user.payment_orders.sample
-    payment_item = payment_user.payment_items.sample
-    PaymentItemAppointment.create!(
-      payment_item: payment_item,
-      payment_order: payment_order,
-      item_quantity: rand(1..10),
-      unit_price: rand(1000..9999)
-    )
+    PaymentOrder.all.each do |payment_order|
+      payment_user = payment_order.payment_user
+      payment_item = payment_user.payment_items.sample
+      PaymentItemAppointment.create!(
+        payment_item: payment_item,
+        payment_order: payment_order,
+        item_quantity: rand(1..10),
+        unit_price: rand(1000..9999)
+      )
+    end
   end
 
   def self.payment_log
