@@ -3,6 +3,7 @@ class AutoGenerator::PaymentService
     5.times { self.payment_customer }
     5.times { self.payment_method }
     self.payment_method_appointment
+    # OK
     self.payment_discount
     5.times { self.payment_order }
     5.times { self.payment_item_appointment }

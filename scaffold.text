@@ -19,8 +19,8 @@ rails g scaffold EducationQuestionAppointment education_question:references educ
 rails g scaffold EducationSubjectAppointment education_subject:references education_class:references education_teacher:references --force
 
 PAYMENT
-rails g scaffold PaymentUser user:references --force
-rails g scaffold PaymentCustomer user:references --force
+rails g scaffold PaymentUser payment_userable:references{polymorphic} --force
+rails g scaffold PaymentCustomer payment_customerable:references{polymorphic} --force
 rails g scaffold PaymentMethod name description region:integer --force
 rails g scaffold PaymentDiscount payment_user:references name description code expire:datetime amount:decimal status:integer kind:integer --force
 rails g scaffold PaymentItem payment_user:references payment_itemable:references{polymorphic} price:decimal --force
