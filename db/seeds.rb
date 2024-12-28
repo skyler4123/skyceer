@@ -44,6 +44,17 @@ CalendarEvent.destroy_all
 ReportTicket.destroy_all
 ReportFrontend.destroy_all
 
+
+PaymentUser.destroy_all
+PaymentCustomer.destroy_all
+PaymentMethod.destroy_all
+PaymentMethodAppointment.destroy_all
+PaymentDiscount.destroy_all
+PaymentDiscountAppointment.destroy_all
+PaymentOrder.destroy_all
+PaymentInvoice.destroy_all
+PaymentLog.destroy_all
+
 # Run generator for development
 AutoGenerator::SeedService.run
 puts "db:seed doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!!"

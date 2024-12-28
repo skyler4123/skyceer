@@ -6,7 +6,6 @@ class AutoGenerator::PaymentService
     self.payment_discount_appointment
     self.payment_order
     self.payment_item_appointment
-    # OK
     self.payment_invoice
     self.payment_log
   end
@@ -71,7 +70,7 @@ class AutoGenerator::PaymentService
         payment_method: payment_method,
         payment_discount: payment_discount,
         status: rand(0..3),
-        total: rand(1000..9999),
+        amount: rand(1000..9999),
         paid: rand(1000..9999),
         due: rand(1000..9999),
         expire: Faker::Date.between(from: Date.today, to: 1.year.from_now)
@@ -98,7 +97,6 @@ class AutoGenerator::PaymentService
         payment_order: payment_order,
         transaction_id: Faker::Alphanumeric.alphanumeric(number: 6),
         status: rand(0..3),
-        due_date: Faker::Date.between(from: Date.today, to: 1.year.from_now),
         amount: payment_order.amount,
         tax_code: Faker::Alphanumeric.alphanumeric(number: 6),
       )
@@ -106,17 +104,25 @@ class AutoGenerator::PaymentService
   end
 
   def self.payment_log
-    PaymentLog.create!(
-      payment_user: PaymentUser.all.sample,
-      payment_customer: PaymentCustomer.all.sample,
-      payment_order: PaymentOrder.all.sample,
-      payment_method: PaymentMethod.all.sample,
-      payment_discount: PaymentDiscount.all.sample,
-      payment_invoice: PaymentInvoice.all.sample,
-      action: rand(0..3),
-      amount: rand(1000..9999),
-      note: Faker::Movie.quote
-    )
+    PaymentInvoice.all.each do |payment_invoice|
+      payment_order = payment_invoice.payment_order
+      payment_user = payment_order.payment_user
+      payment_customer = payment_order.payment_customer
+      payment_method = payment_order.payment_method
+      payment_discount = payment_order.payment_discount
+      amount = payment_order.amount
+      PaymentLog.create!(
+        payment_user: payment_user,
+        payment_customer: payment_customer,
+        payment_order: payment_order,
+        payment_method: payment_method,
+        payment_discount: payment_discount,
+        payment_invoice: payment_invoice,
+        action: rand(0..3),
+        amount: amount,
+        note: Faker::Movie.quote
+      )
+    end
   end
 
 end
