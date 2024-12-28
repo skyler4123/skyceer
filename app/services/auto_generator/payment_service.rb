@@ -5,9 +5,9 @@ class AutoGenerator::PaymentService
     self.payment_discount
     self.payment_discount_appointment
     self.payment_order
-    # OK
-
     self.payment_item_appointment
+    # OK
+    self.payment_invoice
     self.payment_log
   end
 
@@ -88,6 +88,19 @@ class AutoGenerator::PaymentService
         payment_order: payment_order,
         item_quantity: rand(1..10),
         unit_price: rand(1000..9999)
+      )
+    end
+  end
+
+  def self.payment_invoice
+    PaymentOrder.all.each do |payment_order|
+      PaymentInvoice.create!(
+        payment_order: payment_order,
+        transaction_id: Faker::Alphanumeric.alphanumeric(number: 6),
+        status: rand(0..3),
+        due_date: Faker::Date.between(from: Date.today, to: 1.year.from_now),
+        amount: payment_order.amount,
+        tax_code: Faker::Alphanumeric.alphanumeric(number: 6),
       )
     end
   end
