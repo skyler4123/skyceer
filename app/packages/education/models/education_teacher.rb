@@ -22,4 +22,6 @@ class EducationTeacher < ApplicationRecord
   def school_name
     self.education_school.name
   end
+
+  include EducationTeacher::PaymentUserConcern
 end

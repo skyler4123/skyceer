@@ -65,6 +65,6 @@ class PaymentItemAppointmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def payment_item_appointment_params
-      params.expect(payment_item_appointment: [ :payment_user_id, :payment_item_id, :payment_order_id, :item_quantity, :unit_price ])
+      params.expect(payment_item_appointment: [ :payment_item_id, :payment_order_id, :item_quantity, :unit_price ])
     end
 end

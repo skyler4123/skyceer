@@ -15,4 +15,6 @@ class EducationSchool < ApplicationRecord
   has_many :education_subjects, dependent: :destroy
   has_many :education_lessons, dependent: :destroy
   has_many :education_shifts, dependent: :destroy
+
+  include EducationSchool::PaymentUserConcern
 end

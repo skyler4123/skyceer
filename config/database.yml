@@ -8,9 +8,9 @@ default: &default
   host: <%= ENV.fetch("POSTGRES_HOST") { "0.0.0.0" } %>
   port: <%= ENV.fetch("POSTGRES_PORT") { "5432" } %>
 
-session: &session
-  <<: *default
-  migrations_paths: db/session_migrate
+# session: &session
+#   <<: *default
+#   migrations_paths: db/session_migrate
 
 queue: &queue
   <<: *default
@@ -28,9 +28,9 @@ development:
   primary:
     <<: *default
     database: skyceer_development
-  session:
-    <<: *session
-    database: session_development
+  # session:
+  #   <<: *session
+  #   database: session_development
   queue:
     <<: *queue
     database: queue_development
@@ -45,9 +45,9 @@ test:
   primary:
     <<: *default
     database: skyceer_test
-  session:
-    <<: *session
-    database: session_test
+  # session:
+  #   <<: *session
+  #   database: session_test
   queue:
     <<: *queue
     database: queue_test
@@ -62,9 +62,9 @@ production:
   primary:
     <<: *default
     database: skyceer_production
-  session:
-    <<: *session
-    database: session_production
+  # session:
+  #   <<: *session
+  #   database: session_production
   queue:
     <<: *queue
     database: queue_production

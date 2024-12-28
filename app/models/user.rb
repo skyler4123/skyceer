@@ -42,6 +42,4 @@ class User < ApplicationRecord
   has_many :calendar_groups, dependent: :destroy
 
   belongs_to :address, optional: true
-
-  include User::PaymentConcern
 end

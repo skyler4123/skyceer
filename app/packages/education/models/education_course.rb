@@ -6,5 +6,5 @@ class EducationCourse < ApplicationRecord
   has_many :education_class_appointments, dependent: :destroy
   has_many :education_classes, through: :education_class_appointments
 
-  include EducationCourse::PaymentConcern
+  include EducationCourse::PaymentItemConcern
 end
