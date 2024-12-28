@@ -3,7 +3,6 @@ class AutoGenerator::PaymentService
     self.payment_method
     self.payment_method_appointment
     self.payment_discount
-    self.payment_discount_appointment
     self.payment_order
     self.payment_item_appointment
     self.payment_invoice
@@ -50,18 +49,10 @@ class AutoGenerator::PaymentService
     end
   end
 
-  def self.payment_discount_appointment
-    PaymentDiscount.all.each do |payment_discount|
-      payment_user = payment_discount.payment_user
-      PaymentDiscountAppointment.create!(
-        payment_user: payment_user,
-        payment_discount: payment_discount
-      )
-    end
-  end
   def self.payment_order
-    PaymentCustomer.all.each do |payment_customer|
-      payment_user = PaymentUser.all.sample
+    PaymentItem.all.each do |payment_item|
+      payment_user = payment_item.payment_user
+      payment_customer = PaymentCustomer.all.sample
       payment_method = payment_user.payment_methods.sample
       payment_discount = payment_user.payment_discounts.sample
       PaymentOrder.create!(

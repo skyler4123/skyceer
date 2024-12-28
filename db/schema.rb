@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_28_143405) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -444,15 +444,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_143405) do
     t.index ["payment_customerable_type", "payment_customerable_id"], name: "index_payment_customers_on_payment_customerable"
   end
 
-  create_table "payment_discount_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "payment_user_id", null: false
-    t.uuid "payment_discount_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["payment_discount_id"], name: "index_payment_discount_appointments_on_payment_discount_id"
-    t.index ["payment_user_id"], name: "index_payment_discount_appointments_on_payment_user_id"
-  end
-
   create_table "payment_discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "payment_user_id", null: false
     t.string "name"
@@ -702,8 +693,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_143405) do
   add_foreign_key "estate_hotels", "users"
   add_foreign_key "estate_houses", "addresses"
   add_foreign_key "estate_houses", "users"
-  add_foreign_key "payment_discount_appointments", "payment_discounts"
-  add_foreign_key "payment_discount_appointments", "payment_users"
   add_foreign_key "payment_discounts", "payment_users"
   add_foreign_key "payment_invoices", "payment_orders"
   add_foreign_key "payment_item_appointments", "payment_items"

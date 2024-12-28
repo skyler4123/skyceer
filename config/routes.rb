@@ -6,7 +6,6 @@
 
 Rails.application.routes.draw do
   resources :payment_customers
-  resources :payment_discount_appointments
   resources :payment_method_appointments
   resources :payment_item_appointments
   resources :payment_logs
