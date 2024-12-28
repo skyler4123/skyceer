@@ -65,6 +65,6 @@ class PaymentOrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def payment_order_params
-      params.expect(payment_order: [ :payment_user_id, :payment_customer_id, :payment_method_id, :payment_discount_id, :status, :total, :paid, :due, :expire ])
+      params.expect(payment_order: [ :payment_user_id, :payment_customer_id, :payment_method_id, :payment_discount_id, :status, :amount, :paid, :due, :expire ])
     end
 end

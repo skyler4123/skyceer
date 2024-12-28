@@ -4,7 +4,6 @@ class CreatePaymentInvoices < ActiveRecord::Migration[8.0]
       t.references :payment_order, null: false, foreign_key: true, type: :uuid
       t.string :transaction_id
       t.integer :status
-      t.datetime :due_date
       t.decimal :amount
       t.string :tax_code
 

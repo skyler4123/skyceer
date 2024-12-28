@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_28_122732) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_28_143405) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -471,7 +471,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_122732) do
     t.uuid "payment_order_id", null: false
     t.string "transaction_id"
     t.integer "status"
-    t.datetime "due_date"
     t.decimal "amount"
     t.string "tax_code"
     t.datetime "created_at", null: false
@@ -544,7 +543,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_122732) do
     t.uuid "payment_method_id", null: false
     t.uuid "payment_discount_id", null: false
     t.integer "status"
-    t.decimal "total"
+    t.decimal "amount"
     t.decimal "paid"
     t.decimal "due"
     t.datetime "expire"
