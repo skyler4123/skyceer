@@ -1,7 +1,6 @@
 class AutoGenerator::PaymentService
   def self.run
-    5.times { self.payment_customer }
-    5.times { self.payment_method }
+    self.payment_method
     self.payment_method_appointment
     self.payment_discount
     self.payment_order
@@ -18,11 +17,13 @@ class AutoGenerator::PaymentService
   end
 
   def self.payment_method
-    PaymentMethod.create!(
-      name: "payment method name #{Faker::Movie.title}",
-      description: Faker::Movie.quote,
-      region: rand(0..3),
-    )
+    10.times do
+      PaymentMethod.create!(
+        name: "payment method name #{Faker::Movie.title}",
+        description: Faker::Movie.quote,
+        region: rand(0..3),
+      )
+    end
   end
 
   def self.payment_method_appointment

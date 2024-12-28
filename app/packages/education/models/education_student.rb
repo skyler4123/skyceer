@@ -27,4 +27,6 @@ class EducationStudent < ApplicationRecord
   def avatar
     self.user.avatar_path
   end
+
+  include EducationStudent::PaymentCustomerConcern
 end
