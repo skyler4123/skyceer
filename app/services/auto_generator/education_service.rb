@@ -20,13 +20,13 @@ class AutoGenerator::EducationService
           self.education_room(education_school:)
         end
         2.times do
-          self.education_admin(education_school:)
+          self.education_admin
         end
         5.times do
-          self.education_teacher(education_school:)
+          self.education_teacher
         end
         10.times do
-          self.education_student(education_school:)
+          self.education_student
         end
         self.education_school_appointments
         20.times do
@@ -101,21 +101,21 @@ class AutoGenerator::EducationService
     education_room
   end
 
-  def self.education_admin(education_school:)
+  def self.education_admin
     admin_user = AutoGenerator::UserService.create(education_role: :admin)
     education_admin = EducationAdmin.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: admin_user)
     AutoGenerator::AttachmentService.attach(record: education_admin, relation: :images, number: 1)
     education_admin
   end
   
-  def self.education_teacher(education_school:)
+  def self.education_teacher
     teacher_user = AutoGenerator::UserService.create(education_role: :teacher)
     education_teacher = EducationTeacher.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: teacher_user)
     AutoGenerator::AttachmentService.attach(record: education_teacher, relation: :images, number: 1)
     education_teacher
   end
 
-  def self.education_student(education_school:)
+  def self.education_student
     student_user = AutoGenerator::UserService.create(education_role: :student)
     education_student = EducationStudent.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: student_user)
     AutoGenerator::AttachmentService.attach(record: education_student, relation: :images, number: 1)
@@ -126,7 +126,7 @@ class AutoGenerator::EducationService
     EducationAdmin.all.each do |education_admin|
       EducationSchoolAppointment.create!(
         education_school: EducationSchool.all.sample,
-        education_admin: education_admins,
+        education_admin: education_admin,
       )
     end
     EducationTeacher.all.each do |education_teacher|

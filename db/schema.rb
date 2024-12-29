@@ -314,9 +314,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
 
   create_table "education_school_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
-    t.uuid "education_admin_id", null: false
-    t.uuid "education_teacher_id", null: false
-    t.uuid "education_student_id", null: false
+    t.uuid "education_admin_id"
+    t.uuid "education_teacher_id"
+    t.uuid "education_student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["education_admin_id"], name: "index_education_school_appointments_on_education_admin_id"
