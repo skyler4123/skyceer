@@ -7,8 +7,8 @@ class ImagesController < ApplicationController
     file = params[:image].tempfile
     file_name = params[:image].original_filename
     content_type = params[:image].content_type
-    if record.image_attachments.attach(io: file, filename: file_name, content_type: content_type)
-      image = record.image_attachments.last
+    if record.image_in_article_post_attachment.attach(io: file, filename: file_name, content_type: content_type)
+      image = record.image_in_article_post_attachment.last
       render json: { success: 1, file: { url: rails_blob_url(image) } }
     end
   end
