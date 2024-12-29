@@ -7,7 +7,7 @@ class AutoGenerator::EstateService
         price_cents: rand(1000..9999),
         address: Address.create_random_vietnam,
       )
-      AutoGenerator::AttachmentService.attach(record: estate_condo, relation: :images, number: 2)
+      AutoGenerator::AttachmentService.attach(record: estate_condo, relation: :image_attachments, number: 2)
 
       estate_hotel = EstateHotel.create!(
         user: user,
@@ -15,7 +15,7 @@ class AutoGenerator::EstateService
         price_cents: rand(1000..9999),
         address: Address.create_random_vietnam,
       )
-      AutoGenerator::AttachmentService.attach(record: estate_hotel, relation: :images, number: 2)
+      AutoGenerator::AttachmentService.attach(record: estate_hotel, relation: :image_attachments, number: 2)
 
       estate_house = EstateHouse.create!(
         user: user,
@@ -23,7 +23,7 @@ class AutoGenerator::EstateService
         price_cents: rand(1000..9999),
         address: Address.create_random_vietnam,
       )
-      AutoGenerator::AttachmentService.attach(record: estate_house, relation: :images, number: 2)
+      AutoGenerator::AttachmentService.attach(record: estate_house, relation: :image_attachments, number: 2)
     end
   end
 end

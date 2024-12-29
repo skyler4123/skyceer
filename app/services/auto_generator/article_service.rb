@@ -3,7 +3,7 @@ class AutoGenerator::ArticleService
     User.all.each_with_index do |user, user_index|
       1.times do |n|
         article_post = ArticlePost.create!(user_id: user.id, title: Faker::Movie.title)
-        article_post_images = AutoGenerator::AttachmentService.attach(record: user, relation: :article_post_images, number: 2)        
+        image_attachments = AutoGenerator::AttachmentService.attach(record: user, relation: :image_attachments, number: 2)        
         content = {
           blocks: [
             {
@@ -30,7 +30,7 @@ class AutoGenerator::ArticleService
               type: "image",
               data: {
                 caption: Faker::Movie.title,
-                file: { url: article_post_images.first },
+                file: { url: image_attachments.first },
                 stretched: false,
                 withBackground: false,
                 withBorder: false,
@@ -46,7 +46,7 @@ class AutoGenerator::ArticleService
               type: "image",
               data: {
                 caption: Faker::Movie.title,
-                file: { url: article_post_images.second },
+                file: { url: image_attachments.second },
                 stretched: false,
                 withBackground: false,
                 withBorder: false,

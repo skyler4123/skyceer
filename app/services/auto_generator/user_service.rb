@@ -17,7 +17,7 @@ class AutoGenerator::UserService
       education_role: education_role,
       address: Address.create_random_vietnam,
     )
-    AutoGenerator::AttachmentService.attach(record: user, relation: :avatar, number: 1)
+    AutoGenerator::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
     user
   end
 
@@ -31,7 +31,7 @@ class AutoGenerator::UserService
       role: role,
       education_role: education_role,
     )
-    AutoGenerator::AttachmentService.attach(record: user, relation: :avatar, number: 1)
+    AutoGenerator::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
     user
   end
 

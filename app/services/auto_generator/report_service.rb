@@ -8,7 +8,7 @@ class AutoGenerator::ReportService
         status: rand(0..3),
         reporter_email: ["", user.email].sample
       )
-      AutoGenerator::AttachmentService.attach(record: report_ticket, relation: :images, number: 2)
+      AutoGenerator::AttachmentService.attach(record: report_ticket, relation: :image_attachments, number: 2)
     end
   end
 end
