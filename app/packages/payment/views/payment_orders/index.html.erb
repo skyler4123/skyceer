@@ -18,4 +18,6 @@
       </p>
     <% end %>
   </div>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
+<%= content_data(@payment_orders, methods: [:customer_name]).html_safe %>

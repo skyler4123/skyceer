@@ -4,6 +4,7 @@ class PaymentOrdersController < ApplicationController
   # GET /payment_orders or /payment_orders.json
   def index
     @payment_orders = PaymentOrder.all
+    @pagy, @payment_orders = pagy(@payment_orders)
   end
 
   # GET /payment_orders/1 or /payment_orders/1.json

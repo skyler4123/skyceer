@@ -8,4 +8,7 @@ class PaymentOrder < ApplicationRecord
   has_many :payment_items, through: :payment_item_appointments
   has_many :payment_invoices, dependent: :destroy
   
+  def customer_name
+    payment_customer.name
+  end
 end
