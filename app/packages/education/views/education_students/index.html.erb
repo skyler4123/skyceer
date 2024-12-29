@@ -10,4 +10,4 @@
   <div data-<%= view_controller(__FILE__) %>-target="index" id="education_students" class="min-w-full"></div>
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
-<%= content_data(@education_students, methods: [:school_name, :class_names, :avatar]).html_safe %>
+<%= content_data(@education_students).html_safe %>

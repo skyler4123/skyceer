@@ -9,6 +9,4 @@
   <div id="education_teachers" class="min-w-full"></div>
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
-<div style="display: none;" data-<%= view_controller(__FILE__) %>-target="contentData">
-  <%= @education_teachers.to_json %>
-</div>
+<%= content_data(@education_teachers).html_safe %>
