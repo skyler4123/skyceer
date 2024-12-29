@@ -5,7 +5,8 @@ rails g scaffold CalendarEvent calendar_group:references calendarable:references
 rails g scaffold Address alpha2:string:index alpha3:string:index continent:string:index nationality:string:index region:string:index longitude:decimal latitude:decimal level_total:integer level_1:string:index level_2:string:index level_3:string:index level_4:string:index level_5:string:index level_6:string:index level_7:string:index level_8:string:index level_9:string:index level_10:string:index --force
 
 EDUCATION
-rails g scaffold EducationAdmin user:references education_school:references name --force
+rails g scaffold EducationAdmin user:references name --force
+rails g scaffold EducationSchoolAppointment education_school:references education_admin:references education_teacher:references education_student:references --force
 rails g scaffold EducationSubject name description education_school:references education_category:references --force
 rails g scaffold EducationCourse name description education_school:references education_category:references --force
 rails g scaffold EducationExam name description score:decimal status:integer education_school:references education_subject:references education_student:references education_category:references education_course:references --force
