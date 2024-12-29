@@ -11,13 +11,7 @@
   </div>
 
   <div id="payment_orders" class="min-w-full">
-    <% @payment_orders.each do |payment_order| %>
-      <%= render payment_order %>
-      <p>
-        <%= link_to "Show this payment order", payment_order, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
   </div>
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
-<%= content_data(@payment_orders, methods: [:customer_name]).html_safe %>
+<%= content_data(@payment_orders, only: [:id, :amount, :status, :created_at, :updated_at], methods: [:customer_name]).html_safe %>

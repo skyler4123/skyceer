@@ -3,7 +3,7 @@ class PaymentOrdersController < ApplicationController
 
   # GET /payment_orders or /payment_orders.json
   def index
-    @payment_orders = PaymentOrder.all
+    @payment_orders = current_user.payment_orders
     @pagy, @payment_orders = pagy(@payment_orders)
   end
 
