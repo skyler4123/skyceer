@@ -10,6 +10,7 @@ class CreatePaymentOrders < ActiveRecord::Migration[8.0]
       t.decimal :paid
       t.decimal :due
       t.datetime :expire
+      t.datetime :discarded_at
 
       t.timestamps
     end

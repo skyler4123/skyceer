@@ -5,6 +5,7 @@ class CreatePaymentItemAppointments < ActiveRecord::Migration[8.0]
       t.references :payment_order, null: false, foreign_key: true, type: :uuid
       t.integer :item_quantity
       t.decimal :unit_price
+      t.datetime :discarded_at
 
       t.timestamps
     end

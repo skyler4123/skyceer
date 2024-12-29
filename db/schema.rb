@@ -153,6 +153,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "education_admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "education_school_id", null: false
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_school_id"], name: "index_education_admins_on_education_school_id"
+    t.index ["user_id"], name: "index_education_admins_on_user_id"
+  end
+
   create_table "education_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.uuid "education_school_id", null: false
@@ -439,6 +449,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
   create_table "payment_customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "payment_customerable_type", null: false
     t.uuid "payment_customerable_id", null: false
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_customerable_type", "payment_customerable_id"], name: "index_payment_customers_on_payment_customerable"
@@ -453,6 +464,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
     t.decimal "amount"
     t.integer "status"
     t.integer "kind"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_user_id"], name: "index_payment_discounts_on_payment_user_id"
@@ -464,6 +476,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
     t.integer "status"
     t.decimal "amount"
     t.string "tax_code"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_order_id"], name: "index_payment_invoices_on_payment_order_id"
@@ -474,6 +487,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
     t.uuid "payment_order_id", null: false
     t.integer "item_quantity"
     t.decimal "unit_price"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_item_id"], name: "index_payment_item_appointments_on_payment_item_id"
@@ -485,6 +499,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
     t.string "payment_itemable_type", null: false
     t.uuid "payment_itemable_id", null: false
     t.decimal "price"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_itemable_type", "payment_itemable_id"], name: "index_payment_items_on_payment_itemable"
@@ -501,6 +516,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
     t.string "action"
     t.decimal "amount"
     t.string "note"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_customer_id"], name: "index_payment_logs_on_payment_customer_id"
@@ -514,6 +530,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
   create_table "payment_method_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "payment_user_id", null: false
     t.uuid "payment_method_id", null: false
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_method_id"], name: "index_payment_method_appointments_on_payment_method_id"
@@ -524,6 +541,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
     t.string "name"
     t.string "description"
     t.integer "region"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -538,6 +556,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
     t.decimal "paid"
     t.decimal "due"
     t.datetime "expire"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_customer_id"], name: "index_payment_orders_on_payment_customer_id"
@@ -549,6 +568,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
   create_table "payment_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "payment_userable_type", null: false
     t.uuid "payment_userable_id", null: false
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_userable_type", "payment_userable_id"], name: "index_payment_users_on_payment_userable"
@@ -639,6 +659,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
   add_foreign_key "calendar_events", "calendar_groups"
   add_foreign_key "calendar_groups", "users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
+  add_foreign_key "education_admins", "education_schools"
+  add_foreign_key "education_admins", "users"
   add_foreign_key "education_categories", "education_categories", column: "parent_category_id"
   add_foreign_key "education_categories", "education_schools"
   add_foreign_key "education_category_appointments", "education_categories"

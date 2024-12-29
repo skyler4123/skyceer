@@ -9,6 +9,7 @@ class CreatePaymentDiscounts < ActiveRecord::Migration[8.0]
       t.decimal :amount
       t.integer :status
       t.integer :kind
+      t.datetime :discarded_at
 
       t.timestamps
     end

@@ -37,9 +37,10 @@ class AutoGenerator::SeedService
     education_school_count = EducationSchool.count
     education_class_count = EducationClass.count
     education_room_count = EducationRoom.count
-
+    education_admin_count = EducationAdmin.count
     education_teacher_count = EducationTeacher.count
     education_student_count = EducationStudent.count
+
     chat_conversation_count = ChatConversation.count
     article_post_count = ArticlePost.count
     estate_condo_count = EstateCondo.count
@@ -62,12 +63,15 @@ class AutoGenerator::SeedService
     puts "Categories: ", category_count
     puts "Calendar Groups: ", calendar_group_count
     puts "Calendar Events: ", calendar_event_count
+
     puts "Education Categories: ", education_category_count
     puts "Education Schools: ", education_school_count
     puts "Education Classes: ", education_class_count
     puts "Education Rooms: ", education_room_count
+    puts "Education Admins: ", education_admin_count
     puts "Education Teachers: ", education_teacher_count
     puts "Education Students: ", education_student_count
+
     puts "Chat Conversations: ", chat_conversation_count
     puts "Article Posts: ", article_post_count
     puts "Estate Condos: ", estate_condo_count

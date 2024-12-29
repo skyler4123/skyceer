@@ -4,6 +4,7 @@ class CreatePaymentItems < ActiveRecord::Migration[8.0]
       t.references :payment_user, null: false, foreign_key: true, type: :uuid
       t.references :payment_itemable, polymorphic: true, null: false, type: :uuid
       t.decimal :price
+      t.datetime :discarded_at
 
       t.timestamps
     end

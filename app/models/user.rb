@@ -29,7 +29,6 @@ class User < ApplicationRecord
   # Customize the user model here
   include User::ElasticsearchConcern
   include User::AvatarConcern
-  include User::EducationConcern
   include User::ArticlePostImageConcern
   include User::EnumConcern
 
@@ -42,6 +41,7 @@ class User < ApplicationRecord
   has_many :calendar_groups, dependent: :destroy
 
   belongs_to :address, optional: true
-
+  
+  include User::EducationConcern
   include User::PaymentConcern
 end

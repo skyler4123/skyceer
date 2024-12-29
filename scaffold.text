@@ -5,7 +5,7 @@ rails g scaffold CalendarEvent calendar_group:references calendarable:references
 rails g scaffold Address alpha2:string:index alpha3:string:index continent:string:index nationality:string:index region:string:index longitude:decimal latitude:decimal level_total:integer level_1:string:index level_2:string:index level_3:string:index level_4:string:index level_5:string:index level_6:string:index level_7:string:index level_8:string:index level_9:string:index level_10:string:index --force
 
 EDUCATION
-rails g scaffold EducationUser user:references
+rails g scaffold EducationAdmin user:references education_school:references name --force
 rails g scaffold EducationSubject name description education_school:references education_category:references --force
 rails g scaffold EducationCourse name description education_school:references education_category:references --force
 rails g scaffold EducationExam name description score:decimal status:integer education_school:references education_subject:references education_student:references education_category:references education_course:references --force
@@ -20,15 +20,13 @@ rails g scaffold EducationQuestionAppointment education_question:references educ
 rails g scaffold EducationSubjectAppointment education_subject:references education_class:references education_teacher:references --force
 
 PAYMENT
-rails g scaffold PaymentUser payment_userable:references{polymorphic} --force
-rails g scaffold PaymentCustomer payment_customerable:references{polymorphic} --force
-rails g scaffold PaymentMethod name description region:integer --force
-rails g scaffold PaymentDiscount payment_user:references name description code expire:datetime amount:decimal status:integer kind:integer --force
-rails g scaffold PaymentItem payment_user:references payment_itemable:references{polymorphic} price:decimal --force
-rails g scaffold PaymentOrder payment_user:references payment_customer:references payment_method:references payment_discount:references status:integer amount:decimal paid:decimal due:decimal expire:datetime --force
-rails g scaffold PaymentInvoice payment_order:references transaction_id status:integer amount:decimal tax_code --force
-
-rails g scaffold PaymentItemAppointment payment_item:references payment_order:references item_quantity:integer unit_price:decimal --force
-rails g scaffold PaymentMethodAppointment payment_user:references payment_method:references --force
-
-rails g scaffold PaymentLog payment_user:references payment_customer:references payment_order:references payment_method:references payment_discount:references payment_invoice:references action amount:decimal note --force
+rails g scaffold PaymentUser payment_userable:references{polymorphic} discarded_at:datetime --force
+rails g scaffold PaymentCustomer payment_customerable:references{polymorphic} discarded_at:datetime --force
+rails g scaffold PaymentMethod name description region:integer discarded_at:datetime --force
+rails g scaffold PaymentDiscount payment_user:references name description code expire:datetime amount:decimal status:integer kind:integer discarded_at:datetime --force
+rails g scaffold PaymentItem payment_user:references payment_itemable:references{polymorphic} price:decimal discarded_at:datetime --force
+rails g scaffold PaymentOrder payment_user:references payment_customer:references payment_method:references payment_discount:references status:integer amount:decimal paid:decimal due:decimal expire:datetime discarded_at:datetime --force
+rails g scaffold PaymentInvoice payment_order:references transaction_id status:integer amount:decimal tax_code discarded_at:datetime --force
+rails g scaffold PaymentItemAppointment payment_item:references payment_order:references item_quantity:integer unit_price:decimal discarded_at:datetime --force
+rails g scaffold PaymentMethodAppointment payment_user:references payment_method:references discarded_at:datetime --force
+rails g scaffold PaymentLog payment_user:references payment_customer:references payment_order:references payment_method:references payment_discount:references payment_invoice:references action amount:decimal note discarded_at:datetime --force

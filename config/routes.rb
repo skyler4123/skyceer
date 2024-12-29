@@ -5,6 +5,7 @@
 # end
 
 Rails.application.routes.draw do
+  resources :education_admins
   resources :payment_customers
   resources :payment_method_appointments
   resources :payment_item_appointments

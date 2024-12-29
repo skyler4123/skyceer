@@ -10,6 +10,7 @@ class CreatePaymentLogs < ActiveRecord::Migration[8.0]
       t.string :action
       t.decimal :amount
       t.string :note
+      t.datetime :discarded_at
 
       t.timestamps
     end

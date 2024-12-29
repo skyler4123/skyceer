@@ -19,6 +19,9 @@ class AutoGenerator::EducationService
         5.times do
           self.education_room(education_school:)
         end
+        2.times do
+          self.education_admin(education_school:)
+        end
         5.times do
           self.education_teacher(education_school:)
         end
@@ -97,6 +100,13 @@ class AutoGenerator::EducationService
     education_room
   end
 
+  def self.education_admin(education_school:)
+    admin_user = AutoGenerator::UserService.create(education_role: :admin)
+    education_admin = EducationAdmin.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: admin_user, education_school: education_school)
+    AutoGenerator::AttachmentService.attach(record: education_admin, relation: :images, number: 1)
+    education_admin
+  end
+  
   def self.education_teacher(education_school:)
     teacher_user = AutoGenerator::UserService.create(education_role: :teacher)
     education_teacher = EducationTeacher.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: teacher_user, education_school: education_school)

@@ -3,9 +3,11 @@ module User::EducationConcern
   
   included do
     has_many :education_schools, dependent: :destroy
+    has_many :education_admins, dependent: :destroy
     has_many :education_teachers, dependent: :destroy
     has_many :education_students, dependent: :destroy
 
+    enum :education_role, { school: 0, admin: 1, teacher: 2, student: 3 }, prefix: true
 
     # def education
     #   case self.education_role.to_sym

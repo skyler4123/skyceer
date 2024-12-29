@@ -4,6 +4,7 @@ class CreatePaymentMethods < ActiveRecord::Migration[8.0]
       t.string :name
       t.string :description
       t.integer :region
+      t.datetime :discarded_at
 
       t.timestamps
     end
