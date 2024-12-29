@@ -4,12 +4,15 @@ class EducationSchool < ApplicationRecord
 
   belongs_to :user
   belongs_to :address, optional: true
+
+  has_many :education_school_appointments, dependent: :destroy
+  has_many :education_admins, through: :education_school_appointments
+  has_many :education_teachers, through: :education_school_appointments
+  has_many :education_students, through: :education_school_appointments
+
   has_many :education_categories, dependent: :destroy
   has_many :education_rooms, dependent: :destroy
   has_many :education_classes, dependent: :destroy
-  has_many :education_admins, dependent: :destroy
-  has_many :education_teachers, dependent: :destroy
-  has_many :education_students, dependent: :destroy
   has_many :education_courses, dependent: :destroy
   has_many :education_exams, dependent: :destroy
   has_many :education_questions, dependent: :destroy

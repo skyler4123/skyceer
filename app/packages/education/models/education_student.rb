@@ -4,7 +4,8 @@ class EducationStudent < ApplicationRecord
   include EducationStudent::ElasticsearchConcern
 
   belongs_to :user
-  belongs_to :education_school
+  has_many :education_school_appointments, dependent: :destroy
+  has_many :education_schools, through: :education_school_appointments
 
   has_many :education_exams, dependent: :destroy
   has_many :education_class_appointments, dependent: :destroy

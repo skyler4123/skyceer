@@ -155,11 +155,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
 
   create_table "education_admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
-    t.uuid "education_school_id", null: false
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_school_id"], name: "index_education_admins_on_education_school_id"
     t.index ["user_id"], name: "index_education_admins_on_user_id"
   end
 
@@ -314,6 +312,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
     t.index ["education_school_id"], name: "index_education_rooms_on_education_school_id"
   end
 
+  create_table "education_school_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_school_id", null: false
+    t.uuid "education_admin_id", null: false
+    t.uuid "education_teacher_id", null: false
+    t.uuid "education_student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_admin_id"], name: "index_education_school_appointments_on_education_admin_id"
+    t.index ["education_school_id"], name: "index_education_school_appointments_on_education_school_id"
+    t.index ["education_student_id"], name: "index_education_school_appointments_on_education_student_id"
+    t.index ["education_teacher_id"], name: "index_education_school_appointments_on_education_teacher_id"
+  end
+
   create_table "education_schools", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "address_id"
@@ -367,13 +378,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
 
   create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
-    t.uuid "education_school_id", null: false
     t.string "name"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_students_on_discarded_at"
-    t.index ["education_school_id"], name: "index_education_students_on_education_school_id"
     t.index ["user_id"], name: "index_education_students_on_user_id"
   end
 
@@ -397,13 +406,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
 
   create_table "education_teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
-    t.uuid "education_school_id", null: false
     t.string "name"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_teachers_on_discarded_at"
-    t.index ["education_school_id"], name: "index_education_teachers_on_education_school_id"
     t.index ["user_id"], name: "index_education_teachers_on_user_id"
   end
 
@@ -659,7 +666,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
   add_foreign_key "calendar_events", "calendar_groups"
   add_foreign_key "calendar_groups", "users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
-  add_foreign_key "education_admins", "education_schools"
   add_foreign_key "education_admins", "users"
   add_foreign_key "education_categories", "education_categories", column: "parent_category_id"
   add_foreign_key "education_categories", "education_schools"
@@ -696,18 +702,20 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
   add_foreign_key "education_questions", "education_schools"
   add_foreign_key "education_questions", "education_teachers"
   add_foreign_key "education_rooms", "education_schools"
+  add_foreign_key "education_school_appointments", "education_admins"
+  add_foreign_key "education_school_appointments", "education_schools"
+  add_foreign_key "education_school_appointments", "education_students"
+  add_foreign_key "education_school_appointments", "education_teachers"
   add_foreign_key "education_schools", "addresses"
   add_foreign_key "education_schools", "users"
   add_foreign_key "education_shifts", "education_classes"
   add_foreign_key "education_shifts", "education_schools"
   add_foreign_key "education_shifts", "education_subjects"
   add_foreign_key "education_shifts", "education_teachers"
-  add_foreign_key "education_students", "education_schools"
   add_foreign_key "education_students", "users"
   add_foreign_key "education_subject_appointments", "education_subjects"
   add_foreign_key "education_subject_appointments", "education_teachers"
   add_foreign_key "education_subjects", "education_schools"
-  add_foreign_key "education_teachers", "education_schools"
   add_foreign_key "education_teachers", "users"
   add_foreign_key "estate_condos", "addresses"
   add_foreign_key "estate_condos", "users"

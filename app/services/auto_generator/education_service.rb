@@ -28,6 +28,7 @@ class AutoGenerator::EducationService
         10.times do
           self.education_student(education_school:)
         end
+        self.education_school_appointments
         20.times do
           self.education_question(education_school:)
         end
@@ -102,23 +103,44 @@ class AutoGenerator::EducationService
 
   def self.education_admin(education_school:)
     admin_user = AutoGenerator::UserService.create(education_role: :admin)
-    education_admin = EducationAdmin.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: admin_user, education_school: education_school)
+    education_admin = EducationAdmin.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: admin_user)
     AutoGenerator::AttachmentService.attach(record: education_admin, relation: :images, number: 1)
     education_admin
   end
   
   def self.education_teacher(education_school:)
     teacher_user = AutoGenerator::UserService.create(education_role: :teacher)
-    education_teacher = EducationTeacher.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: teacher_user, education_school: education_school)
+    education_teacher = EducationTeacher.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: teacher_user)
     AutoGenerator::AttachmentService.attach(record: education_teacher, relation: :images, number: 1)
     education_teacher
   end
 
   def self.education_student(education_school:)
     student_user = AutoGenerator::UserService.create(education_role: :student)
-    education_student = EducationStudent.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: student_user, education_school: education_school)
+    education_student = EducationStudent.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: student_user)
     AutoGenerator::AttachmentService.attach(record: education_student, relation: :images, number: 1)
     education_student
+  end
+
+  def self.education_school_appointments
+    EducationAdmin.all.each do |education_admin|
+      EducationSchoolAppointment.create!(
+        education_school: EducationSchool.all.sample,
+        education_admin: education_admins,
+      )
+    end
+    EducationTeacher.all.each do |education_teacher|
+      EducationSchoolAppointment.create!(
+        education_school: EducationSchool.all.sample,
+        education_teacher: education_teacher,
+      )
+    end
+    EducationStudent.all.each do |education_student|
+      EducationSchoolAppointment.create!(
+        education_school: EducationSchool.all.sample,
+        education_student: education_student,
+      )
+    end
   end
 
   def self.education_question(education_school:)
