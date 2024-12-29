@@ -11,8 +11,9 @@ class EducationTeachersController < EducationsController
     elsif params[:education_school_id].present?
       @education_teachers = EducationTeacher.where(education_school_id: params[:education_school_id])
     else
-      @education_teachers = EducationTeacher.all.includes(:education_school).where(education_school: @education_schools)
+      @education_teachers = EducationTeacher.joins(:education_schools).where(education_schools: @education_schools)
     end
+    @education_teachers = @education_teachers.select(:id, :name, :created_at, :updated_at, "education_schools.name as school_name", "education_schools.id as school_id")
     respond_to do |format|
       format.html { @pagy, @education_teachers = pagy(@education_teachers) }
       format.json { render json: @education_teachers }

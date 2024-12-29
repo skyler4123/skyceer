@@ -30,7 +30,9 @@ export default class extends ApplicationController {
 
   asideData() {
     switch (CookieHelpers.educationRole()) {
-      case "school", "admin":
+      case "school":
+        return this.schoolAsideData()
+      case "admin":
         return this.schoolAsideData()
       case "teacher":
         return this.teacherAsideData()

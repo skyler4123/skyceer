@@ -9,6 +9,7 @@ export default class extends Education_LayoutController {
       return {
         ...row,
         name: `<a href="${CookieHelpers.navigationUrl()}/education_teachers/${row.id}">${row.name}</a>`,
+        school_name: `<a href="${CookieHelpers.navigationUrl()}/education_schools/${row.school_id}">${row.school_name}</a>`,
       }
     })
     var table = new Tabulator('#education_teachers', {
@@ -30,8 +31,7 @@ export default class extends Education_LayoutController {
       columns:[                 //define the table columns
           // {title:"Name", field:"name", editor:"input"},
           {title:"Name", field: "name", formatter: "html"},
-          {title: "School", field: "education_school_id", width: 150},
-          {title: "School Name", field: "school_name", width: 150},
+          {title: "School", field: "school_name", width: 150, formatter: "html"},
           {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
           {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
 

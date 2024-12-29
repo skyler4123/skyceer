@@ -10,6 +10,5 @@
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
 <div style="display: none;" data-<%= view_controller(__FILE__) %>-target="contentData">
-
-  <%= @education_teachers.to_json(methods: [:school_name]) %>
+  <%= @education_teachers.to_json %>
 </div>
