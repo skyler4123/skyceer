@@ -616,6 +616,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_192304) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "name"
+    t.string "avatar"
     t.integer "role"
     t.integer "education_role"
     t.boolean "verified", default: false, null: false

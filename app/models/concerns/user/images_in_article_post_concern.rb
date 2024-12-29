@@ -1,4 +1,4 @@
-module User::ImageInArticlePostConcern
+module User::ImagesInArticlePostConcern
   extend ActiveSupport::Concern
   
   included do
