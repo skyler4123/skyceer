@@ -223,39 +223,35 @@ class AutoGenerator::EducationService
   end
   
   def self.education_class_appointments
-    EducationSchool.all.each do |education_school|
-      education_school.education_classes.each do |education_class|
-        education_school.education_teachers.each do |education_teacher|
-          EducationClassAppointment.create!(
-            education_class: education_class,
-            education_teacher: education_teacher,
-          )
-        end
-        education_school.education_students.each do |education_student|
-          EducationClassAppointment.create!(
-            education_class: education_class,
-            education_student: education_student,
-          )
-        end
-        education_school.education_subjects.each do |education_subject|
-          EducationClassAppointment.create!(
-            education_class: education_class,
-            education_subject: education_subject,
-          )
-        end
-        education_school.education_rooms.each do |education_room|
-          EducationClassAppointment.create!(
-            education_class: education_class,
-            education_room: education_room,
-          )
-        end
-        education_school.education_courses.each do |education_course|
-          EducationClassAppointment.create!(
-            education_class: education_class,
-            education_course: education_course,
-          )
-        end
-      end
+    EducationTeacher.all.each do |education_teacher|
+      EducationClassAppointment.create!(
+        education_class: education_teacher.education_schools.sample.education_classes.sample,
+        education_teacher: education_teacher,
+      )
+    end
+    EducationStudent.all.each do |education_student|
+      EducationClassAppointment.create!(
+        education_class: education_student.education_schools.sample.education_classes.sample,
+        education_student: education_student,
+      )
+    end
+    EducationSubject.all.each do |education_subject|
+      EducationClassAppointment.create!(
+        education_class: education_subject.education_school.education_classes.sample,
+        education_subject: education_subject,
+      )
+    end
+    EducationRoom.all.each do |education_room|
+      EducationClassAppointment.create!(
+        education_class: education_room.education_school.education_classes.sample,
+        education_room: education_room,
+      )
+    end
+    EducationCourse.all.each do |education_course|
+      EducationClassAppointment.create!(
+        education_class: education_course.education_school.education_classes.sample,
+        education_course: education_course,
+      )
     end
   end
 

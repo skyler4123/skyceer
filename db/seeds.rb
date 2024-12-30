@@ -38,6 +38,11 @@ EducationCourse.destroy_all
 EducationSubject.destroy_all
 EducationExam.destroy_all
 EducationQuestion.destroy_all
+EducationSchoolAppointment.destroy_all
+EducationCategoryAppointment.destroy_all
+EducationClassAppointment.destroy_all
+EducationQuestionAppointment.destroy_all
+EducationSubjectAppointment.destroy_all
 
 CalendarGroup.destroy_all
 CalendarEvent.destroy_all
