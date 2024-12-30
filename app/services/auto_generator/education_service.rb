@@ -23,8 +23,12 @@ class AutoGenerator::EducationService
   def self.education_school
     2.times do
       school_user = AutoGenerator::UserService.create(education_role: :school)
-      education_school = EducationSchool.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: school_user, address: Address.create_random)
-      AutoGenerator::AttachmentService.attach(record: education_school, relation: :avatar_attachment, number: 1)
+      school_user_count = User.where(education_role: :school).count 
+      school_user_count < 2 ? n = 2 : n = 1
+      n.times do
+        education_school = EducationSchool.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: school_user, address: Address.create_random)
+        AutoGenerator::AttachmentService.attach(record: education_school, relation: :avatar_attachment, number: 1)
+      end
     end
   end
 
@@ -221,26 +225,36 @@ class AutoGenerator::EducationService
   def self.education_class_appointments
     EducationSchool.all.each do |education_school|
       education_school.education_classes.each do |education_class|
-        EducationClassAppointment.create!(
-          education_class: education_class,
-          education_teacher: education_school.education_teachers.sample,
-        )
-        EducationClassAppointment.create!(
-          education_class: education_class,
-          education_student: education_school.education_students.sample,
-        )
-        EducationClassAppointment.create!(
-          education_class: education_class,
-          education_subject: education_school.education_subjects.sample,
-        )
-        EducationClassAppointment.create!(
-          education_class: education_class,
-          education_room: education_school.education_rooms.sample,
-        )
-        EducationClassAppointment.create!(
-          education_class: education_class,
-          education_course: education_school.education_courses.sample,
-        )
+        education_school.education_teachers.each do |education_teacher|
+          EducationClassAppointment.create!(
+            education_class: education_class,
+            education_teacher: education_teacher,
+          )
+        end
+        education_school.education_students.each do |education_student|
+          EducationClassAppointment.create!(
+            education_class: education_class,
+            education_student: education_student,
+          )
+        end
+        education_school.education_subjects.each do |education_subject|
+          EducationClassAppointment.create!(
+            education_class: education_class,
+            education_subject: education_subject,
+          )
+        end
+        education_school.education_rooms.each do |education_room|
+          EducationClassAppointment.create!(
+            education_class: education_class,
+            education_room: education_room,
+          )
+        end
+        education_school.education_courses.each do |education_course|
+          EducationClassAppointment.create!(
+            education_class: education_class,
+            education_course: education_course,
+          )
+        end
       end
     end
   end
