@@ -4,7 +4,9 @@ class EducationAdminsController < EducationsController
 
   # GET /education_admins or /education_admins.json
   def index
-    @education_admins = EducationAdmin.all
+    @education_admins = EducationAdmin.joins(:education_schools).where(education_schools: @education_schools)
+    @education_admins = @education_admins.select(:name, :created_at, :updated_at, "education_schools.name as school_name", "education_schools.id as school_id")
+    @pagy, @education_admins = pagy(@education_admins)
   end
 
   # GET /education_admins/1 or /education_admins/1.json

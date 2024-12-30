@@ -10,12 +10,7 @@
     <%= link_to "New education admin", new_education_admin_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="education_admins" class="min-w-full">
-    <% @education_admins.each do |education_admin| %>
-      <%= render education_admin %>
-      <p>
-        <%= link_to "Show this education admin", education_admin, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
-  </div>
+  <div id="education_admins" class="min-w-full"></div>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
+<%= content_data(@education_admins).html_safe %>
