@@ -6,15 +6,15 @@ class EducationStudentsController < EducationsController
 
   # GET /education_students or /education_students.json
   def index
+    @education_schools = current_user.education_schools
+    @education_students = EducationStudent.includes(:education_classes).joins(:education_schools)
     if params[:full_text_search].present?
-      @education_students = EducationStudent.search(params[:full_text_search]).records
+      @education_students = EducationStudent.search(params[:full_text_search]).records.joins(:education_schools).where(education_schools: @education_schools)
     elsif params[:education_school_id].present? || params[:education_class_id].present?
-      @education_students = EducationStudent.all
-      @education_students = @education_students.where(education_school_id: params[:education_school_id]) if params[:education_school_id].present?
+      @education_students = @education_students.where(education_schools: {id: params[:education_school_id]}) if params[:education_school_id].present?
       @education_students = @education_students.includes(:education_classes).where(education_classes: {id: params[:education_class_id] }) if params[:education_class_id].present?
     else
-      @education_schools = current_user.education_schools
-      @education_students = EducationStudent.includes(:education_classes).joins(:education_schools).where(education_schools: @education_schools)
+      @education_students = @education_students.where(education_schools: @education_schools)
     end
     @education_students = @education_students.select(:id, :name, :created_at, :updated_at, "education_schools.name as school_name", "education_schools.id as school_id")
     @pagy, @education_students = pagy(@education_students)
