@@ -40,7 +40,6 @@ export default class extends Education_LayoutController {
       return {
         ...row,
         name: `<a href="/education_students/${row.id}">${row.name}</a>`,
-        avatar: `<div class="flex justify-center"><img src="${row.avatar}" class="w-10 h-10 rounded-full"></div>`,
       }
     })
     this.table = new Tabulator(this.indexTarget, {
@@ -61,7 +60,6 @@ export default class extends Education_LayoutController {
       },
       columns:[                 //define the table columns
           // {title:"Name", field:"name", editor:"input"},
-          {title:"Avatar", field:"avatar", formatter: "html", hozAlign:"center", width: 100},
           {title:"Name", field: "name", formatter: "html"},
           {title:"School", field:"school_name", sorter:"string", hozAlign:"center"},
           {title:"Class", field:"class_names", sorter:"string", hozAlign:"center"},

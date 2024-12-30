@@ -13,18 +13,10 @@ class EducationStudent < ApplicationRecord
   has_many :education_category_appointments, dependent: :destroy
   has_many :education_categories, through: :education_category_appointments
 
-  def school_name
-    self.education_school.name
-  end
-
   def class_names
-    self.education_classes.pluck(:name).join(", ")
+    self.education_classes.map(&:name).join(", ")
   end
-
-  def avatar_attachment
-    self.user.avatar
-  end
-
+  
   def avatar
     self.user.avatar_path
   end

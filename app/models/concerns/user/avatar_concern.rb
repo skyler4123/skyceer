@@ -7,12 +7,6 @@ module User::AvatarConcern
       attachable.variant :thumb, resize_to_limit: [50, 50]
     end
     
-    after_commit do
-      return unless avatar_attachment.attached?
-      return unless Time.now  > avatar_attachment.attachment.created_at
-      self.update(avatar: avatar_path)
-    end
-    
     validate :acceptable_avatar_attachment
 
     def acceptable_avatar_attachment
@@ -30,6 +24,10 @@ module User::AvatarConcern
     def avatar_path
       return "" unless self.avatar_attachment.attached?
       Rails.application.routes.url_helpers.rails_blob_path(self.avatar_attachment, only_path: true)
+    end
+
+    def update_avatar
+      self.update(avatar: avatar_path)
     end
   end
 
