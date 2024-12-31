@@ -12,13 +12,18 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :calendar_group_id %>
-    <%= form.text_field :calendar_group_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :calendar_user_id %>
+    <%= form.text_field :calendar_user_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :lib %>
-    <%= form.text_field :lib, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :calendar_eventable_id %>
+    <%= form.text_field :calendar_eventable_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :library %>
+    <%= form.number_field :library, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -33,7 +38,7 @@
 
   <div class="my-5">
     <%= form.label :isAllday %>
-    <%= form.check_box :isAllday, class: "block mt-2 h-5 w-5" %>
+    <%= form.checkbox :isAllday, class: "block mt-2 h-5 w-5" %>
   </div>
 
   <div class="my-5">
@@ -63,7 +68,7 @@
 
   <div class="my-5">
     <%= form.label :attendees %>
-    <%= form.text_area :attendees, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.textarea :attendees, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -72,8 +77,8 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :category %>
-    <%= form.number_field :dueDateClass, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :dueDateClass %>
+    <%= form.text_field :dueDateClass, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -88,27 +93,27 @@
 
   <div class="my-5">
     <%= form.label :isVisible %>
-    <%= form.check_box :isVisible, class: "block mt-2 h-5 w-5" %>
+    <%= form.checkbox :isVisible, class: "block mt-2 h-5 w-5" %>
   </div>
 
   <div class="my-5">
     <%= form.label :isPending %>
-    <%= form.check_box :isPending, class: "block mt-2 h-5 w-5" %>
+    <%= form.checkbox :isPending, class: "block mt-2 h-5 w-5" %>
   </div>
 
   <div class="my-5">
     <%= form.label :isFocused %>
-    <%= form.check_box :isFocused, class: "block mt-2 h-5 w-5" %>
+    <%= form.checkbox :isFocused, class: "block mt-2 h-5 w-5" %>
   </div>
 
   <div class="my-5">
     <%= form.label :isReadOnly %>
-    <%= form.check_box :isReadOnly, class: "block mt-2 h-5 w-5" %>
+    <%= form.checkbox :isReadOnly, class: "block mt-2 h-5 w-5" %>
   </div>
 
   <div class="my-5">
     <%= form.label :isPrivate %>
-    <%= form.check_box :isPrivate, class: "block mt-2 h-5 w-5" %>
+    <%= form.checkbox :isPrivate, class: "block mt-2 h-5 w-5" %>
   </div>
 
   <div class="my-5">
@@ -139,6 +144,11 @@
   <div class="my-5">
     <%= form.label :raw %>
     <%= form.text_field :raw, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :discarded_at %>
+    <%= form.datetime_field :discarded_at, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">

@@ -60,11 +60,11 @@ class CalendarGroupsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_calendar_group
-      @calendar_group = CalendarGroup.find(params[:id])
+      @calendar_group = CalendarGroup.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
     def calendar_group_params
-      params.require(:calendar_group).permit(:user_id, :name, :color, :borderColor, :backgroundColor, :dragBackgroundColor)
+      params.expect(calendar_group: [ :calendar_user_id, :calendar_groupable_id, :calendar_groupable_type, :name, :color, :borderColor, :backgroundColor, :dragBackgroundColor, :discarded_at ])
     end
 end

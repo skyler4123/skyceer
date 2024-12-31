@@ -60,11 +60,11 @@ class CalendarEventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_calendar_event
-      @calendar_event = CalendarEvent.find(params[:id])
+      @calendar_event = CalendarEvent.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
     def calendar_event_params
-      params.require(:calendar_event).permit(:calendar_group_id, :lib, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw)
+      params.expect(calendar_event: [ :calendar_user_id, :calendar_eventable_id, :calendar_eventable_type, :library, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw, :discarded_at ])
     end
 end

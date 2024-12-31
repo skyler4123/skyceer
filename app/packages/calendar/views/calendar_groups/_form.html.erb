@@ -12,8 +12,13 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :calendar_user_id %>
+    <%= form.text_field :calendar_user_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :calendar_groupable_id %>
+    <%= form.text_field :calendar_groupable_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
@@ -39,6 +44,11 @@
   <div class="my-5">
     <%= form.label :dragBackgroundColor %>
     <%= form.text_field :dragBackgroundColor, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :discarded_at %>
+    <%= form.datetime_field :discarded_at, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">

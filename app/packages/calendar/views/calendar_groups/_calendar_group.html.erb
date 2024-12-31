@@ -1,7 +1,12 @@
 <div id="<%= dom_id calendar_group %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= calendar_group.user_id %>
+    <strong class="block font-medium mb-1">Calendar user:</strong>
+    <%= calendar_group.calendar_user_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Calendar groupable:</strong>
+    <%= calendar_group.calendar_groupable_id %>
   </p>
 
   <p class="my-5">
@@ -15,18 +20,23 @@
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Border color:</strong>
+    <strong class="block font-medium mb-1">Bordercolor:</strong>
     <%= calendar_group.borderColor %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Background color:</strong>
+    <strong class="block font-medium mb-1">Backgroundcolor:</strong>
     <%= calendar_group.backgroundColor %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Drag background color:</strong>
+    <strong class="block font-medium mb-1">Dragbackgroundcolor:</strong>
     <%= calendar_group.dragBackgroundColor %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Discarded at:</strong>
+    <%= calendar_group.discarded_at %>
   </p>
 
 </div>

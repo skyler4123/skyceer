@@ -1,12 +1,17 @@
 <div id="<%= dom_id calendar_event %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Calendar group:</strong>
-    <%= calendar_event.calendar_group_id %>
+    <strong class="block font-medium mb-1">Calendar user:</strong>
+    <%= calendar_event.calendar_user_id %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Lib:</strong>
-    <%= calendar_event.lib %>
+    <strong class="block font-medium mb-1">Calendar eventable:</strong>
+    <%= calendar_event.calendar_eventable_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Library:</strong>
+    <%= calendar_event.library %>
   </p>
 
   <p class="my-5">
@@ -20,7 +25,7 @@
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Is allday:</strong>
+    <strong class="block font-medium mb-1">Isallday:</strong>
     <%= calendar_event.isAllday %>
   </p>
 
@@ -35,12 +40,12 @@
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Going duration:</strong>
+    <strong class="block font-medium mb-1">Goingduration:</strong>
     <%= calendar_event.goingDuration %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Coming duration:</strong>
+    <strong class="block font-medium mb-1">Comingduration:</strong>
     <%= calendar_event.comingDuration %>
   </p>
 
@@ -60,12 +65,12 @@
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Due date class:</strong>
+    <strong class="block font-medium mb-1">Duedateclass:</strong>
     <%= calendar_event.dueDateClass %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Recurrence rule:</strong>
+    <strong class="block font-medium mb-1">Recurrencerule:</strong>
     <%= calendar_event.recurrenceRule %>
   </p>
 
@@ -75,27 +80,27 @@
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Is visible:</strong>
+    <strong class="block font-medium mb-1">Isvisible:</strong>
     <%= calendar_event.isVisible %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Is pending:</strong>
+    <strong class="block font-medium mb-1">Ispending:</strong>
     <%= calendar_event.isPending %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Is focused:</strong>
+    <strong class="block font-medium mb-1">Isfocused:</strong>
     <%= calendar_event.isFocused %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Is read only:</strong>
+    <strong class="block font-medium mb-1">Isreadonly:</strong>
     <%= calendar_event.isReadOnly %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Is private:</strong>
+    <strong class="block font-medium mb-1">Isprivate:</strong>
     <%= calendar_event.isPrivate %>
   </p>
 
@@ -105,28 +110,33 @@
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Background color:</strong>
+    <strong class="block font-medium mb-1">Backgroundcolor:</strong>
     <%= calendar_event.backgroundColor %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Drag background color:</strong>
+    <strong class="block font-medium mb-1">Dragbackgroundcolor:</strong>
     <%= calendar_event.dragBackgroundColor %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Border color:</strong>
+    <strong class="block font-medium mb-1">Bordercolor:</strong>
     <%= calendar_event.borderColor %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Custom style:</strong>
+    <strong class="block font-medium mb-1">Customstyle:</strong>
     <%= calendar_event.customStyle %>
   </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Raw:</strong>
     <%= calendar_event.raw %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Discarded at:</strong>
+    <%= calendar_event.discarded_at %>
   </p>
 
 </div>
