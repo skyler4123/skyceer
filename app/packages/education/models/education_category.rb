@@ -56,6 +56,13 @@ class EducationCategory < ApplicationRecord
     children
   end
 
+  def includes_all_children
+    children = []
+    children << self
+    children << self.children_categories
+    children.flatten
+  end
+
   private
 
   def parent_category_cannot_be_duplicate

@@ -1,7 +1,8 @@
-class CreateCalendarGroups < ActiveRecord::Migration[7.2]
+class CreateCalendarGroups < ActiveRecord::Migration[8.0]
   def change
     create_table :calendar_groups, id: :uuid do |t|
-      t.references :user, null: false, foreign_key: true, type: :uuid
+      t.references :calendar_user, null: false, foreign_key: true, type: :uuid
+      t.references :calendar_groupable, polymorphic: true, null: false, type: :uuid
       t.string :name
       t.string :color
       t.string :borderColor
@@ -11,6 +12,5 @@ class CreateCalendarGroups < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    add_index :calendar_groups, :discarded_at
   end
 end

@@ -257,46 +257,106 @@ class AutoGenerator::EducationService
 
   def self.education_category_appointments
     EducationSchool.all.each do |education_school|
-      education_school.education_categories.each do |education_category|
+      # education_school.education_categories.each do |education_category|
+      #   EducationCategoryAppointment.create!(
+      #     education_category: education_category,
+      #     education_class: education_school.education_classes.sample,
+      #   )
+      #   EducationCategoryAppointment.create!(
+      #     education_category: education_category,
+      #     education_room: education_school.education_rooms.sample,
+      #   )
+      #   EducationCategoryAppointment.create!(
+      #     education_category: education_category,
+      #     education_teacher: education_school.education_teachers.sample,
+      #   )
+      #   EducationCategoryAppointment.create!(
+      #     education_category: education_category,
+      #     education_student: education_school.education_students.sample,
+      #   )
+      #   EducationCategoryAppointment.create!(
+      #     education_category: education_category,
+      #     education_subject: education_school.education_subjects.sample,
+      #   )
+      #   EducationCategoryAppointment.create!(
+      #     education_category: education_category,
+      #     education_course: education_school.education_courses.sample,
+      #   )
+      #   EducationCategoryAppointment.create!(
+      #     education_category: education_category,
+      #     education_exam: education_school.education_exams.sample,
+      #   )
+      #   EducationCategoryAppointment.create!(
+      #     education_category: education_category,
+      #     education_question: education_school.education_questions.sample,
+      #   )
+      #   EducationCategoryAppointment.create!(
+      #     education_category: education_category,
+      #     education_lesson: education_school.education_lessons.sample,
+      #   )
+      #   EducationCategoryAppointment.create!(
+      #     education_category: education_category,
+      #     education_shift: education_school.education_shifts.sample,
+      #   )
+      # end
+      EducationClass.all.each do |education_class|
         EducationCategoryAppointment.create!(
-          education_category: education_category,
-          education_class: education_school.education_classes.sample,
+          education_category: education_school.education_categories.sample,
+          education_class: education_class,
         )
+      end
+      EducationRoom.all.each do |education_room|
         EducationCategoryAppointment.create!(
-          education_category: education_category,
-          education_room: education_school.education_rooms.sample,
+          education_category: education_school.education_categories.sample,
+          education_room: education_room,
         )
+      end
+      EducationTeacher.all.each do |education_teacher|
         EducationCategoryAppointment.create!(
-          education_category: education_category,
-          education_teacher: education_school.education_teachers.sample,
+          education_category: education_school.education_categories.sample,
+          education_teacher: education_teacher,
         )
+      end
+      EducationStudent.all.each do |education_student|
         EducationCategoryAppointment.create!(
-          education_category: education_category,
-          education_student: education_school.education_students.sample,
+          education_category: education_school.education_categories.sample,
+          education_student: education_student,
         )
+      end
+      EducationSubject.all.each do |education_subject|
         EducationCategoryAppointment.create!(
-          education_category: education_category,
-          education_subject: education_school.education_subjects.sample,
+          education_category: education_school.education_categories.sample,
+          education_subject: education_subject,
         )
+      end
+      EducationCourse.all.each do |education_course|
         EducationCategoryAppointment.create!(
-          education_category: education_category,
-          education_course: education_school.education_courses.sample,
+          education_category: education_school.education_categories.sample,
+          education_course: education_course,
         )
+      end
+      EducationExam.all.each do |education_exam|
         EducationCategoryAppointment.create!(
-          education_category: education_category,
-          education_exam: education_school.education_exams.sample,
+          education_category: education_school.education_categories.sample,
+          education_exam: education_exam,
         )
+      end
+      EducationQuestion.all.each do |education_question|
         EducationCategoryAppointment.create!(
-          education_category: education_category,
-          education_question: education_school.education_questions.sample,
+          education_category: education_school.education_categories.sample,
+          education_question: education_question,
         )
+      end
+      EducationLesson.all.each do |education_lesson|
         EducationCategoryAppointment.create!(
-          education_category: education_category,
-          education_lesson: education_school.education_lessons.sample,
+          education_category: education_school.education_categories.sample,
+          education_lesson: education_lesson,
         )
+      end
+      EducationShift.all.each do |education_shift|
         EducationCategoryAppointment.create!(
-          education_category: education_category,
-          education_shift: education_school.education_shifts.sample,
+          education_category: education_school.education_categories.sample,
+          education_shift: education_shift,
         )
       end
     end

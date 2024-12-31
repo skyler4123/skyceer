@@ -5,6 +5,10 @@
 # end
 
 Rails.application.routes.draw do
+  resources :calendar_category_appointments
+  resources :calendar_categories
+  resources :calendar_event_appointments
+  resources :calendar_users
   resources :education_school_appointments
   resources :education_admins
   resources :payment_customers

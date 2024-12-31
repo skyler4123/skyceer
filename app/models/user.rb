@@ -39,7 +39,6 @@ class User < ApplicationRecord
 
   has_many :vehicle_stores, dependent: :destroy
   has_many :vehicle_cars, dependent: :destroy
-  has_many :calendar_groups, dependent: :destroy
 
   belongs_to :address, optional: true
   

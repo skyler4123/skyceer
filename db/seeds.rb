@@ -44,8 +44,12 @@ EducationClassAppointment.destroy_all
 EducationQuestionAppointment.destroy_all
 EducationSubjectAppointment.destroy_all
 
+CalendarUser.destroy_all
 CalendarGroup.destroy_all
 CalendarEvent.destroy_all
+CalendarEventAppointment.destroy_all
+CalendarCategory.destroy_all
+CalendarCategoryAppointment.destroy_all
 
 ReportTicket.destroy_all
 ReportFrontend.destroy_all

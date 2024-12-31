@@ -20,5 +20,7 @@ class EducationSchool < ApplicationRecord
   has_many :education_lessons, dependent: :destroy
   has_many :education_shifts, dependent: :destroy
 
+  include EducationSchool::CalendarUserConcern
   include EducationSchool::PaymentUserConcern
+  include EducationSchool::CalendarUserConcern
 end

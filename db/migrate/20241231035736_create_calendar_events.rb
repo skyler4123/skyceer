@@ -1,8 +1,9 @@
-class CreateCalendarEvents < ActiveRecord::Migration[7.2]
+class CreateCalendarEvents < ActiveRecord::Migration[8.0]
   def change
     create_table :calendar_events, id: :uuid do |t|
-      t.references :calendar_group, null: true, foreign_key: true, type: :uuid
-      t.string :lib
+      t.references :calendar_user, null: false, foreign_key: true, type: :uuid
+      t.references :calendar_eventable, polymorphic: true, null: false, type: :uuid
+      t.integer :library
       t.string :title
       t.string :body
       t.boolean :isAllday
@@ -31,6 +32,5 @@ class CreateCalendarEvents < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    add_index :calendar_events, :discarded_at
   end
 end
