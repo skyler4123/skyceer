@@ -138,7 +138,7 @@ class AutoGenerator::PaymentService
           payment_category: payment_user.payment_categories.sample,
           payment_customer: payment_customer,
         )
-      
+      end
         
       payment_user.payment_orders.each do |payment_order|
         PaymentCategoryAppointment.create!(
@@ -168,7 +168,7 @@ class AutoGenerator::PaymentService
           payment_discount: payment_discount,
         )
       end
-      
+
       payment_user.payment_methods.each do |payment_method|
         PaymentCategoryAppointment.create!(
           payment_category: payment_user.payment_categories.sample,

@@ -9,7 +9,12 @@ module CategoryConcern
   
     # a category can have one parent category.
     belongs_to :parent_category, class_name: self.name, optional: true
-  
+    before_save :set_nested_level
+
+    def set_nested_level
+      self.nested_level = parent_category.present? ? parent_category.nested_level + 1 : 0
+    end
+
     def parent_categories
       parent = self.parent_category
       parents = []

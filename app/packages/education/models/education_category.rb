@@ -15,11 +15,5 @@ class EducationCategory < ApplicationRecord
   has_many :education_shifts, through: :education_category_appointments
   has_many :education_lessons, through: :education_category_appointments
 
-  # before_save :set_level
-
-  # def set_level
-  #   self.level = parent_category.present? ? parent_category.level + 1 : 0
-  # end
-
 
 end

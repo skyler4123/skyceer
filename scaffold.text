@@ -30,7 +30,7 @@ rails g scaffold PaymentInvoice payment_order:references transaction_id status:i
 rails g scaffold PaymentItemAppointment payment_item:references payment_order:references item_quantity:integer unit_price:decimal discarded_at:datetime --force
 rails g scaffold PaymentMethodAppointment payment_user:references payment_method:references discarded_at:datetime --force
 rails g scaffold PaymentLog payment_user:references payment_customer:references payment_order:references payment_method:references payment_discount:references payment_invoice:references action amount:decimal note discarded_at:datetime --force
-rails g scaffold PaymentCategory name payment_user:references parent_category:references discarded_at:datetime --force
+rails g scaffold PaymentCategory name payment_user:references parent_category:references nested_level:integer discarded_at:datetime --force
 rails g scaffold PaymentCategoryAppointment payment_category:references payment_customer:references payment_method:references payment_discount:references payment_item:references payment_order:references payment_invoice:references discarded_at:datetime --force
 
 
@@ -39,5 +39,5 @@ rails g scaffold CalendarUser calendar_userable:references{polymorphic} discarde
 rails g scaffold CalendarGroup calendar_user:references calendar_groupable:references{polymorphic} name color borderColor backgroundColor dragBackgroundColor discarded_at:datetime --force
 rails g scaffold CalendarEvent calendar_user:references calendar_eventable:references{polymorphic} calendar_creatorable:references{polymorphic} library:integer title body isAllday:boolean start:datetime end:datetime goingDuration:integer comingDuration:integer location attendees:text category:integer dueDateClass recurrenceRule state:integer isVisible:boolean isPending:boolean isFocused:boolean isReadOnly:boolean isPrivate:boolean color backgroundColor dragBackgroundColor borderColor customStyle:json raw:json discarded_at:datetime --force
 rails g scaffold CalendarEventAppointment calendar_group:references calendar_event:references discarded_at:datetime --force
-rails g scaffold CalendarCategory name calendar_user:references parent_category:references discarded_at:datetime --force
+rails g scaffold CalendarCategory name calendar_user:references parent_category:references nested_level:integer discarded_at:datetime --force
 rails g scaffold CalendarCategoryAppointment calendar_category:references calendar_group:references calendar_event:references discarded_at:datetime --force

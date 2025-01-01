@@ -86,6 +86,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
     t.string "name"
     t.uuid "calendar_user_id", null: false
     t.uuid "parent_category_id"
+    t.integer "nested_level", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -106,7 +107,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
   end
 
   create_table "calendar_event_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "calendar_group_id", null: false
+    t.uuid "calendar_group_id"
     t.uuid "calendar_event_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -179,6 +180,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.uuid "parent_category_id"
+    t.integer "nested_level", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
@@ -211,7 +213,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
     t.string "name"
     t.uuid "education_school_id", null: false
     t.uuid "parent_category_id"
-    t.integer "level", default: 0
+    t.integer "nested_level", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["education_school_id"], name: "index_education_categories_on_education_school_id"
@@ -503,6 +505,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
     t.string "name"
     t.uuid "payment_user_id", null: false
     t.uuid "parent_category_id"
+    t.integer "nested_level", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -568,7 +571,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
 
   create_table "payment_item_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "payment_item_id", null: false
-    t.uuid "payment_order_id", null: false
+    t.uuid "payment_order_id"
     t.integer "item_quantity"
     t.decimal "unit_price"
     t.datetime "discarded_at"
@@ -612,7 +615,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
   end
 
   create_table "payment_method_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "payment_user_id", null: false
+    t.uuid "payment_user_id"
     t.uuid "payment_method_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
