@@ -9,34 +9,65 @@ import ApplicationController from "../application_controller";
 import { EducationSchools_EducationCategoryApi } from "./api/education_schools/education_category_api";
 
 export default class Education_SelectCategoryController extends ApplicationController {
-  static targets = ["label", "select", "category"]
+  static targets = ["select", "association"]
   static values = {
     class: { type: Object, default: {
-      select: " hidden"
+      select: " "
     } },
     schoolId: { type: String, default: "" },
+    associationId: { type: String, default: "" },
+    associationParamName: { type: String, default: "education_school_id" },
     categoryId: { type: String, default: null }
   }
 
   init() {
-    this.initTarget()
-    this.initHTML()
+    // this.initTarget()
+    // this.initHTML()
   }
 
-  initTarget() {
-    this.element.querySelector('label').setAttribute(`data-${this.identifier}-target`, 'label')
-    this.element.querySelector('select').setAttribute(`data-${this.identifier}-target`, 'select')
+  initAction() {
+    this.associationTarget.dataset.action += ` change->${this.identifier}#associationChanged`
+    this.selectTarget.dataset.action += ` change->${this.identifier}#selectChanged`
   }
 
-  initHTML() {
-    this.addNewSelectHTML()
+  associationChanged(event) {
+    this.associationIdValue = event.target.value
   }
 
-  async addNewSelectHTML() {
-    const selectCategoryHTML = await this.selectCategoryHTML()
-    if (selectCategoryHTML.length === 0) { return }
-    this.element.insertAdjacentHTML("beforeend", selectCategoryHTML)
+  async associationIdValueChanged(value, previousValue) {
+    const categories = this.fetchCategoryFromAssociationId(value)
+
+    this.categoryIdValue = null
   }
+
+  async fetchCategoryFromAssociationId(associationId) {
+    const response = await EducationSchools_EducationCategoryApi.select({params: {[this.associationIdValue]: associationId}})
+    const responseData = response.data
+    if (responseData.length < 1) { return "" }
+    return responseData
+  }
+
+  async fetchChildrenCategory(categoryId) {
+    const response = await EducationSchools_EducationCategoryApi.select({params: {parent_category_id: categoryId}})
+    const responseData = response.data
+    if (responseData.length < 1) { return "" }
+    return responseData
+  }
+
+  // initTarget() {
+  //   this.element.querySelector('label').setAttribute(`data-${this.identifier}-target`, 'label')
+  //   this.element.querySelector('select').setAttribute(`data-${this.identifier}-target`, 'select')
+  // }
+
+  // initHTML() {
+  //   this.addNewSelectHTML()
+  // }
+
+  // async addNewSelectHTML() {
+  //   const selectCategoryHTML = await this.selectCategoryHTML()
+  //   if (selectCategoryHTML.length === 0) { return }
+  //   this.element.insertAdjacentHTML("beforeend", selectCategoryHTML)
+  // }
 
   selectChanged(event) {
     this.removeChildCategory(event)
@@ -55,24 +86,46 @@ export default class Education_SelectCategoryController extends ApplicationContr
     this.addNewSelectHTML()
   }
 
-  async selectCategoryHTML() {
-    const response = await EducationSchools_EducationCategoryApi.select({params: {parent_category_id: this.categoryIdValue}})
-    const responseData = response.data
-    if (responseData.length < 1) { return "" }
+  appendSelectCategoryHTML() {
+    const selectCategoryHTML = this.selectCategoryHTML()
+    if (selectCategoryHTML.length === 0) { return }
+    const last = this.selectTargets.length - 1
+    this.selectTargets[last].insertAdjacentHTML("afterend", selectCategoryHTML)
+  }
+  // async selectCategoryHTML() {
+  //   const response = await EducationSchools_EducationCategoryApi.select({params: {parent_category_id: this.categoryIdValue}})
+  //   const responseData = response.data
+  //   if (responseData.length < 1) { return "" }
+  //   return `
+  //   <select
+  //     class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full"
+  //     data-${this.identifier}-target="category"
+  //     data-action="change->${this.identifier}#selectChanged"
+  //     data-${this.identifier}-category-index-param="${this.categoryTargets.length}"
+  //   >
+  //     <option></option>
+  //     ${responseData.map((category) => {
+  //       return `
+  //         <option value="${category.id}">${category.name}</option>
+  //       `
+  //     }).join("")}
+  //   </select>`
+  // }
+
+  selectCategoryHTML(categories) {
     return `
-    <select
-      class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full"
-      data-${this.identifier}-target="category"
-      data-action="change->${this.identifier}#selectChanged"
-      data-${this.identifier}-category-index-param="${this.categoryTargets.length}"
-    >
-      <option></option>
-      ${responseData.map((category) => {
-        return `
-          <option value="${category.id}">${category.name}</option>
-        `
-      }).join("")}
-    </select>`
-    
+      <select
+        class="block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full"
+        data-${this.identifier}-target="category"
+        data-action="change->${this.identifier}#selectChanged"
+        data-${this.identifier}-category-index-param="${this.categoryTargets.length}"
+      >
+        <option></option>
+        ${categories.map((category) => {
+          return `
+            <option value="${category.id}">${category.name}</option>
+          `
+        }).join("")}
+      </select>`
   }
 }

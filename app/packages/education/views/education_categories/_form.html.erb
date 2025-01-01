@@ -18,12 +18,12 @@
 
   <div class="my-5">
     <%= form.label :education_school_id %>
-    <%= form.select :education_school_id, [@education_schools.pluck(:id, :name)], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    <%= form.select :education_school_id, @education_schools.pluck(:name, :id), { include_blank: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-category-target": "association"} } %>
   </div>
 
   <div class="my-5">
     <%= form.label :parent_category_id %>
-    <%= form.select :parent_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
+    <%= form.select :parent_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-category-target": "select"} } %>
   </div>
 
   <div class="inline">
