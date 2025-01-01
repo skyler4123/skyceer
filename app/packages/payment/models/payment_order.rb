@@ -7,6 +7,8 @@ class PaymentOrder < ApplicationRecord
   has_many :payment_item_appointments, dependent: :destroy
   has_many :payment_items, through: :payment_item_appointments
   has_many :payment_invoices, dependent: :destroy
+  has_many :payment_category_appointments, dependent: :destroy
+  has_many :payment_categories, through: :payment_category_appointments
 
   enum :status, { pending: 0, paid: 1, cancelled: 2, failed: 3, refunded: 4 }
 

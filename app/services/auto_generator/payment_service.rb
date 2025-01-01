@@ -7,6 +7,8 @@ class AutoGenerator::PaymentService
     self.payment_item_appointment
     self.payment_invoice
     self.payment_log
+    self.payment_category
+    self.payment_category_appointment
   end
 
   def self.payment_customer
@@ -113,6 +115,67 @@ class AutoGenerator::PaymentService
         amount: amount,
         note: Faker::Movie.quote
       )
+    end
+  end
+
+  def self.payment_category
+    PaymentUser.all.each do |payment_user|
+      10.times do
+        PaymentCategory.create!(
+          payment_user: payment_user,
+          name: "payment category name #{Faker::Movie.title}",
+          parent_category: [PaymentCategory.all.sample, nil].sample,
+        )
+      end
+    end
+  end
+
+  def self.payment_category_appointment
+    PaymentUser.all.each do |payment_user|
+
+      PaymentCustomer.all.each do |payment_customer|
+        PaymentCategoryAppointment.create!(
+          payment_category: payment_user.payment_categories.sample,
+          payment_customer: payment_customer,
+        )
+      
+        
+      payment_user.payment_orders.each do |payment_order|
+        PaymentCategoryAppointment.create!(
+          payment_category: payment_user.payment_categories.sample,
+          payment_order: payment_order,
+        )
+      end
+
+      payment_orders = payment_user.payment_orders
+      PaymentInvoice.where(payment_order: payment_orders).each do |payment_invoice|
+        PaymentCategoryAppointment.create!(
+          payment_category: payment_user.payment_categories.sample,
+          payment_invoice: payment_invoice,
+        )
+      end
+
+      payment_user.payment_items.each do |payment_item|
+        PaymentCategoryAppointment.create!(
+          payment_category: payment_user.payment_categories.sample,
+          payment_item: payment_item,
+        )
+      end
+
+      payment_user.payment_discounts.each do |payment_discount|
+        PaymentCategoryAppointment.create!(
+          payment_category: payment_user.payment_categories.sample,
+          payment_discount: payment_discount,
+        )
+      end
+      
+      payment_user.payment_methods.each do |payment_method|
+        PaymentCategoryAppointment.create!(
+          payment_category: payment_user.payment_categories.sample,
+          payment_method: payment_method,
+        )
+      end
+
     end
   end
 

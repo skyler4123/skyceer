@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_31_035900) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -499,6 +499,37 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_035900) do
     t.index ["user_id"], name: "index_estate_houses_on_user_id"
   end
 
+  create_table "payment_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.uuid "payment_user_id", null: false
+    t.uuid "parent_category_id"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_category_id"], name: "index_payment_categories_on_parent_category_id"
+    t.index ["payment_user_id"], name: "index_payment_categories_on_payment_user_id"
+  end
+
+  create_table "payment_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_category_id", null: false
+    t.uuid "payment_customer_id"
+    t.uuid "payment_method_id"
+    t.uuid "payment_discount_id"
+    t.uuid "payment_item_id"
+    t.uuid "payment_order_id"
+    t.uuid "payment_invoice_id"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["payment_category_id"], name: "index_payment_category_appointments_on_payment_category_id"
+    t.index ["payment_customer_id"], name: "index_payment_category_appointments_on_payment_customer_id"
+    t.index ["payment_discount_id"], name: "index_payment_category_appointments_on_payment_discount_id"
+    t.index ["payment_invoice_id"], name: "index_payment_category_appointments_on_payment_invoice_id"
+    t.index ["payment_item_id"], name: "index_payment_category_appointments_on_payment_item_id"
+    t.index ["payment_method_id"], name: "index_payment_category_appointments_on_payment_method_id"
+    t.index ["payment_order_id"], name: "index_payment_category_appointments_on_payment_order_id"
+  end
+
   create_table "payment_customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "payment_customerable_type", null: false
     t.uuid "payment_customerable_id", null: false
@@ -777,6 +808,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_035900) do
   add_foreign_key "estate_hotels", "users"
   add_foreign_key "estate_houses", "addresses"
   add_foreign_key "estate_houses", "users"
+  add_foreign_key "payment_categories", "payment_categories", column: "parent_category_id"
+  add_foreign_key "payment_categories", "payment_users"
+  add_foreign_key "payment_category_appointments", "payment_categories"
+  add_foreign_key "payment_category_appointments", "payment_customers"
+  add_foreign_key "payment_category_appointments", "payment_discounts"
+  add_foreign_key "payment_category_appointments", "payment_invoices"
+  add_foreign_key "payment_category_appointments", "payment_items"
+  add_foreign_key "payment_category_appointments", "payment_methods"
+  add_foreign_key "payment_category_appointments", "payment_orders"
   add_foreign_key "payment_discounts", "payment_users"
   add_foreign_key "payment_invoices", "payment_orders"
   add_foreign_key "payment_item_appointments", "payment_items"

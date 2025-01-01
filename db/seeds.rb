@@ -63,6 +63,9 @@ PaymentDiscount.destroy_all
 PaymentOrder.destroy_all
 PaymentInvoice.destroy_all
 PaymentLog.destroy_all
+PaymentCategory.destroy_all
+PaymentCategoryAppointment.destroy_all
+
 
 # Run generator for development
 AutoGenerator::SeedService.run
