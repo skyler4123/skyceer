@@ -1,5 +1,4 @@
 class EducationExamsController < EducationsController
-  before_action :set_education_schools, only: %i[ index ]
   before_action :set_education_exam, only: %i[ show edit update destroy ]
 
   # GET /education_exams or /education_exams.json

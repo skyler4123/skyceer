@@ -1,5 +1,6 @@
 class EducationsController < ApplicationController
   before_action :redirect_to_not_education_user
+  before_action :set_education_schools
 
   def index
     return redirect_to education_schools_path
