@@ -29,10 +29,14 @@ class EducationClassesController < EducationsController
 
     respond_to do |format|
       if @education_class.save
-        @education_category = EducationCategory.find(params[:education_class][:education_category_id])
-        @education_class.education_categories << @education_category
-        @education_course = EducationCourse.find(params[:education_class][:education_course_id])
-        @education_class.education_courses << @education_course
+        if params[:education_class][:education_category_id].present?
+          @education_category = EducationCategory.find(params[:education_class][:education_category_id])
+          @education_class.education_categories << @education_category
+        end
+        if params[:education_class][:education_course_id].present?
+          @education_course = EducationCourse.find(params[:education_class][:education_course_id])
+          @education_class.education_courses << @education_course
+        end
 
         format.html { redirect_to education_classes_path, notice: "Education class was successfully created." }
         format.json { render :show, status: :created, location: @education_class }

@@ -44,7 +44,9 @@ export default class Education_SelectCategoryController extends ApplicationContr
     if (categories.length < 1) { return }
     this.removeAllCategory()
     this.appendSelectCategory(categories)
-    this.educationCourseTarget.innerHTML = this.selectCourseHTML(courses)
+    if (this.hasEducationCourseTarget) {
+      this.educationCourseTarget.innerHTML = this.selectCourseHTML(courses)
+    }
   }
 
   removeAllCategory() {

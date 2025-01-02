@@ -26,6 +26,11 @@ class EducationRoomsController < EducationsController
 
     respond_to do |format|
       if @education_room.save
+        if params[:education_room][:education_category_id].present?
+          @education_category = EducationCategory.find(params[:education_room][:education_category_id])
+          @education_room.education_categories << @education_category
+        end
+
         format.html { redirect_to @education_room, notice: "Education room was successfully created." }
         format.json { render :show, status: :created, location: @education_room }
       else

@@ -26,8 +26,10 @@ class EducationCoursesController < EducationsController
 
     respond_to do |format|
       if @education_course.save
-        @education_category = EducationCategory.find(params[:education_course][:education_category_id])
-        @education_course.education_categories << @education_category
+        if params[:education_course][:education_category_id].present?
+          @education_category = EducationCategory.find(params[:education_course][:education_category_id])
+          @education_course.education_categories << @education_category
+        end
 
         format.html { redirect_to education_courses_path, notice: "Education course was successfully created." }
         format.json { render :show, status: :created, location: @education_course }
