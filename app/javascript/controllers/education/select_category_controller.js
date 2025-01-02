@@ -6,16 +6,17 @@
 //   </div>
 //   <div class="my-5">
 //     <%= form.label :parent_category_id %>
-//     <%= form.select :parent_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-category-target": "select"} } %>
+//     <%= form.select :parent_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-category-target": "educationCategory"} } %>
 //   </div>
 // <% end %>
 
 import "choices"
 import ApplicationController from "../application_controller";
-import { EducationSchools_EducationCategoryApi } from "./api/education_schools/education_category_api";
+import { EducationCategoriesApi } from "./api/education_categories_api";
+import { EducationCoursesApi } from "./api/education_courses_api";
 
 export default class Education_SelectCategoryController extends ApplicationController {
-  static targets = ["select", "category", "educationSchool"]
+  static targets = ["educationCategory", "educationCourse", "category", "educationSchool"]
   static values = {
     educationSchoolId: { type: String, default: "" },
     categoryId: { type: String, default: null }
@@ -23,7 +24,7 @@ export default class Education_SelectCategoryController extends ApplicationContr
 
   initAction() {
     this.educationSchoolTarget.dataset.action += ` change->${this.identifier}#educationSchoolSelected`
-    this.selectTarget.dataset.action += ` change->${this.identifier}#selectChanged`
+    this.educationCategoryTarget.dataset.action += ` change->${this.identifier}#educationCategoryChanged`
   }
 
   educationSchoolSelected(event) {
@@ -32,16 +33,18 @@ export default class Education_SelectCategoryController extends ApplicationContr
   }
 
   hideSelectTarget() {
-    this.selectTarget.style.display = "none"
+    this.educationCategoryTarget.style.display = "none"
   }
 
   async educationSchoolIdValueChanged(value, previousValue) {
     if (value.length === 0) { return }
 
     const categories = await this.fetchCategoryFromEducationSchoolId(value)
+    const courses = await this.fetchCourseFromEducationSchoolId(value)
     if (categories.length < 1) { return }
     this.removeAllCategory()
     this.appendSelectCategory(categories)
+    this.educationCourseTarget.innerHTML = this.selectCourseHTML(courses)
   }
 
   removeAllCategory() {
@@ -55,25 +58,32 @@ export default class Education_SelectCategoryController extends ApplicationContr
     if (this.hasCategoryTarget) {
       this.categoryTargets[this.categoryTargets.length - 1].insertAdjacentHTML("afterend", newCategoryHTML)
     } else {
-      this.selectTarget.insertAdjacentHTML("afterend", newCategoryHTML)
+      this.educationCategoryTarget.insertAdjacentHTML("afterend", newCategoryHTML)
     }
   }
 
   async fetchCategoryFromEducationSchoolId(educationSchoolId) {
-    const response = await EducationSchools_EducationCategoryApi.education_school_id({params: {"education_school_id": educationSchoolId}})
+    const response = await EducationCategoriesApi.education_school_id({params: {"education_school_id": educationSchoolId}})
     const responseData = response.data
     if (responseData.length < 1) { return [] }
     return responseData
   }
 
   async fetchCategoryFromParentCategoryId(categoryId) {
-    const response = await EducationSchools_EducationCategoryApi.parent_category_id({params: {parent_category_id: categoryId}})
+    const response = await EducationCategoriesApi.parent_category_id({params: {parent_category_id: categoryId}})
     const responseData = response.data
     if (responseData.length < 1) { return "" }
     return responseData
   }
 
-  selectChanged(event) {
+  async fetchCourseFromEducationSchoolId(educationSchoolId) {
+    const response = await EducationCoursesApi.education_school_id({params: {"education_school_id": educationSchoolId}})
+    const responseData = response.data
+    if (responseData.length < 1) { return "" }
+    return responseData
+  }
+
+  educationCategoryChanged(event) {
     this.removeChildCategory(event)
     this.categoryIdValue = event.target.value
   }
@@ -83,13 +93,6 @@ export default class Education_SelectCategoryController extends ApplicationContr
     this.categoryTargets.forEach((target, index) => {
       if (index > removeAfterIndex) { target.remove() }
     }) 
-  }
-
-  appendSelectCategoryHTML() {
-    const selectCategoryHTML = this.selectCategoryHTML()
-    if (selectCategoryHTML.length === 0) { return }
-    const last = this.selectTargets.length - 1
-    this.selectTargets[last].insertAdjacentHTML("afterend", selectCategoryHTML)
   }
 
   selectCategoryHTML(categories) {
@@ -110,6 +113,17 @@ export default class Education_SelectCategoryController extends ApplicationContr
     `
   }
 
+  selectCourseHTML(courses) {
+    return `
+      <option></option>
+      ${courses.map((course) => {
+        return `
+          <option value="${course.id}">${course.name}</option>
+        `
+      }).join("")}
+    `
+  }
+
   categorySelected(event) {
     this.categoryIdValue = event.target.value
     this.removeChildCategory(event)
@@ -118,13 +132,13 @@ export default class Education_SelectCategoryController extends ApplicationContr
 
   async categoryIdValueChanged(value, previousValue) {
     this.setValueForSelectTarget(value)
-    this.selectTarget.value = value
+    this.educationCategoryTarget.value = value
     const categories = await this.fetchCategoryFromParentCategoryId(value)
     if (categories.length < 1) { return }
     this.appendSelectCategory(categories)
   }
 
   setValueForSelectTarget(value) {
-    this.selectTarget.innerHTML = `<option value="${value}" selected></option>`
+    this.educationCategoryTarget.innerHTML = `<option value="${value}" selected></option>`
   }
 }

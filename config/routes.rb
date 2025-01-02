@@ -49,7 +49,11 @@ Rails.application.routes.draw do
     end
   end
   resources :educations, only: [:index]
-  resources :education_courses
+  resources :education_courses do
+    collection do
+      get :education_school_id
+    end
+  end
   resources :education_rooms
   resources :education_classes
   resources :education_teachers

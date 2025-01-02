@@ -26,7 +26,10 @@ class EducationCoursesController < EducationsController
 
     respond_to do |format|
       if @education_course.save
-        format.html { redirect_to @education_course, notice: "Education course was successfully created." }
+        @education_category = EducationCategory.find(params[:education_course][:education_category_id])
+        @education_course.education_categories << @education_category
+
+        format.html { redirect_to education_courses_path, notice: "Education course was successfully created." }
         format.json { render :show, status: :created, location: @education_course }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -58,6 +61,11 @@ class EducationCoursesController < EducationsController
     end
   end
 
+  def education_school_id
+    @education_school = EducationSchool.find(params[:education_school_id])
+    @education_courses = EducationCourse.where(education_school: @education_school)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_education_course
@@ -66,6 +74,6 @@ class EducationCoursesController < EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_course_params
-      params.expect(education_course: [ :name, :description, :education_school_id, :education_category_id ])
+      params.expect(education_course: [ :name, :description, :education_school_id ])
     end
 end
