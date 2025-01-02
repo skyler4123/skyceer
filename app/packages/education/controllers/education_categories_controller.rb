@@ -26,7 +26,7 @@ class EducationCategoriesController < EducationsController
 
     respond_to do |format|
       if @education_category.save
-        format.html { redirect_to @education_category, notice: "Education category was successfully created." }
+        format.html { redirect_to education_categories_path, notice: "Education category was successfully created." }
         format.json { render :show, status: :created, location: @education_category }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -75,6 +75,6 @@ class EducationCategoriesController < EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_category_params
-      params.expect(education_category: [ :name, :parent_category_id ])
+      params.expect(education_category: [ :name, :education_school_id, :parent_category_id ])
     end
 end

@@ -79,10 +79,6 @@ export default class Education_SelectCategoryController extends ApplicationContr
     }) 
   }
 
-  categoryIdValueChanged(value, previousValue) {
-    this.selectTarget.innerHTML = `<option value="${value}"></option>`
-  }
-
   appendSelectCategoryHTML() {
     const selectCategoryHTML = this.selectCategoryHTML()
     if (selectCategoryHTML.length === 0) { return }
@@ -104,7 +100,8 @@ export default class Education_SelectCategoryController extends ApplicationContr
             <option value="${category.id}">${category.name}</option>
           `
         }).join("")}
-      </select>`
+      </select>
+    `
   }
 
   categorySelected(event) {
@@ -114,8 +111,14 @@ export default class Education_SelectCategoryController extends ApplicationContr
   }
 
   async categoryIdValueChanged(value, previousValue) {
+    this.setValueForSelectTarget(value)
+    this.selectTarget.value = value
     const categories = await this.fetchCategoryFromParentCategoryId(value)
     if (categories.length < 1) { return }
     this.appendSelectCategory(categories)
+  }
+
+  setValueForSelectTarget(value) {
+    this.selectTarget.innerHTML = `<option value="${value}" selected></option>`
   }
 }
