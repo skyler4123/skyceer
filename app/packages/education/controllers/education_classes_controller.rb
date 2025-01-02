@@ -29,7 +29,12 @@ class EducationClassesController < EducationsController
 
     respond_to do |format|
       if @education_class.save
-        format.html { redirect_to @education_class, notice: "Education class was successfully created." }
+        @education_category = EducationCategory.find(params[:education_class][:education_category_id])
+        @education_class.education_categories << @education_category
+        @education_course = EducationCourse.find(params[:education_class][:education_course_id])
+        @education_class.education_courses << @education_course
+
+        format.html { redirect_to education_classes_path, notice: "Education class was successfully created." }
         format.json { render :show, status: :created, location: @education_class }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -69,6 +74,6 @@ class EducationClassesController < EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_class_params
-      params.require(:education_class).permit(:education_school_id, :name, :category)
+      params.require(:education_class).permit(:education_school_id, :name)
     end
 end
