@@ -54,7 +54,12 @@ Rails.application.routes.draw do
   resources :education_classes
   resources :education_teachers
   resources :education_students
-  resources :education_categories
+  resources :education_categories do
+    collection do
+      get :education_school_id
+      get :parent_category_id
+    end
+  end
   resources :education_exam_questions
   resources :education_questions
   resources :education_exams

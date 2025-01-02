@@ -3,9 +3,13 @@ import { defaultHeaders } from "../api_helpers";
 
 export const EducationSchools_EducationCategoryApi = {
 
-  // select({params, headers} = {}) {
-  //   return axios.get(`/education_schools/${educationSchoolId()}/education_categories/select`, { params: params, headers: {...defaultHeaders(), ...headers} })
-  // },
+  education_school_id({params, headers} = {}) {
+    return axios.get(`/education_categories/education_school_id`, { params: params, headers: {...defaultHeaders(), ...headers} })
+  },
+
+  parent_category_id({params, headers} = {}) {
+    return axios.get(`/education_categories/parent_category_id`, { params: params, headers: {...defaultHeaders(), ...headers} })
+  },
 
   // show({id, params, headers} = {}) {
   //   return axios.get(`/education_schools/${educationSchoolId()}/education_categories/${id}`, { params: params, headers: {...defaultHeaders(), ...headers} })

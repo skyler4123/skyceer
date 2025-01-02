@@ -58,6 +58,15 @@ class EducationCategoriesController < EducationsController
     end
   end
 
+  def education_school_id
+    @education_school = EducationSchool.find(params[:education_school_id])
+    @education_categories = EducationCategory.where(education_school: @education_school)
+  end
+
+  def parent_category_id
+    @education_categories = EducationCategory.where(parent_category_id: params[:parent_category_id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_education_category
