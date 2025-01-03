@@ -305,7 +305,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_question_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_question_id", null: false
-    t.uuid "education_exam_id"
+    t.string "education_question_appointmentable_type", null: false
+    t.uuid "education_question_appointmentable_id", null: false
     t.decimal "score"
     t.integer "time"
     t.string "status"
@@ -313,7 +314,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.integer "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_exam_id"], name: "index_education_question_appointments_on_education_exam_id"
+    t.index ["education_question_appointmentable_type", "education_question_appointmentable_id"], name: "index_education_question_appointments_on_education_question_app"
     t.index ["education_question_id"], name: "index_education_question_appointments_on_education_question_id"
   end
 
@@ -781,7 +782,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_lessons", "education_schools"
   add_foreign_key "education_lessons", "education_subjects"
   add_foreign_key "education_lessons", "education_teachers"
-  add_foreign_key "education_question_appointments", "education_exams"
   add_foreign_key "education_question_appointments", "education_questions"
   add_foreign_key "education_questions", "education_schools"
   add_foreign_key "education_questions", "education_teachers"

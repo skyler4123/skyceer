@@ -324,7 +324,8 @@ class AutoGenerator::EducationService
     EducationSchool.all.each do |education_school|
       education_school.education_questions.each do |education_question|
         EducationQuestionAppointment.create!(
-          education_exam: education_school.education_exams.sample,
+          # education_exam: education_school.education_exams.sample,
+          education_question_appointmentable: education_school.education_exams.sample,
           education_question: education_question,
           score: rand(0..10),
           time: rand(0..10),
