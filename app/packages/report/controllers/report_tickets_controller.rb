@@ -60,11 +60,11 @@ class ReportTicketsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_report_ticket
-      @report_ticket = ReportTicket.find(params[:id])
+      @report_ticket = ReportTicket.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
     def report_ticket_params
-      params.require(:report_ticket).permit(:title, :content, :category, :status, :reporter_email)
+      params.expect(report_ticket: [ :report_user_id, :title, :content, :status, :email, :phone, :nation, :discarded_at ])
     end
 end

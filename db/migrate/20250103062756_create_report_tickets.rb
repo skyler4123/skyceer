@@ -1,15 +1,16 @@
-class CreateReportTickets < ActiveRecord::Migration[7.2]
+class CreateReportTickets < ActiveRecord::Migration[8.0]
   def change
     create_table :report_tickets, id: :uuid do |t|
+      t.references :report_user, null: true, foreign_key: true, type: :uuid
       t.string :title
       t.string :content
-      t.integer :category
       t.integer :status
-      t.string :reporter_email
+      t.string :email
+      t.string :phone
+      t.string :nation
       t.datetime :discarded_at
 
       t.timestamps
     end
-    add_index :report_tickets, :discarded_at
   end
 end

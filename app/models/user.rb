@@ -44,4 +44,5 @@ class User < ApplicationRecord
   
   include User::EducationConcern
   include User::PaymentConcern
+  include User::ReportConcern
 end

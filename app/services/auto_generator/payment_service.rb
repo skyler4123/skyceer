@@ -136,14 +136,14 @@ class AutoGenerator::PaymentService
       PaymentCustomer.all.each do |payment_customer|
         PaymentCategoryAppointment.create!(
           payment_category: payment_user.payment_categories.sample,
-          payment_customer: payment_customer,
+          payment_category_appointmentable: payment_customer,
         )
       end
         
       payment_user.payment_orders.each do |payment_order|
         PaymentCategoryAppointment.create!(
           payment_category: payment_user.payment_categories.sample,
-          payment_order: payment_order,
+          payment_category_appointmentable: payment_order,
         )
       end
 
@@ -151,28 +151,28 @@ class AutoGenerator::PaymentService
       PaymentInvoice.where(payment_order: payment_orders).each do |payment_invoice|
         PaymentCategoryAppointment.create!(
           payment_category: payment_user.payment_categories.sample,
-          payment_invoice: payment_invoice,
+          payment_category_appointmentable: payment_invoice,
         )
       end
 
       payment_user.payment_items.each do |payment_item|
         PaymentCategoryAppointment.create!(
           payment_category: payment_user.payment_categories.sample,
-          payment_item: payment_item,
+          payment_category_appointmentable: payment_item,
         )
       end
 
       payment_user.payment_discounts.each do |payment_discount|
         PaymentCategoryAppointment.create!(
           payment_category: payment_user.payment_categories.sample,
-          payment_discount: payment_discount,
+          payment_category_appointmentable: payment_discount,
         )
       end
 
       payment_user.payment_methods.each do |payment_method|
         PaymentCategoryAppointment.create!(
           payment_category: payment_user.payment_categories.sample,
-          payment_method: payment_method,
+          payment_category_appointmentable: payment_method,
         )
       end
 

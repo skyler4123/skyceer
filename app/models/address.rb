@@ -3,6 +3,9 @@
 class Address < ApplicationRecord
   include Address::SeedConcern
 
+  has_many :category_appointments, as: :category_appointmentable, dependent: :destroy
+  has_many :categories, through: :category_appointments
+
   before_save :update_level_total
 
   def update_level_total

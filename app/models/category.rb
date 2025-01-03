@@ -1,9 +1,8 @@
 class Category < ApplicationRecord
-  # # a category can have many subcategories.
-  # has_many :subcategories, class_name: "Category", foreign_key: "parent_category_id", dependent: :destroy
-
-  # # a category can have one parent category.
-  # belongs_to :parent_category, class_name: "Category", optional: true
-
   include CategoryConcern
+
+  has_many :category_appointments, dependent: :destroy
+  has_many :addresses, through: :category_appointments, source: :category_appointmentable, source_type: 'Address'
+  # has_many :report_tickets, through: :category_appointments, source: :category_appointmentable, source_type: 'ReportTicket'
+  # has_many :report_frontends, through: :category_appointments, source: :category_appointmentable, source_type: 'ReportFrontend'
 end

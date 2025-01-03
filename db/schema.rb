@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -186,6 +186,16 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
     t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
   end
 
+  create_table "category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "category_id", null: false
+    t.string "category_appointmentable_type", null: false
+    t.uuid "category_appointmentable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_appointmentable_type", "category_appointmentable_id"], name: "index_category_appointments_on_category_appointmentable"
+    t.index ["category_id"], name: "index_category_appointments_on_category_id"
+  end
+
   create_table "demos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "string"
     t.text "text"
@@ -267,7 +277,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
   create_table "education_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
     t.string "name"
-    t.string "category"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -515,22 +524,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
 
   create_table "payment_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "payment_category_id", null: false
-    t.uuid "payment_customer_id"
-    t.uuid "payment_method_id"
-    t.uuid "payment_discount_id"
-    t.uuid "payment_item_id"
-    t.uuid "payment_order_id"
-    t.uuid "payment_invoice_id"
+    t.string "payment_category_appointmentable_type", null: false
+    t.uuid "payment_category_appointmentable_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["payment_category_appointmentable_type", "payment_category_appointmentable_id"], name: "index_payment_category_appointments_on_payment_category_appoint"
     t.index ["payment_category_id"], name: "index_payment_category_appointments_on_payment_category_id"
-    t.index ["payment_customer_id"], name: "index_payment_category_appointments_on_payment_customer_id"
-    t.index ["payment_discount_id"], name: "index_payment_category_appointments_on_payment_discount_id"
-    t.index ["payment_invoice_id"], name: "index_payment_category_appointments_on_payment_invoice_id"
-    t.index ["payment_item_id"], name: "index_payment_category_appointments_on_payment_item_id"
-    t.index ["payment_method_id"], name: "index_payment_category_appointments_on_payment_method_id"
-    t.index ["payment_order_id"], name: "index_payment_category_appointments_on_payment_order_id"
   end
 
   create_table "payment_customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -661,26 +661,60 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
     t.index ["payment_userable_type", "payment_userable_id"], name: "index_payment_users_on_payment_userable"
   end
 
-  create_table "report_frontends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id"
-    t.string "content"
+  create_table "report_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.uuid "parent_category_id"
+    t.integer "nested_level"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["discarded_at"], name: "index_report_frontends_on_discarded_at"
-    t.index ["user_id"], name: "index_report_frontends_on_user_id"
+    t.index ["parent_category_id"], name: "index_report_categories_on_parent_category_id"
+  end
+
+  create_table "report_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "report_category_id", null: false
+    t.string "report_category_appointmentable_type", null: false
+    t.uuid "report_category_appointmentable_id", null: false
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_category_appointmentable_type", "report_category_appointmentable_id"], name: "index_report_category_appointments_on_report_category_appointme"
+    t.index ["report_category_id"], name: "index_report_category_appointments_on_report_category_id"
+  end
+
+  create_table "report_frontends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "report_user_id"
+    t.string "content"
+    t.string "url"
+    t.json "cookie"
+    t.integer "status"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_user_id"], name: "index_report_frontends_on_report_user_id"
   end
 
   create_table "report_tickets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "report_user_id"
     t.string "title"
     t.string "content"
-    t.integer "category"
     t.integer "status"
-    t.string "reporter_email"
+    t.string "email"
+    t.string "phone"
+    t.string "nation"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["discarded_at"], name: "index_report_tickets_on_discarded_at"
+    t.index ["report_user_id"], name: "index_report_tickets_on_report_user_id"
+  end
+
+  create_table "report_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "report_userable_type", null: false
+    t.uuid "report_userable_id", null: false
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_userable_type", "report_userable_id"], name: "index_report_users_on_report_userable"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -754,6 +788,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
   add_foreign_key "calendar_events", "calendar_users"
   add_foreign_key "calendar_groups", "calendar_users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
+  add_foreign_key "category_appointments", "categories"
   add_foreign_key "education_admins", "users"
   add_foreign_key "education_categories", "education_categories", column: "parent_category_id"
   add_foreign_key "education_categories", "education_schools"
@@ -814,12 +849,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
   add_foreign_key "payment_categories", "payment_categories", column: "parent_category_id"
   add_foreign_key "payment_categories", "payment_users"
   add_foreign_key "payment_category_appointments", "payment_categories"
-  add_foreign_key "payment_category_appointments", "payment_customers"
-  add_foreign_key "payment_category_appointments", "payment_discounts"
-  add_foreign_key "payment_category_appointments", "payment_invoices"
-  add_foreign_key "payment_category_appointments", "payment_items"
-  add_foreign_key "payment_category_appointments", "payment_methods"
-  add_foreign_key "payment_category_appointments", "payment_orders"
   add_foreign_key "payment_discounts", "payment_users"
   add_foreign_key "payment_invoices", "payment_orders"
   add_foreign_key "payment_item_appointments", "payment_items"
@@ -837,7 +866,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_221918) do
   add_foreign_key "payment_orders", "payment_discounts"
   add_foreign_key "payment_orders", "payment_methods"
   add_foreign_key "payment_orders", "payment_users"
-  add_foreign_key "report_frontends", "users"
+  add_foreign_key "report_categories", "report_categories", column: "parent_category_id"
+  add_foreign_key "report_category_appointments", "report_categories"
+  add_foreign_key "report_frontends", "report_users"
+  add_foreign_key "report_tickets", "report_users"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "addresses"
   add_foreign_key "vehicle_cars", "users"

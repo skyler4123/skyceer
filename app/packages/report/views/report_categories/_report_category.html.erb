@@ -1,0 +1,22 @@
+<div id="<%= dom_id report_category %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= report_category.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Parent category:</strong>
+    <%= report_category.parent_category_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Nested level:</strong>
+    <%= report_category.nested_level %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Discarded at:</strong>
+    <%= report_category.discarded_at %>
+  </p>
+
+</div>

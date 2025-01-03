@@ -1,12 +1,27 @@
 <div id="<%= dom_id report_frontend %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= report_frontend.user_id %>
+    <strong class="block font-medium mb-1">Report user:</strong>
+    <%= report_frontend.report_user_id %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Content:</strong>
-    <%= report_frontend.content %>
+    <strong class="block font-medium mb-1">Url:</strong>
+    <%= report_frontend.url %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Cookie:</strong>
+    <%= report_frontend.cookie %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= report_frontend.status %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Discarded at:</strong>
+    <%= report_frontend.discarded_at %>
   </p>
 
 </div>

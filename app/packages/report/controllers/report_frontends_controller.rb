@@ -60,11 +60,11 @@ class ReportFrontendsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_report_frontend
-      @report_frontend = ReportFrontend.find(params[:id])
+      @report_frontend = ReportFrontend.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
     def report_frontend_params
-      params.require(:report_frontend).permit(:user_id, :content)
+      params.expect(report_frontend: [ :report_user_id, :url, :cookie, :status, :discarded_at ])
     end
 end

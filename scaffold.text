@@ -1,6 +1,12 @@
+DOC
+https://medium.com/@utkukaynar/polymorphic-has-many-through-associations-in-ruby-on-rails-97778e1cea1a
+
+
 APPLICATION
 rails g scaffold NosqlUser user_id --force 
 rails g scaffold Address alpha2:string:index alpha3:string:index continent:string:index nationality:string:index region:string:index longitude:decimal latitude:decimal level_total:integer level_1:string:index level_2:string:index level_3:string:index level_4:string:index level_5:string:index level_6:string:index level_7:string:index level_8:string:index level_9:string:index level_10:string:index discarded_at:datetime --force
+rails g scaffold Category name parent_category:references nested_level:integer discarded_at:datetime --force
+rails g scaffold CategoryAppointment category:references category_appointmentable:references{polymorphic} --force
 
 EDUCATION
 rails g scaffold EducationAdmin user:references name discarded_at:datetime --force
@@ -13,10 +19,10 @@ rails g scaffold EducationLesson title content education_school:references educa
 rails g scaffold EducationShift education_school:references education_class:references education_subject:references education_teacher:references name discarded_at:datetime --force
 
 
-rails g scaffold EducationClassAppointment education_class:references education_teacher:references education_student:references education_subject:references education_room:references --force
-rails g scaffold EducationCategoryAppointment education_category:references education_class:references education_room:references education_teacher:references education_student:references education_subject:references education_course:references education_exam:references education_question:references education_lesson:references education_shift:references level:integer --force
+rails g scaffold EducationClassAppointment education_class:references education_class_appointmentable:references{polymorphic} --force
+rails g scaffold EducationCategoryAppointment education_category:references education_category_appointmentable:references{polymorphic} --force
 rails g scaffold EducationQuestionAppointment education_question:references education_exam:references score:decimal time:integer status anwser result:integer --force
-rails g scaffold EducationSubjectAppointment education_subject:references education_class:references education_teacher:references --force
+rails g scaffold EducationSubjectAppointment education_subject:references education_subject_appointmentable:references{polymorphic} --force
 
 
 PAYMENT
@@ -31,7 +37,7 @@ rails g scaffold PaymentItemAppointment payment_item:references payment_order:re
 rails g scaffold PaymentMethodAppointment payment_user:references payment_method:references discarded_at:datetime --force
 rails g scaffold PaymentLog payment_user:references payment_customer:references payment_order:references payment_method:references payment_discount:references payment_invoice:references action amount:decimal note discarded_at:datetime --force
 rails g scaffold PaymentCategory name payment_user:references parent_category:references nested_level:integer discarded_at:datetime --force
-rails g scaffold PaymentCategoryAppointment payment_category:references payment_customer:references payment_method:references payment_discount:references payment_item:references payment_order:references payment_invoice:references discarded_at:datetime --force
+rails g scaffold PaymentCategoryAppointment payment_category:references payment_category_appointmentable:references{polymorphic} discarded_at:datetime --force
 
 
 CALENDAR
@@ -41,3 +47,10 @@ rails g scaffold CalendarEvent calendar_user:references calendar_eventable:refer
 rails g scaffold CalendarEventAppointment calendar_group:references calendar_event:references discarded_at:datetime --force
 rails g scaffold CalendarCategory name calendar_user:references parent_category:references nested_level:integer discarded_at:datetime --force
 rails g scaffold CalendarCategoryAppointment calendar_category:references calendar_group:references calendar_event:references discarded_at:datetime --force
+
+REPORT
+rails g scaffold ReportUser report_userable:references{polymorphic} discarded_at:datetime --force
+rails g scaffold ReportTicket report_user:references title content status:integer email phone nation discarded_at:datetime --force
+rails g scaffold ReportFrontend report_user:references content url cookie:json status:integer discarded_at:datetime --force
+rails g scaffold ReportCategory name parent_category:references nested_level:integer discarded_at:datetime --force
+rails g scaffold ReportCategoryAppointment report_category:references report_category_appointmentable:references{polymorphic} discarded_at:datetime --force
