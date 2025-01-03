@@ -422,11 +422,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_subject_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_subject_id", null: false
-    t.uuid "education_teacher_id"
+    t.string "education_subject_appointmentable_type", null: false
+    t.uuid "education_subject_appointmentable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["education_subject_appointmentable_type", "education_subject_appointmentable_id"], name: "index_education_subject_appointments_on_education_subject_appoi"
     t.index ["education_subject_id"], name: "index_education_subject_appointments_on_education_subject_id"
-    t.index ["education_teacher_id"], name: "index_education_subject_appointments_on_education_teacher_id"
   end
 
   create_table "education_subjects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -798,7 +799,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_shifts", "education_teachers"
   add_foreign_key "education_students", "users"
   add_foreign_key "education_subject_appointments", "education_subjects"
-  add_foreign_key "education_subject_appointments", "education_teachers"
   add_foreign_key "education_subjects", "education_schools"
   add_foreign_key "education_teachers", "users"
   add_foreign_key "estate_condos", "addresses"

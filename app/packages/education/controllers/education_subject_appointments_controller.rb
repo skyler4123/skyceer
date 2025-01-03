@@ -1,4 +1,4 @@
-class EducationSubjectAppointmentsController < EducationsController
+class EducationSubjectAppointmentsController < ApplicationController
   before_action :set_education_subject_appointment, only: %i[ show edit update destroy ]
 
   # GET /education_subject_appointments or /education_subject_appointments.json
@@ -65,6 +65,6 @@ class EducationSubjectAppointmentsController < EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_subject_appointment_params
-      params.expect(education_subject_appointment: [ :education_subject_id, :education_class_id, :education_teacher_id ])
+      params.expect(education_subject_appointment: [ :education_subject_id, :education_subject_appointmentable_id, :education_subject_appointmentable_type ])
     end
 end

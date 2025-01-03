@@ -341,7 +341,8 @@ class AutoGenerator::EducationService
     EducationSchool.all.each do |education_school|
       education_school.education_subjects.each do |education_subject|
         EducationSubjectAppointment.create!(
-          education_teacher: education_school.education_teachers.sample,
+          # education_teacher: education_school.education_teachers.sample,
+          education_subject_appointmentable: education_school.education_teachers.sample,
           education_subject: education_subject,
         )
       end
