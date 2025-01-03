@@ -7,6 +7,6 @@ class EducationExam < ApplicationRecord
 
   has_many :education_question_appointments, dependent: :destroy
   has_many :education_questions, through: :education_question_appointments
-  has_many :education_category_appointments, dependent: :destroy
+  has_many :education_category_appointments, as: :education_category_appointmentable, dependent: :destroy
   has_many :education_categories, through: :education_category_appointments
 end

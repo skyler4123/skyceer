@@ -11,7 +11,7 @@ class EducationClass < ApplicationRecord
   has_many :education_courses, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationCourse'
   has_many :education_rooms, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationRoom'
   
-  has_many :education_category_appointments, dependent: :destroy
+  has_many :education_category_appointments, as: :education_category_appointmentable, dependent: :destroy
   has_many :education_categories, through: :education_category_appointments
 
   has_many :education_shifts, dependent: :destroy

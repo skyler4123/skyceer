@@ -232,29 +232,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_category_id", null: false
-    t.uuid "education_class_id"
-    t.uuid "education_room_id"
-    t.uuid "education_teacher_id"
-    t.uuid "education_student_id"
-    t.uuid "education_subject_id"
-    t.uuid "education_course_id"
-    t.uuid "education_exam_id"
-    t.uuid "education_question_id"
-    t.uuid "education_lesson_id"
-    t.uuid "education_shift_id"
+    t.string "education_category_appointmentable_type", null: false
+    t.uuid "education_category_appointmentable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["education_category_appointmentable_type", "education_category_appointmentable_id"], name: "index_education_category_appointments_on_education_category_app"
     t.index ["education_category_id"], name: "index_education_category_appointments_on_education_category_id"
-    t.index ["education_class_id"], name: "index_education_category_appointments_on_education_class_id"
-    t.index ["education_course_id"], name: "index_education_category_appointments_on_education_course_id"
-    t.index ["education_exam_id"], name: "index_education_category_appointments_on_education_exam_id"
-    t.index ["education_lesson_id"], name: "index_education_category_appointments_on_education_lesson_id"
-    t.index ["education_question_id"], name: "index_education_category_appointments_on_education_question_id"
-    t.index ["education_room_id"], name: "index_education_category_appointments_on_education_room_id"
-    t.index ["education_shift_id"], name: "index_education_category_appointments_on_education_shift_id"
-    t.index ["education_student_id"], name: "index_education_category_appointments_on_education_student_id"
-    t.index ["education_subject_id"], name: "index_education_category_appointments_on_education_subject_id"
-    t.index ["education_teacher_id"], name: "index_education_category_appointments_on_education_teacher_id"
   end
 
   create_table "education_class_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -786,16 +769,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_categories", "education_categories", column: "parent_category_id"
   add_foreign_key "education_categories", "education_schools"
   add_foreign_key "education_category_appointments", "education_categories"
-  add_foreign_key "education_category_appointments", "education_classes"
-  add_foreign_key "education_category_appointments", "education_courses"
-  add_foreign_key "education_category_appointments", "education_exams"
-  add_foreign_key "education_category_appointments", "education_lessons"
-  add_foreign_key "education_category_appointments", "education_questions"
-  add_foreign_key "education_category_appointments", "education_rooms"
-  add_foreign_key "education_category_appointments", "education_shifts"
-  add_foreign_key "education_category_appointments", "education_students"
-  add_foreign_key "education_category_appointments", "education_subjects"
-  add_foreign_key "education_category_appointments", "education_teachers"
   add_foreign_key "education_class_appointments", "education_classes"
   add_foreign_key "education_classes", "education_schools"
   add_foreign_key "education_courses", "education_schools"
