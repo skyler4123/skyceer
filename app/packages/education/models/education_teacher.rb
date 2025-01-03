@@ -4,7 +4,7 @@ class EducationTeacher < ApplicationRecord
 
   belongs_to :user
   
-  has_many :education_school_appointments, dependent: :destroy
+  has_many :education_school_appointments, as: :education_school_appointmentable, dependent: :destroy
   has_many :education_schools, through: :education_school_appointments
 
   has_many :education_questions, dependent: :destroy

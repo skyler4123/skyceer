@@ -348,15 +348,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_school_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
-    t.uuid "education_admin_id"
-    t.uuid "education_teacher_id"
-    t.uuid "education_student_id"
+    t.string "education_school_appointmentable_type", null: false
+    t.uuid "education_school_appointmentable_id", null: false
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_admin_id"], name: "index_education_school_appointments_on_education_admin_id"
+    t.index ["education_school_appointmentable_type", "education_school_appointmentable_id"], name: "index_education_school_appointments_on_education_school_appoint"
     t.index ["education_school_id"], name: "index_education_school_appointments_on_education_school_id"
-    t.index ["education_student_id"], name: "index_education_school_appointments_on_education_student_id"
-    t.index ["education_teacher_id"], name: "index_education_school_appointments_on_education_teacher_id"
   end
 
   create_table "education_schools", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -787,10 +785,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_questions", "education_schools"
   add_foreign_key "education_questions", "education_teachers"
   add_foreign_key "education_rooms", "education_schools"
-  add_foreign_key "education_school_appointments", "education_admins"
   add_foreign_key "education_school_appointments", "education_schools"
-  add_foreign_key "education_school_appointments", "education_students"
-  add_foreign_key "education_school_appointments", "education_teachers"
   add_foreign_key "education_schools", "addresses"
   add_foreign_key "education_schools", "users"
   add_foreign_key "education_shifts", "education_classes"

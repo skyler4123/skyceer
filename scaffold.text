@@ -10,7 +10,6 @@ rails g scaffold CategoryAppointment category:references category_appointmentabl
 
 EDUCATION
 rails g scaffold EducationAdmin user:references name discarded_at:datetime --force
-rails g scaffold EducationSchoolAppointment education_school:references education_admin:references education_teacher:references education_student:references discarded_at:datetime --force
 rails g scaffold EducationSubject name description education_school:references education_category:references discarded_at:datetime --force
 rails g scaffold EducationCourse name description education_school:references education_category:references discarded_at:datetime --force
 rails g scaffold EducationExam name description score:decimal status:integer education_school:references education_subject:references education_student:references education_category:references education_course:references discarded_at:datetime --force
@@ -18,7 +17,7 @@ rails g scaffold EducationQuestion education_school:references education_teacher
 rails g scaffold EducationLesson title content education_school:references education_class:references education_subject:references education_teacher:references discarded_at:datetime --force
 rails g scaffold EducationShift education_school:references education_class:references education_subject:references education_teacher:references name discarded_at:datetime --force
 
-
+rails g scaffold EducationSchoolAppointment education_school:references education_school_appointmentable:references{polymorphic} discarded_at:datetime --force
 rails g scaffold EducationClassAppointment education_class:references education_class_appointmentable:references{polymorphic} --force
 rails g scaffold EducationCategoryAppointment education_category:references education_category_appointmentable:references{polymorphic} --force
 rails g scaffold EducationQuestionAppointment education_question:references education_question_appointmentable:references{polymorphic} score:decimal time:integer status anwser result:integer --force

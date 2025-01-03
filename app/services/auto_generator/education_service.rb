@@ -114,19 +114,19 @@ class AutoGenerator::EducationService
     EducationAdmin.all.each do |education_admin|
       EducationSchoolAppointment.create!(
         education_school: EducationSchool.all.sample,
-        education_admin: education_admin,
+        education_school_appointmentable: education_admin,
       )
     end
     EducationTeacher.all.each do |education_teacher|
       EducationSchoolAppointment.create!(
         education_school: EducationSchool.all.sample,
-        education_teacher: education_teacher,
+        education_school_appointmentable: education_teacher,
       )
     end
     EducationStudent.all.each do |education_student|
       EducationSchoolAppointment.create!(
         education_school: EducationSchool.all.sample,
-        education_student: education_student,
+        education_school_appointmentable: education_student,
       )
     end
   end
