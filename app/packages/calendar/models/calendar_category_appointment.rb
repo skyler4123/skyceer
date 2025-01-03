@@ -1,5 +1,4 @@
 class CalendarCategoryAppointment < ApplicationRecord
   belongs_to :calendar_category
-  belongs_to :calendar_group, optional: true
-  belongs_to :calendar_event, optional: true
+  belongs_to :calendar_category_appointmentable, polymorphic: true
 end

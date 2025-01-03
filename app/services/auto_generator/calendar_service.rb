@@ -79,13 +79,13 @@ class AutoGenerator::CalendarService
       calendar_user.calendar_groups.each do |calendar_group|
         CalendarCategoryAppointment.create!(
           calendar_category: calendar_user.calendar_categories.sample,
-          calendar_group: calendar_group
+          calendar_category_appointmentable: calendar_group
         )
       end
       calendar_user.calendar_events.each do |calendar_event|
         CalendarCategoryAppointment.create!(
           calendar_category: calendar_user.calendar_categories.sample,
-          calendar_event: calendar_event
+          calendar_category_appointmentable: calendar_event
         )
       end
     end

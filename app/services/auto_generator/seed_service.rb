@@ -6,7 +6,7 @@ class AutoGenerator::SeedService
         
     AutoGenerator::EducationService.run
     # AutoGenerator::VehicleService.run
-    # AutoGenerator::CalendarService.run
+    AutoGenerator::CalendarService.run
     # AutoGenerator::ChatService.run
     # AutoGenerator::ArticleService.run
     # AutoGenerator::EstateService.run
