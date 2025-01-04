@@ -25,7 +25,7 @@ class EducationShiftsController < EducationsController
 
     respond_to do |format|
       if @education_shift.save
-        format.html { redirect_to @education_shift, notice: "Education shift was successfully created." }
+        format.html { redirect_to education_shifts_path, notice: "Education shift was successfully created." }
         format.json { render :show, status: :created, location: @education_shift }
       else
         format.html { render :new, status: :unprocessable_entity }

@@ -25,7 +25,7 @@ class EducationLessonsController < EducationsController
 
     respond_to do |format|
       if @education_lesson.save
-        format.html { redirect_to @education_lesson, notice: "Education lesson was successfully created." }
+        format.html { redirect_to education_lessons_path, notice: "Education lesson was successfully created." }
         format.json { render :show, status: :created, location: @education_lesson }
       else
         format.html { render :new, status: :unprocessable_entity }

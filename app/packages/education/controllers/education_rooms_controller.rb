@@ -31,7 +31,7 @@ class EducationRoomsController < EducationsController
           @education_room.education_categories << @education_category
         end
 
-        format.html { redirect_to @education_room, notice: "Education room was successfully created." }
+        format.html { redirect_to education_rooms_path, notice: "Education room was successfully created." }
         format.json { render :show, status: :created, location: @education_room }
       else
         format.html { render :new, status: :unprocessable_entity }

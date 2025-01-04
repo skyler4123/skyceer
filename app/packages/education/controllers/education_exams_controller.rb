@@ -26,7 +26,7 @@ class EducationExamsController < EducationsController
 
     respond_to do |format|
       if @education_exam.save
-        format.html { redirect_to @education_exam, notice: "Education exam was successfully created." }
+        format.html { redirect_to education_exams_path, notice: "Education exam was successfully created." }
         format.json { render :show, status: :created, location: @education_exam }
       else
         format.html { render :new, status: :unprocessable_entity }
