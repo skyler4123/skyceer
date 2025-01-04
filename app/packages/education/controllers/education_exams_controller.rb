@@ -13,6 +13,8 @@ class EducationExamsController < EducationsController
 
   # GET /education_exams/new
   def new
+    @education_subjects = EducationSubject.where(education_school: @education_schools)
+    @education_courses = EducationCourse.where(education_school: @education_schools)
     @education_exam = EducationExam.new
   end
 
@@ -26,6 +28,10 @@ class EducationExamsController < EducationsController
 
     respond_to do |format|
       if @education_exam.save
+        if params[:education_exam][:education_category_id].present?
+          @education_exam.education_categories << EducationCategory.find(params[:education_exam][:education_category_id])
+        end
+
         format.html { redirect_to education_exams_path, notice: "Education exam was successfully created." }
         format.json { render :show, status: :created, location: @education_exam }
       else

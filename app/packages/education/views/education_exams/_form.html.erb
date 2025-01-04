@@ -1,4 +1,4 @@
-<%= form_with(model: education_exam, class: "contents") do |form| %>
+<%= form_with(model: education_exam, class: "contents", data: { controller: "education--select-category" }) do |form| %>
   <% if education_exam.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(education_exam.errors.count, "error") %> prohibited this education_exam from being saved:</h2>
@@ -28,22 +28,22 @@
 
   <div class="my-5">
     <%= form.label :education_school_id %>
-    <%= form.text_field :education_school_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :education_school_id, @education_schools.pluck(:name, :id), { include_blank: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-category-target": "educationSchool"} } %>
   </div>
 
   <div class="my-5">
     <%= form.label :education_subject_id %>
-    <%= form.text_field :education_subject_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :education_subject_id, @education_subjects.pluck(:name, :id), { include_blank: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
     <%= form.label :education_course_id %>
-    <%= form.text_field :education_course_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :education_course_id, @education_courses.pluck(:name, :id), { include_blank: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
   </div>
 
   <div class="my-5">
-    <%= form.label :discarded_at %>
-    <%= form.datetime_field :discarded_at, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :education_category_id %>
+    <%= form.select :education_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-category-target": "educationCategory"} } %>
   </div>
 
   <div class="inline">
