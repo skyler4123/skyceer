@@ -155,13 +155,10 @@ class AutoGenerator::EducationService
       10.times do
         EducationExam.create!(
           education_school: education_school,
-          education_teacher: education_school.education_teachers.sample,
-          education_student: education_school.education_students.sample,
           education_course: education_school.education_courses.sample,
           education_subject: education_school.education_subjects.sample,
           name: "Exam #{Faker::Number.number}",
           description: Faker::Movie.quote,
-          score: rand(0..10),
           status: rand(0..3)
         )
       end

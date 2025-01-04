@@ -1,10 +1,9 @@
-class EducationExamsController < EducationsController
+class EducationExamsController < ApplicationController
   before_action :set_education_exam, only: %i[ show edit update destroy ]
 
   # GET /education_exams or /education_exams.json
   def index
-    @education_exams = EducationExam.where(education_school: @education_schools)
-    @pagy, @education_exams = pagy(@education_exams)
+    @education_exams = EducationExam.all
   end
 
   # GET /education_exams/1 or /education_exams/1.json
@@ -26,7 +25,7 @@ class EducationExamsController < EducationsController
 
     respond_to do |format|
       if @education_exam.save
-        format.html { redirect_to education_exams_path, notice: "Education exam was successfully created." }
+        format.html { redirect_to @education_exam, notice: "Education exam was successfully created." }
         format.json { render :show, status: :created, location: @education_exam }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -66,6 +65,6 @@ class EducationExamsController < EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_exam_params
-      params.expect(education_exam: [ :name, :description, :score, :status, :education_school_id, :education_subject_id, :education_student_id, :education_category_id, :education_course_id ])
+      params.expect(education_exam: [ :name, :description, :status, :education_school_id, :education_subject_id, :education_course_id, :discarded_at ])
     end
 end

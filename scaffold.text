@@ -12,7 +12,7 @@ EDUCATION
 rails g scaffold EducationAdmin user:references name discarded_at:datetime --force
 rails g scaffold EducationSubject name description education_school:references education_category:references discarded_at:datetime --force
 rails g scaffold EducationCourse name description education_school:references education_category:references discarded_at:datetime --force
-rails g scaffold EducationExam name description score:decimal status:integer education_school:references education_subject:references education_student:references education_category:references education_course:references discarded_at:datetime --force
+rails g scaffold EducationExam name description status:integer education_school:references education_subject:references education_course:references discarded_at:datetime --force
 rails g scaffold EducationQuestion education_school:references education_teacher:references education_category:references question_type:integer title content anwser choice_1 choice_2 choice_3 choice_4 discarded_at:datetime --force
 rails g scaffold EducationLesson title content education_school:references education_class:references education_subject:references education_teacher:references discarded_at:datetime --force
 rails g scaffold EducationShift education_school:references education_class:references education_subject:references education_teacher:references name discarded_at:datetime --force

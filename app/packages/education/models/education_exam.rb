@@ -1,8 +1,6 @@
 class EducationExam < ApplicationRecord
   belongs_to :education_school
-  belongs_to :education_teacher
   belongs_to :education_subject
-  belongs_to :education_student
   belongs_to :education_course
 
   has_many :education_question_appointments, as: :education_question_appointmentable, dependent: :destroy
