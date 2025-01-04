@@ -1,4 +1,4 @@
-<div class="mx-auto md:w-2/3 w-full flex">
+<div class="mx-auto md:w-2/3 w-full flex flex-col">
   <div class="mx-auto">
     <%= render @education_class %>
 
@@ -8,4 +8,7 @@
       <%= button_to "Destroy this education class", @education_class, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
   </div>
+
+  <div data-controller="education--calendar--tui" data-education--calendar--tui-groups-value="<%= CalendarGroup.all.to_json %>" data-education--calendar--tui-events-value="<%= CalendarEvent.all.to_json(only: [:id, :title, :end, :start], methods: [:calendarId]) %>"></div>
+
 </div>

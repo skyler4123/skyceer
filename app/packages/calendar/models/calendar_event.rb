@@ -13,6 +13,6 @@ class CalendarEvent < ApplicationRecord
   enum :state, { "Busy" => 0, "Free" => 1 }
 
   def calendarId
-    self.calendar_group_id
+    self.calendar_groups.first.id
   end
 end
