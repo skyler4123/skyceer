@@ -1,9 +1,10 @@
-class EducationExamsController < ApplicationController
+class EducationExamsController < EducationsController
   before_action :set_education_exam, only: %i[ show edit update destroy ]
 
   # GET /education_exams or /education_exams.json
   def index
-    @education_exams = EducationExam.all
+    @education_exams = EducationExam.where(education_school: @education_schools)
+    @pagy, @education_exams = pagy(@education_exams)
   end
 
   # GET /education_exams/1 or /education_exams/1.json
@@ -25,7 +26,7 @@ class EducationExamsController < ApplicationController
 
     respond_to do |format|
       if @education_exam.save
-        format.html { redirect_to @education_exam, notice: "Education exam was successfully created." }
+        format.html { redirect_to education_exams_path, notice: "Education exam was successfully created." }
         format.json { render :show, status: :created, location: @education_exam }
       else
         format.html { render :new, status: :unprocessable_entity }
