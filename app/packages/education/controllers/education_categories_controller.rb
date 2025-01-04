@@ -29,7 +29,8 @@ class EducationCategoriesController < EducationsController
         format.html { redirect_to education_categories_path, notice: "Education category was successfully created." }
         format.json { render :show, status: :created, location: @education_category }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        # format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to request.referer, alert: "Education category was insuccessfully created." }
         format.json { render json: @education_category.errors, status: :unprocessable_entity }
       end
     end
