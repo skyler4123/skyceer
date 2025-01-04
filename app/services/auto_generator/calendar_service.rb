@@ -57,7 +57,7 @@ class AutoGenerator::CalendarService
     CalendarEvent.all.each do |calendar_event|
       CalendarEventAppointment.create!(
         calendar_event: calendar_event,
-        calendar_group: calendar_event.calendar_user.calendar_groups.sample,
+        calendar_event_appointmentable: calendar_event.calendar_user.calendar_groups.sample
       )
     end
   end

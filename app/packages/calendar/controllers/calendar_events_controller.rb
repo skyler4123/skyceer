@@ -65,6 +65,6 @@ class CalendarEventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calendar_event_params
-      params.expect(calendar_event: [ :calendar_user_id, :calendar_eventable_id, :calendar_eventable_type, :library, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw, :discarded_at ])
+      params.expect(calendar_event: [ :calendar_user_id, :library, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw, :discarded_at ])
     end
 end

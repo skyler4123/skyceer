@@ -65,6 +65,6 @@ class CalendarEventAppointmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calendar_event_appointment_params
-      params.expect(calendar_event_appointment: [ :calendar_group_id, :calendar_event_id, :discarded_at ])
+      params.expect(calendar_event_appointment: [ :calendar_event_id, :calendar_event_appointmentable_id, :calendar_event_appointmentable_type, :discarded_at ])
     end
 end
