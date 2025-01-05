@@ -17,8 +17,8 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     this.calendar = new Calendar(this.calendarTarget, this.options());
     this.initCalendarAction()
     this.initValues()
-    this.setCalendars(this.groupsValue)
-    this.createEvents(this.eventsValue)
+    // this.setCalendars(this.groupsValue)
+    // this.createEvents(this.eventsValue)
   }
 
   initHTML() {
@@ -33,30 +33,21 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
         <option data-action="click->${this.identifier}#changeView" value="week">Week</option>
         <option data-action="click->${this.identifier}#changeView" value="day">Day</option>
       </select>
+      <select data-action="change->${this.identifier}#showCalendarEvent">
+        <option>Select Class</option>
+        ${this.groupsValue.map((group) => {
+          return `<option value="${group.id}">${group.name}</option>`
+        }).join('')} }
+      </select>
       <button data-action="click->${this.identifier}#prev">Prev</button>
       <button data-action="click->${this.identifier}#next">Next</button>
 
-      <fieldset>
-        <legend>Select your favorite fruits:</legend>
-        ${this.groupsValue.map((group) => {
-          return `
-            <label>
-              <input 
-                type="checkbox" name="calendar_group_id" value="${group.id}" checked
-                data-action="input->${this.identifier}#setCalendarVisibility"
-              />
-              ${group.name}
-            </label>
-          `
-        }).join('')}
-      </fieldset>
   
       <div class="${this.classValue}" data-${this.identifier}-target="calendar"></div>
     `
   }
 
   changeView(event) {
-    console.log(event)
     this.calendar.changeView(event.target.value)
   }
 
@@ -68,10 +59,18 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     this.calendar.next()
   }
 
-  setCalendarVisibility(event) {
+  showCalendarEvent(event) {
+    this.hideAllCalendars()
     const calendarId = event.target.value
-    const checked = event.target.checked
-    this.calendar.setCalendarVisibility(calendarId, checked)
+    this.showCalendar(calendarId)
+  }
+
+  showCalendar(calendarId) {
+    this.calendar.setCalendarVisibility(calendarId, true)
+  }
+
+  hideCalendar(calendarId) {
+    this.calendar.setCalendarVisibility(calendarId, false)
   }
 
   initValues() {
@@ -79,13 +78,15 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     if (this.eventsValue.length < 1) { this.eventsValue = this.defaultEvents()}
   }
   groupsValueChanged(value, previousValue) {
-    if (!this.isInitializedValue) { return }
+    // if (previousValue.length === 0) { return }
+
     this.setCalendars(value)
     if (this.isDefined(this.groupsValueCallback)) { this.groupsValueCallback(value, previousValue) }
   }
 
   eventsValueChanged(value, previousValue) {
-    if (!this.isInitializedValue) { return }
+    // if (previousValue.length === 0) { return }
+
     this.calendar.clear()
     this.createEvents(value)
     if (this.isDefined(this.eventsValueCallback)) { this.eventsValueCallback(value, previousValue) }
@@ -93,6 +94,12 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
 
   setCalendars(groups) {
     this.calendar.setCalendars(groups)
+  }
+
+  hideAllCalendars() {
+    this.groupsValue.forEach((group) => {
+      this.hideCalendar(group.id)
+    })
   }
 
   createEvents(events) {
