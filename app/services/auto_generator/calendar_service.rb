@@ -21,15 +21,17 @@ class AutoGenerator::CalendarService
   end
 
   def self.update_calendar_event
-    CalendarEvent.all.each do |calendar_event|
-      start_time = CalendarEvent.all.order(created_at: :desc).last&.end || Time.now - 5.hours
+    calendar_events = CalendarEvent.all
+    calendar_events.each_with_index do |calendar_event, index|
+      start_time = Time.now if index == 0
+      start_time = calendar_events[index - 1]&.end if index > 0
       seed_attributes = {
         library: "tui",
         title: "#{Faker::Movie.title}",
         body: "#{Faker::Movie.quote}",
         isAllday: false,
         start: start_time,
-        end: start_time + 45.minutes,
+        end: start_time + 1.days,
         goingDuration: 0,
         comingDuration: 0,
         location: Address.create_random.id,
