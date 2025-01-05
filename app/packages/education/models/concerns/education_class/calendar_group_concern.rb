@@ -9,7 +9,7 @@ module EducationClass::CalendarGroupConcern
     private
 
     def create_calendar_group
-      CalendarGroup.create!(calendar_user: self.education_school.calendar_user, calendar_groupable: self)
+      CalendarGroup.create!(calendar_user: self.education_school.calendar_user, calendar_groupable: self, name: self.name)
     end
   end
 

@@ -10,7 +10,7 @@ class AutoGenerator::CalendarService
   def self.update_calendar_group
     CalendarGroup.all.each do |calendar_group|
       seed_attributes = {
-        name: "group #{SecureRandom.hex(3)}",
+        # name: "group #{SecureRandom.hex(3)}",
         color: '#' + SecureRandom.hex(3),
         backgroundColor: '#' + SecureRandom.hex(3),
         dragBackgroundColor: '#' + SecureRandom.hex(3),
@@ -23,15 +23,15 @@ class AutoGenerator::CalendarService
   def self.update_calendar_event
     calendar_events = CalendarEvent.all
     calendar_events.each_with_index do |calendar_event, index|
-      start_time = Time.now if index == 0
-      start_time = calendar_events[index - 1]&.end if index > 0
+      start_time = Time.now - 5.days if index == 0
+      start_time = calendar_events[index - 1]&.end + 1.days if index > 0
       seed_attributes = {
         library: "tui",
         title: "#{Faker::Movie.title}",
         body: "#{Faker::Movie.quote}",
         isAllday: false,
         start: start_time,
-        end: start_time + 1.days,
+        end: start_time + 45.minutes,
         goingDuration: 0,
         comingDuration: 0,
         location: Address.create_random.id,

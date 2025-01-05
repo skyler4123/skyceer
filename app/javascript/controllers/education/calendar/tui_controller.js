@@ -13,7 +13,6 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   }
 
   init() {
-    console.log(this)
     this.initHTML()
     this.calendar = new Calendar(this.calendarTarget, this.options());
     this.initCalendarAction()
@@ -28,8 +27,51 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   
   defaultHTML() {
     return `
+      <select>
+        <option data-action="click->${this.identifier}#changeView" selected value="month">Time View</option>
+        <option data-action="click->${this.identifier}#changeView" value="month">Month</option>
+        <option data-action="click->${this.identifier}#changeView" value="week">Week</option>
+        <option data-action="click->${this.identifier}#changeView" value="day">Day</option>
+      </select>
+      <button data-action="click->${this.identifier}#prev">Prev</button>
+      <button data-action="click->${this.identifier}#next">Next</button>
+
+      <fieldset>
+        <legend>Select your favorite fruits:</legend>
+        ${this.groupsValue.map((group) => {
+          return `
+            <label>
+              <input 
+                type="checkbox" name="calendar_group_id" value="${group.id}" checked
+                data-action="input->${this.identifier}#setCalendarVisibility"
+              />
+              ${group.name}
+            </label>
+          `
+        }).join('')}
+      </fieldset>
+  
       <div class="${this.classValue}" data-${this.identifier}-target="calendar"></div>
     `
+  }
+
+  changeView(event) {
+    console.log(event)
+    this.calendar.changeView(event.target.value)
+  }
+
+  prev() {
+    this.calendar.prev()
+  }
+
+  next() {
+    this.calendar.next()
+  }
+
+  setCalendarVisibility(event) {
+    const calendarId = event.target.value
+    const checked = event.target.checked
+    this.calendar.setCalendarVisibility(calendarId, checked)
   }
 
   initValues() {
@@ -190,8 +232,8 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
 
   optionsParamsDefault() {
     return {
-      defaultView: 'month',
-      // defaultView: 'week',
+      // defaultView: 'month',
+      defaultView: 'week',
       useFormPopup: true,
       useDetailPopup: true,
       isReadOnly: false,
