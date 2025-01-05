@@ -22,13 +22,14 @@ class AutoGenerator::CalendarService
 
   def self.update_calendar_event
     CalendarEvent.all.each do |calendar_event|
+      start_time = Time.now - 2.days
       seed_attributes = {
         library: "tui",
         title: "#{Faker::Movie.title}",
         body: "#{Faker::Movie.quote}",
         isAllday: false,
-        start: Time.now,
-        end: Time.now + 1.hours,
+        start: start_time,
+        end: start_time + 45.minutes,
         goingDuration: 0,
         comingDuration: 0,
         location: Address.create_random.id,

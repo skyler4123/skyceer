@@ -12,11 +12,8 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     events: { type: Array, default: [] }
   }
 
-  initParams() {
-    this.setParams({name: 'options', defaultValue: this.optionsParamsDefault()})
-  }
-
   init() {
+    console.log(this)
     this.initHTML()
     this.calendar = new Calendar(this.calendarTarget, this.options());
     this.initCalendarAction()
@@ -26,11 +23,15 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   }
 
   initHTML() {
-    if (!this.hasCalendarTarget) {
-      this.element.insertAdjacentHTML('beforeend', `<div class="w-full h-full" data-${this.identifier}-target="calendar"></div>`)
-    }
+    this.element.innerHTML = this.defaultHTML()
   }
   
+  defaultHTML() {
+    return `
+      <div class="${this.classValue}" data-${this.identifier}-target="calendar"></div>
+    `
+  }
+
   initValues() {
     if (this.groupsValue.length < 1) { this.groupsValue = this.defaultGroups()}
     if (this.eventsValue.length < 1) { this.eventsValue = this.defaultEvents()}
@@ -120,9 +121,9 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     return this.calendar.getEvent(eventId, calendarId)
   }
 
-  createEvents(eventsObject) {
-    this.calendar.createEvents(eventsObject)
-  }
+  // createEvents(eventsObject) {
+  //   this.calendar.createEvents(eventsObject)
+  // }
 
   updateEvent(eventId, calendarId, changes) {
     this.calendar.updateEvent(eventId, calendarId, changes)
@@ -189,8 +190,8 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
 
   optionsParamsDefault() {
     return {
-      // defaultView: 'month',
-      defaultView: 'week',
+      defaultView: 'month',
+      // defaultView: 'week',
       useFormPopup: true,
       useDetailPopup: true,
       isReadOnly: false,
