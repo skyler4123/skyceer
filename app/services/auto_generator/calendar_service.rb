@@ -22,7 +22,7 @@ class AutoGenerator::CalendarService
 
   def self.update_calendar_event
     CalendarEvent.all.each do |calendar_event|
-      start_time = Time.now - 2.days
+      start_time = CalendarEvent.all.order(created_at: :desc).last&.end || Time.now - 5.hours
       seed_attributes = {
         library: "tui",
         title: "#{Faker::Movie.title}",
