@@ -5,6 +5,7 @@
 # end
 
 Rails.application.routes.draw do
+  resources :education_time_tables, only: [:index]
   resources :report_category_appointments
   resources :report_categories
   resources :report_users
