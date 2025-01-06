@@ -12,10 +12,7 @@ Rails.application.routes.draw do
   resources :category_appointments
   resources :payment_category_appointments
   resources :payment_categories
-  resources :calendar_category_appointments
-  resources :calendar_categories
-  resources :calendar_event_appointments
-  resources :calendar_users
+
   resources :education_school_appointments
   resources :education_admins
   resources :payment_customers
@@ -108,8 +105,16 @@ Rails.application.routes.draw do
   resources :demo, only: [:index, :new]
 
   # CALENDAR package
-  resources :calendar_events
+  resources :calendar_events do
+    collection do
+      get :calendar_group_id
+    end
+  end
   resources :calendar_groups
+  resources :calendar_category_appointments
+  resources :calendar_categories
+  resources :calendar_event_appointments
+  resources :calendar_users
 
   # CHAT package
   resources :chat_conversations do

@@ -4,21 +4,23 @@
 import Calendar from '@toast-ui/calendar';
 import Swal from 'sweetalert2'
 import ApplicationController from '../../application_controller';
+import { CalendarEventsApi } from '../../calendar/api/calendar_events_api';
 
 export default class Libs_Calendar_TuiController extends ApplicationController {
-  static targets= ["calendar"]
+  static targets= ["calendar", "selectClass"]
   static values = {
     class: { type: String, default: "w-full h-[700px]" },
-    groups: { type: Array, default: [] },
-    events: { type: Array, default: [] }
+    // schools: { type: Array, default: [] },
+    classes: { type: Array, default: [] },
+    // groups: { type: Array, default: [] },
+    events: { type: Object, default: {} }
   }
 
   init() {
-    console.log(this)
     this.initHTML()
     this.calendar = new Calendar(this.calendarTarget, this.options());
     this.initCalendarAction()
-    this.initValues()
+    // this.initValues()
     // this.setCalendars(this.groupsValue)
     // this.createEvents(this.eventsValue)
   }
@@ -35,10 +37,13 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
         <option data-action="click->${this.identifier}#changeView" value="week">Week</option>
         <option data-action="click->${this.identifier}#changeView" value="day">Day</option>
       </select>
-      <select data-action="change->${this.identifier}#showCalendarEvent">
+      <select 
+        data-action="change->${this.identifier}#showCalendarOfClass"
+        data-${this.identifier}-target="selectClass"
+      >
         <option>Select Class</option>
-        ${this.groupsValue.map((group) => {
-          return `<option value="${group.id}">${group.name}</option>`
+        ${this.classesValue.map((klass) => {
+          return `<option value="${klass.id}">${klass.name}</option>`
         }).join('')} }
       </select>
       <button data-action="click->${this.identifier}#prev">Prev</button>
@@ -61,6 +66,27 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     this.calendar.next()
   }
 
+  async showCalendarOfClass(event) {
+    const group = this.newCalendarGroup(event.target.value)
+    this.calendar.setCalendars([group])
+    let events = await this.fetchCalendarEventsFromGroupId(event.target.value)
+    events = events.map((event) => {
+      return {
+        ...event,
+        calendarId: this.selectClassTarget.value,
+      }
+    })
+    console.log(events)
+    this.calendar.clear()
+    this.calendar.createEvents(events)
+  }
+
+  async fetchCalendarEventsFromGroupId(groupId) {
+    const response = await CalendarEventsApi.calendar_group_id({ params: { calendar_group_id: groupId }})
+    const responseData = response.data
+    return responseData
+  }
+
   showCalendarEvent(event) {
     this.hideAllCalendars()
     const calendarId = event.target.value
@@ -79,20 +105,20 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     if (this.groupsValue.length < 1) { this.groupsValue = this.defaultGroups()}
     if (this.eventsValue.length < 1) { this.eventsValue = this.defaultEvents()}
   }
-  groupsValueChanged(value, previousValue) {
-    // if (previousValue.length === 0) { return }
+  // groupsValueChanged(value, previousValue) {
+  //   // if (previousValue.length === 0) { return }
 
-    this.setCalendars(value)
-    if (this.isDefined(this.groupsValueCallback)) { this.groupsValueCallback(value, previousValue) }
-  }
+  //   this.setCalendars(value)
+  //   if (this.isDefined(this.groupsValueCallback)) { this.groupsValueCallback(value, previousValue) }
+  // }
 
-  eventsValueChanged(value, previousValue) {
-    // if (previousValue.length === 0) { return }
+  // eventsValueChanged(value, previousValue) {
+  //   // if (previousValue.length === 0) { return }
 
-    this.calendar.clear()
-    this.createEvents(value)
-    if (this.isDefined(this.eventsValueCallback)) { this.eventsValueCallback(value, previousValue) }
-  }
+  //   this.calendar.clear()
+  //   this.createEvents(value)
+  //   if (this.isDefined(this.eventsValueCallback)) { this.eventsValueCallback(value, previousValue) }
+  // }
 
   setCalendars(groups) {
     this.calendar.setCalendars(groups)
@@ -140,29 +166,29 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
 
   selectDateTime(event) {
     console.log(event)
-    Swal.fire({
-      html: `
-        <form class="max-w-sm mx-auto">
-          <div class="mb-5">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-            <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
-          </div>
-          <div class="mb-5">
-            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-            <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-          </div>
-          <div class="flex items-start mb-5">
-            <div class="flex items-center h-5">
-              <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
-            </div>
-            <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
-          </div>
-          <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-        </form>
+    // Swal.fire({
+    //   html: `
+    //     <form class="max-w-sm mx-auto">
+    //       <div class="mb-5">
+    //         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+    //         <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
+    //       </div>
+    //       <div class="mb-5">
+    //         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+    //         <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+    //       </div>
+    //       <div class="flex items-start mb-5">
+    //         <div class="flex items-center h-5">
+    //           <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+    //         </div>
+    //         <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+    //       </div>
+    //       <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+    //     </form>
     
-      `,
-      confirmButtonText: "Save"
-    });
+    //   `,
+    //   confirmButtonText: "Save"
+    // });
   }
 
   beforeCreateEvent(event) {
@@ -223,33 +249,33 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     this.calendar.next()
   }
 
-  changeViewToMonth() {
-    this.calendar.changeView('month')
-  }
+  // changeViewToMonth() {
+  //   this.calendar.changeView('month')
+  // }
 
-  changeViewToWeek() {
-    this.calendar.changeView('week')
-  }
+  // changeViewToWeek() {
+  //   this.calendar.changeView('week')
+  // }
 
-  changeViewToDay() {
-    this.calendar.changeView('day')
-  }
+  // changeViewToDay() {
+  //   this.calendar.changeView('day')
+  // }
 
-  convertToUTC(event) {
-    event.start = event.start.d.d
-    event.end = event.end.d.d
-    return event
-  }
+  // convertToUTC(event) {
+  //   event.start = event.start.d.d
+  //   event.end = event.end.d.d
+  //   return event
+  // }
 
-  normalizeForBackend(event) {
-    event = { ...event, isVisible: true, lib: 'tui' }
-    event = this.convertToUTC(event)
-    event = this.changeObjectKey(event, 'calendarId', 'calendarScheduleId')
-    event = this.snakeCaseForObjectKey(event)
-    return event
-  }
+  // normalizeForBackend(event) {
+  //   event = { ...event, isVisible: true, lib: 'tui' }
+  //   event = this.convertToUTC(event)
+  //   event = this.changeObjectKey(event, 'calendarId', 'calendarScheduleId')
+  //   event = this.snakeCaseForObjectKey(event)
+  //   return event
+  // }
 
-  normalizeFromBackend(event) {}
+  // normalizeFromBackend(event) {}
 
   options() {
     return {
@@ -258,20 +284,12 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     }
   }
 
-  variantClass() {
-    return {
-      default: {
-        element: 'w-full h-[800px]'
-      }
-    }
-  }
-
   optionsParamsDefault() {
     return {
-      // defaultView: 'month',
-      defaultView: 'week',
-      // useFormPopup: true,
-      // useDetailPopup: true,
+      defaultView: 'month',
+      // defaultView: 'week',
+      useFormPopup: true,
+      useDetailPopup: true,
       isReadOnly: false,
       usageStatistics: false,
       week: {
@@ -310,6 +328,30 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
         },
       },
     }
+  }
+
+  newCalendarGroup(group) {
+    return {
+      id: group,
+      name: "name",
+      // color: "#ec4899",
+      // borderColor: "#1d4ed8",
+      backgroundColor: this.stringToColour(group),
+      // dragBackgroundColor: "#4338ca",
+    }
+  }
+
+  stringToColour(str) {
+    let hash = 0;
+    str.split('').forEach(char => {
+      hash = char.charCodeAt(0) + ((hash << 5) - hash)
+    })
+    let colour = '#'
+    for (let i = 0; i < 3; i++) {
+      const value = (hash >> (i * 8)) & 0xff
+      colour += value.toString(16).padStart(2, '0')
+    }
+    return colour
   }
 
   defaultGroups() {

@@ -57,6 +57,12 @@ class CalendarEventsController < ApplicationController
     end
   end
 
+  def calendar_group_id
+    @calendar_groups = CalendarGroup.where(calendar_groupable: params[:calendar_group_id])
+    @calendar_events = CalendarEvent.joins(:calendar_groups).where(calendar_groups: @calendar_groups)
+    render json: @calendar_events.to_json(only: [:id, :title, :start, :end])
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_calendar_event
