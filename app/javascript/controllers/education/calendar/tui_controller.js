@@ -11,8 +11,8 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   static values = {
     class: { type: String, default: "w-full h-[700px]" },
     // schools: { type: Array, default: [] },
-    classes: { type: Array, default: [] },
-    // groups: { type: Array, default: [] },
+    // classes: { type: Array, default: [] },
+    groups: { type: Array, default: [] },
     events: { type: Object, default: {} }
   }
 
@@ -42,7 +42,7 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
         data-${this.identifier}-target="selectClass"
       >
         <option>Select Class</option>
-        ${this.classesValue.map((klass) => {
+        ${this.groupsValue.map((klass) => {
           return `<option value="${klass.id}">${klass.name}</option>`
         }).join('')} }
       </select>
