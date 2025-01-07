@@ -10,8 +10,6 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   static targets= ["calendar", "selectClass"]
   static values = {
     class: { type: String, default: "w-full h-[700px]" },
-    // schools: { type: Array, default: [] },
-    // classes: { type: Array, default: [] },
     groups: { type: Array, default: [] },
     events: { type: Object, default: {} }
   }
@@ -20,9 +18,6 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     this.initHTML()
     this.calendar = new Calendar(this.calendarTarget, this.options());
     this.initCalendarAction()
-    // this.initValues()
-    // this.setCalendars(this.groupsValue)
-    // this.createEvents(this.eventsValue)
   }
 
   initHTML() {
@@ -101,25 +96,6 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     this.calendar.setCalendarVisibility(calendarId, false)
   }
 
-  initValues() {
-    if (this.groupsValue.length < 1) { this.groupsValue = this.defaultGroups()}
-    if (this.eventsValue.length < 1) { this.eventsValue = this.defaultEvents()}
-  }
-  // groupsValueChanged(value, previousValue) {
-  //   // if (previousValue.length === 0) { return }
-
-  //   this.setCalendars(value)
-  //   if (this.isDefined(this.groupsValueCallback)) { this.groupsValueCallback(value, previousValue) }
-  // }
-
-  // eventsValueChanged(value, previousValue) {
-  //   // if (previousValue.length === 0) { return }
-
-  //   this.calendar.clear()
-  //   this.createEvents(value)
-  //   if (this.isDefined(this.eventsValueCallback)) { this.eventsValueCallback(value, previousValue) }
-  // }
-
   setCalendars(groups) {
     this.calendar.setCalendars(groups)
   }
@@ -165,7 +141,6 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   }
 
   selectDateTime(event) {
-    console.log(event)
     // Swal.fire({
     //   html: `
     //     <form class="max-w-sm mx-auto">
@@ -249,34 +224,6 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     this.calendar.next()
   }
 
-  // changeViewToMonth() {
-  //   this.calendar.changeView('month')
-  // }
-
-  // changeViewToWeek() {
-  //   this.calendar.changeView('week')
-  // }
-
-  // changeViewToDay() {
-  //   this.calendar.changeView('day')
-  // }
-
-  // convertToUTC(event) {
-  //   event.start = event.start.d.d
-  //   event.end = event.end.d.d
-  //   return event
-  // }
-
-  // normalizeForBackend(event) {
-  //   event = { ...event, isVisible: true, lib: 'tui' }
-  //   event = this.convertToUTC(event)
-  //   event = this.changeObjectKey(event, 'calendarId', 'calendarScheduleId')
-  //   event = this.snakeCaseForObjectKey(event)
-  //   return event
-  // }
-
-  // normalizeFromBackend(event) {}
-
   options() {
     return {
       ...this.optionsParamsDefault(),
@@ -341,37 +288,4 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     }
   }
 
-  defaultGroups() {
-    return [
-      {
-        id: 'cal1',
-        name: 'Personal',
-        backgroundColor: '#03bd9e',
-      },
-      {
-        id: 'cal2',
-        name: 'Work',
-        backgroundColor: '#00a9ff',
-      },
-    ]
-  }
-
-  defaultEvents() {
-    return [
-      {
-        id: 'event1',
-        calendarId: 'cal1',
-        title: 'Weekly meeting for group with id = cal1',
-        start: new Date().toISOString(),
-        end: new Date().toISOString(),
-      },
-      {
-        id: 'event2',
-        calendarId: 'cal2',
-        title: 'Weekly meeting',
-        start: new Date().toISOString(),
-        end: new Date().toISOString(),
-      }
-    ]
-  }
 }
