@@ -82,34 +82,6 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     return responseData
   }
 
-  showCalendarEvent(event) {
-    this.hideAllCalendars()
-    const calendarId = event.target.value
-    this.showCalendar(calendarId)
-  }
-
-  showCalendar(calendarId) {
-    this.calendar.setCalendarVisibility(calendarId, true)
-  }
-
-  hideCalendar(calendarId) {
-    this.calendar.setCalendarVisibility(calendarId, false)
-  }
-
-  setCalendars(groups) {
-    this.calendar.setCalendars(groups)
-  }
-
-  hideAllCalendars() {
-    this.groupsValue.forEach((group) => {
-      this.hideCalendar(group.id)
-    })
-  }
-
-  createEvents(events) {
-    this.calendar.createEvents(events)
-  }
-
   initCalendarAction() {
     this.calendar.on('selectDateTime', (event) => {
       this.selectDateTime(event)
@@ -199,10 +171,6 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   getEvent(eventId, calendarId) {
     return this.calendar.getEvent(eventId, calendarId)
   }
-
-  // createEvents(eventsObject) {
-  //   this.calendar.createEvents(eventsObject)
-  // }
 
   updateEvent(eventId, calendarId, changes) {
     this.calendar.updateEvent(eventId, calendarId, changes)
