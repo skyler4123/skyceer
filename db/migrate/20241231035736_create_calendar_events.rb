@@ -1,8 +1,8 @@
 class CreateCalendarEvents < ActiveRecord::Migration[8.0]
   def change
     create_table :calendar_events, id: :uuid do |t|
-      t.references :calendar_user, null: false, foreign_key: true, type: :uuid
-      t.references :calendar_eventable, polymorphic: true, null: false, type: :uuid
+      t.references :userable, polymorphic: true, null: false, type: :uuid
+      t.references :eventable, polymorphic: true, null: false, type: :uuid
       t.integer :library
       t.string :title
       t.string :body

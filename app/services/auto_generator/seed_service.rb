@@ -10,8 +10,8 @@ class AutoGenerator::SeedService
     # AutoGenerator::ChatService.run
     # AutoGenerator::ArticleService.run
     # AutoGenerator::EstateService.run
-    AutoGenerator::ReportService.run
-    AutoGenerator::PaymentService.run
+    # AutoGenerator::ReportService.run
+    # AutoGenerator::PaymentService.run
 
     
     self.puts_count

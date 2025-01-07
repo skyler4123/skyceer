@@ -17,13 +17,18 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :calendar_user_id %>
-    <%= form.text_field :calendar_user_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :userable_id %>
+    <%= form.text_field :userable_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
     <%= form.label :parent_category_id %>
     <%= form.text_field :parent_category_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :nested_level %>
+    <%= form.number_field :nested_level, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">

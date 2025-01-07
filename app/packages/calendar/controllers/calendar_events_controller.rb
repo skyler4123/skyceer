@@ -57,9 +57,8 @@ class CalendarEventsController < ApplicationController
     end
   end
 
-  def calendar_group_id
-    @calendar_groups = CalendarGroup.where(calendar_groupable: params[:calendar_group_id])
-    @calendar_events = CalendarEvent.joins(:calendar_groups).where(calendar_groups: @calendar_groups)
+  def eventable_id
+    @calendar_events = CalendarEvent.where(eventable_id: params[:eventable_id])
     render json: @calendar_events.to_json(only: [:id, :title, :start, :end])
   end
   
@@ -71,6 +70,6 @@ class CalendarEventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def calendar_event_params
-      params.expect(calendar_event: [ :calendar_user_id, :library, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw, :discarded_at ])
+      params.expect(calendar_event: [ :userable_id, :userable_type, :eventable_id, :eventable_type, :library, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw, :discarded_at ])
     end
 end

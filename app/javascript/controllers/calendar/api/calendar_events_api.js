@@ -11,8 +11,8 @@ export const CalendarEventsApi = {
     return axios.post(`${origin()}/calendar_events`, params, { headers: {...defaultHeaders(), ...headers}})
   },
 
-  calendar_group_id({params, headers} = {}) {
-    return axios.get(`${origin()}/calendar_events/calendar_group_id`, { params: params, headers: {...defaultHeaders(), ...headers} })
+  eventable_id({params, headers} = {}) {
+    return axios.get(`${origin()}/calendar_events/eventable_id`, { params: params, headers: {...defaultHeaders(), ...headers} })
   },
 
 }

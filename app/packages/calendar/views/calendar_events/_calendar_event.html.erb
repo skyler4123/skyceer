@@ -1,7 +1,12 @@
 <div id="<%= dom_id calendar_event %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Calendar user:</strong>
-    <%= calendar_event.calendar_user_id %>
+    <strong class="block font-medium mb-1">Userable:</strong>
+    <%= calendar_event.userable_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Eventable:</strong>
+    <%= calendar_event.eventable_id %>
   </p>
 
   <p class="my-5">

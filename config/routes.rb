@@ -107,7 +107,7 @@ Rails.application.routes.draw do
   # CALENDAR package
   resources :calendar_events do
     collection do
-      get :calendar_group_id
+      get :eventable_id
     end
   end
   resources :calendar_groups

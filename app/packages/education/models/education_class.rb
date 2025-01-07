@@ -15,7 +15,7 @@ class EducationClass < ApplicationRecord
   has_many :education_categories, through: :education_category_appointments
 
   has_many :education_shifts, dependent: :destroy
-
-  include EducationClass::CalendarGroupConcern
+  
+  include EducationClass::CalendarConcern
 
 end
