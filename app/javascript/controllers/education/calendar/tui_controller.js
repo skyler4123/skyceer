@@ -10,15 +10,19 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   static targets= ["calendar", "selectClass"]
   static values = {
     class: { type: String, default: "w-full h-[700px]" },
-    classes: { type: Array, default: [] }, // SSR
-    events: { type: Object, default: {} }, // Store
-    group: { type: Object, default: {} }, // Rerender
+    // schools: { type: Array, default: [] },
+    classes: { type: Array, default: [] },
+    // groups: { type: Array, default: [] },
+    events: { type: Object, default: {} }
   }
 
   init() {
     this.initHTML()
     this.calendar = new Calendar(this.calendarTarget, this.options());
     this.initCalendarAction()
+    // this.initValues()
+    // this.setCalendars(this.groupsValue)
+    // this.createEvents(this.eventsValue)
   }
 
   initHTML() {
@@ -63,39 +67,71 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   }
 
   async showCalendarOfClass(event) {
-    const group = this.newCalendarGroupFromEvent(event)
-    this.groupValue = group
-  }
-
-  async groupValueChanged(value, previousValue) {
-    if (this.isEmpty(value)) { return }
-
-    this.calendar.setCalendars([value])
-
-    let events = {}
-    if (this.isEventsAlreadyFetched(value.id)) { 
-      events = this.eventsValue[value.id]
-    } else {
-      events = await this.fetchCalendarEventsFromGroupId(value.id)
-    }
-    this.eventsValue = { ...this.eventsValue, [value.id]: events }
-
-    this.renderEventsForGroup(value)
-  }
-
-  renderEventsForGroup(group) {
+    const group = this.newCalendarGroup(event.target.value)
+    this.calendar.setCalendars([group])
+    let events = await this.fetchCalendarEventsFromGroupId(event.target.value)
+    events = events.map((event) => {
+      return {
+        ...event,
+        calendarId: this.selectClassTarget.value,
+      }
+    })
+    console.log(events)
     this.calendar.clear()
-    this.calendar.createEvents(this.eventsValue[group.id])
-  }
-
-  isEventsAlreadyFetched(groupId) {
-    return this.isDefined(this.eventsValue[groupId])
+    this.calendar.createEvents(events)
   }
 
   async fetchCalendarEventsFromGroupId(groupId) {
     const response = await CalendarEventsApi.calendar_group_id({ params: { calendar_group_id: groupId }})
     const responseData = response.data
     return responseData
+  }
+
+  showCalendarEvent(event) {
+    this.hideAllCalendars()
+    const calendarId = event.target.value
+    this.showCalendar(calendarId)
+  }
+
+  showCalendar(calendarId) {
+    this.calendar.setCalendarVisibility(calendarId, true)
+  }
+
+  hideCalendar(calendarId) {
+    this.calendar.setCalendarVisibility(calendarId, false)
+  }
+
+  initValues() {
+    if (this.groupsValue.length < 1) { this.groupsValue = this.defaultGroups()}
+    if (this.eventsValue.length < 1) { this.eventsValue = this.defaultEvents()}
+  }
+  // groupsValueChanged(value, previousValue) {
+  //   // if (previousValue.length === 0) { return }
+
+  //   this.setCalendars(value)
+  //   if (this.isDefined(this.groupsValueCallback)) { this.groupsValueCallback(value, previousValue) }
+  // }
+
+  // eventsValueChanged(value, previousValue) {
+  //   // if (previousValue.length === 0) { return }
+
+  //   this.calendar.clear()
+  //   this.createEvents(value)
+  //   if (this.isDefined(this.eventsValueCallback)) { this.eventsValueCallback(value, previousValue) }
+  // }
+
+  setCalendars(groups) {
+    this.calendar.setCalendars(groups)
+  }
+
+  hideAllCalendars() {
+    this.groupsValue.forEach((group) => {
+      this.hideCalendar(group.id)
+    })
+  }
+
+  createEvents(events) {
+    this.calendar.createEvents(events)
   }
 
   initCalendarAction() {
@@ -130,7 +166,6 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
 
   selectDateTime(event) {
     console.log(event)
-    const { calendarId, start, end } = event.event
     // Swal.fire({
     //   html: `
     //     <form class="max-w-sm mx-auto">
@@ -190,6 +225,10 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     return this.calendar.getEvent(eventId, calendarId)
   }
 
+  // createEvents(eventsObject) {
+  //   this.calendar.createEvents(eventsObject)
+  // }
+
   updateEvent(eventId, calendarId, changes) {
     this.calendar.updateEvent(eventId, calendarId, changes)
   }
@@ -209,6 +248,34 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   next() {
     this.calendar.next()
   }
+
+  // changeViewToMonth() {
+  //   this.calendar.changeView('month')
+  // }
+
+  // changeViewToWeek() {
+  //   this.calendar.changeView('week')
+  // }
+
+  // changeViewToDay() {
+  //   this.calendar.changeView('day')
+  // }
+
+  // convertToUTC(event) {
+  //   event.start = event.start.d.d
+  //   event.end = event.end.d.d
+  //   return event
+  // }
+
+  // normalizeForBackend(event) {
+  //   event = { ...event, isVisible: true, lib: 'tui' }
+  //   event = this.convertToUTC(event)
+  //   event = this.changeObjectKey(event, 'calendarId', 'calendarScheduleId')
+  //   event = this.snakeCaseForObjectKey(event)
+  //   return event
+  // }
+
+  // normalizeFromBackend(event) {}
 
   options() {
     return {
@@ -263,15 +330,28 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     }
   }
 
-  newCalendarGroupFromEvent(event) {
+  newCalendarGroup(group) {
     return {
-      id: event.target.value,
-      name: event.target.selectedOptions[0].text,
+      id: group,
+      name: "name",
       // color: "#ec4899",
       // borderColor: "#1d4ed8",
-      backgroundColor: this.stringToColour(event.target.value),
+      backgroundColor: this.stringToColour(group),
       // dragBackgroundColor: "#4338ca",
     }
+  }
+
+  stringToColour(str) {
+    let hash = 0;
+    str.split('').forEach(char => {
+      hash = char.charCodeAt(0) + ((hash << 5) - hash)
+    })
+    let colour = '#'
+    for (let i = 0; i < 3; i++) {
+      const value = (hash >> (i * 8)) & 0xff
+      colour += value.toString(16).padStart(2, '0')
+    }
+    return colour
   }
 
   defaultGroups() {
