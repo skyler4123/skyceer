@@ -77,7 +77,7 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   }
 
   async fetchCalendarEventsFromGroupId(groupId) {
-    const response = await CalendarEventsApi.eventable_id({ params: { eventable_id: groupId }})
+    const response = await CalendarEventsApi.index({ params: { eventable_id: groupId }})
     const responseData = response.data
     return responseData
   }

@@ -4,6 +4,7 @@ class CalendarEventsController < ApplicationController
   # GET /calendar_events or /calendar_events.json
   def index
     @calendar_events = CalendarEvent.all
+    @calendar_events = CalendarEvent.where(eventable_id: params[:eventable_id]) if params[:eventable_id].present?
   end
 
   # GET /calendar_events/1 or /calendar_events/1.json
@@ -57,10 +58,10 @@ class CalendarEventsController < ApplicationController
     end
   end
 
-  def eventable_id
-    @calendar_events = CalendarEvent.where(eventable_id: params[:eventable_id])
-    render json: @calendar_events.to_json(only: [:id, :title, :start, :end])
-  end
+  # def eventable_id
+  #   @calendar_events = CalendarEvent.where(eventable_id: params[:eventable_id])
+  #   render json: @calendar_events.to_json(only: [:id, :title, :start, :end])
+  # end
   
   private
     # Use callbacks to share common setup or constraints between actions.

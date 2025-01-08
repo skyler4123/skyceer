@@ -10,7 +10,7 @@ class AutoGenerator::CalendarService
     userables.each do |userable|
       eventables = userable.education_classes
       eventables.each do |eventable|
-        10.times do
+        10.times do |n|
           CalendarEvent.create!(
             userable: userable,
             eventable: eventable,
@@ -18,8 +18,8 @@ class AutoGenerator::CalendarService
             title: "#{Faker::Movie.title}",
             body: "#{Faker::Movie.quote}",
             isAllday: false,
-            start: Time.now - 5.days,
-            end: Time.now - 5.days + 45.minutes,
+            start: Time.now.midday + n.days,
+            end: Time.now.midday + n.days + 45.minutes,
             goingDuration: 0,
             comingDuration: 0,
             location: Address.create_random.id,
