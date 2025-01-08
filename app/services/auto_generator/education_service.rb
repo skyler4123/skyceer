@@ -225,6 +225,12 @@ class AutoGenerator::EducationService
         education_class_appointmentable: education_course,
       )
     end
+    EducationExam.all.each do |education_exam|
+      EducationClassAppointment.create!(
+        education_class: education_exam.education_school.education_classes.sample,
+        education_class_appointmentable: education_exam,
+      )
+    end
   end
 
   def self.education_category_appointments

@@ -10,7 +10,8 @@ class EducationClass < ApplicationRecord
   has_many :education_subjects, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationSubject'
   has_many :education_courses, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationCourse'
   has_many :education_rooms, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationRoom'
-  
+  has_many :education_exams, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationExam'
+
   has_many :education_category_appointments, as: :education_category_appointmentable, dependent: :destroy
   has_many :education_categories, through: :education_category_appointments
 
