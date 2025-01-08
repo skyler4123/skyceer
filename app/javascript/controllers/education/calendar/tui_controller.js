@@ -62,7 +62,7 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
   }
 
   async showCalendarOfClass(event) {
-    const group = this.newCalendarGroup(event.target.value)
+    const group = this.newCalendarGroup(event.target.value, event.target.selectedOptions[0].text)
     this.calendar.setCalendars([group])
     let events = await this.fetchCalendarEventsFromGroupId(event.target.value)
     events = events.map((event) => {
@@ -74,8 +74,19 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
         calendarId: this.selectClassTarget.value,
       }
     })
-    console.log(this)
-    console.log(events)
+    const starts = events.map((event) => event.start)
+    const minStart = this.minTime(starts)
+    const maxStart = this.maxTime(starts)
+
+    const minLocalTime = this.getLocalHourFromTimeString(minStart)
+    const maxLocalTime = this.getLocalHourFromTimeString(maxStart)
+    // set hourStart for week view
+    this.calendar.setOptions({
+      week: {
+        hourStart: minLocalTime - 1,
+        hourEnd: maxLocalTime + 5,
+      }
+    })
     this.calendar.clear()
     this.calendar.createEvents(events)
   }
@@ -271,13 +282,14 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     }
   }
 
-  newCalendarGroup(group) {
+  newCalendarGroup(id, name) {
     return {
-      id: group,
-      name: "name",
-      // color: "#ec4899",
-      // borderColor: "#1d4ed8",
-      backgroundColor: this.stringToColour(group),
+      id: id,
+      name: name,
+      color: "#f9fafb",
+      borderColor: "#f9fafb",
+      // backgroundColor: this.stringToColour(group),
+      backgroundColor: "#111827",
       // dragBackgroundColor: "#4338ca",
     }
   }

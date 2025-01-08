@@ -545,11 +545,28 @@ const DataHelpers = {
     return colour
   },
 
+  minTime(times) {
+    const minTime = times.reduce((min, current) => {
+      return current < min ? current : min;
+    }, times[0]);
+    return minTime
+  },
+  
   maxTime(times) {
     const maxTime = times.reduce((max, current) => {
       return current > max ? current : max;
     }, times[0]);
     return maxTime
+  },
+
+  getHourFromTimeString(timeString) {
+    const date = new Date(timeString);
+    return date.getUTCHours(); // or date.getHours() for local time
+  },
+
+  getLocalHourFromTimeString(timeString) {
+    const date = new Date(timeString);
+    return date.getHours(); // or date.getHours() for local time
   }
 
 }
