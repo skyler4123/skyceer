@@ -10,36 +10,45 @@ class AutoGenerator::CalendarService
     userables.each do |userable|
       eventables = userable.education_classes
       eventables.each do |eventable|
-        10.times do |n|
-          CalendarEvent.create!(
-            userable: userable,
-            eventable: eventable,
-            library: "tui",
-            title: "#{Faker::Movie.title}",
-            body: "#{Faker::Movie.quote}",
-            isAllday: false,
-            start: Time.now.midday + n.days,
-            end: Time.now.midday + n.days + 45.minutes,
-            goingDuration: 0,
-            comingDuration: 0,
-            location: Address.create_random.id,
-            attendees: [],
-            category: ['milestone', 'task', 'time', 'allday'].sample,
-            dueDateClass: "",
-            recurrenceRule: "",
-            state: ["Busy", "Free"].sample,
-            isVisible: true,
-            isPending: false,
-            isFocused: false,
-            isReadOnly: false,
-            isPrivate: false,
-            color: '#' + SecureRandom.hex(3),
-            backgroundColor: '#' + SecureRandom.hex(3),
-            dragBackgroundColor: '#' + SecureRandom.hex(3),
-            borderColor: '#' + SecureRandom.hex(3),
-            customStyle: {},
-            raw: {},
-          )
+        # Get the current date
+        current_date = Date.today
+        # Get the first day of the current week (starting on Monday)
+        first_day_of_week = current_date.beginning_of_week(:monday)
+
+        5.times do |date_n|
+          start_date = first_day_of_week + date_n.days
+          5.times do |shift_n|
+            start = start_date.midday + shift_n.hours
+            CalendarEvent.create!(
+              userable: userable,
+              eventable: eventable,
+              library: "tui",
+              title: "#{Faker::Movie.title}",
+              body: "#{Faker::Movie.quote}",
+              isAllday: false,
+              start: start,
+              end: start + 45.minutes,
+              goingDuration: 0,
+              comingDuration: 0,
+              location: Address.create_random.id,
+              attendees: [],
+              category: ['milestone', 'task', 'time', 'allday'].sample,
+              dueDateClass: "",
+              recurrenceRule: "",
+              state: ["Busy", "Free"].sample,
+              isVisible: true,
+              isPending: false,
+              isFocused: false,
+              isReadOnly: false,
+              isPrivate: false,
+              color: '#' + SecureRandom.hex(3),
+              backgroundColor: '#' + SecureRandom.hex(3),
+              dragBackgroundColor: '#' + SecureRandom.hex(3),
+              borderColor: '#' + SecureRandom.hex(3),
+              customStyle: {},
+              raw: {},
+            )
+          end
         end
       end
     end

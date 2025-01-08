@@ -67,10 +67,14 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
     let events = await this.fetchCalendarEventsFromGroupId(event.target.value)
     events = events.map((event) => {
       return {
-        ...event,
+        id: event.id,
+        title: event.title,
+        start: event.start,
+        end: event.end,
         calendarId: this.selectClassTarget.value,
       }
     })
+    console.log(this)
     console.log(events)
     this.calendar.clear()
     this.calendar.createEvents(events)
@@ -201,8 +205,8 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
 
   optionsParamsDefault() {
     return {
-      defaultView: 'month',
-      // defaultView: 'week',
+      // defaultView: 'month',
+      defaultView: 'week',
       useFormPopup: true,
       useDetailPopup: true,
       isReadOnly: false,
@@ -213,29 +217,47 @@ export default class Libs_Calendar_TuiController extends ApplicationController {
         narrowWeekend: false,
         workweek: false,
         showNowIndicator: true,
-        showTimezoneCollapseButton: false,
+        showTimezoneCollapseButton: true,
         timezonesCollapsed: false,
-        hourStart: 0,
+        hourStart: 15,
         hourEnd: 24,
-        eventView: true,
-        taskView: true,
+        eventView: ['time'],
+        taskView: false,
         collapseDuplicateEvents: false,
       },
       month: {
         startDayOfWeek: 1, // 1=monday, 0=sunday
         daynames: [],
-        workweek: true,
+        workweek: false,
         showTimezoneCollapseButton: true,
         timezonesCollapsed: false,
         hourStart: 0,
         hourEnd: 24,
-        narrowWeekend: true,
+        narrowWeekend: false,
         eventView: true,
         taskView: true,
         collapseDuplicateEvents: true,
       },
       gridSelection: true,
-      timezone: { zones: [] },
+      timezone: {
+        zones: [
+          // {
+          //   timezoneName: 'Asia/Ho_Chi_Minh',
+          //   displayLabel: 'Vietnam',
+          //   tooltip: 'Vietnam Time'
+          // },
+          // {
+          //   timezoneName: 'Asia/Seoul',
+          //   displayLabel: 'Seoul',
+          //   tooltip: 'Seoul Time',
+          // },
+          // {
+          //   timezoneName: 'Asia/Tokyo',
+          //   displayLabel: 'Tokyo',
+          //   tooltip: 'Tokyo Time',
+          // },
+        ],
+      },
       theme: {
         common: {
           dayName: {

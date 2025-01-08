@@ -543,6 +543,13 @@ const DataHelpers = {
       colour += value.toString(16).padStart(2, '0')
     }
     return colour
+  },
+
+  maxTime(times) {
+    const maxTime = times.reduce((max, current) => {
+      return current > max ? current : max;
+    }, times[0]);
+    return maxTime
   }
 
 }
