@@ -71,6 +71,12 @@ class EducationStudentsController < EducationsController
     end
   end
 
+  def education_class_id
+    @education_classes = EducationClass.where(id: params[:education_class_id])
+    @education_students = EducationStudent.where(education_class: @education_classes)
+    render json: @education_students
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_education_student

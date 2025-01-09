@@ -13,9 +13,6 @@ Rails.application.routes.draw do
   resources :category_appointments
   resources :payment_category_appointments
   resources :payment_categories
-
-  resources :education_school_appointments
-  resources :education_admins
   resources :payment_customers
   resources :payment_method_appointments
   resources :payment_item_appointments
@@ -30,9 +27,19 @@ Rails.application.routes.draw do
   resources :categories
 
   # EDUCATION package
+  resources :education_school_appointments
+  resources :education_admins
   resources :education_exam_appointments
-  resources :education_time_tables, only: [:index]
-  resources :education_score_boards, only: [:index]
+  resources :education_time_tables, only: [:index] do
+    collection do
+      get :education_class_id
+    end
+  end
+  resources :education_score_boards, only: [:index] do
+    collection do
+      get :education_class_id
+    end
+  end
   resources :education_schools do
     # scope module: :education_schools do
     #   resources :education_teachers
@@ -63,7 +70,11 @@ Rails.application.routes.draw do
   resources :education_rooms
   resources :education_classes
   resources :education_teachers
-  resources :education_students
+  resources :education_students do
+    collection do
+      get :education_class_id
+    end
+  end
   resources :education_categories do
     collection do
       get :education_school_id
@@ -73,7 +84,11 @@ Rails.application.routes.draw do
   resources :education_exam_questions
   resources :education_questions
   resources :education_exams
-  resources :education_subjects
+  resources :education_subjects do
+    collection do
+      get :education_class_id
+    end
+  end
   resources :education_subject_appointments
   resources :education_question_appointments
   resources :education_category_appointments

@@ -58,6 +58,12 @@ class EducationSubjectsController < EducationsController
     end
   end
 
+  def education_class_id
+    @education_classes = EducationClass.where(id: params[:education_class_id])
+    @education_subjects = EducationSubject.joins(:education_classes).where(education_classes: @education_classes)
+    render json: @education_subjects
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_education_subject
