@@ -18,6 +18,7 @@ class AutoGenerator::EducationService
     self.education_question_appointments
     self.education_subject_appointments
     self.education_category_appointments
+    # self.education_exam_appointments
   end
 
   def self.education_school
@@ -323,6 +324,21 @@ class AutoGenerator::EducationService
           education_subject_appointmentable: education_school.education_teachers.sample,
           education_subject: education_subject,
         )
+      end
+    end
+  end
+
+  def self.education_exam_appointments
+    EducationSchool.all.each do |education_school|
+      education_school.education_classes.each do |education_class|
+        education_class.education_students.each do |education_student|
+          EducationExamAppointment.create!(
+            education_exam: education_school.education_exams.sample,
+            education_exam_appointmentable: education_student,
+            status: rand(0..3),
+            score: rand(0..10),
+          )
+        end
       end
     end
   end

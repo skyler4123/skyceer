@@ -5,6 +5,8 @@
 # end
 
 Rails.application.routes.draw do
+  resources :nosql_users
+  resources :education_exam_appointments
   resources :education_time_tables, only: [:index]
   resources :report_category_appointments
   resources :report_categories

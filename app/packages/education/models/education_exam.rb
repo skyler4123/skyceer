@@ -11,4 +11,7 @@ class EducationExam < ApplicationRecord
   has_many :education_class_appointments, as: :education_class_appointmentable, dependent: :destroy
   has_many :education_classes, through: :education_class_appointments
 
+  has_many :education_exam_appointments, dependent: :destroy
+  has_many :education_students, through: :education_exam_appointments, source: :education_exam_appointmentable, source_type: 'EducationStudent'
+
 end

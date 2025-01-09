@@ -1,0 +1,21 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% content_for :title, "Nosql users" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Nosql users</h1>
+    <%= link_to "New nosql user", new_nosql_user_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="nosql_users" class="min-w-full">
+    <% @nosql_users.each do |nosql_user| %>
+      <%= render nosql_user %>
+      <p>
+        <%= link_to "Show this nosql user", nosql_user, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>

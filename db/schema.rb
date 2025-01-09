@@ -235,6 +235,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.index ["education_school_id"], name: "index_education_courses_on_education_school_id"
   end
 
+  create_table "education_exam_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_exam_id", null: false
+    t.string "education_exam_appointmentable_type", null: false
+    t.uuid "education_exam_appointmentable_id", null: false
+    t.decimal "score"
+    t.integer "status"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_exam_appointmentable_type", "education_exam_appointmentable_id"], name: "index_education_exam_appointments_on_education_exam_appointment"
+    t.index ["education_exam_id"], name: "index_education_exam_appointments_on_education_exam_id"
+  end
+
   create_table "education_exams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -704,6 +717,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_class_appointments", "education_classes"
   add_foreign_key "education_classes", "education_schools"
   add_foreign_key "education_courses", "education_schools"
+  add_foreign_key "education_exam_appointments", "education_exams"
   add_foreign_key "education_exams", "education_courses"
   add_foreign_key "education_exams", "education_schools"
   add_foreign_key "education_exams", "education_subjects"

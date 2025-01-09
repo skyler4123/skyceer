@@ -1,41 +1,19 @@
 class AutoGenerator::SeedService
-  def self.run(seed_number: 0)
-    AutoGenerator::UserService.run
-    self.category
-    self.category_appointment
-        
+  def self.run(seed_number: 0)    
+    AutoGenerator::ApplicationService.run
     AutoGenerator::EducationService.run
     # AutoGenerator::VehicleService.run
     AutoGenerator::CalendarService.run
     # AutoGenerator::ChatService.run
     # AutoGenerator::ArticleService.run
     # AutoGenerator::EstateService.run
-    # AutoGenerator::ReportService.run
-    # AutoGenerator::PaymentService.run
+    AutoGenerator::ReportService.run
+    AutoGenerator::PaymentService.run
 
     
     self.puts_count
     puts "AutoGenerator::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"
     return true
-  end
-
-
-  def self.category
-    20.times do |n|
-      category = Category.create!(
-        name: "category #{n}",
-        parent_category: [Category.all.sample, nil].sample
-      )
-    end
-  end
-
-  def self.category_appointment
-    Address.all.each do |address|
-      CategoryAppointment.create!(
-        category: Category.all.sample,
-        category_appointmentable: address
-      )
-    end
   end
 
   def self.puts_count
