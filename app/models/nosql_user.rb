@@ -9,6 +9,8 @@ class NosqlUser
   field :avatar, type: String
   field :role, type: Integer
   field :education_role, type: Integer
+  field :verified, type: Boolean
+  field :discarded_at, type: DateTime
 
   def user
     User.where(id: self.user_id)
