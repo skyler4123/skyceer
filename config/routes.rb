@@ -6,8 +6,7 @@
 
 Rails.application.routes.draw do
   resources :nosql_users
-  resources :education_exam_appointments
-  resources :education_time_tables, only: [:index]
+
   resources :report_category_appointments
   resources :report_categories
   resources :report_users
@@ -31,26 +30,29 @@ Rails.application.routes.draw do
   resources :categories
 
   # EDUCATION package
+  resources :education_exam_appointments
+  resources :education_time_tables, only: [:index]
+  resources :education_score_boards, only: [:index]
   resources :education_schools do
-    scope module: :education_schools do
-      resources :education_teachers
-      resources :education_students
-      resources :education_courses
-      resources :education_rooms
-      resources :education_classes
-      resources :education_categories do
-        collection do
-          get :select
-        end
-      end
-      resources :education_exam_questions
-      resources :education_questions
-      resources :education_exams
-      resources :education_subjects
-    end
-    member do
-      get :education_schools
-    end
+    # scope module: :education_schools do
+    #   resources :education_teachers
+    #   resources :education_students
+    #   resources :education_courses
+    #   resources :education_rooms
+    #   resources :education_classes
+    #   resources :education_categories do
+    #     collection do
+    #       get :select
+    #     end
+    #   end
+    #   resources :education_exam_questions
+    #   resources :education_questions
+    #   resources :education_exams
+    #   resources :education_subjects
+    # end
+    # member do
+    #   get :education_schools
+    # end
   end
   resources :educations, only: [:index]
   resources :education_courses do
