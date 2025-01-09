@@ -96,7 +96,7 @@ class AutoGenerator::EducationService
   end
   
   def self.education_teacher
-    10.times do
+    (EducationClass.count * 5).times do
       teacher_user = AutoGenerator::UserService.create(education_role: :teacher)
       education_teacher = EducationTeacher.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: teacher_user)
       AutoGenerator::AttachmentService.attach(record: education_teacher, relation: :image_attachments, number: 1)
@@ -104,7 +104,7 @@ class AutoGenerator::EducationService
   end
 
   def self.education_student
-    50.times do
+    (EducationClass.count * 20).times do
       student_user = AutoGenerator::UserService.create(education_role: :student)
       education_student = EducationStudent.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: student_user)
       AutoGenerator::AttachmentService.attach(record: education_student, relation: :image_attachments, number: 1)
@@ -153,7 +153,7 @@ class AutoGenerator::EducationService
 
   def self.education_exam
     EducationSchool.all.each do |education_school|
-      10.times do
+      (EducationClass.count * 5).times do
         EducationExam.create!(
           education_school: education_school,
           education_course: education_school.education_courses.sample,
