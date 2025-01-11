@@ -39,6 +39,9 @@ export default class extends Education_LayoutController {
   async classIdValueChanged(value, previousValue) {
     // return if value empty
     if (this.isEmpty(value)) return
+
+    if (this.table) { this.table.destroy() }
+    
     const subjects = await this.fetchSubjectsFromClassId()
     this.subjectSelectTarget.innerHTML = `
       <option>Select Subject</option>
