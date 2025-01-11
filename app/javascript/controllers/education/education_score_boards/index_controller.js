@@ -17,7 +17,7 @@ export default class extends Education_LayoutController {
   init() {
     this.initValue()
     this.initHTML()
-    // this.initTable()
+    console.log(this)
   }
 
   initValue() {
@@ -55,7 +55,12 @@ export default class extends Education_LayoutController {
     if (this.isEmpty(value)) return
     const scoreBoards = await this.fetchScoreBoards()
     this.scoreBoardsValue = scoreBoards
-    console.log(scoreBoards)
+  }
+
+  scoreBoardsValueChanged(value, previousValue) {
+    // return if value empty
+    if (this.isEmpty(value)) return
+    this.initTable()
   }
 
   async fetchStudentsFromClassId() {
@@ -102,14 +107,8 @@ export default class extends Education_LayoutController {
   }
 
   initTable() {
-      let tableData = this.classesValue.map((row) => {
-        return {
-          ...row,
-          name: `<a href="${CookieHelpers.navigationUrl()}/education_classes/${row.id}">${row.name}</a>`,
-        }
-      })
       this.table = new Tabulator(this.tableTarget, {
-        data: tableData,           //load row data from array
+        data: this.tableData(),           //load row data from array
         layout:"fitColumns",      //fit columns to width of table
         responsiveLayout:"hide",  //hide columns that don't fit on the table
         addRowPos:"top",          //when adding a new row, add it to the top of the table
@@ -124,13 +123,57 @@ export default class extends Education_LayoutController {
         columnDefaults:{
             tooltip:true,         //show tool tips on cells
         },
-        columns:[                 //define the table columns
-            // {title:"Name", field:"name", editor:"input"},
-            {title:"Name", field: "name", formatter: "html"},
-            {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
-            {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
-  
-        ],
-      });
-    }
+        columns: this.tableColumns(),
+      }
+    );
+  }
+
+  tableData() {
+    return this.scoreBoardsValue.education_students.map((row) => {
+      return {
+        ...row,
+        name: `<a href="${CookieHelpers.navigationUrl()}/education_classes/${row.id}">${row.name}</a>`,
+        ...this.examAppointmentsData().find((data) => data.name === row.name)
+      }
+    })
+  }
+
+  tableColumns() {
+    const examColumns = this.scoreBoardsValue.education_exams.map((exam) => {
+      return {
+        title: exam.name,
+        field: exam.id,
+        formatter: "html",
+        hozAlign: "center",
+        sorter: "number",
+        editor: "input",
+      }
+    })
+    return [
+      {title:"Name", field: "name", formatter: "html"},
+      {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
+      {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
+      ...examColumns
+    ]
+  }
+
+  // education_exam_appointments = [{id, education_exam_id, education_exam_appointmentable_type, education_exam_appointmentable_id, score, status, created_at, updated_at}]
+  // education_exam_appointmentable_id is education_student_id
+  // education_student_id is education_students[].id
+  // loop through education_students[].id and get education_exam_appointments[].score
+  examAppointmentsData() {
+    const examAppointments = this.scoreBoardsValue.education_exam_appointments
+    const educationStudents = this.scoreBoardsValue.education_students
+    const educationExams = this.scoreBoardsValue.education_exams
+    const data = []
+    educationStudents.forEach((student) => {
+      const row = {name: student.name}
+      educationExams.forEach((exam) => {
+        const appointment = examAppointments.find((appointment) => appointment.education_exam_id === exam.id && appointment.education_exam_appointmentable_id === student.id)
+        row[exam.id] = appointment ? appointment.score : ''
+      })
+      data.push(row)
+    })
+    return data
+  }
 }
