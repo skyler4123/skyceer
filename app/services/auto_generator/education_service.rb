@@ -72,7 +72,11 @@ class AutoGenerator::EducationService
   def self.education_class
     EducationSchool.all.each do |education_school|
       5.times do
-        education_class = EducationClass.create!(name: "Class #{Faker::Number.number}", education_school: education_school)
+        education_class = EducationClass.create!(
+          name: "Class #{Faker::Number.number}",
+          education_school: education_school,
+          education_course: education_school.education_courses.sample,
+        )
         AutoGenerator::AttachmentService.attach(record: education_class, relation: :image_attachments, number: 1)
       end
     end
@@ -220,12 +224,12 @@ class AutoGenerator::EducationService
         education_class_appointmentable: education_room,
       )
     end
-    EducationCourse.all.each do |education_course|
-      EducationClassAppointment.create!(
-        education_class: education_course.education_school.education_classes.sample,
-        education_class_appointmentable: education_course,
-      )
-    end
+    # EducationCourse.all.each do |education_course|
+    #   EducationClassAppointment.create!(
+    #     education_class: education_course.education_school.education_classes.sample,
+    #     education_class_appointmentable: education_course,
+    #   )
+    # end
     EducationExam.all.each do |education_exam|
       EducationClassAppointment.create!(
         education_class: education_exam.education_school.education_classes.sample,

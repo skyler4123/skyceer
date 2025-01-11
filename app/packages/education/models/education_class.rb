@@ -3,12 +3,13 @@ class EducationClass < ApplicationRecord
   include EducationClass::ImagesConcern
 
   belongs_to :education_school
+  belongs_to :education_course
+
   has_many :education_lessons, dependent: :destroy
   has_many :education_class_appointments, dependent: :destroy
   has_many :education_students, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationStudent'
   has_many :education_teachers, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationTeacher'
   has_many :education_subjects, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationSubject'
-  has_many :education_courses, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationCourse'
   has_many :education_rooms, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationRoom'
   has_many :education_exams, through: :education_class_appointments, source: :education_class_appointmentable, source_type: 'EducationExam'
 

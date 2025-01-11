@@ -13,6 +13,7 @@ rails g scaffold CategoryAppointment category:references category_appointmentabl
 
 EDUCATION
 rails g scaffold EducationAdmin user:references name discarded_at:datetime --force
+rails g scaffold EducationClass education_school:references education_course:references name discarded_at:datetime --force
 rails g scaffold EducationSubject name description education_school:references education_category:references discarded_at:datetime --force
 rails g scaffold EducationCourse name description education_school:references education_category:references discarded_at:datetime --force
 rails g scaffold EducationExam name description status:integer education_school:references education_subject:references education_course:references discarded_at:datetime --force

@@ -71,13 +71,13 @@ class EducationClassesController < EducationsController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_education_class
-      @education_class = EducationClass.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_education_class
+    @education_class = EducationClass.find(params.expect(:id))
+  end
 
-    # Only allow a list of trusted parameters through.
-    def education_class_params
-      params.require(:education_class).permit(:education_school_id, :name)
-    end
+  # Only allow a list of trusted parameters through.
+  def education_class_params
+    params.expect(education_class: [ :education_school_id, :education_course_id, :name, :discarded_at ])
+  end
 end
