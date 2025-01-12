@@ -160,7 +160,6 @@ class AutoGenerator::EducationService
       (education_school.education_classes.count * 5).times do
         EducationExam.create!(
           education_school: education_school,
-          education_course: education_school.education_courses.sample,
           education_subject: education_school.education_subjects.sample,
           name: "Exam #{Faker::Number.number}",
           description: Faker::Movie.quote,
@@ -224,12 +223,6 @@ class AutoGenerator::EducationService
         education_class_appointmentable: education_room,
       )
     end
-    # EducationCourse.all.each do |education_course|
-    #   EducationClassAppointment.create!(
-    #     education_class: education_course.education_school.education_classes.sample,
-    #     education_class_appointmentable: education_course,
-    #   )
-    # end
     EducationExam.all.each do |education_exam|
       EducationClassAppointment.create!(
         education_class: education_exam.education_school.education_classes.sample,

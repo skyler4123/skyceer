@@ -1,5 +1,4 @@
 class EducationCourse < ApplicationRecord
-  has_many :education_exams, dependent: :destroy
   belongs_to :education_school
 
   has_many :education_classes, dependent: :destroy

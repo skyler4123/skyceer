@@ -72,6 +72,6 @@ class EducationExamsController < EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_exam_params
-      params.expect(education_exam: [ :name, :description, :status, :education_school_id, :education_subject_id, :education_course_id, :discarded_at ])
+      params.expect(education_exam: [ :name, :description, :status, :education_school_id, :education_subject_id, :discarded_at ])
     end
 end

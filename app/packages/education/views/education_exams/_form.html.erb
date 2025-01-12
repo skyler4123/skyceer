@@ -37,11 +37,6 @@
   </div>
 
   <div class="my-5">
-    <%= form.label :education_course_id %>
-    <%= form.select :education_course_id, @education_courses.pluck(:name, :id), { include_blank: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
-
-  <div class="my-5">
     <%= form.label :education_category_id %>
     <%= form.select :education_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-category-target": "educationCategory"} } %>
   </div>

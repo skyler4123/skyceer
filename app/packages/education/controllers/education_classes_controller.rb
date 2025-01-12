@@ -21,6 +21,7 @@ class EducationClassesController < EducationsController
 
   # GET /education_classes/1/edit
   def edit
+    @education_exams = EducationExam.where(education_school: @education_schools)
   end
 
   # POST /education_classes or /education_classes.json

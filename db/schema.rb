@@ -256,11 +256,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.integer "status"
     t.uuid "education_school_id", null: false
     t.uuid "education_subject_id", null: false
-    t.uuid "education_course_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_course_id"], name: "index_education_exams_on_education_course_id"
     t.index ["education_school_id"], name: "index_education_exams_on_education_school_id"
     t.index ["education_subject_id"], name: "index_education_exams_on_education_subject_id"
   end
@@ -721,7 +719,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_classes", "education_schools"
   add_foreign_key "education_courses", "education_schools"
   add_foreign_key "education_exam_appointments", "education_exams"
-  add_foreign_key "education_exams", "education_courses"
   add_foreign_key "education_exams", "education_schools"
   add_foreign_key "education_exams", "education_subjects"
   add_foreign_key "education_lessons", "education_classes"
