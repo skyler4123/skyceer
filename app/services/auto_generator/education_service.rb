@@ -18,7 +18,7 @@ class AutoGenerator::EducationService
     self.education_question_appointments
     self.education_subject_appointments
     self.education_category_appointments
-    # self.education_exam_appointments
+    self.update_education_exam_appointments
   end
 
   def self.education_school
@@ -325,4 +325,12 @@ class AutoGenerator::EducationService
     end
   end
 
+  def self.update_education_exam_appointments
+    EducationExamAppointment.where(education_exam_appointmentable_type: 'EducationStudent').each do |education_exam_appointment|
+      education_exam_appointment.update(
+        status: rand(0..3),
+        score: rand(0..10),
+      )
+    end
+  end
 end
