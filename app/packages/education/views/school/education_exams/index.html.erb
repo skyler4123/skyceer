@@ -1,0 +1,13 @@
+<div class="w-full">
+  <% content_for :title, "Education exams" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Education exams</h1>
+    <%= link_to "New education exam", new_education_exam_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div id="education_exams" class="min-w-full">
+  </div>
+  <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+</div>
+<%= content_data(@education_exams).html_safe %>

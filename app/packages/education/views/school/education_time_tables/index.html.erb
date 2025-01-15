@@ -1,0 +1,17 @@
+<div>
+  <h1 class="font-bold text-4xl">EducationTimeTables#index</h1>
+  <p>Find me in app/views/education_time_tables/index.html.erb</p>
+
+  <div
+    data-controller="education--calendar--tui"
+    data-education--calendar--tui-groups-value="<%= @education_classes.to_json(only: [:id, :name]) %>" 
+  >
+  </div>
+  <%
+=begin%>
+ <div data-controller="education--calendar--tui"></div> 
+<%
+=end%>
+
+
+</div>

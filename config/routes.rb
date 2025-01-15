@@ -4,7 +4,60 @@
 #   [user, password] == [SIDEKIQ_UI_USER, SIDEKIQ_UI_PASSWORD]
 # end
 
+class CustomRouteConstraint
+  def initialize(education_role)
+    @education_role = education_role
+  end
+
+  def matches?(request)
+    education_role = request.cookies["education_role"]
+    case education_role.to_sym
+    when :school
+      return true if @education_role == :school
+    when :admin
+      return true if @education_role == :admin
+    when :teacher
+      return true if @education_role == :teacher
+    when :student
+      return true if @education_role == :student
+    else
+      false
+    end
+  end
+end
+
 Rails.application.routes.draw do
+  # constraints CustomRouteConstraint.new("admin") do
+  #   scope module: "admin" do
+  #     resources :education_schools
+  #   end
+  # end
+
+  # constraints CustomRouteConstraint.new("school") do
+  #   scope module: "school" do
+  #     resources :education_schools
+  #   end
+  # end
+
+  # constraints CustomRouteConstraint.new("teacher") do
+  #   scope module: "teacher" do
+  #     resources :education_schools
+  #   end
+  # end
+
+  # constraints CustomRouteConstraint.new("student") do
+  #   scope module: "student" do
+  #     resources :education_schools
+  #   end
+  # end
+  User.education_roles.keys.each do |role|
+    constraints CustomRouteConstraint.new(role.to_sym) do
+      scope module: role do
+        resources :education_schools
+      end
+    end
+  end
+
   resources :nosql_users
 
   resources :report_category_appointments
@@ -40,7 +93,7 @@ Rails.application.routes.draw do
       get :education_class_id
     end
   end
-  resources :education_schools do
+  resources :education_schools
     # scope module: :education_schools do
     #   resources :education_teachers
     #   resources :education_students
@@ -60,7 +113,7 @@ Rails.application.routes.draw do
     # member do
     #   get :education_schools
     # end
-  end
+  # end
   resources :educations, only: [:index]
   resources :education_courses do
     collection do
