@@ -10,6 +10,8 @@ this.viewMoreInterval = setInterval(() => {
   }
 }, 2000)
 
+// Stop
+clearInterval(this.viewMoreInterval)
 
 // Load more comments with Xem thêm bình luận
 let scrollContainerClass = "x78zum5 xdt5ytf x6ikm8r x1odjw0f x1iyjqo2 x1pi30zi x1swvt13"
