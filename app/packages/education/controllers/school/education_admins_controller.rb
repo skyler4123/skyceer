@@ -3,8 +3,7 @@ class School::EducationAdminsController < School::EducationsController
 
   # GET /education_admins or /education_admins.json
   def index
-    @education_admins = EducationAdmin.joins(:education_schools).where(education_schools: @education_schools)
-    @education_admins = @education_admins.select(:name, :created_at, :updated_at, "education_schools.name as school_name", "education_schools.id as school_id")
+    @education_admins = EducationAdmin.includes(:education_schools).joins(:education_schools).where(education_schools: @education_schools)
     @pagy, @education_admins = pagy(@education_admins)
   end
 
