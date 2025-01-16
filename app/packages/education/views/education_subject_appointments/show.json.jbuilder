@@ -1,1 +1,0 @@
-json.partial! "education_subject_appointments/education_subject_appointment", education_subject_appointment: @education_subject_appointment
