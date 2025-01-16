@@ -50,13 +50,7 @@ Rails.application.routes.draw do
   #     resources :education_schools
   #   end
   # end
-  User.education_roles.keys.each do |role|
-    constraints CustomRouteConstraint.new(role.to_sym) do
-      scope module: role do
-        resources :education_schools
-      end
-    end
-  end
+
 
   resources :nosql_users
 
@@ -80,77 +74,71 @@ Rails.application.routes.draw do
   resources :categories
 
   # EDUCATION package
-  resources :education_school_appointments
-  resources :education_admins
-  resources :education_exam_appointments
-  resources :education_time_tables, only: [:index] do
-    collection do
-      get :education_class_id
-    end
-  end
-  resources :education_score_boards, only: [:index] do
-    collection do
-      get :education_class_id
-    end
-  end
-  resources :education_schools
-    # scope module: :education_schools do
-    #   resources :education_teachers
-    #   resources :education_students
-    #   resources :education_courses
-    #   resources :education_rooms
-    #   resources :education_classes
-    #   resources :education_categories do
-    #     collection do
-    #       get :select
-    #     end
-    #   end
-    #   resources :education_exam_questions
-    #   resources :education_questions
-    #   resources :education_exams
-    #   resources :education_subjects
+    # resources :education_schools
+      # scope module: :education_schools do
+      #   resources :education_teachers
+      # end
     # end
-    # member do
-    #   get :education_schools
-    # end
-  # end
   resources :educations, only: [:index]
-  resources :education_courses do
-    collection do
-      get :education_school_id
+  User.education_roles.keys.each do |role|
+    constraints CustomRouteConstraint.new(role.to_sym) do
+      scope module: role do
+        resources :education_schools
+        resources :education_school_appointments
+        resources :education_admins
+        resources :education_exam_appointments
+        resources :education_time_tables, only: [:index] do
+          collection do
+            get :education_class_id
+          end
+        end
+        resources :education_score_boards, only: [:index] do
+          collection do
+            get :education_class_id
+          end
+        end
+        resources :education_courses do
+          collection do
+            get :education_school_id
+          end
+        end
+        resources :education_rooms
+        resources :education_classes
+        resources :education_teachers
+        resources :education_students do
+          collection do
+            get :education_class_id
+          end
+        end
+        resources :education_categories do
+          collection do
+            get :education_school_id
+            get :parent_category_id
+          end
+        end
+        resources :education_exam_questions
+        resources :education_questions
+        resources :education_exams
+        resources :education_subjects do
+          collection do
+            get :education_class_id
+          end
+        end
+        resources :education_subject_appointments
+        resources :education_question_appointments
+        resources :education_category_appointments
+        resources :education_class_appointments
+        resources :education_class_room_appointments
+        resources :education_question_appointments
+        resources :education_shifts
+        resources :education_lessons
+      end
     end
   end
-  resources :education_rooms
-  resources :education_classes
-  resources :education_teachers
-  resources :education_students do
-    collection do
-      get :education_class_id
-    end
-  end
-  resources :education_categories do
-    collection do
-      get :education_school_id
-      get :parent_category_id
-    end
-  end
-  resources :education_exam_questions
-  resources :education_questions
-  resources :education_exams
-  resources :education_subjects do
-    collection do
-      get :education_class_id
-    end
-  end
-  resources :education_subject_appointments
-  resources :education_question_appointments
-  resources :education_category_appointments
-  resources :education_class_appointments
-  resources :education_class_room_appointments
-  resources :education_question_appointments
-  resources :education_shifts
-  resources :education_lessons
 
+
+
+  
 
 
   # REPORT
