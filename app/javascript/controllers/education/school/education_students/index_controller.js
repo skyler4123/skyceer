@@ -1,11 +1,11 @@
-import Education_LayoutController from "../layout_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
-import { EducationStudentsApi } from "../api/education_students_api";
-import { EducationSchoolsApi } from "../api/education_schools_api";
-import { EducationClassesApi } from "../api/education_classes_api";
-import { params } from "../api/api_helpers";
+import { EducationStudentsApi } from "../../api/education_students_api";
+import { EducationSchoolsApi } from "../../api/education_schools_api";
+import { EducationClassesApi } from "../../api/education_classes_api";
+import { params } from "../../api/api_helpers";
+import Education_School_LayoutController from '../layout_controller';
 
-export default class extends Education_LayoutController {
+export default class extends Education_School_LayoutController {
   static targets = ["index", "select", "filter", "pagination"]
   static values = {
     class: { type: Object, default: {
