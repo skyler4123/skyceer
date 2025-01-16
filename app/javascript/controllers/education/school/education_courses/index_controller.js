@@ -1,17 +1,17 @@
-import Education_LayoutController from "../layout_controller";
-import { CookieHelpers } from '../../helpers/cookie_helpers';
+import { CookieHelpers } from '../../../helpers/cookie_helpers';
 import {TabulatorFull as Tabulator} from 'tabulator';
+import Education_School_LayoutController from "../layout_controller";
 
-export default class extends Education_LayoutController {
+export default class extends Education_School_LayoutController {
 
   init() {
     let tableData = this.contentData().map((row) => {
       return {
         ...row,
-        name: `<a href="${CookieHelpers.navigationUrl()}/education_questions/${row.id}">${row.name}</a>`,
+        name: `<a href="${CookieHelpers.navigationUrl()}/education_courses/${row.id}">${row.name}</a>`,
       }
     })
-    var table = new Tabulator('#education_questions', {
+    var table = new Tabulator('#education_courses', {
       data: tableData,           //load row data from array
       layout:"fitColumns",      //fit columns to width of table
       responsiveLayout:"hide",  //hide columns that don't fit on the table

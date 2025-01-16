@@ -1,8 +1,8 @@
-import Education_LayoutController from "../layout_controller";
-import { CookieHelpers } from '../../helpers/cookie_helpers';
+import { CookieHelpers } from '../../../helpers/cookie_helpers';
 import {TabulatorFull as Tabulator} from 'tabulator';
+import Education_School_LayoutController from "../layout_controller";
 
-export default class extends Education_LayoutController {
+export default class extends Education_School_LayoutController {
 
   init() {
     let tableData = this.contentData().map((row) => {

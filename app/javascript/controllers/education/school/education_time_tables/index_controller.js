@@ -4,6 +4,4 @@ import {TabulatorFull as Tabulator} from 'tabulator';
 
 export default class extends Education_School_LayoutController {
 
-
-
 }
