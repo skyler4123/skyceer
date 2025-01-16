@@ -1,6 +1,6 @@
 import ApplicationController from "../application_controller"
 
-export default class extends ApplicationController {
+export default class Education_FooterController extends ApplicationController {
   static values = {
     class: { type: String, default: "flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2" }
   }

@@ -1,6 +1,6 @@
 import ApplicationController from "../application_controller";
 
-export default class extends ApplicationController {
+export default class Education_MainController extends ApplicationController {
   static values = {
     class: { type: String, default: "relative flex flex-row w-full h-full" }
   }

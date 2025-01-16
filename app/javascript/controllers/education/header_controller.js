@@ -3,7 +3,7 @@ import { CookieHelpers } from "../helpers/cookie_helpers";
 import Education_AvatarController from "./avatar_controller";
 import Education_UserProfileDropdownController from "./user_profile_dropdown_controller";
 
-export default class extends ApplicationController {
+export default class Education_HeaderController extends ApplicationController {
   static values = {
     class: { type: String, default: 'flex flex-row w-full h-full' }
   }
