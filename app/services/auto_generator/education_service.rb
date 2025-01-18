@@ -27,7 +27,7 @@ class AutoGenerator::EducationService
       school_user_count = User.where(education_role: :school).count 
       school_user_count < 2 ? n = 2 : n = 1
       n.times do
-        education_school = EducationSchool.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: school_user, address: Address.create_random)
+        education_school = EducationSchool.create!(name: "#{Faker::Name.name}", user: school_user, address: Address.create_random)
         AutoGenerator::AttachmentService.attach(record: education_school, relation: :avatar_attachment, number: 1)
       end
     end
