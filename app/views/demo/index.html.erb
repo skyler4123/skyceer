@@ -245,7 +245,7 @@
     <%= input(event: { id: remember_me_event_id }, name: 'password') %>
     <%= input(event: { id: remember_me_event_id }, name: 'phone') %>
     <%= button(label: "Test Global", events: [{ id: remember_me_event_id, listener: :click, action: :toggle_remember_me, initialize: true }, { id: toggle_button_event_id, listener: :click, action: :toggle, initialize: true }]) do %>
-      <%= box(is_open: false, event: { id: toggle_button_event_id }, klass: "bg-gray-200 open:bg-blue-600 relative w-11 h-6 rounded-full group") do %>
+      <%= box(is_open: false, event: { id: toggle_button_event_id }, klass: "bg-gray-200 open:bg-slate-800 relative w-11 h-6 rounded-full group") do %>
         <div class="bg-white absolute w-5 h-5 ml-0.5 rounded-full top-1/2 left-0 -translate-y-1/2 group-open:translate-x-full duration-200 ease-out"></div>
       <% end %>
     <% end %>

@@ -144,7 +144,7 @@ export default class extends ApplicationController {
           class="w-6 h-6 rounded-full"
           src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
         >
-        <div class="w-full px-4 py-2 rounded-lg inline-block bg-gray-300 rtl:bg-blue-600 text-gray-600 rtl:text-white">${messageContent}</div>
+        <div class="w-full px-4 py-2 rounded-lg inline-block bg-gray-300 rtl:bg-slate-800 text-gray-600 rtl:text-white">${messageContent}</div>
       </div>
     `
   }

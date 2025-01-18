@@ -58,7 +58,7 @@ export default class extends ApplicationController {
         </div>
 
         <div class="inline">
-          <input type="submit" name="commit" value="Create Estate House" class="rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" data-disable-with="Create Estate House">
+          <input type="submit" name="commit" value="Create Estate House" class="rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer" data-disable-with="Create Estate House">
         </div>
       </form>
     `

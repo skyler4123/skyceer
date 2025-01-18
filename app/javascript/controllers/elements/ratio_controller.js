@@ -68,7 +68,7 @@ export default class RatioController extends ApplicationController {
     return {
       progressBar: {
         element: 'w-1/2 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700',
-        ratioTarget: 'bg-blue-600 h-2.5 rounded-full text-center p-0.5 leading-none duration-500 ease-out'
+        ratioTarget: 'bg-slate-800 h-2.5 rounded-full text-center p-0.5 leading-none duration-500 ease-out'
       },
       img: {
         element: '',
