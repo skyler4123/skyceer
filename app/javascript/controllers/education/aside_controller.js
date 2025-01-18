@@ -8,7 +8,7 @@ export default class extends ApplicationController {
     attributes: { type: Object, default: {
       open: true,
       role: "toggle",
-      class: 'hidden open:flex w-1/4 h-screen bg-gray-800 pr-4 pl-4 pt-4',
+      class: 'hidden open:flex w-1/4 h-screen bg-slate-800 pr-4 pl-4 pt-4',
     } },
     isOpen: { type: Boolean, default: true },
     navigationUrl: {  type: String, default: undefined },

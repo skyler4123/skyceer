@@ -30,7 +30,7 @@
   color: #d1d5db;
 }
 .pagy a:not(.gap).current {
-  background-color: #2563EB;
+  background-color: #1e293b;
   color: white;
 }
 .pagy label {

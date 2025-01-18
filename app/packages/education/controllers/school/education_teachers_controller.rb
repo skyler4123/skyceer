@@ -13,10 +13,7 @@ class School::EducationTeachersController < School::EducationsController
       @education_teachers = EducationTeacher.joins(:education_schools).where(education_schools: @education_schools)
     end
     @education_teachers = @education_teachers.select(:id, :name, :created_at, :updated_at, "education_schools.name as school_name", "education_schools.id as school_id")
-    respond_to do |format|
-      format.html { @pagy, @education_teachers = pagy(@education_teachers) }
-      format.json { render json: @education_teachers }
-    end
+    @pagy, @education_teachers = pagy(@education_teachers)
   end
 
   # GET /education_teachers/1 or /education_teachers/1.json
