@@ -4,6 +4,7 @@ class CreateEducationSchools < ActiveRecord::Migration[7.2]
       t.references :user, null: false, foreign_key: true, type: :uuid
       t.references :address, null: true, foreign_key: true, type: :uuid
       t.string :name
+      t.string :email
       t.string :category
       t.datetime :discarded_at
 

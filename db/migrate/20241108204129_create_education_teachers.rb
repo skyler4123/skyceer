@@ -3,6 +3,7 @@ class CreateEducationTeachers < ActiveRecord::Migration[7.2]
     create_table :education_teachers, id: :uuid do |t|
       t.references :user, null: true, foreign_key: true, type: :uuid
       t.string :name
+      t.string :email
       t.datetime :discarded_at
 
       t.timestamps

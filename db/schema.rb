@@ -180,6 +180,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "name"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_education_admins_on_user_id"
@@ -336,6 +337,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.uuid "user_id", null: false
     t.uuid "address_id"
     t.string "name"
+    t.string "email"
     t.string "category"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -363,6 +365,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "name"
+    t.string "email"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -392,6 +395,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "name"
+    t.string "email"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

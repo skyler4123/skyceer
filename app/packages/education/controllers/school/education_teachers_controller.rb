@@ -31,9 +31,13 @@ class School::EducationTeachersController < School::EducationsController
 
   # POST /education_teachers or /education_teachers.json
   def create
-    @teacher_user = User.find_by(email: params[:education_teacher][:email])
-    # @education_teacher = EducationTeachers.build(education_teacher_params)
-    @education_teacher = EducationTeacher.build(user: @teacher_user, education_school: @education_school)
+    user = User.find_by(email: params[:education_teacher][:email])
+    school = EducationSchool.find_by(id: params[:education_teacher][:education_school_id])
+    category = EducationCategory.find_by(id: params[:education_teacher][:education_category_id])
+    @education_teacher = EducationTeacher.new(education_teacher_params)
+    @education_teacher.user = user if user.present?
+    @education_teacher.education_schools << school if school.present?
+    @education_teacher.education_categories << category if category.present?
 
     respond_to do |format|
       if @education_teacher.save
@@ -77,6 +81,6 @@ class School::EducationTeachersController < School::EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_teacher_params
-      params.require(:education_teacher).permit(:user_id, :name)
+      params.require(:education_teacher).permit(:name)
     end
 end
