@@ -22,9 +22,9 @@ class School::EducationAdminsController < School::EducationsController
 
   # POST /education_admins or /education_admins.json
   def create
-    @admin_user = User.first_or_create(email: params[:education_admin][:email])
+    user = User.find_by(email: params[:education_admin][:email])
     @education_admin = EducationAdmin.new(education_admin_params)
-    @education_admin.user = admin_user
+    @education_admin.user = user if user.present?
 
     respond_to do |format|
       if @education_admin.save
