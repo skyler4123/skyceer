@@ -20,8 +20,8 @@
   </head>
   
   <body data-controller="<%= view_controller(__FILE__) %> language">
-    <header data-<%= view_controller(__FILE__) %>-target="header"></header>
     <%= flash_content %>
+    <header data-<%= view_controller(__FILE__) %>-target="header"></header>
     <main data-<%= view_controller(__FILE__) %>-target="main">
       <aside data-<%= view_controller(__FILE__) %>-target="aside"></aside>
       <article data-<%= view_controller(__FILE__) %>-target="content">

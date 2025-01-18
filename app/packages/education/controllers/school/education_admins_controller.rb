@@ -22,7 +22,9 @@ class School::EducationAdminsController < School::EducationsController
 
   # POST /education_admins or /education_admins.json
   def create
+    @admin_user = User.first_or_create(email: params[:education_admin][:email])
     @education_admin = EducationAdmin.new(education_admin_params)
+    @education_admin.user = admin_user
 
     respond_to do |format|
       if @education_admin.save
@@ -66,6 +68,6 @@ class School::EducationAdminsController < School::EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_admin_params
-      params.expect(education_admin: [ :user_id, :education_school_id, :name ])
+      params.expect(education_admin: [:education_school_id, :name ])
     end
 end

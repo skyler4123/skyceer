@@ -38,11 +38,11 @@ export default class Education_SelectCategoryController extends ApplicationContr
 
   async educationSchoolIdValueChanged(value, previousValue) {
     if (value.length === 0) { return }
+    this.removeAllCategory()
 
     const categories = await this.fetchCategoryFromEducationSchoolId(value)
     const courses = await this.fetchCourseFromEducationSchoolId(value)
-    if (categories.length < 1) { return }
-    this.removeAllCategory()
+    // if (categories.length < 1) { return }
     this.appendSelectCategory(categories)
     if (this.hasEducationCourseTarget) {
       this.educationCourseTarget.innerHTML = this.selectCourseHTML(courses)
