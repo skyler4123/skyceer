@@ -12,7 +12,8 @@ module EstateHouse::ImagesConcern
     validate :acceptable_image_attachment
 
     def acceptable_image_attachment
-      return unless image_attachments.attached?
+      # Check if there are any new attachments
+      return unless image_attachments.any? { |attachment| attachment.new_record? }
       if image_attachments.detect { |image_attachment| image_attachment.blob.byte_size > 500.kilobytes }
         errors.add(:image_attachments, "is too big (500KB)")
       end
