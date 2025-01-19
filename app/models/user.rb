@@ -46,4 +46,5 @@ class User < ApplicationRecord
   include User::PaymentConcern
   include User::ReportConcern
   include User::NosqlUserConcern
+  include User::PackageConcern
 end

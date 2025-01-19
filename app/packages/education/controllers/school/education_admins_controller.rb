@@ -34,7 +34,7 @@ class School::EducationAdminsController < School::EducationsController
         format.html { redirect_to @education_admin, notice: "Education admin was successfully created." }
         format.json { render :show, status: :created, location: @education_admin }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to request.referer, error: "Education teacher was not created: #{@education_admin.errors.full_messages}" }
         format.json { render json: @education_admin.errors, status: :unprocessable_entity }
       end
     end

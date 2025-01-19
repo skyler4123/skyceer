@@ -40,7 +40,7 @@ class School::EducationStudentsController < School::EducationsController
         format.html { redirect_to education_students_path, notice: "Education student was successfully created." }
         format.json { render :show, status: :created, location: @education_student }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to request.referer, error: "Education teacher was not created: #{@education_student.errors.full_messages}" }
         format.json { render json: @education_student.errors, status: :unprocessable_entity }
       end
     end
@@ -83,6 +83,6 @@ class School::EducationStudentsController < School::EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_student_params
-      params.require(:education_student).permit(:user_id, :name)
+      params.require(:education_student).permit(:name, :email)
     end
 end

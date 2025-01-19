@@ -29,7 +29,7 @@ class School::EducationSchoolsController < School::EducationsController
         format.html { redirect_to @education_school, notice: "Education school was successfully created." }
         format.json { render :show, status: :created, location: @education_school }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to request.referer, error: "Education teacher was not created: #{@education_school.errors.full_messages}" }
         format.json { render json: @education_school.errors, status: :unprocessable_entity }
       end
     end
