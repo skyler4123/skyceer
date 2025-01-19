@@ -34,6 +34,18 @@ class School::EducationStudentsController < School::EducationsController
   # POST /education_students or /education_students.json
   def create
     @education_student = EducationStudent.new(education_student_params)
+    if params[:education_student][:education_school_id].present?
+      @education_school = EducationSchool.find_by(id: params[:education_student][:education_school_id])
+      @education_student.education_schools << @education_school
+    end
+    if params[:education_student][:education_class_id].present?
+      @education_class = EducationClass.find_by(id: params[:education_student][:education_class_id])
+      @education_student.education_classes << @education_class
+    end
+    if params[:education_student][:education_category_id].present?
+      @education_category = EducationCategory.find_by(id: params[:education_student][:education_category_id])
+      @education_student.education_categories << @education_category
+    end
 
     respond_to do |format|
       if @education_student.save
