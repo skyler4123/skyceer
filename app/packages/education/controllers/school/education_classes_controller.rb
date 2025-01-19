@@ -3,6 +3,8 @@ class School::EducationClassesController < School::EducationsController
 
   # GET /education_classes or /education_classes.json
   def index
+    # get education_schools from id params when it exists instead of current_education_school
+    @education_schools = EducationSchool.find(params[:education_school_id]) if params[:education_school_id].present?
     @education_classes = EducationClass.where(education_school: @education_schools)
     respond_to do |format|
       format.html { @pagy, @education_classes = pagy(@education_classes) }

@@ -14,9 +14,10 @@ import "choices"
 import ApplicationController from "../application_controller";
 import { EducationCategoriesApi } from "./api/education_categories_api";
 import { EducationCoursesApi } from "./api/education_courses_api";
+import { EducationClassesApi } from "./api/education_classes_api";
 
 export default class Education_SelectCategoryController extends ApplicationController {
-  static targets = ["educationCategory", "educationCourse", "category", "educationSchool"]
+  static targets = ["educationCategory", "educationClass", "educationCourse", "category", "educationSchool"]
   static values = {
     educationSchoolId: { type: String, default: "" },
     categoryId: { type: String, default: null }
@@ -38,15 +39,27 @@ export default class Education_SelectCategoryController extends ApplicationContr
 
   async educationSchoolIdValueChanged(value, previousValue) {
     if (value.length === 0) { return }
-    this.removeAllCategory()
+    // refresh class select options if class select target exists
+    if (this.hasEducationClassTarget) { this.refreshClassSelectOptions() }
 
-    const categories = await this.fetchCategoryFromEducationSchoolId(value)
-    const courses = await this.fetchCourseFromEducationSchoolId(value)
-    // if (categories.length < 1) { return }
-    this.appendSelectCategory(categories)
+    // refresh category select options if category select target exists
+    if (this.hasEducationCategoryTarget) { 
+      this.removeAllCategory()
+      const categories = await this.fetchCategoryFromEducationSchoolId(value)
+      this.appendSelectCategory(categories)
+    }
+
+    // refresh course select options if course select target exists
     if (this.hasEducationCourseTarget) {
+      const courses = await this.fetchCourseFromEducationSchoolId(value)
       this.educationCourseTarget.innerHTML = this.selectCourseHTML(courses)
     }
+  }
+
+  async refreshClassSelectOptions() {
+    const classes = await this.fetchClassFromSchoolId(this.educationSchoolIdValue)
+    if (classes.length < 1) { return }
+    this.educationClassTarget.innerHTML = this.selectClassHTML(classes)
   }
 
   removeAllCategory() {
@@ -74,14 +87,21 @@ export default class Education_SelectCategoryController extends ApplicationContr
   async fetchCategoryFromParentCategoryId(categoryId) {
     const response = await EducationCategoriesApi.parent_category_id({params: {parent_category_id: categoryId}})
     const responseData = response.data
-    if (responseData.length < 1) { return "" }
+    if (responseData.length < 1) { return [] }
     return responseData
   }
 
   async fetchCourseFromEducationSchoolId(educationSchoolId) {
     const response = await EducationCoursesApi.education_school_id({params: {"education_school_id": educationSchoolId}})
     const responseData = response.data
-    if (responseData.length < 1) { return "" }
+    if (responseData.length < 1) { return [] }
+    return responseData
+  }
+
+  async fetchClassFromSchoolId(schoolId) {
+    const response = await EducationClassesApi.index({params: {education_school_id: schoolId}})
+    const responseData = response.data
+    if (responseData.length < 1) { return [] }
     return responseData
   }
 
@@ -95,6 +115,11 @@ export default class Education_SelectCategoryController extends ApplicationContr
     this.categoryTargets.forEach((target, index) => {
       if (index > removeAfterIndex) { target.remove() }
     }) 
+  }
+
+  educationClassChanged(event) {
+    this.removeClassSelectOptions()
+    this.categoryIdValue = event.target.value
   }
 
   selectCategoryHTML(categories) {
@@ -121,6 +146,17 @@ export default class Education_SelectCategoryController extends ApplicationContr
       ${courses.map((course) => {
         return `
           <option value="${course.id}">${course.name}</option>
+        `
+      }).join("")}
+    `
+  }
+
+  selectClassHTML(classes) {
+    return `
+      <option></option>
+      ${classes.map((classData) => {
+        return `
+          <option value="${classData.id}">${classData.name}</option>
         `
       }).join("")}
     `
