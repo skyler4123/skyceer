@@ -74,6 +74,6 @@ class ArticlePostsController < ArticleController
 
     # Only allow a list of trusted parameters through.
     def article_post_params
-      params.require(:article_post).permit(:title, :content)
+      params.expect(article_post: [:title, :content])
     end
 end

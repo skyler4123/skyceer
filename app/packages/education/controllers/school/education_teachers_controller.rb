@@ -81,6 +81,6 @@ class School::EducationTeachersController < School::EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_teacher_params
-      params.require(:education_teacher).permit(:name)
+      params.expect(education_teacher: [:name])
     end
 end

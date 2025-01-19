@@ -68,8 +68,8 @@ class EstateCondosController < EstateController
 
     # Only allow a list of trusted parameters through.
     def estate_condo_params
-      # params.require(:estate_condo).permit(:user_id, :name, :address, :price_cents, :longitude, :latitude)
+      # params.expect(estate_condo: [:user_id, :name, :address, :price_cents, :longitude, :latitude)
       # params.permit(:name, :address, :price_cents, :longitude, :latitude)
-      params.require(:estate_condo).permit(:name, :price_cents, images: [])
+      params.expect(estate_condo: [:name, :price_cents, images: []])
     end
 end

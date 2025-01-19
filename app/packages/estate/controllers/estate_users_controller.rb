@@ -65,6 +65,6 @@ class EstateUsersController < EstateController
 
     # Only allow a list of trusted parameters through.
     def estate_user_params
-      params.require(:estate_user).permit(:user_id)
+      params.expect(estate_user: [:user_id])
     end
 end

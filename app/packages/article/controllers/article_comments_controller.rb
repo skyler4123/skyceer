@@ -65,6 +65,6 @@ class ArticleCommentsController < ArticleController
 
     # Only allow a list of trusted parameters through.
     def article_comment_params
-      params.require(:article_comment).permit(:review_user_id, :content)
+      params.expect(article_comment: [:review_user_id, :content])
     end
 end

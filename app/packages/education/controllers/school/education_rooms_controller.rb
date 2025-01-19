@@ -71,6 +71,6 @@ class School::EducationRoomsController < School::EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_room_params
-      params.require(:education_room).permit(:education_school_id, :name, :category)
+      params.expect(education_room: [:education_school_id, :name, :category])
     end
 end

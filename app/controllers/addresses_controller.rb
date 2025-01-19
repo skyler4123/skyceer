@@ -65,6 +65,6 @@ class AddressesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def address_params
-      params.require(:address).permit(:alpha2, :alpha3, :continent, :nationality, :region, :longitude, :latitude, :level_total, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :level_10)
+      params.expect(address: [:alpha2, :alpha3, :continent, :nationality, :region, :longitude, :latitude, :level_total, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :level_10])
     end
 end

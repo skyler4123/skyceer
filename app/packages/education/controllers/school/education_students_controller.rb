@@ -83,6 +83,6 @@ class School::EducationStudentsController < School::EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_student_params
-      params.require(:education_student).permit(:name, :email)
+      params.expect(education_student: [:name, :email])
     end
 end

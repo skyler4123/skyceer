@@ -73,11 +73,11 @@ class EstateHousesController < EstateController
 
     # Only allow a list of trusted parameters through.
     def estate_house_params
-      # params.require(:estate_house).permit(:name, :price_cents, :user_idimages: [], address: [:unit_number, :street_number, :address_line_1, :address_line_2, :city, :country_code, :postal_code])
-      params.require(:estate_house).permit(:name, :price_cents, images: [])
+      # params.expect(estate_house: [:name, :price_cents, :user_idimages: [], address: [:unit_number, :street_number, :address_line_1, :address_line_2, :city, :country_code, :postal_code])
+      params.expect(estate_house: [:name, :price_cents, images: []])
     end
 
     def address_params
-      params.require(:estate_house).permit(address: [:alpha2, :alpha3, :continent, :nationality, :region, :longitude, :latitude, :level_total, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :level_10])
+      params.expect(estate_house: [address: [:alpha2, :alpha3, :continent, :nationality, :region, :longitude, :latitude, :level_total, :level_1, :level_2, :level_3, :level_4, :level_5, :level_6, :level_7, :level_8, :level_9, :level_10]])
     end
 end

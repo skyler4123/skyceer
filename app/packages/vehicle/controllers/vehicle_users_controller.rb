@@ -65,6 +65,6 @@ class VehicleUsersController < VehicleController
 
     # Only allow a list of trusted parameters through.
     def vehicle_user_params
-      params.require(:vehicle_user).permit(:user_id)
+      params.expect(vehicle_user: [:user_id])
     end
 end

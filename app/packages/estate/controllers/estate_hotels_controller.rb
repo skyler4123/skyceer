@@ -66,6 +66,6 @@ class EstateHotelsController < EstateController
 
     # Only allow a list of trusted parameters through.
     def estate_hotel_params
-      params.require(:estate_hotel).permit(:name, :price_cents, images: [])
+      params.expect(estate_hotel: [:name, :price_cents, images: []])
     end
 end
