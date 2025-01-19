@@ -70,6 +70,6 @@ class School::EducationSchoolsController < School::EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_school_params
-      params.require(:education_school).permit(:address_id, :name, :category)
+      params.require(:education_school).permit(:address_id, :name, :email)
     end
 end

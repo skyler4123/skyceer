@@ -71,6 +71,6 @@ class School::EducationAdminsController < School::EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_admin_params
-      params.expect(education_admin: [:name ])
+      params.expect(education_admin: [:name, :email])
     end
 end
