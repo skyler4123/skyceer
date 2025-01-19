@@ -52,6 +52,7 @@ export default class Education_SelectCategoryController extends ApplicationContr
     // refresh course select options if course select target exists
     if (this.hasEducationCourseTarget) {
       const courses = await this.fetchCourseFromEducationSchoolId(value)
+      console.log(courses)
       this.educationCourseTarget.innerHTML = this.selectCourseHTML(courses)
     }
   }
@@ -92,9 +93,10 @@ export default class Education_SelectCategoryController extends ApplicationContr
   }
 
   async fetchCourseFromEducationSchoolId(educationSchoolId) {
-    const response = await EducationCoursesApi.education_school_id({params: {"education_school_id": educationSchoolId}})
+    const response = await EducationCoursesApi.index({params: {"education_school_id": educationSchoolId}})
     const responseData = response.data
     if (responseData.length < 1) { return [] }
+    console.log(responseData)
     return responseData
   }
 

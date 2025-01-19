@@ -3,6 +3,8 @@ class School::EducationCoursesController < School::EducationsController
 
   # GET /education_courses or /education_courses.json
   def index
+    # get education_schools from id params when it exists instead of current_education_school
+    @education_schools = EducationSchool.find(params[:education_school_id]) if params[:education_school_id].present?
     @education_courses = EducationCourse.where(education_school: @education_schools)
     @pagy, @education_courses = pagy(@education_courses)
   end
@@ -23,6 +25,11 @@ class School::EducationCoursesController < School::EducationsController
   # POST /education_courses or /education_courses.json
   def create
     @education_course = EducationCourse.new(education_course_params)
+    # appoint category if education_Category_id is present
+    if params[:education_course][:education_category_id].present?
+      @education_category = EducationCategory.find(params[:education_course][:education_category_id])
+      @education_course.education_categories << @education_category
+    end
 
     respond_to do |format|
       if @education_course.save

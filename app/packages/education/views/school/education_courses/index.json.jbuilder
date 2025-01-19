@@ -1,1 +1,4 @@
-json.array! @education_courses, partial: "education_courses/education_course", as: :education_course
+json.array! @education_courses do |education_course|
+  json.extract! education_course, :id, :name, :description, :education_school_id, :created_at, :updated_at
+  json.url education_course_url(education_course, format: :json)
+end
