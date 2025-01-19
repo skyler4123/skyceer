@@ -2,7 +2,7 @@
 // <%= form_with(model: education_course, class: "contents", data: { controller: "education--select-category" }) do |form| %>
 //   <div class="my-5">
 //     <%= form.label :education_school_id %>
-//     <%= form.select :education_school_id, @education_schools.pluck(:name, :id), { include_blank: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-category-target": "educationSchool"} } %>
+//     <%= form.select :education_school_id, @education_schools.pluck(:name, :id), { include_blank: true, required: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-category-target": "educationSchool"} } %>
 //   </div>
 //   <div class="my-5">
 //     <%= form.label :parent_category_id %>
