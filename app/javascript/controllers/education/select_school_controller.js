@@ -15,9 +15,10 @@ import ApplicationController from "../application_controller";
 import { EducationCategoriesApi } from "./api/education_categories_api";
 import { EducationCoursesApi } from "./api/education_courses_api";
 import { EducationClassesApi } from "./api/education_classes_api";
+import { EducationSubjectsApi } from "./api/education_subjects_api";
 
 export default class Education_SelectCategoryController extends ApplicationController {
-  static targets = ["educationCategory", "educationClass", "educationCourse", "category", "educationSchool"]
+  static targets = ["educationCategory", "educationClass", "educationCourse", "educationSubject", "category", "educationSchool"]
   static values = {
     educationSchoolId: { type: String, default: "" },
     categoryId: { type: String, default: null }
@@ -54,6 +55,12 @@ export default class Education_SelectCategoryController extends ApplicationContr
       const courses = await this.fetchCourseFromEducationSchoolId(value)
       console.log(courses)
       this.educationCourseTarget.innerHTML = this.selectCourseHTML(courses)
+    }
+
+    // refresh subject select options if subject select target exists
+    if (this.hasEducationSubjectTarget) {
+      const subjects = await this.fetchSubjectFromSchoolId(value)
+      this.educationSubjectTarget.innerHTML = this.selectSubjectHTML(subjects)
     }
   }
 
@@ -102,6 +109,14 @@ export default class Education_SelectCategoryController extends ApplicationContr
 
   async fetchClassFromSchoolId(schoolId) {
     const response = await EducationClassesApi.index({params: {education_school_id: schoolId}})
+    const responseData = response.data
+    if (responseData.length < 1) { return [] }
+    return responseData
+  }
+
+  // fetch subjects from school id
+  async fetchSubjectFromSchoolId(schoolId) {
+    const response = await EducationSubjectsApi.index({params: {education_school_id: schoolId}})
     const responseData = response.data
     if (responseData.length < 1) { return [] }
     return responseData
@@ -159,6 +174,17 @@ export default class Education_SelectCategoryController extends ApplicationContr
       ${classes.map((classData) => {
         return `
           <option value="${classData.id}">${classData.name}</option>
+        `
+      }).join("")}
+    `
+  }
+
+  selectSubjectHTML(subjects) {
+    return `
+      <option></option>
+      ${subjects.map((subject) => {
+        return `
+          <option value="${subject.id}">${subject.name}</option>
         `
       }).join("")}
     `

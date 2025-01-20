@@ -29,6 +29,11 @@ class School::EducationClassesController < School::EducationsController
   # POST /education_classes or /education_classes.json
   def create
     @education_class = EducationClass.new(education_class_params)
+    # appoint category if education_category_id is present
+    if params[:education_class][:education_category_id].present?
+      @education_category = EducationCategory.find(params[:education_class][:education_category_id])
+      @education_class.education_categories << @education_category
+    end
 
     respond_to do |format|
       if @education_class.save

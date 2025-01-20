@@ -13,8 +13,6 @@ class School::EducationExamsController < School::EducationsController
 
   # GET /education_exams/new
   def new
-    @education_subjects = EducationSubject.where(education_school: @education_schools)
-    @education_courses = EducationCourse.where(education_school: @education_schools)
     @education_exam = EducationExam.new
   end
 

@@ -3,6 +3,8 @@ class School::EducationSubjectsController < School::EducationsController
 
   # GET /education_subjects or /education_subjects.json
   def index
+    # get education_schools from id params when it exists instead of current_education_school
+    @education_schools = EducationSchool.find(params[:education_school_id]) if params[:education_school_id].present?
     @education_subjects = EducationSubject.where(education_school: @education_schools)
     @pagy, @education_subjects = pagy(@education_subjects)
   end
@@ -23,6 +25,11 @@ class School::EducationSubjectsController < School::EducationsController
   # POST /education_subjects or /education_subjects.json
   def create
     @education_subject = EducationSubject.new(education_subject_params)
+    # appoint category if education_category_id is present
+    if params[:education_subject][:education_category_id].present?
+      @education_category = EducationCategory.find(params[:education_subject][:education_category_id])
+      @education_subject.education_categories << @education_category
+    end
 
     respond_to do |format|
       if @education_subject.save
@@ -72,6 +79,6 @@ class School::EducationSubjectsController < School::EducationsController
 
     # Only allow a list of trusted parameters through.
     def education_subject_params
-      params.expect(education_subject: [ :name, :description, :education_school_id, :education_category_id ])
+      params.expect(education_subject: [ :name, :description, :education_school_id ])
     end
 end
