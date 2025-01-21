@@ -1,4 +1,4 @@
-class SyncWithPackageUserJob < ApplicationJob
+class Application::User::SyncWithPackageUserJob < ApplicationJob
   queue_as :default
   self.queue_adapter = :solid_queue
 
@@ -12,4 +12,5 @@ class SyncWithPackageUserJob < ApplicationJob
         package_user.update(user_id: user.id)
       end
     end
+  end
 end

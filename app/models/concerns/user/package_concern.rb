@@ -7,7 +7,7 @@ module User::PackageConcern
     private
 
     def sync_with_package_user
-      SyncWithPackageUserJob.perform_later(self.id)
+      Application::User::SyncWithPackageUserJob.perform_later(self.id)
     end
   end
 
