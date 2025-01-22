@@ -1,17 +1,28 @@
 import { CookieHelpers } from '../../../helpers/cookie_helpers';
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_School_LayoutController from '../layout_controller';
+import PaginationController from '../../../pagination_controller';
 
 export default class extends Education_School_LayoutController {
+  static targets = ["table"]
 
   init() {
+    this.initHTML()
+    this.initTable()
+  }
+
+  initHTML() {
+    this.contentTarget.insertAdjacentHTML('beforeend', this.defaultHTML())
+  }
+
+  initTable() {
     let tableData = this.contentData().map((row) => {
       return {
         ...row,
         name: `<a href="${CookieHelpers.navigationUrl()}/education_schools/${row.id}">${row.name}</a>`,
       }
     })
-    var table = new Tabulator('#education_schools', {
+    var table = new Tabulator(this.tableTarget, {
       data: tableData,           //load row data from array
       layout:"fitColumns",      //fit columns to width of table
       responsiveLayout:"hide",  //hide columns that don't fit on the table
@@ -35,6 +46,13 @@ export default class extends Education_School_LayoutController {
 
       ],
     });
+  }
+
+  defaultHTML() {
+    return `
+      <div data-${this.identifier}-target="table" id="education_schools" class="w-full"></div>
+      <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>
+    `
   }
 
 }

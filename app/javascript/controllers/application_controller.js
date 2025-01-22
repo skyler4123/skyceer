@@ -22,7 +22,7 @@ export default class ApplicationController extends Controller {
     // identifier = "data-controller=" + identifier
     return identifier
   }
-  static targets = ['header', 'main', 'aside', 'content', 'footer', 'contentData']
+  static targets = ['header', 'main', 'aside', 'content', 'footer', 'content', 'contentJson']
   static values = {
     params: { type: Object },
     isOpen: { type: Boolean },
@@ -175,7 +175,11 @@ export default class ApplicationController extends Controller {
   }
 
   contentData() {
-    return JSON.parse(this.contentDataTarget.innerHTML)
+    return JSON.parse(this.contentJsonTarget.innerHTML).data
+  }
+
+  contentPagination() {
+    return JSON.parse(this.contentJsonTarget.innerHTML).pagination
   }
 }
 

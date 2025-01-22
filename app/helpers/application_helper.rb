@@ -17,9 +17,9 @@ module ApplicationHelper
     "VN"
   end
 
-  def content_data(resources, **options)
+  def content_data(**data)
     "<div style='display: none;' data-#{view_controller(__FILE__)}-target='contentData'>
-      #{resources.to_json(options)}
+      #{data}
     </div>"
   end
 end
