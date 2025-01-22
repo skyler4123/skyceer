@@ -1,27 +1,30 @@
-<h1>Sign in</h1>
+<div class="w-full h-screen bg-[url('/images/alexander-grey-eMP4sYPJ9x0-unsplash.jpg')] bg-cover bg-center bg-no-repeat flex justify-center items-center">
+  <div class="w-2/5 flex flex-col -translate-y-1/2">
+    <h1 class="text-center text-2xl font-bold">Sign in</h1>
+    <%= form_with(url: sign_in_path) do |form| %>
+      <div class="mb-4">
+        <%= form.label :email, "Your email", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= form.email_field :email, value: params[:email_hint], required: true, autofocus: true, autocomplete: "email", class: "g-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500" %>
+      </div>
 
-<%= form_with(url: sign_in_path) do |form| %>
-  <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.email_field :email, value: params[:email_hint], required: true, autofocus: true, autocomplete: "email" %>
+      <div class="mb-4">
+        <%= form.label :password, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= form.password_field :password, required: true, autocomplete: "current-password", class: "g-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500" %>
+      </div>
+
+      <div class="mb-4">
+        <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-slate-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-slate-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+        <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+      </div>
+
+      <div class="mb-4 flex justify-center items-center">
+        <%= form.submit "Sign in", class: "text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-slate-600 dark:hover:bg-slate-700 dark:focus:ring-slate-800 cursor-pointer" %>
+      </div>
+    <% end %>
+
+    <div class="flex justify-center items-center">
+      <%= link_to "Sign up", sign_up_path %> | 
+      <%= link_to "Forgot your password?", new_identity_password_reset_path %>
   </div>
-
-  <div>
-    <%= form.label :password, style: "display: block" %>
-    <%= form.password_field :password, required: true, autocomplete: "current-password" %>
   </div>
-
-  <div>
-    <%= form.submit "Sign in" %>
-  </div>
-<% end %>
-
-<br>
-
-
-<br>
-
-<div>
-  <%= link_to "Sign up", sign_up_path %> |
-  <%= link_to "Forgot your password?", new_identity_password_reset_path %>
 </div>
