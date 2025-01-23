@@ -111,7 +111,7 @@ export default class PaginationController extends ApplicationController {
 
   urlForPageNumber(pageNumber) {
     let url = new URL(this.urlValue)
-    url.searchParams.set("page[page]", pageNumber)
+    url.searchParams.set("page", pageNumber)
     return url
   }
 }
