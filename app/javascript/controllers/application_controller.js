@@ -205,7 +205,6 @@ export default class ApplicationController extends Controller {
   initFlash() {
     const flashMessages = this.contentFlash();
     Object.entries(flashMessages).forEach(([type, message], index) => {
-      console.log(index)
       setTimeout(() => {
         Swal.fire({
           position: "top",

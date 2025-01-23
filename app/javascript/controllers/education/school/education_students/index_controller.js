@@ -7,7 +7,7 @@ import Education_School_LayoutController from '../layout_controller';
 import PaginationController from '../../../pagination_controller';
 
 export default class extends Education_School_LayoutController {
-  static targets = ["table", "index", "select", "filter", "pagination"]
+  static targets = ["table", "classIdSelect"]
   static values = {
     class: { type: Object, default: {
       element: "w-full h-full",
@@ -23,12 +23,9 @@ export default class extends Education_School_LayoutController {
   }
 
   init() {
-    console.log(this)
-
     this.initHTML()
     this.initValues()
-    // this.initFilter()
-    // this.initFilterSelect()
+    this.initClassIdSelect()
   }
 
   initHTML() {
@@ -78,76 +75,49 @@ export default class extends Education_School_LayoutController {
     });
   }
 
+  async initClassIdSelect() {
+    const classes = await this.fetchClasses()
+    this.classIdSelectTarget.innerHTML = `
+      <option value="" disabled selected>Select Class</option>
+      ${classes.map((row) => {
+        return `<option value="${row.id}">${row.name}</option>`
+      }).join('')}
+    `
+    this.classIdSelectTarget.setAttribute("data-controller", "choices")
+  }
+
+  async fetchClasses() {
+    const response = await EducationClassesApi.index()
+    return response.data
+  }
+
   defaultHTML() {
     return `
-      <form action="/education_students">
-        <input
-          type="text"
-          name="full_text_search"
-          placeholder="Name, Email, Phone, ..."
-          class="w-64"
-        >
-        <select
-          name="education_school_id"
-          class="w-64"
-          data-${this.identifier}-target="select"
-          data-${this.identifier}-api-function-param="EducationSchoolsApi.index()"
-          data-action="mousedown->${this.identifier}#loadFilterSelectOptionsEvent"
-        >
-          <option value="" disabled selected>Select School</option>
-        </select>
-        <select
-          name="education_class_id"
-          class="w-64"
-          data-${this.identifier}-target="select"
-          data-${this.identifier}-api-function-param="EducationClassesApi.index()"
-          data-action="mousedown->${this.identifier}#loadFilterSelectOptionsEvent"
-        >
-          <option value="" disabled selected>Select Class</option>
-        </select>
-        <input type="submit" value="Submit">
+      <form action="/education_students" class="flex flex-row gap-x-4">
+        <div class="w-1/4">
+          <input
+            type="text"
+            name="full_text_search"
+            placeholder="Name, Email, Phone, ..."
+            class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500"
+          >
+        </div>
+        <div class="w-1/4 flex justify-center items-center">
+          <select
+            name="education_class_id"
+            data-${this.identifier}-target="classIdSelect"
+            class="asjjhas akljdlkd"
+          >
+            <option value="" disabled selected>Select Class</option>
+          </select>
+        </div>
+        <div class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+          <input type="submit" value="Submit">
+        </div>
       </form>
       <div data-${this.identifier}-target="table" class="w-full"></div>
       <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>
     `
   }
 
-  initFilterSelect() {
-    this.selectTargets.forEach(async (select) => {
-      if (this.hasParamsAtUrl(select)) {
-        await this.loadFilterSelectOptions(select)
-      }
-    })
-  }
-
-  loadFilterSelectOptionsEvent(event) {
-    this.loadFilterSelectOptions(event.target)
-  }
-
-  async loadFilterSelectOptions(selectElement) {
-    if (selectElement.tagName != "SELECT") { return }
-    if (selectElement.childElementCount > 1) { return }
-
-    const inputName = selectElement.name
-    const apiFunction = selectElement.getAttribute(`data-${this.identifier}-api-function-param`)
-    const response = await eval(apiFunction)
-    const responseData = response.data
-    selectElement.innerHTML = `
-      <option value="">Select ${inputName}</option>
-      ${responseData.map((data) => {
-        return `
-          <option
-            value="${data[this.mappingValue[inputName].value]}"
-            ${params(inputName) == data[this.mappingValue[inputName].value] ? "selected" : ""}
-          >
-              ${data[this.mappingValue[inputName].label]}
-          </option>`
-      }).join("")}
-    `
-  }
-
-  hasParamsAtUrl(selectElement) {
-    const inputName = selectElement.name
-    return !!params(inputName)
-  }
 }

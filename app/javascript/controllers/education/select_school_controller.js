@@ -53,7 +53,6 @@ export default class Education_SelectCategoryController extends ApplicationContr
     // refresh course select options if course select target exists
     if (this.hasEducationCourseTarget) {
       const courses = await this.fetchCourseFromEducationSchoolId(value)
-      console.log(courses)
       this.educationCourseTarget.innerHTML = this.selectCourseHTML(courses)
     }
 
