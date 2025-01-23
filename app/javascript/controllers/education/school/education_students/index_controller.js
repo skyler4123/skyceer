@@ -4,9 +4,10 @@ import { EducationSchoolsApi } from "../../api/education_schools_api";
 import { EducationClassesApi } from "../../api/education_classes_api";
 import { params } from "../../api/api_helpers";
 import Education_School_LayoutController from '../layout_controller';
+import PaginationController from '../../../pagination_controller';
 
 export default class extends Education_School_LayoutController {
-  static targets = ["index", "select", "filter", "pagination"]
+  static targets = ["table", "index", "select", "filter", "pagination"]
   static values = {
     class: { type: Object, default: {
       element: "w-full h-full",
@@ -22,9 +23,14 @@ export default class extends Education_School_LayoutController {
   }
 
   init() {
+    this.initHTML()
     this.initValues()
     this.initFilter()
     this.initFilterSelect()
+  }
+
+  initHTML() {
+    this.contentTarget.insertAdjacentHTML('beforeend', this.defaultHTML())
   }
 
   initValues() {
@@ -42,7 +48,7 @@ export default class extends Education_School_LayoutController {
         name: `<a href="/education_students/${row.id}">${row.name}</a>`,
       }
     })
-    this.table = new Tabulator(this.indexTarget, {
+    this.table = new Tabulator(this.tableTarget, {
       data: tableData,           //load row data from array
       layout:"fitColumns",      //fit columns to width of table
       responsiveLayout:"hide",  //hide columns that don't fit on the table
@@ -70,8 +76,8 @@ export default class extends Education_School_LayoutController {
     });
   }
 
-  initFilter() {
-    this.filterTarget.innerHTML = `
+  defaultHTML() {
+    return `
       <form action="/education_students">
         <input
           type="text"
@@ -99,6 +105,8 @@ export default class extends Education_School_LayoutController {
         </select>
         <input type="submit" value="Submit">
       </form>
+      <div data-${this.identifier}-target="table" class="w-full"></div>
+      <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>
     `
   }
 
