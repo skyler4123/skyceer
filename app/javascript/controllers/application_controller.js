@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import DataHelpers from "./helpers/data_helpers";
 import DomHelpers from "./helpers/dom_helpers";
+import Swal from 'sweetalert2'
 // import DispatchHelpers from "./dispatch_helpers";
 // import ControllerHelpers from "./controller_helpers";
 // import ApiHelpers from "./api_helpers";
@@ -73,6 +74,7 @@ export default class ApplicationController extends Controller {
     if (this.isDefined(this.initClass)) { this.initClass() }
     if (this.isDefined(this.initAction)) { this.initAction() }
     if (this.isDefined(this.initComplete)) { this.initComplete() }
+    if (this.hasFlash()) { this.initFlash() }
     this.isInitializedValue = true
   }
 
@@ -174,13 +176,84 @@ export default class ApplicationController extends Controller {
     return result
   }
 
+  contentJson() {
+    if (this.hasContentJsonTarget) {
+      return JSON.parse(this.contentJsonTarget.innerHTML)
+    }
+    return {}
+  }
+
   contentData() {
-    return JSON.parse(this.contentJsonTarget.innerHTML).data
+    if (this.isEmpty(this.contentJson())) { return [] }
+    return this.contentJson().data
   }
 
   contentPagination() {
-    return JSON.parse(this.contentJsonTarget.innerHTML).pagination
+    if (this.isEmpty(this.contentJson())) { return {} }
+    return this.contentJson().pagination
   }
+
+  contentFlash() {
+    if (this.isEmpty(this.contentJson())) { return {} }
+    return this.contentJson().flash
+  }
+
+  hasFlash() {
+    return !this.isEmpty(this.contentFlash())
+  }
+
+  initFlash() {
+    const flashMessages = this.contentFlash();
+    Object.entries(flashMessages).forEach(([type, message], index) => {
+      console.log(index)
+      setTimeout(() => {
+        Swal.fire({
+          position: "top",
+          html: this.flashHTML(type, message),
+          showConfirmButton: false,
+          timer: 3000,
+          backdrop: false,
+          customClass: {
+            container: '...1',
+            popup: '!p-0',
+            header: '...2',
+            title: '...3',
+            closeButton: '...',
+            icon: '...',
+            image: '...',
+            htmlContainer: '!p-0',
+            input: '...',
+            inputLabel: '...',
+            validationMessage: '...',
+            actions: '...',
+            confirmButton: '...',
+            denyButton: '...',
+            cancelButton: '...',
+            loader: '...5',
+            footer: '....6',
+            timerProgressBar: '....7',
+          }
+        });
+      }, 3000 * index)
+
+    });
+  }
+
+  flashHTML(type = "notice", message) {
+    switch (type) {
+      case "error":
+        return `<div class='w-full text-center py-2 px-3 bg-red-50 text-red-500 font-medium rounded-lg inline-block' id='error'>${message}</div>`
+      case "info":
+        return `<div class='w-full text-center py-2 px-3 bg-blue-50 text-blue-500 font-medium rounded-lg inline-block' id='info'>${message}</div>`
+      case "alert":
+        return `<div class='w-full text-center py-2 px-3 bg-red-50 text-red-500 font-medium rounded-lg inline-block' id='alert'>${message}</div>`
+      case "warning":
+        return `<div class='w-full text-center py-2 px-3 bg-yellow-50 text-yellow-500 font-medium rounded-lg inline-block' id='warning'>${message}</div>`
+      case "notice":
+        return `<div class='w-full text-center py-2 px-3 bg-green-50 text-green-500 font-medium rounded-lg inline-block' id='notice'>${message}</div>`
+    }
+  }
+
 }
 
 Object.assign(ApplicationController.prototype, DataHelpers)

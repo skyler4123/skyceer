@@ -16,7 +16,6 @@ export default class PaginationController extends ApplicationController {
   
   paginationValueChanged(value, previousValue) {
     if (this.isEmpty(value)) { return }
-    console.log(this)
     this.initPaginationHTML()
     this.currentPageTarget.className = "flex justify-center items-center bg-slate-800 text-white hover:cursor-not-allowed min-w-9 rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm text-slate-600"
 

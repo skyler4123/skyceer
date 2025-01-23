@@ -23,10 +23,12 @@ export default class extends Education_School_LayoutController {
   }
 
   init() {
+    console.log(this)
+
     this.initHTML()
     this.initValues()
-    this.initFilter()
-    this.initFilterSelect()
+    // this.initFilter()
+    // this.initFilterSelect()
   }
 
   initHTML() {

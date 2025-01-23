@@ -4,11 +4,5 @@ json.data do
     json.url education_student_url(education_student, format: :json)
   end
 end
-json.pagination do
-  json.last @pagy.last
-  json.next @pagy.next
-  json.page @pagy.page
-  json.params request.params
-  json.prev @pagy.prev
-end
 
+json.partial! "shared/common"
