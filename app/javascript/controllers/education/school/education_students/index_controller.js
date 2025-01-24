@@ -101,14 +101,13 @@ export default class extends Education_School_LayoutController {
             type="text"
             name="full_text_search"
             placeholder="Name, Email, Phone, ..."
-            class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500"
+            class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500"
           >
         </div>
         <div class="w-1/4 flex justify-center items-center">
           <select
             name="education_class_id"
             data-${this.identifier}-target="classIdSelect"
-            class="asjjhas akljdlkd"
           >
             <option value="" disabled selected>Select Class</option>
           </select>
