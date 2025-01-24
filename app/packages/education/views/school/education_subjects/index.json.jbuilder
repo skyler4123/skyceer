@@ -1,4 +1,8 @@
-json.array! @education_subjects do |education_subject|
-  json.extract! education_subject, :id, :name, :description, :education_school_id, :created_at, :updated_at
-  json.url education_subject_url(education_subject, format: :json)
+json.data do
+  json.array! @education_subjects do |education_subject|
+    json.extract! education_subject, :id, :name, :created_at, :updated_at
+    json.education_school education_subject.education_school
+  end
 end
+
+json.partial! "shared/common"

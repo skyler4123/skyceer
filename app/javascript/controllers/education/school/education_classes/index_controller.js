@@ -4,6 +4,7 @@ import Education_School_LayoutController from "../layout_controller";
 import PaginationController from '../../../pagination_controller';
 
 export default class extends Education_School_LayoutController {
+  
   init() {
     this.initHTML()
     this.initTable()
