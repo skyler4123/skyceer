@@ -184,19 +184,19 @@ export default class ApplicationController extends Controller {
     return {}
   }
 
+  // return [] if this.contentJson().data is undefined or empty
   contentData() {
-    if (this.isEmpty(this.contentJson())) { return [] }
-    return this.contentJson().data
+    return this.contentJson().data || []
   }
 
+  // return {} if this.contentJson().pagination is undefined or empty
   contentPagination() {
-    if (this.isEmpty(this.contentJson())) { return {} }
-    return this.contentJson().pagination
+    return this.contentJson().pagination || {}
   }
-
+  
+  // return {} if this.contentJson().flash is undefined or empty
   contentFlash() {
-    if (this.isEmpty(this.contentJson())) { return {} }
-    return this.contentJson().flash
+    return this.contentJson().flash || {}
   }
 
   hasFlash() {

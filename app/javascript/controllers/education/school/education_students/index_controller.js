@@ -23,7 +23,6 @@ export default class extends Education_School_LayoutController {
   }
 
   init() {
-    console.log(this.contentData())
     this.initHTML()
     this.initValues()
     this.initClassIdSelect()
