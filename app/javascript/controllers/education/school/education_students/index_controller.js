@@ -23,6 +23,7 @@ export default class extends Education_School_LayoutController {
   }
 
   init() {
+    console.log(this.contentData())
     this.initHTML()
     this.initValues()
     this.initClassIdSelect()
@@ -45,6 +46,8 @@ export default class extends Education_School_LayoutController {
       return {
         ...row,
         name: `<a href="/education_students/${row.id}">${row.name}</a>`,
+        class_names: `<div>${row.education_classes.map((klass) => `<span>${klass.name}</span>`).join(",")}</div>`,
+        school_names: `<div>${row.education_schools.map((school) => `<span>${school.name}</span>`).join(",")}</div>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -66,8 +69,8 @@ export default class extends Education_School_LayoutController {
       columns:[                 //define the table columns
           // {title:"Name", field:"name", editor:"input"},
           {title:"Name", field: "name", formatter: "html"},
-          {title:"School", field:"school_name", sorter:"string", hozAlign:"center"},
-          {title:"Class", field:"class_names", sorter:"string", hozAlign:"center"},
+          {title:"School", field:"school_names", sorter:"string", hozAlign:"center", formatter: "html"},
+          {title:"Class", field:"class_names", sorter:"string", hozAlign:"center", formatter: "html"},
           // {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
           // {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
 

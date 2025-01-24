@@ -33,6 +33,7 @@ export default class ApplicationController extends Controller {
   }
 
   initialize() {
+    if (this.isInitializedValue) { return }
     this.isInitializedValue = false
     this.paramsValue = this.normalizeParamsValue(this.paramsValue)
     this.initializeParams()
