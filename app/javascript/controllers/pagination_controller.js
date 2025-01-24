@@ -4,27 +4,18 @@ export default class PaginationController extends ApplicationController {
   static targets = ["page", "currentPage"]
   static values = {
     class: { type: String, default: 'w-full flex flex-row justify-center items-center gap-x-1' },
-    url: { type: String, default: window.location.href },
-    pagination: { type: Object, default: {
-      last: 30,
-      next: null,
-      page: 14,
-      params: [ "all" ],
-      prev: null,
-    } },
+    pagination: { type: Object, default: {} },
   }
   
-  paginationValueChanged(value, previousValue) {
-    if (this.isEmpty(value)) { return }
+  // initialize if paginationValue is not empty
+  init() {
+    if (this.isEmpty(this.paginationValue)) { return }
     this.initPaginationHTML()
     this.currentPageTarget.className = "flex justify-center items-center bg-slate-800 text-white hover:cursor-not-allowed min-w-9 rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm text-slate-600"
-
   }
 
   initPaginationHTML() {
-    let pagination = this.paginationValue
-    let paginationHTML = this.paginationHTML(pagination)
-    this.element.innerHTML = paginationHTML
+    this.element.innerHTML = this.paginationHTML(this.paginationValue)
   }
 
   paginationHTML() {
@@ -109,7 +100,7 @@ export default class PaginationController extends ApplicationController {
   }
 
   urlForPageNumber(pageNumber) {
-    let url = new URL(this.urlValue)
+    let url = new URL(window.location.href)
     url.searchParams.set("page", pageNumber)
     return url
   }

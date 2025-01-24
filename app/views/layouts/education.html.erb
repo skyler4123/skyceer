@@ -19,14 +19,7 @@
     <script src="https://unpkg.com/tippy.js@6"></script>
   </head>
   
-  <body data-controller="<%= view_controller(__FILE__) %> language">
-    <header data-<%= view_controller(__FILE__) %>-target="header"></header>
-    <main data-<%= view_controller(__FILE__) %>-target="main">
-      <aside data-<%= view_controller(__FILE__) %>-target="aside"></aside>
-      <article data-<%= view_controller(__FILE__) %>-target="content">
-        <%= yield %>      
-      </article>
-    </main>
-    <footer data-<%= view_controller(__FILE__) %>-target="footer"></footer>
+  <body data-controller="<%= view_controller(__FILE__) %>">
+    <%= yield %>      
   </body>
 </html>
