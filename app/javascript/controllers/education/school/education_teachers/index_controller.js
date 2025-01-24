@@ -5,11 +5,21 @@ import Education_School_LayoutController from '../layout_controller';
 export default class extends Education_School_LayoutController {
 
   init() {
+    this.initHTML()
+    this.initTable()
+  }
+
+  initHTML() {
+    this.contentTarget.innerHTML = this.defaultHTML()
+  }
+
+  initTable() {
     let tableData = this.contentData().map((row) => {
       return {
         ...row,
         name: `<a href="${CookieHelpers.navigationUrl()}/education_teachers/${row.id}">${row.name}</a>`,
-        school_name: `<a href="${CookieHelpers.navigationUrl()}/education_schools/${row.school_id}">${row.school_name}</a>`,
+        school_names: `<div>${row.education_schools.map((school) => `<span>${school.name}</span>`).join(",")}</div>`,
+        class_names: `<div>${row.education_classes.map((klass) => `<span>${klass.name}</span>`).join(",")}</div>`,
       }
     })
     var table = new Tabulator('#education_teachers', {
@@ -31,12 +41,19 @@ export default class extends Education_School_LayoutController {
       columns:[                 //define the table columns
           // {title:"Name", field:"name", editor:"input"},
           {title:"Name", field: "name", formatter: "html"},
-          {title: "School", field: "school_name", width: 150, formatter: "html"},
+          {title: "Schools", field: "school_names", width: 150, formatter: "html"},
+          {title: "Classes", field: "class_names", width: 150, formatter: "html"},
           {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
           {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
 
       ],
     });
+  }
+
+  defaultHTML() {
+    return `
+      <div id="education_teachers" class="w-full h-full"></div>
+    `
   }
 
 }

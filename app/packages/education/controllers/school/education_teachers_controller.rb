@@ -12,7 +12,6 @@ class School::EducationTeachersController < School::EducationsController
     else
       @education_teachers = EducationTeacher.joins(:education_schools).where(education_schools: @education_schools)
     end
-    @education_teachers = @education_teachers.select(:id, :name, :created_at, :updated_at, "education_schools.name as school_name", "education_schools.id as school_id")
     @pagy, @education_teachers = pagy(@education_teachers)
   end
 
