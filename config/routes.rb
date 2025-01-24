@@ -92,7 +92,7 @@ Rails.application.routes.draw do
             get :education_class_id
           end
         end
-        resources :education_score_boards, only: [:index] do
+        resources :education_scoreboards, only: [:index] do
           collection do
             get :education_class_id
           end
