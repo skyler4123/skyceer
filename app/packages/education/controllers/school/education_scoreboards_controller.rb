@@ -11,7 +11,12 @@ class School::EducationScoreboardsController < School::EducationsController
     #     render json: { education_students: @education_students, education_exams: @education_exams, education_exam_appointments: @education_exam_appointments }
     #   }
     # end
-    @education_classes = EducationClass.where(id: params[:education_class_id])
+
+    if params[:education_class_id].present?
+      @education_classes = EducationClass.where(id: params[:education_class_id])
+    else
+      @education_classes = EducationClass.where(education_school: @education_schools)
+    end
     @education_subjects = EducationSubject.where(id: params[:education_subject_id])
     @education_students = EducationStudent.joins(:education_classes).where(education_classes: @education_classes)
     @education_exams = EducationExam.joins(:education_classes).where(education_classes: @education_classes, education_subject: @education_subjects)
