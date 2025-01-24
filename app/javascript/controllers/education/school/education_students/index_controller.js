@@ -29,7 +29,7 @@ export default class extends Education_School_LayoutController {
   }
 
   initHTML() {
-    this.contentTarget.insertAdjacentHTML('beforeend', this.defaultHTML())
+    this.contentTarget.innerHTML = this.defaultHTML()
   }
 
   initValues() {
@@ -113,7 +113,7 @@ export default class extends Education_School_LayoutController {
             <option value="" disabled selected>Select Class</option>
           </select>
         </div>
-        <div class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+        <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
           <input type="submit" value="Submit">
         </div>
       </form>
