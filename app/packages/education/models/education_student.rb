@@ -25,5 +25,6 @@ class EducationStudent < ApplicationRecord
     self.user.avatar_path
   end
 
+  include EducationStudent::ValidationConcern
   include EducationStudent::PaymentCustomerConcern
 end
