@@ -8,10 +8,12 @@ RSpec.feature "Authentication::SignUps", type: :feature, js: true do
   } }
   let(:created_user) { User.find_by(email: new_user_params[:email]) }
 
-  it "signs me in" do
-    sign_up(params: new_user_params)
-    expect(created_user).to be_truthy
-    expect(page).to have_current_path(root_path)
-    # expect(page).to have_content(created_user.name)
+  context "Sign up with normal user" do
+    it "signs me in" do
+      sign_up(params: new_user_params)
+      expect(created_user).to be_truthy
+      expect(page).to have_current_path(root_path)
+      # expect(page).to have_content(created_user.name)
+    end
   end
 end
