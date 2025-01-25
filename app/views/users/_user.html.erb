@@ -25,8 +25,8 @@
   </p>
 
   <%= image_tag user.avatar if user.avatar_attachment.attached? %>
-  <%= image_tag user.avatar.variant(:full) if user.avatar_attachment.attached? %>
-  <%= image_tag user.avatar.variant(:thumb) if user.avatar_attachment.attached? %>
+  <%= image_tag user.avatar_attachment.variant(:full) if user.avatar_attachment.attached? %>
+  <%= image_tag user.avatar_attachment.variant(:thumb) if user.avatar_attachment.attached? %>
 
   <% if action_name != "show" %>
     <%= link_to "Show this user", user, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

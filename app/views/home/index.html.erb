@@ -1,4 +1,30 @@
-<header data-<%= view_controller(__FILE__) %>-target="header"></header>
+<header data-<%= view_controller(__FILE__) %>-target="header" class="flex flex-row w-full h-full">
+  <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 border-b-2">
+    <div>
+      <a href="/education_schools">
+        <div class="flex flex-row gap-x-2 justify-center items-center">
+          <svg data-controller="svg" data-svg-params-value="{&quot;variant&quot;:[&quot;solid&quot;,&quot;sparkles&quot;]}" class="h-10 w-10 bg-red-500 text-white rounded-md bg-gradient-to-r from-cyan-500 to-blue-500"></svg>
+          <div>Skyceer</div>
+        </div>
+      </a>
+    </div>
+    <ul class="flex flex-row gap-x-2">
+      <li class=""><a href="/education_schools">Schools</a></li>
+      <li><a href="/education_courses">Courses</a></li>
+      <li><a href="/education_students">Students</a></li>
+      <li><a href="/education_teachers">Teachers</a></li>
+      <li><a href="/education_admins">Admins</a></li>
+      <li><a href="/education_users">Users</a></li>
+      <li><a href="/education_roles">Roles</a></li>
+
+    </ul>
+    <div class="flex flex-row" data-controller="education--user-profile-dropdown" data-education--user-profile-dropdown-is-initialized-value="true" data-education--user-profile-dropdown-params-value="{}" id="education--user-profile-dropdown:e76ba1c0-7166-404c-81f3-f3346c4d8eeb">
+      <div data-controller="education--avatar" data-education--user-profile-dropdown-target="avatar" aria-expanded="false" data-education--avatar-is-initialized-value="true" data-education--avatar-params-value="{}" id="education--avatar:6e234f48-11b0-41eb-9df2-a6f994237cd6" class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600"><svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+        </svg></div>
+    </div>
+  </div>
+</header>
 <main data-<%= view_controller(__FILE__) %>-target="main">
   <article data-<%= view_controller(__FILE__) %>-target="content" class="w-full">
 
@@ -136,7 +162,13 @@
           </div>
         </div>
       </div>
-    </section>    
+    </section>
   </article>
 </main>
-<footer data-<%= view_controller(__FILE__) %>-target="footer"></footer>
+<footer data-<%= view_controller(__FILE__) %>-target="footer" class="flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2">
+  <div data-controller="application--logo"></div>
+  <div>Home</div>
+  <div>Estate</div>
+  <div>About</div>
+  <div>Contact</div>
+</footer>
