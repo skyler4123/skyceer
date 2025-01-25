@@ -14,6 +14,9 @@ class School::EducationSubjectsController < School::EducationsController
       @education_classes = EducationClass.where(id: params[:education_class_id])
       @education_subjects = EducationSubject.joins(:education_classes).where(education_classes: @education_classes)
     end
+
+    # if education_subject is not found, get from current_education_school
+    @education_subjects = EducationSubject.where(education_school: @education_schools) if @education_subjects.blank?
     @pagy, @education_subjects = pagy(@education_subjects)
   end
 
