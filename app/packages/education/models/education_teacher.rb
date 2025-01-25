@@ -18,10 +18,6 @@ class EducationTeacher < ApplicationRecord
   has_many :education_subject_appointments, as: :education_subject_appointmentable, dependent: :destroy
   has_many :education_subjects, through: :education_subject_appointments
   
-  # validates :user_id, uniqueness: { scope: :education_school_id, message: "This Teacher already have in this School" }
-
-  # def school_name
-  #   self.education_school.name
-  # end
+  include EducationTeacher::ValidationConcern
 
 end
