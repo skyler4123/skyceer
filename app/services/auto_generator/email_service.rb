@@ -17,26 +17,26 @@ class AutoGenerator::EmailService
 
     if education_role
       case education_role.to_sym
-      when :school
-        if User.education_role_school.count.zero?
+      when :education_school
+        if User.education_school.count.zero?
           email = "#{education_role}@education.com"
         else
           email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@education.com"
         end
-      when :admin
-        if User.education_role_admin.count.zero?
+      when :education_admin
+        if User.education_admin.count.zero?
           email = "#{education_role}@education.com"
         else
           email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@education.com"
         end
-      when :teacher
-        if User.education_role_teacher.count.zero?
+      when :education_teacher
+        if User.education_teacher.count.zero?
           email = "#{education_role}@education.com"
         else
           email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@education.com"
         end
-      when :student
-        if User.education_role_student.count.zero?
+      when :education_student
+        if User.education_student.count.zero?
           email = "#{education_role}@education.com"
         else
           email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@education.com"

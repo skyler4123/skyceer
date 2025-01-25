@@ -7,7 +7,7 @@ module User::EducationConcern
     has_many :education_teachers, dependent: :destroy
     has_many :education_students, dependent: :destroy
 
-    enum :education_role, { school: 0, admin: 1, teacher: 2, student: 3 }, prefix: true
+    enum :education_role, { education_school: 0, education_admin: 1, education_teacher: 2, education_student: 3 }
 
     # check if user is education user
     def is_education_user

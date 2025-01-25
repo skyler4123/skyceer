@@ -12,14 +12,14 @@ class CustomRouteConstraint
   def matches?(request)
     education_role = request.cookies["education_role"]
     case education_role.to_sym
-    when :school
-      return true if @education_role == :school
-    when :admin
-      return true if @education_role == :admin
-    when :teacher
-      return true if @education_role == :teacher
-    when :student
-      return true if @education_role == :student
+    when :education_school
+      return true if @education_role == :education_school
+    when :education_admin
+      return true if @education_role == :education_admin
+    when :education_teacher
+      return true if @education_role == :education_teacher
+    when :education_student
+      return true if @education_role == :education_student
     else
       false
     end

@@ -1,6 +1,6 @@
 import ApplicationController from "../application_controller"
 
-export default class Education_School_DarkmodeController extends ApplicationController {
+export default class Education_EducationSchool_DarkmodeController extends ApplicationController {
   static values = {
     class: { type: String, default: "w-4 h-4" }
   }

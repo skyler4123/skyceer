@@ -27,11 +27,11 @@ class User < ApplicationRecord
   end
 
   # Customize the user model here
+  include User::ApplicationConcern
   include User::ElasticsearchConcern
   include User::AvatarConcern
   include User::ImagesConcern
   include User::ImagesInArticlePostConcern
-  include User::EnumConcern
 
   has_many :estate_houses, dependent: :destroy
   has_many :estate_condos, dependent: :destroy
