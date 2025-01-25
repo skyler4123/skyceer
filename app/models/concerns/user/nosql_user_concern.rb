@@ -6,6 +6,10 @@ module User::NosqlUserConcern
     after_update_commit :update_nosql_user
     after_destroy_commit :destroy_nosql_user
 
+    def nosql_user
+      NosqlUser.where(user_id: self.id).first
+    end
+    
     private
 
     def create_nosql_user

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   subject { create(:user) }
+
   describe 'validations' do
     it { should have_secure_password }
     it { should validate_presence_of(:email) }
@@ -10,22 +11,27 @@ RSpec.describe User, type: :model do
 
   describe 'enum' do
     it { should define_enum_for(:role).with_values(%i[normal admin]) }
-    it { should define_enum_for(:education_role).with_values(%i[education_school education_teacher education_student]) }
+    it { should define_enum_for(:education_role).with_values(%i[education_school education_admin education_teacher education_student]) }
+  end
 
-    describe 'role' do
-      context 'when role is normal' do
-      end
-      context 'when role is admin' do
-      end
-    end
+  describe 'associations' do
+    it { should have_many(:sessions).dependent(:destroy) }
+    it { should have_many(:estate_houses).dependent(:destroy) }
+    it { should have_many(:estate_condos).dependent(:destroy) }
+    it { should have_many(:estate_hotels).dependent(:destroy) }
+    it { should have_many(:vehicle_stores).dependent(:destroy) }
+    it { should have_many(:vehicle_cars).dependent(:destroy) }
+    it { should belong_to(:address).optional }
+    it { should have_many(:education_schools).dependent(:destroy) }
+    it { should have_many(:education_admins).dependent(:destroy) }
+    it { should have_many(:education_teachers).dependent(:destroy) }
+    it { should have_many(:education_students).dependent(:destroy) }
+    it { should have_one(:report_user).dependent(:destroy) }
+  end
 
-    describe 'education_role' do
-      context 'when education_role is education_school' do
-      end
-      context 'when education_role is education_teacher' do
-      end
-      context 'when education_role is education_student' do
-      end
+  describe 'callbacks' do
+    it 'should create a new nosql+user for the user' do
+      expect(subject.nosql_user).to be_present
     end
   end
 end
