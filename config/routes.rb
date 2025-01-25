@@ -27,58 +27,12 @@ class CustomRouteConstraint
 end
 
 Rails.application.routes.draw do
-  # constraints CustomRouteConstraint.new("admin") do
-  #   scope module: "admin" do
-  #     resources :education_schools
-  #   end
-  # end
-
-  # constraints CustomRouteConstraint.new("school") do
-  #   scope module: "school" do
-  #     resources :education_schools
-  #   end
-  # end
-
-  # constraints CustomRouteConstraint.new("teacher") do
-  #   scope module: "teacher" do
-  #     resources :education_schools
-  #   end
-  # end
-
-  # constraints CustomRouteConstraint.new("student") do
-  #   scope module: "student" do
-  #     resources :education_schools
-  #   end
-  # end
-
-
-  resources :nosql_users
-
-  resources :report_category_appointments
-  resources :report_categories
-  resources :report_users
-  resources :category_appointments
-  resources :payment_category_appointments
-  resources :payment_categories
-  resources :payment_customers
-  resources :payment_method_appointments
-  resources :payment_item_appointments
-  resources :payment_logs
-  resources :payment_invoices
-  resources :payment_orders
-  resources :payment_items
-  resources :payment_discounts
-  resources :payment_methods
-  resources :payment_users
-
-  resources :categories
-
-  # EDUCATION package
-    # resources :education_schools
-      # scope module: :education_schools do
-      #   resources :education_teachers
-      # end
+  ### EDUCATION package
+  # resources :education_schools
+    # scope module: :education_schools do
+    #   resources :education_teachers
     # end
+  # end
   resources :educations, only: [:index]
   User.education_roles.keys.each do |role|
     constraints CustomRouteConstraint.new(role.to_sym) do
@@ -132,9 +86,35 @@ Rails.application.routes.draw do
         resources :education_question_appointments
         resources :education_shifts
         resources :education_lessons
+        resources :payment_orders
       end
     end
   end
+  ### EDUCATION package
+
+  
+  resources :nosql_users
+
+  resources :report_category_appointments
+  resources :report_categories
+  resources :report_users
+  resources :category_appointments
+  resources :payment_category_appointments
+  resources :payment_categories
+  resources :payment_customers
+  resources :payment_method_appointments
+  resources :payment_item_appointments
+  resources :payment_logs
+  resources :payment_invoices
+  resources :payment_orders
+  resources :payment_items
+  resources :payment_discounts
+  resources :payment_methods
+  resources :payment_users
+
+  resources :categories
+
+
 
 
 
