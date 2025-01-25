@@ -24,5 +24,4 @@ class EducationTeacher < ApplicationRecord
   #   self.education_school.name
   # end
 
-  include EducationTeacher::PaymentUserConcern
 end

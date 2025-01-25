@@ -132,50 +132,47 @@ class AutoGenerator::PaymentService
 
   def self.payment_category_appointment
     PaymentUser.all.each do |payment_user|
+      case payment_user.payment_userable_type
+      when "EducationSchool"
+        payment_categories = payment_user.payment_categories
+        payment_customers = PaymentUser.where(payment_userable_type: "PaymentCustomer")
 
-      PaymentCustomer.all.each do |payment_customer|
-        PaymentCategoryAppointment.create!(
-          payment_category: payment_user.payment_categories.sample,
-          payment_category_appointmentable: payment_customer,
-        )
-      end
-        
-      payment_user.payment_orders.each do |payment_order|
-        PaymentCategoryAppointment.create!(
-          payment_category: payment_user.payment_categories.sample,
-          payment_category_appointmentable: payment_order,
-        )
-      end
+        payment_customers.sample(10).each do |payment_customer|
+          PaymentCategoryAppointment.create!(
+            payment_category: payment_categories.sample,
+            payment_category_appointmentable: payment_customer,
+          )
+        end
 
-      payment_orders = payment_user.payment_orders
-      PaymentInvoice.where(payment_order: payment_orders).each do |payment_invoice|
-        PaymentCategoryAppointment.create!(
-          payment_category: payment_user.payment_categories.sample,
-          payment_category_appointmentable: payment_invoice,
-        )
-      end
+        payment_user.payment_orders.each do |payment_order|
+          PaymentCategoryAppointment.create!(
+            payment_category: payment_categories.sample,
+            payment_category_appointmentable: payment_order,
+          )
+        end
 
-      payment_user.payment_items.each do |payment_item|
-        PaymentCategoryAppointment.create!(
-          payment_category: payment_user.payment_categories.sample,
-          payment_category_appointmentable: payment_item,
-        )
-      end
 
-      payment_user.payment_discounts.each do |payment_discount|
-        PaymentCategoryAppointment.create!(
-          payment_category: payment_user.payment_categories.sample,
-          payment_category_appointmentable: payment_discount,
-        )
-      end
+        payment_user.payment_items.each do |payment_item|
+          PaymentCategoryAppointment.create!(
+            payment_category: payment_categories.sample,
+            payment_category_appointmentable: payment_item,
+          )
+        end
 
-      payment_user.payment_methods.each do |payment_method|
-        PaymentCategoryAppointment.create!(
-          payment_category: payment_user.payment_categories.sample,
-          payment_category_appointmentable: payment_method,
-        )
-      end
+        payment_user.payment_discounts.each do |payment_discount|
+          PaymentCategoryAppointment.create!(
+            payment_category: payment_categories.sample,
+            payment_category_appointmentable: payment_discount,
+          )
+        end
 
+        payment_user.payment_methods.each do |payment_method|
+          PaymentCategoryAppointment.create!(
+            payment_category: payment_categories.sample,
+            payment_category_appointmentable: payment_method,
+          )
+        end
+      end
     end
   end
 
