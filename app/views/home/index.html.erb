@@ -8,16 +8,7 @@
         </div>
       </a>
     </div>
-    <ul class="flex flex-row gap-x-2">
-      <li class=""><a href="/education_schools">Schools</a></li>
-      <li><a href="/education_courses">Courses</a></li>
-      <li><a href="/education_students">Students</a></li>
-      <li><a href="/education_teachers">Teachers</a></li>
-      <li><a href="/education_admins">Admins</a></li>
-      <li><a href="/education_users">Users</a></li>
-      <li><a href="/education_roles">Roles</a></li>
-
-    </ul>
+    <%= render Application::Home::Header::NavigationComponent.new %>
     <div class="flex flex-row" data-controller="education--user-profile-dropdown" data-education--user-profile-dropdown-is-initialized-value="true" data-education--user-profile-dropdown-params-value="{}" id="education--user-profile-dropdown:e76ba1c0-7166-404c-81f3-f3346c4d8eeb">
       <div data-controller="education--avatar" data-education--user-profile-dropdown-target="avatar" aria-expanded="false" data-education--avatar-is-initialized-value="true" data-education--avatar-params-value="{}" id="education--avatar:6e234f48-11b0-41eb-9df2-a6f994237cd6" class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600"><svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
