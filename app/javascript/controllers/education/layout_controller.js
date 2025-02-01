@@ -14,7 +14,6 @@ export default class Education_LayoutController extends ApplicationController {
     return `
     <header class="flex flex-row w-full h-full" data-${this.identifier}-target="header" data-controller="${Education_HeaderController.identifier}"></header>
     <main class="relative flex flex-row w-full h-full" data-${this.identifier}-target="main">
-      <aside class="open:flex w-1/4 h-screen bg-slate-800 pr-4 pl-4 pt-4" data-${this.identifier}-target="aside" data-controller="${Education_EducationSchool_AsideController.identifier}"></aside>
       <article class="w-full h-full" data-${this.identifier}-target="content">
         ${this.ssrContentHTML()}
       </article>
