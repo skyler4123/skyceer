@@ -97,9 +97,7 @@ Rails.application.routes.draw do
   end
 
   # Constraint for non-education_role
-  scope module: :education_school do
-    resources :education_schools, only: [:new, :create]
-  end
+  resources :education_schools, only: [:new, :create]
   ### EDUCATION package
 
   
