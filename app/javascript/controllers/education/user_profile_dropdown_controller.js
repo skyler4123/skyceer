@@ -42,7 +42,8 @@ export default class Education_UserProfileDropdownController extends Application
   dropdownHTML() {
     return `
       <ul class="bg-gray-100 text-2xl">
-        <li><a href="/users/${CookieHelpers.id()}">${CookieHelpers.name()}</a></li>
+        <li><a href="/users/${CookieHelpers.id()}">${this.profileText()}</a></li>
+        <li><a href="/education_schools/new">New School</a></li>
         <li><a href="/sign_out">Sign Out</a></li>
       </ul>
     `
@@ -61,5 +62,10 @@ export default class Education_UserProfileDropdownController extends Application
     return `
       <a href="/sign_in">Sign In</a>
     `
+  }
+
+  // profileText is name or email from CookieHelpers
+  profileText() {
+    return CookieHelpers.name() || CookieHelpers.email()
   }
 }

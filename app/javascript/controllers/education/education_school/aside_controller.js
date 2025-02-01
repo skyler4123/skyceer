@@ -15,6 +15,7 @@ export default class Education_EducationSchool_AsideController extends Applicati
   }
 
   init() {
+    if (this.isEmpty(CookieHelpers.educationRole())) { this.element.remove() }
     this.initValue()
   }
   

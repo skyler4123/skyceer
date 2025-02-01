@@ -4,7 +4,7 @@
 #   [user, password] == [SIDEKIQ_UI_USER, SIDEKIQ_UI_PASSWORD]
 # end
 
-class CustomRouteConstraint
+class EducationRoleConstraint
   def initialize(education_role)
     @education_role = education_role
   end
@@ -33,9 +33,14 @@ Rails.application.routes.draw do
     #   resources :education_teachers
     # end
   # end
-  resources :educations, only: [:index]
+  root "educations#home"
+  resources :educations, only: [:index] do
+    collection do
+      get :home
+    end
+  end
   User.education_roles.keys.each do |role|
-    constraints CustomRouteConstraint.new(role.to_sym) do
+    constraints EducationRoleConstraint.new(role.to_sym) do
       scope module: role do
         resources :education_schools
         resources :education_school_appointments
@@ -89,6 +94,11 @@ Rails.application.routes.draw do
         resources :payment_orders
       end
     end
+  end
+
+  # Constraint for non-education_role
+  scope module: :education_school do
+    resources :education_schools, only: [:new, :create]
   end
   ### EDUCATION package
 
@@ -192,7 +202,7 @@ Rails.application.routes.draw do
     resource :email_verification, only: [:show, :create]
     resource :password_reset,     only: [:new, :edit, :create, :update]
   end
-  root "home#index"
+  # root "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
