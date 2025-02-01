@@ -1,16 +1,9 @@
-import ApplicationController from "../../application_controller"
 import Education_FooterController from "../footer_controller"
 import Education_HeaderController from "../header_controller"
-import Education_MainController from "../main_controller"
+import Education_LayoutController from "../layout_controller"
 import Education_EducationSchool_AsideController from "./aside_controller"
 
-export default class Education_EducationSchool_LayoutController extends ApplicationController {
-  static targets = ['header', 'main', 'aside', 'content', 'footer']
-
-  initLayout() {
-    this.element.className = 'w-full h-fulll'
-    this.element.innerHTML = this.layoutHTML()
-  }
+export default class Education_EducationSchool_LayoutController extends Education_LayoutController {
 
   layoutHTML() {
     return `
@@ -25,7 +18,4 @@ export default class Education_EducationSchool_LayoutController extends Applicat
     `
   }
 
-  ssrContentHTML() {
-    return this.element.innerHTML
-  }
 }
