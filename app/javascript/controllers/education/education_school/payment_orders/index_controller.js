@@ -10,7 +10,7 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   initHTML() {
-    this.contentTarget.innerHTML = this.defaultHTML()
+    this.contentTarget.innerHTML += this.defaultHTML()
   }
 
   initTable() {
