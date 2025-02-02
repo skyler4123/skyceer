@@ -7,13 +7,13 @@ export default class extends Education_EducationSchool_LayoutController {
   static targets = ["table"]
 
   init() {
-    this.initHTML()
+    // this.initHTML()
     this.initTable()
   }
 
-  initHTML() {
-    this.contentTarget.insertAdjacentHTML('beforeend', this.defaultHTML())
-  }
+  // initHTML() {
+  //   this.contentTarget.insertAdjacentHTML('beforeend', this.defaultHTML())
+  // }
 
   initTable() {
     let tableData = this.contentData().map((row) => {
@@ -48,7 +48,7 @@ export default class extends Education_EducationSchool_LayoutController {
     });
   }
 
-  defaultHTML() {
+  contentHTML() {
     return `
       <div data-${this.identifier}-target="table" id="education_schools" class="w-full"></div>
       <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>

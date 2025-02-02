@@ -8,6 +8,7 @@ export default class Education_LayoutController extends ApplicationController {
   initLayout() {
     this.element.className = 'w-full h-fulll'
     this.element.innerHTML = this.layoutHTML()
+    if (this.isDefined(this.contentHTML)) { this.contentTarget.innerHTML += this.contentHTML() }
   }
 
   layoutHTML() {
