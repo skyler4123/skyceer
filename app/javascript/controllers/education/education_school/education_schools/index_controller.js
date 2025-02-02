@@ -6,6 +6,13 @@ import PaginationController from '../../../pagination_controller';
 export default class extends Education_EducationSchool_LayoutController {
   static targets = ["table"]
 
+  contentHTML() {
+    return `
+      <div data-${this.identifier}-target="table" id="education_schools" class="w-full"></div>
+      <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>
+    `
+  }
+
   init() {
     this.initTable()
   }
@@ -34,20 +41,13 @@ export default class extends Education_EducationSchool_LayoutController {
           tooltip:true,         //show tool tips on cells
       },
       columns:[                 //define the table columns
-          // {title:"Name", field:"name", editor:"input"},
-          {title:"Name", field: "name", formatter: "html"},
-          {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
-          {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
+        // {title:"Name", field:"name", editor:"input"},
+        {title:"Name", field: "name", formatter: "html"},
+        {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
+        {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
 
       ],
     });
-  }
-
-  contentHTML() {
-    return `
-      <div data-${this.identifier}-target="table" id="education_schools" class="w-full"></div>
-      <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>
-    `
   }
 
 }
