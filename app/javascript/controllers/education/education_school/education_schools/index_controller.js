@@ -7,13 +7,8 @@ export default class extends Education_EducationSchool_LayoutController {
   static targets = ["table"]
 
   init() {
-    // this.initHTML()
     this.initTable()
   }
-
-  // initHTML() {
-  //   this.contentTarget.insertAdjacentHTML('beforeend', this.defaultHTML())
-  // }
 
   initTable() {
     let tableData = this.contentData().map((row) => {
