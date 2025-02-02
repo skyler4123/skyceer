@@ -5,13 +5,16 @@ import PaginationController from '../../../pagination_controller';
 
 export default class extends Education_EducationSchool_LayoutController {
 
-  init() {
-    this.initHTML()
-    this.initTable()
+  contentHTML() {
+    return `
+      <div id="education_teachers" class="w-full h-full"></div>
+      <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>
+      
+    `
   }
 
-  initHTML() {
-    this.contentTarget.innerHTML += this.defaultHTML()
+  init() {
+    this.initTable()
   }
 
   initTable() {
@@ -49,14 +52,6 @@ export default class extends Education_EducationSchool_LayoutController {
 
       ],
     });
-  }
-
-  defaultHTML() {
-    return `
-      <div id="education_teachers" class="w-full h-full"></div>
-      <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>
-      
-    `
   }
 
 }

@@ -23,13 +23,8 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   init() {
-    this.initHTML()
     this.initValues()
     this.initClassIdSelect()
-  }
-
-  initHTML() {
-    this.contentTarget.innerHTML += this.defaultHTML()
   }
 
   initValues() {
@@ -93,7 +88,7 @@ export default class extends Education_EducationSchool_LayoutController {
     return response.data
   }
 
-  defaultHTML() {
+  contentHTML() {
     return `
       <form action="/education_students" class="flex flex-row gap-x-4">
         <div class="w-1/4">
