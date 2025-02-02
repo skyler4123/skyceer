@@ -16,7 +16,7 @@ export default class Education_Calendar_TuiController extends ApplicationControl
 
   init() {
     this.initHTML()
-    this.calendar = new Calendar(this.calendarTarget, this.options());
+    this.initCalendar()
     this.initCalendarAction()
   }
 
@@ -24,6 +24,12 @@ export default class Education_Calendar_TuiController extends ApplicationControl
     this.element.innerHTML = this.defaultHTML()
   }
   
+  initCalendar() {
+    this.calendar = new Calendar(this.calendarTarget, this.options());
+    const groups = this.newCalendarGroups()
+    this.calendar.setCalendars(groups)
+  }
+
   defaultHTML() {
     return `
       <select>
@@ -62,8 +68,10 @@ export default class Education_Calendar_TuiController extends ApplicationControl
   }
 
   async showCalendarOfClass(event) {
-    const group = this.newCalendarGroup(event.target.value, event.target.selectedOptions[0].text)
-    this.calendar.setCalendars([group])
+    this.calendar.clear()
+
+    // const group = this.newCalendarGroup(event.target.value, event.target.selectedOptions[0].text)
+    // this.calendar.setCalendars([group])
     let events = await this.fetchCalendarEventsFromGroupId(event.target.value)
     events = events.map((event) => {
       return {
@@ -87,7 +95,6 @@ export default class Education_Calendar_TuiController extends ApplicationControl
         hourEnd: maxLocalTime + 5,
       }
     })
-    this.calendar.clear()
     this.calendar.createEvents(events)
   }
 
@@ -216,8 +223,8 @@ export default class Education_Calendar_TuiController extends ApplicationControl
 
   optionsParamsDefault() {
     return {
-      // defaultView: 'month',
-      defaultView: 'week',
+      defaultView: 'month',
+      // defaultView: 'week',
       useFormPopup: true,
       useDetailPopup: true,
       isReadOnly: false,
@@ -282,16 +289,16 @@ export default class Education_Calendar_TuiController extends ApplicationControl
     }
   }
 
-  newCalendarGroup(id, name) {
-    return {
-      id: id,
-      name: name,
-      color: "#f9fafb",
-      borderColor: "#f9fafb",
-      // backgroundColor: this.stringToColour(group),
-      backgroundColor: "#111827",
-      // dragBackgroundColor: "#4338ca",
-    }
+  newCalendarGroups() {
+    return this.groupsValue.map((group) => {
+      return {
+        id: group.id,
+        name: group.name,
+        color: `#FFFFFF`,
+        backgroundColor: "#111827",
+        borderColor: "#111827",
+      }
+    })
   }
 
 }

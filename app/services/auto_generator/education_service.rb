@@ -94,7 +94,11 @@ class AutoGenerator::EducationService
   def self.education_admin
     5.times do
       admin_user = AutoGenerator::UserService.create(education_role: :education_admin)
-      education_admin = EducationAdmin.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: admin_user)
+      education_admin = EducationAdmin.create!(
+        name: "#{Faker::Name.name} #{Faker::Number.number}",
+        email: admin_user.email,
+        user: admin_user,
+      )
       AutoGenerator::AttachmentService.attach(record: education_admin, relation: :image_attachments, number: 1)
     end
   end
@@ -102,7 +106,11 @@ class AutoGenerator::EducationService
   def self.education_teacher
     (EducationClass.count * 5).times do
       teacher_user = AutoGenerator::UserService.create(education_role: :education_teacher)
-      education_teacher = EducationTeacher.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: teacher_user)
+      education_teacher = EducationTeacher.create!(
+        name: "#{Faker::Name.name} #{Faker::Number.number}",
+        email: teacher_user.email,
+        user: teacher_user,
+      )
       AutoGenerator::AttachmentService.attach(record: education_teacher, relation: :image_attachments, number: 1)
     end
   end
@@ -110,7 +118,11 @@ class AutoGenerator::EducationService
   def self.education_student
     (EducationClass.count * 10).times do
       student_user = AutoGenerator::UserService.create(education_role: :education_student)
-      education_student = EducationStudent.create!(name: "#{Faker::Name.name} #{Faker::Number.number}", user: student_user)
+      education_student = EducationStudent.create!(
+        name: "#{Faker::Name.name} #{Faker::Number.number}",
+        email: student_user.email,
+        user: student_user,
+      )
       AutoGenerator::AttachmentService.attach(record: education_student, relation: :image_attachments, number: 1)
     end
   end
