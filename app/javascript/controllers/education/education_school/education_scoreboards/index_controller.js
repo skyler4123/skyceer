@@ -11,17 +11,7 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   init() {
-    console.log(this)
-    this.initHTML()
     this.initTable()
-  }
-
-  // initValue() {
-  //   this.classesValue = this.contentData()
-  // }
-
-  initHTML() {
-    this.contentTarget.innerHTML += this.defaultHTML()
   }
 
   classIdSelectEvent(e) {
@@ -46,99 +36,6 @@ export default class extends Education_EducationSchool_LayoutController {
     const responseData = response.data
     if (responseData.length < 1) { return [] }
     return responseData
-  }
-
-  // classSelected(e) {
-  //   this.classIdValue = e.target.value
-  // }
-
-  // subjectSelected(e) {
-  //   this.subjectIdValue = e.target.value
-  // }
-
-  // async classIdValueChanged(value, previousValue) {
-  //   // return if value empty
-  //   if (this.isEmpty(value)) return
-
-  //   if (this.table) { this.table.destroy() }
-    
-  //   const subjects = await this.fetchSubjectsFromClassId()
-  //   this.subjectSelectTarget.innerHTML = `
-  //     <option>Select Subject</option>
-  //     ${subjects.map(s =>
-  //       `
-  //         <option value="${s.id}">${s.name}</option>
-  //       `
-  //     ).join('')}
-  //   `
-  // }
-
-  // async subjectIdValueChanged(value, previousValue) {
-  //   // return if value empty
-  //   if (this.isEmpty(value)) return
-  //   const scoreBoards = await this.fetchScoreBoards()
-  //   this.scoreBoardsValue = scoreBoards
-  // }
-
-  // scoreBoardsValueChanged(value, previousValue) {
-  //   // return if value empty
-  //   if (this.isEmpty(value)) return
-  //   this.initTable()
-  // }
-
-  // async fetchStudentsFromClassId() {
-  //   const response = await EducationStudentsApi.education_class_id({params: { education_class_id: this.classIdValue }})
-  //   const responseData = response.data
-  //   if (responseData.length < 1) { return [] }
-  //   return responseData
-  // }
-
-  // async fetchSubjectsFromClassId() {
-  //   const response = await EducationSubjectsApi.education_class_id({params: { education_class_id: this.classIdValue }})
-  //   const responseData = response.data
-  //   if (responseData.length < 1) { return [] }
-  //   return responseData
-  // }
-
-  // async fetchScoreBoards() {
-  //   const response = await EducationScoreBoardsApi.index({params: { education_class_id: this.classIdValue, education_subject_id: this.subjectIdValue }})
-  //   const responseData = response.data
-  //   if (responseData.length < 1) { return [] }
-  //   return responseData
-  // }
-
-  defaultHTML() {
-    return `
-      <form action="/education_scoreboards" class="flex flex-row gap-x-4">
-        <div class="w-1/4 flex justify-center items-center">
-          <select
-            name="education_class_id"
-            data-${this.identifier}-target="classIdSelect"
-            data-action="change->${this.identifier}#classIdSelectEvent"
-            data-controller="choices"
-          >
-            <option value="" disabled selected>Select Class</option>
-            ${this.contentClasses().map((row) => {
-              return `<option value="${row.id}">${row.name}</option>`
-            }).join('')}
-          </select>
-        </div>
-        <div class="w-1/4 flex justify-center items-center">
-          <select
-            name="education_subject_id"
-            data-${this.identifier}-target="subjectIdSelect"
-            data-controller="choices"
-          >
-            <option value="" disabled selected>Select Subject</option>
-          </select>
-        </div>
-        <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-          <input type="submit" value="Submit">
-        </div>
-      </form>
-      <div data-${this.identifier}-target="table" class="w-full"></div>
-      <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>
-    `
   }
 
   contentClasses() {
@@ -227,5 +124,39 @@ export default class extends Education_EducationSchool_LayoutController {
       data.push(row)
     })
     return data
+  }
+
+  contentHTML() {
+    return `
+      <form action="/education_scoreboards" class="flex flex-row gap-x-4">
+        <div class="w-1/4 flex justify-center items-center">
+          <select
+            name="education_class_id"
+            data-${this.identifier}-target="classIdSelect"
+            data-action="change->${this.identifier}#classIdSelectEvent"
+            data-controller="choices"
+          >
+            <option value="" disabled selected>Select Class</option>
+            ${this.contentClasses().map((row) => {
+              return `<option value="${row.id}">${row.name}</option>`
+            }).join('')}
+          </select>
+        </div>
+        <div class="w-1/4 flex justify-center items-center">
+          <select
+            name="education_subject_id"
+            data-${this.identifier}-target="subjectIdSelect"
+            data-controller="choices"
+          >
+            <option value="" disabled selected>Select Subject</option>
+          </select>
+        </div>
+        <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+          <input type="submit" value="Submit">
+        </div>
+      </form>
+      <div data-${this.identifier}-target="table" class="w-full"></div>
+      <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>
+    `
   }
 }

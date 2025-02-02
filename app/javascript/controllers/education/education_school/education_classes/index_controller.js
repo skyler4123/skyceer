@@ -6,12 +6,7 @@ import PaginationController from '../../../pagination_controller';
 export default class extends Education_EducationSchool_LayoutController {
   
   init() {
-    this.initHTML()
     this.initTable()
-  }
-
-  initHTML() {
-    this.contentTarget.innerHTML += this.defaultHTML()
   }
 
   initTable() {
@@ -49,7 +44,7 @@ export default class extends Education_EducationSchool_LayoutController {
     });
   }
 
-  defaultHTML() {
+  contentHTML() {
     return `
       <div id="education_classes" class="w-full h-full"></div>
       <div data-controller="${PaginationController.identifier}" data-${PaginationController.identifier}-pagination-value="${this.transferToValue(this.contentPagination())}"></div>
