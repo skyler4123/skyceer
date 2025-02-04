@@ -1,8 +1,5 @@
 import {TabulatorFull as Tabulator} from 'tabulator';
-import { EducationStudentsApi } from "../../api/education_students_api";
-import { EducationSchoolsApi } from "../../api/education_schools_api";
 import { EducationClassesApi } from "../../api/education_classes_api";
-import { params } from "../../api/api_helpers";
 import Education_EducationSchool_LayoutController from '../layout_controller';
 import PaginationController from '../../../pagination_controller';
 

@@ -1,5 +1,3 @@
-import { origin } from "../api/api_helpers";
-
 const ResponseHelpers = {
   redirectTo(url) {
     // window.location.href = url;

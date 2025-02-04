@@ -4,7 +4,7 @@
 import Calendar from '@toast-ui/calendar';
 import Swal from 'sweetalert2'
 import ApplicationController from '../../application_controller';
-import { CalendarEventsApi } from '../../calendar/api/calendar_events_api';
+// import { CalendarEventsApi } from '../../calendar/api/calendar_events_api';
 
 export default class Education_Calendar_TuiController extends ApplicationController {
   static targets= ["calendar", "selectClass"]
