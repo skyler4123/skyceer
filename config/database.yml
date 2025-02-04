@@ -1,76 +1,67 @@
-default: &default
+sqlite3: &sqlite3
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+postgresql: &postgresql
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
   username: <%= ENV.fetch("POSTGRES_USERNAME") { "postgres" } %>
   password: <%= ENV.fetch("POSTGRES_PASSWORD") { "password" } %>
   host: <%= ENV.fetch("POSTGRES_HOST") { "0.0.0.0" } %>
   port: <%= ENV.fetch("POSTGRES_PORT") { "5432" } %>
 
-# session: &session
-#   <<: *default
-#   migrations_paths: db/session_migrate
-
 queue: &queue
-  <<: *default
+  <<: *postgresql
   migrations_paths: db/queue_migrate
 
 cable: &cable
-  <<: *default
+  <<: *sqlite3
   migrations_paths: db/cable_migrate
 
 cache: &cache
-  <<: *default
+  <<: *sqlite3
   migrations_paths: db/cache_migrate
 
 development:
   primary:
-    <<: *default
+    <<: *postgresql
     database: skyceer_development
-  # session:
-  #   <<: *session
-  #   database: session_development
   queue:
     <<: *queue
     database: queue_development
   cable:
     <<: *cable
-    database: cable_development
+    database: storage/development_cable.sqlite3
   cache:
     <<: *cache
-    database: cache_development
+    database: storage/development_cache.sqlite3
     
 test:
   primary:
-    <<: *default
+    <<: *postgresql
     database: skyceer_test
-  # session:
-  #   <<: *session
-  #   database: session_test
   queue:
     <<: *queue
     database: queue_test
   cable:
     <<: *cable
-    database: cable_test
+    database: storage/test_cable.sqlite3
   cache:
     <<: *cache
-    database: cache_test
+    database: storage/test_cache.sqlite3
 
 production:
   primary:
-    <<: *default
+    <<: *postgresql
     database: skyceer_production
-  # session:
-  #   <<: *session
-  #   database: session_production
   queue:
     <<: *queue
     database: queue_production
   cable:
     <<: *cable
-    database: cable_production
+    database: storage/production_cable.sqlite3
   cache:
     <<: *cache
-    database: cache_production
+    database: storage/production_cache.sqlite3
