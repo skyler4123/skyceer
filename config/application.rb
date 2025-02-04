@@ -40,16 +40,16 @@ module Skyceer
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.paths.add 'app/packages', glob: '*/{*,*/concerns}', eager_load: true
-    config.assets.paths << Rails.root.join('app')
+    # config.assets.paths << Rails.root.join('app')
     # config.assets.css_compressor = nil
     config.generators.orm :active_record, primary_key_type: :uuid
     config.mongoid.logger.level = Logger::INFO
     # Use a separate DB for Solid Queue
     # config/environments/production.rb
-    config.active_job.queue_adapter = :solid_queue
-    config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
+    # config.active_job.queue_adapter = :solid_queue
+    # config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
     # config.solid_queue.silence_polling = false
-    config.cache_store = :solid_cache_store
-    config.action_dispatch.tld_length = 0
+    # config.cache_store = :solid_cache_store
+    # config.action_dispatch.tld_length = 0
   end
 end
