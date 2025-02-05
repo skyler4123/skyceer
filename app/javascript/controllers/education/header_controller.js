@@ -4,10 +4,6 @@ import Education_AvatarController from "./avatar_controller";
 import Education_UserProfileDropdownController from "./user_profile_dropdown_controller";
 
 export default class Education_HeaderController extends ApplicationController {
-  static values = {
-    class: { type: String, default: 'flex flex-row w-full h-full' }
-  }
-
   init() {
     this.initHTML()
   }
@@ -18,7 +14,7 @@ export default class Education_HeaderController extends ApplicationController {
 
   defaultHTML() {
     return `
-      <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 border-b-2">
+      <div class="flex flex-row justify-between items-center w-full px-4 py-4 border-b-2">
         <div>
           <a href="/education_schools">
             <div class="flex flex-row gap-x-2 justify-center items-center">
