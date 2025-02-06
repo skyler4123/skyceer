@@ -1,4 +1,9 @@
 json.data do
+  json.education_classes_for_select do
+    json.array! @education_classes_for_select do |education_class_for_select|
+      json.extract! education_class_for_select, :id, :name
+    end
+  end
   json.education_classes do
     json.array! @education_classes do |education_class|
       json.extract! education_class, :id, :name

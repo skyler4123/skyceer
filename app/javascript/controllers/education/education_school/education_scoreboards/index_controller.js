@@ -11,6 +11,7 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   init() {
+    console.log(this)
     this.initTable()
   }
 
@@ -40,6 +41,10 @@ export default class extends Education_EducationSchool_LayoutController {
 
   contentClasses() {
     return this.contentData().education_classes
+  }
+
+  contentClassesForSelect() {
+    return this.contentData().education_classes_for_select
   }
 
   choicesControllerForSubjectIdSelect() {
@@ -137,7 +142,7 @@ export default class extends Education_EducationSchool_LayoutController {
             data-controller="choices"
           >
             <option value="" disabled selected>Select Class</option>
-            ${this.contentClasses().map((row) => {
+            ${this.contentClassesForSelect().map((row) => {
               return `<option value="${row.id}">${row.name}</option>`
             }).join('')}
           </select>

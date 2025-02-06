@@ -11,7 +11,7 @@ class EducationSchool::EducationScoreboardsController < EducationSchool::Educati
     #     render json: { education_students: @education_students, education_exams: @education_exams, education_exam_appointments: @education_exam_appointments }
     #   }
     # end
-
+    @education_classes_for_select = EducationClass.where(education_school: @education_schools)
     if params[:education_class_id].present?
       @education_classes = EducationClass.where(id: params[:education_class_id])
     else
