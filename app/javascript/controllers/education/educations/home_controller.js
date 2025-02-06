@@ -1,6 +1,3 @@
-// import ApplicationController from "../../application_controller"
-import Education_FooterController from "../footer_controller"
-import Education_HeaderController from "../header_controller"
 import Education_LayoutController from "../layout_controller"
 
 export default class extends Education_LayoutController {

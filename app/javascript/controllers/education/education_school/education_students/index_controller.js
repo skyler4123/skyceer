@@ -6,10 +6,6 @@ import PaginationController from '../../../pagination_controller';
 export default class extends Education_EducationSchool_LayoutController {
   static targets = ["table", "classIdSelect"]
   static values = {
-    class: { type: Object, default: {
-      element: "w-full h-full",
-      content: "w-full h-full",
-    } },
     table: { type: Array, default: [] },
     filterParams: { type: Object, default: {} },
     mapping: { type: Object, default: {

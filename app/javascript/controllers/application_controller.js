@@ -25,7 +25,6 @@ export default class ApplicationController extends Controller {
   }
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'content', 'contentJson']
   static values = {
-    params: { type: Object },
     isOpen: { type: Boolean },
     isInitialized: { type: Boolean },
     class: { type: String },
@@ -35,21 +34,12 @@ export default class ApplicationController extends Controller {
   initialize() {
     if (this.isInitializedValue) { return }
     this.isInitializedValue = false
-    this.paramsValue = this.normalizeParamsValue(this.paramsValue)
-    // this.initializeParams()
     this.initializeID()
     this.initializeHead()
     this.initializeDir()
     if (this.isDefined(this.initLayout)) { this.initLayout() }
     if (this.isDefined(this.init)) { this.init() }
     this.initializeComplete()
-  }
-
-  initializeParams() {
-    Object.keys(this.paramsValue).forEach(key => {
-      this.setParams({name: key})
-    })
-    if (this.isDefined(this.initParams)) { this.initParams() }
   }
 
   initializeID() {
@@ -106,11 +96,6 @@ export default class ApplicationController extends Controller {
       })
       return
     }
-  }
-  setParams({name, defaultValue}) {
-    if (this.isDefined(this[`${name}Params`])) { return }
-    this[`${name}Params`] = this.paramsValue[name] || defaultValue
-    this[`has${this.toPascalCase(name)}Params`] = true
   }
 
   connect() {
@@ -258,9 +243,3 @@ export default class ApplicationController extends Controller {
 
 Object.assign(ApplicationController.prototype, DataHelpers)
 Object.assign(ApplicationController.prototype, DomHelpers)
-// Object.assign(ApplicationController.prototype, DispatchHelpers)
-// Object.assign(ApplicationController.prototype, ControllerHelpers)
-// Object.assign(ApplicationController.prototype, ApiHelpers)
-// Object.assign(ApplicationController.prototype, CookieHelpers)
-// Object.assign(ApplicationController.prototype, ResponseHelpers)
-// Object.assign(ApplicationController.prototype, FormHelpers)
