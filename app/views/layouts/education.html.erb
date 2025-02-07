@@ -17,9 +17,12 @@
     
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
+    <%= render(Education::ServerDataComponent.new(data: @data, pagination: @pagination, flash:)) %>
   </head>
   
-  <body data-controller="<%= view_controller(__FILE__) %>">
-    <%= yield %>      
+  <body data-controller="education--flash">
+    <main data-controller="<%= view_controller(__FILE__) %>">
+      <%= yield %>
+    </main>   
   </body>
 </html>

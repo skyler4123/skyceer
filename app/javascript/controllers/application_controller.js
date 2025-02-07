@@ -1,13 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import DataHelpers from "./helpers/data_helpers";
-import DomHelpers from "./helpers/dom_helpers";
-import Swal from 'sweetalert2'
-// import DispatchHelpers from "./dispatch_helpers";
-// import ControllerHelpers from "./controller_helpers";
-// import ApiHelpers from "./api_helpers";
-// import { CookieHelpers } from "./cookie_helpers";
-// import ResponseHelpers from "./response_helpers";
-// import FormHelpers from "./form_helpers";
 
 export default class ApplicationController extends Controller {
   static get identifier() {
@@ -25,6 +16,7 @@ export default class ApplicationController extends Controller {
   }
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'content', 'contentJson']
   static values = {
+    isReset: { type: Boolean, default: true },
     isOpen: { type: Boolean },
     isInitialized: { type: Boolean },
     class: { type: String },
@@ -32,20 +24,28 @@ export default class ApplicationController extends Controller {
   }
 
   initialize() {
-    if (this.isInitializedValue) { return }
+    if (this.isDefined(this.initBeforeComplete)) { this.initBeforeComplete() }
     this.isInitializedValue = false
+    if (this.isResetValue) { this.reset() }
     this.initializeID()
     this.initializeHead()
     this.initializeDir()
     if (this.isDefined(this.initLayout)) { this.initLayout() }
     if (this.isDefined(this.init)) { this.init() }
-    this.initializeComplete()
+    this.isInitializedValue = true
+    if (this.isDefined(this.initAfterComplete)) { this.initAfterComplete() }
+    
+  }
+
+  reset() {
+    this.element.innerHTML = ''
   }
 
   initializeID() {
     if (this.element.id) { return } 
     this.element.id = `${this.identifier}:${this.newUUID()}`
   }
+
   initializeHead() {
     if (this.isDefined(this.headValue) && this.headValue.length > 0) {
       document.head.insertAdjacentHTML('beforeend', this.headValue)
@@ -59,61 +59,6 @@ export default class ApplicationController extends Controller {
     }
   }
 
-  initializeComplete() {
-    this.initializeAttribute()
-    this.initializeClass()
-    if (this.isDefined(this.initClass)) { this.initClass() }
-    if (this.isDefined(this.initAction)) { this.initAction() }
-    if (this.isDefined(this.initComplete)) { this.initComplete() }
-    if (this.hasFlash()) { this.initFlash() }
-    this.isInitializedValue = true
-  }
-
-  initializeAttribute() {
-    Object.keys(this.attributesValue).forEach(key => {
-      this.element.setAttribute(key, this.attributesValue[key])
-    })
-  }
-
-  initializeClass() {
-    if (this.isEmpty(this.classValue)) { return }
-
-    if (this.isString(this.classValue)) {
-      this.addClass(this.element, this.classValue)
-      return
-    }
-
-    if (this.isObject(this.classValue)) {
-      const targets = Object.keys(this.classValue)
-      targets.forEach(target => {
-        if (target === 'element') {
-          this.addClass(this.element, this.classValue[target])
-        } else {
-          this[`${target}Targets`].forEach((targetElement) => {
-            this.addClass(targetElement, this.classValue[target])
-          })
-        }
-      })
-      return
-    }
-  }
-
-  connect() {
-    if (this.isTestParams) { console.log(this) }
-  }
-
-  open() {
-    this.isOpenValue = true
-  }
-
-  close() {
-    this.isOpenValue = false
-  }
-
-  toggle() {
-    this.isOpenValue = !this.isOpenValue
-  }
-
   isOpenValueChanged(value, previousValue) {
     if (value) {
       this.element.setAttribute('open', '')
@@ -122,124 +67,4 @@ export default class ApplicationController extends Controller {
     }
   }
 
-  protocol() {
-    return location.protocol
-  }
-
-  addClass(element, klass) {
-    if (element.tagName === 'svg') {
-      element.className.baseVal = element.className.baseVal.concat(klass)
-      element.className.baseVal = element.className.baseVal.trim()
-    } else {
-      element.className = element.className.concat(klass)
-      element.className = element.className.trim()
-    }
-  }
-
-  mergeElementWithHTML(element, html) {
-    const newNode = this.createNodeFromHTML(html).firstElementChild
-    this.cloneAttributes(element, newNode)
-    element.innerHTML = newNode.innerHTML
-  }
-
-  createNodeFromHTML(html) {
-    return document.createRange().createContextualFragment(html)
-  }
-
-  cloneAttributes(element, refElement) {
-    const refAttributes = this.getAttributes(refElement)
-    Object.keys(refAttributes).forEach((attributeKey) => {
-      element.setAttribute(attributeKey, refAttributes[attributeKey])
-    })
-    return element
-  }
-
-  getAttributes(element) {
-    let result = {}
-    Array.from(element.attributes).forEach(((nodeMap) => {
-      result = { ...result, [nodeMap.nodeName]: nodeMap.nodeValue }
-    }))
-    return result
-  }
-
-  contentJson() {
-    if (this.hasContentJsonTarget) {
-      return JSON.parse(this.contentJsonTarget.innerHTML)
-    }
-    return {}
-  }
-
-  // return [] if this.contentJson().data is undefined or empty
-  contentData() {
-    return this.contentJson().data || []
-  }
-
-  // return {} if this.contentJson().pagination is undefined or empty
-  contentPagination() {
-    return this.contentJson().pagination || {}
-  }
-  
-  // return {} if this.contentJson().flash is undefined or empty
-  contentFlash() {
-    return this.contentJson().flash || {}
-  }
-
-  hasFlash() {
-    return !this.isEmpty(this.contentFlash())
-  }
-
-  initFlash() {
-    const flashMessages = this.contentFlash();
-    Object.entries(flashMessages).forEach(([type, message], index) => {
-      setTimeout(() => {
-        Swal.fire({
-          position: "top",
-          html: this.flashHTML(type, message),
-          showConfirmButton: false,
-          timer: 3000,
-          backdrop: false,
-          customClass: {
-            container: '...1',
-            popup: '!p-0',
-            header: '...2',
-            title: '...3',
-            closeButton: '...',
-            icon: '...',
-            image: '...',
-            htmlContainer: '!p-0',
-            input: '...',
-            inputLabel: '...',
-            validationMessage: '...',
-            actions: '...',
-            confirmButton: '...',
-            denyButton: '...',
-            cancelButton: '...',
-            loader: '...5',
-            footer: '....6',
-            timerProgressBar: '....7',
-          }
-        });
-      }, 3000 * index)
-
-    });
-  }
-
-  flashHTML(type = "notice", message) {
-    switch (type) {
-      case "error":
-        return `<div class='w-full text-center py-2 px-3 bg-red-50 text-red-500 font-medium rounded-lg inline-block' id='error'>${message}</div>`
-      case "info":
-        return `<div class='w-full text-center py-2 px-3 bg-blue-50 text-blue-500 font-medium rounded-lg inline-block' id='info'>${message}</div>`
-      case "alert":
-        return `<div class='w-full text-center py-2 px-3 bg-red-50 text-red-500 font-medium rounded-lg inline-block' id='alert'>${message}</div>`
-      case "warning":
-        return `<div class='w-full text-center py-2 px-3 bg-yellow-50 text-yellow-500 font-medium rounded-lg inline-block' id='warning'>${message}</div>`
-      case "notice":
-        return `<div class='w-full text-center py-2 px-3 bg-green-50 text-green-500 font-medium rounded-lg inline-block' id='notice'>${message}</div>`
-    }
-  }
-
 }
-
-Object.assign(ApplicationController.prototype, DataHelpers)
-Object.assign(ApplicationController.prototype, DomHelpers)
