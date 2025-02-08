@@ -18,7 +18,7 @@ export default class extends Education_EducationSchool_LayoutController {
             </p>
             <p class="my-5">
               <strong class="block font-medium mb-1">Address:</strong>
-              ${this.educationSchool().address.id}
+              ${this.educationSchool().address?.id}
             </p>
             <p class="my-5">
               <strong class="block font-medium mb-1">Name:</strong>

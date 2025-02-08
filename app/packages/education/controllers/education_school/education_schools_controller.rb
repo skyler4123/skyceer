@@ -7,7 +7,7 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
   def index
     @pagination, @education_schools = pagy(@education_schools)
     @data = {
-      education_schools: @education_schools.as_json(include: :user),
+      education_schools: @education_schools.as_json(include: [:user, :address]),
     }.to_json
   end
 
