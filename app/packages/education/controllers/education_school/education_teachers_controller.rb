@@ -12,7 +12,10 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
     else
       @education_teachers = EducationTeacher.joins(:education_schools).where(education_schools: @education_schools)
     end
-    @pagy, @education_teachers = pagy(@education_teachers)
+    @pagination, @education_teachers = pagy(@education_teachers)
+    @data = {
+      education_teachers: @education_teachers.as_json(include: [:education_schools, :education_classes])
+    }.to_json
   end
 
   # GET /education_teachers/1 or /education_teachers/1.json

@@ -15,7 +15,7 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   initTable() {
-    let tableData = ServerData.data.map((row) => {
+    let tableData = this.educationAdmins().map((row) => {
       return {
         ...row,
         name: `<a href="/education_admins/${row.id}">${row.name}</a>`,
@@ -45,6 +45,10 @@ export default class extends Education_EducationSchool_LayoutController {
         {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
       ],
     });
+  }
+
+  educationAdmins() {
+    return ServerData.data.education_admins
   }
 
   defaultHTML() {

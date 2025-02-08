@@ -11,6 +11,7 @@ class Education::ServerDataComponent < ViewComponent::Base
     </script>
   ERB
 
+  # data must be json formatted
   def initialize(data: nil, pagination: nil, flash: nil)
     @data = data
     @pagination = pagination

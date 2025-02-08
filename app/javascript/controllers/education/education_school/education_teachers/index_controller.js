@@ -15,12 +15,12 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   initTable() {
-    let tableData = this.educationStudents().map((row) => {
+    let tableData = this.educationTeachers().map((row) => {
       return {
         ...row,
-        name: `<a href="/education_students/${row.id}">${row.name}</a>`,
-        class_names: `<div>${row.education_classes.map((klass) => `<span>${klass.name}</span>`).join(",")}</div>`,
+        name: `<a href="/education_teachers/${row.id}">${row.name}</a>`,
         school_names: `<div>${row.education_schools.map((school) => `<span>${school.name}</span>`).join(",")}</div>`,
+        class_names: `<div>${row.education_classes.map((klass) => `<span>${klass.name}</span>`).join(",")}</div>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -41,46 +41,20 @@ export default class extends Education_EducationSchool_LayoutController {
       },
       columns:[                 //define the table columns
         {title:"Name", field: "name", formatter: "html"},
-        {title:"Schools", field:"school_names", sorter:"string", hozAlign:"center", formatter: "html"},
-        {title:"Classes", field:"class_names", sorter:"string", hozAlign:"center", formatter: "html"}
+        {title: "Schools", field: "school_names", width: 150, formatter: "html"},
+        {title: "Classes", field: "class_names", width: 150, formatter: "html"},
+        {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
+        {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
       ],
     });
   }
 
-  educationStudents() {
-    return ServerData.data.education_students
-  }
-
-  educationClasses() {
-    return ServerData.data.education_classes
+  educationTeachers() {
+    return ServerData.data.education_teachers
   }
 
   defaultHTML() {
     return `
-      <form action="/education_students" class="flex flex-row gap-x-4">
-        <div class="w-1/4">
-          <input
-            type="text"
-            name="full_text_search"
-            placeholder="Name, Email, Phone, ..."
-            class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500"
-          >
-        </div>
-        <div class="w-1/4 flex justify-center items-center">
-          <select
-            name="education_class_id"
-            data-${this.identifier}-target="classIdSelect"
-          >
-            <option value="" disabled selected>Select Class</option>
-            ${this.educationClasses().map((klass) => {
-              return `<option value="${klass.id}">${klass.name}</option>`
-            }).join("")}
-          </select>
-        </div>
-        <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-          <input type="submit" value="Submit">
-        </div>
-      </form>
       <div data-${this.identifier}-target="table" class="w-full"></div>
       <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
     `

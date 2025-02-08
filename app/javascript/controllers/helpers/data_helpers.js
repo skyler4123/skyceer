@@ -111,3 +111,8 @@ export const isBoolean = (x) => {
 export const isBooleanString = (x) => {
   return x === 'true' || x === 'false'
 }
+
+export const csrfToken = () => {
+  const csrf = document.querySelector('meta[name="csrf-token"]')
+  return csrf.content
+}

@@ -20,6 +20,7 @@ export default class ApplicationController extends Controller {
     this.initializeHead()
     this.initializeDir()
     if (isDefined(this.initLayout)) { this.initLayout() }
+    if (isDefined(this.contentHTML)) { this.contentTarget.innerHTML = this.contentHTML() }
     if (isDefined(this.init)) { this.init() }
     this.isInitializedValue = true
     if (isDefined(this.initAfterComplete)) { this.initAfterComplete() }
