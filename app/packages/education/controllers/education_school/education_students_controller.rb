@@ -5,8 +5,6 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
 
   # GET /education_students or /education_students.json
   def index
-    # flash[:notice] = "Hello World"
-    # flash[:alert] = "Hello World alert"
     @education_students = EducationStudent.includes(:education_classes).joins(:education_schools)
     if params[:full_text_search].present?
       @education_students = EducationStudent.search(params[:full_text_search]).records.joins(:education_schools).where(education_schools: @education_schools)

@@ -10,7 +10,7 @@ export default class Education_FlashController extends Controller {
     setTimeout(() => {
       if (!this.hasFlash()) { return }
       this.initFlash()
-    }, 2000)
+    }, 500)
   }
 
   hasFlash() {
