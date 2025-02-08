@@ -5,7 +5,7 @@ class Education::ServerDataComponent < ViewComponent::Base
     <script>
       window.ServerData = {
         data: <%= @data&.html_safe || {} %>,
-        pagination: <%= @pagination.to_json.html_safe %>,
+        pagination: <%= @pagination&.to_json&.html_safe || {} %>,
         flash: <%= @flash.to_hash.to_json.html_safe %>
       };
     </script>

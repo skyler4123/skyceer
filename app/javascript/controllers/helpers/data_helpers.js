@@ -84,6 +84,7 @@ export const isEmpty = (x) => {
   if (isArray(x)) { return x.length === 0 }
   if (isString(x)) { return x === "" }
   if (isNumber(x)) { return false }
+  return true
 }
 
 export const transferToValue = (value) => {
@@ -115,4 +116,9 @@ export const isBooleanString = (x) => {
 export const csrfToken = () => {
   const csrf = document.querySelector('meta[name="csrf-token"]')
   return csrf.content
+}
+
+// findBy with a key value pair for array of objects
+export const findBy = (array, key, value) => {
+  return array.find(object => object[key] === value)
 }
