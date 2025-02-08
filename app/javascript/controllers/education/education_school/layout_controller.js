@@ -5,7 +5,7 @@ import { identifier } from "../../helpers/data_helpers"
 import ApplicationController from "../../application_controller"
 
 export default class Education_EducationSchool_LayoutController extends ApplicationController {
-  static targets = ['header', 'main', 'aside', 'content', 'footer']
+  static targets = ['header', 'main', 'aside', 'content', 'footer', 'table']
 
   initLayout() {
     this.element.className = 'w-full h-full'

@@ -18,7 +18,8 @@ export default class extends Education_EducationSchool_LayoutController {
     let tableData = ServerData.data.map((row) => {
       return {
         ...row,
-        name: `<a href="/education_schools/${row.id}">${row.name}</a>`,
+        name: `<a href="${CookieHelpers.navigationUrl()}/education_admins/${row.id}">${row.name}</a>`,
+        school_names: `<div>${row.education_schools.map((school) => `<span>${school.name}</span>`).join(",")}</div>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -38,10 +39,10 @@ export default class extends Education_EducationSchool_LayoutController {
           tooltip:true,         //show tool tips on cells
       },
       columns:[                 //define the table columns
-          // {title:"Name", field:"name", editor:"input"},
-          {title:"Name", field: "name", formatter: "html"},
-          {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
-          {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
+        {title:"Name", field: "name", formatter: "html"},
+        {title: "Schools", field: "school_names", width: 150, formatter: "html"},
+        {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
+        {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
       ],
     });
   }

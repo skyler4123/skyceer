@@ -6,7 +6,6 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
   # GET /education_schools or /education_schools.json
   def index
     flash[:notice] = "This is a notice"
-    @pagy, @education_schools = pagy(@education_schools)
     @pagination, @data = pagy(@education_schools)
   end
 
