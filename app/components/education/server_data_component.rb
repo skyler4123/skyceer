@@ -4,7 +4,7 @@ class Education::ServerDataComponent < ViewComponent::Base
   erb_template <<-ERB
     <script>
       window.ServerData = {
-        data: <%= @data.html_safe %>,
+        data: <%= @data&.html_safe || {} %>,
         pagination: <%= @pagination.to_json.html_safe %>,
         flash: <%= @flash.to_hash.to_json.html_safe %>
       };
