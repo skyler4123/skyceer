@@ -17,7 +17,10 @@ class EducationSchool::EducationSubjectsController < EducationSchool::Educations
 
     # if education_subject is not found, get from current_education_school
     @education_subjects = EducationSubject.where(education_school: @education_schools) if @education_subjects.blank?
-    @pagy, @education_subjects = pagy(@education_subjects)
+    @pagination, @education_subjects = pagy(@education_subjects)
+    @data = {
+      education_subjects: @education_subjects.as_json(only: %i[id education_school_id name description discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
+    }.to_json
   end
 
   # GET /education_subjects/1 or /education_subjects/1.json

@@ -6,10 +6,10 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
     # get education_schools from id params when it exists instead of current_education_school
     @education_schools = EducationSchool.find(params[:education_school_id]) if params[:education_school_id].present?
     @education_classes = EducationClass.where(education_school: @education_schools)
-    respond_to do |format|
-      format.html { @pagy, @education_classes = pagy(@education_classes) }
-      format.json { render json: @education_classes }
-    end
+    @pagination, @education_classes = pagy(@education_classes)
+    @data = {
+      education_classes: @education_classes.as_json(only: %i[id education_school_id education_course_id name discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
+    }.to_json
   end
 
   # GET /education_classes/1 or /education_classes/1.json
