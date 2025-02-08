@@ -19,8 +19,8 @@ export default class extends Education_EducationSchool_LayoutController {
       return {
         ...row,
         name: `<a href="/education_students/${row.id}">${row.name}</a>`,
-        class_name: `<div>${row.class_name}</div>`,
-        school_name: `<div>${row.school_name}</div>`,
+        class_names: `<div>${row.education_classes.map((klass) => `<span>${klass.name}</span>`).join(",")}</div>`,
+        school_names: `<div>${row.education_schools.map((school) => `<span>${school.name}</span>`).join(",")}</div>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -41,8 +41,8 @@ export default class extends Education_EducationSchool_LayoutController {
       },
       columns:[                 //define the table columns
         {title:"Name", field: "name", formatter: "html"},
-        {title:"School", field:"school_name", sorter:"string", hozAlign:"center", formatter: "html"},
-        {title:"Class", field:"class_name", sorter:"string", hozAlign:"center", formatter: "html"}
+        {title:"Schools", field:"school_names", sorter:"string", hozAlign:"center", formatter: "html"},
+        {title:"Classes", field:"class_names", sorter:"string", hozAlign:"center", formatter: "html"}
       ],
     });
   }

@@ -14,8 +14,9 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
     else
       @education_students = @education_students.where(education_schools: @education_schools)
     end
-    @education_students = @education_students.joins(:education_classes).select(:id, :name, :created_at, :updated_at, "education_schools.name as school_name", "education_schools.id as school_id", "education_classes.name as class_name", "education_classes.id as class_id")
-    @pagination, @data = pagy(@education_students)
+    @education_students = @education_students.joins(:education_classes).select(:id, :name, :created_at, :updated_at)
+    @pagination, @education_students = pagy(@education_students)
+    @data = @education_students.to_json(include: [:education_schools, :education_classes])
   end
 
   # GET /education_students/1 or /education_students/1.json
