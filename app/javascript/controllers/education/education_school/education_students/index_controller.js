@@ -18,7 +18,9 @@ export default class extends Education_EducationSchool_LayoutController {
     let tableData = ServerData.data.map((row) => {
       return {
         ...row,
-        name: `<a href="/education_schools/${row.id}">${row.name}</a>`,
+        name: `<a href="/education_students/${row.id}">${row.name}</a>`,
+        class_name: `<div>${row.class_name}</div>`,
+        school_name: `<div>${row.school_name}</div>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -38,15 +40,36 @@ export default class extends Education_EducationSchool_LayoutController {
           tooltip:true,         //show tool tips on cells
       },
       columns:[                 //define the table columns
-          {title:"Name", field: "name", formatter: "html"},
-          {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
-          {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
+        {title:"Name", field: "name", formatter: "html"},
+        {title:"School", field:"school_name", sorter:"string", hozAlign:"center", formatter: "html"},
+        {title:"Class", field:"class_name", sorter:"string", hozAlign:"center", formatter: "html"}
       ],
     });
   }
 
   defaultHTML() {
     return `
+      <form action="/education_students" class="flex flex-row gap-x-4">
+        <div class="w-1/4">
+          <input
+            type="text"
+            name="full_text_search"
+            placeholder="Name, Email, Phone, ..."
+            class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500"
+          >
+        </div>
+        <div class="w-1/4 flex justify-center items-center">
+          <select
+            name="education_class_id"
+            data-${this.identifier}-target="classIdSelect"
+          >
+            <option value="" disabled selected>Select Class</option>
+          </select>
+        </div>
+        <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+          <input type="submit" value="Submit">
+        </div>
+      </form>
       <div data-${this.identifier}-target="table" class="w-full"></div>
       <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
     `

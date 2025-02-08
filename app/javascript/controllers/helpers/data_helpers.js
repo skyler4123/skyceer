@@ -103,3 +103,11 @@ export const identifier = (controller) => {
   identifier = identifier.replaceAll('namespace', '')
   return identifier
 }
+
+export const isBoolean = (x) => {
+  return typeof x === 'boolean'
+}
+
+export const isBooleanString = (x) => {
+  return x === 'true' || x === 'false'
+}

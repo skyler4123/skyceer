@@ -7,8 +7,10 @@ import { isEmpty } from '../helpers/data_helpers';
 export default class Education_FlashController extends Controller {
   
   initialize() {
-    if (!this.hasFlash()) { return }
-    this.initFlash()
+    setTimeout(() => {
+      if (!this.hasFlash()) { return }
+      this.initFlash()
+    }, 2000)
   }
 
   hasFlash() {

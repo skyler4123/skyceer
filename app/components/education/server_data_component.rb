@@ -11,11 +11,8 @@ class Education::ServerDataComponent < ViewComponent::Base
             };
           }
 
-          window.onload = initializeServerData;
           window.onpageshow = function(event) {
-            if (event.persisted) {
-              initializeServerData();
-            }
+            initializeServerData();
           };
       </script>
   ERB
