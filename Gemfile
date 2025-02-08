@@ -93,9 +93,6 @@ gem "view_component"
 gem "faker"
 gem "jwt"
 gem "em-websocket"
-# gem "sidekiq"
-# gem "sidekiq-cron"
-# gem 'newrelic_rpm'
 gem "aws-sdk-s3", require: false
 gem 'rack-mini-profiler', require: false
 gem 'memory_profiler'
