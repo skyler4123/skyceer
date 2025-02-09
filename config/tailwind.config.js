@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+// const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   darkMode: 'selector',
@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', 'Ubuntu', ...defaultTheme.fontFamily.sans],
+//         sans: ['Inter var', 'Ubuntu', ...defaultTheme.fontFamily.sans],
       },
       keyframes: {
         wave: {
