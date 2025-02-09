@@ -19,7 +19,7 @@ export default class Education_HeaderController extends Controller {
         </div>
         <div class="flex flex-row gap-x-2">
           <a href="/"">Home</a>
-          <a class="text-red-500" href="/educations">Education</a>
+          <a class="text-blue-500" href="/educations">Education</a>
         </div>
         <div class="flex flex-row" data-controller="education--user-profile-dropdown"></div>
       </div>

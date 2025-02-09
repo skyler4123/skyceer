@@ -33,13 +33,6 @@ class User < ApplicationRecord
   include User::ImagesConcern
   include User::ImagesInArticlePostConcern
 
-  has_many :estate_houses, dependent: :destroy
-  has_many :estate_condos, dependent: :destroy
-  has_many :estate_hotels, dependent: :destroy
-
-  has_many :vehicle_stores, dependent: :destroy
-  has_many :vehicle_cars, dependent: :destroy
-
   belongs_to :address, optional: true
   
   include User::EducationConcern

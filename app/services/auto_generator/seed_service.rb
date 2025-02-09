@@ -3,12 +3,12 @@ class AutoGenerator::SeedService
     AutoGenerator::ApplicationService.run
     AutoGenerator::EducationService.run
     # AutoGenerator::VehicleService.run
-    AutoGenerator::CalendarService.run
+    # AutoGenerator::CalendarService.run
     # AutoGenerator::ChatService.run
     # AutoGenerator::ArticleService.run
     # AutoGenerator::EstateService.run
-    AutoGenerator::ReportService.run
-    AutoGenerator::PaymentService.run
+    # AutoGenerator::ReportService.run
+    # AutoGenerator::PaymentService.run
 
     
     self.puts_count
@@ -18,7 +18,7 @@ class AutoGenerator::SeedService
 
   def self.puts_count
     count_array = []
-    skip_models = [ApplicationRecord, Current, Demo, Session, SessionApplicationRecord, EstateUser, VehicleUser, VehicleStore, VehicleCar]
+    skip_models = [ApplicationRecord, Current, Demo, Session, SessionApplicationRecord]
     Dir[Rails.root.to_s + '/app/**/models/*.rb'].each do |file| 
       # Given string
       file_name = file.split('/').last

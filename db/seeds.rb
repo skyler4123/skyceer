@@ -17,15 +17,9 @@ Session.destroy_all
 Address.destroy_all
 Category.destroy_all
 
-VehicleStore.destroy_all
-VehicleCar.destroy_all
-
 ChatConversation.destroy_all
 
 ArticlePost.destroy_all
-
-EstateCondo.destroy_all
-EstateHotel.destroy_all
 
 EducationSchool.destroy_all
 EducationCategory.destroy_all
@@ -38,6 +32,7 @@ EducationCourse.destroy_all
 EducationSubject.destroy_all
 EducationExam.destroy_all
 EducationQuestion.destroy_all
+EducationShift.destroy_all
 EducationSchoolAppointment.destroy_all
 EducationCategoryAppointment.destroy_all
 EducationClassAppointment.destroy_all
@@ -51,7 +46,6 @@ CalendarCategoryAppointment.destroy_all
 ReportTicket.destroy_all
 ReportFrontend.destroy_all
 
-
 PaymentUser.destroy_all
 PaymentCustomer.destroy_all
 PaymentMethod.destroy_all
@@ -62,7 +56,6 @@ PaymentInvoice.destroy_all
 PaymentLog.destroy_all
 PaymentCategory.destroy_all
 PaymentCategoryAppointment.destroy_all
-
 
 # Run generator for development
 AutoGenerator::SeedService.run

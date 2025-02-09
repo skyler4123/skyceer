@@ -109,9 +109,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "userable_type", null: false
     t.uuid "userable_id", null: false
+    t.string "groupable_type", null: false
+    t.uuid "groupable_id", null: false
     t.string "eventable_type", null: false
     t.uuid "eventable_id", null: false
     t.integer "library"
+    t.string "name"
     t.string "title"
     t.string "body"
     t.boolean "isAllday"
@@ -140,6 +143,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["eventable_type", "eventable_id"], name: "index_calendar_events_on_eventable"
+    t.index ["groupable_type", "groupable_id"], name: "index_calendar_events_on_groupable"
     t.index ["userable_type", "userable_id"], name: "index_calendar_events_on_userable"
   end
 
@@ -180,7 +184,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "name"
-    t.string "email"
+    t.string "email", comment: "Admin can be created without user at first time then will match with user by email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_education_admins_on_user_id"
@@ -337,7 +341,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.uuid "user_id", null: false
     t.uuid "address_id"
     t.string "name"
-    t.string "email"
+    t.string "email", comment: "Email address of the school can be different from the user's email address"
     t.string "category"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -353,6 +357,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.uuid "education_subject_id", null: false
     t.uuid "education_teacher_id", null: false
     t.string "name"
+    t.string "title"
+    t.string "body"
+    t.boolean "isAllday"
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "goingDuration"
+    t.integer "comingDuration"
+    t.string "location"
+    t.text "attendees", default: [], array: true
+    t.integer "category"
+    t.integer "dueDateClass"
+    t.string "recurrenceRule"
+    t.integer "state"
+    t.boolean "isVisible", default: true
+    t.boolean "isPending", default: false
+    t.boolean "isFocused", default: false
+    t.boolean "isReadOnly", default: false
+    t.boolean "isPrivate", default: false
+    t.string "color", default: "#000"
+    t.string "backgroundColor", default: "#a1b56c"
+    t.string "dragBackgroundColor", default: "#a1b56c"
+    t.string "borderColor", default: "#000"
+    t.json "customStyle", default: {}
+    t.json "raw", default: {}
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -365,7 +393,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "name"
-    t.string "email"
+    t.string "email", comment: "Student can be created without user at first time then will match with user by email"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -395,51 +423,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "name"
-    t.string "email"
+    t.string "email", comment: "Teacher can be created without user at first time then will match with user by email"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_teachers_on_discarded_at"
     t.index ["user_id"], name: "index_education_teachers_on_user_id"
-  end
-
-  create_table "estate_condos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.uuid "address_id"
-    t.string "name"
-    t.integer "price_cents"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_estate_condos_on_address_id"
-    t.index ["discarded_at"], name: "index_estate_condos_on_discarded_at"
-    t.index ["user_id"], name: "index_estate_condos_on_user_id"
-  end
-
-  create_table "estate_hotels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.uuid "address_id"
-    t.string "name"
-    t.integer "price_cents"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_estate_hotels_on_address_id"
-    t.index ["discarded_at"], name: "index_estate_hotels_on_discarded_at"
-    t.index ["user_id"], name: "index_estate_hotels_on_user_id"
-  end
-
-  create_table "estate_houses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.uuid "address_id"
-    t.string "name"
-    t.integer "price_cents"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_estate_houses_on_address_id"
-    t.index ["discarded_at"], name: "index_estate_houses_on_discarded_at"
-    t.index ["user_id"], name: "index_estate_houses_on_user_id"
   end
 
   create_table "payment_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -675,39 +664,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  create_table "vehicle_cars", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.string "model"
-    t.string "brand"
-    t.uuid "vehicle_store_id"
-    t.uuid "user_id"
-    t.integer "price"
-    t.string "version"
-    t.integer "year"
-    t.integer "post_purpose"
-    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
-    t.datetime "released_at"
-    t.boolean "verified"
-    t.boolean "expired"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["discarded_at"], name: "index_vehicle_cars_on_discarded_at"
-    t.index ["user_id"], name: "index_vehicle_cars_on_user_id"
-    t.index ["vehicle_store_id"], name: "index_vehicle_cars_on_vehicle_store_id"
-  end
-
-  create_table "vehicle_stores", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.uuid "user_id", null: false
-    t.decimal "coordinates", default: ["0.0", "0.0"], array: true
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["discarded_at"], name: "index_vehicle_stores_on_discarded_at"
-    t.index ["user_id"], name: "index_vehicle_stores_on_user_id"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "calendar_categories", "calendar_categories", column: "parent_category_id"
@@ -744,12 +700,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_subject_appointments", "education_subjects"
   add_foreign_key "education_subjects", "education_schools"
   add_foreign_key "education_teachers", "users"
-  add_foreign_key "estate_condos", "addresses"
-  add_foreign_key "estate_condos", "users"
-  add_foreign_key "estate_hotels", "addresses"
-  add_foreign_key "estate_hotels", "users"
-  add_foreign_key "estate_houses", "addresses"
-  add_foreign_key "estate_houses", "users"
   add_foreign_key "payment_categories", "payment_categories", column: "parent_category_id"
   add_foreign_key "payment_categories", "payment_users"
   add_foreign_key "payment_category_appointments", "payment_categories"
@@ -776,7 +726,4 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "report_tickets", "report_users"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "addresses"
-  add_foreign_key "vehicle_cars", "users"
-  add_foreign_key "vehicle_cars", "vehicle_stores"
-  add_foreign_key "vehicle_stores", "users"
 end
