@@ -1,7 +1,7 @@
-import { identifier, transferToValue } from "../../../helpers/data_helpers";
-import Education_PaginationController from "../../pagination_controller";
+import { identifier, transferToValue } from "controllers/helpers/data_helpers"
+import Education_PaginationController from "controllers/education/pagination_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
-import Education_EducationSchool_LayoutController from "../layout_controller";
+import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 
 export default class extends Education_EducationSchool_LayoutController {
 

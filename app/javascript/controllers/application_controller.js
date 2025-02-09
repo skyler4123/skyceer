@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { isDefined, randomID } from "./helpers/data_helpers"
+import { isDefined, randomID } from "controllers/helpers/data_helpers"
 
 export default class ApplicationController extends Controller {
 

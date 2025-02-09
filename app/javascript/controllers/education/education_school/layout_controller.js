@@ -1,8 +1,8 @@
-import Education_FooterController from "../footer_controller"
-import Education_HeaderController from "../header_controller"
-import Education_EducationSchool_AsideController from "./aside_controller"
-import { identifier } from "../../helpers/data_helpers"
-import ApplicationController from "../../application_controller"
+import Education_FooterController from "controllers/education/footer_controller"
+import Education_HeaderController from "controllers/education/header_controller"
+import Education_EducationSchool_AsideController from "controllers/education/education_school/aside_controller"
+import { identifier } from "controllers/helpers/data_helpers"
+import ApplicationController from "controllers/application_controller"
 
 export default class Education_EducationSchool_LayoutController extends ApplicationController {
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'table']

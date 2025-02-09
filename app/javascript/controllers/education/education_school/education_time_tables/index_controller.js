@@ -1,4 +1,4 @@
-import Education_EducationSchool_LayoutController from '../layout_controller';
+import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import Calendar from '@toast-ui/calendar';
 import Swal from 'sweetalert2'
 

@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { isEmpty } from "../helpers/data_helpers"
+import { isEmpty } from "controllers/helpers/data_helpers"
 
 
 export default class Education_PaginationController extends Controller {

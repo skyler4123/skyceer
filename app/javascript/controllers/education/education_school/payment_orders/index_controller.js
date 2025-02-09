@@ -1,7 +1,7 @@
 import {TabulatorFull as Tabulator} from 'tabulator';
-import Education_EducationSchool_LayoutController from "../layout_controller";
-import Education_PaginationController from '../../pagination_controller';
-import { identifier, transferToValue } from '../../../helpers/data_helpers';
+import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
+import Education_PaginationController from "controllers/education/pagination_controller";
+import { identifier, transferToValue } from "controllers/helpers/data_helpers"
 
 export default class extends Education_EducationSchool_LayoutController {
   init() {
