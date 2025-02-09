@@ -201,35 +201,11 @@ class AutoGenerator::EducationService
       20.times do
         start = Time.now + rand(1..50000).minutes
         EducationShift.create!(
+          name: Faker::Movie.title,
           education_school: education_school,
           education_class: education_school.education_classes.sample,
           education_subject: education_school.education_subjects.sample,
           education_teacher: education_school.education_teachers.sample,
-          name: "Shift #{Faker::Number.number}",
-          title: "#{Faker::Movie.title}",
-          body: "#{Faker::Movie.quote}",
-          isAllday: false,
-          start: start,
-          end: start + 45.minutes,
-          goingDuration: 0,
-          comingDuration: 0,
-          location: Address.create_random.id,
-          attendees: [],
-          category: ['milestone', 'task', 'time', 'allday'].sample,
-          dueDateClass: "",
-          recurrenceRule: "",
-          state: ["Busy", "Free"].sample,
-          isVisible: true,
-          isPending: false,
-          isFocused: false,
-          isReadOnly: false,
-          isPrivate: false,
-          color: '#' + SecureRandom.hex(3),
-          backgroundColor: '#' + SecureRandom.hex(3),
-          dragBackgroundColor: '#' + SecureRandom.hex(3),
-          borderColor: '#' + SecureRandom.hex(3),
-          customStyle: {},
-          raw: {},
         )
       end
     end

@@ -2,13 +2,11 @@ class AutoGenerator::SeedService
   def self.run(seed_number: 0)    
     AutoGenerator::ApplicationService.run
     AutoGenerator::EducationService.run
-    # AutoGenerator::VehicleService.run
-    # AutoGenerator::CalendarService.run
+    AutoGenerator::CalendarService.run
     # AutoGenerator::ChatService.run
     # AutoGenerator::ArticleService.run
-    # AutoGenerator::EstateService.run
-    # AutoGenerator::ReportService.run
-    # AutoGenerator::PaymentService.run
+    AutoGenerator::ReportService.run
+    AutoGenerator::PaymentService.run
 
     
     self.puts_count

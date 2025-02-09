@@ -27,6 +27,7 @@ class EducationRoleConstraint
 end
 
 Rails.application.routes.draw do
+  resources :calendar_events
   ### EDUCATION package
   # resources :education_schools
     # scope module: :education_schools do

@@ -107,14 +107,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "userable_type", null: false
-    t.uuid "userable_id", null: false
-    t.string "groupable_type", null: false
-    t.uuid "groupable_id", null: false
-    t.string "eventable_type", null: false
-    t.uuid "eventable_id", null: false
+    t.string "calendar_eventable_type", null: false
+    t.uuid "calendar_eventable_id", null: false
     t.integer "library"
-    t.string "name"
     t.string "title"
     t.string "body"
     t.boolean "isAllday"
@@ -123,28 +118,40 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.integer "goingDuration"
     t.integer "comingDuration"
     t.string "location"
-    t.text "attendees", default: [], array: true
+    t.text "attendees"
     t.integer "category"
-    t.integer "dueDateClass"
+    t.string "dueDateClass"
     t.string "recurrenceRule"
     t.integer "state"
-    t.boolean "isVisible", default: true
-    t.boolean "isPending", default: false
-    t.boolean "isFocused", default: false
-    t.boolean "isReadOnly", default: false
-    t.boolean "isPrivate", default: false
-    t.string "color", default: "#000"
-    t.string "backgroundColor", default: "#a1b56c"
-    t.string "dragBackgroundColor", default: "#a1b56c"
-    t.string "borderColor", default: "#000"
-    t.json "customStyle", default: {}
-    t.json "raw", default: {}
+    t.boolean "isVisible"
+    t.boolean "isPending"
+    t.boolean "isFocused"
+    t.boolean "isReadOnly"
+    t.boolean "isPrivate"
+    t.string "color"
+    t.string "backgroundColor"
+    t.string "dragBackgroundColor"
+    t.string "borderColor"
+    t.json "customStyle"
+    t.json "raw"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["eventable_type", "eventable_id"], name: "index_calendar_events_on_eventable"
-    t.index ["groupable_type", "groupable_id"], name: "index_calendar_events_on_groupable"
-    t.index ["userable_type", "userable_id"], name: "index_calendar_events_on_userable"
+    t.index ["calendar_eventable_type", "calendar_eventable_id"], name: "index_calendar_events_on_calendar_eventable"
+  end
+
+  create_table "calendar_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "calendar_groupable_type", null: false
+    t.uuid "calendar_groupable_id", null: false
+    t.string "name"
+    t.string "color"
+    t.string "borderColor"
+    t.string "backgroundColor"
+    t.string "dragBackgroundColor"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_groupable_type", "calendar_groupable_id"], name: "index_calendar_groups_on_calendar_groupable"
   end
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -357,30 +364,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.uuid "education_subject_id", null: false
     t.uuid "education_teacher_id", null: false
     t.string "name"
-    t.string "title"
-    t.string "body"
-    t.boolean "isAllday"
-    t.datetime "start"
-    t.datetime "end"
-    t.integer "goingDuration"
-    t.integer "comingDuration"
-    t.string "location"
-    t.text "attendees", default: [], array: true
-    t.integer "category"
-    t.integer "dueDateClass"
-    t.string "recurrenceRule"
-    t.integer "state"
-    t.boolean "isVisible", default: true
-    t.boolean "isPending", default: false
-    t.boolean "isFocused", default: false
-    t.boolean "isReadOnly", default: false
-    t.boolean "isPrivate", default: false
-    t.string "color", default: "#000"
-    t.string "backgroundColor", default: "#a1b56c"
-    t.string "dragBackgroundColor", default: "#a1b56c"
-    t.string "borderColor", default: "#000"
-    t.json "customStyle", default: {}
-    t.json "raw", default: {}
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

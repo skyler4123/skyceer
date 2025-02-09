@@ -1,11 +1,8 @@
 class CreateCalendarEvents < ActiveRecord::Migration[8.0]
   def change
     create_table :calendar_events, id: :uuid do |t|
-      t.references :userable, polymorphic: true, null: false, type: :uuid
-      t.references :groupable, polymorphic: true, null: false, type: :uuid
-      t.references :eventable, polymorphic: true, null: false, type: :uuid
+      t.references :calendar_eventable, polymorphic: true, null: false, type: :uuid
       t.integer :library
-      t.string :name
       t.string :title
       t.string :body
       t.boolean :isAllday
@@ -14,22 +11,22 @@ class CreateCalendarEvents < ActiveRecord::Migration[8.0]
       t.integer :goingDuration
       t.integer :comingDuration
       t.string :location
-      t.text :attendees, array: true, default: []
+      t.text :attendees
       t.integer :category
-      t.integer :dueDateClass
+      t.string :dueDateClass
       t.string :recurrenceRule
       t.integer :state
-      t.boolean :isVisible, default: true
-      t.boolean :isPending, default: false
-      t.boolean :isFocused, default: false
-      t.boolean :isReadOnly, default: false
-      t.boolean :isPrivate, default: false
-      t.string :color, default: '#000'
-      t.string :backgroundColor, default: '#a1b56c'
-      t.string :dragBackgroundColor, default: '#a1b56c'
-      t.string :borderColor, default: 	'#000'
-      t.json :customStyle, default: {}
-      t.json :raw, default: {}
+      t.boolean :isVisible
+      t.boolean :isPending
+      t.boolean :isFocused
+      t.boolean :isReadOnly
+      t.boolean :isPrivate
+      t.string :color
+      t.string :backgroundColor
+      t.string :dragBackgroundColor
+      t.string :borderColor
+      t.json :customStyle
+      t.json :raw
       t.datetime :discarded_at
 
       t.timestamps

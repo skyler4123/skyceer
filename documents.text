@@ -45,12 +45,12 @@ rails g scaffold PaymentCategoryAppointment payment_category:references payment_
 
 
 CALENDAR
-rails g scaffold CalendarEvent userable:references{polymorphic} groupable:references{polymorphic} eventable:references{polymorphic} library:integer title body isAllday:boolean start:datetime end:datetime goingDuration:integer comingDuration:integer location attendees:text category:integer dueDateClass recurrenceRule state:integer isVisible:boolean isPending:boolean isFocused:boolean isReadOnly:boolean isPrivate:boolean color backgroundColor dragBackgroundColor borderColor customStyle:json raw:json discarded_at:datetime --force
+rails g scaffold CalendarEvent calendar_group:references eventable:references{polymorphic} library:integer title body isAllday:boolean start:datetime end:datetime goingDuration:integer comingDuration:integer location attendees:text category:integer dueDateClass recurrenceRule state:integer isVisible:boolean isPending:boolean isFocused:boolean isReadOnly:boolean isPrivate:boolean color backgroundColor dragBackgroundColor borderColor customStyle:json raw:json discarded_at:datetime --force
 rails g scaffold CalendarCategory name userable:references{polymorphic} parent_category:references nested_level:integer discarded_at:datetime --force
 rails g scaffold CalendarCategoryAppointment calendar_category:references calendar_category_appointmentable:references{polymorphic} discarded_at:datetime --force
 
 rails g scaffold CalendarUser calendar_userable:references{polymorphic} discarded_at:datetime --force
-rails g scaffold CalendarGroup calendar_user:references calendar_groupable:references{polymorphic} name color borderColor backgroundColor dragBackgroundColor discarded_at:datetime --force
+rails g scaffold CalendarGroup calendar_groupable:references{polymorphic} name color borderColor backgroundColor dragBackgroundColor discarded_at:datetime --force
 rails g scaffold CalendarEventAppointment calendar_event:references calendar_event_appointmentable:references{polymorphic} discarded_at:datetime --force
 
 REPORT
