@@ -1,16 +1,31 @@
 class AutoGenerator::CalendarService
   def self.run
+    self.calendar_user
     self.calendar_group
     self.calendar_event
     self.calendar_category
     self.calendar_category_appointment
   end
 
+
+  def self.calendar_user
+    userables = EducationSchool.all
+    userables.each do |userable|
+      CalendarUser.create!(
+        calendar_userable: userable,
+        name: Faker::Name.name,
+        email: Faker::Internet.email
+      )
+    end
+  end
+
   def self.calendar_group
-    calendar_groupables = EducationClass.all
-    calendar_groupables.each do |calendar_groupable|
+    # For Education
+    education_classes = EducationClass.all
+    education_classes.each do |education_class|
       CalendarGroup.create!(
-        calendar_groupable: calendar_groupable,
+        calendar_userable: education_class.education_school,
+        calendar_groupable: education_class,
         name: "Group #{Faker::Number.number}",
         color: '#' + SecureRandom.hex(3),
         borderColor: '#' + SecureRandom.hex(3),
@@ -18,43 +33,47 @@ class AutoGenerator::CalendarService
         dragBackgroundColor: '#' + SecureRandom.hex(3),
       )
     end
-
+    # For Education
   end
 
   def self.calendar_event
-    calendar_eventables = EducationShift.all
-    calendar_eventables.each do |calendar_eventable|
-      start_day = Faker::Date.between(from: Date.today, to: Date.today + 1.month)
-      end_day = start_day + 1.hours
-      CalendarEvent.create!(
-        calendar_eventable: calendar_eventable,
-        library: "tui",
-        title: "#{Faker::Movie.title}",
-        body: "#{Faker::Movie.quote}",
-        isAllday: false,
-        start: start_day,
-        end: end_day,
-        goingDuration: 0,
-        comingDuration: 0,
-        location: Address.create_random.id,
-        attendees: [],
-        category: ['milestone', 'task', 'time', 'allday'].sample,
-        dueDateClass: "",
-        recurrenceRule: "",
-        state: ["Busy", "Free"].sample,
-        isVisible: true,
-        isPending: false,
-        isFocused: false,
-        isReadOnly: false,
-        isPrivate: false,
-        color: '#' + SecureRandom.hex(3),
-        backgroundColor: '#' + SecureRandom.hex(3),
-        dragBackgroundColor: '#' + SecureRandom.hex(3),
-        borderColor: '#' + SecureRandom.hex(3),
-        customStyle: {},
-        raw: {},
-      )
+    # For Education
+    calendar_groups = CalendarGroup.all
+    calendar_groups.each do |calendar_group|
+      10.times do
+        start_day = Faker::Date.between(from: Date.today, to: Date.today + 1.month)
+        end_day = start_day + 1.hours
+        CalendarEvent.create!(
+          calendar_group: calendar_group,
+          library: "tui",
+          title: "#{Faker::Movie.title}",
+          body: "#{Faker::Movie.quote}",
+          isAllday: false,
+          start: start_day,
+          end: end_day,
+          goingDuration: 0,
+          comingDuration: 0,
+          location: Address.create_random.id,
+          attendees: [],
+          category: ['milestone', 'task', 'time', 'allday'].sample,
+          dueDateClass: "",
+          recurrenceRule: "",
+          state: ["Busy", "Free"].sample,
+          isVisible: true,
+          isPending: false,
+          isFocused: false,
+          isReadOnly: false,
+          isPrivate: false,
+          color: '#' + SecureRandom.hex(3),
+          backgroundColor: '#' + SecureRandom.hex(3),
+          dragBackgroundColor: '#' + SecureRandom.hex(3),
+          borderColor: '#' + SecureRandom.hex(3),
+          customStyle: {},
+          raw: {},
+        )
+      end
     end
+    # For Education
   end
 
   def self.calendar_category

@@ -107,8 +107,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "calendar_eventable_type", null: false
-    t.uuid "calendar_eventable_id", null: false
+    t.uuid "calendar_group_id", null: false
     t.integer "library"
     t.string "title"
     t.string "body"
@@ -137,10 +136,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_eventable_type", "calendar_eventable_id"], name: "index_calendar_events_on_calendar_eventable"
+    t.index ["calendar_group_id"], name: "index_calendar_events_on_calendar_group_id"
   end
 
   create_table "calendar_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "calendar_user_id", null: false
     t.string "calendar_groupable_type", null: false
     t.uuid "calendar_groupable_id", null: false
     t.string "name"
@@ -152,6 +152,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calendar_groupable_type", "calendar_groupable_id"], name: "index_calendar_groups_on_calendar_groupable"
+    t.index ["calendar_user_id"], name: "index_calendar_groups_on_calendar_user_id"
+  end
+
+  create_table "calendar_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "calendar_userable_type", null: false
+    t.uuid "calendar_userable_id", null: false
+    t.string "name"
+    t.string "email"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_userable_type", "calendar_userable_id"], name: "index_calendar_users_on_calendar_userable"
   end
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -358,21 +370,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.index ["user_id"], name: "index_education_schools_on_user_id"
   end
 
-  create_table "education_shifts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "education_school_id", null: false
-    t.uuid "education_class_id", null: false
-    t.uuid "education_subject_id", null: false
-    t.uuid "education_teacher_id", null: false
-    t.string "name"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["education_class_id"], name: "index_education_shifts_on_education_class_id"
-    t.index ["education_school_id"], name: "index_education_shifts_on_education_school_id"
-    t.index ["education_subject_id"], name: "index_education_shifts_on_education_subject_id"
-    t.index ["education_teacher_id"], name: "index_education_shifts_on_education_teacher_id"
-  end
-
   create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "name"
@@ -440,6 +437,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "payment_customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "payment_customerable_type", null: false
     t.uuid "payment_customerable_id", null: false
+    t.string "name"
+    t.string "email"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -651,6 +650,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "calendar_categories", "calendar_categories", column: "parent_category_id"
   add_foreign_key "calendar_category_appointments", "calendar_categories"
+  add_foreign_key "calendar_events", "calendar_groups"
+  add_foreign_key "calendar_groups", "calendar_users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "category_appointments", "categories"
   add_foreign_key "education_admins", "users"
@@ -675,10 +676,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_school_appointments", "education_schools"
   add_foreign_key "education_schools", "addresses"
   add_foreign_key "education_schools", "users"
-  add_foreign_key "education_shifts", "education_classes"
-  add_foreign_key "education_shifts", "education_schools"
-  add_foreign_key "education_shifts", "education_subjects"
-  add_foreign_key "education_shifts", "education_teachers"
   add_foreign_key "education_students", "users"
   add_foreign_key "education_subject_appointments", "education_subjects"
   add_foreign_key "education_subjects", "education_schools"

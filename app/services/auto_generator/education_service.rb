@@ -13,7 +13,6 @@ class AutoGenerator::EducationService
     self.education_question
     self.education_exam
     self.education_lesson
-    self.education_shift
     self.education_class_appointments
     self.education_question_appointments
     self.education_subject_appointments
@@ -195,21 +194,6 @@ class AutoGenerator::EducationService
       end
     end
   end
-
-  def self.education_shift
-    EducationSchool.all.each do |education_school|
-      20.times do
-        start = Time.now + rand(1..50000).minutes
-        EducationShift.create!(
-          name: Faker::Movie.title,
-          education_school: education_school,
-          education_class: education_school.education_classes.sample,
-          education_subject: education_school.education_subjects.sample,
-          education_teacher: education_school.education_teachers.sample,
-        )
-      end
-    end
-  end
   
   def self.education_class_appointments
     EducationTeacher.all.each do |education_teacher|
@@ -298,12 +282,6 @@ class AutoGenerator::EducationService
         EducationCategoryAppointment.create!(
           education_category: education_school.education_categories.sample,
           education_category_appointmentable: education_lesson,
-        )
-      end
-      EducationShift.all.each do |education_shift|
-        EducationCategoryAppointment.create!(
-          education_category: education_school.education_categories.sample,
-          education_category_appointmentable: education_shift,
         )
       end
     end

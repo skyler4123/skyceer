@@ -9,7 +9,6 @@ class EducationTeacher < ApplicationRecord
 
   has_many :education_questions, dependent: :destroy
   has_many :education_lessons, dependent: :destroy
-  has_many :education_shifts, dependent: :destroy
 
   has_many :education_class_appointments, as: :education_class_appointmentable, dependent: :destroy
   has_many :education_classes, through: :education_class_appointments

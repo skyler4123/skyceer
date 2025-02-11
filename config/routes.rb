@@ -90,7 +90,6 @@ Rails.application.routes.draw do
         resources :education_class_appointments
         resources :education_class_room_appointments
         resources :education_question_appointments
-        resources :education_shifts
         resources :education_lessons
         resources :payment_orders
       end

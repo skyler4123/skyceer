@@ -1,5 +1,5 @@
 class CalendarEvent < ApplicationRecord
-  belongs_to :calendar_eventable, polymorphic: true
+  belongs_to :calendar_group
 
   has_many :calendar_category_appointments, as: :calendar_category_appointmentable, dependent: :destroy
   has_many :calendar_categories, through: :calendar_category_appointments

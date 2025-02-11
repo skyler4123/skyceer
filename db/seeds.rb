@@ -32,7 +32,6 @@ EducationCourse.destroy_all
 EducationSubject.destroy_all
 EducationExam.destroy_all
 EducationQuestion.destroy_all
-EducationShift.destroy_all
 EducationSchoolAppointment.destroy_all
 EducationCategoryAppointment.destroy_all
 EducationClassAppointment.destroy_all
