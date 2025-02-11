@@ -1,4 +1,4 @@
-module EducationStudent::PaymentCustomerConcern
+module EducationStudent::PaymentConcern
   extend ActiveSupport::Concern
   
   included do

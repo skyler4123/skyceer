@@ -26,5 +26,5 @@ class EducationStudent < ApplicationRecord
   end
 
   include EducationStudent::ValidationConcern
-  include EducationStudent::PaymentCustomerConcern
+  include EducationStudent::PaymentConcern
 end

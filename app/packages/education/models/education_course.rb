@@ -6,5 +6,5 @@ class EducationCourse < ApplicationRecord
   has_many :education_category_appointments, as: :education_category_appointmentable, dependent: :destroy
   has_many :education_categories, through: :education_category_appointments
 
-  include EducationCourse::PaymentItemConcern
+  include EducationCourse::PaymentConcern
 end
