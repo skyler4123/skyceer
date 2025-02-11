@@ -1,22 +1,9 @@
 class AutoGenerator::CalendarService
   def self.run
-    self.calendar_user
     self.calendar_group
     self.calendar_event
     self.calendar_category
     self.calendar_category_appointment
-  end
-
-
-  def self.calendar_user
-    userables = EducationSchool.all
-    userables.each do |userable|
-      CalendarUser.create!(
-        calendar_userable: userable,
-        name: Faker::Name.name,
-        email: Faker::Internet.email
-      )
-    end
   end
 
   def self.calendar_group

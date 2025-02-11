@@ -2,7 +2,7 @@ class AutoGenerator::SeedService
   def self.run(seed_number: 0)    
     AutoGenerator::ApplicationService.run
     AutoGenerator::EducationService.run
-    # AutoGenerator::CalendarService.run
+    AutoGenerator::CalendarService.run
     # AutoGenerator::ChatService.run
     # AutoGenerator::ArticleService.run
     AutoGenerator::ReportService.run

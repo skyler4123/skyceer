@@ -140,7 +140,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "calendar_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "calendar_user_id", null: false
+    t.string "calendar_userable_type", null: false
+    t.uuid "calendar_userable_id", null: false
     t.string "calendar_groupable_type", null: false
     t.uuid "calendar_groupable_id", null: false
     t.string "name"
@@ -152,18 +153,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calendar_groupable_type", "calendar_groupable_id"], name: "index_calendar_groups_on_calendar_groupable"
-    t.index ["calendar_user_id"], name: "index_calendar_groups_on_calendar_user_id"
-  end
-
-  create_table "calendar_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "calendar_userable_type", null: false
-    t.uuid "calendar_userable_id", null: false
-    t.string "name"
-    t.string "email"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["calendar_userable_type", "calendar_userable_id"], name: "index_calendar_users_on_calendar_userable"
+    t.index ["calendar_userable_type", "calendar_userable_id"], name: "index_calendar_groups_on_calendar_userable"
   end
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -651,7 +641,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "calendar_categories", "calendar_categories", column: "parent_category_id"
   add_foreign_key "calendar_category_appointments", "calendar_categories"
   add_foreign_key "calendar_events", "calendar_groups"
-  add_foreign_key "calendar_groups", "calendar_users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "category_appointments", "categories"
   add_foreign_key "education_admins", "users"
