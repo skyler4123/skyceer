@@ -123,8 +123,14 @@ export const findBy = (array, key, value) => {
   return array.find(object => object[key] === value)
 }
 
-// get Cookie object
-export const Cookie = (name) => {
+
+
+
+
+// COOKIE
+
+// // get Cookie object
+export const Cookies = (name) => {
   let cookie = {}
   document.cookie.split(';').forEach(function(el) {
     let [k,v] = el.split('=');
@@ -135,4 +141,20 @@ export const Cookie = (name) => {
   } else {
     return cookie
   }
+}
+
+// set Cookie object
+export const setCookie = (name, value, days) => {
+  let expires = ""
+  if (days) {
+    let date = new Date()
+    date.setTime(date.getTime() + (days*24*60*60*1000))
+    expires = "; expires=" + date.toUTCString()
+  }
+  document.cookie = name + "=" + value + expires + "; path=/"
+}
+
+// check isSignedIn by check email in cookie
+export const isSignedIn = () => {
+  return !isEmpty(Cookie('email'))
 }
