@@ -51,5 +51,9 @@ module Skyceer
     # config.solid_queue.silence_polling = false
     # config.cache_store = :solid_cache_store
     # config.action_dispatch.tld_length = 0
+
+    # mission_control-jobs
+    config.mission_control.jobs.base_controller_class = "MissionControlController"
+    config.mission_control.jobs.http_basic_auth_enabled = false
   end
 end
