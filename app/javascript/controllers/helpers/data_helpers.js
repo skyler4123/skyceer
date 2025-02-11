@@ -122,3 +122,17 @@ export const csrfToken = () => {
 export const findBy = (array, key, value) => {
   return array.find(object => object[key] === value)
 }
+
+// get Cookie object
+export const Cookie = (name) => {
+  let cookie = {}
+  document.cookie.split(';').forEach(function(el) {
+    let [k,v] = el.split('=');
+    cookie[k.trim()] = decodeURIComponent(v);
+  })
+  if (name) {
+    return cookie[name]
+  } else {
+    return cookie
+  }
+}
