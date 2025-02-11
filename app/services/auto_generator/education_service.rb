@@ -316,7 +316,7 @@ class AutoGenerator::EducationService
     end
   end
 
-  def self.update_education_exam_appointments
+  def self.education_exam_appointments
     education_class_appointments_for_exam = EducationClassAppointment.where(education_class_appointmentable_type: 'EducationExam')
     education_class_appointments_for_exam.each do |education_class_appointment|
       education_class = education_class_appointment.education_class
