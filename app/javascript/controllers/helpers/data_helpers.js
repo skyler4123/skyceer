@@ -156,5 +156,5 @@ export const setCookie = (name, value, days) => {
 
 // check isSignedIn by check email in cookie
 export const isSignedIn = () => {
-  return !isEmpty(Cookie('email'))
+  return Cookies('email').length > 0
 }
