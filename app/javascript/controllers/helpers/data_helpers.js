@@ -130,7 +130,7 @@ export const findBy = (array, key, value) => {
 // COOKIE
 
 // // get Cookie object
-export const Cookies = (name) => {
+export const Cookie = (name) => {
   let cookie = {}
   document.cookie.split(';').forEach(function(el) {
     let [k,v] = el.split('=');
@@ -156,5 +156,5 @@ export const setCookie = (name, value, days) => {
 
 // check isSignedIn by check email in cookie
 export const isSignedIn = () => {
-  return Cookies('email').length > 0
+  return Cookie('email').length > 0
 }
