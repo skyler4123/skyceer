@@ -158,12 +158,21 @@ export const setCookie = (name, value, days) => {
 
 // check isSignedIn by check email in cookie
 export const isSignedIn = () => {
-  return Cookie('email').length > 0
+  return Cookie('email') && Cookie('email').length > 0
+}
+
+// get avatar from cookie
+export const avatarUrl = () => {
+  return Cookie('avatar')
+}
+
+// return avatar HTML
+export const avatarHTML = (url = avatarUrl()) => {
+  return `<img src="${url}" class="h-8 w-8 rounded-full cursor-pointer" alt="avatar">`
 }
 
 // Function to open SweetAlert2 dialog based on a parent element
-export const openPopover = ({parentElement, options = {}, html = "Dialog content", position = 'bottom-center-center'}) => {
-  console.log(parentElement)
+export const openPopover = ({parentElement, options = {}, html = "Dialog content", position = 'bottom-center-center', popupClass = ""}) => {
   // Get the parent element's position and dimensions
   const parentRect = parentElement.getBoundingClientRect();
   const parentTop = parentRect.top;
@@ -172,17 +181,6 @@ export const openPopover = ({parentElement, options = {}, html = "Dialog content
   const parentRight = parentRect.right;
   const parentWidth = parentRect.width;
   const parentHeight = parentRect.height;
-
-  // popup class base on position
-  let popupClass = ''
-  switch (position) {
-    case 'bottom-left-left':
-      popupClass = '-translate-x-full'
-      break;
-    case 'bottom-center-center':
-      popupClass = '-translate-x-1/2'
-      break;
-  }
     
   // Customize SweetAlert2 dialog
   Swal.fire({
@@ -193,7 +191,7 @@ export const openPopover = ({parentElement, options = {}, html = "Dialog content
     // backdrop: false,
     customClass: {
       container: '!bg-transparent',
-      popup: 'swal2-container-custom !p-0 !w-fit !h-fit ' + popupClass,
+      popup: 'swal2-container-custom ' + popupClass,
       htmlContainer: '!p-0',
     },
     didOpen: (popupElement) => {
@@ -216,4 +214,7 @@ export const openPopover = ({parentElement, options = {}, html = "Dialog content
       }
     },
   });
+
+
+
 }
