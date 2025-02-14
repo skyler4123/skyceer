@@ -3,6 +3,7 @@ import { isSignedIn } from "controllers/helpers/data_helpers"
 import { avatarHTML } from "controllers/helpers/data_helpers"
 import { openPopover } from "controllers/helpers/data_helpers"
 import ApplicationController from "controllers/application_controller"
+import { Cookie } from "controllers/helpers/data_helpers"
 export default class Education_HeaderController extends ApplicationController {
   static targets = ["profile"]
   
@@ -54,7 +55,7 @@ export default class Education_HeaderController extends ApplicationController {
   popoverProfileHTML() {
     return `
       <div class="flex flex-col gap-y-2 p-2 w-full">
-        <a href="/profile">Profile</a>
+        <a href="/users/${Cookie("id")}">Profile</a>
         <a href="/sign_out">Sign Out</a>
       </div>
     `
