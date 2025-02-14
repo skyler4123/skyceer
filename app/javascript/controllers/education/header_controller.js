@@ -13,6 +13,7 @@ export default class Education_HeaderController extends ApplicationController {
   }
 
   openPopoverProfile(event) {
+    if (!isSignedIn()) return
     const target = event.currentTarget
     openPopover({
       parentElement: target,
