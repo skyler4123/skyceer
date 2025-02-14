@@ -23,6 +23,10 @@ export default class Education_HeaderController extends ApplicationController {
     })
   }
 
+  disconnect() {
+    this.element.remove()
+  }
+
   defaultHTML() {
     return `
       <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 border-b-2">
