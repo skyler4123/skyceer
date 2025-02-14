@@ -2,7 +2,6 @@ import Education_FooterController from "controllers/education/footer_controller"
 import Education_HeaderController from "controllers/education/header_controller"
 import ApplicationController from "controllers/application_controller"
 import { identifier } from "controllers/helpers/data_helpers"
-import { openPopover } from "controllers/helpers/data_helpers";
 
 export default class Education_Educations_HomeController extends ApplicationController {
 
@@ -20,19 +19,12 @@ export default class Education_Educations_HomeController extends ApplicationCont
         <article class="w-full h-full" data-${this.identifier}-target="content">   
         </article>
       </main>
-      <div data-action="click->${this.identifier}#openDialog" class="w-fit">Demo Demo Demo</div>
       <footer class="flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2" data-${this.identifier}-target="footer" data-controller="${identifier(Education_FooterController)}"></footer>
     `
   }
 
   contentHTML() {
     return this.serverHTML
-  }
-
-  openDialog(event) {
-    const target = event.target
-    // this.openPopover({parentElement: target})
-    openPopover({parentElement: target})
   }
 
 }
