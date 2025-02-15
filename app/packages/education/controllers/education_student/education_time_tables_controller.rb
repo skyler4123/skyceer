@@ -1,7 +1,7 @@
 class EducationStudent::EducationTimeTablesController < EducationStudent::EducationsController
 
   def index
-    @education_classes = EducationClass.where(education_school: @education_schools)
+    @education_classes = EducationClass.joins(:education_students).where(education_students: @education_students)
     @calendar_groups = CalendarGroup.where(calendar_groupable: params[:education_class_id]) if params[:education_class_id].present?
     @calendar_events = CalendarEvent.where(calendar_group: @calendar_groups)
     @data = {

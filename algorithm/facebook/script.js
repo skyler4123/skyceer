@@ -44,7 +44,7 @@ document.querySelectorAll(`[class="${seeMoreClass}"]`).forEach(target => {
 
 
 
-// Search number of comments
+// Search number of comments for POST
 let numberFrom = 0
 let numberTo = 99
 let position = 1
@@ -74,3 +74,39 @@ let commentedNumbers = commentNumbers.map(comment => {
 let diff = numberSample.diff(commentedNumbers)
 console.log(`Commented Numbers at position ${position}:`, commentedNumbers)
 console.log("Available Number:", diff)
+
+
+// Search number of comments for VIDEO POST
+let numberFrom = 0
+let numberTo = 99
+let position = 1
+
+let commentGroupClass = "x78zum5 xdt5ytf x6ikm8r x1odjw0f x1iyjqo2 x1pi30zi x1swvt13"
+let commentClass = "x1lliihq xjkvuk6 x1iorvi4"
+let arrayRange = (start, stop, step = 1) =>
+    Array.from(
+    { length: (stop - start) / step + 1 },
+    (value, index) => start + index * step
+    );
+Array.prototype.diff = function (a) {
+  return this.filter(function (i) {
+    return a.indexOf(i) === -1;
+  });
+};
+let numberSample = arrayRange(numberFrom, numberTo)
+let commentGroupElement = document.querySelector(`[class="${commentGroupClass}"]`)
+let commentElements = commentGroupElement.querySelectorAll(`[class="${commentClass}"]`)
+let commentContents = Array.from(commentElements).map(comment => comment.textContent)
+let commentNumbers = commentContents.map(comment => comment.match(/\d+/g))
+let commentedNumbers = commentNumbers.map(comment => {
+	if (comment && comment[position - 1]) {
+	return Number(comment[position - 1])
+}
+})
+let diff = numberSample.diff(commentedNumbers)
+console.log(`Commented Numbers at position ${position}:`, commentedNumbers)
+console.log("Available Number:", diff)
+
+
+
+
