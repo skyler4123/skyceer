@@ -4,6 +4,6 @@ class MissionControlController < ApplicationController
   private
   def can_access_mission_control
     return true if current_user.role == "admin"
-    redirect_to "/", alert: "You are not authorized to access this page"
+    redirect_to "/", alert: MISSION_CONTROL_FAILED_MESSAGE
   end
 end
