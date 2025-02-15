@@ -5,12 +5,9 @@ RSpec.feature "Authentication::SignIns", type: :feature do
     let(:user) { create(:user, education_role: :education_school) }
 
     it "signs me in" do
-      debugger
       sign_in(user: user)
-      # debugger
       expect(page).to have_current_path(root_path)
-      # expect(page).to have_content(SIGN_IN_SUCCESS_MESSAGE)
-      # expect(page).to have_content(user.name)
+      expect(page).to have_content(SIGN_IN_SUCCESS_MESSAGE)
     end
   end
 end

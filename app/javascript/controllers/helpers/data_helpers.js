@@ -136,7 +136,9 @@ export const Cookie = (name) => {
   let cookie = {}
   document.cookie.split(';').forEach(function(el) {
     let [k,v] = el.split('=');
-    cookie[k.trim()] = decodeURIComponent(v);
+    let value = decodeURIComponent(v);
+    value = value.replace("+", ' ');
+    cookie[k.trim()] = value;
   })
   if (name) {
     return cookie[name]

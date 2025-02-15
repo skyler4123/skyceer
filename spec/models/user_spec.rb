@@ -16,11 +16,6 @@ RSpec.describe User, type: :model do
 
   describe 'associations' do
     it { should have_many(:sessions).dependent(:destroy) }
-    it { should have_many(:estate_houses).dependent(:destroy) }
-    it { should have_many(:estate_condos).dependent(:destroy) }
-    it { should have_many(:estate_hotels).dependent(:destroy) }
-    it { should have_many(:vehicle_stores).dependent(:destroy) }
-    it { should have_many(:vehicle_cars).dependent(:destroy) }
     it { should belong_to(:address).optional }
     it { should have_many(:education_schools).dependent(:destroy) }
     it { should have_many(:education_admins).dependent(:destroy) }

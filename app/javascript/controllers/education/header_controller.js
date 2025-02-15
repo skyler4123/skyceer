@@ -1,4 +1,3 @@
-import { Controller } from "@hotwired/stimulus"
 import { isSignedIn } from "controllers/helpers/data_helpers"
 import { avatarHTML } from "controllers/helpers/data_helpers"
 import { openPopover } from "controllers/helpers/data_helpers"
@@ -55,6 +54,7 @@ export default class Education_HeaderController extends ApplicationController {
   popoverProfileHTML() {
     return `
       <div class="flex flex-col gap-y-2 p-2 w-full">
+        <div>${Cookie("name")}</div>
         <a href="/users/${Cookie("id")}">Profile</a>
         <a href="/sign_out">Sign Out</a>
       </div>
