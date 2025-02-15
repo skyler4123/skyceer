@@ -17,5 +17,16 @@ RSpec.feature "Application::Gems::MissionControl", type: :feature do
         expect(page).to have_content(MISSION_CONTROL_FAILED_MESSAGE)
       end
     end
+
+    context "when user is admin" do
+      let(:role) { :admin }
+
+      it "signs me in" do
+        sign_in(user: user)
+        visit mission_control_url
+        expect(page).to have_current_path(mission_control_url)
+        expect(page).to have_content("Scheduled jobs")
+      end
+    end
   end
 end
