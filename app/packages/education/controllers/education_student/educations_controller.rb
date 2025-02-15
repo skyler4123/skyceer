@@ -1,6 +1,6 @@
 class EducationStudent::EducationsController < EducationsController
   before_action :redirect_when_not_education_student
-  before_action :set_education_schools
+  before_action :set_education_students
 
   private
 
@@ -8,9 +8,8 @@ class EducationStudent::EducationsController < EducationsController
     return redirect_to root_path if current_user.education_role != "education_student"
   end
 
-  def set_education_schools
-    educatio_students = current_user.education_students
-    @education_schools = EducationSchool.joins(:education_students).where(education_students: educatio_students)
+  def set_education_students
+    @education_students = current_user.education_students
   end
 
 end

@@ -4,13 +4,8 @@ class EducationStudent::EducationTeachersController < EducationStudent::Educatio
 
   # GET /education_teachers or /education_teachers.json
   def index
-    if params[:full_text_search].present?
-      @education_teachers = EducationTeacher.search(params[:full_text_search]).records
-    elsif params[:education_school_id].present?
-      @education_teachers = EducationTeacher.where(education_school_id: params[:education_school_id])
-    else
-      @education_teachers = EducationTeacher.joins(:education_schools).where(education_schools: @education_schools)
-    end
+    @education_classes = EducationClass.joins(:education_students).where(education_students: @education_students)
+    @education_teachers = EducationTeacher.joins(:education_classes).where(education_classes: @education_classes)
     @pagination, @education_teachers = pagy(@education_teachers)
     @data = {
       education_teachers: @education_teachers.as_json(include: [:education_schools, :education_classes])
