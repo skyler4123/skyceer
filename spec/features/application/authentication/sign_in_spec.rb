@@ -8,6 +8,7 @@ RSpec.feature "Authentication::SignIns", type: :feature do
       sign_in(user: user)
       expect(page).to have_current_path(root_path)
       expect(page).to have_content(SIGN_IN_SUCCESS_MESSAGE)
+      expect(page).to have_css("img[src='#{user.avatar}']")
     end
   end
 end
