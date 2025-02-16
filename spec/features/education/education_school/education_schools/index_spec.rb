@@ -1,15 +1,10 @@
 require 'rails_helper'
+require 'support/shared_contexts/education/education_school_context'
 
 RSpec.feature "education_schools#index", type: :feature, js: true do
+  include_context "support/shared_contexts/education/education_school_context"
+  
   context "education_role: :education_school" do
-    let(:user) { create(:user, role: role, education_role: education_role) }
-    let(:role) { :normal }
-    let(:education_role) { :education_school }
-    let!(:education_schools) do
-      (1..2).map do |n|
-        create(:education_school, user: user, name: "School #{n}")
-      end
-    end
     context "user as education_user with education_role is not nil" do
       context "user with education_role: :education_school" do
         let(:education_role) { :education_school }
