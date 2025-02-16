@@ -49,7 +49,11 @@ RSpec.shared_context "support/shared_contexts/education/role/education_school", 
     education_school.education_exams << exam
     exam
   end
-  
+  let!(:education_category) do
+    category = create(:education_category)
+    education_school.education_categories << category
+    category
+  end
 end
 
 RSpec.configure do |rspec|
