@@ -19,6 +19,37 @@ RSpec.shared_context "support/shared_contexts/education/role/education_school", 
     education_school.education_admins << admin
     admin
   end
+  let!(:education_teacher) do
+    teacher = create(:education_teacher)
+    education_school.education_teachers << teacher
+    teacher
+  end
+  let!(:education_course) do
+    course = create(:education_course)
+    education_school.education_courses << course
+    course
+  end
+  let!(:education_room) do
+    room = create(:education_room)
+    education_school.education_rooms << room
+    room
+  end
+  let!(:education_subject) do
+    subject = create(:education_subject)
+    education_school.education_subjects << subject
+    subject
+  end
+  let!(:education_lesson) do
+    lesson = create(:education_lesson)
+    education_school.education_lessons << lesson
+    lesson
+  end
+  let!(:education_exam) do
+    exam = create(:education_exam)
+    education_school.education_exams << exam
+    exam
+  end
+  
 end
 
 RSpec.configure do |rspec|
