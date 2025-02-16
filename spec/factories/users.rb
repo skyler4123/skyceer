@@ -5,9 +5,11 @@ FactoryBot.define do
     password_confirmation { "password1234" }
     verified { true }
     name { Faker::Movies::HarryPotter.character }
+    avatar { "https://flowbite.com/docs/images/people/profile-picture-5.jpg" }
     role { :normal }
     education_role { :education_school }
-
+    association :address
+    
     trait :education_school do
       role { :normal }
       education_role { :education_school }

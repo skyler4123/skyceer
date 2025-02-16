@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :education_student do
-    association :user, factory: :user, optional: true
-    name { "Student Name" }
+    association :user
+    name { "Sample Student" }
     email { "student@example.com" }
     discarded_at { nil }
-
-    # You can add more attributes and associations as needed
+    created_at { Time.now }
+    updated_at { Time.now }
   end
 end
