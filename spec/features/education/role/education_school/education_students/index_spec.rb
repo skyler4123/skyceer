@@ -7,7 +7,7 @@ RSpec.feature "education_students#index", type: :feature, js: true do
     let(:education_role) { :education_school }
 
     it "will not be redirected" do
-      sign_in(user: education_school_user)
+      sign_in(user: education_school.user)
       visit education_students_path
       # click on select with id education_class_id
       select education_class.name, from: "education_class_id"
@@ -20,10 +20,12 @@ RSpec.feature "education_students#index", type: :feature, js: true do
   end
 
   context "education_role: :not_education_school" do
-    let(:education_role) { nil }
+    before do
+      education_school.user.update(education_role: nil)
+    end
 
     it "will be redirected" do
-      sign_in(user: education_school_user)
+      sign_in(user: education_school.user)
       visit education_students_path
       expect(page).to have_routing_error
     end

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :education_student do
-    association :user
+    association :user, factory: :user, role: :normal, education_role: :education_student
     name { "Sample Student" }
     email { "student@example.com" }
     discarded_at { nil }

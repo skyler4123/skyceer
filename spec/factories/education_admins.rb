@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :education_admin do
-    association :user
+    association :user, factory: :user, role: :normal, education_role: :education_admin
     name { "Sample Admin" }
     email { "admin@example.com" }
     created_at { Time.now }
