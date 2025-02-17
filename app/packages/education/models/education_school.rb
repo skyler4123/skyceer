@@ -20,6 +20,6 @@ class EducationSchool < ApplicationRecord
   has_many :education_lessons, dependent: :destroy
 
   include EducationSchool::ValidationConcern
-  include EducationSchool::PaymentUserConcern
+  include EducationSchool::PaymentConcern
   include EducationSchool::CalendarConcern
 end

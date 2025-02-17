@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   resources :report_categories
   resources :report_users
   resources :category_appointments
+
+  # User need a role a access payment package
   resources :payment_category_appointments
   resources :payment_categories
   resources :payment_customers
@@ -55,7 +57,7 @@ Rails.application.routes.draw do
   resources :payment_item_appointments
   resources :payment_logs
   resources :payment_invoices
-  resources :payment_orders
+  # resources :payment_orders
   resources :payment_items
   resources :payment_discounts
   resources :payment_methods

@@ -56,6 +56,22 @@ RSpec.shared_context "support/shared_contexts/education/role/education_school", 
     education_school.education_categories << category
     category
   end
+  let!(:education_question) do
+    question = create(:education_question)
+    education_school.education_questions << question
+    question
+  end
+
+  let(:payment_user) { create(:payment_user, payment_userable: education_school) }
+  let(:payment_customer) { create(:payment_customer, payment_customerable: education_student) }
+  let(:payment_method) do
+    method = create(:payment_method)
+    payment_user.payment_methods << method
+    method
+  end
+  let(:payment_discount) { create(:payment_discount, payment_user: payment_user) }
+  let(:payment_item) { create(:payment_item, payment_itemable: education_course, payment_user: payment_user) }
+  let!(:payment_order) { create(:payment_order, payment_user: payment_user, payment_customer: payment_customer, payment_method: payment_method, payment_discount: payment_discount) }
 end
 
 RSpec.configure do |rspec|
