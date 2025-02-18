@@ -4,7 +4,9 @@ RSpec.feature "education_rooms#index", type: :feature, js: true do
   include_context "support/shared_contexts/education/role/education_school"
 
   context "education_role: :education_school" do
-    let(:education_role) { :education_school }
+    before do
+      education_school.education_rooms << education_room
+    end
 
     it "will not be redirected" do
       sign_in(user: education_school.user)

@@ -4,13 +4,15 @@ RSpec.feature "education_admins#index", type: :feature, js: true do
   include_context "support/shared_contexts/education/role/education_school"
 
   context "education_role: :education_school" do
-    let(:education_role) { :education_school }
+    before do
+      education_school.education_admins << education_admin
+    end
 
     it "will not be redirected" do
       sign_in(user: education_school.user)
       visit education_admins_path
       expect(page).to have_current_path(education_admins_path)
-      expect(page).to have_content(education_school.name)
+      expect(page).to have_content(education_admin.name)
     end
   end
 
