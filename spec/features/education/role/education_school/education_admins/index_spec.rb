@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "education_admins#index", type: :feature, js: true do
-  include_context "support/shared_contexts/education/role/education_school"
+  include_context "support/shared_contexts/education/default_database"
 
   context "education_role: :education_school" do
     before do
