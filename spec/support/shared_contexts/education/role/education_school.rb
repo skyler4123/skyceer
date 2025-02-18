@@ -4,16 +4,12 @@ RSpec.shared_context "support/shared_contexts/education/role/education_school", 
   let!(:education_student) do
     student = create(:education_student)
     education_school.education_students << student
+    education_class.education_students << student
     student
   end
   let!(:education_class) do
     klass = create(:education_class)
     education_school.education_classes << klass
-    klass.education_students << education_student
-    klass.education_teachers << education_teacher
-    klass.education_rooms << education_room
-    klass.education_subjects << education_subject
-    klass.education_exams << education_exam
     klass
   end
   let!(:education_admin) do
@@ -24,6 +20,7 @@ RSpec.shared_context "support/shared_contexts/education/role/education_school", 
   let!(:education_teacher) do
     teacher = create(:education_teacher)
     education_school.education_teachers << teacher
+    education_class.education_teachers << teacher
     teacher
   end
   let!(:education_course) do
@@ -34,11 +31,13 @@ RSpec.shared_context "support/shared_contexts/education/role/education_school", 
   let!(:education_room) do
     room = create(:education_room)
     education_school.education_rooms << room
+    education_class.education_rooms << room
     room
   end
   let!(:education_subject) do
     subject = create(:education_subject)
     education_school.education_subjects << subject
+    education_class.education_subjects << subject
     subject
   end
   let!(:education_lesson) do
@@ -49,6 +48,7 @@ RSpec.shared_context "support/shared_contexts/education/role/education_school", 
   let!(:education_exam) do
     exam = create(:education_exam)
     education_school.education_exams << exam
+    education_class.education_exams << exam
     exam
   end
   let!(:education_category) do
