@@ -32,6 +32,33 @@ constraints EducationRoleConstraint.new(:education_school) do
   end
 end
 
+constraints EducationRoleConstraint.new(:education_admin) do
+  scope module: :education_admin do
+    resources :education_schools
+    resources :education_exam_appointments
+    resources :education_time_tables, only: [:index] 
+    resources :education_scoreboards, only: [:index]
+    resources :education_courses
+    resources :education_rooms
+    resources :education_classes
+    resources :education_teachers
+    resources :education_students
+    resources :education_categories
+    resources :education_exam_questions
+    resources :education_questions
+    resources :education_exams
+    resources :education_subjects
+    resources :education_subject_appointments
+    resources :education_question_appointments
+    resources :education_category_appointments
+    resources :education_class_appointments
+    resources :education_class_room_appointments
+    resources :education_question_appointments
+    resources :education_lessons
+    resources :payment_orders
+  end
+end
+
 constraints EducationRoleConstraint.new(:education_student) do
   scope module: :education_student do
     resources :education_schools, only: [:index]
