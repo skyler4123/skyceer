@@ -1,5 +1,4 @@
 class EducationSchool::EducationSchoolsController < EducationSchool::EducationsController
-  skip_before_action :redirect_when_not_education_user, only: [:new, :create]
   skip_before_action :redirect_when_not_education_school, only: [:new, :create]
   before_action :set_education_school, only: %i[ show edit update destroy education_schools]
 

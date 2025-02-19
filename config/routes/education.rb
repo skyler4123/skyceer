@@ -21,12 +21,6 @@ constraints EducationRoleConstraint.new(:education_school) do
     resources :education_questions
     resources :education_exams
     resources :education_subjects
-    resources :education_subject_appointments
-    resources :education_question_appointments
-    resources :education_category_appointments
-    resources :education_class_appointments
-    resources :education_class_room_appointments
-    resources :education_question_appointments
     resources :education_lessons
     resources :payment_orders
   end
@@ -48,12 +42,6 @@ constraints EducationRoleConstraint.new(:education_admin) do
     resources :education_questions
     resources :education_exams
     resources :education_subjects
-    resources :education_subject_appointments
-    resources :education_question_appointments
-    resources :education_category_appointments
-    resources :education_class_appointments
-    resources :education_class_room_appointments
-    resources :education_question_appointments
     resources :education_lessons
     resources :payment_orders
   end
