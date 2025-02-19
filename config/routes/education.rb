@@ -9,43 +9,18 @@ constraints EducationRoleConstraint.new(:education_school) do
     resources :education_school_appointments
     resources :education_admins
     resources :education_exam_appointments
-    resources :education_time_tables, only: [:index] do
-      collection do
-        get :education_class_id
-      end
-    end
-    resources :education_scoreboards, only: [:index] do
-      collection do
-        get :education_class_id
-      end
-    end
-    resources :education_courses do
-      collection do
-        get :education_school_id
-      end
-    end
+    resources :education_time_tables, only: [:index] 
+    resources :education_scoreboards, only: [:index]
+    resources :education_courses
     resources :education_rooms
     resources :education_classes
     resources :education_teachers
-    resources :education_students do
-      collection do
-        get :education_class_id
-      end
-    end
-    resources :education_categories do
-      collection do
-        get :education_school_id
-        get :parent_category_id
-      end
-    end
+    resources :education_students
+    resources :education_categories
     resources :education_exam_questions
     resources :education_questions
     resources :education_exams
-    resources :education_subjects do
-      collection do
-        get :education_class_id
-      end
-    end
+    resources :education_subjects
     resources :education_subject_appointments
     resources :education_question_appointments
     resources :education_category_appointments
