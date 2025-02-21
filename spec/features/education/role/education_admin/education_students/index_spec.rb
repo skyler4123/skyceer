@@ -5,11 +5,12 @@ RSpec.feature "education_students#index", type: :feature, js: true do
 
   context "education_role: :education_school" do
     before do
+      education_school.education_admins << education_admin
       education_student
     end
 
     it "will not be redirected" do
-      sign_in(user: education_school.user)
+      sign_in(user: education_admin.user)
       visit education_students_path
       # click on select with id education_class_id
       select education_class.name, from: "education_class_id"
@@ -23,11 +24,11 @@ RSpec.feature "education_students#index", type: :feature, js: true do
 
   context "education_role: :not_education_user" do
     before do
-      education_school.user.update(education_role: nil)
+      education_admin.user.update(education_role: nil)
     end
 
     it "will be redirected" do
-      sign_in(user: education_school.user)
+      sign_in(user: education_admin.user)
       visit education_students_path
       expect(page).to have_routing_error
     end
