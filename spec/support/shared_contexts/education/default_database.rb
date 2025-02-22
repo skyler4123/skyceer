@@ -22,6 +22,7 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
     teacher = create(:education_teacher)
     education_school.education_teachers << teacher
     education_class.education_teachers << teacher
+    teacher.education_subjects << education_subject
     teacher
   end
   let(:education_course) do
