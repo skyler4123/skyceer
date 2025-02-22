@@ -8,8 +8,6 @@ RSpec.feature "payment_orders#index", type: :feature, js: true do
     let(:payment_customer) { create(:payment_customer, payment_customerable: education_student) }
 
     before do
-      education_school.education_admins << education_admin
-      education_school.education_students << education_student
       payment_order
     end
 

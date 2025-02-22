@@ -5,8 +5,7 @@ RSpec.feature "education_exams#index", type: :feature, js: true do
 
   context "education_role: :education_admin" do
     before do
-      education_school.education_admins << education_admin
-      education_school.education_exams << education_exam
+      education_exam
     end
 
     it "will not be redirected" do

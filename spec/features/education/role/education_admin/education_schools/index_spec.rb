@@ -4,10 +4,6 @@ RSpec.feature "education_schools#index", type: :feature, js: true do
   include_context "support/shared_contexts/education/default_database"
 
   context "education_role: :education_admin" do
-    before do
-      education_school.education_admins << education_admin
-    end
-
     it "will not be redirected" do
       sign_in(user: education_admin.user)
       visit education_schools_path
