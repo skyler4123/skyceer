@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.feature "education_students#index", type: :feature, js: true do
   include_context "support/shared_contexts/education/default_database"
 
-  before do
-    education_student
-  end
-  
   context "education_role: :education_school" do
+    before do
+      education_student
+    end
+
     it "will not be redirected" do
       sign_in(user: education_school.user)
       visit education_students_path

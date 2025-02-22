@@ -3,11 +3,14 @@ require 'rails_helper'
 RSpec.feature "payment_orders#index", type: :feature, js: true do
   include_context "support/shared_contexts/education/default_database"
 
-  before do
-    payment_order
-  end
-
   context "education_role: :education_school" do
+    let(:payment_user) { create(:payment_user, payment_userable: education_school) }
+    let(:payment_customer) { create(:payment_customer, payment_customerable: education_student) }
+
+    before do
+      education_school.education_students << education_student
+      payment_order
+    end
 
     it "will not be redirected" do
       sign_in(user: education_school.user)

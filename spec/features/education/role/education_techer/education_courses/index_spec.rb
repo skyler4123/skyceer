@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.feature "education_classs#index", type: :feature, js: true do
+RSpec.feature "education_courses#index", type: :feature, js: true do
   include_context "support/shared_contexts/education/default_database"
 
-  before do
-    education_class
-  end
-
   context "education_role: :education_school" do
+    before do
+      education_school.education_courses << education_course
+    end
+
     it "will not be redirected" do
       sign_in(user: education_school.user)
-      visit education_classes_path
-      expect(page).to have_current_path(education_classes_path, ignore_query: true)
-      expect(page).to have_content(education_class.name)
+      visit education_courses_path
+      expect(page).to have_current_path(education_courses_path, ignore_query: true)
+      expect(page).to have_content(education_course.name)
     end
   end
 
@@ -23,7 +23,7 @@ RSpec.feature "education_classs#index", type: :feature, js: true do
 
     it "will be redirected" do
       sign_in(user: education_school.user)
-      visit education_classes_path
+      visit education_courses_path
       expect(page).to have_routing_error
     end
   end
