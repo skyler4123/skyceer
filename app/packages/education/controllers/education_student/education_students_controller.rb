@@ -4,7 +4,6 @@ class EducationStudent::EducationStudentsController < EducationStudent::Educatio
 
   # GET /education_students or /education_students.json
   def index
-    @education_students = current_user.education_students
     @pagination, @education_students = pagy(@education_students)
     @data = {
       education_students: @education_students.as_json(include: { education_schools: { only: [:id, :name] }, education_classes: { only: [:id, :name] } }, only: [:id, :name, :created_at, :updated_at]),
