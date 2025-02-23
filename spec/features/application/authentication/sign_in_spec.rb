@@ -12,4 +12,11 @@ RSpec.feature "Authentication::SignIns", type: :feature do
       expect(page).to have_css("img[src='#{user.avatar}']")
     end
   end
+
+  context "when user is not sign in yet" do
+    it "have Sign In text in page" do
+      visit root_path
+      expect(page).to have_content("Sign In")
+    end
+  end
 end
