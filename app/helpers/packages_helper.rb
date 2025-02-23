@@ -10,7 +10,7 @@ module PackagesHelper
   def view_controller(dir)
     return @view_controller if @view_controller
     if package_name(dir)
-      @view_controller = [MAIN_PACKAGE, controller_path.gsub('/', '--'), action_name].join('--').dasherize
+      @view_controller = [@package, controller_path.gsub('/', '--'), action_name].join('--').dasherize
     else
       @view_controller = [controller_path.gsub('/', '--'), action_name].join('--').dasherize
     end
