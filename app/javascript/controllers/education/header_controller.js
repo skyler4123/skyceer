@@ -38,12 +38,12 @@ export default class Education_HeaderController extends ApplicationController {
           </a>
         </div>
         <div class="flex flex-row gap-x-2">
-          <a href="/"">Home</a>
-          <a class="text-blue-500" href="/educations">Education</a>
+          ${this.headerNavigationHTML()}
         </div>
         <div 
           data-${this.identifier}-target="profile"
           data-action="click->${this.identifier}#openPopoverProfile"
+          class="cursor-pointer"
         >
           ${isSignedIn() ? avatarHTML() : `<a href="/sign_in">Sign In</a>`}
         </div>
@@ -59,5 +59,42 @@ export default class Education_HeaderController extends ApplicationController {
         <a href="/sign_out">Sign Out</a>
       </div>
     `
+  }
+
+  headerNavigationHTML() {
+    const educationRole = Cookie("education_role")
+    switch (educationRole) {
+      case "education_school":
+        return `
+          <a href="/">Home</a>
+          <a href="/education_schools">My Education</a>
+        `
+      case "education_student":
+        return `
+          <a href="/">Home</a>
+          <a href="/education_schools">My Education</a>
+        `
+      case "education_teacher":
+        return `
+          <a href="/">Home</a>
+          <a href="/education_schools">My Education</a>
+
+        `
+      case "education_admin":
+        return `
+          <a href="/">Home</a>
+          <a href="/education_schools">My Education</a>
+        `
+      default:
+        return `
+          <a href="/">Home</a>
+          <a href="/education_schools/new">Create School</a>
+          <a href="/education_admins/new">Create Admin</a>
+          <a href="/education_teachers/new">Create Teacher</a>
+          <a href="/education_educatiom/new">Create Student</a>
+
+
+        `
+    }
   }
 }
