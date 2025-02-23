@@ -22,4 +22,5 @@ class EducationSchool < ApplicationRecord
   include EducationSchool::ValidationConcern
   include EducationSchool::PaymentConcern
   include EducationSchool::CalendarConcern
+  include EducationSchool::UserConcern
 end

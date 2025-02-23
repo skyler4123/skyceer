@@ -7,4 +7,5 @@ class EducationAdmin < ApplicationRecord
   has_many :education_schools, through: :education_school_appointments
 
   include EducationAdmin::ValidationConcern
+  include EducationAdmin::UserConcern
 end

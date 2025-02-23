@@ -18,5 +18,5 @@ class EducationTeacher < ApplicationRecord
   has_many :education_subjects, through: :education_subject_appointments
   
   include EducationTeacher::ValidationConcern
-
+  include EducationTeacher::UserConcern
 end
