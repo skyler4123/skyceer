@@ -88,12 +88,6 @@ export default class Education_HeaderController extends ApplicationController {
       default:
         return `
           <a href="/">Home</a>
-          <a href="/education_schools/new">Create School</a>
-          <a href="/education_admins/new">Create Admin</a>
-          <a href="/education_teachers/new">Create Teacher</a>
-          <a href="/education_educatiom/new">Create Student</a>
-
-
         `
     }
   }

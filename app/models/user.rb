@@ -35,8 +35,8 @@ class User < ApplicationRecord
 
   belongs_to :address, optional: true
   
-  include User::EducationConcern
   include User::ReportConcern
   include User::NosqlUserConcern
+  include User::EducationConcern
   include User::PackageConcern
 end

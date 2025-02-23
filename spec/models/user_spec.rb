@@ -25,8 +25,44 @@ RSpec.describe User, type: :model do
   end
 
   describe 'callbacks' do
-    it 'should create a new nosql+user for the user' do
-      expect(subject.nosql_user).to be_present
+    context "create nosql_user after create user" do
+      it 'should create a new nosql+user for the user' do
+        expect(subject.nosql_user).to be_present
+      end
+    end
+
+    context "create education user when create user with education_role" do
+      context "when education_role is education_school" do
+        subject { create(:user, education_role: :education_school) }
+
+        it 'should create a new education school for the user' do
+          expect(subject.education_schools).to be_present
+        end
+      end
+
+      context "when education_role is education_admin" do
+        subject { create(:user, education_role: :education_admin) }
+
+        it 'should create a new education admin for the user' do
+          expect(subject.education_admins).to be_present
+        end
+      end
+
+      context "when education_role is education_teacher" do
+        subject { create(:user, education_role: :education_teacher) }
+
+        it 'should create a new education teacher for the user' do
+          expect(subject.education_teachers).to be_present
+        end
+      end
+
+      context "when education_role is education_student" do
+        subject { create(:user, education_role: :education_student) }
+
+        it 'should create a new education student for the user' do
+          expect(subject.education_students).to be_present
+        end
+      end
     end
   end
 end
