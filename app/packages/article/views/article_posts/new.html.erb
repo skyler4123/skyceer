@@ -1,7 +1,7 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">New article post</h1>
 
-  <%= form_with(model: @article_post, class: "contents", data: {"#{view_controller(__FILE__)}-target" => "form"}) do |form| %>
+  <%= form_with(model: @article_post, class: "contents", data: {"#{stimulus_controller}-target" => "form"}) do |form| %>
     <% if @article_post.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
         <h2><%= pluralize(@article_post.errors.count, "error") %> prohibited this article_post from being saved:</h2>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="my-5">
-      <div data-<%= view_controller(__FILE__) %>-target="editor"></div>
+      <div data-<%= stimulus_controller %>-target="editor"></div>
     </div>
 
     <div class="inline">
