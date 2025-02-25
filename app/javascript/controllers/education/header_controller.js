@@ -67,23 +67,23 @@ export default class Education_HeaderController extends ApplicationController {
       case "education_school":
         return `
           <a href="/">Home</a>
-          <a href="/education_schools">My Education</a>
+          <a href="/educations">My Education</a>
         `
       case "education_student":
         return `
           <a href="/">Home</a>
-          <a href="/education_schools">My Education</a>
+          <a href="/educations">My Education</a>
         `
       case "education_teacher":
         return `
           <a href="/">Home</a>
-          <a href="/education_schools">My Education</a>
+          <a href="/educations">My Education</a>
 
         `
       case "education_admin":
         return `
           <a href="/">Home</a>
-          <a href="/education_schools">My Education</a>
+          <a href="/educations">My Education</a>
         `
       default:
         return `
