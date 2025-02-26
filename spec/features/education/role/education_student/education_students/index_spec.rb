@@ -20,7 +20,7 @@ RSpec.feature "education_students#index", type: :feature, js: true do
     it "will be redirected" do
       sign_in(user: education_student.user)
       visit education_students_path
-      expect(page).to have_routing_error
+      expect(page).to render_not_found
     end
   end
 end

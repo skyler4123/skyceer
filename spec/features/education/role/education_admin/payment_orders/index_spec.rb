@@ -27,7 +27,7 @@ RSpec.feature "payment_orders#index", type: :feature, js: true do
     it "will be redirected" do
       sign_in(user: education_admin.user)
       visit education_admin_payment_orders_path
-      expect(page).to have_routing_error
+      expect(page).to render_not_found
     end
   end
 end

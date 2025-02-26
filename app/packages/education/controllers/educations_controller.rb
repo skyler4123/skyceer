@@ -29,6 +29,6 @@ class EducationsController < ApplicationController
 
   # Redirect when user is not education user
   def redirect_when_not_education_user
-    return redirect_to root_path unless current_user.is_education_user
+    render_not_found unless current_user.is_education_user
   end
 end

@@ -5,7 +5,7 @@ class EducationSchool::EducationsController < EducationsController
   private
 
   def redirect_when_not_education_school
-    return redirect_to root_path if current_user.education_role != "education_school"
+    render_not_found if current_user.education_role != "education_school"
   end
 
   def set_education_schools

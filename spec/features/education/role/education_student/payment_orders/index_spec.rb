@@ -28,7 +28,7 @@
 #     it "will be redirected" do
 #       sign_in(user: education_school.user)
 #       visit payment_orders_path
-#       expect(page).to have_routing_error
+#       expect(page).to render_not_found
 #     end
 #   end
 # end
