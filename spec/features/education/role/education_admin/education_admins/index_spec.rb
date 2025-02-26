@@ -6,8 +6,8 @@ RSpec.feature "education_admins#index", type: :feature, js: true do
   context "education_role: :education_admin" do
     it "will not be redirected" do
       sign_in(user: education_admin.user)
-      visit education_admins_path
-      expect(page).to have_current_path(education_admins_path)
+      visit education_admin_education_admins_path
+      expect(page).to have_current_path(education_admin_education_admins_path)
       expect(page).to have_content(education_admin.name)
     end
   end
@@ -19,7 +19,7 @@ RSpec.feature "education_admins#index", type: :feature, js: true do
 
     it "will be redirected" do
       sign_in(user: education_admin.user)
-      visit education_admins_path
+      visit education_admin_education_admins_path
       expect(page).to have_routing_error
     end
   end

@@ -10,8 +10,8 @@ RSpec.feature "education_classs#index", type: :feature, js: true do
 
     it "will not be redirected" do
       sign_in(user: education_admin.user)
-      visit education_classes_path
-      expect(page).to have_current_path(education_classes_path, ignore_query: true)
+      visit education_admin_education_classes_path
+      expect(page).to have_current_path(education_admin_education_classes_path, ignore_query: true)
       expect(page).to have_content(education_class.name)
     end
   end
@@ -23,7 +23,7 @@ RSpec.feature "education_classs#index", type: :feature, js: true do
 
     it "will be redirected" do
       sign_in(user: education_admin.user)
-      visit education_classes_path
+      visit education_admin_education_classes_path
       expect(page).to have_routing_error
     end
   end
