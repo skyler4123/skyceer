@@ -6,6 +6,8 @@ RSpec.feature "Authentication::SignUps", type: :feature, js: true do
       email: 'user@example.com',
       password: 'password1234',
       password_confirmation: 'password1234',
+      name: 'User',
+      education_role: User::EDUCATION_ROLE_DESCRIPTIONS.values.sample
     } 
   }
   let(:created_user) { User.find_by(email: new_user_params[:email]) }

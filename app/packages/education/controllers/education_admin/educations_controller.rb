@@ -6,7 +6,7 @@ class EducationAdmin::EducationsController < EducationsController
   private
 
   def redirect_when_not_education_admin
-    return redirect_to root_path if current_user.education_role != "education_admin"
+    render_not_found if current_user.education_role != "education_admin"
   end
 
   def set_education_admins

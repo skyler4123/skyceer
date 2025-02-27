@@ -1,5 +1,6 @@
 // https://www.svgrepo.com/
 import { Controller } from "@hotwired/stimulus"
+import { educationRole } from "controllers/helpers/data_helpers"
 
 export default class Education_EducationSchool_AsideController extends Controller {
 
@@ -33,7 +34,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
     return [
       {
         name: "School",
-        url: `/education_schools`,
+        url: `/${educationRole()}/education_schools`,
         icon: `
           <svg class="stroke-slate-200" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M6 15.5002H7M6 18.5002H7M17 18.5002H18M17 15.5002H18M10 22.0002V18.0002C10 16.8956 10.8954 16.0002 12 16.0002C13.1046 16.0002 14 16.8956 14 18.0002V22.0002M12 5H16.84C16.896 5 16.924 5 16.9454 4.9891C16.9642 4.97951 16.9795 4.96422 16.9891 4.9454C17 4.92401 17 4.89601 17 4.84V2.16C17 2.10399 17 2.07599 16.9891 2.0546C16.9795 2.03578 16.9642 2.02049 16.9454 2.0109C16.924 2 16.896 2 16.84 2H12.16C12.104 2 12.076 2 12.0546 2.0109C12.0358 2.02049 12.0205 2.03578 12.0109 2.0546C12 2.07599 12 2.10399 12 2.16V5ZM12 5V7.69092M12.03 12.25H12.0375M12 7.69092C12.1947 7.69092 12.3895 7.71935 12.5779 7.77623C13.0057 7.90536 13.3841 8.24585 14.1407 8.92681L17 11.5002L18.5761 11.8942C19.4428 12.1109 19.8761 12.2192 20.1988 12.4608C20.4834 12.674 20.7061 12.9592 20.8439 13.2871C21 13.6587 21 14.1053 21 14.9987V18.8002C21 19.9203 21 20.4804 20.782 20.9082C20.5903 21.2845 20.2843 21.5905 19.908 21.7822C19.4802 22.0002 18.9201 22.0002 17.8 22.0002H6.2C5.0799 22.0002 4.51984 22.0002 4.09202 21.7822C3.71569 21.5905 3.40973 21.2845 3.21799 20.9082C3 20.4804 3 19.9203 3 18.8002V14.9987C3 14.1053 3 13.6587 3.15613 13.2871C3.29388 12.9592 3.51657 12.674 3.80124 12.4608C4.12389 12.2192 4.55722 12.1109 5.42388 11.8942L7 11.5002L9.85931 8.92681C10.6159 8.24584 10.9943 7.90536 11.4221 7.77623C11.6105 7.71935 11.8053 7.69092 12 7.69092ZM12.03 13C11.6158 13 11.28 12.6642 11.28 12.25C11.28 11.8358 11.6158 11.5 12.03 11.5C12.4442 11.5 12.78 11.8358 12.78 12.25C12.78 12.6642 12.4442 13 12.03 13Z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -41,7 +42,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
       },
       {
         name: "Admin",
-        url: `/education_admins`,
+        url: `/${educationRole()}/education_admins`,
         icon: `
           <svg class="fill-slate-200" height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 474.565 474.565" xml:space="preserve">
             <g>
@@ -57,7 +58,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
       },
       {
         name: "Teachers",
-        url: `/education_teachers`,
+        url: `/${educationRole()}/education_teachers`,
         icon: `
           <svg class="fill-slate-200" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 299.97 299.97" xml:space="preserve">
             <g>
@@ -72,7 +73,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
       },
       {
         name: "Students",
-        url: `/education_students`,
+        url: `/${educationRole()}/education_students`,
         icon: `
           <svg class="fill-slate-200" height="800px" width="800px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
             <g>
@@ -83,7 +84,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
       },
       {
         name: "Classes",
-        url: `/education_classes`,
+        url: `/${educationRole()}/education_classes`,
         icon: `
           <svg class="fill-slate-200" height="800px" width="800px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
             <g>
@@ -100,7 +101,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
       },
       {
         name: "Score Boards",
-        url: `/education_scoreboards`,
+        url: `/${educationRole()}/education_scoreboards`,
         icon: `
           <svg class="fill-slate-200" width="800px" height="800px" viewBox="0 0 800 800" enable-background="new 0 0 800 800" id="GUIDE" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g>
@@ -117,14 +118,14 @@ export default class Education_EducationSchool_AsideController extends Controlle
       },
       {
         name: "Time Tables",
-        url: `/education_time_tables`,
+        url: `/${educationRole()}/education_time_tables`,
         icon: `
         <svg class="fill-slate-200" width="800px" height="800px" viewBox="0 0 32 32" data-name="Layer 13" id="Layer_13" xmlns="http://www.w3.org/2000/svg"><title/><path d="M28.55,6.57H26.42V4.93a0.5,0.5,0,1,0-1,0V6.57H19.81V5.06a0.5,0.5,0,0,0-1,0V6.57H13.19V5.06a0.5,0.5,0,0,0-1,0V6.57H6.58V5.06a0.5,0.5,0,1,0-1,0V6.57H3.45A2,2,0,0,0,1.5,8.52v17.1a2,2,0,0,0,1.95,2h25.1a2,2,0,0,0,1.95-2V8.52A2,2,0,0,0,28.55,6.57Zm-25.1,1H5.58V9.08a0.5,0.5,0,0,0,1,0V7.57h5.61V9.08a0.5,0.5,0,0,0,1,0V7.57h5.61V9.08a0.5,0.5,0,0,0,1,0V7.57h5.61V8.94a0.5,0.5,0,1,0,1,0V7.57h2.13a1,1,0,0,1,.95.95v2.94H2.5V8.52A1,1,0,0,1,3.45,7.57Zm25.1,19H3.45a1,1,0,0,1-.95-1V12.46h27V25.62A1,1,0,0,1,28.55,26.57Z"/><rect height="2.13" width="2.13" x="9.99" y="14.39"/><rect height="2.13" width="2.13" x="14.98" y="14.39"/><rect height="2.13" width="2.13" x="19.98" y="14.37"/><rect height="2.13" width="2.13" x="5" y="18.45"/><rect height="2.13" width="2.13" x="9.99" y="18.45"/><rect height="2.13" width="2.13" x="14.98" y="18.45"/><rect height="2.13" width="2.13" x="5" y="22.56"/><rect height="2.13" width="2.13" x="9.99" y="22.56"/><rect height="2.13" width="2.13" x="14.98" y="22.55"/><rect height="2.13" width="2.13" x="19.98" y="22.55"/><rect height="2.13" width="2.13" x="19.98" y="18.44"/><rect height="2.13" width="2.13" x="24.87" y="14.36"/><rect height="2.13" width="2.13" x="24.87" y="18.42"/></svg>
         `,
       },
       {
         name: "Rooms",
-        url: `/education_rooms`,
+        url: `/${educationRole()}/education_rooms`,
         icon: `
           <svg class="fill-slate-200" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <title>table</title>
@@ -134,7 +135,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
       },
       {
         name: "Courses",
-        url: `/education_courses`,
+        url: `/${educationRole()}/education_courses`,
         icon: `
           <svg class="fill-slate-200" width="800px" height="800px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
               <path d="M1750.21 0v1468.235h-225.882v338.824h169.412V1920H451.387c-82.447 0-161.506-36.141-214.701-99.388-43.934-51.953-67.652-116.33-67.652-182.965V282.353C169.034 126.494 295.528 0 451.387 0H1750.21Zm-338.823 1468.235H463.81c-89.223 0-166.136 59.86-179.576 140.047-1.242 9.036-2.259 18.07-2.259 27.106v2.26c0 40.658 13.553 77.928 40.659 109.552 32.753 38.4 79.059 59.859 128.753 59.859h960v-112.941H409.599v-112.942h1001.788v-112.94Zm225.882-1355.294H451.387c-92.725 0-169.412 75.67-169.412 169.412v1132.8c50.824-37.27 113.958-59.859 181.835-59.859h1173.46V112.941ZM1354.882 903.53v112.942H564.294V903.529h790.588Zm56.47-564.705v451.764H507.825V338.824h903.529Zm-112.94 112.94H620.765v225.883h677.647V451.765Z" fill-rule="evenodd"/>
@@ -142,13 +143,13 @@ export default class Education_EducationSchool_AsideController extends Controlle
       },
       {
         name: "Categories",
-        url: `/education_categories`,
+        url: `/${educationRole()}/education_categories`,
         icon: `
           <svg class="fill-slate-200" width="800px" height="800px" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title>category--new-each</title><path d="M29,10H24v2h5v6H22v2h3v2.142a4,4,0,1,0,2,0V20h2a2.0027,2.0027,0,0,0,2-2V12A2.0023,2.0023,0,0,0,29,10ZM28,26a2,2,0,1,1-2-2A2.0027,2.0027,0,0,1,28,26Z"/><path d="M19,6H14V8h5v6H12v2h3v6.142a4,4,0,1,0,2,0V16h2a2.0023,2.0023,0,0,0,2-2V8A2.0023,2.0023,0,0,0,19,6ZM18,26a2,2,0,1,1-2-2A2.0027,2.0027,0,0,1,18,26Z"/><path d="M9,2H3A2.002,2.002,0,0,0,1,4v6a2.002,2.002,0,0,0,2,2H5V22.142a4,4,0,1,0,2,0V12H9a2.002,2.002,0,0,0,2-2V4A2.002,2.002,0,0,0,9,2ZM8,26a2,2,0,1,1-2-2A2.0023,2.0023,0,0,1,8,26ZM3,10V4H9l.0015,6Z"/><rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"/></svg>`
       },
       {
         name: "Subjects",
-        url: `/education_subjects`,
+        url: `/${educationRole()}/education_subjects`,
         icon: `
           <svg class="fill-slate-200" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px" viewBox="0 0 31.314 31.314" xml:space="preserve">
             <g>
@@ -163,7 +164,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
       },
       {
         name: "Exams",
-        url: `/education_exams`,
+        url: `/${educationRole()}/education_exams`,
         icon: `
           <svg class="fill-slate-200" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
             <g>
@@ -215,7 +216,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
       },
       {
         name: "Payments",
-        url: `/payment_orders`,
+        url: `/${educationRole()}/payment_orders`,
         icon: `
           <svg class="fill-slate-200" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.001 512.001" xml:space="preserve">
             <g>
