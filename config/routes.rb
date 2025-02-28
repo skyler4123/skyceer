@@ -1,3 +1,26 @@
+
+class EducationRoleConstraint
+  def initialize(education_role)
+    @education_role = education_role
+  end
+
+  def matches?(request)
+    education_role = request.cookies["education_role"]
+    case education_role.to_sym
+    when :education_school
+      return true if @education_role == :education_school
+    when :education_admin
+      return true if @education_role == :education_admin
+    when :education_teacher
+      return true if @education_role == :education_teacher
+    when :education_student
+      return true if @education_role == :education_student
+    else
+      false
+    end
+  end
+end
+
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   resources :demo, only: [:index, :new]

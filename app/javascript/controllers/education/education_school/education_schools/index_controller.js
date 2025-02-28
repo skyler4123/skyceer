@@ -8,7 +8,6 @@ export default class extends Education_EducationSchool_LayoutController {
   init() {
     this.initHTML()
     this.initTable()
-    educationRole
   }
 
   initHTML() {
@@ -19,7 +18,7 @@ export default class extends Education_EducationSchool_LayoutController {
     let tableData = this.educationSchools().map((row) => {
       return {
         ...row,
-        name: `<a href="/${educationRole()}/education_schools/${row.id}">${row.name}</a>`,
+        name: `<a href="/education_schools/${row.id}">${row.name}</a>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -55,7 +54,7 @@ export default class extends Education_EducationSchool_LayoutController {
       <div class="w-4/5 mx-auto mt-10">
         <div class="flex justify-between items-center">
           <h2 class="text-xl font-semibold">List of Education Schools</h2>
-          <a href="/${educationRole()}/education_schools/new" class="btn btn-primary">New Education School</a>
+          <a href="/${educationRole()}/education_schools/new" class="bg-slate-800 text-white px-4 py-2 rounded-md">New Education School</a>
         </div>
         <hr class="my-4">
         <br>

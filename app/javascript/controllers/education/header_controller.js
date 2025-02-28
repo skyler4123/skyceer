@@ -1,6 +1,4 @@
-import { isSignedIn } from "controllers/helpers/data_helpers"
-import { avatarHTML } from "controllers/helpers/data_helpers"
-import { openPopover } from "controllers/helpers/data_helpers"
+import { isSignedIn, educationRole, avatarHTML, openPopover } from "controllers/helpers/data_helpers"
 import ApplicationController from "controllers/application_controller"
 import { Cookie } from "controllers/helpers/data_helpers"
 export default class Education_HeaderController extends ApplicationController {

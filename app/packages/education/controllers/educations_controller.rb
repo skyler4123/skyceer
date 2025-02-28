@@ -5,17 +5,7 @@ class EducationsController < ApplicationController
 
   # education_schools_path can be different base on the user role, use it as second landing page
   def index
-    # redirect_to education_schools_path
-    case current_user.education_role.to_sym
-    when :education_school
-      redirect_to education_school_education_schools_path
-    when :education_admin
-      redirect_to education_admin_education_schools_path
-    when :education_student
-      redirect_to education_student_education_schools_path
-    when :education_teacher
-      redirect_to education_teacher_education_schools_path
-    end
+    redirect_to education_schools_path
   end
 
   def home
