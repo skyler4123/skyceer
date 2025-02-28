@@ -168,6 +168,16 @@ export const avatarUrl = () => {
   return Cookie('avatar')
 }
 
+// get role from cookie
+export const role = () => {
+  return Cookie('role')
+}
+
+// get education_role from cookie
+export const educationRole = () => {
+  return Cookie('education_role')
+}
+
 // return avatar HTML
 export const avatarHTML = (url = avatarUrl()) => {
   if (!url) {

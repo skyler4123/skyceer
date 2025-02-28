@@ -2,6 +2,7 @@
   <h1 class="font-bold text-4xl">New education school</h1>
 
   <%= render "form", education_school: @education_school %>
-
-  <%= link_to "Back to education schools", education_schools_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <div>
+    <%= link_to "Back to education schools", education_school_education_schools_path, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+  </div>
 </div>

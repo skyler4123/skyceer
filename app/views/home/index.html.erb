@@ -1,4 +1,4 @@
-<header data-<%= view_controller(__FILE__) %>-target="header" class="flex flex-row w-full h-full">
+<header data-<%= stimulus_controller %>-target="header" class="flex flex-row w-full h-full">
   <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 border-b-2">
     <div>
       <a href="/education_schools">
@@ -15,8 +15,8 @@
     </div>
   </div>
 </header>
-<main data-<%= view_controller(__FILE__) %>-target="main">
-  <article data-<%= view_controller(__FILE__) %>-target="content" class="w-full">
+<main data-<%= stimulus_controller %>-target="main">
+  <article data-<%= stimulus_controller %>-target="content" class="w-full">
 
     <h2 class="text-center text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white lg:text-4xl mt-6 mb-2">Home Page for All Users</h2>
 
@@ -155,7 +155,7 @@
     </section>
   </article>
 </main>
-<footer data-<%= view_controller(__FILE__) %>-target="footer" class="flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2">
+<footer data-<%= stimulus_controller %>-target="footer" class="flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2">
   <div data-controller="application--logo"></div>
   <div>Home</div>
   <div>Estate</div>

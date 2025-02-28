@@ -1,4 +1,4 @@
-import { identifier, transferToValue } from "controllers/helpers/data_helpers"
+import { identifier, transferToValue, educationRole } from "controllers/helpers/data_helpers"
 import Education_PaginationController from "controllers/education/pagination_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
@@ -8,6 +8,7 @@ export default class extends Education_EducationSchool_LayoutController {
   init() {
     this.initHTML()
     this.initTable()
+    educationRole
   }
 
   initHTML() {
@@ -18,7 +19,7 @@ export default class extends Education_EducationSchool_LayoutController {
     let tableData = this.educationSchools().map((row) => {
       return {
         ...row,
-        name: `<a href="/education_schools/${row.id}">${row.name}</a>`,
+        name: `<a href="/${educationRole()}/education_schools/${row.id}">${row.name}</a>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -51,9 +52,17 @@ export default class extends Education_EducationSchool_LayoutController {
 
   defaultHTML() {
     return `
-      <div data-${this.identifier}-target="table" class="w-full"></div>
-      <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
-    `
+      <div class="w-4/5 mx-auto mt-10">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-semibold">List of Education Schools</h2>
+          <a href="/${educationRole()}/education_schools/new" class="btn btn-primary">New Education School</a>
+        </div>
+        <hr class="my-4">
+        <br>
+        <div data-${this.identifier}-target="table" class="w-full"></div>
+        <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
+      </div>
+      `
   }
 
 }

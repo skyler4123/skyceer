@@ -1,7 +1,7 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">Editing article post</h1>
 
-    <%= form_with(model: @article_post, class: "contents", data: {controller: 'form', "#{view_controller(__FILE__)}-target" => "editForm"}) do |form| %>
+    <%= form_with(model: @article_post, class: "contents", data: {controller: 'form', "#{stimulus_controller}-target" => "editForm"}) do |form| %>
     <% if @article_post.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
         <h2><%= pluralize(@article_post.errors.count, "error") %> prohibited this article_post from being saved:</h2>
@@ -16,16 +16,16 @@
 
     <div class="my-5">
       <%= form.label :title %>
-      <%= form.text_field :title, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { "#{view_controller(__FILE__)}-target" => "titleInput" } %>
+      <%= form.text_field :title, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { "#{stimulus_controller}-target" => "titleInput" } %>
     </div>
 
     <div class="my-5 hidden">
       <%= form.label :content %>
-      <%= form.text_field :content, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { "#{view_controller(__FILE__)}-target" => "contentInput" } %>
+      <%= form.text_field :content, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { "#{stimulus_controller}-target" => "contentInput" } %>
     </div>
 
     <div class="my-5">
-      <div data-<%= view_controller(__FILE__) %>-target="editor" data-controller="libs--editor--editorjs" data-libs--editor--editorjs-params-value="<%= {savedData: @article_post.content, record_id: Current.user_id, record_class: "User", endpoint_upload_image_by_file: '/images/editorjs_upload_by_file'}.to_json %>"></div>
+      <div data-<%= stimulus_controller %>-target="editor" data-controller="libs--editor--editorjs" data-libs--editor--editorjs-params-value="<%= {savedData: @article_post.content, record_id: Current.user_id, record_class: "User", endpoint_upload_image_by_file: '/images/editorjs_upload_by_file'}.to_json %>"></div>
     </div>
 
     <div class="inline">

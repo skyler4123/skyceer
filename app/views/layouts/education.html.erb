@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" data-main-package="<%= @package %>" data-env="<%= Rails.env %>" data-country-code="<%= country_code %>">
+<html dir="ltr" data-main-package="<%= APP_NAME %>" data-env="<%= Rails.env %>" data-country-code="<%= country_code %>">
   <head>
     <title>Skyceer</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -20,8 +20,8 @@
     <script src="https://unpkg.com/tippy.js@6"></script>
   </head>
   
-  <body data-controller="education--flash">
-    <main data-controller="<%= view_controller(__FILE__) %>">
+  <body data-controller="<%= APP_NAME %>--flash">
+    <main data-controller="<%= stimulus_controller %>">
       <%= yield %>
     </main>
     <%= render(Education::ServerDataComponent.new(data: @data, pagination: @pagination, flash:)) %>

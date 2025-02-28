@@ -1,3 +1,5 @@
+root 'educations#home'
+
 resources :educations, only: [:index] do
   collection do
     get :home
