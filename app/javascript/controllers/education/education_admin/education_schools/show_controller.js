@@ -9,7 +9,7 @@ export default class extends Education_EducationSchool_LayoutController {
 
   contentHTML() {
     return `
-      <div class="mx-auto md:w-2/3 w-full flex">
+      <div class="mx-auto w-4/5 flex">
         <div class="mx-auto">
           <div id="education_school_23b9d0e0-e5dc-413f-b5bd-5db7219bd31d">
             <p class="my-5">
