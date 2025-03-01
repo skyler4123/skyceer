@@ -53,11 +53,12 @@ export default class extends Education_EducationSchool_LayoutController {
     return `
       <div class="w-4/5 mx-auto mt-10">
         <div class="flex justify-between items-center">
-          <h2 class="text-xl font-semibold">List of Schools</h2>
-          <a href="/education_schools/new" class="bg-slate-800 text-white px-4 py-2 rounded-md">New School</a>
+          <h2 class="text-xl font-medium">Schools</h2>
+          <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_schools/new">New School</a>
         </div>
-        <hr class="my-4">
-        <br>
+        <div class="my-5">
+          <input data-${this.identifier}-target="search" type="search" class="w-full border border-gray-200 rounded-lg p-2" placeholder="Search">
+        </div>
         <div data-${this.identifier}-target="table" class="w-full"></div>
         <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
       </div>

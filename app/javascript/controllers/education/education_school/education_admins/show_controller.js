@@ -19,7 +19,16 @@ export default class extends Education_EducationSchool_LayoutController {
               <strong class="block font-medium mb-1">Email:</strong>
               ${this.educationAdmin().email}
             </p>
-
+            <div>
+              <strong class="block font-medium mb-1">Schools:</strong>
+              <ul>
+                ${this.educationAdmin().education_schools.map(educationSchool => `
+                  <li>
+                    <a href="/education_schools/${educationSchool.id}">${educationSchool.name}</a>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
           </div>
 
           <a class="mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" href="/education_admins/${this.educationAdmin().id}/edit">Edit this education school</a>
