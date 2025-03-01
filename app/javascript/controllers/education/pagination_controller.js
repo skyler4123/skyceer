@@ -10,10 +10,16 @@ export default class Education_PaginationController extends Controller {
   
   // initialize if paginationValue is not empty
   initialize() {
-    if (isEmpty(this.paginationValue)) { return }
+    if (!this.canInitialize()) { return }
     this.element.className = "w-full flex flex-row justify-center items-center gap-x-1"
     this.initPaginationHTML()
     this.currentPageTarget.className = "flex justify-center items-center bg-slate-800 text-white hover:cursor-not-allowed min-w-9 rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm text-slate-600"
+  }
+
+  canInitialize() {
+    if (isEmpty(this.paginationValue)) { return false }
+    if (this.paginationValue.next === null) { return false }
+    return true
   }
 
   initPaginationHTML() {

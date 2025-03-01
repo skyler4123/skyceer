@@ -1,4 +1,4 @@
-<%= form_with(model: [:education_school, education_school], class: "contents") do |form| %>
+<%= form_with(model: education_school, class: "contents") do |form| %>
   <% if education_school.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(education_school.errors.count, "error") %> prohibited this education_school from being saved:</h2>
