@@ -14,6 +14,9 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
 
   # GET /education_admins/1 or /education_admins/1.json
   def show
+    @data = {
+      education_admin: @education_admin.as_json(only: [:id, :name, :email])
+    }.to_json
   end
 
   # GET /education_admins/new

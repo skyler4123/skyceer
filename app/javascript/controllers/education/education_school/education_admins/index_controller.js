@@ -53,9 +53,17 @@ export default class extends Education_EducationSchool_LayoutController {
 
   defaultHTML() {
     return `
-      <div data-${this.identifier}-target="table" class="w-full"></div>
-      <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
-    `
+      <div class="mx-auto w-4/5 mt-10 flex flex-col">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-semibold">List of Admins</h2>
+          <a href="/education_admins/new" class="bg-slate-800 text-white px-4 py-2 rounded-md">New Admin</a>
+        </div>
+        <hr class="my-4">
+        <br>
+        <div data-${this.identifier}-target="table" class="w-full"></div>
+        <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
+      </div>
+      `
   }
 
 }
