@@ -26,12 +26,12 @@
 
     <div class="my-5">
       <%= form.label :education_school_id, "School" %>
-      <%= form.select :education_school_id, options_for_select(@education_schools.pluck(:name, :id), @education_teacher.education_schools.pluck(:id)), { include_blank: true, required: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {controller: "education--choices"} } %>
+      <%= form.select :education_school_id, options_for_select(@education_schools.pluck(:name, :id), @education_teacher.education_schools.pluck(:id)), { include_blank: true, required: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {controller: "education--choices", "#{stimulus_controller}-target": "schoolSelect"} } %>
     </div>
 
     <div class="my-5">
       <%= form.label :education_category_id %>
-      <%= form.select :education_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-school-target": "educationCategory"} } %>
+      <%= form.select :education_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"#{stimulus_controller}-target": "categorySelect"} } %>
     </div>
 
     <div class="inline">

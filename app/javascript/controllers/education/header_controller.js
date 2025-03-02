@@ -16,7 +16,7 @@ export default class Education_HeaderController extends ApplicationController {
     openPopover({
       parentElement: target,
       html: this.popoverProfileHTML(),
-      position: 'bottom-left-left',
+      position: 'bottom-left',
       popupClass: 'bg-white !border !border-gray-200 !w-75 -translate-x-full'
     })
   }

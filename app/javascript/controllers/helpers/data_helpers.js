@@ -191,7 +191,7 @@ export const avatarHTML = (url = avatarUrl()) => {
 }
 
 // Function to open SweetAlert2 dialog based on a parent element
-export const openPopover = ({parentElement, options = {}, html = "Dialog content", position = 'bottom-center-center', popupClass = ""}) => {
+export const openPopover = ({parentElement, html = "Dialog content", position = 'bottom-center-center', popupClass = ""}) => {
   // Get the parent element's position and dimensions
   const parentRect = parentElement.getBoundingClientRect();
   const parentTop = parentRect.top;
@@ -218,16 +218,42 @@ export const openPopover = ({parentElement, options = {}, html = "Dialog content
       const swalContainer = document.querySelector('.swal2-container-custom');
       swalContainer.style.position = 'absolute';
       switch (position) {
-        case 'bottom-left-right':
+        case 'top-left':
+          swalContainer.style.top = `${parentTop}px`;
+          swalContainer.style.left = `${parentLeft}px`;
+          break;
+        case 'top-right':
+          swalContainer.style.top = `${parentTop}px`;
+          swalContainer.style.left = `${parentRight}px`;
+          break;
+        case 'top-center':
+          swalContainer.style.top = `${parentTop}px`;
+          swalContainer.style.left = `${parentLeft + parentWidth/2}px`;
+          break;
+
+        case 'bottom-left':
           swalContainer.style.top = `${parentBottom}px`;
           swalContainer.style.left = `${parentLeft}px`;
           break;
-        case 'bottom-left-left':
+        case 'bottom-right':
           swalContainer.style.top = `${parentBottom}px`;
+          swalContainer.style.left = `${parentRight}px`;
+          break;
+        case 'bottom-center':
+          swalContainer.style.top = `${parentBottom}px`;
+          swalContainer.style.left = `${parentLeft + parentWidth/2}px`;
+          break;
+
+        case 'left-center':
+          swalContainer.style.top = `${parentTop + parentHeight/2}px`;
           swalContainer.style.left = `${parentLeft}px`;
           break;
-        case 'bottom-center-center':
-          swalContainer.style.top = `${parentBottom}px`;
+        case 'right-center':
+          swalContainer.style.top = `${parentTop + parentHeight/2}px`;
+          swalContainer.style.left = `${parentRight}px`;
+          break;
+        case 'center-center':
+          swalContainer.style.top = `${parentTop + parentHeight/2}px`;
           swalContainer.style.left = `${parentLeft + parentWidth/2}px`;
           break;
       }

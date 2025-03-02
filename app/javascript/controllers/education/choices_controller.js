@@ -39,7 +39,7 @@ export default class Education_ChoicesController extends Controller {
         listItems: ['choices__list--multiple'],
         listSingle: ['choices__list--single'],
         listDropdown: ['choices__list--dropdown'],
-        item: ['choices__item !bg-slate-800'],
+        item: ['choices__item !bg-slate-800 !text-white hover:!bg-slate-700'],
         itemSelectable: ['choices__item--selectable'],
         itemDisabled: ['choices__item--disabled'],
         itemChoice: ['choices__item--choice'],
