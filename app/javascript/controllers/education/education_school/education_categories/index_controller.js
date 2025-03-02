@@ -53,8 +53,17 @@ export default class extends Education_EducationSchool_LayoutController {
 
   defaultHTML() {
     return `
-      <div data-${this.identifier}-target="table" class="w-full"></div>
-      <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
+      <div class="mx-auto w-4/5 mt-10 flex flex-col">
+        <div class="flex justify-between items-center">
+          <h1 class="text-2xl font-semibold">Categories</h1>
+          <a href="/education_categories/new" class="bg-slate-800 px-4 py-2 rounded-md text-white">New Category</a>
+        </div>
+        <div class="mt-4">
+          <p class="text-gray-600">Education Categories are the main categories for the education schools. You can create, edit, delete and view the education categories.</p>
+        </div>
+        <div data-${this.identifier}-target="table" class="w-full"></div>
+        <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
+      </div>
     `
   }
 

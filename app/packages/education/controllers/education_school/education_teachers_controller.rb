@@ -20,6 +20,14 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
 
   # GET /education_teachers/1 or /education_teachers/1.json
   def show
+    @data = {
+      education_teacher: @education_teacher.as_json(
+        only: [:id, :name, :email],
+        include: {
+          education_schools: { only: [:id, :name] }
+        }
+      )
+    }.to_json
   end
 
   # GET /education_teachers/new

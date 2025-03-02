@@ -18,7 +18,7 @@ export default class Education_PaginationController extends Controller {
 
   canInitialize() {
     if (isEmpty(this.paginationValue)) { return false }
-    if (this.paginationValue.next === null) { return false }
+    if (this.paginationValue.last === 1) { return false }
     return true
   }
 

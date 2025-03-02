@@ -8,6 +8,10 @@ export default class Education_EducationSchool_AsideController extends Controlle
     this.element.innerHTML = this.defaultHTML()
   }
 
+  disconnect() {
+    this.element.remove()
+  }
+  
   defaultHTML() {
     return `
       <ul class="w-full h-full flex flex-col gap-y-4 justify-start">
