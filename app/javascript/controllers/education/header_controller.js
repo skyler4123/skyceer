@@ -1,6 +1,8 @@
 import { isSignedIn, educationRole, avatarHTML, openPopover } from "controllers/helpers/data_helpers"
 import ApplicationController from "controllers/application_controller"
 import { Cookie } from "controllers/helpers/data_helpers"
+import Education_DarkmodeController from "controllers/education/darkmode_controller"
+import { identifier } from "controllers/helpers/data_helpers"
 export default class Education_HeaderController extends ApplicationController {
   static targets = ["profile"]
   
@@ -38,12 +40,15 @@ export default class Education_HeaderController extends ApplicationController {
         <div class="flex flex-row gap-x-2">
           ${this.headerNavigationHTML()}
         </div>
-        <div 
-          data-${this.identifier}-target="profile"
-          data-action="click->${this.identifier}#openPopoverProfile"
-          class="cursor-pointer"
-        >
-          ${isSignedIn() ? avatarHTML() : `<a href="/sign_in">Sign In</a>`}
+        <div class="flex flex-row justify-center items-center gap-x-2">
+          <div class="flex flex-row" data-controller="${identifier(Education_DarkmodeController)}"></div>
+          <div 
+            data-${this.identifier}-target="profile"
+            data-action="click->${this.identifier}#openPopoverProfile"
+            class="cursor-pointer"
+          >
+            ${isSignedIn() ? avatarHTML() : `<a href="/sign_in">Sign In</a>`}
+          </div>
         </div>
       </div>
     `

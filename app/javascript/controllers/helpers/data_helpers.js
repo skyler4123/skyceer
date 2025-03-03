@@ -187,7 +187,7 @@ export const avatarHTML = (url = avatarUrl()) => {
       </div>
     `
   }
-  return `<img src="${url}" class="h-8 w-8 rounded-full cursor-pointer" alt="avatar">`
+  return `<img src="${url}" class="h-10 w-10 rounded-full cursor-pointer" alt="avatar">`
 }
 
 // Function to open SweetAlert2 dialog based on a parent element
