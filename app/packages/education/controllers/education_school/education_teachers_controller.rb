@@ -37,12 +37,12 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
 
   # GET /education_teachers/1/edit
   def edit
-    @education_categories = EducationCategory.joins(:education_teachers).where(education_teachers: @education_teacher, nested_level: 0)
-    @data = {
-      education_teacher: @education_teacher.as_json(include: [:education_schools, :education_classes]),
-      education_schools: @education_schools.as_json(only: [:id, :name]),
-      education_categories: @education_categories.as_json(only: [:id, :name, :nested_level], methods: [:children_categories])
-    }.to_json
+    @education_categories = EducationCategory.joins(:education_school).where(education_school: @education_schools)
+    # @data = {
+    #   education_teacher: @education_teacher.as_json(include: [:education_schools, :education_classes]),
+    #   education_schools: @education_schools.as_json(only: [:id, :name]),
+    #   education_categories: @education_categories.as_json(only: [:id, :name, :nested_level], methods: [:children_categories])
+    # }.to_json
   end
 
   # POST /education_teachers or /education_teachers.json
