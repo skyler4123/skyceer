@@ -40,8 +40,8 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
     @education_categories = EducationCategory.joins(:education_teachers).where(education_teachers: @education_teacher, nested_level: 0)
     @data = {
       education_teacher: @education_teacher.as_json(include: [:education_schools, :education_classes]),
-      educationSchools: @education_schools.as_json(only: [:id, :name]),
-      educationCategories: @education_categories.as_json(only: [:id, :name, :nested_level])
+      education_schools: @education_schools.as_json(only: [:id, :name]),
+      education_categories: @education_categories.as_json(only: [:id, :name, :nested_level], methods: [:children_categories])
     }.to_json
   end
 

@@ -15,5 +15,5 @@ class EducationCategory < ApplicationRecord
   has_many :education_lessons, through: :education_category_appointments, source: :education_category_appointmentable, source_type: 'EducationLesson'
 
 
-  scope :first_level, -> { where(education_category_id: nil) }
+  scope :first_level, -> { where(parent_category_id: nil) }
 end
