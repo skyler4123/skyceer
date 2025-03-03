@@ -68,6 +68,11 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
 
   # PATCH/PUT /education_teachers/1 or /education_teachers/1.json
   def update
+    @education_schools = EducationSchool.where(id: params[:education_teacher][:education_school_id]) if params[:education_teacher][:education_school_id].present?
+    @education_teacher.education_schools = @education_schools if @education_schools.present?
+    @education_categories = EducationCategory.where(id: params[:education_teacher][:education_category_id]) if params[:education_teacher][:education_category_id].present?
+    @education_teacher.education_categories = @education_categories if @education_categories.present?
+
     respond_to do |format|
       if @education_teacher.update(education_teacher_params)
         format.html { redirect_to @education_teacher, notice: "Education teacher was successfully updated." }

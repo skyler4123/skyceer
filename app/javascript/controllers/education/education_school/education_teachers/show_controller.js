@@ -35,7 +35,7 @@ export default class extends Education_EducationSchool_LayoutController {
             </div>
           </div>
 
-          <a class="mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" href="/education_teachers/${this.educationTeacher().id}/edit">Edit this education school</a>
+          <a class="mt-2 rounded-lg py-3 px-5 bg-gray-100 dark:bg-gray-800 inline-block font-medium" href="/education_teachers/${this.educationTeacher().id}/edit">Edit this education school</a>
         </div>
       </div>
     `
