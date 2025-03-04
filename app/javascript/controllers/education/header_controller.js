@@ -32,10 +32,10 @@ export default class Education_HeaderController extends ApplicationController {
     return `
       <div class="flex flex-row justify-between items-center w-full h-full px-4 py-4 border-b-2">
         <div>
-          <a href="/education_schools">
+          <a href="/">
             <div class="flex flex-row gap-x-2 justify-center items-center">
               <div class="flex flex-row w-12 h-12 z-50" data-controller="${identifier(Education_LogoController)}"></div>
-              <div>Skyceer</div>
+              <div role="product-name">Skyceer</div>
             </div>
           </a>
         </div>
@@ -45,6 +45,7 @@ export default class Education_HeaderController extends ApplicationController {
         <div class="flex flex-row justify-center items-center gap-x-2">
           <div class="flex flex-row" data-controller="${identifier(Education_DarkmodeController)}"></div>
           <div 
+            role="profile"
             data-${this.identifier}-target="profile"
             data-action="click->${this.identifier}#openPopoverProfile"
             class="cursor-pointer"
