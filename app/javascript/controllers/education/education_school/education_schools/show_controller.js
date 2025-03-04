@@ -1,4 +1,4 @@
-import { csrfToken } from "controllers/helpers/data_helpers"
+import { csrfToken } from "controllers/education/helpers/data_helpers"
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 
 export default class extends Education_EducationSchool_LayoutController {

@@ -1,4 +1,4 @@
-import { identifier, isEmpty, transferToValue } from "controllers/helpers/data_helpers"
+import { identifier, isEmpty, transferToValue } from "controllers/education/helpers/data_helpers"
 import Education_PaginationController from "controllers/education/pagination_controller";
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';

@@ -1,9 +1,9 @@
-import { isSignedIn, educationRole, avatarHTML, openPopover } from "controllers/helpers/data_helpers"
+import { isSignedIn, educationRole, avatarHTML, openPopover } from "controllers/education/helpers/data_helpers"
 import ApplicationController from "controllers/application_controller"
-import { Cookie } from "controllers/helpers/data_helpers"
+import { Cookie } from "controllers/education/helpers/data_helpers"
 import Education_DarkmodeController from "controllers/education/darkmode_controller"
-import { identifier } from "controllers/helpers/data_helpers"
-import Education_AvatarController from "controllers/education/avatar_controller"
+import { identifier } from "controllers/education/helpers/data_helpers"
+import Education_LogoController from "controllers/education/logo_controller"
 export default class Education_HeaderController extends ApplicationController {
   static targets = ["profile"]
   
@@ -34,7 +34,7 @@ export default class Education_HeaderController extends ApplicationController {
         <div>
           <a href="/education_schools">
             <div class="flex flex-row gap-x-2 justify-center items-center">
-              <div class="flex flex-row w-12 h-12 z-50" data-controller="${identifier(Education_AvatarController)}"></div>
+              <div class="flex flex-row w-12 h-12 z-50" data-controller="${identifier(Education_LogoController)}"></div>
               <div>Skyceer</div>
             </div>
           </a>

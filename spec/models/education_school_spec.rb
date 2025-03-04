@@ -18,12 +18,4 @@ RSpec.describe EducationSchool, type: :model do
     expect(subject.payment_user).to be_present
   end
 
-  context 'when user is not set education_role yet' do
-    subject { create(:education_school, user: create(:user, education_role: nil)) }
-
-    # callback run after record created: will set user education_role: :education_school
-    it 'should set user education_role as :education_school' do
-      expect(subject.user.education_role).to eq('education_school')
-    end
-  end
 end

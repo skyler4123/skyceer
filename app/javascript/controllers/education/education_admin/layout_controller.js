@@ -1,7 +1,7 @@
 import Education_FooterController from "controllers/education/footer_controller"
 import Education_HeaderController from "controllers/education/header_controller"
 import Education_EducationSchool_AsideController from "controllers/education/education_school/aside_controller"
-import { identifier } from "controllers/helpers/data_helpers"
+import { identifier } from "controllers/education/helpers/data_helpers"
 import ApplicationController from "controllers/application_controller"
 
 export default class Education_EducationSchool_LayoutController extends ApplicationController {
