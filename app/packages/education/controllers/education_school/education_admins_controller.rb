@@ -36,13 +36,16 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
   # POST /education_admins or /education_admins.json
   def create
     user = User.find_by(email: params[:education_admin][:email])
-    @education_school = EducationSchool.find_by(id: params[:education_admin][:education_school_id])
     @education_admin = EducationAdmin.new(education_admin_params)
     @education_admin.user = user if user.present?
-    @education_admin.education_schools << @education_school if @education_school.present?
 
     respond_to do |format|
       if @education_admin.save
+        education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id]) if params[:education_admin][:education_school_id].present?
+        @education_admin.education_schools << education_school if education_school.present?
+        education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id]) if params[:education_admin][:education_category_id].present?
+        @education_admin.education_categories = education_categories if education_categories.present?
+    
         format.html { redirect_to @education_admin, notice: "Education admin was successfully created." }
         format.json { render :show, status: :created, location: @education_admin }
       else
@@ -54,11 +57,13 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
 
   # PATCH/PUT /education_admins/1 or /education_admins/1.json
   def update
-    @education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id]) if params[:education_admin][:education_school_id].present?
-    @education_admin.education_schools = @education_schools if @education_schools.present?
-
     respond_to do |format|
       if @education_admin.update(education_admin_params)
+        education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id]) if params[:education_admin][:education_school_id].present?
+        @education_admin.education_schools = education_schools if education_schools.present?
+        education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id]) if params[:education_admin][:education_category_id].present?
+        @education_admin.education_categories = education_categories if education_categories.present?
+    
         format.html { redirect_to @education_admin, notice: "Education admin was successfully updated." }
         format.json { render :show, status: :ok, location: @education_admin }
       else

@@ -12,6 +12,7 @@ class EducationCategory < ApplicationRecord
   has_many :education_rooms, through: :education_category_appointments, source: :education_category_appointmentable, source_type: 'EducationRoom'
   has_many :education_students, through: :education_category_appointments, source: :education_category_appointmentable, source_type: 'EducationStudent'
   has_many :education_teachers, through: :education_category_appointments, source: :education_category_appointmentable, source_type: 'EducationTeacher'
+  has_many :education_admins, through: :education_category_appointments, source: :education_category_appointmentable, source_type: 'EducationAdmin'
   has_many :education_lessons, through: :education_category_appointments, source: :education_category_appointmentable, source_type: 'EducationLesson'
 
 

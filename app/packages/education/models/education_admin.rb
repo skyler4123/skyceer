@@ -6,6 +6,9 @@ class EducationAdmin < ApplicationRecord
   has_many :education_school_appointments, as: :education_school_appointmentable, dependent: :destroy
   has_many :education_schools, through: :education_school_appointments
 
+  has_many :education_category_appointments, as: :education_category_appointmentable, dependent: :destroy
+  has_many :education_categories, through: :education_category_appointments
+  
   include EducationAdmin::ValidationConcern
   include EducationAdmin::UserConcern
 end
