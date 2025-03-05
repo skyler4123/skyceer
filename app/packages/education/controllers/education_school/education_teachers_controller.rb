@@ -37,7 +37,7 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
         @education_teacher.user = user if user.present?
 
         education_schools = EducationSchool.where(id: params[:education_teacher][:education_school_id])
-        @education_teacher.education_schools = education_schools if scheducation_schoolsool.present?
+        @education_teacher.education_schools = education_schools if education_schools.present?
 
         education_categories = EducationCategory.where(id: params[:education_teacher][:education_category_id])
         @education_teacher.education_categories = education_categories if education_categories.present?

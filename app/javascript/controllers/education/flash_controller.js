@@ -5,11 +5,14 @@ import { isEmpty } from "controllers/education/helpers/data_helpers";
 
 
 export default class Education_FlashController extends Controller {
-  
+  static values = {
+    messages: { type: Object, default: {} }, // Ex: { notice: "Hello World", error: "Something went wrong" }
+  }
+
   initialize() {
     setTimeout(() => {
       if (!this.hasFlash()) { return }
-      this.initFlash()
+      this.initValue()
     }, 500)
   }
 
@@ -17,9 +20,12 @@ export default class Education_FlashController extends Controller {
     return !isEmpty(ServerData.flash)
   }
 
-  initFlash() {
-    const flashMessages = ServerData.flash;
-    Object.entries(flashMessages).forEach(([type, message], index) => {
+  initValue() {
+    this.messagesValue = ServerData.flash
+  }
+
+  messagesValueChanged(value, previousValue) {
+    Object.entries(value).forEach(([type, message], index) => {
       setTimeout(() => {
         Swal.fire({
           position: "top",
@@ -49,10 +55,47 @@ export default class Education_FlashController extends Controller {
           }
         });
       }, 3000 * index)
-
     });
   }
 
+
+  // initFlash() {
+  //   const flashMessages = ServerData.flash;
+  //   Object.entries(flashMessages).forEach(([type, message], index) => {
+  //     setTimeout(() => {
+  //       Swal.fire({
+  //         position: "top",
+  //         html: this.flashHTML(type, message),
+  //         showConfirmButton: false,
+  //         timer: 3000,
+  //         backdrop: false,
+  //         customClass: {
+  //           container: '...1',
+  //           popup: '!p-0',
+  //           header: '...2',
+  //           title: '...3',
+  //           closeButton: '...',
+  //           icon: '...',
+  //           image: '...',
+  //           htmlContainer: '!p-0',
+  //           input: '...',
+  //           inputLabel: '...',
+  //           validationMessage: '...',
+  //           actions: '...',
+  //           confirmButton: '...',
+  //           denyButton: '...',
+  //           cancelButton: '...',
+  //           loader: '...5',
+  //           footer: '....6',
+  //           timerProgressBar: '....7',
+  //         }
+  //       });
+  //     }, 3000 * index)
+
+  //   });
+  // }
+
+  
   flashHTML(type = "notice", message) {
     switch (type) {
       case "error":

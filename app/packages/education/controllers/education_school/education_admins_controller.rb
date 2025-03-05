@@ -30,7 +30,7 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
     respond_to do |format|
       if @education_admin.save
         education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id]) if params[:education_admin][:education_school_id].present?
-        @education_admin.education_schools << education_school if education_school.present?
+        @education_admin.education_schools = education_schools if education_schools.present?
         education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id]) if params[:education_admin][:education_category_id].present?
         @education_admin.education_categories = education_categories if education_categories.present?
     

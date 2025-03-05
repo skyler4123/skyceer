@@ -11,7 +11,13 @@ export default class Education_ChoicesController extends Controller {
   }
 
   initialize() {
-    this.element.addEventListener(initializedEvent, this.initChoices())
+    this.element.addEventListener(initializedEvent, this.init())
+  }
+  
+  init() {
+    setTimeout(() => {
+      this.initChoices()
+    }, 100)
   }
 
   initChoices() {
@@ -49,5 +55,13 @@ export default class Education_ChoicesController extends Controller {
       },
       ...this.optionsValue,
     })
+  }
+
+  parentForm() {
+    return this.element.closest('form')
+  }
+
+  submitButton() {
+    return this.parentForm().querySelector('input[type="submit"]')
   }
 }
