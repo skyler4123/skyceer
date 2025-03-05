@@ -8,7 +8,7 @@ export default class Education_EducationSchool_LayoutController extends Applicat
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'table']
 
   initLayout() {
-    this.element.className = 'w-full h-full bg-white dark:bg-slate-900 text-black dark:text-white'
+    this.element.className = 'w-full h-full bg-white dark:bg-gray-900 text-black dark:text-white'
     this.element.innerHTML = this.layoutHTML()
   }
 

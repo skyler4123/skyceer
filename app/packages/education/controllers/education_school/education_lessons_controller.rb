@@ -34,7 +34,7 @@ class EducationSchool::EducationLessonsController < EducationSchool::EducationsC
   def update
     respond_to do |format|
       if @education_lesson.update(education_lesson_params)
-        format.html { redirect_to @education_lesson, notice: "Education lesson was successfully updated." }
+        format.html { redirect_to education_lessons_path, notice: "Education lesson was successfully updated." }
         format.json { render :show, status: :ok, location: @education_lesson }
       else
         format.html { render :edit, status: :unprocessable_entity }

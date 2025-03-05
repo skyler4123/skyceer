@@ -34,7 +34,7 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
         education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id]) if params[:education_admin][:education_category_id].present?
         @education_admin.education_categories = education_categories if education_categories.present?
     
-        format.html { redirect_to @education_admin, notice: "Education admin was successfully created." }
+        format.html { redirect_to education_admins_path, notice: "Education admin was successfully created." }
         format.json { render :show, status: :created, location: @education_admin }
       else
         format.html { redirect_to request.referer, error: "Education teacher was not created: #{@education_admin.errors.full_messages}" }
@@ -52,7 +52,7 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
         education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id]) if params[:education_admin][:education_category_id].present?
         @education_admin.education_categories = education_categories if education_categories.present?
     
-        format.html { redirect_to @education_admin, notice: "Education admin was successfully updated." }
+        format.html { redirect_to education_admins_path, notice: "Education admin was successfully updated." }
         format.json { render :show, status: :ok, location: @education_admin }
       else
         format.html { render :edit, status: :unprocessable_entity }

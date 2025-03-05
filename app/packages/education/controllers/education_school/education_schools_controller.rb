@@ -1,5 +1,4 @@
 class EducationSchool::EducationSchoolsController < EducationSchool::EducationsController
-  skip_before_action :redirect_when_not_education_school, only: [:new, :create]
   before_action :set_education_school, only: %i[ edit update destroy education_schools]
 
   # GET /education_schools or /education_schools.json
@@ -26,7 +25,7 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
 
     respond_to do |format|
       if @education_school.save
-        format.html { redirect_to @education_school, notice: "Education school was successfully created." }
+        format.html { redirect_to education_schools_path, notice: "Education school was successfully created." }
         format.json { render :show, status: :created, location: @education_school }
       else
         format.html { redirect_to request.referer, error: "Education teacher was not created: #{@education_school.errors.full_messages}" }
@@ -42,7 +41,7 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
         education_categories = EducationCategory.where(id: params[:education_school][:education_category_id]) if params[:education_school][:education_category_id].present?
         @education_school.education_categories = education_categories if education_categories.present?
         
-        format.html { redirect_to @education_school, notice: "Education school was successfully updated." }
+        format.html { redirect_to education_schools_path, notice: "Education school was successfully updated." }
         format.json { render :show, status: :ok, location: @education_school }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,10 +58,6 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
       format.html { redirect_to education_schools_path, status: :see_other, notice: "Education school was successfully destroyed." }
       format.json { head :no_content }
     end
-  end
-
-  def education_schools
-    redirect_to @education_school
   end
 
   private

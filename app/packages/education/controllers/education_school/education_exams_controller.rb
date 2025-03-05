@@ -42,7 +42,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
   def update
     respond_to do |format|
       if @education_exam.update(education_exam_params)
-        format.html { redirect_to @education_exam, notice: "Education exam was successfully updated." }
+        format.html { redirect_to education_exams_path, notice: "Education exam was successfully updated." }
         format.json { render :show, status: :ok, location: @education_exam }
       else
         format.html { render :edit, status: :unprocessable_entity }

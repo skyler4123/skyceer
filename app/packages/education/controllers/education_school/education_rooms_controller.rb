@@ -48,7 +48,7 @@ class EducationSchool::EducationRoomsController < EducationSchool::EducationsCon
   def update
     respond_to do |format|
       if @education_room.update(education_room_params)
-        format.html { redirect_to @education_room, notice: "Education room was successfully updated." }
+        format.html { redirect_to education_rooms_path, notice: "Education room was successfully updated." }
         format.json { render :show, status: :ok, location: @education_room }
       else
         format.html { render :edit, status: :unprocessable_entity }

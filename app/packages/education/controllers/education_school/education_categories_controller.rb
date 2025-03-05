@@ -39,7 +39,7 @@ class EducationSchool::EducationCategoriesController < EducationSchool::Educatio
   def update
     respond_to do |format|
       if @education_category.update(education_category_params)
-        format.html { redirect_to @education_category, notice: "Education category was successfully updated." }
+        format.html { redirect_to education_categories_path, notice: "Education category was successfully updated." }
         format.json { render :show, status: :ok, location: @education_category }
       else
         format.html { render :edit, status: :unprocessable_entity }
