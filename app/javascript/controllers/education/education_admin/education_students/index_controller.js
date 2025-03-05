@@ -18,7 +18,7 @@ export default class extends Education_EducationSchool_LayoutController {
     let tableData = this.educationStudents().map((row) => {
       return {
         ...row,
-        name: `<a href="/education_students/${row.id}">${row.name}</a>`,
+        name: `<a href="/education_students/${row.id}/edit">${row.name}</a>`,
         class_names: `<div>${row.education_classes.map((klass) => `<span>${klass.name}</span>`).join(",")}</div>`,
         school_names: `<div>${row.education_schools.map((school) => `<span>${school.name}</span>`).join(",")}</div>`,
       }

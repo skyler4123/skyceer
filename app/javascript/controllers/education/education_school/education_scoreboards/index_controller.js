@@ -139,7 +139,7 @@ export default class extends Education_EducationSchool_LayoutController {
           >
             <option value="" disabled selected>Select Class</option>
             ${this.contentClassesForSelect().map((row) => {
-              return `<option value="${row.id}">${row.name}</option>`
+              return `<option value="${row.id}/edit">${row.name}</option>`
             }).join('')}
           </select>
         </div>

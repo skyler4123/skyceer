@@ -18,7 +18,7 @@ export default class extends Education_EducationSchool_LayoutController {
     let tableData = this.educationSchools().map((row) => {
       return {
         ...row,
-        name: `<a href="/education_schools/${row.id}">${row.name}</a>`,
+        name: `<a href="/education_schools/${row.id}/edit">${row.name}</a>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {

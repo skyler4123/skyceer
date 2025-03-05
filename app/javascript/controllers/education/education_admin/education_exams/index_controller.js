@@ -18,7 +18,7 @@ export default class extends Education_EducationSchool_LayoutController {
     let tableData = this.educationExams().map((row) => {
       return {
         ...row,
-        name: `<a href="/education_exams/${row.id}">${row.name}</a>`,
+        name: `<a href="/education_exams/${row.id}/edit">${row.name}</a>`,
         school_name: row.education_school.name,
       }
     })
