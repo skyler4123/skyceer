@@ -1026,6 +1026,11 @@
   pointer-events: none;
 }
 
+.dark .tabulator-tooltip {
+  color: white;
+  background-color: #374151;
+}
+
 .tabulator-menu .tabulator-menu-item {
   position: relative;
   box-sizing: border-box;
