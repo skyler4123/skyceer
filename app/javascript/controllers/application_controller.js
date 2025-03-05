@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { isDefined, randomID } from "controllers/education/helpers/data_helpers"
+import { isDefined, randomID, initializedEvent } from "controllers/education/helpers/data_helpers"
 
 export default class ApplicationController extends Controller {
 
@@ -25,6 +25,7 @@ export default class ApplicationController extends Controller {
     if (isDefined(this.init)) { this.init() }
     this.isInitializedValue = true
     if (isDefined(this.initAfterComplete)) { this.initAfterComplete() }
+    this.initializeCompletedEvent()
   }
 
   initBinding() {
@@ -51,6 +52,10 @@ export default class ApplicationController extends Controller {
     if (this.hasDirParams) {
       this.element.setAttribute('dir', this.dirParams)
     }
+  }
+
+  initializeCompletedEvent() {
+    this.element.dispatchEvent(new CustomEvent(initializedEvent, { detail: { controller: this } }))
   }
 
   isOpenValueChanged(value, previousValue) {

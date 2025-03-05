@@ -46,6 +46,9 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
   def update
     respond_to do |format|
       if @education_school.update(education_school_params)
+        education_categories = EducationCategory.where(id: params[:education_school][:education_category_id]) if params[:education_school][:education_category_id].present?
+        @education_school.education_categories = education_categories if education_categories.present?
+        
         format.html { redirect_to @education_school, notice: "Education school was successfully updated." }
         format.json { render :show, status: :ok, location: @education_school }
       else

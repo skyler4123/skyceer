@@ -259,7 +259,6 @@ export const openPopover = ({parentElement, html = "Dialog content", position = 
       }
     },
   });
-
-
-
 }
+
+export const initializedEvent = 'controller:initialize:completed'
