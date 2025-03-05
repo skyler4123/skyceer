@@ -1,7 +1,7 @@
 require 'pagy/extras/elasticsearch_rails'
 
 class EducationSchool::EducationTeachersController < EducationSchool::EducationsController
-  before_action :set_education_teacher, only: %i[ show edit update destroy ]
+  before_action :set_education_teacher, only: %i[ edit update destroy ]
 
   # GET /education_teachers or /education_teachers.json
   def index
@@ -15,18 +15,6 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
     @pagination, @education_teachers = pagy(@education_teachers)
     @data = {
       education_teachers: @education_teachers.as_json(include: [:education_schools, :education_classes])
-    }.to_json
-  end
-
-  # GET /education_teachers/1 or /education_teachers/1.json
-  def show
-    @data = {
-      education_teacher: @education_teacher.as_json(
-        only: [:id, :name, :email],
-        include: {
-          education_schools: { only: [:id, :name] }
-        }
-      )
     }.to_json
   end
 

@@ -1,19 +1,12 @@
 class EducationSchool::EducationSchoolsController < EducationSchool::EducationsController
   skip_before_action :redirect_when_not_education_school, only: [:new, :create]
-  before_action :set_education_school, only: %i[ show edit update destroy education_schools]
+  before_action :set_education_school, only: %i[ edit update destroy education_schools]
 
   # GET /education_schools or /education_schools.json
   def index
     @pagination, @education_schools = pagy(@education_schools)
     @data = {
       education_schools: @education_schools.as_json(include: [:user, :address]),
-    }.to_json
-  end
-
-  # GET /education_schools/1 or /education_schools/1.json
-  def show
-    @data = {
-      education_school: @education_school.as_json(include: [:user, :address]),
     }.to_json
   end
 

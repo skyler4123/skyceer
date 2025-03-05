@@ -1,5 +1,5 @@
 class EducationSchool::EducationAdminsController < EducationSchool::EducationsController
-  before_action :set_education_admin, only: %i[ show edit update destroy ]
+  before_action :set_education_admin, only: %i[ edit update destroy ]
 
   # GET /education_admins or /education_admins.json
   def index
@@ -9,18 +9,6 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
     # @data = @education_admins.to_json(include: [:education_schools])
     @data = {
       education_admins: @education_admins.as_json(include: { education_schools: { only: [:id, :name] } }, only: [:id, :name, :created_at, :updated_at])
-    }.to_json
-  end
-
-  # GET /education_admins/1 or /education_admins/1.json
-  def show
-    @data = {
-      education_admin: @education_admin.as_json(
-        only: [:id, :name, :email],
-        include: {
-          education_schools: { only: [:id, :name] }
-        }
-      )
     }.to_json
   end
 

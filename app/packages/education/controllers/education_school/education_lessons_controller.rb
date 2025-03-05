@@ -1,13 +1,9 @@
 class EducationSchool::EducationLessonsController < EducationSchool::EducationsController
-  before_action :set_education_lesson, only: %i[ show edit update destroy ]
+  before_action :set_education_lesson, only: %i[ edit update destroy ]
 
   # GET /education_lessons or /education_lessons.json
   def index
     @education_lessons = EducationLesson.all
-  end
-
-  # GET /education_lessons/1 or /education_lessons/1.json
-  def show
   end
 
   # GET /education_lessons/new

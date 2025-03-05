@@ -11,11 +11,6 @@ class EducationSchool::PaymentOrdersController < EducationSchool::EducationsCont
     }.to_json
   end
 
-
-  # GET /payment_orders/1 or /payment_orders/1.json
-  def show
-  end
-
   # GET /payment_orders/new
   def new
     @payment_order = PaymentOrder.new

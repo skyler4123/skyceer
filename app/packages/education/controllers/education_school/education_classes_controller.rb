@@ -1,5 +1,5 @@
 class EducationSchool::EducationClassesController < EducationSchool::EducationsController
-  before_action :set_education_class, only: %i[ show edit update destroy ]
+  before_action :set_education_class, only: %i[ edit update destroy ]
 
   # GET /education_classes or /education_classes.json
   def index
@@ -10,10 +10,6 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
     @data = {
       education_classes: @education_classes.as_json(only: %i[id education_school_id education_course_id name discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
     }.to_json
-  end
-
-  # GET /education_classes/1 or /education_classes/1.json
-  def show
   end
 
   # GET /education_classes/new

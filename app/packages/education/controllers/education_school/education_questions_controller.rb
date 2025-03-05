@@ -1,14 +1,10 @@
 class EducationSchool::EducationQuestionsController < EducationSchool::EducationsController
-  before_action :set_education_question, only: %i[ show edit update destroy ]
+  before_action :set_education_question, only: %i[ edit update destroy ]
 
   # GET /education_questions or /education_questions.json
   def index
     @education_questions = EducationQuestion.where(education_school: @education_schools)
     @pagy, @education_questions = pagy(@education_questions)
-  end
-
-  # GET /education_questions/1 or /education_questions/1.json
-  def show
   end
 
   # GET /education_questions/new
