@@ -5,11 +5,12 @@ RSpec.feature "education_courses#index", type: :feature, js: true do
 
   context "education_role: :education_school" do
     before do
+      education_school.education_students << education_student
+      education_class.education_students << education_student
       education_course
     end
 
     it "will not be redirected" do
-      debugger
       sign_in(user: education_student.user)
       visit education_courses_path
       expect(page).to have_current_path(education_courses_path, ignore_query: true)
