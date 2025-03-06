@@ -4,7 +4,12 @@ RSpec.feature "education_courses#index", type: :feature, js: true do
   include_context "support/shared_contexts/education/default_database"
 
   context "education_role: :education_school" do
+    before do
+      education_course
+    end
+
     it "will not be redirected" do
+      debugger
       sign_in(user: education_student.user)
       visit education_courses_path
       expect(page).to have_current_path(education_courses_path, ignore_query: true)

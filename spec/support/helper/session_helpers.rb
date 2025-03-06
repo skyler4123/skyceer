@@ -1,4 +1,4 @@
-module SessionHelper
+module SessionHelpers
   def sign_in(user:)
     visit sign_in_path
     fill_in 'email', with: user.email
@@ -20,5 +20,5 @@ module SessionHelper
 end
 
 RSpec.configure do |config|
-  config.include SessionHelper
+  config.include SessionHelpers
 end
