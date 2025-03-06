@@ -5,17 +5,16 @@ RSpec.feature "education_students#index", type: :feature, js: true do
 
   context "education_role: :education_teacher" do
     before do
-      education_student
+      education_school.education_teachers << education_teacher
+      education_class.education_teachers << education_teacher
+      education_school.education_students << education_student
+      education_class.education_students << education_student
     end
 
     it "will not be redirected" do
       sign_in(user: education_teacher.user)
       visit education_students_path
-      # click on select with id education_class_id
-      select education_class.name, from: "education_class_id"
-      # click on button with id submit
-      find("input[type='submit']").click
-      # expect to be redirected to education_students_path and dont care about the query string
+
       expect(page).to have_current_path(education_students_path, ignore_query: true)
       expect(page).to have_content(education_student.name)
     end
