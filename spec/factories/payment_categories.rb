@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :payment_category do
     association :payment_user
-    name { "Sample Category" }
+    name { Faker::Name.name }
     parent_category_id { nil }
     nested_level { 0 }
     discarded_at { nil }

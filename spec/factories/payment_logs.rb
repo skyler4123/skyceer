@@ -8,7 +8,7 @@ FactoryBot.define do
     association :payment_invoice
     action { "Payment" }
     amount { 100.0 }
-    note { "Sample payment log note." }
+    note { Faker::Lorem.sentence }
     discarded_at { nil }
     created_at { Time.now }
     updated_at { Time.now }

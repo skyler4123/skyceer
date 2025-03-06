@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :payment_discount do
     association :payment_user
-    name { "Sample Discount" }
-    description { "This is a sample discount description." }
-    code { "DISCOUNT2025" }
+    name { Faker::Name.name }
+    description { Faker::Lorem.sentence }
+    code { Faker::Code.asin }
     expire { Time.now + 30.days }
     amount { 10.0 }
     status { 1 }

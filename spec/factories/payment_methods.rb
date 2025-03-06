@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :payment_method do
-    name { "Credit Card" }
-    description { "Payment via credit card." }
+    name { Faker::Name.name }
+    description { Faker::Lorem.sentence }
     region { 1 }
     discarded_at { nil }
     created_at { Time.now }

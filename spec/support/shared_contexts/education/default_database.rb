@@ -1,7 +1,10 @@
 RSpec.shared_context "support/shared_contexts/education/default_database", :shared_context => :metadata do
   let(:user) { create(:user) }
   let(:address) { create(:address) }
-  let(:education_school) { create(:education_school) }
+  let(:education_school) do
+    school = create(:education_school)
+    school
+  end
   let(:education_student) do
     student = create(:education_student)
     education_school.education_students << student
@@ -16,6 +19,7 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
   let(:education_admin) do
     admin = create(:education_admin)
     education_school.education_admins << admin
+    admin.education_categories << education_category
     admin
   end
   let(:education_teacher) do
