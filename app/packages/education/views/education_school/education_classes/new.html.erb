@@ -1,7 +1,7 @@
 <div class="mx-auto w-4/5 mt-10">
-  <h1 class="font-bold text-2xl">New education class</h1>
+  <h1 class="font-bold text-2xl">New class</h1>
 
-  <%= form_with(model: @education_class, class: "contents", data: { controller: "education--select-school" }) do |form| %>
+  <%= form_with(model: @education_class, class: "contents") do |form| %>
     <% if @education_class.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
         <h2><%= pluralize(@education_class.errors.count, "error") %> prohibited this education_class from being saved:</h2>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="my-5">
-      <%= form.label :education_course_id %>
+      <%= form.label :education_course_id, "Course" %>
       <%= form.select :education_course_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-school-target": "educationCourse"} } %>
     </div>
 
@@ -30,7 +30,7 @@
     </div>
 
     <div class="my-5">
-      <%= form.label :education_category_id %>
+      <%= form.label :education_category_id, "Category" %>
       <%= form.select :education_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-school-target": "educationCategory"} } %>
     </div>
 
