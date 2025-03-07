@@ -53,7 +53,7 @@ export default class extends Education_EducationSchool_LayoutController {
 
   defaultHTML() {
     return `
-      <div class="mx-auto w-4/5 mt-10 flex flex-col">
+      <div class="mx-auto w-4/5 mt-10 flex flex-col gap-y-6">
         <div class="flex justify-between items-center">
           <h1 class="text-2xl font-semibold">Categories</h1>
           <a href="/education_categories/new" class="bg-slate-800 px-4 py-2 rounded-md text-white">New Category</a>
