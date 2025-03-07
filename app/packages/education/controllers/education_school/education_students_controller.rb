@@ -5,16 +5,8 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
 
   # GET /education_students or /education_students.json
   def index
-    @education_students = EducationStudent.includes(:education_classes).joins(:education_schools)
-    if params[:full_text_search].present?
-      @education_students = EducationStudent.search(params[:full_text_search]).records.joins(:education_schools).where(education_schools: @education_schools)
-    elsif params[:education_school_id].present? || params[:education_class_id].present?
-      @education_students = @education_students.where(education_schools: {id: params[:education_school_id]}) if params[:education_school_id].present?
-      @education_students = @education_students.includes(:education_classes).where(education_classes: {id: params[:education_class_id] }) if params[:education_class_id].present?
-    else
-      @education_students = @education_students.where(education_schools: @education_schools)
-    end
-    @education_students = @education_students.joins(:education_classes).select(:id, :name, :created_at, :updated_at)
+    @education_students = EducationStudent.joins(:education_schools).where(education_schools: @education_schools)
+    @education_students = @education_students.left_joins(:education_classes).select(:id, :name, :created_at, :updated_at)
     @pagination, @education_students = pagy(@education_students)
     @data = {
       education_students: @education_students.as_json(include: { education_schools: { only: [:id, :name] }, education_classes: { only: [:id, :name] } }, only: [:id, :name, :created_at, :updated_at]),
@@ -29,17 +21,17 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
 
   # GET /education_students/1/edit
   def edit
-    @education_classes = @education_student.education_classes
+    @education_classes = EducationClass.where(education_school: @education_schools)
   end
 
   # POST /education_students or /education_students.json
   def create
     @education_student = EducationStudent.new(education_student_params)
+    education_schools = EducationSchool.where(id: params[:education_student][:education_school_id]) if params[:education_student][:education_school_id].present?
 
     respond_to do |format|
-      if @education_student.save
-        education_schools = EducationSchool.where(id: params[:education_student][:education_school_id]) if params[:education_student][:education_school_id].present?
-        @education_student.education_schools = education_schools if education_schools.present?
+      if education_schools && @education_student.save
+        @education_student.education_schools = education_schools
         education_classes = EducationClass.where(id: params[:education_student][:education_class_id]) if params[:education_student][:education_class_id].present?
         @education_student.education_classes = education_classes if education_classes.present?
         education_categories = EducationCategory.where(id: params[:education_student][:education_category_id]) if params[:education_student][:education_category_id].present?
@@ -56,10 +48,11 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
 
   # PATCH/PUT /education_students/1 or /education_students/1.json
   def update
+    education_schools = EducationSchool.where(id: params[:education_student][:education_school_id]) if params[:education_student][:education_school_id].present?
+
     respond_to do |format|
-      if @education_student.update(education_student_params)
-        education_schools = EducationSchool.where(id: params[:education_student][:education_school_id]) if params[:education_student][:education_school_id].present?
-        @education_student.education_schools = education_schools if education_schools.present?
+      if education_schools && @education_student.update(education_student_params)
+        @education_student.education_schools = education_schools
         education_classes = EducationClass.where(id: params[:education_student][:education_class_id]) if params[:education_student][:education_class_id].present?
         @education_student.education_classes = education_classes if education_classes.present?
         education_categories = EducationCategory.where(id: params[:education_student][:education_category_id]) if params[:education_student][:education_category_id].present?

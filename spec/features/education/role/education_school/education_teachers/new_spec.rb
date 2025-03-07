@@ -8,6 +8,7 @@ RSpec.feature "education_teachers#new", type: :feature, js: true do
       email: Faker::Internet.email,
       name: Faker::Name.name,
     }}
+    let(:teacher_record) { EducationTeacher.find_by(email: new_teacher_params[:email]) }
 
     before do
       education_school.education_categories << education_category
@@ -23,6 +24,7 @@ RSpec.feature "education_teachers#new", type: :feature, js: true do
       click_button "Create Education teacher"
 
       # Verify the teacher was created successfully
+      expect(teacher_record).to be_present
       expect(page).to have_current_path(education_teachers_path)
       expect(page).to have_content("Education teacher was successfully created.")
       expect(page).to have_content(new_teacher_params[:name])

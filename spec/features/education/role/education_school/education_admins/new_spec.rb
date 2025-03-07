@@ -8,6 +8,7 @@ RSpec.feature "education_admins#new", type: :feature, js: true do
       email: Faker::Internet.email,
       name: Faker::Name.name,
     }}
+    let(:admin_record) { EducationAdmin.find_by(email: new_admin_params[:email]) }
 
     before do
       education_school.education_categories << education_category
@@ -23,6 +24,7 @@ RSpec.feature "education_admins#new", type: :feature, js: true do
       click_button "Create Education admin"
 
       # Verify the admin was created successfully
+      expect(admin_record).to be_present
       expect(page).to have_current_path(education_admins_path)
       expect(page).to have_content("Education admin was successfully created.")
       expect(page).to have_content(new_admin_params[:name])
