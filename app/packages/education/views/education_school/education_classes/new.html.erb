@@ -2,26 +2,14 @@
   <h1 class="font-bold text-2xl">New class</h1>
 
   <%= form_with(model: @education_class, class: "contents") do |form| %>
-    <% if @education_class.errors.any? %>
-      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-        <h2><%= pluralize(@education_class.errors.count, "error") %> prohibited this education_class from being saved:</h2>
-
-        <ul>
-          <% @education_class.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
     <div class="my-5">
       <%= form.label :education_school_id, "School", class: "required" %>
-      <%= form.select :education_school_id, @education_schools.pluck(:name, :id), { include_blank: true, required: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-school-target": "educationSchool"} } %>
+      <%= form.select :education_school_id, options_for_select(@education_schools.pluck(:name, :id), []), { include_blank: true, required: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {controller: "education--choices"} } %>
     </div>
 
     <div class="my-5">
       <%= form.label :education_course_id, "Course" %>
-      <%= form.select :education_course_id, @education_courses.pluck(:name, :id), { include_blank: true, required: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-school-target": "educationCourse"} } %>
+      <%= form.select :education_course_id, [], { include_blank: true, required: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {controller: "education--choices"} } %>
     </div>
 
     <div class="my-5">
@@ -31,12 +19,13 @@
 
     <div class="my-5">
       <%= form.label :education_category_id, "Category" %>
-      <%= form.select :education_category_id, @education_schools.pluck(:name, :id), { include_blank: true, required: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {"education--select-school-target": "educationCategory"} } %>
+      <%= form.select :education_category_id, options_for_select(@education_categories&.pluck(:name, :id), @education_class.education_categories&.pluck(:id) || []), { include_blank: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {controller: "education--choices"} } %>
     </div>
 
     <div class="inline">
       <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer" %>
     </div>
+
   <% end %>
 
 </div>
