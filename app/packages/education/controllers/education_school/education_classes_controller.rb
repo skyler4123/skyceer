@@ -19,13 +19,12 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
 
   # GET /education_classes/1/edit
   def edit
-    @education_exams = EducationExam.where(education_school: @education_schools)
+    @education_courses = EducationCourse.where(education_school: @education_schools)
   end
 
   # POST /education_classes or /education_classes.json
   def create
     @education_class = EducationClass.new(education_class_params)
-    # appoint category if education_category_id is present
     if params[:education_class][:education_category_id].present?
       @education_category = EducationCategory.find(params[:education_class][:education_category_id])
       @education_class.education_categories << @education_category
@@ -54,7 +53,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
   # PATCH/PUT /education_classes/1 or /education_classes/1.json
   def update
     respond_to do |format|
-      if @education_class.update(education_class_params)
+      if @education_class.update(update_education_class_params)
         format.html { redirect_to education_classes_path, notice: "Education class was successfully updated." }
         format.json { render :show, status: :ok, location: @education_class }
       else
@@ -83,5 +82,9 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
   # Only allow a list of trusted parameters through.
   def education_class_params
     params.expect(education_class: [ :education_school_id, :education_course_id, :name, :discarded_at ])
+  end
+
+  def update_education_class_params
+    params.expect(education_class: [:name])
   end
 end

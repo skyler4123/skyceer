@@ -60,9 +60,10 @@ export default class extends Education_EducationSchool_LayoutController {
             <h2 class="text-xl font-medium">Teachers</h2>
             <a href="/education_teachers/new" class="rounded-lg py-2 px-4 bg-slate-800 text-white inline-block">New Teacher</a>
         </div>
-        <div class="my-5">
-            <input data-${this.identifier}-target="search" type="search" class="w-full border border-gray-200 rounded-lg p-2" placeholder="Search">
-        </div>
+        <form class="flex flex-row my-5">
+          <input data-${this.identifier}-target="search" type="search" class="w-full border border-gray-200 rounded-lg p-2 focus:ring-blue-600" placeholder="Search">
+          <input type="submit" value="Search" class="bg-slate-800 text-white rounded-lg px-4 py-2 ml-2">
+        </form>
         <div data-${this.identifier}-target="table" class="w-full"></div>
         <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
       </div>
