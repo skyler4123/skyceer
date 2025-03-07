@@ -21,7 +21,7 @@ RSpec.feature "education_admins#new", type: :feature, js: true do
       fill_in "education_admin[email]", with: new_admin_params[:email]
       multi_select("education_admin[education_school_id][]", education_school.name)
       multi_select("education_admin[education_category_id][]", education_category.name)
-      click_button "Create Education admin"
+      click_button "Save"
 
       # Verify the admin was created successfully
       expect(admin_record).to be_present

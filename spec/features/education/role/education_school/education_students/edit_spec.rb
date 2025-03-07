@@ -24,7 +24,7 @@ RSpec.feature "education_students#edit", type: :feature, js: true do
       multi_select("education_student[education_school_id][]", new_education_school.name)
       multi_select("education_student[education_category_id][]", new_education_category.name)
       multi_select("education_student[education_class_id][]", education_class.name)
-      click_button "Update Education student"
+      click_button "Save"
 
       expect(page).to have_current_path(education_students_path)
       expect(page).to have_content("Education student was successfully updated.")

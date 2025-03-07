@@ -21,7 +21,7 @@ RSpec.feature "education_teachers#new", type: :feature, js: true do
       fill_in "education_teacher[email]", with: new_teacher_params[:email]
       multi_select("education_teacher[education_school_id][]", education_school.name)
       multi_select("education_teacher[education_category_id][]", education_category.name)
-      click_button "Create Education teacher"
+      click_button "Save"
 
       # Verify the teacher was created successfully
       expect(teacher_record).to be_present

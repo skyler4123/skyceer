@@ -22,7 +22,7 @@ RSpec.feature "education_admins#edit", type: :feature, js: true do
       fill_in "education_admin[email]", with: new_admin_params[:email]
       multi_select("education_admin[education_school_id][]", new_education_school.name)
       multi_select("education_admin[education_category_id][]", new_education_category.name)
-      click_button "Update Education admin"
+      click_button "Save"
 
       expect(page).to have_current_path(education_admins_path)
       expect(page).to have_content("Education admin was successfully updated.")
