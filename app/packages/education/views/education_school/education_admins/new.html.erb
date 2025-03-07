@@ -15,17 +15,17 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :name %>
+    <%= form.label :name, class: "required" %>
     <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :email %>
+    <%= form.label :email, class: "required" %>
     <%= form.email_field :email, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :education_school_id, "School" %>
+    <%= form.label :education_school_id, "School", class: "required" %>
     <%= form.select :education_school_id, @education_schools.pluck(:name, :id), { include_blank: true, required: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {controller: "education--choices"} } %>
   </div>
 
