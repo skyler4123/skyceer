@@ -85,6 +85,7 @@ group :test do
   gem 'rack-test'
   gem 'webmock'
   gem 'vcr'
+  gem "rspec-retry"
 end
 
 gem "packwerk"
