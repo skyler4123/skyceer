@@ -53,8 +53,18 @@ export default class extends Education_EducationSchool_LayoutController {
 
   defaultHTML() {
     return `
-      <div data-${this.identifier}-target="table" class="w-full"></div>
-      <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
+      <div class="mx-auto w-4/5 mt-10 flex flex-col gap-y-4">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl font-medium">Rooms</h2>
+          <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_rooms/new">New Room</a>
+        </div>
+        <form class="flex flex-row my-5">
+          <input data-${this.identifier}-target="search" type="search" class="w-full border border-gray-200 rounded-lg p-2 focus:ring-blue-600" placeholder="Search">
+          <input type="submit" value="Search" class="bg-slate-800 text-white rounded-lg px-4 py-2 ml-2">
+        </form>
+        <div data-${this.identifier}-target="table" class="w-full"></div>
+        <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
+      </div>
     `
   }
 

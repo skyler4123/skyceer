@@ -55,12 +55,13 @@ export default class extends Education_EducationSchool_LayoutController {
     return `
       <div class="mx-auto w-4/5 mt-10 flex flex-col gap-y-4">
         <div class="flex justify-between items-center">
-          <h1 class="text-2xl font-semibold">Categories</h1>
-          <a href="/education_categories/new" class="bg-slate-800 px-4 py-2 rounded-md text-white">New Category</a>
+          <h2 class="text-xl font-medium">Categories</h2>
+          <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_categories/new">New Category</a>
         </div>
-        <div class="mt-4">
-          <p class="text-gray-600">Education Categories are the main categories for the education schools. You can create, edit, delete and view the education categories.</p>
-        </div>
+        <form class="flex flex-row my-5">
+          <input data-${this.identifier}-target="search" type="search" class="w-full border border-gray-200 rounded-lg p-2 focus:ring-blue-600" placeholder="Search">
+          <input type="submit" value="Search" class="bg-slate-800 text-white rounded-lg px-4 py-2 ml-2">
+        </form>
         <div data-${this.identifier}-target="table" class="w-full"></div>
         <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
       </div>
