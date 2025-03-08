@@ -1,7 +1,7 @@
 class CreateEducationExams < ActiveRecord::Migration[8.0]
   def change
     create_table :education_exams, id: :uuid do |t|
-      t.string :name
+      t.string :name, null: false
       t.string :description
       t.integer :status
       t.references :education_school, null: false, foreign_key: true, type: :uuid

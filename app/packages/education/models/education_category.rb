@@ -17,4 +17,7 @@ class EducationCategory < ApplicationRecord
 
 
   scope :first_level, -> { where(parent_category_id: nil) }
+
+  include EducationCategory::ValidationConcern
+
 end

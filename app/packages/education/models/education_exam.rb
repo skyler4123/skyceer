@@ -13,4 +13,5 @@ class EducationExam < ApplicationRecord
   has_many :education_exam_appointments, dependent: :destroy
   has_many :education_students, through: :education_exam_appointments, source: :education_exam_appointmentable, source_type: 'EducationStudent'
 
+  include EducationExam::ValidationConcern
 end

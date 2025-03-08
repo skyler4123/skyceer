@@ -12,6 +12,7 @@ RSpec.describe EducationSchool, type: :model do
 
   # Validation tests
   it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:email) }
 
   #  Callback tests
   it 'should create a new payment user for the school' do
