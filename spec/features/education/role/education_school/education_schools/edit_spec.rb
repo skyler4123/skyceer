@@ -1,19 +1,21 @@
 require 'rails_helper'
 
-RSpec.feature "education_schools#new", type: :feature, js: true do
+RSpec.feature "education_schools#edit", type: :feature, js: true do
   include_context "support/shared_contexts/education/default_database"
   
   context "education_role: :education_school" do
     let(:new_school_params) {{
       email: Faker::Internet.email,
       name: Faker::Name.name,
+      # name: "New School Name",
     }}
-    let(:school_record) { EducationSchool.find_by(email: new_school_params[:email]) }
-
+    let!(:new_education_school) { create(:education_school, user: education_school.user) }
+    let!(:new_education_category) { create(:education_category, education_school: education_school) }
+    
     before do
-      education_school.education_categories << education_category
+      education_category
       sign_in(user: education_school.user)
-      visit new_education_school_path
+      visit edit_education_school_path(education_school)
     end
 
     it "will not be redirected" do
@@ -21,11 +23,11 @@ RSpec.feature "education_schools#new", type: :feature, js: true do
       fill_in "education_school[email]", with: new_school_params[:email]
       click_button "Save"
 
-      # Verify the school was created successfully
-      expect(school_record).to be_present
       expect(page).to have_current_path(education_schools_path)
-      expect(page).to have_content("Education school was successfully created.")
+      expect(page).to have_content("Education school was successfully updated.")
       expect(page).to have_content(new_school_params[:name])
+      expect(record(education_school).name).to eq(new_school_params[:name])
+      expect(record(education_school).email).to eq(new_school_params[:email])
     end
   end
 
@@ -36,7 +38,7 @@ RSpec.feature "education_schools#new", type: :feature, js: true do
 
     it "will be redirected" do
       sign_in(user: education_school.user)
-      visit new_education_school_path
+      visit edit_education_school_path(education_school)
       expect(page).to have_routing_error
     end
   end
