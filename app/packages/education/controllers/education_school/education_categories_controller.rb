@@ -38,7 +38,7 @@ class EducationSchool::EducationCategoriesController < EducationSchool::Educatio
   # PATCH/PUT /education_categories/1 or /education_categories/1.json
   def update
     respond_to do |format|
-      if @education_category.update(education_category_params)
+      if @education_category.update(update_education_category_params)
         format.html { redirect_to education_categories_path, notice: "Education category was successfully updated." }
         format.json { render :show, status: :ok, location: @education_category }
       else
@@ -75,6 +75,10 @@ class EducationSchool::EducationCategoriesController < EducationSchool::Educatio
 
     # Only allow a list of trusted parameters through.
     def education_category_params
-      params.expect(education_category: [ :name, :education_school_id, :parent_category_id ])
+      params.expect(education_category: [ :name, :education_school_id ])
+    end
+
+    def update_education_category_params
+      params.expect(education_category: [ :name ])
     end
 end

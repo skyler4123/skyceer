@@ -20,7 +20,7 @@
     </div>
 
     <div class="my-5">
-      <%= form.label :description %>
+      <%= form.label :description, class: "required" %>
       <%= form.text_field :description, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
@@ -30,8 +30,8 @@
     </div>
 
     <div class="my-5">
-      <%= form.label :parent_category_id %>
-      <%= form.select :parent_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
+      <%= form.label :education_category_id, "Category" %>
+      <%= form.select :education_category_id, @education_categories.pluck(:name, :id), { include_blank: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
     </div>
 
     <div class="inline">
