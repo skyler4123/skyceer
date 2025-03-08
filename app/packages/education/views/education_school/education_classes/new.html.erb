@@ -4,12 +4,12 @@
   <%= form_with(model: @education_class, class: "contents") do |form| %>
     <div class="my-5">
       <%= form.label :education_school_id, "School", class: "required" %>
-      <%= form.select :education_school_id, options_for_select(@education_schools.pluck(:name, :id), []), { include_blank: true, required: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {controller: "education--choices"} } %>
+      <%= form.select :education_school_id, options_for_select(@education_schools.pluck(:name, :id), []), { include_blank: true, required: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
     </div>
 
     <div class="my-5">
       <%= form.label :education_course_id, "Course", class: "required" %>
-      <%= form.select :education_course_id, options_for_select(@combined_schools_and_courses, []), { include_blank: true, required: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {controller: "education--choices"} } %>
+      <%= form.select :education_course_id, options_for_select(@combined_schools_and_courses, []), { include_blank: true, required: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
     </div>
 
     <div class="my-5">
@@ -19,7 +19,7 @@
 
     <div class="my-5">
       <%= form.label :education_category_id, "Category" %>
-      <%= form.select :education_category_id, options_for_select(@education_categories&.pluck(:name, :id), @education_class.education_categories&.pluck(:id) || []), { include_blank: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: {controller: "education--choices"} } %>
+      <%= form.select :education_category_id, options_for_select(@education_categories&.pluck(:name, :id), @education_class.education_categories&.pluck(:id) || []), { include_blank: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
     </div>
 
     <div class="inline">
