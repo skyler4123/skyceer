@@ -24,18 +24,11 @@ class EducationSchool::EducationCoursesController < EducationSchool::EducationsC
   # POST /education_courses or /education_courses.json
   def create
     @education_course = EducationCourse.new(education_course_params)
-    # appoint category if education_Category_id is present
-    if params[:education_course][:education_category_id].present?
-      @education_category = EducationCategory.find(params[:education_course][:education_category_id])
-      @education_course.education_categories << @education_category
-    end
 
     respond_to do |format|
       if @education_course.save
-        if params[:education_course][:education_category_id].present?
-          @education_category = EducationCategory.find(params[:education_course][:education_category_id])
-          @education_course.education_categories << @education_category
-        end
+        education_categories = EducationCategory.where(id: params[:education_course][:education_category_id]) if params[:education_course][:education_category_id].present?
+        @education_course.education_categories = education_categories if education_categories.present?
 
         format.html { redirect_to education_courses_path, notice: "Education course was successfully created." }
         format.json { render :show, status: :created, location: @education_course }
@@ -49,7 +42,10 @@ class EducationSchool::EducationCoursesController < EducationSchool::EducationsC
   # PATCH/PUT /education_courses/1 or /education_courses/1.json
   def update
     respond_to do |format|
-      if @education_course.update(education_course_params)
+      if @education_course.update(update_education_course_params)
+        education_categories = EducationCategory.where(id: params[:education_course][:education_category_id]) if params[:education_course][:education_category_id].present?
+        @education_course.education_categories = education_categories if education_categories.present?
+        
         format.html { redirect_to education_courses_path, notice: "Education course was successfully updated." }
         format.json { render :show, status: :ok, location: @education_course }
       else
@@ -83,5 +79,9 @@ class EducationSchool::EducationCoursesController < EducationSchool::EducationsC
     # Only allow a list of trusted parameters through.
     def education_course_params
       params.expect(education_course: [ :name, :description, :education_school_id ])
+    end
+
+    def update_education_course_params
+      params.expect(education_course: [ :name, :description ])
     end
 end
