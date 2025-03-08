@@ -11,7 +11,7 @@ RSpec.feature "education_admins#new", type: :feature, js: true do
     let(:admin_record) { EducationAdmin.find_by(email: new_admin_params[:email]) }
 
     before do
-      education_school.education_categories << education_category
+      education_category
       sign_in(user: education_school.user)
       visit new_education_admin_path
     end

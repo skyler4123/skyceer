@@ -3,6 +3,7 @@ module EducationCourse::ValidationConcern
   
   included do
     validates :name, presence: true, length: { maximum: 255 }
+    validates :description, presence: true, length: { maximum: 255 }
   end
 
 end

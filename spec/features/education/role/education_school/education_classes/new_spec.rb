@@ -10,7 +10,7 @@ RSpec.feature "education_classes#new", type: :feature, js: true do
     let(:class_record) { EducationClass.find_by(name: new_class_params[:name]) }
 
     before do
-      education_school.education_categories << education_category
+      education_category
       education_course
       sign_in(user: education_school.user)
       visit new_education_class_path

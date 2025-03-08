@@ -11,7 +11,6 @@ RSpec.feature "education_schools#new", type: :feature, js: true do
     let(:school_record) { EducationSchool.find_by(email: new_school_params[:email]) }
 
     before do
-      education_school.education_categories << education_category
       sign_in(user: education_school.user)
       visit new_education_school_path
     end

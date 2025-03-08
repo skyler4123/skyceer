@@ -22,18 +22,11 @@ class EducationSchool::EducationRoomsController < EducationSchool::EducationsCon
   # POST /education_rooms or /education_rooms.json
   def create
     @education_room = EducationRoom.new(education_room_params)
-    # appoint category if education_category_id is present
-    if params[:education_room][:education_category_id].present?
-      @education_category = EducationCategory.find(params[:education_room][:education_category_id])
-      @education_room.education_categories << @education_category
-    end
 
     respond_to do |format|
       if @education_room.save
-        if params[:education_room][:education_category_id].present?
-          @education_category = EducationCategory.find(params[:education_room][:education_category_id])
-          @education_room.education_categories << @education_category
-        end
+        education_category = EducationCategory.where(id: params[:education_room][:education_category_id]) if params[:education_room][:education_category_id].present?
+        @education_room.education_categories =  education_category
 
         format.html { redirect_to education_rooms_path, notice: "Education room was successfully created." }
         format.json { render :show, status: :created, location: @education_room }
@@ -48,6 +41,9 @@ class EducationSchool::EducationRoomsController < EducationSchool::EducationsCon
   def update
     respond_to do |format|
       if @education_room.update(education_room_params)
+        education_category = EducationCategory.where(id: params[:education_room][:education_category_id]) if params[:education_room][:education_category_id].present?
+        @education_room.education_categories =  education_category
+
         format.html { redirect_to education_rooms_path, notice: "Education room was successfully updated." }
         format.json { render :show, status: :ok, location: @education_room }
       else
@@ -76,5 +72,9 @@ class EducationSchool::EducationRoomsController < EducationSchool::EducationsCon
     # Only allow a list of trusted parameters through.
     def education_room_params
       params.expect(education_room: [:education_school_id, :name])
+    end
+
+    def update_education_room_params
+      params.expect(education_room: [:name])
     end
 end
