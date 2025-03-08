@@ -55,13 +55,7 @@ export default class Education_ChoicesController extends Controller {
       },
       ...this.optionsValue,
     })
+    console.log(this.choice)
   }
 
-  parentForm() {
-    return this.element.closest('form')
-  }
-
-  submitButton() {
-    return this.parentForm().querySelector('input[type="submit"]')
-  }
 }

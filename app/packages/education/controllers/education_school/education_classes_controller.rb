@@ -15,12 +15,13 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
   # GET /education_classes/new
   def new
     @education_class = EducationClass.new
-    @education_courses = EducationCourse.where(education_school: @education_schools)
+    @combined_schools_and_courses = combine_schools_and_courses(@education_schools, @education_courses)
   end
 
   # GET /education_classes/1/edit
   def edit
     @education_courses = EducationCourse.where(education_school: @education_schools)
+    @combined_schools_and_courses = combine_schools_and_courses(@education_schools, @education_courses)
   end
 
   # POST /education_classes or /education_classes.json
@@ -34,15 +35,6 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
       if @education_class.save
         education_categories = EducationCategory.where(id: params[:education_class][:education_category_id]) if params[:education_class][:education_category_id].present?
         @education_class.education_categories = education_categories if education_categories.present?
-        
-        if params[:education_class][:education_category_id].present?
-          @education_category = EducationCategory.find(params[:education_class][:education_category_id])
-          @education_class.education_categories << @education_category
-        end
-        if params[:education_class][:education_course_id].present?
-          @education_course = EducationCourse.find(params[:education_class][:education_course_id])
-          @education_class.education_courses << @education_course
-        end
 
         format.html { redirect_to education_classes_path, notice: "Education class was successfully created." }
         format.json { render :show, status: :created, location: @education_class }
@@ -87,10 +79,20 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
 
   # Only allow a list of trusted parameters through.
   def education_class_params
-    params.expect(education_class: [ :education_school_id, :education_category_id, :name ])
+    params.expect(education_class: [ :education_school_id, :education_course_id, :name ])
   end
 
   def update_education_class_params
     params.expect(education_class: [:name])
+  end
+
+  def combine_schools_and_courses(schools, courses)
+    combined_array = []
+    schools.each do |school|
+      school.education_courses.each do |course|
+        combined_array << ["#{school.name} - #{course.name}", course.id]
+      end
+    end
+    combined_array
   end
 end
