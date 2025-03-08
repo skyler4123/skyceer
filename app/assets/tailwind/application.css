@@ -12,7 +12,7 @@
   }
 
   .required {
-    @apply after:content-['_*'] after:text-red-500;
+    @apply after:content-['_*'] after:text-red-500 after:animate-ping;
   }
 
 }
