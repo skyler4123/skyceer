@@ -192,7 +192,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
-    t.string "name"
+    t.string "name", null: false
     t.string "email", comment: "Admin can be created without user at first time then will match with user by email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -200,14 +200,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.uuid "education_school_id", null: false
+    t.string "name", null: false
+    t.uuid "user_id", null: false
     t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_school_id"], name: "index_education_categories_on_education_school_id"
     t.index ["parent_category_id"], name: "index_education_categories_on_parent_category_id"
+    t.index ["user_id"], name: "index_education_categories_on_user_id"
   end
 
   create_table "education_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -233,7 +233,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
     t.uuid "education_course_id", null: false
-    t.string "name"
+    t.string "name", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -243,8 +243,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_courses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.string "description"
+    t.string "name", null: false
+    t.string "description", null: false
     t.uuid "education_school_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -265,7 +265,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_exams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "description"
     t.integer "status"
     t.uuid "education_school_id", null: false
@@ -278,7 +278,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_lessons", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.string "content"
     t.uuid "education_school_id", null: false
     t.uuid "education_class_id"
@@ -290,6 +290,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.index ["education_school_id"], name: "index_education_lessons_on_education_school_id"
     t.index ["education_subject_id"], name: "index_education_lessons_on_education_subject_id"
     t.index ["education_teacher_id"], name: "index_education_lessons_on_education_teacher_id"
+  end
+
+  create_table "education_parents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "name", null: false
+    t.string "email", comment: "Parent can be created without user at first time then will match with user by email"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_education_parents_on_user_id"
   end
 
   create_table "education_question_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -326,7 +336,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
-    t.string "name"
+    t.string "name", null: false
     t.string "category"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -349,8 +359,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_schools", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "address_id"
-    t.string "name"
-    t.string "email", comment: "Email address of the school can be different from the user's email address"
+    t.string "name", null: false
+    t.string "email", null: false, comment: "Email address of the school can be different from the user's email address"
     t.string "category"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -362,12 +372,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
-    t.string "name"
+    t.uuid "education_parent_id"
+    t.string "name", null: false
     t.string "email", comment: "Student can be created without user at first time then will match with user by email"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_students_on_discarded_at"
+    t.index ["education_parent_id"], name: "index_education_students_on_education_parent_id"
     t.index ["user_id"], name: "index_education_students_on_user_id"
   end
 
@@ -382,8 +394,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_subjects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.string "description"
+    t.string "name", null: false
+    t.string "description", null: false
     t.uuid "education_school_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -392,7 +404,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
-    t.string "name"
+    t.string "name", null: false
     t.string "email", comment: "Teacher can be created without user at first time then will match with user by email"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -645,7 +657,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "category_appointments", "categories"
   add_foreign_key "education_admins", "users"
   add_foreign_key "education_categories", "education_categories", column: "parent_category_id"
-  add_foreign_key "education_categories", "education_schools"
+  add_foreign_key "education_categories", "users"
   add_foreign_key "education_category_appointments", "education_categories"
   add_foreign_key "education_class_appointments", "education_classes"
   add_foreign_key "education_classes", "education_courses"
@@ -658,6 +670,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_lessons", "education_schools"
   add_foreign_key "education_lessons", "education_subjects"
   add_foreign_key "education_lessons", "education_teachers"
+  add_foreign_key "education_parents", "users"
   add_foreign_key "education_question_appointments", "education_questions"
   add_foreign_key "education_questions", "education_schools"
   add_foreign_key "education_questions", "education_teachers"
@@ -665,6 +678,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_school_appointments", "education_schools"
   add_foreign_key "education_schools", "addresses"
   add_foreign_key "education_schools", "users"
+  add_foreign_key "education_students", "education_parents"
   add_foreign_key "education_students", "users"
   add_foreign_key "education_subject_appointments", "education_subjects"
   add_foreign_key "education_subjects", "education_schools"

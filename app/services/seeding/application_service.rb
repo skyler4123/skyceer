@@ -1,4 +1,4 @@
-class AutoGenerator::ApplicationService
+class Seeding::ApplicationService
   def self.run
     self.user
     self.category
@@ -6,7 +6,7 @@ class AutoGenerator::ApplicationService
   end
 
   def self.user
-    AutoGenerator::UserService.run
+    Seeding::UserService.run
   end
 
   def self.category

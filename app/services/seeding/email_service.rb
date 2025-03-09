@@ -1,4 +1,4 @@
-class AutoGenerator::EmailService
+class Seeding::EmailService
   def self.demo_email_with_roles(role: :normal, education_role: :school)
     case role.to_sym
     when :normal

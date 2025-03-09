@@ -1,4 +1,4 @@
-class AutoGenerator::PaymentService
+class Seeding::PaymentService
   def self.run
     self.payment_method
     self.payment_method_appointment

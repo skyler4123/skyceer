@@ -1,6 +1,6 @@
 # require 'rails_helper'
 
-# RSpec.describe AutoGenerator::SeedService do
+# RSpec.describe Seeding::SeedService do
 #   describe '#run' do
 #     let!(:result) { described_class.run }
 #     it do

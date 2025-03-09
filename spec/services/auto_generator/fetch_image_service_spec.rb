@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AutoGenerator::FetchImageService, :vcr do
+RSpec.describe Seeding::FetchImageService, :vcr do
   describe '#run' do
     let!(:result) { described_class.run }
     

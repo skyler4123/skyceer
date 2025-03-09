@@ -1,4 +1,4 @@
-class AutoGenerator::VehicleService
+class Seeding::VehicleService
   def self.run
     User.all.each do |user|
       1.times do

@@ -1,4 +1,4 @@
-class AutoGenerator::ReportService
+class Seeding::ReportService
   def self.run
     # User.all.each_with_index do |user, n|
     #   report_ticket = ReportTicket.create!(
@@ -8,7 +8,7 @@ class AutoGenerator::ReportService
     #     status: rand(0..3),
     #     reporter_email: ["", user.email].sample
     #   )
-    #   AutoGenerator::AttachmentService.attach(record: report_ticket, relation: :image_attachments, number: 2)
+    #   Seeding::AttachmentService.attach(record: report_ticket, relation: :image_attachments, number: 2)
     self.report_user
     self.report_ticket
     self.report_frontend
@@ -35,7 +35,7 @@ class AutoGenerator::ReportService
         nation: Faker::Address.country,
         phone: Faker::PhoneNumber.cell_phone
       )
-      AutoGenerator::AttachmentService.attach(record: report_ticket, relation: :image_attachments, number: 2)
+      Seeding::AttachmentService.attach(record: report_ticket, relation: :image_attachments, number: 2)
     end
   end
 

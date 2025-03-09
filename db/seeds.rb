@@ -25,6 +25,7 @@ EducationSchool.destroy_all
 EducationCategory.destroy_all
 EducationAdmin.destroy_all
 EducationTeacher.destroy_all
+EducationParent.destroy_all
 EducationStudent.destroy_all
 EducationRoom.destroy_all
 EducationClass.destroy_all
@@ -57,5 +58,5 @@ PaymentCategory.destroy_all
 PaymentCategoryAppointment.destroy_all
 
 # Run generator for development
-AutoGenerator::SeedService.run
+Seeding::SeedService.run
 puts "db:seed doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!!"

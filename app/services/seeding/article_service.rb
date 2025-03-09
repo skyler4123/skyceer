@@ -1,9 +1,9 @@
-class AutoGenerator::ArticleService
+class Seeding::ArticleService
   def self.run
     User.all.each_with_index do |user, user_index|
       1.times do |n|
         article_post = ArticlePost.create!(user_id: user.id, title: Faker::Movie.title)
-        image_attachments = AutoGenerator::AttachmentService.attach(record: user, relation: :image_attachments, number: 2)        
+        image_attachments = Seeding::AttachmentService.attach(record: user, relation: :image_attachments, number: 2)        
         content = {
           blocks: [
             {

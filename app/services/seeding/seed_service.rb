@@ -1,16 +1,16 @@
-class AutoGenerator::SeedService
+class Seeding::SeedService
   def self.run(seed_number: 0)    
-    AutoGenerator::ApplicationService.run
-    AutoGenerator::EducationService.run
-    AutoGenerator::CalendarService.run
-    # AutoGenerator::ChatService.run
-    # AutoGenerator::ArticleService.run
-    AutoGenerator::ReportService.run
-    AutoGenerator::PaymentService.run
+    Seeding::ApplicationService.run
+    Seeding::EducationService.run
+    Seeding::CalendarService.run
+    # Seeding::ChatService.run
+    # Seeding::ArticleService.run
+    Seeding::ReportService.run
+    Seeding::PaymentService.run
 
     
     self.puts_count
-    puts "AutoGenerator::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"
+    puts "Seeding::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"
     return true
   end
 

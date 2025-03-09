@@ -1,4 +1,4 @@
-class AutoGenerator::FetchImageService
+class Seeding::FetchImageService
   def self.run
     response = Faraday.get('https://picsum.photos/200/300')
     response = Faraday.get(response.headers[:location])

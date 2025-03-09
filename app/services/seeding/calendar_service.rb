@@ -1,4 +1,4 @@
-class AutoGenerator::CalendarService
+class Seeding::CalendarService
   def self.run
     self.calendar_group
     self.calendar_event

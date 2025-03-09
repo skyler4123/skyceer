@@ -1,4 +1,4 @@
-class AutoGenerator::ChatService
+class Seeding::ChatService
   def self.run
     User.all.each do |user|
       ChatConversation.create!(user_ids: [user.id, User.where.not(id: user.id).first(2).pluck(:id)].flatten)

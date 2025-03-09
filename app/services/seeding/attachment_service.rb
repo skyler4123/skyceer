@@ -1,4 +1,4 @@
-class AutoGenerator::AttachmentService
+class Seeding::AttachmentService
   def self.attach(record: ,relation: :image_attachments, number: 2)
     (Dir.glob("./faker/images/randoms/*.*").sample(number).map {|dir| File.open(dir)}).each_with_index do |file, index|
       file_name, file_type = file.path.split('/').last.split('.')
