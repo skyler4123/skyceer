@@ -19,20 +19,26 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
 
   # GET /education_admins/1/edit
   def edit
+    @selected_categories = @education_admin.education_categories
   end
 
   # POST /education_admins or /education_admins.json
   def create
-    user = User.find_by(email: params[:education_admin][:email])
     @education_admin = EducationAdmin.new(education_admin_params)
-    @education_admin.user = user if user.present?
-
     respond_to do |format|
       if @education_admin.save
-        education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id]) if params[:education_admin][:education_school_id].present?
-        @education_admin.education_schools = education_schools if education_schools.present?
-        education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id]) if params[:education_admin][:education_category_id].present?
-        @education_admin.education_categories = education_categories if education_categories.present?
+        if params[:education_admin][:email].present?
+          user = User.find_by(email: params[:education_admin][:email])
+          @education_admin.user = user if user.present?
+        end
+        if params[:education_admin][:education_school_id].present?
+          education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id])
+          @education_admin.education_schools = education_schools
+        end
+        if params[:education_admin][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id])
+          @education_admin.education_categories = education_categories
+        end
     
         format.html { redirect_to education_admins_path, notice: "Education admin was successfully created." }
         format.json { render :show, status: :created, location: @education_admin }
@@ -47,11 +53,15 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
   def update
     respond_to do |format|
       if @education_admin.update(education_admin_params)
-        education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id]) if params[:education_admin][:education_school_id].present?
-        @education_admin.education_schools = education_schools if education_schools.present?
-        education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id]) if params[:education_admin][:education_category_id].present?
-        @education_admin.education_categories = education_categories if education_categories.present?
-    
+        if params[:education_admin][:education_school_id].present?
+          education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id])
+          @education_admin.education_schools = education_schools
+        end
+        if params[:education_admin][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id])
+          @education_admin.education_categories = education_categories
+        end
+
         format.html { redirect_to education_admins_path, notice: "Education admin was successfully updated." }
         format.json { render :show, status: :ok, location: @education_admin }
       else

@@ -1,10 +1,42 @@
-<% content_for :title, "Editing education parent" %>
+<%= form_with(model: @education_parent, class: "contents") do |form| %>
+  <% if @education_parent.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(@education_parent.errors.count, "error") %> prohibited this education_parent from being saved:</h2>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing education parent</h1>
+      <ul class="list-disc ml-6">
+        <% @education_parent.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <%= render "form", education_parent: @education_parent %>
+  <div class="my-5">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": education_parent.errors[:user_id].none?, "border-red-400 focus:outline-red-600": education_parent.errors[:user_id].any?}] %>
+  </div>
 
-  <%= link_to "Show this education parent", @education_parent, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to education parents", education_parents_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-</div>
+  <div class="my-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": education_parent.errors[:name].none?, "border-red-400 focus:outline-red-600": education_parent.errors[:name].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :email %>
+    <%= form.text_field :email, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": education_parent.errors[:email].none?, "border-red-400 focus:outline-red-600": education_parent.errors[:email].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :discarded_at %>
+    <%= form.datetime_field :discarded_at, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": education_parent.errors[:discarded_at].none?, "border-red-400 focus:outline-red-600": education_parent.errors[:discarded_at].any?}] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :education_school_id %>
+    <%= form.text_field :education_school_id, options_for_select(@education_categories.pluck(:name, :id), @selected_categories.pluck(:id)), { include_blank: true, multiple: true }, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": education_parent.errors[:education_school_id].none?, "border-red-400 focus:outline-red-600": education_parent.errors[:education_school_id].any?}] %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

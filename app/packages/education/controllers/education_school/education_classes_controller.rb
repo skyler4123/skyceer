@@ -15,26 +15,24 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
   # GET /education_classes/new
   def new
     @education_class = EducationClass.new
-    @combined_schools_and_courses = combine_schools_and_courses(@education_schools, @education_courses)
   end
 
   # GET /education_classes/1/edit
   def edit
     @education_courses = EducationCourse.where(education_school: @education_schools)
-    @combined_schools_and_courses = combine_schools_and_courses(@education_schools, @education_courses)
+    @selected_categories = @education_class.education_categories
   end
 
   # POST /education_classes or /education_classes.json
   def create
     @education_class = EducationClass.new(education_class_params)
-    education_school = EducationSchool.find(params[:education_class][:education_school_id])
-    education_course = education_school.education_courses.where(id: params[:education_class][:education_course_id])
-    return redirect_to request.referer, error: "Course is not belongs to the school" if education_course.blank?
 
     respond_to do |format|
       if @education_class.save
-        education_categories = EducationCategory.where(id: params[:education_class][:education_category_id]) if params[:education_class][:education_category_id].present?
-        @education_class.education_categories = education_categories if education_categories.present?
+        if params[:education_class][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_class][:education_category_id])
+          @education_class.education_categories = education_categories
+        end
 
         format.html { redirect_to education_classes_path, notice: "Education class was successfully created." }
         format.json { render :show, status: :created, location: @education_class }
@@ -49,9 +47,11 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
   def update
     respond_to do |format|
       if @education_class.update(update_education_class_params)
-        education_categories = EducationCategory.where(id: params[:education_class][:education_category_id]) if params[:education_class][:education_category_id].present?
-        @education_class.education_categories = education_categories if education_categories.present?
-
+        if params[:education_class][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_class][:education_category_id])
+          @education_class.education_categories = education_categories
+        end
+        
         format.html { redirect_to education_classes_path, notice: "Education class was successfully updated." }
         format.json { render :show, status: :ok, location: @education_class }
       else

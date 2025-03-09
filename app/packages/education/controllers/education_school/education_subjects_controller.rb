@@ -31,19 +31,17 @@ class EducationSchool::EducationSubjectsController < EducationSchool::Educations
 
   # GET /education_subjects/1/edit
   def edit
+    @selected_categories = @education_subject.education_categories
   end
 
   # POST /education_subjects or /education_subjects.json
   def create
-    @education_subject = EducationSubject.new(education_subject_params)
-    education_schools = EducationSchool.where(id: params[:education_subject][:education_school_id]) if params[:education_subject][:education_school_id].present?
-    education_categories = EducationCategory.where(id: params[:education_subject][:education_category_id]) if params[:education_subject][:education_category_id].present?
-    return redirect_to request.referer, error: "Category is not belongs to school" unless check_category_belongs_to_school(education_categories, education_schools)
-
     respond_to do |format|
       if @education_subject.save
-        education_categories = EducationCategory.where(id: params[:education_category_id]) if params[:education_category_id].present?
-        @education_subject.education_categories = education_categories if education_categories.present?
+        if params[:education_subject][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_subject][:education_category_id])
+          @education_subject.education_categories = education_categories
+        end
 
         format.html { redirect_to education_subjects_path, notice: "Education subject was successfully created." }
         format.json { render :show, status: :created, location: @education_subject }
@@ -56,16 +54,13 @@ class EducationSchool::EducationSubjectsController < EducationSchool::Educations
 
   # PATCH/PUT /education_subjects/1 or /education_subjects/1.json
   def update
-    education_schools = [@education_subject.education_school]
-    education_categories = EducationCategory.where(id: params[:education_subject][:education_category_id]) if params[:education_subject][:education_category_id].present?
-    select_options_schools_and_categories(education_schools)
-    return redirect_to request.referer, error: "Category is not belongs to school" unless check_category_belongs_to_school(education_categories, education_schools)
-
     respond_to do |format|
       if @education_subject.update(update_education_subject_params)
-        education_categories = EducationCategory.where(id: params[:education_category_id]) if params[:education_category_id].present?
-        @education_subject.education_categories = education_categories if education_categories.present?
-
+        if params[:education_subject][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_subject][:education_category_id])
+          @education_subject.education_categories = education_categories
+        end
+        
         format.html { redirect_to education_subjects_path, notice: "Education subject was successfully updated." }
         format.json { render :show, status: :ok, location: @education_subject }
       else

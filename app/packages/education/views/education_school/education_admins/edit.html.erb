@@ -31,7 +31,7 @@
 
     <div class="my-5">
       <%= form.label :education_category_id, "Category" %>
-      <%= form.select :education_category_id, options_for_select(@education_categories.pluck(:name, :id), @education_admin.education_categories.pluck(:id)), { include_blank: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
+      <%= form.select :education_category_id, options_for_select(@education_categories.pluck(:name, :id), @selected_categories.pluck(:id)), { include_blank: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
     </div>
 
     <div class="inline">

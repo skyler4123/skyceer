@@ -19,6 +19,7 @@ class EducationSchool::EducationCoursesController < EducationSchool::EducationsC
 
   # GET /education_courses/1/edit
   def edit
+    @selected_categories = @education_course.education_categories
   end
 
   # POST /education_courses or /education_courses.json
@@ -27,9 +28,11 @@ class EducationSchool::EducationCoursesController < EducationSchool::EducationsC
 
     respond_to do |format|
       if @education_course.save
-        education_categories = EducationCategory.where(id: params[:education_course][:education_category_id]) if params[:education_course][:education_category_id].present?
-        @education_course.education_categories = education_categories if education_categories.present?
-
+        if params[:education_course][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_course][:education_category_id])
+          @education_course.education_categories = education_categories
+        end
+        
         format.html { redirect_to education_courses_path, notice: "Education course was successfully created." }
         format.json { render :show, status: :created, location: @education_course }
       else
@@ -43,8 +46,10 @@ class EducationSchool::EducationCoursesController < EducationSchool::EducationsC
   def update
     respond_to do |format|
       if @education_course.update(update_education_course_params)
-        education_categories = EducationCategory.where(id: params[:education_course][:education_category_id]) if params[:education_course][:education_category_id].present?
-        @education_course.education_categories = education_categories if education_categories.present?
+        if params[:education_course][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_course][:education_category_id])
+          @education_course.education_categories = education_categories
+        end
         
         format.html { redirect_to education_courses_path, notice: "Education course was successfully updated." }
         format.json { render :show, status: :ok, location: @education_course }

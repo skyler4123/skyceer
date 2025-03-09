@@ -17,14 +17,23 @@ class EducationSchool::EducationParentsController < EducationSchool::EducationsC
 
   # GET /education_parents/1/edit
   def edit
+    @selected_categories = @education_parent.education_categories
   end
 
   # POST /education_parents or /education_parents.json
   def create
     @education_parent = EducationParent.new(education_parent_params)
-
     respond_to do |format|
       if @education_parent.save
+        if params[:education_parent][:email].present?
+          user = User.find_by(email: params[:education_parent][:email])
+          @education_parent.user = user if user.present?
+        end
+        if params[:education_parent][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_parent][:education_category_id])
+          @education_parent.education_categories = education_categories
+        end
+
         format.html { redirect_to @education_parent, notice: "Education parent was successfully created." }
         format.json { render :show, status: :created, location: @education_parent }
       else
@@ -38,6 +47,11 @@ class EducationSchool::EducationParentsController < EducationSchool::EducationsC
   def update
     respond_to do |format|
       if @education_parent.update(education_parent_params)
+        if params[:education_parent][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_parent][:education_category_id])
+          @education_parent.education_categories = education_categories
+        end
+
         format.html { redirect_to @education_parent, notice: "Education parent was successfully updated." }
         format.json { render :show, status: :ok, location: @education_parent }
       else

@@ -11,6 +11,7 @@ RSpec.feature "education_schools#new", type: :feature, js: true do
     let(:school_record) { EducationSchool.find_by(email: new_school_params[:email]) }
 
     before do
+      education_category
       sign_in(user: education_school.user)
       visit new_education_school_path
     end
@@ -18,10 +19,12 @@ RSpec.feature "education_schools#new", type: :feature, js: true do
     it "will not be redirected" do
       fill_in "education_school[name]", with: new_school_params[:name]
       fill_in "education_school[email]", with: new_school_params[:email]
+      multi_select("education_school[education_category_id][]", education_category.name)
       click_button "Save"
 
       # Verify the school was created successfully
       expect(school_record).to be_present
+      expect(school_record.education_categories).to include(education_category)
       expect(page).to have_current_path(education_schools_path)
       expect(page).to have_content("Education school was successfully created.")
       expect(page).to have_content(new_school_params[:name])

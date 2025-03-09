@@ -10,7 +10,6 @@ RSpec.feature "education_schools#edit", type: :feature, js: true do
       # name: "New School Name",
     }}
     let!(:new_education_school) { create(:education_school, user: education_school.user) }
-    let!(:new_education_category) { create(:education_category, education_school: education_school) }
     
     before do
       education_category
@@ -21,13 +20,16 @@ RSpec.feature "education_schools#edit", type: :feature, js: true do
     it "will not be redirected" do
       fill_in "education_school[name]", with: new_school_params[:name]
       fill_in "education_school[email]", with: new_school_params[:email]
+      multi_select("education_school[education_category_id][]", education_category.name)
       click_button "Save"
 
+      expect(record(education_school)).to be_present
+      expect(record(education_school).education_categories).to include(education_category)
+      expect(record(education_school).name).to eq(new_school_params[:name])
+      expect(record(education_school).email).to eq(new_school_params[:email])
       expect(page).to have_current_path(education_schools_path)
       expect(page).to have_content("Education school was successfully updated.")
       expect(page).to have_content(new_school_params[:name])
-      expect(record(education_school).name).to eq(new_school_params[:name])
-      expect(record(education_school).email).to eq(new_school_params[:email])
     end
   end
 

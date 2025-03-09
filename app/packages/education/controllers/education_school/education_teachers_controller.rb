@@ -25,22 +25,30 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
 
   # GET /education_teachers/1/edit
   def edit
+    @selected_categories = @education_teacher.education_categories
   end
 
   # POST /education_teachers or /education_teachers.json
   def create
     @education_teacher = EducationTeacher.new(education_teacher_params)
-
     respond_to do |format|
       if @education_teacher.save
-        user = User.find_by(email: params[:education_teacher][:email])
-        @education_teacher.user = user if user.present?
-
-        education_schools = EducationSchool.where(id: params[:education_teacher][:education_school_id])
-        @education_teacher.education_schools = education_schools if education_schools.present?
-
-        education_categories = EducationCategory.where(id: params[:education_teacher][:education_category_id])
-        @education_teacher.education_categories = education_categories if education_categories.present?
+        if params[:education_teacher][:email].present?
+          user = User.find_by(email: params[:education_teacher][:email])
+          @education_teacher.user = user if user.present?
+        end
+        if params[:education_teacher][:education_school_id].present?
+          education_schools = EducationSchool.where(id: params[:education_teacher][:education_school_id])
+          @education_teacher.education_schools = education_schools
+        end
+        if params[:education_teacher][:education_class_id].present?
+          education_classes = EducationClass.where(id: params[:education_teacher][:education_class_id])
+          @education_teacher.education_classes = education_classes
+        end
+        if params[:education_teacher][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_teacher][:education_category_id])
+          @education_teacher.education_categories = education_categories
+        end
 
         format.html { redirect_to education_teachers_path, notice: "Education teacher was successfully created." }
         format.json { render :show, status: :created, location: @education_teacher }
@@ -53,13 +61,21 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
 
   # PATCH/PUT /education_teachers/1 or /education_teachers/1.json
   def update
-    education_schools = EducationSchool.where(id: params[:education_teacher][:education_school_id]) if params[:education_teacher][:education_school_id].present?
-    @education_teacher.education_schools = education_schools if education_schools.present?
-    education_categories = EducationCategory.where(id: params[:education_teacher][:education_category_id]) if params[:education_teacher][:education_category_id].present?
-    @education_teacher.education_categories = education_categories if education_categories.present?
-
     respond_to do |format|
       if @education_teacher.update(education_teacher_params)
+        if params[:education_teacher][:education_school_id].present?
+          education_schools = EducationSchool.where(id: params[:education_teacher][:education_school_id])
+          @education_teacher.education_schools = education_schools
+        end
+        if params[:education_teacher][:education_class_id].present?
+          education_classes = EducationClass.where(id: params[:education_teacher][:education_class_id])
+          @education_teacher.education_classes = education_classes
+        end
+        if params[:education_teacher][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_teacher][:education_category_id])
+          @education_teacher.education_categories = education_categories
+        end
+
         format.html { redirect_to education_teachers_path, notice: "Education teacher was successfully updated." }
         format.json { render :show, status: :ok, location: @education_teacher }
       else

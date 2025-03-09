@@ -17,6 +17,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
 
   # GET /education_exams/1/edit
   def edit
+    @selected_categories = @education_exam.education_categories
   end
 
   # POST /education_exams or /education_exams.json
@@ -26,7 +27,8 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
     respond_to do |format|
       if @education_exam.save
         if params[:education_exam][:education_category_id].present?
-          @education_exam.education_categories << EducationCategory.find(params[:education_exam][:education_category_id])
+          education_categories = EducationCategory.where(id: params[:education_exam][:education_category_id])
+          @education_exam.education_categories = education_categories
         end
 
         format.html { redirect_to education_exams_path, notice: "Education exam was successfully created." }
@@ -42,6 +44,11 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
   def update
     respond_to do |format|
       if @education_exam.update(education_exam_params)
+        if params[:education_exam][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_exam][:education_category_id])
+          @education_exam.education_categories = education_categories
+        end
+        
         format.html { redirect_to education_exams_path, notice: "Education exam was successfully updated." }
         format.json { render :show, status: :ok, location: @education_exam }
       else

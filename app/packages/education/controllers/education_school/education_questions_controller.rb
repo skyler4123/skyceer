@@ -14,6 +14,7 @@ class EducationSchool::EducationQuestionsController < EducationSchool::Education
 
   # GET /education_questions/1/edit
   def edit
+    @selected_categories = @education_question.education_categories
   end
 
   # POST /education_questions or /education_questions.json
@@ -22,6 +23,11 @@ class EducationSchool::EducationQuestionsController < EducationSchool::Education
 
     respond_to do |format|
       if @education_question.save
+        if params[:education_question][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_question][:education_category_id])
+          @education_question.education_categories = education_categories
+        end
+
         format.html { redirect_to education_questions_path, notice: "Education question was successfully created." }
         format.json { render :show, status: :created, location: @education_question }
       else
@@ -35,6 +41,11 @@ class EducationSchool::EducationQuestionsController < EducationSchool::Education
   def update
     respond_to do |format|
       if @education_question.update(education_question_params)
+        if params[:education_question][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_question][:education_category_id])
+          @education_question.education_categories = education_categories
+        end
+        
         format.html { redirect_to education_questions_path, notice: "Education question was successfully updated." }
         format.json { render :show, status: :ok, location: @education_question }
       else

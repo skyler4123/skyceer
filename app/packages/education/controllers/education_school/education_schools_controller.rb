@@ -16,7 +16,7 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
 
   # GET /education_schools/1/edit
   def edit
-    @selected_categories = @education_school.education_categories || []
+    @selected_categories = @education_school.education_categories
   end
 
   # POST /education_schools or /education_schools.json
@@ -26,6 +26,10 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
 
     respond_to do |format|
       if @education_school.save
+        if params[:education_school][:email].present?
+          user = User.find_by(email: params[:education_school][:email])
+          @education_school.user = user if user.present?
+        end
         if params[:education_school][:education_category_id].present?
           education_categories = EducationCategory.where(id: params[:education_school][:education_category_id])
           @education_school.education_categories = education_categories

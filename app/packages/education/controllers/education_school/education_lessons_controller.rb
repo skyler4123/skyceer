@@ -13,6 +13,7 @@ class EducationSchool::EducationLessonsController < EducationSchool::EducationsC
 
   # GET /education_lessons/1/edit
   def edit
+    @selected_categories = @education_lesson.education_categories
   end
 
   # POST /education_lessons or /education_lessons.json
