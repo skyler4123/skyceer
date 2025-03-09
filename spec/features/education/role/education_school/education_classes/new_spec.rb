@@ -25,6 +25,9 @@ RSpec.feature "education_classes#new", type: :feature, js: true do
 
       # Verify the class was created successfully
       expect(class_record).to be_present
+      expect(class_record.education_school).to eq(education_school)
+      expect(class_record.education_course).to eq(education_course)
+      expect(class_record.education_categories).to include(education_category)
       expect(page).to have_current_path(education_classes_path)
       expect(page).to have_content("Education class was successfully created.")
       expect(page).to have_content(new_class_params[:name])

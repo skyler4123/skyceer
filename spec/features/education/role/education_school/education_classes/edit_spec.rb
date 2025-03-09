@@ -8,6 +8,8 @@ RSpec.feature "education_classes#edit", type: :feature, js: true do
       name: Faker::Name.name,
     }}
     let(:class_record) { EducationClass.find_by(name: new_class_params[:name]) }
+    let!(:new_education_school) { create(:education_school, user: education_school.user) }
+    let!(:new_education_course) { create(:education_course, education_school: education_school) }
 
     before do
       education_category
@@ -18,11 +20,16 @@ RSpec.feature "education_classes#edit", type: :feature, js: true do
 
     it "will not be redirected" do
       fill_in "education_class[name]", with: new_class_params[:name]
+      single_select("education_class[education_school_id]", new_education_school.name)
+      single_select("education_class[education_course_id]", new_education_course.name)
       multi_select("education_class[education_category_id][]", education_category.name)
       click_button "Save"
 
       # Verify the class was created successfully
       expect(class_record).to be_present
+      expect(class_record.education_school).to eq(new_education_school)
+      expect(class_record.education_course).to eq(new_education_course)
+      expect(class_record.education_categories).to include(education_category)
       expect(page).to have_current_path(education_classes_path)
       expect(page).to have_content("Education class was successfully updated.")
       expect(page).to have_content(new_class_params[:name])

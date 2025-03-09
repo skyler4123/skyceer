@@ -15,6 +15,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
   # GET /education_classes/new
   def new
     @education_class = EducationClass.new
+    @education_courses = EducationCourse.where(education_school: @education_schools)
   end
 
   # GET /education_classes/1/edit
@@ -46,7 +47,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
   # PATCH/PUT /education_classes/1 or /education_classes/1.json
   def update
     respond_to do |format|
-      if @education_class.update(update_education_class_params)
+      if @education_class.update(education_class_params)
         if params[:education_class][:education_category_id].present?
           education_categories = EducationCategory.where(id: params[:education_class][:education_category_id])
           @education_class.education_categories = education_categories
@@ -80,19 +81,5 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
   # Only allow a list of trusted parameters through.
   def education_class_params
     params.expect(education_class: [ :education_school_id, :education_course_id, :name ])
-  end
-
-  def update_education_class_params
-    params.expect(education_class: [:name])
-  end
-
-  def combine_schools_and_courses(schools, courses)
-    combined_array = []
-    schools.each do |school|
-      school.education_courses.each do |course|
-        combined_array << ["#{school.name} - #{course.name}", course.id]
-      end
-    end
-    combined_array
   end
 end
