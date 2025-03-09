@@ -21,7 +21,8 @@ class EducationSchool::EducationCategoriesController < EducationSchool::Educatio
   # POST /education_categories or /education_categories.json
   def create
     @education_category = EducationCategory.new(education_category_params)
-
+    @education_category.user = current_user
+    
     respond_to do |format|
       if @education_category.save
         format.html { redirect_to education_categories_path, notice: "Education category was successfully created." }
@@ -74,6 +75,6 @@ class EducationSchool::EducationCategoriesController < EducationSchool::Educatio
 
     # Only allow a list of trusted parameters through.
     def education_category_params
-      params.expect(education_category: [ :name, :education_school_id ])
+      params.expect(education_category: [ :name ])
     end
 end

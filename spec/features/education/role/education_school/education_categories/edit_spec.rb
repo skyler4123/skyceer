@@ -17,7 +17,6 @@ RSpec.feature "education_categories#edit", type: :feature, js: true do
 
     it "will not be redirected" do
       fill_in "education_category[name]", with: new_category_params[:name]
-      single_select("education_category[education_school_id]", education_school.name)
       click_button "Save"
 
       # Verify the category was created successfully
