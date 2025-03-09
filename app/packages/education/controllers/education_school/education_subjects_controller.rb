@@ -26,7 +26,7 @@ class EducationSchool::EducationSubjectsController < EducationSchool::Educations
   # GET /education_subjects/new
   def new
     @education_subject = EducationSubject.new
-    select_options_schools_and_categories
+    select_options_schools_and_categories(@education_schools)
   end
 
   # GET /education_subjects/1/edit
@@ -56,6 +56,11 @@ class EducationSchool::EducationSubjectsController < EducationSchool::Educations
 
   # PATCH/PUT /education_subjects/1 or /education_subjects/1.json
   def update
+    education_schools = [@education_subject.education_school]
+    education_categories = EducationCategory.where(id: params[:education_subject][:education_category_id]) if params[:education_subject][:education_category_id].present?
+    select_options_schools_and_categories(education_schools)
+    return redirect_to request.referer, error: "Category is not belongs to school" unless check_category_belongs_to_school(education_categories, education_schools)
+
     respond_to do |format|
       if @education_subject.update(update_education_subject_params)
         education_categories = EducationCategory.where(id: params[:education_category_id]) if params[:education_category_id].present?

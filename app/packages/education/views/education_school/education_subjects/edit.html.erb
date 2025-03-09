@@ -2,17 +2,6 @@
   <h1 class="font-bold text-2xl">Editing subject</h1>
 
   <%= form_with(model: @education_subject, class: "contents") do |form| %>
-    <% if @education_subject.errors.any? %>
-      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-        <h2><%= pluralize(@education_subject.errors.count, "error") %> prohibited this education_subject from being saved:</h2>
-
-        <ul>
-          <% @education_subject.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
 
     <div class="my-5">
       <%= form.label :name, class: "required" %>
@@ -20,7 +9,7 @@
     </div>
 
     <div class="my-5">
-      <%= form.label :description %>
+      <%= form.label :description, class: "required" %>
       <%= form.text_field :description, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
@@ -30,13 +19,14 @@
     </div>
 
     <div class="my-5">
-      <%= form.label :parent_category_id %>
-      <%= form.select :parent_category_id, [], {}, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
+      <%= form.label :education_category_id, "Category" %>
+      <%= form.select :education_category_id, options_for_select(@select_options_schools_and_categories, @education_subject.education_categories&.pluck(:name, :id) || []), { include_blank: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
     </div>
 
     <div class="inline">
       <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer" %>
     </div>
   <% end %>
+
 
 </div>
