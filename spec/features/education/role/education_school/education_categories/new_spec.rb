@@ -21,6 +21,7 @@ RSpec.feature "education_categories#new", type: :feature, js: true do
 
       # Verify the category was created successfully
       expect(category_record).to be_present
+      expect(category_record.user).to eq(education_school.user)
       expect(page).to have_current_path(education_categories_path)
       expect(page).to have_content("Education category was successfully created.")
       expect(page).to have_content(new_category_params[:name])

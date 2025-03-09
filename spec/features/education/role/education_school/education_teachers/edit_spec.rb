@@ -24,6 +24,9 @@ RSpec.feature "education_teachers#edit", type: :feature, js: true do
       multi_select("education_teacher[education_category_id][]", new_education_category.name)
       click_button "Save"
 
+      expect(record(education_teacher)).to be_present
+      expect(record(education_teacher).education_schools).to include(new_education_school)
+      expect(record(education_teacher).education_categories).to include(new_education_category)
       expect(page).to have_current_path(education_teachers_path)
       expect(page).to have_content("Education teacher was successfully updated.")
       expect(page).to have_content(new_teacher_params[:name])
