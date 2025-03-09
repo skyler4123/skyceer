@@ -9,8 +9,9 @@ RSpec.feature "education_admins#edit", type: :feature, js: true do
       name: Faker::Name.name,
     }}
     let!(:new_education_school) { create(:education_school, user: education_school.user) }
-    let!(:new_education_category) { create(:education_category, education_school: education_school) }
-    
+    let!(:new_education_category) { create(:education_category, user: education_school.user) }
+    let(:admin_record) { EducationAdmin.find_by(email: new_admin_params[:email]) }
+
     before do
       education_category
       sign_in(user: education_school.user)
@@ -24,6 +25,9 @@ RSpec.feature "education_admins#edit", type: :feature, js: true do
       multi_select("education_admin[education_category_id][]", new_education_category.name)
       click_button "Save"
 
+      expect(admin_record).to be_present
+      expect(admin_record.education_schools).to include(new_education_school)
+      expect(admin_record.education_categories).to include(new_education_category)
       expect(page).to have_current_path(education_admins_path)
       expect(page).to have_content("Education admin was successfully updated.")
       expect(page).to have_content(new_admin_params[:name])

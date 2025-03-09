@@ -9,7 +9,7 @@ RSpec.feature "education_students#edit", type: :feature, js: true do
       name: Faker::Name.name,
     }}
     let!(:new_education_school) { create(:education_school, user: education_school.user) }
-    let!(:new_education_category) { create(:education_category, education_school: education_school) }
+    let!(:new_education_category) { create(:education_category, user: education_school.user) }
     
     before do
       education_category
