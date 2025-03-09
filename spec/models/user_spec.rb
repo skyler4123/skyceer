@@ -11,7 +11,7 @@ RSpec.describe User, type: :model do
 
   describe 'enum' do
     it { should define_enum_for(:role).with_values(%i[normal admin]) }
-    it { should define_enum_for(:education_role).with_values(%i[education_school education_admin education_teacher education_student]) }
+    it { should define_enum_for(:education_role).with_values(%i[education_school education_admin education_teacher education_student education_parent]) }
   end
 
   describe 'associations' do

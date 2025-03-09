@@ -16,6 +16,7 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
 
   # GET /education_schools/1/edit
   def edit
+    @selected_categories = @education_school.education_categories || []
   end
 
   # POST /education_schools or /education_schools.json
@@ -25,6 +26,11 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
 
     respond_to do |format|
       if @education_school.save
+        if params[:education_school][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_school][:education_category_id])
+          @education_school.education_categories = education_categories
+        end
+        
         format.html { redirect_to education_schools_path, notice: "Education school was successfully created." }
         format.json { render :show, status: :created, location: @education_school }
       else
@@ -38,9 +44,11 @@ class EducationSchool::EducationSchoolsController < EducationSchool::EducationsC
   def update
     respond_to do |format|
       if @education_school.update(education_school_params)
-        education_categories = EducationCategory.where(id: params[:education_school][:education_category_id]) if params[:education_school][:education_category_id].present?
-        @education_school.education_categories = education_categories if education_categories.present?
-        
+        if params[:education_school][:education_category_id].present?
+          education_categories = EducationCategory.where(id: params[:education_school][:education_category_id])
+          @education_school.education_categories = education_categories
+        end
+
         format.html { redirect_to education_schools_path, notice: "Education school was successfully updated." }
         format.json { render :show, status: :ok, location: @education_school }
       else

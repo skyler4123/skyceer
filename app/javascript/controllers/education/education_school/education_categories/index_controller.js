@@ -19,7 +19,6 @@ export default class extends Education_EducationSchool_LayoutController {
       return {
         ...row,
         name: `<a href="/education_categories/${row.id}/edit">${row.name}</a>`,
-        school_name: row.education_school.name,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -40,7 +39,6 @@ export default class extends Education_EducationSchool_LayoutController {
       },
       columns:[                 //define the table columns
         {title:"Name", field: "name", formatter: "html"},
-        {title: "Schools", field: "school_name", width: 150, formatter: "html"},
         {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
         {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
       ],

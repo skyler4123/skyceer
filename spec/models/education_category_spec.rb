@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe EducationCategory, type: :model do
-  let(:education_school) { create(:education_school) }
-  let(:parent_category) { create(:education_category, education_school: education_school) }
-  let(:education_category) { build(:education_category, education_school: education_school, parent_category: parent_category) }
+  let(:user) { create(:user) }
+  let(:parent_category) { create(:education_category, user: user) }
+  let(:education_category) { build(:education_category, user: user, parent_category: parent_category) }
 
   describe 'associations' do
-    it { should belong_to(:education_school) }
+    it { should belong_to(:user) }
     it { should belong_to(:parent_category).class_name('EducationCategory').optional }
     it { should have_many(:child_categories).class_name('EducationCategory').with_foreign_key('parent_category_id').dependent(:destroy) }
   end
@@ -18,7 +18,7 @@ RSpec.describe EducationCategory, type: :model do
 
   describe 'nested categories' do
     it 'allows creating subcategories' do
-      subcategory = create(:education_category, education_school: education_school, parent_category: education_category)
+      subcategory = create(:education_category, user: user, parent_category: education_category)
       expect(subcategory.parent_category).to eq(education_category)
       expect(education_category.child_categories).to include(subcategory)
     end

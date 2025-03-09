@@ -12,7 +12,7 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
   let(:education_subject) { create(:education_subject, education_school:) }
   let(:education_lesson) { create(:education_lesson, education_school:, education_class:, education_subject:, education_teacher:) }
   let(:education_exam) {create(:education_exam, education_school:, education_subject:) }
-  let(:education_category) { create(:education_category, education_school:) }
+  let(:education_category) { create(:education_category, user: education_school.user) }
   let(:education_question) { create(:education_question, education_school:, education_teacher:) }
 
   let(:payment_user) { create(:payment_user, payment_userable: education_school) }

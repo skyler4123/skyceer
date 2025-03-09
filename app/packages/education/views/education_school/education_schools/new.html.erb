@@ -24,6 +24,11 @@
       <%= form.text_field :email, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
     </div>
 
+    <div class="my-5">
+      <%= form.label :education_category_id, "Category" %>
+      <%= form.select :education_category_id, options_for_select(@education_categories.pluck(:name, :id), []), { include_blank: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
+    </div>
+
     <div class="inline">
       <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer" %>
     </div>

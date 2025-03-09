@@ -17,7 +17,7 @@ class EducationSchool::EducationsController < EducationsController
   end
 
   def set_education_categories
-    @education_categories = EducationCategory.joins(:education_school).where(education_school: @education_schools)
+    @education_categories = EducationCategory.where(user: current_user)
   end
 
   def select_options_schools_and_categories(education_schools)
