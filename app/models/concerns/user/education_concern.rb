@@ -13,6 +13,7 @@ module User::EducationConcern
     has_many :education_categories, dependent: :destroy
     has_many :education_schools, dependent: :destroy
     has_many :education_admins, dependent: :destroy
+    has_one :education_admin, dependent: :destroy
     has_many :education_teachers, dependent: :destroy
     has_many :education_students, dependent: :destroy
 

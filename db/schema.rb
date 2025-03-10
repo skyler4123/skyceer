@@ -192,10 +192,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
+    t.uuid "education_school_user_id"
     t.string "name", null: false
     t.string "email", comment: "Admin can be created without user at first time then will match with user by email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["education_school_user_id"], name: "index_education_admins_on_education_school_user_id"
     t.index ["user_id"], name: "index_education_admins_on_user_id"
   end
 
@@ -656,6 +658,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "category_appointments", "categories"
   add_foreign_key "education_admins", "users"
+  add_foreign_key "education_admins", "users", column: "education_school_user_id"
   add_foreign_key "education_categories", "education_categories", column: "parent_category_id"
   add_foreign_key "education_categories", "users"
   add_foreign_key "education_category_appointments", "education_categories"

@@ -104,14 +104,17 @@ class Seeding::EducationService
   end
 
   def self.education_admin
-    5.times do
-      admin_user = Seeding::UserService.create(education_role: :education_admin)
-      education_admin = EducationAdmin.create!(
-        name: "#{Faker::Name.name} #{Faker::Number.number}",
-        email: Faker::Internet.email,
-        user: admin_user,
-      )
-      Seeding::AttachmentService.attach(record: education_admin, relation: :image_attachments, number: 1)
+    EducationSchool.all.each do |education_school|
+      5.times do
+        admin_user = Seeding::UserService.create(education_role: :education_admin)
+        education_admin = EducationAdmin.create!(
+          name: "#{Faker::Name.name} #{Faker::Number.number}",
+          email: Faker::Internet.email,
+          user: admin_user,
+          education_school_user: education_school.user,
+        )
+        Seeding::AttachmentService.attach(record: education_admin, relation: :image_attachments, number: 1)
+      end
     end
   end
   
