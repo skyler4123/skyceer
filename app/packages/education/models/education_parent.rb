@@ -9,4 +9,5 @@ class EducationParent < ApplicationRecord
   has_many :education_categories, through: :education_category_appointments
   
   include EducationParent::ImagesConcern
+  include EducationParent::ValidationConcern
 end

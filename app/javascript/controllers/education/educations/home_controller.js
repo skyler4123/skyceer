@@ -1,9 +1,7 @@
-import Education_FooterController from "controllers/education/footer_controller"
-import Education_HeaderController from "controllers/education/header_controller"
-import ApplicationController from "controllers/application_controller"
 import { identifier } from "controllers/education/helpers/data_helpers"
+import Education_LayoutController from "controllers/education/layout_controller"
 
-export default class Education_Educations_HomeController extends ApplicationController {
+export default class Education_Educations_HomeController extends Education_LayoutController {
 
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'table']
 
