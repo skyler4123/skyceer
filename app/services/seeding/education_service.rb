@@ -10,7 +10,7 @@ class Seeding::EducationService
     self.education_teacher
     self.education_student
     self.education_parent
-    self.education_school_appointments
+    # self.education_school_appointments
     self.education_question
     self.education_exam
     self.education_lesson
@@ -104,91 +104,103 @@ class Seeding::EducationService
   end
 
   def self.education_admin
-    EducationSchool.all.each do |education_school|
+    User.where(education_role: :education_school).each do |user|
       5.times do
         admin_user = Seeding::UserService.create(education_role: :education_admin)
         education_admin = EducationAdmin.create!(
           name: "#{Faker::Name.name} #{Faker::Number.number}",
           email: Faker::Internet.email,
           user: admin_user,
-          education_school_user: education_school.user,
+          education_school_user: user,
         )
+        education_admin.education_schools << user.education_schools.sample
         Seeding::AttachmentService.attach(record: education_admin, relation: :image_attachments, number: 1)
       end
     end
   end
   
   def self.education_teacher
-    (EducationClass.count * 5).times do
-      teacher_user = Seeding::UserService.create(education_role: :education_teacher)
-      education_teacher = EducationTeacher.create!(
-        name: "#{Faker::Name.name} #{Faker::Number.number}",
-        email: Faker::Internet.email,
-        user: teacher_user,
-      )
-      Seeding::AttachmentService.attach(record: education_teacher, relation: :image_attachments, number: 1)
+    User.where(education_role: :education_school).each do |user|
+      5.times do
+        teacher_user = Seeding::UserService.create(education_role: :education_teacher)
+        education_teacher = EducationTeacher.create!(
+          name: "#{Faker::Name.name} #{Faker::Number.number}",
+          email: Faker::Internet.email,
+          user: teacher_user,
+          education_school_user: user,
+        )
+        education_teacher.education_schools << user.education_schools.sample
+        Seeding::AttachmentService.attach(record: education_teacher, relation: :image_attachments, number: 1)
+      end
     end
   end
 
   def self.education_student
-    (EducationClass.count * 10).times do
-      student_user = Seeding::UserService.create(education_role: :education_student)
-      education_student = EducationStudent.create!(
-        name: "#{Faker::Name.name} #{Faker::Number.number}",
-        email: Faker::Internet.email,
-        user: student_user,
-      )
-      Seeding::AttachmentService.attach(record: education_student, relation: :image_attachments, number: 1)
+    User.where(education_role: :education_school).each do |user|
+      40.times do
+        student_user = Seeding::UserService.create(education_role: :education_student)
+        education_student = EducationStudent.create!(
+          name: "#{Faker::Name.name} #{Faker::Number.number}",
+          email: Faker::Internet.email,
+          user: student_user,
+          education_school_user: user,
+        )
+        education_student.education_schools << user.education_schools.sample
+        Seeding::AttachmentService.attach(record: education_student, relation: :image_attachments, number: 1)
+      end
     end
   end
 
   def self.education_parent
-    EducationStudent.all.each do |education_student|
-      parent_user = Seeding::UserService.create(education_role: :education_parent)
-      education_parent = EducationParent.create!(
-        name: "#{Faker::Name.name} #{Faker::Number.number}",
-        email: Faker::Internet.email,
-        user: parent_user,
-      )
-      education_student.update(education_parent: education_parent)
-      Seeding::AttachmentService.attach(record: education_parent, relation: :image_attachments, number: 1)
+    User.where(education_role: :education_school).each do |user|
+      40.times do
+        parent_user = Seeding::UserService.create(education_role: :education_parent)
+        education_parent = EducationParent.create!(
+          name: "#{Faker::Name.name} #{Faker::Number.number}",
+          email: Faker::Internet.email,
+          user: parent_user,
+          education_school_user: user,
+        )
+        education_parent.education_schools << user.education_schools.sample
+        Seeding::AttachmentService.attach(record: education_parent, relation: :image_attachments, number: 1)
+      end
     end
   end
 
-  def self.education_school_appointments
-    EducationAdmin.all.each do |education_admin|
-      education_school = EducationSchool.all.sample
-      EducationSchoolAppointment.create!(
-        education_school: education_school,
-        education_school_appointmentable: education_admin,
-      )
-      education_admin.education_categories << education_school.user.education_categories.sample
-    end
-    EducationTeacher.all.each do |education_teacher|
-      education_school = EducationSchool.all.sample
-      EducationSchoolAppointment.create!(
-        education_school: education_school,
-        education_school_appointmentable: education_teacher,
-      )
-      education_teacher.education_categories << education_school.user.education_categories.sample
-    end
-    EducationStudent.all.each do |education_student|
-      education_school = EducationSchool.all.sample
-      EducationSchoolAppointment.create!(
-        education_school: education_school,
-        education_school_appointmentable: education_student,
-      )
-      education_student.education_categories << education_school.user.education_categories.sample
-    end
-    EducationParent.all.each do |education_parent|
-      education_school = EducationSchool.all.sample
-      EducationSchoolAppointment.create!(
-        education_school: education_school,
-        education_school_appointmentable: education_parent,
-      )
-      education_parent.education_categories << education_school.user.education_categories.sample
-    end
-  end
+  # def self.education_school_appointments
+  #   EducationAdmin.all.each do |education_admin|
+  #     education_school = EducationSchool.all.sample
+  #     EducationSchoolAppointment.create!(
+  #       education_school: education_school,
+  #       education_school_appointmentable: education_admin,
+  #     )
+  #     education_admin.education_categories << education_school.user.education_categories.sample
+  #   end
+  #   EducationTeacher.all.each do |education_teacher|
+  #     education_school = EducationSchool.all.sample
+  #     EducationSchoolAppointment.create!(
+  #       education_school: education_school,
+  #       education_school_appointmentable: education_teacher,
+  #     )
+  #     education_teacher.education_categories << education_school.user.education_categories.sample
+  #   end
+  #   EducationStudent.all.each do |education_student|
+  #     education_school = EducationSchool.all.sample
+  #     EducationSchoolAppointment.create!(
+  #       education_school: education_school,
+  #       education_school_appointmentable: education_student,
+  #     )
+  #     education_student.education_categories << education_school.user.education_categories.sample
+  #   end
+  #   EducationParent.all.each do |education_parent|
+  #     education_school = EducationSchool.all.sample
+  #     EducationSchoolAppointment.create!(
+  #       education_school: education_school,
+  #       education_school_appointmentable: education_parent,
+  #     )
+  #     education_parent.education_categories << education_school.user.education_categories.sample
+  #   end
+  # end
 
   def self.education_question
     EducationSchool.all.each do |education_school|

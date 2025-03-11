@@ -4,6 +4,7 @@ class EducationStudent < ApplicationRecord
   include EducationStudent::ElasticsearchConcern
 
   belongs_to :user, optional: true
+  belongs_to :education_school_user, class_name: 'User'
   belongs_to :education_parent, optional: true
 
   has_many :education_school_appointments, as: :education_school_appointmentable, dependent: :destroy

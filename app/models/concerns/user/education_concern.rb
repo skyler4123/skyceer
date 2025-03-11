@@ -12,10 +12,11 @@ module User::EducationConcern
 
     has_many :education_categories, dependent: :destroy
     has_many :education_schools, dependent: :destroy
-    has_many :education_admins, dependent: :destroy
+    has_many :education_admins, dependent: :destroy, foreign_key: :education_school_user_id
     has_one :education_admin, dependent: :destroy
     has_many :education_teachers, dependent: :destroy
     has_many :education_students, dependent: :destroy
+    has_many :education_parents, dependent: :destroy
 
     enum :education_role, { education_school: 0, education_admin: 1, education_teacher: 2, education_student: 3, education_parent: 4 }
 
