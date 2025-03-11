@@ -15,7 +15,7 @@ export default class ApplicationController extends Controller {
   initialize() {
     if (isDefined(this.initBeforeComplete)) { this.initBeforeComplete() }
     this.isInitializedValue = false
-    this.initBinding()
+    if (isDefined(this.initBinding)) { this.initBinding()}
     if (this.isResetValue) { this.reset() }
     this.initializeID()
     this.initializeHead()
@@ -26,10 +26,6 @@ export default class ApplicationController extends Controller {
     this.isInitializedValue = true
     if (isDefined(this.initAfterComplete)) { this.initAfterComplete() }
     this.initializeCompletedEvent()
-  }
-
-  initBinding() {
-    this.serverHTML = this.element.innerHTML
   }
   
   reset() {

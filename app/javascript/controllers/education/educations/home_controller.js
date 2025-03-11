@@ -14,12 +14,12 @@ export default class Education_Educations_HomeController extends ApplicationCont
 
   layoutHTML() {
     return `
-      <header class="flex flex-row w-full h-full" data-${this.identifier}-target="header" data-controller="${identifier(Education_HeaderController)}"></header>
+      <header class="flex flex-row w-full h-full" data-${this.identifier}-target="header" data-controller="${identifier(this.headerController)}"></header>
       <main class="relative flex flex-row w-full" data-${this.identifier}-target="main">
         <article class="w-full h-full" data-${this.identifier}-target="content">   
         </article>
       </main>
-      <footer class="flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2" data-${this.identifier}-target="footer" data-controller="${identifier(Education_FooterController)}"></footer>
+      <footer class="flex flex-row w-full h-full justify-between items-center py-4 px-20 mt-4 border-t-2" data-${this.identifier}-target="footer" data-controller="${identifier(this.footerController)}"></footer>
     `
   }
 

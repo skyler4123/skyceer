@@ -7,6 +7,7 @@ import Education_ChoicesController from "controllers/education/choices_controlle
 export default class extends Education_EducationSchool_LayoutController {
 
   init() {
+    console.log(this)
     this.initHTML()
     this.initTable()
   }
