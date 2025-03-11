@@ -24,12 +24,12 @@ RSpec.feature "education_teachers#new", type: :feature, js: true do
       click_button "Save"
 
       # Verify the teacher was created successfully
-      expect(teacher_record).to be_present
-      expect(teacher_record.education_schools).to include(education_school)
-      expect(teacher_record.education_categories).to include(education_category)
       expect(page).to have_current_path(education_teachers_path)
       expect(page).to have_content("Education teacher was successfully created.")
       expect(page).to have_content(new_teacher_params[:name])
+      expect(teacher_record).to be_present
+      expect(teacher_record.education_schools).to include(education_school)
+      expect(teacher_record.education_categories).to include(education_category)
     end
   end
 

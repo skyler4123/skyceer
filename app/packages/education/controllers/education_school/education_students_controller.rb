@@ -28,6 +28,7 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
   # POST /education_students or /education_students.json
   def create
     @education_student = EducationStudent.new(education_student_params)
+    @education_student.education_school_user = current_user
 
     respond_to do |format|
       if @education_student.save

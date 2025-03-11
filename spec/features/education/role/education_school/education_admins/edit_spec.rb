@@ -25,12 +25,12 @@ RSpec.feature "education_admins#edit", type: :feature, js: true do
       multi_select("education_admin[education_category_id][]", new_education_category.name)
       click_button "Save"
 
-      expect(admin_record).to be_present
-      expect(admin_record.education_schools).to include(new_education_school)
-      expect(admin_record.education_categories).to include(new_education_category)
       expect(page).to have_current_path(education_admins_path)
       expect(page).to have_content("Education admin was successfully updated.")
       expect(page).to have_content(new_admin_params[:name])
+      expect(admin_record).to be_present
+      expect(admin_record.education_schools).to include(new_education_school)
+      expect(admin_record.education_categories).to include(new_education_category)
       expect(record(education_admin).name).to eq(new_admin_params[:name])
       expect(record(education_admin).email).to eq(new_admin_params[:email])
     end

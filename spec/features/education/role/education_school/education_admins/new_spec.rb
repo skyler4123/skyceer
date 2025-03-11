@@ -24,12 +24,12 @@ RSpec.feature "education_admins#new", type: :feature, js: true do
       click_button "Save"
 
       # Verify the admin was created successfully
-      expect(admin_record).to be_present
-      expect(admin_record.education_schools).to include(education_school)
-      expect(admin_record.education_categories).to include(education_category)
       expect(page).to have_current_path(education_admins_path)
       expect(page).to have_content("Education admin was successfully created.")
       expect(page).to have_content(new_admin_params[:name])
+      expect(admin_record).to be_present
+      expect(admin_record.education_schools).to include(education_school)
+      expect(admin_record.education_categories).to include(education_category)
     end
   end
 

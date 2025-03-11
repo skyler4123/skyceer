@@ -3,10 +3,11 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
   let(:address) { create(:address) }
 
   let(:education_school) { create(:education_school) }
-  let(:education_student) { create(:education_student) }
+  let(:education_student) { create(:education_student, education_school_user: education_school.user) }
   let(:education_class) { create(:education_class, education_school:, education_course:) }
-  let(:education_admin) { create(:education_admin) }
-  let(:education_teacher) { create(:education_teacher) }
+  let(:education_admin) { create(:education_admin, education_school_user: education_school.user) }
+  let(:education_teacher) { create(:education_teacher, education_school_user: education_school.user) }
+  let(:education_parent) { create(:education_parent, education_school_user: education_school.user) }
   let(:education_course) { create(:education_course, education_school:) }
   let(:education_room) { create(:education_room, education_school:) }
   let(:education_subject) { create(:education_subject, education_school:) }

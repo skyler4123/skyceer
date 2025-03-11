@@ -23,13 +23,13 @@ RSpec.feature "education_schools#edit", type: :feature, js: true do
       multi_select("education_school[education_category_id][]", education_category.name)
       click_button "Save"
 
+      expect(page).to have_current_path(education_schools_path)
+      expect(page).to have_content("Education school was successfully updated.")
+      expect(page).to have_content(new_school_params[:name])
       expect(record(education_school)).to be_present
       expect(record(education_school).education_categories).to include(education_category)
       expect(record(education_school).name).to eq(new_school_params[:name])
       expect(record(education_school).email).to eq(new_school_params[:email])
-      expect(page).to have_current_path(education_schools_path)
-      expect(page).to have_content("Education school was successfully updated.")
-      expect(page).to have_content(new_school_params[:name])
     end
   end
 

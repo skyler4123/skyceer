@@ -23,6 +23,8 @@ class EducationSchool::EducationParentsController < EducationSchool::EducationsC
   # POST /education_parents or /education_parents.json
   def create
     @education_parent = EducationParent.new(education_parent_params)
+    @education_parent.education_school_user = current_user
+    
     respond_to do |format|
       if @education_parent.save
         if params[:education_parent][:email].present?

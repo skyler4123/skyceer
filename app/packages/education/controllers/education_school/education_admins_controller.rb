@@ -25,6 +25,7 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
   # POST /education_admins or /education_admins.json
   def create
     @education_admin = EducationAdmin.new(education_admin_params)
+    @education_admin.education_school_user = current_user
     respond_to do |format|
       if @education_admin.save
         if params[:education_admin][:email].present?

@@ -31,6 +31,8 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
   # POST /education_teachers or /education_teachers.json
   def create
     @education_teacher = EducationTeacher.new(education_teacher_params)
+    @education_teacher.education_school_user = current_user
+    
     respond_to do |format|
       if @education_teacher.save
         if params[:education_teacher][:email].present?
