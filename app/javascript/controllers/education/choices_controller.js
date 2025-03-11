@@ -55,7 +55,6 @@ export default class Education_ChoicesController extends Controller {
       },
       ...this.optionsValue,
     })
-    console.log(this.choice)
   }
 
 }
