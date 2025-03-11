@@ -25,6 +25,26 @@ module User::EducationConcern
       self.education_role.present?
     end
 
+    def education_teachers
+      if self.education_role == 'education_school'
+        return EducationTeacher.where(education_school_user: self)
+      end
+      self.education_teachers
+    end
+
+    def education_students
+      if self.education_role == 'education_school'
+        return EducationStudent.where(education_school_user: self)
+      end
+      self.education_students
+    end
+
+    def education_parents
+      if self.education_role == 'education_school'
+        return EducationParent.where(education_school_user: self)
+      end
+      self.education_parents
+    end
   end
 
 end
