@@ -1,8 +1,8 @@
 import { identifier, transferToValue } from "controllers/education/helpers/data_helpers"
-import Education_PaginationController from "controllers/education/pagination_controller";
+
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
-import Education_ChoicesController from "controllers/education/choices_controller";
+
 
 export default class extends Education_EducationSchool_LayoutController {
 
@@ -76,7 +76,7 @@ export default class extends Education_EducationSchool_LayoutController {
           <div class="w-1/4 flex justify-center items-center">
             <select
               name="education_class_id"
-              data-controller="${identifier(Education_ChoicesController)}"
+              data-controller="${identifier(this.choicesController)}"
             >
               <option value="" disabled selected>Select Class</option>
               ${this.educationClasses().map((klass) => {
@@ -89,7 +89,7 @@ export default class extends Education_EducationSchool_LayoutController {
           </div>
         </form>
         <div data-${this.identifier}-target="table" class="w-full"></div>
-        <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
+        <div data-controller="${identifier(this.paginationController)}" data-${identifier(this.paginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
       </div>          
     `
   }

@@ -1,5 +1,5 @@
 import { identifier, transferToValue } from "controllers/education/helpers/data_helpers"
-import Education_PaginationController from "controllers/education/pagination_controller";
+
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 
@@ -63,7 +63,7 @@ export default class extends Education_EducationSchool_LayoutController {
           <input type="submit" value="Search" class="bg-slate-800 text-white rounded-lg px-4 py-2 ml-2">
         </form>
         <div data-${this.identifier}-target="table" class="w-full"></div>
-        <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
+        <div data-controller="${identifier(this.paginationController)}" data-${identifier(this.paginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
       </div
     `
   }

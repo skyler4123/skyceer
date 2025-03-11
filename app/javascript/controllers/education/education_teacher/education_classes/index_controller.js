@@ -1,5 +1,5 @@
 import { identifier, transferToValue } from "controllers/education/helpers/data_helpers"
-import Education_PaginationController from "controllers/education/pagination_controller";
+
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationStudent_LayoutController from "controllers/education/education_student/layout_controller";
 
@@ -53,7 +53,7 @@ export default class extends Education_EducationStudent_LayoutController {
   defaultHTML() {
     return `
       <div data-${this.identifier}-target="table" class="w-full"></div>
-      <div data-controller="${identifier(Education_PaginationController)}" data-${identifier(Education_PaginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
+      <div data-controller="${identifier(this.paginationController)}" data-${identifier(this.paginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
     `
   }
 
