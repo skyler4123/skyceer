@@ -36,6 +36,8 @@ class EducationSchool::EducationSubjectsController < EducationSchool::Educations
 
   # POST /education_subjects or /education_subjects.json
   def create
+    @education_subject = EducationSubject.new(education_subject_params)
+
     respond_to do |format|
       if @education_subject.save
         if params[:education_subject][:education_category_id].present?
@@ -55,7 +57,7 @@ class EducationSchool::EducationSubjectsController < EducationSchool::Educations
   # PATCH/PUT /education_subjects/1 or /education_subjects/1.json
   def update
     respond_to do |format|
-      if @education_subject.update(update_education_subject_params)
+      if @education_subject.update(education_subject_params)
         if params[:education_subject][:education_category_id].present?
           education_categories = EducationCategory.where(id: params[:education_subject][:education_category_id])
           @education_subject.education_categories = education_categories
@@ -95,9 +97,5 @@ class EducationSchool::EducationSubjectsController < EducationSchool::Educations
     # Only allow a list of trusted parameters through.
     def education_subject_params
       params.expect(education_subject: [ :name, :description, :education_school_id ])
-    end
-
-    def update_education_subject_params
-      params.expect(education_subject: [ :name, :description ])
     end
 end
