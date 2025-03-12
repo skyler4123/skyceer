@@ -1,7 +1,7 @@
 // https://www.svgrepo.com/
 import { Controller } from "@hotwired/stimulus"
 
-export default class Education_EducationSchool_AsideController extends Controller {
+export default class Education_EducationAdmin_AsideController extends Controller {
 
   initialize() {
     this.element.className = "flex w-1/4 h-screen bg-gray-800 pr-4 pl-4 pt-4"
@@ -32,7 +32,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
   schoolAsideData() {
     return [
       {
-        name: "School",
+        name: "School 111",
         url: `/education_schools`,
         icon: `
           <svg class="w-full h-full stroke-gray-200" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

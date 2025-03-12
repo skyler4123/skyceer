@@ -1,9 +1,9 @@
 import { identifier, transferToValue } from "controllers/education/helpers/data_helpers"
 
 import {TabulatorFull as Tabulator} from 'tabulator';
-import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
+import Education_EducationAdmin_LayoutController from "controllers/education/education_admin/layout_controller";
 
-export default class extends Education_EducationSchool_LayoutController {
+export default class extends Education_EducationAdmin_LayoutController {
 
   init() {
     this.initHTML()
