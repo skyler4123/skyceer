@@ -32,7 +32,7 @@ end
 constraints EducationRoleConstraint.new(:education_admin) do
   scope module: :education_admin do
     resources :education_schools
-    resources :education_admins
+    # resources :education_admins
     resources :education_exam_appointments
     resources :education_time_tables, only: [:index] 
     resources :education_scoreboards, only: [:index]

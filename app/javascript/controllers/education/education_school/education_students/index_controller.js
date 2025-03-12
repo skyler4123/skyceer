@@ -4,7 +4,7 @@ import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 
 
-export default class extends Education_EducationSchool_LayoutController {
+export default class Education_EducationSchool_EducationStudents_IndexController extends Education_EducationSchool_LayoutController {
 
   init() {
     console.log(this)

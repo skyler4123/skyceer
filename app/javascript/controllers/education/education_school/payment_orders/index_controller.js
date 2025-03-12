@@ -3,7 +3,7 @@ import Education_EducationSchool_LayoutController from "controllers/education/ed
 
 import { identifier, transferToValue } from "controllers/education/helpers/data_helpers"
 
-export default class extends Education_EducationSchool_LayoutController {
+export default class Education_EducationSchool_PaymentOrders_IndexController extends Education_EducationSchool_LayoutController {
   init() {
     this.initHTML()
     this.initTable()

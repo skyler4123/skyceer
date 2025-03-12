@@ -11,10 +11,11 @@ class EducationAdmin::EducationsController < EducationsController
 
   def set_education_admin
     @education_admin = current_user.education_admin
+    @education_admins = [@education_admin]
   end
 
   def set_education_schools
-    @education_schools = EducationSchool.where(user_id: @education_admin.education_school_user_id)
+    @education_schools = EducationSchool.joins(:education_admins).where(education_admins: {id: @education_admin.id})
   end
 
 end

@@ -36,7 +36,7 @@ export default class Education_EducationSchool_AsideController extends Controlle
   schoolAsideData() {
     return [
       {
-        name: "School",
+        name: "Schools",
         url: `/education_schools`,
         icon: `
           <svg class="w-full h-full stroke-gray-200" width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

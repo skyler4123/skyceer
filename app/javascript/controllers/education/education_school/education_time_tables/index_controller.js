@@ -2,7 +2,7 @@ import Education_EducationSchool_LayoutController from "controllers/education/ed
 import Calendar from '@toast-ui/calendar';
 import Swal from 'sweetalert2'
 
-export default class extends Education_EducationSchool_LayoutController {
+export default class Education_EducationSchool_EducationTimeTables_IndexController extends Education_EducationSchool_LayoutController {
 static targets= ["calendar", "selectClass"]
   static values = {
     class: { type: String, default: "w-full h-[700px]" },
