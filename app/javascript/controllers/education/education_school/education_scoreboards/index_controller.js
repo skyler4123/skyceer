@@ -158,7 +158,7 @@ export default class extends Education_EducationSchool_LayoutController {
         </div>
       </form>
       <div data-${this.identifier}-target="table" class="w-full"></div>
-      <div data-controller="${identifier(this.paginationController)}" data-${identifier(this.paginationController)}-pagination-value="${transferToValue(ServerData.pagination)}"></div>
+      <div data-controller="${identifier(this.paginationController)}" data-${identifier(this.paginationController)}-pagination-value="${transferToValue(this.paginationData)}"></div>
     `
   }
 }
