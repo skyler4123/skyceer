@@ -77,5 +77,6 @@ constraints EducationRoleConstraint.new(:education_teacher) do
     resources :education_courses, only: [:index]
     resources :education_subjects, only: [:index]
     resources :education_exams, only: [:index]
+    resources :payment_orders, only: [:index]
   end
 end

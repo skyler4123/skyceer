@@ -55,7 +55,7 @@ export default class Education_EducationTeacher_AsideController extends Controll
           </svg>`
       },
       {
-        name: "Students",
+        name: "Teachers",
         url: `/education_students`,
         icon: `
           <svg class="w-full h-full fill-gray-200" height="800px" width="800px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">

@@ -1,10 +1,10 @@
 import { identifier, isEmpty, transferToValue } from "controllers/education/helpers/data_helpers"
 
-import Education_EducationStudent_LayoutController from "controllers/education/education_student/layout_controller";
+import Education_EducationTeacher_LayoutController from "controllers/education/education_teacher/layout_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
 
 
-export default class extends Education_EducationStudent_LayoutController {
+export default class extends Education_EducationTeacher_LayoutController {
   static targets = ['classIdSelect', 'subjectIdSelect', 'table']
   static values = {
     classId: { type: String, default: '' }, // fetch, re-render
@@ -70,7 +70,7 @@ export default class extends Education_EducationStudent_LayoutController {
   }
 
   tableData() {
-    return this.educationStudents().map((row) => {
+    return this.educationTeachers().map((row) => {
       return {
         ...row,
         name: row.name,
@@ -79,7 +79,7 @@ export default class extends Education_EducationStudent_LayoutController {
     })
   }
 
-  educationStudents() {
+  educationTeachers() {
     return ServerData.data.education_students
   }
 
@@ -116,7 +116,7 @@ export default class extends Education_EducationStudent_LayoutController {
   // loop through education_students[].id and get education_exam_appointments[].score
   examAppointmentsData() {
     const data = []
-    this.educationStudents().forEach((student) => {
+    this.educationTeachers().forEach((student) => {
       const row = {name: student.name}
       this.educationExams().forEach((exam) => {
         const appointment = this.educationExamAppointments().find((appointment) => appointment.education_exam_id === exam.id && appointment.education_exam_appointmentable_id === student.id)
