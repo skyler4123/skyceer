@@ -129,36 +129,38 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
 
   contentHTML() {
     return `
-      <form action="/education_scoreboards" class="flex flex-row gap-x-4">
-        <div class="w-1/4 flex justify-center items-center">
-          <select
-            name="education_class_id"
-            data-${this.identifier}-target="classIdSelect"
-            data-action="change->${this.identifier}#classIdSelectEvent"
-            data-controller="choices"
-          >
-            <option value="" disabled selected>Select Class</option>
-            ${this.contentClassesForSelect().map((row) => {
-              return `<option value="${row.id}/edit">${row.name}</option>`
-            }).join('')}
-          </select>
-        </div>
-        <div class="w-1/4 flex justify-center items-center">
-          <select
-            name="education_subject_id"
-            data-${this.identifier}-target="subjectIdSelect"
-            data-controller="choices"
-            required
-          >
-            <option value="">Select Subject</option>
-          </select>
-        </div>
-        <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-          <input type="submit" value="Submit">
-        </div>
-      </form>
-      <div data-${this.identifier}-target="table" class="w-full"></div>
-      <div data-controller="${identifier(this.paginationController)}" data-${identifier(this.paginationController)}-pagination-value="${transferToValue(this.paginationData)}"></div>
+      <div class="w-4/5 mx-auto mt-10">
+        <form action="/education_scoreboards" class="flex flex-row gap-x-4">
+          <div class="w-1/4 flex justify-center items-center">
+            <select
+              name="education_class_id"
+              data-${this.identifier}-target="classIdSelect"
+              data-action="change->${this.identifier}#classIdSelectEvent"
+              data-controller="choices"
+            >
+              <option value="" disabled selected>Select Class</option>
+              ${this.contentClassesForSelect().map((row) => {
+                return `<option value="${row.id}/edit">${row.name}</option>`
+              }).join('')}
+            </select>
+          </div>
+          <div class="w-1/4 flex justify-center items-center">
+            <select
+              name="education_subject_id"
+              data-${this.identifier}-target="subjectIdSelect"
+              data-controller="choices"
+              required
+            >
+              <option value="">Select Subject</option>
+            </select>
+          </div>
+          <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+            <input type="submit" value="Submit">
+          </div>
+        </form>
+        <div data-${this.identifier}-target="table" class="w-full"></div>
+        <div data-controller="${identifier(this.paginationController)}" data-${identifier(this.paginationController)}-pagination-value="${transferToValue(this.paginationData)}"></div>
+      </div>
     `
   }
 }
