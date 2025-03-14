@@ -1,39 +1,9 @@
 // https://www.svgrepo.com/
-import { Controller } from "@hotwired/stimulus"
+import Education_AsideController from "controllers/education/aside_controller"
 
-export default class Education_EducationSchool_AsideController extends Controller {
+export default class Education_EducationSchool_AsideController extends Education_AsideController {
 
-  initialize() {
-    this.element.className = "flex w-1/4 h-screen bg-gray-800 pr-4 pl-4 pt-4"
-    this.element.innerHTML = this.defaultHTML()
-  }
-
-  disconnect() {
-    this.element.remove()
-  }
-  
-  defaultHTML() {
-    return `
-      <ul class="w-full h-full flex flex-col gap-y-4 justify-start">
-        ${this.schoolAsideData().map((data) => {
-          return `
-            <li class="w-full pl-2">
-              <a class="group flex justify-start items-center"
-                href="${data.url}">
-                <div class="w-6 h-6 flex justify-center items-center mr-4">
-                  ${data.icon}
-                </div>
-                <div class="text-gray-200 leading-6">${data.name}</div>
-              </a>
-              <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
-            </li>
-          `
-        }).join("")}
-      </ul>
-    `
-  }
-
-  schoolAsideData() {
+  asideData() {
     return [
       {
         name: "Schools",
