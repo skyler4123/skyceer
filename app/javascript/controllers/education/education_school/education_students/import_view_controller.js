@@ -5,7 +5,7 @@ import Education_CsvController from "controllers/education/csv_controller";
 
 
 export default class Education_EducationSchool_EducationStudents_ImportViewController extends Education_EducationSchool_LayoutController {
-  static targets = ["input", "table", "formAndTable", "form", "payloadInput"]
+  static targets = ["inputContainer", "inputFile", "table", "formAndTable", "form", "payloadInput"]
   static values = {
     import: { type: Array, default: [] },
   }
@@ -29,9 +29,13 @@ export default class Education_EducationSchool_EducationStudents_ImportViewContr
 
         <div 
           class="flex items-center justify-center w-full"
-          data-${this.identifier}-target="input"
+          data-${this.identifier}-target="inputContainer"
         >
-          <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+          <label
+            for="dropzone-file"
+            data-action="dragover->${this.identifier}#dragover drop->${this.identifier}#drop"
+            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          >
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
               <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
@@ -39,7 +43,9 @@ export default class Education_EducationSchool_EducationStudents_ImportViewContr
               <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
               <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
             </div>
-            <input id="dropzone-file" type="file" class="hidden" 
+            <input
+              id="dropzone-file" type="file" class="hidden"
+              data-${this.identifier}-target="inputFile"
               data-action="change->${this.identifier}#uploadCsvFile"
             />
           </label>
@@ -50,7 +56,7 @@ export default class Education_EducationSchool_EducationStudents_ImportViewContr
         >
           <div class="flex flex-row items-center justify-between w-full gap-x-4">
             <div>
-              Import file needs to have columns: uid, name, email, phone, school_names, class_names
+              Import file needs to have columns: uid, name, email, school_names, class_names
             </div>
             ${createForm({
               attributes: ` data-${this.identifier}-target="form" method="post" action="/education_students/import" `,
@@ -66,12 +72,26 @@ export default class Education_EducationSchool_EducationStudents_ImportViewContr
     `
   }
 
-  async uploadCsvFile(event) {
+  dragover(event) {
+    event.preventDefault()
+  }
+
+  async drop(event) {
+    event.preventDefault()
+    const files = event.dataTransfer.files;
+    const file = files[0]
+    this.handleFileUpload(file)
+  }
+
+  uploadCsvFile(event) {
     const file = event.target.files[0]
+    this.handleFileUpload(file)
+  }
+
+  async handleFileUpload(file) {
     if (file) {
       try {
         const data = await readCSVFile(file)
-        console.log(data)
         this.importValue = data
       } catch (error) {
         console.error("Error reading CSV file:", error)
@@ -81,7 +101,7 @@ export default class Education_EducationSchool_EducationStudents_ImportViewContr
 
   importValueChanged() {
     if (this.importValue.length < 1) { return }
-    this.inputTarget.classList.add("hidden")
+    this.inputContainerTarget.classList.add("hidden")
     this.formAndTableTarget.classList.remove("hidden")
     this.initTable()
     this.payloadInputTarget.value = JSON.stringify(this.table.getData())
@@ -116,7 +136,7 @@ export default class Education_EducationSchool_EducationStudents_ImportViewContr
       // ],
       columns: this.importFields().map((field) => {
         return {title: field, field: field, sorter: "string", hozAlign: "center", formatter: "html", editor: "input", cellEdited: (cell) => {
-          console.log(cell)
+          // console.log(cell)
         } }
       }),
     });
