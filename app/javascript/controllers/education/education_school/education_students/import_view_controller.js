@@ -4,7 +4,7 @@ import Education_EducationSchool_LayoutController from "controllers/education/ed
 import Education_CsvController from "controllers/education/csv_controller";
 
 
-export default class Education_EducationSchool_EducationStudents_ImportController extends Education_EducationSchool_LayoutController {
+export default class Education_EducationSchool_EducationStudents_ImportViewController extends Education_EducationSchool_LayoutController {
   static targets = ["input", "table", "formAndTable"]
   static values = {
     import: { type: Array, default: [] },
@@ -48,11 +48,17 @@ export default class Education_EducationSchool_EducationStudents_ImportControlle
           class="hidden flex flex-col items-center justify-center w-full gap-y-4"
           data-${this.identifier}-target="formAndTable"
         >
-          ${createForm({
-            html: `
-              <input type="submit" value="Import" class="rounded-lg py-2 px-5 bg-slate-800 text-white cursor-pointer">
-            `
-          })}
+          <div class="flex flex-row items-center justify-between w-full gap-x-4">
+            <div>
+              Import file needs to have columns: uid, name, email, phone, school_names, class_names
+            </div>
+            ${createForm({
+              attributes: ` data-${this.identifier}-target="form"`,
+              html: `
+                <input type="submit" value="Import" class="rounded-lg py-2 px-5 bg-slate-800 text-white cursor-pointer">
+              `
+            })}
+          </div>
           <div data-${this.identifier}-target="table" class="w-full"></div>
         </div>
       </div>          

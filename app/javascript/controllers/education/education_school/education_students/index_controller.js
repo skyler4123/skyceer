@@ -69,7 +69,7 @@ export default class Education_EducationSchool_EducationStudents_IndexController
           <h2 class="text-xl font-medium">Students</h2>
           <div>
             <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_students/new">New Student</a>
-            <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_students/import"">Import</a>
+            <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_students/import_view"">Import</a>
           </div>
         </div>
         <form action="/education_students" class="flex flex-row gap-x-4">

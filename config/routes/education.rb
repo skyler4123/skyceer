@@ -24,7 +24,8 @@ constraints EducationRoleConstraint.new(:education_school) do
     resources :education_parents
     resources :education_students do
       collection do
-        get :import
+        get :import_view
+        post :import
       end
     end
     resources :education_categories
