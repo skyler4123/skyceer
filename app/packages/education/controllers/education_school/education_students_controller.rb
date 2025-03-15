@@ -98,7 +98,16 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
   end
 
   def import
-    debugger
+    return redirect_to import_view_education_students_path, error: "Please select a file to import" if params[:payload].nil?
+
+    payload = JSON.parse(params[:payload])
+    payload.each do |data|
+      education_student = EducationStudent.new(data)
+      education_student.education_school_user = current_user
+      education_student.save!
+    end
+
+    redirect_to education_students_path, notice: "Education students were successfully imported."
   end
 
   private

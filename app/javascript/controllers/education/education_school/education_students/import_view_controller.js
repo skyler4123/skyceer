@@ -5,7 +5,7 @@ import Education_CsvController from "controllers/education/csv_controller";
 
 
 export default class Education_EducationSchool_EducationStudents_ImportViewController extends Education_EducationSchool_LayoutController {
-  static targets = ["input", "table", "formAndTable"]
+  static targets = ["input", "table", "formAndTable", "form", "payloadInput"]
   static values = {
     import: { type: Array, default: [] },
   }
@@ -53,8 +53,9 @@ export default class Education_EducationSchool_EducationStudents_ImportViewContr
               Import file needs to have columns: uid, name, email, phone, school_names, class_names
             </div>
             ${createForm({
-              attributes: ` data-${this.identifier}-target="form"`,
+              attributes: ` data-${this.identifier}-target="form" method="post" action="/education_students/import" `,
               html: `
+                <input type="hidden" name="payload" data-${this.identifier}-target="payloadInput">
                 <input type="submit" value="Import" class="rounded-lg py-2 px-5 bg-slate-800 text-white cursor-pointer">
               `
             })}
@@ -83,6 +84,7 @@ export default class Education_EducationSchool_EducationStudents_ImportViewContr
     this.inputTarget.classList.add("hidden")
     this.formAndTableTarget.classList.remove("hidden")
     this.initTable()
+    this.payloadInputTarget.value = JSON.stringify(this.importValue)
   }
   
   importFields() {
