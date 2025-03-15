@@ -16,9 +16,17 @@ constraints EducationRoleConstraint.new(:education_school) do
     resources :education_courses
     resources :education_rooms
     resources :education_classes
-    resources :education_teachers
+    resources :education_teachers do
+      collection do
+        get :import
+      end
+    end
     resources :education_parents
-    resources :education_students
+    resources :education_students do
+      collection do
+        get :import
+      end
+    end
     resources :education_categories
     resources :education_exam_questions
     resources :education_questions

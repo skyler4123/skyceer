@@ -275,4 +275,53 @@ export const openModal = ({html = "Model!", popupClass = ""}) => {
   });
 }
 
+// Function to read and parse a CSV file as an array
+export const readCSVFileToArray = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      const contents = event.target.result
+      const rows = contents.split("\n").map(row => row.split(","))
+      resolve(rows)
+    }
+    reader.onerror = (error) => {
+      reject(error)
+    }
+    reader.readAsText(file)
+  })
+}
+
+// Function to read and parse a CSV file and return data as an array of objects
+export const readCSVFile = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      const contents = event.target.result
+      const rows = contents.split("\n").map(row => row.split(","))
+      const headers = rows[0]
+      const data = rows.slice(1).map(row => {
+        let obj = {}
+        row.forEach((value, index) => {
+          obj[headers[index]] = value
+        })
+        return obj
+      })
+      resolve(data)
+    }
+    reader.onerror = (error) => {
+      reject(error)
+    }
+    reader.readAsText(file)
+  })
+}
+
+export const createForm = ({html =  "", url = "/", method = "post"}) => {
+  return `
+    <form action="${url}" method="${method}" accept-charset="UTF-8">
+      <input type="hidden" name="authenticity_token" value="${csrfToken}" autocomplete="off">
+      ${html}
+    </form>
+  `
+}
+
 export const initializedEvent = 'controller:initialize:completed'

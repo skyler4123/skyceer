@@ -67,7 +67,10 @@ export default class Education_EducationSchool_EducationStudents_IndexController
       <div class="mx-auto w-4/5 mt-10 flex flex-col gap-y-4">
         <div class="flex justify-between items-center">
           <h2 class="text-xl font-medium">Students</h2>
-          <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_students/new">New Student</a>
+          <div>
+            <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_students/new">New Student</a>
+            <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_students/import"">Import</a>
+          </div>
         </div>
         <form action="/education_students" class="flex flex-row gap-x-4">
           <div class="w-1/4">
