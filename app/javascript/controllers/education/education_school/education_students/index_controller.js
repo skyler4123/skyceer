@@ -2,14 +2,14 @@ import { identifier, transferToValue } from "controllers/education/helpers/data_
 
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
-import Education_CsvController from "controllers/education/csv_controller";
-
 
 export default class Education_EducationSchool_EducationStudents_IndexController extends Education_EducationSchool_LayoutController {
 
   initBinding() {
     super.initBinding()
-    this.csvController = Education_CsvController
+    this.selectionEducationClasses = ServerData.data.selection_education_classes
+    this.selectionEducationSchools = ServerData.data.selection_education_schools
+    this.educationStudents = ServerData.data.education_students
   }
 
   init() {
@@ -22,7 +22,7 @@ export default class Education_EducationSchool_EducationStudents_IndexController
   }
 
   initTable() {
-    let tableData = this.educationStudents().map((row) => {
+    let tableData = this.educationStudents.map((row) => {
       return {
         ...row,
         name: `<a href="/education_students/${row.id}/edit">${row.name}</a>`,
@@ -54,14 +54,6 @@ export default class Education_EducationSchool_EducationStudents_IndexController
     });
   }
 
-  educationStudents() {
-    return ServerData.data.education_students
-  }
-
-  educationClasses() {
-    return ServerData.data.education_classes
-  }
-
   defaultHTML() {
     return `
       <div class="mx-auto w-4/5 mt-10 flex flex-col gap-y-4">
@@ -72,8 +64,8 @@ export default class Education_EducationSchool_EducationStudents_IndexController
             <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_students/import_view"">Import</a>
           </div>
         </div>
-        <form action="/education_students" class="flex flex-row gap-x-4">
-          <div class="w-1/4">
+        <form action="/education_students" class="w-full h-full flex flex-row gap-x-4 justify-between items-center">
+          <div class="">
             <input
               type="text"
               name="full_text_search"
@@ -83,11 +75,22 @@ export default class Education_EducationSchool_EducationStudents_IndexController
           </div>
           <div class="w-1/4 flex justify-center items-center">
             <select
+              name="education_school_id"
+              data-controller="${identifier(this.choicesController)}"
+            >
+              <option value="" disabled selected>Select School</option>
+              ${this.selectionEducationSchools.map((school) => {
+                return `<option value="${school.id}">${school.name}</option>`
+              }).join("")}
+            </select>
+          </div>
+          <div class="w-1/4 flex justify-center items-center">
+            <select
               name="education_class_id"
               data-controller="${identifier(this.choicesController)}"
             >
               <option value="" disabled selected>Select Class</option>
-              ${this.educationClasses().map((klass) => {
+              ${this.selectionEducationClasses.map((klass) => {
                 return `<option value="${klass.id}">${klass.name}</option>`
               }).join("")}
             </select>

@@ -3,9 +3,6 @@ class EducationSchool::EducationsController < EducationsController
   before_action :set_education_schools
   before_action :set_education_categories
 
-
-
-
   private
 
   def redirect_when_not_education_school

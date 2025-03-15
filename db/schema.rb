@@ -44,6 +44,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "uid"
     t.string "alpha2"
     t.string "alpha3"
     t.string "continent"
@@ -84,6 +85,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "calendar_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
+    t.string "uid"
     t.string "userable_type", null: false
     t.uuid "userable_id", null: false
     t.uuid "parent_category_id"
@@ -108,6 +110,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "calendar_group_id", null: false
+    t.string "uid"
     t.integer "library"
     t.string "title"
     t.string "body"
@@ -144,6 +147,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.uuid "calendar_userable_id", null: false
     t.string "calendar_groupable_type", null: false
     t.uuid "calendar_groupable_id", null: false
+    t.string "uid"
     t.string "name"
     t.string "color"
     t.string "borderColor"
@@ -157,6 +161,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "uid"
     t.string "name"
     t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
@@ -193,6 +198,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.uuid "education_school_user_id"
+    t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Admin can be created without user at first time then will match with user by email"
     t.datetime "created_at", null: false
@@ -203,6 +209,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
+    t.string "uid"
     t.uuid "user_id", null: false
     t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
@@ -235,6 +242,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
     t.uuid "education_course_id", null: false
+    t.string "uid"
     t.string "name", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -245,6 +253,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_courses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "uid"
     t.string "name", null: false
     t.string "description", null: false
     t.uuid "education_school_id", null: false
@@ -267,6 +276,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_exams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "uid"
     t.string "name", null: false
     t.string "description"
     t.integer "status"
@@ -286,6 +296,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.uuid "education_class_id"
     t.uuid "education_subject_id"
     t.uuid "education_teacher_id"
+    t.string "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["education_class_id"], name: "index_education_lessons_on_education_class_id"
@@ -297,6 +308,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_parents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "education_school_user_id"
+    t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Parent can be created without user at first time then will match with user by email"
     t.datetime "discarded_at"
@@ -324,6 +336,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
     t.uuid "education_teacher_id", null: false
+    t.string "uid"
     t.integer "question_type"
     t.string "title"
     t.string "content"
@@ -340,6 +353,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
+    t.string "uid"
     t.string "name", null: false
     t.string "category"
     t.datetime "discarded_at"
@@ -363,6 +377,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_schools", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "address_id"
+    t.string "uid"
     t.string "name", null: false
     t.string "email", null: false, comment: "Email address of the school can be different from the user's email address"
     t.string "category"
@@ -378,6 +393,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.uuid "user_id"
     t.uuid "education_parent_id"
     t.uuid "education_school_user_id"
+    t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Student can be created without user at first time then will match with user by email"
     t.datetime "discarded_at"
@@ -400,6 +416,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_subjects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "uid"
     t.string "name", null: false
     t.string "description", null: false
     t.uuid "education_school_id", null: false
@@ -411,6 +428,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.uuid "education_school_user_id"
+    t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Teacher can be created without user at first time then will match with user by email"
     t.datetime "discarded_at"
@@ -423,6 +441,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "payment_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
+    t.string "uid"
     t.uuid "payment_user_id", null: false
     t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
@@ -447,6 +466,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "payment_customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "payment_customerable_type", null: false
     t.uuid "payment_customerable_id", null: false
+    t.string "uid"
     t.string "name"
     t.string "email"
     t.datetime "discarded_at"
@@ -457,6 +477,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "payment_discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "payment_user_id", null: false
+    t.string "uid"
     t.string "name"
     t.string "description"
     t.string "code"
@@ -472,6 +493,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "payment_invoices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "payment_order_id", null: false
+    t.string "uid"
     t.string "transaction_id"
     t.integer "status"
     t.decimal "amount"
@@ -498,6 +520,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.uuid "payment_user_id", null: false
     t.string "payment_itemable_type", null: false
     t.uuid "payment_itemable_id", null: false
+    t.string "uid"
     t.decimal "price"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -539,6 +562,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "payment_methods", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
+    t.string "uid"
     t.string "description"
     t.integer "region"
     t.datetime "discarded_at"
@@ -551,6 +575,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.uuid "payment_customer_id", null: false
     t.uuid "payment_method_id", null: false
     t.uuid "payment_discount_id", null: false
+    t.string "uid"
     t.integer "status"
     t.decimal "amount"
     t.decimal "paid"
@@ -568,6 +593,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "payment_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "payment_userable_type", null: false
     t.uuid "payment_userable_id", null: false
+    t.string "uid"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -640,6 +666,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "uid"
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "name"
