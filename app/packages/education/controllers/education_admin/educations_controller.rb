@@ -1,6 +1,7 @@
 class EducationAdmin::EducationsController < EducationsController
   before_action :redirect_when_not_education_admin
   before_action :set_education_admin
+  before_action :set_education_school_user
   before_action :set_education_schools
 
   private
@@ -12,6 +13,10 @@ class EducationAdmin::EducationsController < EducationsController
   def set_education_admin
     @education_admin = current_user.education_admin
     @education_admins = [@education_admin]
+  end
+
+  def set_education_school_user
+    @education_school_user = @education_admin.education_school_user
   end
 
   def set_education_schools

@@ -1,0 +1,7 @@
+import Education_EducationSchool_EducationStudents_ImportViewController from "controllers/education/education_school/education_students/import_view_controller";
+
+
+export default class Education_EducationAdmin_EducationStudents_ImportViewController extends Education_EducationSchool_EducationStudents_ImportViewController {
+  
+
+}

@@ -84,7 +84,7 @@ export default class Education_EducationSchool_EducationStudents_ImportViewContr
     this.inputTarget.classList.add("hidden")
     this.formAndTableTarget.classList.remove("hidden")
     this.initTable()
-    this.payloadInputTarget.value = JSON.stringify(this.importValue)
+    this.payloadInputTarget.value = JSON.stringify(this.table.getData())
   }
   
   importFields() {

@@ -64,16 +64,16 @@ export default class Education_EducationSchool_EducationStudents_IndexController
             <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_students/import_view"">Import</a>
           </div>
         </div>
-        <form action="/education_students" class="w-full h-full flex flex-row gap-x-4 justify-between items-center">
-          <div class="">
+        <form action="/education_students" class="w-full h-full flex flex-row gap-x-4 justify-end items-center">
+          <div class="w-full h-full bg-white dark:bg-gray-800 dark:text-white flex items-center border border-gray-200 rounded-lg">
             <input
               type="text"
               name="full_text_search"
               placeholder="Name, Email, Phone, ..."
-              class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500"
+              class="p-2.5"
             >
           </div>
-          <div class="w-1/4 flex justify-center items-center">
+          <div class="min-w-1/4 h-full bg-white dark:bg-gray-800 dark:text-white flex items-center border border-gray-200 rounded-lg">
             <select
               name="education_school_id"
               data-controller="${identifier(this.choicesController)}"
@@ -84,7 +84,7 @@ export default class Education_EducationSchool_EducationStudents_IndexController
               }).join("")}
             </select>
           </div>
-          <div class="w-1/4 flex justify-center items-center">
+          <div class="min-w-1/4 h-full bg-white dark:bg-gray-800 dark:text-white flex items-center border border-gray-200 rounded-lg">
             <select
               name="education_class_id"
               data-controller="${identifier(this.choicesController)}"
@@ -96,7 +96,7 @@ export default class Education_EducationSchool_EducationStudents_IndexController
             </select>
           </div>
           <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Search">
           </div>
         </form>
         <div data-${this.identifier}-target="table" class="w-full"></div>

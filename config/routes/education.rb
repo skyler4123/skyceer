@@ -49,7 +49,12 @@ constraints EducationRoleConstraint.new(:education_admin) do
     resources :education_rooms
     resources :education_classes
     resources :education_teachers
-    resources :education_students
+    resources :education_students do
+      collection do
+        get :import_view
+        post :import
+      end
+    end
     resources :education_categories
     resources :education_exam_questions
     resources :education_questions
