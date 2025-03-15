@@ -7,6 +7,7 @@ class CreateEducationLessons < ActiveRecord::Migration[8.0]
       t.references :education_class, null: true, foreign_key: true, type: :uuid
       t.references :education_subject, null: true, foreign_key: true, type: :uuid
       t.references :education_teacher, null: true, foreign_key: true, type: :uuid
+      t.string :uid
 
       t.timestamps
     end

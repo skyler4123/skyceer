@@ -5,6 +5,7 @@ class CreatePaymentOrders < ActiveRecord::Migration[8.0]
       t.references :payment_customer, null: false, foreign_key: true, type: :uuid
       t.references :payment_method, null: false, foreign_key: true, type: :uuid
       t.references :payment_discount, null: false, foreign_key: true, type: :uuid
+      t.string :uid
       t.integer :status
       t.decimal :amount
       t.decimal :paid

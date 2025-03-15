@@ -2,12 +2,17 @@ import { identifier, transferToValue } from "controllers/education/helpers/data_
 
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
+import Education_CsvController from "controllers/education/csv_controller";
 
 
 export default class Education_EducationSchool_EducationStudents_IndexController extends Education_EducationSchool_LayoutController {
 
+  initBinding() {
+    super.initBinding()
+    this.csvController = Education_CsvController
+  }
+
   init() {
-    console.log(this)
     this.initHTML()
     this.initTable()
   }

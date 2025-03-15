@@ -2,6 +2,7 @@ class CreateCalendarEvents < ActiveRecord::Migration[8.0]
   def change
     create_table :calendar_events, id: :uuid do |t|
       t.references :calendar_group, null: false, foreign_key: true, type: :uuid
+      t.string :uid
       t.integer :library
       t.string :title
       t.string :body

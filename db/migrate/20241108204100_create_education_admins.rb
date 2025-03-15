@@ -3,8 +3,7 @@ class CreateEducationAdmins < ActiveRecord::Migration[8.0]
     create_table :education_admins, id: :uuid do |t|
       t.references :user, null: true, foreign_key: true, type: :uuid
       t.references :education_school_user, null: true, foreign_key: { to_table: :users }, type: :uuid
-
-      t.references
+      t.string :uid
       t.string :name, null: false
       t.string :email, comment: 'Admin can be created without user at first time then will match with user by email'
 
