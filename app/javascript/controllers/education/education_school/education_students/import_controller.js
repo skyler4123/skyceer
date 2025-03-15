@@ -16,9 +16,7 @@ export default class Education_EducationSchool_EducationStudents_ImportControlle
   }
 
   init() {
-    console.log(this)
     this.initHTML()
-    // this.initTable()
   }
 
   initHTML() {
@@ -76,7 +74,6 @@ export default class Education_EducationSchool_EducationStudents_ImportControlle
 
   importValueChanged() {
     if (this.importValue.length < 1) { return }
-    // hide the input
     this.inputTarget.classList.add("hidden")
     this.formAndTableTarget.classList.remove("hidden")
     this.initTable()
