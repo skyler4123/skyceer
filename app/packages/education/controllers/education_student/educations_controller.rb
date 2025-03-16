@@ -2,6 +2,7 @@ class EducationStudent::EducationsController < EducationsController
   before_action :redirect_when_not_education_student
   before_action :set_education_students
   before_action :set_education_schools
+  before_action :set_education_classes
 
   private
 
@@ -15,5 +16,9 @@ class EducationStudent::EducationsController < EducationsController
 
   def set_education_schools
     @education_schools ||= EducationSchool.joins(:education_students).where(education_students: { id: @education_students.ids })
+  end
+
+  def set_education_classes
+    @education_classes ||= EducationClass.joins(:education_students).where(education_students: { id: @education_students.ids })
   end
 end
