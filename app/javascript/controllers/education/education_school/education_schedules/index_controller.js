@@ -177,12 +177,12 @@ static targets= ["calendar", "selectClass"]
   }
 
   selectDateTime(event) {
-    // openModal({
-    //   html: this.createEventHTML(), 
-    // })
-    openDrawer({
+    openModal({
       html: this.createEventHTML(), 
     })
+    // openDrawer({
+    //   html: this.createEventHTML(), 
+    // })
   }
 
   createEventHTML() {
