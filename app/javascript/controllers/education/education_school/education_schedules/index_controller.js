@@ -1,13 +1,15 @@
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import Calendar from '@toast-ui/calendar';
-import Swal from 'sweetalert2'
+import { openModal } from "controllers/education/helpers/data_helpers";
 
 export default class Education_EducationSchool_EducationSchedules_IndexController extends Education_EducationSchool_LayoutController {
 static targets= ["calendar", "selectClass"]
   static values = {
-    class: { type: String, default: "w-full h-[700px]" },
     groups: { type: Array, default: [] },
     events: { type: Object, default: {} }
+  }
+
+  initBindings() {
   }
 
   init() {
@@ -28,14 +30,6 @@ static targets= ["calendar", "selectClass"]
 
         <form action="/education_schedules" class="flex flex-row justify-end items-center gap-x-4">
           <div>
-            <select class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500 rounded-md">
-              <option data-action="click->${this.identifier}#changeView" selected value="month">Time View</option>
-              <option data-action="click->${this.identifier}#changeView" value="month">Month</option>
-              <option data-action="click->${this.identifier}#changeView" value="week">Week</option>
-              <option data-action="click->${this.identifier}#changeView" value="day">Day</option>
-            </select>
-          </div>
-          <div>
             <select 
               data-${this.identifier}-target="selectClass"
               name="education_class_id"
@@ -47,18 +41,47 @@ static targets= ["calendar", "selectClass"]
               }).join('')} }
             </select>
           </div>
-          <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+          <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer">
             <input type="submit" value="Search">
           </div>        
         </form>
+        
+        <div class="flex flex-row justify-between items-center gap-x-4">
+          <div class="flex flex-row gap-x-2">
+            <button
+              class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer"
+              data-action="click->${this.identifier}#day"
+            >
+              Day
+            </button>
+            <button
+              class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer"
+              data-action="click->${this.identifier}#week"
+            >
+              Week
+            </button>
+            <button
+              class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer"
+              data-action="click->${this.identifier}#month"
+            >
+              Month
+            </button>
+          </div>
 
-        <div class="flex flex-row justify-start items-center gap-x-4">
-          <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-            <button data-action="click->${this.identifier}#prev">Prev</button>
-          </div> 
-          <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-            <button data-action="click->${this.identifier}#next">Next</button>
-          </div> 
+          <div class="flex flex-row gap-x-2">
+            <button
+              class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer"
+              data-action="click->${this.identifier}#prev"
+            >
+              Prev
+            </button>
+            <button
+              class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 cursor-pointer"
+              data-action="click->${this.identifier}#next"
+            >
+              Next
+            </button>
+          </div>
         </div>
 
         <div
@@ -106,42 +129,22 @@ static targets= ["calendar", "selectClass"]
     this.calendar.next()
   }
 
-  // async showCalendarOfClass(event) {
-  //   this.calendar.clear()
-
-  //   // const group = this.newCalendarGroup(event.target.value, event.target.selectedOptions[0].text)
-  //   // this.calendar.setCalendars([group])
-  //   let events = await this.fetchCalendarEventsFromGroupId(event.target.value)
-  //   events = events.map((event) => {
-  //     return {
-  //       id: event.id,
-  //       title: event.title,
-  //       start: event.start,
-  //       end: event.end,
-  //       calendarId: this.selectClassTarget.value,
-  //     }
-  //   })
-  //   const starts = events.map((event) => event.start)
-  //   const minStart = this.minTime(starts)
-  //   const maxStart = this.maxTime(starts)
-
-  //   const minLocalTime = this.getLocalHourFromTimeString(minStart)
-  //   const maxLocalTime = this.getLocalHourFromTimeString(maxStart)
-  //   // set hourStart for week view
-  //   this.calendar.setOptions({
-  //     week: {
-  //       hourStart: minLocalTime - 1,
-  //       hourEnd: maxLocalTime + 5,
-  //     }
-  //   })
-  //   this.calendar.createEvents(events)
-  // }
-
-  async fetchCalendarEventsFromGroupId(groupId) {
-    const response = await CalendarEventsApi.index({ params: { eventable_id: groupId }})
-    const responseData = response.data
-    return responseData
+  day() {
+    this.calendar.changeView('day')
   }
+
+  week() {
+    this.calendar.changeView('week')
+  }
+
+  month() {
+    this.calendar.changeView('month')
+  }
+  // async fetchCalendarEventsFromGroupId(groupId) {
+  //   const response = await CalendarEventsApi.index({ params: { eventable_id: groupId }})
+  //   const responseData = response.data
+  //   return responseData
+  // }
 
   initCalendarAction() {
     this.calendar.on('selectDateTime', (event) => {
@@ -174,29 +177,7 @@ static targets= ["calendar", "selectClass"]
   }
 
   selectDateTime(event) {
-    // Swal.fire({
-    //   html: `
-    //     <form class="max-w-sm mx-auto">
-    //       <div class="mb-5">
-    //         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-    //         <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
-    //       </div>
-    //       <div class="mb-5">
-    //         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-    //         <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
-    //       </div>
-    //       <div class="flex items-start mb-5">
-    //         <div class="flex items-center h-5">
-    //           <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
-    //         </div>
-    //         <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
-    //       </div>
-    //       <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-slate-800 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-    //     </form>
-    
-    //   `,
-    //   confirmButtonText: "Save"
-    // });
+    openModal({ html: "Select Date Time" })
   }
 
   beforeCreateEvent(event) {
@@ -255,17 +236,10 @@ static targets= ["calendar", "selectClass"]
 
   options() {
     return {
-      ...this.optionsParamsDefault(),
-      ...this.optionsParams
-    }
-  }
-
-  optionsParamsDefault() {
-    return {
       defaultView: 'month',
       // defaultView: 'week',
-      useFormPopup: true,
-      useDetailPopup: true,
+      useFormPopup: false,
+      useDetailPopup: false,
       isReadOnly: false,
       usageStatistics: false,
       week: {
