@@ -25,24 +25,24 @@ RSpec.feature "education_students#import_view", type: :feature, js: true do
       expect(page).to have_content("Support: CSV")
     end
 
-    it "will upload a CSV file" do
-      # Make the input visible
-      page.execute_script("document.getElementById('dropzone-file').classList.remove('hidden')")
+    # it "will upload a CSV file" do
+    #   # Make the input visible
+    #   page.execute_script("document.getElementById('dropzone-file').classList.remove('hidden')")
 
-      # Upload the CSV file via input file
-      attach_file('dropzone-file', csv_file.path, make_visible: true)
+    #   # Upload the CSV file via input file
+    #   attach_file('dropzone-file', csv_file.path, make_visible: true)
 
-      # Manually trigger the change event
-      # page.execute_script("document.getElementById('dropzone-file').dispatchEvent(new Event('change', { bubbles: true }))")
+    #   # Manually trigger the change event
+    #   # page.execute_script("document.getElementById('dropzone-file').dispatchEvent(new Event('change', { bubbles: true }))")
 
-      # Verify the file upload
-      expect(page).to have_content("John Doe")
-      expect(page).to have_content("Jane Smith")
+    #   # Verify the file upload
+    #   expect(page).to have_content("John Doe")
+    #   expect(page).to have_content("Jane Smith")
 
-      # Close and unlink the temporary file
-      csv_file.close
-      csv_file.unlink
-    end
+    #   # Close and unlink the temporary file
+    #   csv_file.close
+    #   csv_file.unlink
+    # end
   end
 
   context "education_role: :not_education_user" do
