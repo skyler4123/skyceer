@@ -24,7 +24,7 @@ static targets= ["calendar", "selectClass"]
 
   contentHTML() {
     return `
-      <form action="/education_time_tables" class="flex flex-row gap-x-4">
+      <form action="/education_schedules" class="flex flex-row gap-x-4">
         <div>
           <select class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500 rounded-md">
             <option data-action="click->${this.identifier}#changeView" selected value="month">Time View</option>

@@ -1,7 +1,6 @@
-class EducationStudent::EducationTimeTablesController < EducationStudent::EducationsController
-
+class EducationSchool::EducationSchedulesController < EducationSchool::EducationsController
   def index
-    @education_classes = EducationClass.joins(:education_students).where(education_students: @education_students)
+    @education_classes = EducationClass.where(education_school: @education_schools)
     @calendar_groups = CalendarGroup.where(calendar_groupable: params[:education_class_id]) if params[:education_class_id].present?
     @calendar_events = CalendarEvent.where(calendar_group: @calendar_groups)
     @data = {
@@ -9,5 +8,4 @@ class EducationStudent::EducationTimeTablesController < EducationStudent::Educat
       calendar_events: @calendar_events.as_json,
     }.to_json
   end
-  
 end
