@@ -24,36 +24,50 @@ static targets= ["calendar", "selectClass"]
 
   contentHTML() {
     return `
-      <form action="/education_schedules" class="flex flex-row gap-x-4">
-        <div>
-          <select class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500 rounded-md">
-            <option data-action="click->${this.identifier}#changeView" selected value="month">Time View</option>
-            <option data-action="click->${this.identifier}#changeView" value="month">Month</option>
-            <option data-action="click->${this.identifier}#changeView" value="week">Week</option>
-            <option data-action="click->${this.identifier}#changeView" value="day">Day</option>
-          </select>
-        </div>
-        <div>
-          <select 
-            data-${this.identifier}-target="selectClass"
-            name="education_class_id"
-            class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500 rounded-md"
-          >
-            <option>Select Class</option>
-            ${this.educationClassesForSelect().map((klass) => {
-              return `<option value="${klass.id}">${klass.name}</option>`
-            }).join('')} }
-          </select>
-        </div>
-        <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-          <input type="submit" value="Submit">
-        </div>        
-      </form>
-      <button data-action="click->${this.identifier}#prev">Prev</button>
-      <button data-action="click->${this.identifier}#next">Next</button>
+      <div class="flex flex-col w-4/5 mx-auto mt-10 gap-y-4">
 
-  
-      <div class="${this.classValue}" data-${this.identifier}-target="calendar"></div>
+        <form action="/education_schedules" class="flex flex-row justify-end items-center gap-x-4">
+          <div>
+            <select class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500 rounded-md">
+              <option data-action="click->${this.identifier}#changeView" selected value="month">Time View</option>
+              <option data-action="click->${this.identifier}#changeView" value="month">Month</option>
+              <option data-action="click->${this.identifier}#changeView" value="week">Week</option>
+              <option data-action="click->${this.identifier}#changeView" value="day">Day</option>
+            </select>
+          </div>
+          <div>
+            <select 
+              data-${this.identifier}-target="selectClass"
+              name="education_class_id"
+              class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500 rounded-md"
+            >
+              <option>Select Class</option>
+              ${this.educationClassesForSelect().map((klass) => {
+                return `<option value="${klass.id}">${klass.name}</option>`
+              }).join('')} }
+            </select>
+          </div>
+          <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+            <input type="submit" value="Search">
+          </div>        
+        </form>
+
+        <div class="flex flex-row justify-start items-center gap-x-4">
+          <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+            <button data-action="click->${this.identifier}#prev">Prev</button>
+          </div> 
+          <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+            <button data-action="click->${this.identifier}#next">Next</button>
+          </div> 
+        </div>
+
+        <div
+          class="w-full h-[700px] bg-white border border-gray-300 rounded-lg" 
+          data-${this.identifier}-target="calendar"
+        >
+        </div>
+
+      </div>
     `
   }
 
