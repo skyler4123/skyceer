@@ -1,6 +1,6 @@
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import Calendar from '@toast-ui/calendar';
-import { openModal } from "controllers/education/helpers/data_helpers";
+import { createForm, openModal } from "controllers/education/helpers/data_helpers";
 
 export default class Education_EducationSchool_EducationSchedules_IndexController extends Education_EducationSchool_LayoutController {
 static targets= ["calendar", "selectClass"]
@@ -177,7 +177,108 @@ static targets= ["calendar", "selectClass"]
   }
 
   selectDateTime(event) {
-    openModal({ html: "Select Date Time" })
+    openModal({
+      html: this.createEventHTML(), 
+    })
+  }
+
+  createEventHTML() {
+    return createForm({
+      html: `
+        <div class="mb-4">
+          <label for="library" class="block text-sm font-medium text-gray-700">Library</label>
+          <input type="text" id="library" name="library" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+          <input type="text" id="title" name="title" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
+          <textarea id="body" name="body" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="isAllday" class="block text-sm font-medium text-gray-700">All Day</label>
+          <input type="checkbox" id="isAllday" name="isAllday" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="start" class="block text-sm font-medium text-gray-700">Start</label>
+          <input type="datetime-local" id="start" name="start" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="end" class="block text-sm font-medium text-gray-700">End</label>
+          <input type="datetime-local" id="end" name="end" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="goingDuration" class="block text-sm font-medium text-gray-700">Going Duration</label>
+          <input type="text" id="goingDuration" name="goingDuration" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="comingDuration" class="block text-sm font-medium text-gray-700">Coming Duration</label>
+          <input type="text" id="comingDuration" name="comingDuration" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+          <input type="text" id="location" name="location" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="attendees" class="block text-sm font-medium text-gray-700">Attendees</label>
+          <input type="text" id="attendees" name="attendees" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+          <input type="text" id="category" name="category" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="dueDateClass" class="block text-sm font-medium text-gray-700">Due Date Class</label>
+          <input type="text" id="dueDateClass" name="dueDateClass" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="recurrenceRule" class="block text-sm font-medium text-gray-700">Recurrence Rule</label>
+          <input type="text" id="recurrenceRule" name="recurrenceRule" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="state" class="block text-sm font-medium text-gray-700">State</label>
+          <input type="text" id="state" name="state" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="isVisible" class="block text-sm font-medium text-gray-700">Visible</label>
+          <input type="checkbox" id="isVisible" name="isVisible" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="isPending" class="block text-sm font-medium text-gray-700">Pending</label>
+          <input type="checkbox" id="isPending" name="isPending" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="isFocused" class="block text-sm font-medium text-gray-700">Focused</label>
+          <input type="checkbox" id="isFocused" name="isFocused" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="isReadOnly" class="block text-sm font-medium text-gray-700">Read Only</label>
+          <input type="checkbox" id="isReadOnly" name="isReadOnly" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="isPrivate" class="block text-sm font-medium text-gray-700">Private</label>
+          <input type="checkbox" id="isPrivate" name="isPrivate" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
+          <input type="color" id="color" name="color" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="backgroundColor" class="block text-sm font-medium text-gray-700">Background Color</label>
+          <input type="color" id="backgroundColor" name="backgroundColor" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="dragBackgroundColor" class="block text-sm font-medium text-gray-700">Drag Background Color</label>
+          <input type="color" id="dragBackgroundColor" name="dragBackgroundColor" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="borderColor" class="block text-sm font-medium text-gray-700">Border Color</label>
+          <input type="color" id="borderColor" name="borderColor" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        </div>
+      `
+    })
   }
 
   beforeCreateEvent(event) {
