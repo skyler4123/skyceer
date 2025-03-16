@@ -1,6 +1,6 @@
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import Calendar from '@toast-ui/calendar';
-import { createForm, openModal } from "controllers/education/helpers/data_helpers";
+import { createForm, openModal, openDrawer } from "controllers/education/helpers/data_helpers";
 
 export default class Education_EducationSchool_EducationSchedules_IndexController extends Education_EducationSchool_LayoutController {
 static targets= ["calendar", "selectClass"]
@@ -177,7 +177,10 @@ static targets= ["calendar", "selectClass"]
   }
 
   selectDateTime(event) {
-    openModal({
+    // openModal({
+    //   html: this.createEventHTML(), 
+    // })
+    openDrawer({
       html: this.createEventHTML(), 
     })
   }

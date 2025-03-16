@@ -275,6 +275,35 @@ export const openModal = ({html = "Model!", popupClass = ""}) => {
   });
 }
 
+export const openDrawer = ({html = "Drawer!", position = "top-start", popupClass = ""}) => {
+  Swal.fire({
+    html: html,
+    position: position,
+    showConfirmButton: false,
+    showCloseButton: false,
+    backdrop: true,
+    showClass: {
+      popup: `
+        animate__animated
+        animate__fadeInUp
+        animate__faster
+      `
+    },
+    hideClass: {
+      popup: `
+        animate__animated
+        animate__fadeOutDown
+        animate__faster
+      `
+    },
+    customClass: {
+      container: '!p-0',
+      popup: 'swal2-container-custom h-screen',
+      htmlContainer: '!p-0',
+    },
+  });
+}
+
 // Function to read and parse a CSV file as an array
 export const readCSVFileToArray = (file) => {
   return new Promise((resolve, reject) => {
