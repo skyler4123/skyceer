@@ -9,7 +9,10 @@ static targets= ["calendar", "selectClass"]
     events: { type: Object, default: {} }
   }
 
-  initBindings() {
+  initBinding() {
+    super.initBinding()
+    this.calendarEvents = ServerData.data.calendar_events
+    this.educationClassesForSelect = ServerData.data.education_classes
   }
 
   init() {
@@ -36,7 +39,7 @@ static targets= ["calendar", "selectClass"]
               class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500 rounded-md"
             >
               <option>Select Class</option>
-              ${this.educationClassesForSelect().map((klass) => {
+              ${this.educationClassesForSelect.map((klass) => {
                 return `<option value="${klass.id}">${klass.name}</option>`
               }).join('')} }
             </select>
@@ -96,7 +99,7 @@ static targets= ["calendar", "selectClass"]
 
   initCalendarEvents() {
     this.calendar.clear()
-    let events = this.calendarEvents()?.map((event) => {
+    let events = this.calendarEvents?.map((event) => {
       return {
         id: event.id,
         title: event.title,
@@ -107,14 +110,6 @@ static targets= ["calendar", "selectClass"]
     })
 
     this.calendar.createEvents(events)
-  }
-
-  calendarEvents() {
-    return ServerData.data.calendar_events
-  }
-
-  educationClassesForSelect() {
-    return ServerData.data.education_classes
   }
 
   changeView(event) {
@@ -336,7 +331,7 @@ static targets= ["calendar", "selectClass"]
   }
 
   newCalendarGroups() {
-    return this.educationClassesForSelect().map((group) => {
+    return this.educationClassesForSelect.map((group) => {
       return {
         id: group.id,
         name: group.name,
