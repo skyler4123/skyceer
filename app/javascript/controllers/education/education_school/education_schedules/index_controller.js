@@ -188,97 +188,34 @@ static targets= ["calendar", "selectClass"]
   createEventHTML() {
     return createForm({
       html: `
-        <div class="mb-4">
-          <label for="library" class="block text-sm font-medium text-gray-700">Library</label>
-          <input type="text" id="library" name="library" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-          <input type="text" id="title" name="title" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="body" class="block text-sm font-medium text-gray-700">Body</label>
-          <textarea id="body" name="body" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
-        </div>
-        <div class="mb-4">
-          <label for="isAllday" class="block text-sm font-medium text-gray-700">All Day</label>
-          <input type="checkbox" id="isAllday" name="isAllday" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="start" class="block text-sm font-medium text-gray-700">Start</label>
-          <input type="datetime-local" id="start" name="start" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="end" class="block text-sm font-medium text-gray-700">End</label>
-          <input type="datetime-local" id="end" name="end" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="goingDuration" class="block text-sm font-medium text-gray-700">Going Duration</label>
-          <input type="text" id="goingDuration" name="goingDuration" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="comingDuration" class="block text-sm font-medium text-gray-700">Coming Duration</label>
-          <input type="text" id="comingDuration" name="comingDuration" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
-          <input type="text" id="location" name="location" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="attendees" class="block text-sm font-medium text-gray-700">Attendees</label>
-          <input type="text" id="attendees" name="attendees" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
-          <input type="text" id="category" name="category" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="dueDateClass" class="block text-sm font-medium text-gray-700">Due Date Class</label>
-          <input type="text" id="dueDateClass" name="dueDateClass" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="recurrenceRule" class="block text-sm font-medium text-gray-700">Recurrence Rule</label>
-          <input type="text" id="recurrenceRule" name="recurrenceRule" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="state" class="block text-sm font-medium text-gray-700">State</label>
-          <input type="text" id="state" name="state" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="isVisible" class="block text-sm font-medium text-gray-700">Visible</label>
-          <input type="checkbox" id="isVisible" name="isVisible" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="isPending" class="block text-sm font-medium text-gray-700">Pending</label>
-          <input type="checkbox" id="isPending" name="isPending" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="isFocused" class="block text-sm font-medium text-gray-700">Focused</label>
-          <input type="checkbox" id="isFocused" name="isFocused" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="isReadOnly" class="block text-sm font-medium text-gray-700">Read Only</label>
-          <input type="checkbox" id="isReadOnly" name="isReadOnly" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="isPrivate" class="block text-sm font-medium text-gray-700">Private</label>
-          <input type="checkbox" id="isPrivate" name="isPrivate" class="mt-1 block shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
-          <input type="color" id="color" name="color" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="backgroundColor" class="block text-sm font-medium text-gray-700">Background Color</label>
-          <input type="color" id="backgroundColor" name="backgroundColor" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="dragBackgroundColor" class="block text-sm font-medium text-gray-700">Drag Background Color</label>
-          <input type="color" id="dragBackgroundColor" name="dragBackgroundColor" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-        <div class="mb-4">
-          <label for="borderColor" class="block text-sm font-medium text-gray-700">Border Color</label>
-          <input type="color" id="borderColor" name="borderColor" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        <div class="p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+          <div class="mb-5">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+            <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
+          </div>
+          <div class="mb-5">
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
+            <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+          </div>
+          <div class="flex items-start mb-5">
+            <div class="flex items-center h-5">
+              <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+            </div>
+            <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+          </div>
+
+
+          <div class="relative max-w-sm">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+              </svg>
+            </div>
+            <input datepicker id="default-datepicker" type="datetime-local" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+          </div>
+
+
+          <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
         </div>
       `
     })
