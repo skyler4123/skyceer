@@ -1,8 +1,9 @@
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import Calendar from '@toast-ui/calendar';
-import { createForm, openModal, openDrawer } from "controllers/education/helpers/data_helpers";
+import { createForm, openModal, openDrawer, identifier } from "controllers/education/helpers/data_helpers";
+import Education_ChoicesController from "controllers/education/choices_controller";
 
-export default class Education_EducationSchool_EducationSchedules_IndexController extends Education_EducationSchool_LayoutController {
+export default class Education_EducationSchool_CalendarEvents_IndexController extends Education_EducationSchool_LayoutController {
 static targets= ["calendar", "selectClass"]
   static values = {
     groups: { type: Array, default: [] },
@@ -31,7 +32,7 @@ static targets= ["calendar", "selectClass"]
     return `
       <div class="flex flex-col w-4/5 mx-auto mt-10 gap-y-4">
 
-        <form action="/education_schedules" class="flex flex-row justify-end items-center gap-x-4">
+        <form action="/calendar_events" class="flex flex-row justify-end items-center gap-x-4">
           <div>
             <select 
               data-${this.identifier}-target="selectClass"
@@ -139,11 +140,6 @@ static targets= ["calendar", "selectClass"]
   month() {
     this.calendar.changeView('month')
   }
-  // async fetchCalendarEventsFromGroupId(groupId) {
-  //   const response = await CalendarEventsApi.index({ params: { eventable_id: groupId }})
-  //   const responseData = response.data
-  //   return responseData
-  // }
 
   initCalendarAction() {
     this.calendar.on('selectDateTime', (event) => {
@@ -186,21 +182,43 @@ static targets= ["calendar", "selectClass"]
 
   createEventHTML() {
     return createForm({
+      attributes: ` action="/calendar_events"`,
       html: `
-        <div class="flex flex-col gap-y-4 p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+        <div class="flex flex-col gap-y-4 p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-left">
 
           <div>
-            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
-            <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
-          </div>
-          <div>
-            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
-            <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+            <label for="education_class_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Classes</label>
+            <select
+              data-controller="${identifier(Education_ChoicesController)}"
+              data-${this.identifier}-target="selectClass"
+              name="education_class_id"
+              multiple
+              class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500 rounded-md"
+            >
+              <option>Select Class</option>
+              ${this.educationClassesForSelect.map((klass) => {
+                return `<option value="${klass.id}">${klass.name}</option>`
+              }).join('')} }
+            </select>
           </div>
 
           <div>
-            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
-            <input data-controller="time-picker" type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+            <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+            <input type="text" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+          </div>
+          <div>
+            <label for="body" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Body</label>
+            <input type="text" id="body" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+          </div>
+
+          <div>
+            <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Time</label>
+            <input data-controller="time-picker" type="text" id="start" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+          </div>
+
+          <div>
+            <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Time</label>
+            <input data-controller="time-picker" type="text" id="end" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
           </div>
 
           <div>

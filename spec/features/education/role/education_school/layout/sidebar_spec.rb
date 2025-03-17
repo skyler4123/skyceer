@@ -12,7 +12,7 @@ RSpec.feature "Home", type: :feature do
       education_students_path,
       education_classes_path,
       education_scoreboards_path,
-      education_schedules_path,
+      calendar_events_path,
       education_rooms_path,
       education_courses_path,
       education_categories_path,
@@ -62,7 +62,7 @@ RSpec.feature "Home", type: :feature do
 
     it "have Schedules tab" do
       find("[data-controller='education--education-school--aside'] a", text: "Schedules").click
-      expect(page).to have_current_path(education_schedules_path)
+      expect(page).to have_current_path(calendar_events_path)
     end
 
     it "have Rooms tab" do
