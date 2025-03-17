@@ -6,7 +6,7 @@ export default class Education_EducationSchool_EducationSchedules_IndexControlle
 static targets= ["calendar", "selectClass"]
   static values = {
     groups: { type: Array, default: [] },
-    events: { type: Object, default: {} }
+    events: { type: Array, default: [] }
   }
 
   initBinding() {
@@ -98,8 +98,12 @@ static targets= ["calendar", "selectClass"]
   }
 
   initCalendarEvents() {
+    this.eventsValue = this.calendarEvents
+  }
+
+  eventsValueChanged(value, previousValue) {
     this.calendar.clear()
-    let events = this.calendarEvents?.map((event) => {
+    let events = value.map((event) => {
       return {
         id: event.id,
         title: event.title,
