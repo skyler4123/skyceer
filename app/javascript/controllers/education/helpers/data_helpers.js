@@ -304,6 +304,37 @@ export const openDrawer = ({html = "Drawer!", position = "top-start", popupClass
   });
 }
 
+export const openFlash = (html, option = {}) => {
+  Swal.fire({
+    position: "top",
+    html: html,
+    showConfirmButton: false,
+    timer: 3000,
+    backdrop: false,
+    customClass: {
+      container: '...1',
+      popup: '!p-0',
+      header: '...2',
+      title: '...3',
+      closeButton: '...',
+      icon: '...',
+      image: '...',
+      htmlContainer: '!p-0',
+      input: '...',
+      inputLabel: '...',
+      validationMessage: '...',
+      actions: '...',
+      confirmButton: '...',
+      denyButton: '...',
+      cancelButton: '...',
+      loader: '...5',
+      footer: '....6',
+      timerProgressBar: '....7',
+    },
+    ...option
+  });
+}
+
 // Function to read and parse a CSV file as an array
 export const readCSVFileToArray = (file) => {
   return new Promise((resolve, reject) => {
