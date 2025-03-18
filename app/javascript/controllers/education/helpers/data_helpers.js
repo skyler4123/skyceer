@@ -270,6 +270,7 @@ export const openModal = ({html = "Model!", popupClass = ""}) => {
     customClass: {
       // container: '!bg-transparent',
       popup: 'swal2-container-custom',
+      popup: '!p-0',
       htmlContainer: '!p-0',
     },
   });

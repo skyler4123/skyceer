@@ -11,6 +11,7 @@ class EducationSchool::CalendarEventsController < EducationSchool::EducationsCon
 
   def create
     debugger
+    return
     @calendar_event = CalendarEvent.new(calendar_event_params)
 
     respond_to do |format|
