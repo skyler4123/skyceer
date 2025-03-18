@@ -1,6 +1,6 @@
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import Calendar from '@toast-ui/calendar';
-import { createForm, openModal, openDrawer, identifier } from "controllers/education/helpers/data_helpers";
+import { createForm, openModal, openDrawer, identifier, pathname, href } from "controllers/education/helpers/data_helpers";
 import Education_ChoicesController from "controllers/education/choices_controller";
 
 export default class Education_EducationSchool_CalendarEvents_IndexController extends Education_EducationSchool_LayoutController {
@@ -41,7 +41,7 @@ static targets= ["calendar", "selectClass"]
             >
               <option>Select Class</option>
               ${this.educationClassesForSelect.map((klass) => {
-                return `<option value="${klass.id}">${klass.name}</option>`
+                return `<option ${href().includes(klass.id) ? "selected" : ""} value="${klass.id}">${klass.name}</option>`
               }).join('')} }
             </select>
           </div>
@@ -173,14 +173,14 @@ static targets= ["calendar", "selectClass"]
 
   selectDateTime(event) {
     openModal({
-      html: this.createEventHTML(), 
+      html: this.createCalendarEventHTML(), 
     })
     // openDrawer({
-    //   html: this.createEventHTML(), 
+    //   html: this.createCalendarEventHTML(), 
     // })
   }
 
-  createEventHTML() {
+  createCalendarEventHTML() {
     return createForm({
       attributes: ` action="/calendar_events"`,
       html: `
@@ -197,7 +197,7 @@ static targets= ["calendar", "selectClass"]
             >
               <option>Select Class</option>
               ${this.educationClassesForSelect.map((klass) => {
-                return `<option value="${klass.id}">${klass.name}</option>`
+                return `<option ${this.selectedClassOption().value === klass.id ? "selected" : ""} value="${klass.id}">${klass.name}</option>`
               }).join('')} }
             </select>
           </div>
@@ -362,5 +362,9 @@ static targets= ["calendar", "selectClass"]
         borderColor: "#111827",
       }
     })
+  }
+
+  selectedClassOption() {
+    return this.selectClassTarget.options[this.selectClassTarget.selectedIndex]
   }
 }

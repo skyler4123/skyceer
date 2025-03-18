@@ -23,4 +23,10 @@ class EducationSchool::CalendarEventsController < EducationSchool::EducationsCon
       end
     end
   end
+
+  private
+
+  def calendar_event_params
+    params.expect(calendar_event: [ :userable_id, :userable_type, :eventable_id, :eventable_type, :library, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw, :discarded_at ])
+  end
 end

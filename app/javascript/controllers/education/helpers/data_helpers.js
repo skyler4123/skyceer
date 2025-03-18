@@ -385,3 +385,11 @@ export const createForm = ({html =  "", attributes = ""}) => {
 }
 
 export const initializedEvent = 'controller:initialize:completed'
+
+export const pathname = () => {
+  return window.location.pathname
+}
+
+export const href = () => {
+  return window.location.href
+}
