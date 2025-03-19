@@ -13,7 +13,6 @@ class EducationSchool::CalendarEventsController < EducationSchool::EducationsCon
 
     @calendar_event = CalendarEvent.new(calendar_event_params)
     @calendar_event.calendar_group_id = params[:calendar_event][:education_class_id] if params[:calendar_event][:education_class_id].present?
-    debugger
     respond_to do |format|
       if @calendar_event.save
         request.referer ||= education_school_calendar_events_path(@education_school)
