@@ -10,16 +10,17 @@ class EducationSchool::CalendarEventsController < EducationSchool::EducationsCon
   end
 
   def create
-    debugger
-    return
-    @calendar_event = CalendarEvent.new(calendar_event_params)
 
+    @calendar_event = CalendarEvent.new(calendar_event_params)
+    @calendar_event.calendar_group_id = params[:calendar_event][:education_class_id] if params[:calendar_event][:education_class_id].present?
+    debugger
     respond_to do |format|
       if @calendar_event.save
-        format.html { redirect_to @calendar_event, notice: "Calendar event was successfully created." }
+        request.referer ||= education_school_calendar_events_path(@education_school)
+        format.html { redirect_to request.referer, notice: "Calendar event was successfully created." }
         format.json { render :show, status: :created, location: @calendar_event }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to request.referer, status: :unprocessable_entity, alert: "Calendar event was not created." }
         format.json { render json: @calendar_event.errors, status: :unprocessable_entity }
       end
     end
