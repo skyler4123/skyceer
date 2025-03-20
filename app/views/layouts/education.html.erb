@@ -17,10 +17,8 @@
     <meta name="turbo-prefetch" content="false">
   </head>
   
-  <body data-controller="<%= APP_NAME %>--flash">
-    <main data-controller="<%= stimulus_controller %>">
-      <%= yield %>
-    </main>
+  <body data-controller="<%= APP_NAME %>--flash <%= stimulus_controller %>">
+    <%= yield %>
     <%= render(Education::ServerDataComponent.new(data: @data, pagination: @pagination, flash:)) %>
   </body>
 </html>

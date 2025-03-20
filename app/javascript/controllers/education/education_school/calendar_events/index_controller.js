@@ -2,6 +2,8 @@ import Education_EducationSchool_LayoutController from "controllers/education/ed
 import Calendar from '@toast-ui/calendar';
 import { createForm, openModal, openDrawer, identifier, pathname, href } from "controllers/education/helpers/data_helpers";
 import Education_ChoicesController from "controllers/education/choices_controller";
+import Swal from 'sweetalert2';
+
 
 export default class Education_EducationSchool_CalendarEvents_IndexController extends Education_EducationSchool_LayoutController {
 static targets= ["calendar", "selectClass"]
@@ -172,19 +174,20 @@ static targets= ["calendar", "selectClass"]
   }
 
   selectDateTime(event) {
+    console.log(event)
     openModal({
-      html: this.createCalendarEventHTML(), 
+      html: this.createCalendarEventHTML(event), 
     })
     // openDrawer({
     //   html: this.createCalendarEventHTML(), 
     // })
   }
 
-  createCalendarEventHTML() {
+  createCalendarEventHTML(event) {
     return createForm({
       attributes: ` action="/calendar_events"`,
       html: `
-        <div class="flex flex-col gap-y-4 p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-left">
+        <div class="flex flex-col gap-y-4 p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-left border border-gray-300 dark:border-gray-600">
 
           <div>
             <label for="education_class_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Classes</label>
@@ -213,16 +216,16 @@ static targets= ["calendar", "selectClass"]
 
           <div>
             <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Time</label>
-            <input data-controller="time-picker" type="text" id="start" name="calendar_event[start]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+            <input data-controller="time-picker" type="text" id="start" name="calendar_event[start]" value="${event.start}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
           </div>
 
           <div>
             <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Time</label>
-            <input data-controller="time-picker" type="text" id="end" name="calendar_event[end]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+            <input data-controller="time-picker" type="text" id="end" name="calendar_event[end]" value="${event.end}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
           </div>
 
           <div>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            <button data-action="click->${this.identifier}#closeModal" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
           </div>
 
         </div>
@@ -282,6 +285,10 @@ static targets= ["calendar", "selectClass"]
 
   next() {
     this.calendar.next()
+  }
+
+  closeModal() {
+    Swal.close()
   }
 
   options() {
