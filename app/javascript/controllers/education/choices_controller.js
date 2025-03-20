@@ -17,7 +17,7 @@ export default class Education_ChoicesController extends Controller {
   init() {
     setTimeout(() => {
       this.initChoices()
-    }, 0)
+    }, 100)
   }
 
   initChoices() {
