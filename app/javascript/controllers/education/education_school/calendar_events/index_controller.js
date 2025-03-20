@@ -174,16 +174,15 @@ static targets= ["calendar", "selectClass"]
   }
 
   selectDateTime(event) {
-    console.log(event)
     openModal({
-      html: this.createCalendarEventHTML(event), 
+      html: this.createCalendarEventHTML({start: event.start.toISOString(), end: event.end.toISOString()}), 
     })
     // openDrawer({
     //   html: this.createCalendarEventHTML(), 
     // })
   }
 
-  createCalendarEventHTML(event) {
+  createCalendarEventHTML({start, end}) {
     return createForm({
       attributes: ` action="/calendar_events"`,
       html: `
@@ -216,12 +215,12 @@ static targets= ["calendar", "selectClass"]
 
           <div>
             <label for="start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Time</label>
-            <input data-controller="time-picker" type="text" id="start" name="calendar_event[start]" value="${event.start.toISOString()}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+            <input data-controller="time-picker" type="text" id="start" name="calendar_event[start]" value="${start}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
           </div>
 
           <div>
             <label for="end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Time</label>
-            <input data-controller="time-picker" type="text" id="end" name="calendar_event[end]" value="${event.end.toISOString()}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+            <input data-controller="time-picker" type="text" id="end" name="calendar_event[end]" value="${end}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
           </div>
 
           <div>
@@ -257,6 +256,9 @@ static targets= ["calendar", "selectClass"]
 
   clickEvent(event) {
     console.log(event)
+    openModal({
+      html: this.createCalendarEventHTML({start: event.event.start.d.d.toISOString(), end: event.event.end.d.d.toISOString()}), 
+    })
   }
 
   clickMoreEventsBtn(event) {}
