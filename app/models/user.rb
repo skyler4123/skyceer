@@ -39,4 +39,5 @@ class User < ApplicationRecord
   include User::NosqlUserConcern
   include User::EducationConcern
   include User::PackageConcern
+  include User::CalendarConcern
 end

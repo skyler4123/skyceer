@@ -86,15 +86,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "calendar_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "uid"
-    t.string "userable_type", null: false
-    t.uuid "userable_id", null: false
+    t.string "color"
+    t.string "calendar_userable_type", null: false
+    t.uuid "calendar_userable_id", null: false
     t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["calendar_userable_type", "calendar_userable_id"], name: "index_calendar_categories_on_calendar_userable"
     t.index ["parent_category_id"], name: "index_calendar_categories_on_parent_category_id"
-    t.index ["userable_type", "userable_id"], name: "index_calendar_categories_on_userable"
   end
 
   create_table "calendar_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -109,7 +110,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "calendar_group_id", null: false
+    t.string "calendar_userable_type", null: false
+    t.uuid "calendar_userable_id", null: false
+    t.string "calendar_groupable_type", null: false
+    t.uuid "calendar_groupable_id", null: false
     t.string "uid"
     t.integer "library"
     t.string "title"
@@ -139,30 +143,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_group_id"], name: "index_calendar_events_on_calendar_group_id"
-  end
-
-  create_table "calendar_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "calendar_userable_type", null: false
-    t.uuid "calendar_userable_id", null: false
-    t.string "calendar_groupable_type", null: false
-    t.uuid "calendar_groupable_id", null: false
-    t.string "uid"
-    t.string "name"
-    t.string "color"
-    t.string "borderColor"
-    t.string "backgroundColor"
-    t.string "dragBackgroundColor"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["calendar_groupable_type", "calendar_groupable_id"], name: "index_calendar_groups_on_calendar_groupable"
-    t.index ["calendar_userable_type", "calendar_userable_id"], name: "index_calendar_groups_on_calendar_userable"
+    t.index ["calendar_groupable_type", "calendar_groupable_id"], name: "index_calendar_events_on_calendar_groupable"
+    t.index ["calendar_userable_type", "calendar_userable_id"], name: "index_calendar_events_on_calendar_userable"
   end
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "uid"
     t.string "name"
+    t.string "color"
     t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
     t.datetime "created_at", null: false
@@ -210,6 +198,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "uid"
+    t.string "color"
     t.uuid "user_id", null: false
     t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
@@ -335,7 +324,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_school_id", null: false
-    t.uuid "education_teacher_id", null: false
+    t.uuid "education_teacher_id"
     t.string "uid"
     t.integer "question_type"
     t.string "title"
@@ -442,6 +431,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "payment_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "uid"
+    t.string "color"
     t.uuid "payment_user_id", null: false
     t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
@@ -602,6 +592,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "report_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
+    t.string "color"
     t.uuid "parent_category_id"
     t.integer "nested_level"
     t.datetime "discarded_at"
@@ -687,7 +678,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "calendar_categories", "calendar_categories", column: "parent_category_id"
   add_foreign_key "calendar_category_appointments", "calendar_categories"
-  add_foreign_key "calendar_events", "calendar_groups"
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "category_appointments", "categories"
   add_foreign_key "education_admins", "users"
