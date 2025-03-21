@@ -2,6 +2,7 @@ import { identifier, isEmpty, transferToValue } from "controllers/education/help
 
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
+import Education_ChoicesController from "controllers/education/choices_controller";
 
 
 export default class Education_EducationSchool_EducationScoreboards_IndexController extends Education_EducationSchool_LayoutController {
@@ -11,7 +12,6 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   }
 
   init() {
-    console.log(this)
     this.initTable()
   }
 
@@ -130,13 +130,13 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   contentHTML() {
     return `
       <div class="w-4/5 mx-auto mt-10">
-        <form action="/education_scoreboards" class="flex flex-row gap-x-4">
+        <form action="/education_scoreboards" class="flex flex-row gap-x-4 w-full justify-end items-center">
           <div class="w-1/4 flex justify-center items-center">
             <select
               name="education_class_id"
               data-${this.identifier}-target="classIdSelect"
               data-action="change->${this.identifier}#classIdSelectEvent"
-              data-controller="choices"
+              data-controller="${identifier(Education_ChoicesController)}"
             >
               <option value="" disabled selected>Select Class</option>
               ${this.contentClassesForSelect().map((row) => {
@@ -148,7 +148,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
             <select
               name="education_subject_id"
               data-${this.identifier}-target="subjectIdSelect"
-              data-controller="choices"
+              data-controller="${identifier(Education_ChoicesController)}"
               required
             >
               <option value="">Select Subject</option>
