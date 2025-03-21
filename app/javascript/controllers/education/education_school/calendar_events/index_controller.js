@@ -35,8 +35,9 @@ static targets= ["calendar", "selectClass"]
       <div class="flex flex-col w-4/5 mx-auto mt-10 gap-y-4">
 
         <form action="/calendar_events" class="flex flex-row justify-end items-center gap-x-4">
-          <div>
+          <div class="w-1/3">
             <select 
+              data-controller="${identifier(Education_ChoicesController)}"
               data-${this.identifier}-target="selectClass"
               name="education_class_id"
               class="h-full bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-slate-500 focus:border-slate-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-slate-500 dark:focus:border-slate-500 rounded-md"
