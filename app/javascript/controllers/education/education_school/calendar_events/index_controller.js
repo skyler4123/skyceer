@@ -110,6 +110,7 @@ static targets= ["calendar", "selectClass"]
       return {
         id: event.id,
         title: event.title,
+        body: event.body,
         start: event.start,
         end: event.end,
         calendarId: event.eventable_id,
@@ -182,7 +183,7 @@ static targets= ["calendar", "selectClass"]
     // })
   }
 
-  createCalendarEventHTML({start, end}) {
+  createCalendarEventHTML({title = "", body = "", start, end}) {
     return createForm({
       attributes: ` action="/calendar_events"`,
       html: `
@@ -206,11 +207,11 @@ static targets= ["calendar", "selectClass"]
 
           <div>
             <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-            <input type="text" id="title" name="calendar_event[title]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required autofocus />
+            <input type="text" id="title" name="calendar_event[title]" value="${title}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required autofocus />
           </div>
           <div>
             <label for="body" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Body</label>
-            <input type="text" id="body" name="calendar_event[body]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+            <input type="text" id="body" name="calendar_event[body]" value="${body}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
           </div>
 
           <div>
@@ -257,7 +258,7 @@ static targets= ["calendar", "selectClass"]
   clickEvent(event) {
     console.log(event)
     openModal({
-      html: this.createCalendarEventHTML({start: event.event.start.d.d.toISOString(), end: event.event.end.d.d.toISOString()}), 
+      html: this.createCalendarEventHTML({title: event.event.title, body: event.event.body, start: event.event.start.d.d.toISOString(), end: event.event.end.d.d.toISOString()}), 
     })
   }
 

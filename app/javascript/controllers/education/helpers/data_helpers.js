@@ -376,9 +376,10 @@ export const readCSVFile = (file) => {
   })
 }
 
-export const createForm = ({html =  "", attributes = ""}) => {
+export const createForm = ({html =  "", attributes = "", method = "post"}) => {
   return `
     <form ${attributes} accept-charset="UTF-8" method="post">
+      ${method === "patch" ? '<input type="hidden" name="_method" value="patch" autocomplete="off">' : ""}
       <input type="hidden" name="authenticity_token" value="${csrfToken()}" autocomplete="off">
       ${html}
     </form>
