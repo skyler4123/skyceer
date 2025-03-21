@@ -1,5 +1,4 @@
 import { identifier, isEmpty, transferToValue } from "controllers/education/helpers/data_helpers"
-
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_ChoicesController from "controllers/education/choices_controller";
@@ -8,43 +7,43 @@ import Education_ChoicesController from "controllers/education/choices_controlle
 export default class Education_EducationSchool_EducationScoreboards_IndexController extends Education_EducationSchool_LayoutController {
   static targets = ['classIdSelect', 'subjectIdSelect', 'table']
   static values = {
-    classId: { type: String, default: '' }, // fetch, re-render
+    selectionEducationSubject: {  type: Array, default: [] },
+  }
+
+  initBinding() {
+    super.initBinding()
+    this.educationClasses = ServerData.data.education_classes
+    this.educationStudents = ServerData.data.education_students
+    this.educationExams = ServerData.data.education_exams
+    this.educationExamAppointments = ServerData.data.education_exam_appointments
+    this.selectionEducationClasses = ServerData.data.selection_education_classes
   }
 
   init() {
     this.initTable()
   }
 
-  classIdSelectEvent(e) {
-    this.classIdValue = e.target.value
+  handleEducationClassIdSelection(e) {
+    this.choicesControllerForSubjectIdSelect().choice.clearStore()
+    const educationClassId = e.target.value
+    const educationClass = this.selectionEducationClasses.find((klass) => klass.id === educationClassId)
+    const selectionEducationSubjects = educationClass.education_subjects
+    this.selectionEducationSubjectValue = selectionEducationSubjects
   }
 
-  currentEducationClassForSelect() {
-    return this.contentClassesForSelect().find((educationClass) => educationClass.id === this.classIdValue)
-  }
-
-  async classIdValueChanged(value, previousValue) {
+  selectionEducationSubjectValueChanged(value, previousValue) {
     if (isEmpty(value)) return
 
-    const subjects = this.currentEducationClassForSelect().education_subjects
     this.choicesControllerForSubjectIdSelect().choice.clearChoices()
     this.choicesControllerForSubjectIdSelect().choice.setChoices(
-      subjects.map((subject) => {
+      value.map((subject) => {
         return { value: subject.id, label: subject.name }
       })
     )
   }
 
-  contentClasses() {
-    return ServerData.data.education_classes
-  }
-
-  contentClassesForSelect() {
-    return ServerData.data.education_classes_for_select
-  }
-
   choicesControllerForSubjectIdSelect() {
-    return this.application.getControllerForElementAndIdentifier(this.subjectIdSelectTarget, 'choices')
+    return this.application.getControllerForElementAndIdentifier(this.subjectIdSelectTarget, identifier(Education_ChoicesController))
   }
 
   initTable() {
@@ -70,7 +69,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   }
 
   tableData() {
-    return this.educationStudents().map((row) => {
+    return this.educationStudents.map((row) => {
       return {
         ...row,
         name: row.name,
@@ -79,20 +78,8 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
     })
   }
 
-  educationStudents() {
-    return ServerData.data.education_students
-  }
-
-  educationExams() {
-    return ServerData.data.education_exams
-  }
-
-  educationExamAppointments() {
-    return ServerData.data.education_exam_appointments
-  }
-
   tableColumns() {
-    const examColumns = this.educationExams().map((exam) => {
+    const examColumns = this.educationExams.map((exam) => {
       return {
         title: exam.name,
         field: exam.id,
@@ -103,10 +90,8 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
       }
     })
     return [
-      {title:"Name", field: "name", formatter: "html"},
+      {title:"Student Name", field: "name", formatter: "html"},
       ...examColumns,
-      {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
-      {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
     ]
   }
 
@@ -116,10 +101,10 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   // loop through education_students[].id and get education_exam_appointments[].score
   examAppointmentsData() {
     const data = []
-    this.educationStudents().forEach((student) => {
+    this.educationStudents.forEach((student) => {
       const row = {name: student.name}
-      this.educationExams().forEach((exam) => {
-        const appointment = this.educationExamAppointments().find((appointment) => appointment.education_exam_id === exam.id && appointment.education_exam_appointmentable_id === student.id)
+      this.educationExams.forEach((exam) => {
+        const appointment = this.educationExamAppointments.find((appointment) => appointment.education_exam_id === exam.id && appointment.education_exam_appointmentable_id === student.id)
         row[exam.id] = appointment ? appointment.score : ''
       })
       data.push(row)
@@ -129,22 +114,22 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
 
   contentHTML() {
     return `
-      <div class="w-4/5 mx-auto mt-10">
+      <div class="mx-auto w-4/5 mt-10 flex flex-col gap-y-4">
         <form action="/education_scoreboards" class="flex flex-row gap-x-4 w-full justify-end items-center">
-          <div class="w-1/4 flex justify-center items-center">
+          <div class="w-1/3 flex justify-center items-center">
             <select
               name="education_class_id"
               data-${this.identifier}-target="classIdSelect"
-              data-action="change->${this.identifier}#classIdSelectEvent"
+              data-action="change->${this.identifier}#handleEducationClassIdSelection"
               data-controller="${identifier(Education_ChoicesController)}"
             >
               <option value="" disabled selected>Select Class</option>
-              ${this.contentClassesForSelect().map((row) => {
-                return `<option value="${row.id}/edit">${row.name}</option>`
+              ${this.selectionEducationClasses.map((row) => {
+                return `<option value="${row.id}">${row.name}</option>`
               }).join('')}
             </select>
           </div>
-          <div class="w-1/4 flex justify-center items-center">
+          <div class="w-1/3 flex justify-center items-center">
             <select
               name="education_subject_id"
               data-${this.identifier}-target="subjectIdSelect"
