@@ -386,6 +386,56 @@ export const createForm = ({html =  "", attributes = "", method = "post"}) => {
   `
 }
 
+export const createSelectTag = ({ className = "", id = "", name = "", dataController = "", options = [], values = [], required = false, multiple = false, attributes = "" }) => {
+  // Ensure `values` is an array
+  if (typeof values === "string") {
+    // values = values.split(",").map(value => value.trim());
+    values = [values]
+  }
+
+  // Add the `required` attribute if the input is true
+  const requiredAttribute = required ? "required" : "";
+
+  // Add the `multiple` attribute if the input is true
+  const multipleAttribute = multiple ? "multiple" : "";
+  
+  return `
+    <select class="${className}" id="${id}" name="${name}" data-controller="${dataController}" ${requiredAttribute} ${multipleAttribute} ${attributes}>
+      ${options.map(option => {
+        const isSelected = values.includes(option.value) ? "selected" : "";
+        return `<option value="${option.value}" ${isSelected}>${option.text}</option>`;
+      }).join('')}
+    </select>
+  `;
+};
+
+export const createInputTag = ({
+  type = "text", // Default input type
+  id = "", // ID for the input tag
+  name = "", // Name attribute
+  value = "", // Default value
+  placeholder = "", // Placeholder text
+  required = false, // Boolean to add the required attribute
+  className = "", // CSS classes
+  attributes = "" // Additional attributes
+}) => {
+  // Add the `required` attribute if the input is true
+  const requiredAttribute = required ? "required" : "";
+
+  return `
+    <input 
+      type="${type}" 
+      id="${id}" 
+      name="${name}" 
+      value="${value}" 
+      placeholder="${placeholder}" 
+      class="${className}" 
+      ${requiredAttribute} 
+      ${attributes} 
+    />
+  `;
+};
+
 export const initializedEvent = 'controller:initialize:completed'
 
 export const pathname = () => {

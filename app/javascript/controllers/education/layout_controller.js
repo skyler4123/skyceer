@@ -14,7 +14,7 @@ export default class Education_LayoutController extends ApplicationController {
     this.footerController = Education_FooterController
     this.paginationController = Education_PaginationController
     this.paginationData = ServerData.pagination
-    this.choicesController = Education_ChoicesController
+    this.choicesControllerIdentifier = identifier(Education_ChoicesController)
   }
 
   initLayout() {

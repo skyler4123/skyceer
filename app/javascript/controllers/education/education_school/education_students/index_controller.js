@@ -76,7 +76,7 @@ export default class Education_EducationSchool_EducationStudents_IndexController
           <div class="min-w-1/4 h-full bg-white dark:bg-gray-800 dark:text-white flex items-center border border-gray-200 rounded-lg">
             <select
               name="education_school_id"
-              data-controller="${identifier(this.choicesController)}"
+              data-controller="${this.choicesControllerIdentifier}"
             >
               <option value="" disabled selected>Select School</option>
               ${this.selectionEducationSchools.map((school) => {
@@ -87,7 +87,7 @@ export default class Education_EducationSchool_EducationStudents_IndexController
           <div class="min-w-1/4 h-full bg-white dark:bg-gray-800 dark:text-white flex items-center border border-gray-200 rounded-lg">
             <select
               name="education_class_id"
-              data-controller="${identifier(this.choicesController)}"
+              data-controller="${this.choicesControllerIdentifier}"
             >
               <option value="" disabled selected>Select Class</option>
               ${this.selectionEducationClasses.map((klass) => {
