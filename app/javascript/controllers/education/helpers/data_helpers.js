@@ -376,17 +376,43 @@ export const readCSVFile = (file) => {
   })
 }
 
-export const createForm = ({html =  "", attributes = "", method = "post"}) => {
+export const createForm = ({
+  action = "",
+  method = "post",
+  dataCOntroller = "",
+  html = "",
+  attributes = "",
+}) => {
+  const actionAttribute = action ? `action="${action}"` : "";
+  const methodAttribute = `method="${method}"`;
+  const dataControllerAttribute = dataCOntroller ? `data-controller="${dataCOntroller}"` : "";
+  const methodInput =
+    method === "patch"
+      ? '<input type="hidden" name="_method" value="patch" autocomplete="off">'
+      : "";
+
+  const csrfInput = `<input type="hidden" name="authenticity_token" value="${csrfToken()}" autocomplete="off">`;
+
   return `
-    <form ${attributes} accept-charset="UTF-8" method="post">
-      ${method === "patch" ? '<input type="hidden" name="_method" value="patch" autocomplete="off">' : ""}
-      <input type="hidden" name="authenticity_token" value="${csrfToken()}" autocomplete="off">
+    <form ${actionAttribute} ${methodAttribute} ${dataControllerAttribute} ${attributes} accept-charset="UTF-8">
+      ${methodInput}
+      ${csrfInput}
       ${html}
     </form>
-  `
-}
+  `;
+};
 
-export const createSelectTag = ({ className = "", id = "", name = "", dataController = "", options = [], values = [], required = false, multiple = false, attributes = "" }) => {
+export const createSelectTag = ({
+  className = "",
+  id = "",
+  name = "",
+  dataController = "",
+  options = [],
+  values = [],
+  required = false,
+  multiple = false, 
+  attributes = "" 
+}) => {
   // Ensure `values` is an array
   if (typeof values === "string") {
     // values = values.split(",").map(value => value.trim());
@@ -431,6 +457,25 @@ export const createInputTag = ({
       placeholder="${placeholder}" 
       class="${className}" 
       ${requiredAttribute} 
+      ${attributes} 
+    />
+  `;
+};
+
+export const createSubmitTag = ({
+  id = "", // ID for the input tag
+  name = "", // Name attribute
+  value = "Submit", // Default value for the submit button
+  className = "", // CSS classes
+  attributes = "" // Additional attributes
+}) => {
+  return `
+    <input 
+      type="submit" 
+      id="${id}" 
+      name="${name}" 
+      value="${value}" 
+      class="${className}" 
       ${attributes} 
     />
   `;
