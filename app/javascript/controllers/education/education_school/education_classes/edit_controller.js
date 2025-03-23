@@ -1,7 +1,9 @@
 import { identifier, transferToValue, createForm, createSelectTag, createInputTag, pluck } from "controllers/education/helpers/data_helpers"
+import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 
 export default class extends Education_EducationSchool_LayoutController {
+  static targets = ["subjectTable"]
 
   initBinding() {
     super.initBinding()
@@ -9,13 +11,19 @@ export default class extends Education_EducationSchool_LayoutController {
     this.educationCourses = ServerData.data.education_courses
     this.educationCategories = ServerData.data.education_categories
     this.educationSchools = ServerData.data.education_schools
+    this.educationSubjects = ServerData.data.education_subjects
+  }
+
+  init() {
+    this.initSubjectTable()
   }
 
   contentHTML() {
     return `
       <div class="mx-auto w-4/5 mt-10 flex flex-col gap-y-4">
         <h1 class="text-2xl font-semibold">Edit Class</h1>
-        ${this.editFormHTML()}
+        <div class="border border-gray-200 rounded-lg p-4">${this.editFormHTML()}</div>
+        <div class="border border-gray-200 rounded-lg p-4" data-${this.identifier}-target="subjectTable"></div>
       </div>
     `
   }
@@ -87,6 +95,38 @@ export default class extends Education_EducationSchool_LayoutController {
         </div>
       `
     }) 
+  }
 
+  initSubjectTable() {
+    const tableData = this.educationSubjects.map((row) => {
+      return {
+        ...row,
+        subject: `<a href="/education_subjects/${row.id}/edit">${row.name}</a>`,
+        teacher: row.teacher ? row.teacher.name : "No Teacher",
+      }
+    })
+    this.table = new Tabulator(this.subjectTableTarget, {
+      data: tableData,           //load row data from array
+      layout:"fitColumns",      //fit columns to width of table
+      responsiveLayout:"hide",  //hide columns that don't fit on the table
+      addRowPos:"top",          //when adding a new row, add it to the top of the table
+      history:true,             //allow undo and redo actions on the table
+      pagination: false,       //paginate the data
+      paginationSize:10,         //allow 7 rows per page of data
+      paginationCounter:"rows", //display count of paginated rows in footer
+      movableColumns:true,      //allow column order to be changed
+      initialSort:[             //set the initial sort order of the data
+          {column:"name", dir:"asc"},
+      ],
+      columnDefaults:{
+          tooltip:true,         //show tool tips on cells
+      },
+      columns:[                 //define the table columns
+        {title:"Subject", field: "subject", formatter: "html"},
+        {title:"Teacher", field:"teacher"},
+        {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
+        {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
+      ],
+    });
   }
 }
