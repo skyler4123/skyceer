@@ -1,7 +1,8 @@
 class Seeding::EducationService
   def self.run
-    self.education_school
+    self.education_school_user
     self.education_category
+    self.education_school
     self.education_subject
     self.education_course
     self.education_class
@@ -10,37 +11,33 @@ class Seeding::EducationService
     self.education_teacher
     self.education_student
     self.education_parent
-    # self.education_school_appointments
     self.education_question
     self.education_exam
     self.education_lesson
+    self.education_subject_appointments
     self.education_class_appointments
     self.education_question_appointments
-    self.education_subject_appointments
-    # self.education_category_appointments
     self.education_exam_appointments
   end
 
-  def self.education_school
-    2.times do
-      school_user = Seeding::UserService.create(education_role: :education_school)
-      school_user_count = User.where(education_role: :education_school).count 
-      school_user_count < 2 ? n = 2 : n = 1
-      n.times do
-        education_school = EducationSchool.create!(
-          name: Faker::Name.name,
-          email: Faker::Internet.email,
-          user: school_user,
-          address: Address.create_random
-        )
-        Seeding::AttachmentService.attach(record: education_school, relation: :avatar_attachment, number: 1)
-      end
+  def self.create_user(education_role: :education_school, n: 0)
+    User.create!(
+      email: "#{education_role}#{n}@education.com",
+      password: 'password1234',
+      password_confirmation: 'password1234',
+      education_role: education_role,
+    )
+  end
+
+  def self.education_school_user
+    2.times do |n|
+      Seeding::EducationService.create_user(education_role: :education_school, n: n)
     end
   end
 
   def self.education_category
     User.all.where(education_role: :education_school).each do |user|
-      20.times do
+      50.times do
         EducationCategory.create!(
           name: "Category #{Faker::Number.number}",
           parent_category: [EducationCategory.all.sample, nil].sample,
@@ -50,6 +47,21 @@ class Seeding::EducationService
     end
     EducationSchool.all.each do |education_school|
       education_school.education_categories << education_school.user.education_categories.sample
+    end
+  end
+
+  def self.education_school
+    User.where(education_role: :education_school).each do |user|
+      2.times do
+        education_school = EducationSchool.create!(
+          name: Faker::Name.name,
+          email: Faker::Internet.email,
+          user: user,
+          address: Address.create_random
+        )
+        education_school.education_categories << user.education_categories.sample
+        Seeding::AttachmentService.attach(record: education_school, relation: :avatar_attachment, number: 1)
+      end
     end
   end
 
@@ -167,41 +179,6 @@ class Seeding::EducationService
     end
   end
 
-  # def self.education_school_appointments
-  #   EducationAdmin.all.each do |education_admin|
-  #     education_school = EducationSchool.all.sample
-  #     EducationSchoolAppointment.create!(
-  #       education_school: education_school,
-  #       education_school_appointmentable: education_admin,
-  #     )
-  #     education_admin.education_categories << education_school.user.education_categories.sample
-  #   end
-  #   EducationTeacher.all.each do |education_teacher|
-  #     education_school = EducationSchool.all.sample
-  #     EducationSchoolAppointment.create!(
-  #       education_school: education_school,
-  #       education_school_appointmentable: education_teacher,
-  #     )
-  #     education_teacher.education_categories << education_school.user.education_categories.sample
-  #   end
-  #   EducationStudent.all.each do |education_student|
-  #     education_school = EducationSchool.all.sample
-  #     EducationSchoolAppointment.create!(
-  #       education_school: education_school,
-  #       education_school_appointmentable: education_student,
-  #     )
-  #     education_student.education_categories << education_school.user.education_categories.sample
-  #   end
-  #   EducationParent.all.each do |education_parent|
-  #     education_school = EducationSchool.all.sample
-  #     EducationSchoolAppointment.create!(
-  #       education_school: education_school,
-  #       education_school_appointmentable: education_parent,
-  #     )
-  #     education_parent.education_categories << education_school.user.education_categories.sample
-  #   end
-  # end
-
   def self.education_question
     EducationSchool.all.each do |education_school|
       50.times do
@@ -254,24 +231,25 @@ class Seeding::EducationService
   end
   
   def self.education_class_appointments
-    EducationTeacher.all.each do |education_teacher|
-      EducationClassAppointment.create!(
-        education_class: education_teacher.education_schools.sample.education_classes.sample,
-        education_class_appointmentable: education_teacher,
-      )
-    end
+    # EducationTeacher.all.each do |education_teacher|
+    #   EducationClassAppointment.create!(
+    #     education_class: education_teacher.education_schools.sample.education_classes.sample,
+    #     education_class_appointmentable: education_teacher,
+    #     dependentable: education_teacher.education_subject_appointments.sample,
+    #   )
+    # end
     EducationStudent.all.each do |education_student|
       EducationClassAppointment.create!(
         education_class: education_student.education_schools.sample.education_classes.sample,
         education_class_appointmentable: education_student,
       )
     end
-    EducationSubject.all.each do |education_subject|
-      EducationClassAppointment.create!(
-        education_class: education_subject.education_school.education_classes.sample,
-        education_class_appointmentable: education_subject,
-      )
-    end
+    # EducationSubject.all.each do |education_subject|
+    #   EducationClassAppointment.create!(
+    #     education_class: education_subject.education_school.education_classes.sample,
+    #     education_class_appointmentable: education_subject,
+    #   )
+    # end
     EducationRoom.all.each do |education_room|
       EducationClassAppointment.create!(
         education_class: education_room.education_school.education_classes.sample,
@@ -305,11 +283,14 @@ class Seeding::EducationService
 
   def self.education_subject_appointments
     EducationSchool.all.each do |education_school|
+      education_teachers = education_school.education_teachers
       education_school.education_subjects.each do |education_subject|
         EducationSubjectAppointment.create!(
           # education_teacher: education_school.education_teachers.sample,
-          education_subject_appointmentable: education_school.education_teachers.sample,
+          # education_subject_appointmentable: education_school.education_teachers.sample,
           education_subject: education_subject,
+          appoint_from: education_teachers.sample,
+          appoint_to: education_school.education_classes.sample,
         )
       end
     end

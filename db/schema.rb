@@ -396,11 +396,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_subject_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_subject_id", null: false
-    t.string "education_subject_appointmentable_type", null: false
-    t.uuid "education_subject_appointmentable_id", null: false
+    t.string "appoint_from_type", null: false
+    t.uuid "appoint_from_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_subject_appointmentable_type", "education_subject_appointmentable_id"], name: "index_education_subject_appointments_on_education_subject_appoi"
+    t.index ["appoint_from_type", "appoint_from_id"], name: "index_education_subject_appointments_on_appoint_from"
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_education_subject_appointments_on_appoint_to"
     t.index ["education_subject_id"], name: "index_education_subject_appointments_on_education_subject_id"
   end
 
