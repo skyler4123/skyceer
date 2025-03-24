@@ -4,11 +4,11 @@ class PaymentCategory < ApplicationRecord
   belongs_to :payment_user
 
   has_many :payment_category_appointments, dependent: :destroy
-  has_many :payment_customers, through: :payment_category_appointments, source: :payment_category_appointmentable, source_type: 'PaymentCustomer'
-  has_many :payment_methods, through: :payment_category_appointments, source: :payment_category_appointmentable, source_type: 'PaymentMethod'
-  has_many :payment_discounts, through: :payment_category_appointments, source: :payment_category_appointmentable, source_type: 'PaymentDiscount'
-  has_many :payment_items, through: :payment_category_appointments, source: :payment_category_appointmentable, source_type: 'PaymentItem'
-  has_many :payment_orders, through: :payment_category_appointments, source: :payment_category_appointmentable, source_type: 'PaymentOrder'
-  has_many :payment_invoices, through: :payment_category_appointments, source: :payment_category_appointmentable, source_type: 'PaymentInvoice'
+  has_many :payment_customers, through: :payment_category_appointments, source: :appoint_to, source_type: 'PaymentCustomer'
+  has_many :payment_methods, through: :payment_category_appointments, source: :appoint_to, source_type: 'PaymentMethod'
+  has_many :payment_discounts, through: :payment_category_appointments, source: :appoint_to, source_type: 'PaymentDiscount'
+  has_many :payment_items, through: :payment_category_appointments, source: :appoint_to, source_type: 'PaymentItem'
+  has_many :payment_orders, through: :payment_category_appointments, source: :appoint_to, source_type: 'PaymentOrder'
+  has_many :payment_invoices, through: :payment_category_appointments, source: :appoint_to, source_type: 'PaymentInvoice'
 
 end

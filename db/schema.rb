@@ -100,12 +100,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "calendar_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "calendar_category_id", null: false
-    t.string "calendar_category_appointmentable_type", null: false
-    t.uuid "calendar_category_appointmentable_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_category_appointmentable_type", "calendar_category_appointmentable_id"], name: "index_calendar_category_appointments_on_calendar_category_appoi"
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_calendar_category_appointments_on_appoint_to"
     t.index ["calendar_category_id"], name: "index_calendar_category_appointments_on_calendar_category_id"
   end
 
@@ -447,12 +447,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "payment_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "payment_category_id", null: false
-    t.string "payment_category_appointmentable_type", null: false
-    t.uuid "payment_category_appointmentable_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["payment_category_appointmentable_type", "payment_category_appointmentable_id"], name: "index_payment_category_appointments_on_payment_category_appoint"
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_payment_category_appointments_on_appoint_to"
     t.index ["payment_category_id"], name: "index_payment_category_appointments_on_payment_category_id"
   end
 
@@ -606,12 +606,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "report_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "report_category_id", null: false
-    t.string "report_category_appointmentable_type", null: false
-    t.uuid "report_category_appointmentable_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["report_category_appointmentable_type", "report_category_appointmentable_id"], name: "index_report_category_appointments_on_report_category_appointme"
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_report_category_appointments_on_appoint_to"
     t.index ["report_category_id"], name: "index_report_category_appointments_on_report_category_id"
   end
 

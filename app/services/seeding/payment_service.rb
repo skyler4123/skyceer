@@ -140,14 +140,14 @@ class Seeding::PaymentService
         payment_customers.sample(10).each do |payment_customer|
           PaymentCategoryAppointment.create!(
             payment_category: payment_categories.sample,
-            payment_category_appointmentable: payment_customer,
+            appoint_to: payment_customer,
           )
         end
 
         payment_user.payment_orders.each do |payment_order|
           PaymentCategoryAppointment.create!(
             payment_category: payment_categories.sample,
-            payment_category_appointmentable: payment_order,
+            appoint_to: payment_order,
           )
         end
 
@@ -155,21 +155,21 @@ class Seeding::PaymentService
         payment_user.payment_items.each do |payment_item|
           PaymentCategoryAppointment.create!(
             payment_category: payment_categories.sample,
-            payment_category_appointmentable: payment_item,
+            appoint_to: payment_item,
           )
         end
 
         payment_user.payment_discounts.each do |payment_discount|
           PaymentCategoryAppointment.create!(
             payment_category: payment_categories.sample,
-            payment_category_appointmentable: payment_discount,
+            appoint_to: payment_discount,
           )
         end
 
         payment_user.payment_methods.each do |payment_method|
           PaymentCategoryAppointment.create!(
             payment_category: payment_categories.sample,
-            payment_category_appointmentable: payment_method,
+            appoint_to: payment_method,
           )
         end
       end

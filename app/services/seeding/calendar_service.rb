@@ -69,7 +69,7 @@ class Seeding::CalendarService
       calendar_events.each do |calendar_event|
         CalendarCategoryAppointment.create!(
           calendar_category: calendar_categories.sample,
-          calendar_category_appointmentable: calendar_event
+          appoint_to: calendar_event
         )
       end
     end

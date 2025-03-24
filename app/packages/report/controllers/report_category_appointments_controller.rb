@@ -65,6 +65,6 @@ class ReportCategoryAppointmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_category_appointment_params
-      params.expect(report_category_appointment: [ :report_category_id, :report_category_appointmentable_id, :report_category_appointmentable_type, :discarded_at ])
+      params.expect(report_category_appointment: [ :report_category_id, :appoint_to_id, :appoint_to_type, :discarded_at ])
     end
 end

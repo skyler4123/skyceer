@@ -63,13 +63,13 @@ class Seeding::ReportService
   def self.report_category_appointment
     ReportTicket.all.each do |report_ticket|
       ReportCategoryAppointment.create!(
-        report_category_appointmentable: report_ticket,
+        appoint_to: report_ticket,
         report_category: ReportCategory.all.sample,
       )
     end
     ReportFrontend.all.each do |report_frontend|
       ReportCategoryAppointment.create!(
-        report_category_appointmentable: report_frontend,
+        appoint_to: report_frontend,
         report_category: ReportCategory.all.sample,
       )
     end
