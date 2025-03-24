@@ -21,12 +21,13 @@ class Seeding::EducationService
   end
 
   def self.create_user(education_role: :education_school, n: 0)
-    User.create!(
+    user = User.create!(
       email: "#{education_role}#{n}@education.com",
       password: 'password1234',
       password_confirmation: 'password1234',
       education_role: education_role,
     )
+    Seeding::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
   end
 
   def self.education_school_user
