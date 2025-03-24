@@ -8,7 +8,6 @@ class EducationClass < ApplicationRecord
   has_many :education_lessons, dependent: :destroy
   has_many :education_class_appointments, dependent: :destroy
   has_many :education_students, through: :education_class_appointments, source: :appoint_to, source_type: 'EducationStudent'
-  has_many :education_teachers, through: :education_class_appointments, source: :appoint_to, source_type: 'EducationTeacher'
   has_many :education_rooms, through: :education_class_appointments, source: :appoint_to, source_type: 'EducationRoom'
   has_many :education_exams, through: :education_class_appointments, source: :appoint_to, source_type: 'EducationExam'
 
@@ -21,4 +20,17 @@ class EducationClass < ApplicationRecord
   include EducationClass::ValidationConcern
   include EducationClass::CalendarConcern
 
+  # Scope to get all teachers with subject appointments to this class
+  scope :education_teachers, -> {
+    EducationTeacher.joins(:education_subject_appointments)
+            .where(education_subject_appointments: { appoint_to_type: 'EducationClass', appoint_to_id: self.select(:id) })
+            .distinct
+  }
+
+  # Instance method to get all teachers with subject appointments to this class
+  def education_teachers
+    EducationTeacher.joins(:education_subject_appointments)
+                    .where(education_subject_appointments: { appoint_to: self})
+                    .distinct
+  end
 end

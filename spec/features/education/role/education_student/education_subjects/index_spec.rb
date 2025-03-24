@@ -6,8 +6,13 @@ RSpec.feature "education_subjects#index", type: :feature, js: true do
   context "education_role: :education_school" do
     before do
       education_school.education_students << education_student
+      education_school.education_teachers << education_teacher
       education_class.education_students << education_student
-      education_class.education_subjects << education_subject
+      EducationSubjectAppointment.create!(
+        education_subject: education_subject,
+        appoint_from: education_teacher,
+        appoint_to: education_class
+      )
     end
 
     it "will not be redirected" do

@@ -21,4 +21,11 @@ class EducationTeacher < ApplicationRecord
   
   include EducationTeacher::ValidationConcern
   include EducationTeacher::UserConcern
+
+  # Instance method to get all classes with subject appointments to this teacher
+  def education_classes
+    EducationClass.joins(:education_subject_appointments)
+                  .where(education_subject_appointments: { appoint_from: self})
+                  .distinct
+  end
 end

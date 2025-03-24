@@ -44,22 +44,6 @@ export default class extends Education_EducationSchool_LayoutController {
         </div>
 
         <div class="my-5">
-          <label class="required" for="education_teacher_education_class_id">Class</label>
-          ${createSelectTag({
-            className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
-            name: "education_teacher[education_class_id][]",
-            id: "education_teacher_education_class_id",
-            required: true,
-            multiple: true,
-            values: pluck(this.educationTeacher.education_classes, "id"),
-            options: this.educationClasses.map((klass) => {
-              return { value: klass.id, text: klass.name }
-            }),
-            dataController: this.choicesControllerIdentifier,
-          })}
-        </div>
-
-        <div class="my-5">
           <label class="required" for="education_teacher_education_category_id">Category</label>
           ${createSelectTag({
             className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",

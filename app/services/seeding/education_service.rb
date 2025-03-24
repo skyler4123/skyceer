@@ -126,6 +126,7 @@ class Seeding::EducationService
           education_school_user: user,
         )
         education_admin.education_schools << user.education_schools.sample
+        education_admin.education_categories << user.education_categories.sample
         Seeding::AttachmentService.attach(record: education_admin, relation: :image_attachments, number: 1)
       end
     end
@@ -142,6 +143,7 @@ class Seeding::EducationService
           education_school_user: user,
         )
         education_teacher.education_schools << user.education_schools.sample
+        education_teacher.education_categories << user.education_categories.sample
         Seeding::AttachmentService.attach(record: education_teacher, relation: :image_attachments, number: 1)
       end
     end
@@ -158,6 +160,7 @@ class Seeding::EducationService
           education_school_user: user,
         )
         education_student.education_schools << user.education_schools.sample
+        education_student.education_categories << user.education_categories.sample
         Seeding::AttachmentService.attach(record: education_student, relation: :image_attachments, number: 1)
       end
     end
@@ -174,6 +177,7 @@ class Seeding::EducationService
           education_school_user: user,
         )
         education_parent.education_schools << user.education_schools.sample
+        education_parent.education_categories << user.education_categories.sample
         Seeding::AttachmentService.attach(record: education_parent, relation: :image_attachments, number: 1)
       end
     end
