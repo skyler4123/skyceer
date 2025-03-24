@@ -2,7 +2,6 @@ class EducationStudent::EducationSubjectsController < EducationStudent::Educatio
 
   # GET /education_subjects or /education_subjects.json
   def index
-    @education_classes = EducationClass.joins(:education_students).where(education_students: @education_students)
     @education_subjects = EducationSubject.joins(:education_classes).where(education_classes: @education_classes)
     @pagination, @education_subjects = pagy(@education_subjects)
     @data = {

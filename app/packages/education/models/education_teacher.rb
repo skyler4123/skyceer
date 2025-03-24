@@ -22,6 +22,13 @@ class EducationTeacher < ApplicationRecord
   include EducationTeacher::ValidationConcern
   include EducationTeacher::UserConcern
 
+  # Scope to get all teachers with subject appointments to this teachers
+  scope :education_classes, -> {
+    EducationClass.joins(:education_subject_appointments)
+                  .where(education_subject_appointments: { appoint_from_type: 'EducationTeacher', appoint_from_id: self.ids })
+                  .distinct
+  }
+
   # Instance method to get all classes with subject appointments to this teacher
   def education_classes
     EducationClass.joins(:education_subject_appointments)

@@ -23,7 +23,7 @@ class EducationClass < ApplicationRecord
   # Scope to get all teachers with subject appointments to this class
   scope :education_teachers, -> {
     EducationTeacher.joins(:education_subject_appointments)
-            .where(education_subject_appointments: { appoint_to_type: 'EducationClass', appoint_to_id: self.select(:id) })
+            .where(education_subject_appointments: { appoint_to_type: 'EducationClass', appoint_to_id: self.ids })
             .distinct
   }
 
