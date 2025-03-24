@@ -65,6 +65,6 @@ class CategoryAppointmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def category_appointment_params
-      params.expect(category_appointment: [ :category_id, :category_appointmentable_id, :category_appointmentable_type ])
+      params.expect(category_appointment: [ :category_id, :appoint_to_id, :appoint_to_type ])
     end
 end

@@ -160,11 +160,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "category_id", null: false
-    t.string "category_appointmentable_type", null: false
-    t.uuid "category_appointmentable_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_appointmentable_type", "category_appointmentable_id"], name: "index_category_appointments_on_category_appointmentable"
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_category_appointments_on_appoint_to"
     t.index ["category_id"], name: "index_category_appointments_on_category_id"
   end
 

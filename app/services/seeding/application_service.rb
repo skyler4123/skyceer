@@ -22,7 +22,7 @@ class Seeding::ApplicationService
     Address.all.each do |address|
       CategoryAppointment.create!(
         category: Category.all.sample,
-        category_appointmentable: address
+        appoint_to: address
       )
     end
   end

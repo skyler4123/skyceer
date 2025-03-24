@@ -9,7 +9,7 @@ APPLICATION
 rails g scaffold NosqlUser user_id address_id name avatar role:integer education_role:integer  --force
 rails g scaffold Address alpha2:string:index alpha3:string:index continent:string:index nationality:string:index region:string:index longitude:decimal latitude:decimal level_total:integer level_1:string:index level_2:string:index level_3:string:index level_4:string:index level_5:string:index level_6:string:index level_7:string:index level_8:string:index level_9:string:index level_10:string:index discarded_at:datetime --force
 rails g scaffold Category name parent_category:references nested_level:integer discarded_at:datetime --force
-rails g scaffold CategoryAppointment category:references category_appointmentable:references{polymorphic} --force
+rails g scaffold CategoryAppointment category:references appoint_to:references{polymorphic} --force
 
 EDUCATION
 rails g scaffold EducationAdmin user:references name discarded_at:datetime --force
