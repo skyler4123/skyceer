@@ -16,7 +16,7 @@ class EducationStudent < ApplicationRecord
   has_many :education_category_appointments, as: :appoint_to, dependent: :destroy
   has_many :education_categories, through: :education_category_appointments
 
-  has_many :education_exam_appointments, as: :education_exam_appointmentable, dependent: :destroy
+  has_many :education_exam_appointments, as: :appoint_to, dependent: :destroy
   has_many :education_exams, through: :education_exam_appointments
 
   def class_names

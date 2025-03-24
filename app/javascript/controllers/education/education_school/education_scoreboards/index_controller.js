@@ -95,8 +95,8 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
     ]
   }
 
-  // education_exam_appointments = [{id, education_exam_id, education_exam_appointmentable_type, education_exam_appointmentable_id, score, status, created_at, updated_at}]
-  // education_exam_appointmentable_id is education_student_id
+  // education_exam_appointments = [{id, education_exam_id, appoint_to_type, appoint_to_id, score, status, created_at, updated_at}]
+  // appoint_to_id is education_student_id
   // education_student_id is education_students[].id
   // loop through education_students[].id and get education_exam_appointments[].score
   examAppointmentsData() {
@@ -104,7 +104,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
     this.educationStudents.forEach((student) => {
       const row = {name: student.name}
       this.educationExams.forEach((exam) => {
-        const appointment = this.educationExamAppointments.find((appointment) => appointment.education_exam_id === exam.id && appointment.education_exam_appointmentable_id === student.id)
+        const appointment = this.educationExamAppointments.find((appointment) => appointment.education_exam_id === exam.id && appointment.appoint_to_id === student.id)
         row[exam.id] = appointment ? appointment.score : ''
       })
       data.push(row)

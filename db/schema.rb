@@ -253,14 +253,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_exam_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_exam_id", null: false
-    t.string "education_exam_appointmentable_type", null: false
-    t.uuid "education_exam_appointmentable_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
     t.decimal "score"
     t.integer "status"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_exam_appointmentable_type", "education_exam_appointmentable_id"], name: "index_education_exam_appointments_on_education_exam_appointment"
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_education_exam_appointments_on_appoint_to"
     t.index ["education_exam_id"], name: "index_education_exam_appointments_on_education_exam_id"
   end
 
@@ -309,8 +309,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_question_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_question_id", null: false
-    t.string "education_question_appointmentable_type", null: false
-    t.uuid "education_question_appointmentable_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
     t.decimal "score"
     t.integer "time"
     t.string "status"
@@ -318,7 +318,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.integer "result"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_question_appointmentable_type", "education_question_appointmentable_id"], name: "index_education_question_appointments_on_education_question_app"
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_education_question_appointments_on_appoint_to"
     t.index ["education_question_id"], name: "index_education_question_appointments_on_education_question_id"
   end
 
