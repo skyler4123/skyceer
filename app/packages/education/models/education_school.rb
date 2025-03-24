@@ -6,10 +6,10 @@ class EducationSchool < ApplicationRecord
   belongs_to :address, optional: true
 
   has_many :education_school_appointments, dependent: :destroy
-  has_many :education_admins, through: :education_school_appointments, source: :education_school_appointmentable, source_type: 'EducationAdmin'
-  has_many :education_teachers, through: :education_school_appointments, source: :education_school_appointmentable, source_type: 'EducationTeacher'
-  has_many :education_students, through: :education_school_appointments, source: :education_school_appointmentable, source_type: 'EducationStudent'
-  has_many :education_parents, through: :education_school_appointments, source: :education_school_appointmentable, source_type: 'EducationParent'
+  has_many :education_admins, through: :education_school_appointments, source: :appoint_to, source_type: 'EducationAdmin'
+  has_many :education_teachers, through: :education_school_appointments, source: :appoint_to, source_type: 'EducationTeacher'
+  has_many :education_students, through: :education_school_appointments, source: :appoint_to, source_type: 'EducationStudent'
+  has_many :education_parents, through: :education_school_appointments, source: :appoint_to, source_type: 'EducationParent'
 
   has_many :education_category_appointments, as: :appoint_to, dependent: :destroy
   has_many :education_categories, through: :education_category_appointments
