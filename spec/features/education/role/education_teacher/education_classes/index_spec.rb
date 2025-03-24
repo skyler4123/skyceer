@@ -1,22 +1,23 @@
 require 'rails_helper'
 
-RSpec.feature "education_students#index", type: :feature, js: true do
+RSpec.feature "education_classs#index", type: :feature, js: true do
   include_context "support/shared_contexts/education/default_database"
 
   context "education_role: :education_teacher" do
     before do
       education_school.education_teachers << education_teacher
-      education_class.education_teachers << education_teacher
-      education_school.education_students << education_student
-      education_class.education_students << education_student
+      EducationSubjectAppointment.create!(
+        education_subject: education_subject,
+        appoint_from: education_teacher,
+        appoint_to: education_class
+      )
     end
 
     it "will not be redirected" do
       sign_in(user: education_teacher.user)
-      visit education_students_path
-
-      expect(page).to have_current_path(education_students_path, ignore_query: true)
-      expect(page).to have_content(education_student.name)
+      visit education_classes_path
+      expect(page).to have_current_path(education_classes_path, ignore_query: true)
+      expect(page).to have_content(education_class.name)
     end
   end
 
@@ -27,7 +28,7 @@ RSpec.feature "education_students#index", type: :feature, js: true do
 
     it "will be redirected" do
       sign_in(user: education_teacher.user)
-      visit education_students_path
+      visit education_classes_path
       expect(page).to have_routing_error
     end
   end
