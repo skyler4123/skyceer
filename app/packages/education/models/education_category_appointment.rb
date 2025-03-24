@@ -1,4 +1,4 @@
 class EducationCategoryAppointment < ApplicationRecord
   belongs_to :education_category
-  belongs_to :education_category_appointmentable, polymorphic: true
+  belongs_to :appoint_to, polymorphic: true
 end
