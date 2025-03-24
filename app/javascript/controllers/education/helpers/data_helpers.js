@@ -267,6 +267,7 @@ export const openModal = ({html = "Model!", customClass = {}}) => {
     showConfirmButton: false,
     showCloseButton: false,
     backdrop: true,
+    target: document.querySelector('main'), // Default target
     customClass: {
       container: '!bg-transparent',
       popup: '!p-0 !bg-transparent',
