@@ -234,32 +234,32 @@ class Seeding::EducationService
     # EducationTeacher.all.each do |education_teacher|
     #   EducationClassAppointment.create!(
     #     education_class: education_teacher.education_schools.sample.education_classes.sample,
-    #     education_class_appointmentable: education_teacher,
+    #     appoint_to: education_teacher,
     #     dependentable: education_teacher.education_subject_appointments.sample,
     #   )
     # end
     EducationStudent.all.each do |education_student|
       EducationClassAppointment.create!(
         education_class: education_student.education_schools.sample.education_classes.sample,
-        education_class_appointmentable: education_student,
+        appoint_to: education_student,
       )
     end
     # EducationSubject.all.each do |education_subject|
     #   EducationClassAppointment.create!(
     #     education_class: education_subject.education_school.education_classes.sample,
-    #     education_class_appointmentable: education_subject,
+    #     appoint_to: education_subject,
     #   )
     # end
     EducationRoom.all.each do |education_room|
       EducationClassAppointment.create!(
         education_class: education_room.education_school.education_classes.sample,
-        education_class_appointmentable: education_room,
+        appoint_to: education_room,
       )
     end
     EducationExam.all.each do |education_exam|
       EducationClassAppointment.create!(
         education_class: education_exam.education_school.education_classes.sample,
-        education_class_appointmentable: education_exam,
+        appoint_to: education_exam,
       )
     end
   end
@@ -297,10 +297,10 @@ class Seeding::EducationService
   end
 
   def self.education_exam_appointments
-    education_class_appointments_for_exam = EducationClassAppointment.where(education_class_appointmentable_type: 'EducationExam')
+    education_class_appointments_for_exam = EducationClassAppointment.where(appoint_to_type: 'EducationExam')
     education_class_appointments_for_exam.each do |education_class_appointment|
       education_class = education_class_appointment.education_class
-      education_exam = education_class_appointment.education_class_appointmentable
+      education_exam = education_class_appointment.appoint_to
       education_students = education_class.education_students
       education_students.each do |education_student|
         education_student.education_exam_appointments.create!(

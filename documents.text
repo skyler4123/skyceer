@@ -22,7 +22,7 @@ rails g scaffold EducationLesson title content education_school:references educa
 rails g scaffold EducationShift education_school:references education_class:references education_subject:references education_teacher:references name discarded_at:datetime --force
 
 rails g scaffold EducationSchoolAppointment education_school:references education_school_appointmentable:references{polymorphic} discarded_at:datetime --force
-rails g scaffold EducationClassAppointment education_class:references education_class_appointmentable:references{polymorphic} --force
+rails g scaffold EducationClassAppointment education_class:references appoint_to:references{polymorphic} --force
 rails g scaffold EducationExamAppointment education_exam:references education_exam_appointmentable:references{polymorphic} score:decimal status:integer discarded_at:datetime --force
 rails g scaffold EducationCategoryAppointment education_category:references appoint_to:references{polymorphic} --force
 rails g scaffold EducationQuestionAppointment education_question:references education_question_appointmentable:references{polymorphic} score:decimal time:integer status anwser result:integer --force
