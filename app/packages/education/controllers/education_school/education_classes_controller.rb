@@ -21,14 +21,16 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
   # GET /education_classes/1/edit
   def edit
     @education_courses = EducationCourse.where(education_school: @education_schools)
-    @education_subjects = EducationSubject.where(education_school: @education_schools)
+    @education_subjects = EducationSubject.where(education_school: @education_class.education_school)
     @education_teachers = EducationTeacher.joins(:education_schools).where(education_schools: @education_schools)
+    @education_subject_appointments = EducationSubjectAppointment.where(appoint_to: @education_class)
     @data = {
       education_class: @education_class.as_json(include: { education_categories: { only: %i[id name] }, education_school: { only: %i[id name] }, education_course: { only: %i[id name] }, education_subjects: { only: %i[id name] } }),
       education_courses: @education_courses.as_json(only: %i[id name]),
       education_categories: @education_categories.as_json(only: %i[id name]),
       education_schools: @education_schools.as_json(only: %i[id name]),
       education_subjects: @education_subjects.as_json(only: %i[id name], include: { education_teachers: { only: %i[id name] } }),
+      education_subject_appointments: @education_subject_appointments.as_json,
       education_teachers: @education_teachers.as_json(only: %i[id name]),
     }.to_json
   end

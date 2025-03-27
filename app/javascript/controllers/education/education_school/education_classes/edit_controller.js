@@ -1,4 +1,4 @@
-import { identifier, transferToValue, createForm, createSelectTag, createInputTag, pluck } from "controllers/education/helpers/data_helpers"
+import { identifier, transferToValue, createForm, createSelectTag, createInputTag, pluck, openModal } from "controllers/education/helpers/data_helpers"
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 
@@ -12,6 +12,8 @@ export default class extends Education_EducationSchool_LayoutController {
     this.educationCategories = ServerData.data.education_categories
     this.educationSchools = ServerData.data.education_schools
     this.educationSubjects = ServerData.data.education_subjects
+    this.educationTeachers = ServerData.data.education_teachers
+    this.educationSubjectAppointments = ServerData.data.education_subject_appointments
   }
 
   init() {
@@ -24,6 +26,7 @@ export default class extends Education_EducationSchool_LayoutController {
         <h1 class="text-2xl font-semibold">Edit Class</h1>
         <div class="border border-gray-200 rounded-lg p-4">${this.editFormHTML()}</div>
         <div class="border border-gray-200 rounded-lg p-4" data-${this.identifier}-target="subjectTable"></div>
+        <button class="rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer" data-action="click->${this.identifier}#openAppointSubjectModal">Appoint new subject</button>
       </div>
     `
   }
@@ -98,11 +101,13 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   initSubjectTable() {
-    const tableData = this.educationSubjects.map((row) => {
+    const tableData = this.educationSubjectAppointments.map((row) => {
+      const subject = this.educationSubjects.find((subject) => subject.id == row.education_subject_id)
+      const teacher = this.educationTeachers.find((teacher) => teacher.id == row.appoint_from_id)
       return {
         ...row,
-        subject: `<a href="/education_subjects/${row.id}/edit">${row.name}</a>`,
-        teacher: row.teacher ? row.teacher.name : "No Teacher",
+        subject: `<div>${subject.name}</div>`,
+        teacher: teacher ? teacher.name : "No Teacher",
       }
     })
     this.table = new Tabulator(this.subjectTableTarget, {
@@ -129,4 +134,62 @@ export default class extends Education_EducationSchool_LayoutController {
       ],
     });
   }
+
+  openAppointSubjectModal(event) {
+    openModal({
+      html: this.appointSubjectModalHTML()
+      
+    })
+  }
+
+  appointSubjectModalHTML() {
+    return `
+      <div class="mx-auto w-3/4 mt-10 flex flex-col gap-y-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-800 dark:text-gray-200 p-4">
+        <h1 class="text-2xl font-semibold">Appoint Subject</h1>
+        <div class="">${this.appointSubjectFormHTML()}</div>
+      </div>
+    `
+  }
+
+  appointSubjectFormHTML() {
+    return createForm({
+      attributes: `action="/education_classes/${this.educationClass.id}/appoint_subject"`,
+      method: "post",
+      html: `
+        <div class="flex flex-row gap-x-4 justify-around items-center">
+          <div class="flex flex-col gap-y-4 w-1/2">
+            <label class="block w-full text-left required" for="education_subject_appointment_education_subject_id">Subject</label>
+            ${createSelectTag({
+              className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+              name: "education_subject_appointment[education_subject_id]",
+              id: "education_subject_appointment_education_subject_id",
+              required: true,
+              options: this.educationSubjects.map((subject) => {
+                return { value: subject.id, text: subject.name }
+              }),
+              dataController: this.choicesControllerIdentifier,
+            })}
+          </div>
+
+          <div class="flex flex-col gap-y-4 w-1/2">
+            <label class="block w-full text-left required" for="education_subject_appointment_appoint_from_id">Teacher</label>
+            ${createSelectTag({
+              className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+              name: "education_subject_appointment[appoint_from_id]",
+              id: "education_subject_appointment_appoint_from_id",
+              required: true,
+              options: this.educationTeachers.map((teacher) => {
+                return { value: teacher.id, text: teacher.name }
+              }),
+              dataController: this.choicesControllerIdentifier,
+            })}
+          </div>
+        </div>
+        <div class="inline">
+          <input type="submit" name="commit" value="Save" class="rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer" data-disable-with="Save">
+        </div>
+      `
+    })
+  }
+
 }
