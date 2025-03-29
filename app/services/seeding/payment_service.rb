@@ -72,9 +72,9 @@ class Seeding::PaymentService
   end
   
   def self.payment_item_appointment
-    PaymentItem.all.each do |payment_item|
-      payment_user = payment_item.payment_user
-      payment_order = payment_user.payment_orders.sample
+    PaymentOrder.all.each do |payment_order|
+      payment_user = payment_order.payment_user
+      payment_item = payment_user.payment_items.sample
       PaymentItemAppointment.create!(
         payment_item: payment_item,
         payment_order: payment_order,
