@@ -13,7 +13,6 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   contentHTML() {
-    console.log(this.educationTeacher)
     return `
       <div class="mx-auto w-4/5 mt-10">
         <h1 class="font-bold text-2xl">Editing teacher</h1>
