@@ -3,7 +3,7 @@ import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 
 export default class extends Education_EducationSchool_LayoutController {
-  static targets = ["subjectTable"]
+  static targets = ["subjectTable", "appointTeacherSelect"]
 
   initBinding() {
     super.initBinding()
@@ -146,50 +146,71 @@ export default class extends Education_EducationSchool_LayoutController {
     return `
       <div class="mx-auto w-3/4 mt-10 flex flex-col gap-y-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-800 dark:text-gray-200 p-4">
         <h1 class="text-2xl font-semibold">Appoint Subject</h1>
-        <div class="">${this.appointSubjectFormHTML()}</div>
+        <div class="">
+          ${createForm({
+            attributes: `action="/education_classes/${this.educationClass.id}/appoint_subject"`,
+            method: "post",
+            html: `
+              <div class="flex flex-row gap-x-4 justify-around items-center">
+                <div class="flex flex-col gap-y-4 w-1/2">
+                  <label class="block w-full text-left required" for="education_subject_appointment_education_subject_id">Subject</label>
+                  ${createSelectTag({
+                    className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+                    name: "education_subject_appointment[education_subject_id]",
+                    id: "education_subject_appointment_education_subject_id",
+                    required: true,
+                    options: this.educationSubjects.map((subject) => {
+                      return { value: subject.id, text: subject.name }
+                    }),
+                    dataController: this.choicesControllerIdentifier,
+                    attributes: ` data-action="change->${this.identifier}#updateAppointmentSubject"`,
+                  })}
+                </div>
+      
+                <div class="flex flex-col gap-y-4 w-1/2">
+                  <label class="block w-full text-left required" for="education_subject_appointment_appoint_from_id">Teacher</label>
+                  ${createSelectTag({
+                    className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+                    name: "education_subject_appointment[appoint_from_id]",
+                    id: "education_subject_appointment_appoint_from_id",
+                    required: true,
+                    options: this.educationSubjects[0].education_teachers.map((teacher) => {
+                      return { value: teacher.id, text: teacher.name }
+                    }),
+                    values: this.educationSubjects[0].education_teachers.map((teacher) => {
+                      return { value: teacher.id, text: teacher.name }
+                    })[0].id,                    
+                    dataController: this.choicesControllerIdentifier,
+                    attributes: ` data-${this.identifier}-target="appointTeacherSelect"`,
+                  })}
+                </div>
+              </div>
+              <div class="inline">
+                <input type="submit" name="commit" value="Save" class="rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer" data-disable-with="Save">
+              </div>
+            `
+          })}
+        </div>
       </div>
     `
   }
 
-  appointSubjectFormHTML() {
-    return createForm({
-      attributes: `action="/education_classes/${this.educationClass.id}/appoint_subject"`,
-      method: "post",
-      html: `
-        <div class="flex flex-row gap-x-4 justify-around items-center">
-          <div class="flex flex-col gap-y-4 w-1/2">
-            <label class="block w-full text-left required" for="education_subject_appointment_education_subject_id">Subject</label>
-            ${createSelectTag({
-              className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
-              name: "education_subject_appointment[education_subject_id]",
-              id: "education_subject_appointment_education_subject_id",
-              required: true,
-              options: this.educationSubjects.map((subject) => {
-                return { value: subject.id, text: subject.name }
-              }),
-              dataController: this.choicesControllerIdentifier,
-            })}
-          </div>
-
-          <div class="flex flex-col gap-y-4 w-1/2">
-            <label class="block w-full text-left required" for="education_subject_appointment_appoint_from_id">Teacher</label>
-            ${createSelectTag({
-              className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
-              name: "education_subject_appointment[appoint_from_id]",
-              id: "education_subject_appointment_appoint_from_id",
-              required: true,
-              options: this.educationTeachers.map((teacher) => {
-                return { value: teacher.id, text: teacher.name }
-              }),
-              dataController: this.choicesControllerIdentifier,
-            })}
-          </div>
-        </div>
-        <div class="inline">
-          <input type="submit" name="commit" value="Save" class="rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer" data-disable-with="Save">
-        </div>
-      `
-    })
+  appointTeacherSelectController() {
+    return this.application.getControllerForElementAndIdentifier(this.appointTeacherSelectTarget, this.choicesControllerIdentifier)
   }
+
+  updateAppointmentSubject(event) {
+    const subjectId = event.target.value
+    const subject = this.educationSubjects.find((subject) => subject.id == subjectId)
+    const teachers = subject.education_teachers.map((teacher, index) => {
+      const selected = index == 0 ? true : false
+      return { value: teacher.id, label: teacher.name, selected: selected }
+    }
+    )
+    const teacherChoice = this.appointTeacherSelectController().choice
+    teacherChoice.clearStore();
+    teacherChoice.setChoices(teachers);
+  }
+
 
 }

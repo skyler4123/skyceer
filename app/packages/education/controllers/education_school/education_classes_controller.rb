@@ -83,6 +83,24 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
     end
   end
 
+  def appoint_subject
+    @education_class = EducationClass.find(params[:id])
+    @education_subject = EducationSubject.find(params[:education_subject_appointment][:education_subject_id])
+    @education_teacher = EducationTeacher.find(params[:education_subject_appointment][:appoint_from_id])
+    @education_subject_appointment = EducationSubjectAppointment.new(
+      education_subject: @education_subject,
+      appoint_to: @education_class,
+      appoint_from: @education_teacher,
+    )
+    respond_to do |format|
+      if @education_subject_appointment.save
+        format.html { redirect_to edit_education_class_path(@education_class), notice: "Education subject was successfully appointed." }
+      else
+        format.html { render edit_education_class_path(@education_class), status: :unprocessable_entity, error: @education_subject_appointment.errors }
+      end
+    end
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_education_class

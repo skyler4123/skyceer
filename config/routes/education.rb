@@ -14,7 +14,11 @@ constraints EducationRoleConstraint.new(:education_school) do
     resources :education_scoreboards, only: [:index]
     resources :education_courses
     resources :education_rooms
-    resources :education_classes
+    resources :education_classes do
+      member do
+        post :appoint_subject
+      end
+    end
     resources :education_teachers do
       collection do
         get :import
