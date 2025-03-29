@@ -289,10 +289,14 @@ class Seeding::EducationService
   def self.education_subject_appointments
     EducationSchool.all.each do |education_school|
       education_teachers = education_school.education_teachers
+      education_teachers.each do |education_teacher|
+        EducationSubjectAppointment.create!(
+          education_subject: education_school.education_subjects.sample,
+          appoint_from: education_teacher,
+        )
+      end
       education_school.education_subjects.each do |education_subject|
         EducationSubjectAppointment.create!(
-          # education_teacher: education_school.education_teachers.sample,
-          # education_subject_appointmentable: education_school.education_teachers.sample,
           education_subject: education_subject,
           appoint_from: education_teachers.sample,
           appoint_to: education_school.education_classes.sample,

@@ -26,8 +26,10 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
   # GET /education_teachers/1/edit
   def edit
     @education_classes = EducationClass.where(education_school: @education_schools)
+    @education_subjects = EducationSubject.where(education_school: @education_schools) 
     @data = {
-      education_teacher: @education_teacher.as_json(include: [:education_schools, :education_classes, :education_categories]),
+      education_teacher: @education_teacher.as_json(include: [:education_schools, :education_classes, :education_categories, :education_subjects]),
+      education_subjects: @education_subjects.as_json,
       education_schools: @education_schools.as_json,
       education_classes: @education_classes.as_json,
       education_categories: @education_categories.as_json

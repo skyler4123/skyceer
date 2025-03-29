@@ -396,10 +396,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_subject_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_subject_id", null: false
-    t.string "appoint_from_type", null: false
-    t.uuid "appoint_from_id", null: false
-    t.string "appoint_to_type", null: false
-    t.uuid "appoint_to_id", null: false
+    t.string "appoint_from_type"
+    t.uuid "appoint_from_id", comment: "Appoint From Teacher, can be null if appointment only to assinged subject to class as placeholder"
+    t.string "appoint_to_type"
+    t.uuid "appoint_to_id", comment: "Appoint To Class, can be null if appointment only to assinged subject to teacher as placeholder"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["appoint_from_type", "appoint_from_id"], name: "index_education_subject_appointments_on_appoint_from"

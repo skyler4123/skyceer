@@ -9,6 +9,7 @@ export default class extends Education_EducationSchool_LayoutController {
     this.educationSchools = ServerData.data.education_schools
     this.educationCategories = ServerData.data.education_categories
     this.educationClasses = ServerData.data.education_classes
+    this.educationSubjects = ServerData.data.education_subjects
   }
 
   contentHTML() {
@@ -27,37 +28,6 @@ export default class extends Education_EducationSchool_LayoutController {
       action: `/education_teachers/${this.educationTeacher.id}`,
       method: "patch",
       html: `
-        <div class="my-5">
-          <label class="required" for="education_teacher_education_school_id">School</label>
-          ${createSelectTag({
-            className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
-            name: "education_teacher[education_school_id][]",
-            id: "education_teacher_education_school_id",
-            required: true,
-            multiple: true,
-            values: pluck(this.educationTeacher.education_schools, "id"),
-            options: this.educationSchools.map((school) => {
-              return { value: school.id, text: school.name }
-            }),
-            dataController: this.choicesControllerIdentifier,
-          })}
-        </div>
-
-        <div class="my-5">
-          <label class="required" for="education_teacher_education_category_id">Category</label>
-          ${createSelectTag({
-            className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
-            name: "education_teacher[education_category_id][]",
-            id: "education_teacher_education_category_id",
-            multiple: true,
-            values: pluck(this.educationTeacher.education_categories, "id"),
-            options: this.educationCategories.map((category) => {
-              return { value: category.id, text: category.name }
-            }),
-            dataController: this.choicesControllerIdentifier,
-          })}
-        </div>
-
         <div class="my-5">
           <label class="required" for="education_teacher_name">Name</label>
           ${createInputTag({
@@ -79,6 +49,52 @@ export default class extends Education_EducationSchool_LayoutController {
             value: this.educationTeacher.email,
             className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
             required: true,
+          })}
+        </div>
+
+        <div class="my-5">
+          <label class="required" for="education_teacher_education_school_id">School</label>
+          ${createSelectTag({
+            className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+            name: "education_teacher[education_school_id][]",
+            id: "education_teacher_education_school_id",
+            required: true,
+            multiple: true,
+            values: pluck(this.educationTeacher.education_schools, "id"),
+            options: this.educationSchools.map((school) => {
+              return { value: school.id, text: school.name }
+            }),
+            dataController: this.choicesControllerIdentifier,
+          })}
+        </div>
+
+        <div class="my-5">
+          <label class="required" for="education_teacher_education_subject_id">Subject</label>
+          ${createSelectTag({
+            className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+            name: "education_teacher[education_subject_id][]",
+            id: "education_teacher_education_subject_id",
+            multiple: true,
+            values: pluck(this.educationTeacher.education_subjects, "id"),
+            options: this.educationSubjects.map((subject) => {
+              return { value: subject.id, text: subject.name }
+            }),
+            dataController: this.choicesControllerIdentifier,
+          })}
+        </div>
+
+        <div class="my-5">
+          <label class="required" for="education_teacher_education_category_id">Category</label>
+          ${createSelectTag({
+            className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+            name: "education_teacher[education_category_id][]",
+            id: "education_teacher_education_category_id",
+            multiple: true,
+            values: pluck(this.educationTeacher.education_categories, "id"),
+            options: this.educationCategories.map((category) => {
+              return { value: category.id, text: category.name }
+            }),
+            dataController: this.choicesControllerIdentifier,
           })}
         </div>
 

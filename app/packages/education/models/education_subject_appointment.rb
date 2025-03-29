@@ -6,6 +6,4 @@ class EducationSubjectAppointment < ApplicationRecord
   belongs_to :education_teacher, optional: true, class_name: "EducationTeacher", foreign_key: :appoint_from_id #, foreign_type: :appoint_from_type
 
   validates :education_subject, presence: true
-  validates :appoint_from, presence: true
-  validates :appoint_to, presence: true
 end
