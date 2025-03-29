@@ -41,8 +41,6 @@ export default class Education_EducationSchool_EducationRooms_IndexController ex
       columns:[                 //define the table columns
         {title:"Name", field: "name", formatter: "html"},
         {title: "Schools", field: "school_name", width: 150, formatter: "html"},
-        {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
-        {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
       ],
     });
   }

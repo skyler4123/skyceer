@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2';
+import dayjs from 'dayjs'
 
 export const isObject = (x) => {
   return typeof x === 'object' && !Array.isArray(x) && x !== null
@@ -490,4 +491,8 @@ export const pathname = () => {
 
 export const href = () => {
   return window.location.href
+}
+
+export const timeFormat = (time, format = "DD/MM/YYYY") => {
+  return dayjs(time).format(format)
 }

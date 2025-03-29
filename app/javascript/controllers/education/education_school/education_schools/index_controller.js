@@ -1,4 +1,4 @@
-import { identifier, transferToValue } from "controllers/education/helpers/data_helpers"
+import { identifier, transferToValue, timeFormat } from "controllers/education/helpers/data_helpers"
 
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
@@ -19,6 +19,7 @@ export default class Education_EducationSchool_EducationSchools_IndexController 
       return {
         ...row,
         name: `<a href="/education_schools/${row.id}/edit">${row.name}</a>`,
+        created_at: timeFormat(row.created_at),
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -40,7 +41,6 @@ export default class Education_EducationSchool_EducationSchools_IndexController 
       columns:[                 //define the table columns
           {title:"Name", field: "name", formatter: "html"},
           {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
-          {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
       ],
     });
   }

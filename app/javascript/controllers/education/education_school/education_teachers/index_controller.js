@@ -20,12 +20,13 @@ export default class Education_EducationSchool_EducationTeachers_IndexController
         ...row,
         name: `<a href="/education_teachers/${row.id}/edit">${row.name}</a>`,
         school_names: `<div>${row.education_schools.map((school) => `<span>${school.name}</span>`).join(",")}</div>`,
-        class_names: `<div>${row.education_classes.map((klass) => `<span>${klass.name}</span>`).join(",")}</div>`,
+        // class_names: `<div>${row.education_classes.map((klass) => `<span>${klass.name}</span>`).join(",")}</div>`,
+        class_names: `<ol>${row.education_classes.map((klass) => `<li>${klass.name}</li>`).join("")}</ol>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
       data: tableData,           //load row data from array
-      layout:"fitColumns",      //fit columns to width of table
+      layout:"fitDataStretch",      //fit columns to width of table
       responsiveLayout:"hide",  //hide columns that don't fit on the table
       addRowPos:"top",          //when adding a new row, add it to the top of the table
       history:true,             //allow undo and redo actions on the table
@@ -43,8 +44,6 @@ export default class Education_EducationSchool_EducationTeachers_IndexController
         {title:"Name", field: "name", formatter: "html"},
         {title: "Schools", field: "school_names", width: 150, formatter: "html"},
         {title: "Classes", field: "class_names", width: 150, formatter: "html"},
-        {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
-        {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
       ],
     });
   }

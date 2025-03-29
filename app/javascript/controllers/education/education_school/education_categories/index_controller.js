@@ -40,7 +40,6 @@ export default class Education_EducationSchool_EducationCategories_IndexControll
       columns:[                 //define the table columns
         {title:"Name", field: "name", formatter: "html"},
         {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
-        {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},
       ],
     });
   }
