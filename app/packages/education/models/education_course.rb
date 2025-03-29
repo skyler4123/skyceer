@@ -7,5 +7,4 @@ class EducationCourse < ApplicationRecord
   has_many :education_categories, through: :education_category_appointments
 
   include EducationCourse::ValidationConcern
-  include EducationCourse::PaymentConcern
 end

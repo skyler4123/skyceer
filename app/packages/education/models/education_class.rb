@@ -19,6 +19,7 @@ class EducationClass < ApplicationRecord
 
   include EducationClass::ValidationConcern
   include EducationClass::CalendarConcern
+  include EducationClass::PaymentConcern
 
   # Scope to get all teachers with subject appointments to this class
   scope :education_teachers, -> {
