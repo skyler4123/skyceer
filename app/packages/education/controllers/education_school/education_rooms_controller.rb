@@ -31,7 +31,7 @@ class EducationSchool::EducationRoomsController < EducationSchool::EducationsCon
           @education_room.education_categories = education_categories
         end
 
-        format.html { redirect_to education_rooms_path, notice: "Education room was successfully created." }
+        format.html { redirect_to education_rooms_path, notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_room }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,7 +49,7 @@ class EducationSchool::EducationRoomsController < EducationSchool::EducationsCon
           @education_room.education_categories = education_categories
         end
 
-        format.html { redirect_to education_rooms_path, notice: "Education room was successfully updated." }
+        format.html { redirect_to education_rooms_path, notice: UPDATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :ok, location: @education_room }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,7 +63,7 @@ class EducationSchool::EducationRoomsController < EducationSchool::EducationsCon
     @education_room.destroy!
 
     respond_to do |format|
-      format.html { redirect_to education_rooms_path, status: :see_other, notice: "Education room was successfully destroyed." }
+      format.html { redirect_to education_rooms_path, status: :see_other, notice: DELETED_SUCCESS_MESSAGE }
       format.json { head :no_content }
     end
   end

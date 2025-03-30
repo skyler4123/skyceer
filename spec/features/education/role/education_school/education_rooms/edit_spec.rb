@@ -22,7 +22,7 @@ RSpec.feature "education_rooms#new", type: :feature, js: true do
 
       # Verify the room was created successfully
       expect(page).to have_current_path(education_rooms_path)
-      expect(page).to have_content("Education room was successfully updated.")
+      expect(page).to have_content(UPDATED_SUCCESS_MESSAGE)
       expect(page).to have_content(new_room_params[:name])
       expect(room_record).to be_present
       expect(room_record.education_school).to eq(education_school)

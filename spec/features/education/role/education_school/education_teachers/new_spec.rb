@@ -25,7 +25,7 @@ RSpec.feature "education_teachers#new", type: :feature, js: true do
 
       # Verify the teacher was created successfully
       expect(page).to have_current_path(education_teachers_path)
-      expect(page).to have_content("Education teacher was successfully created.")
+      expect(page).to have_content(CREATED_SUCCESS_MESSAGE)
       expect(page).to have_content(new_teacher_params[:name])
       expect(teacher_record).to be_present
       expect(teacher_record.education_schools).to include(education_school)

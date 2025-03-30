@@ -27,7 +27,7 @@ RSpec.feature "education_students#edit", type: :feature, js: true do
       click_button "Save"
 
       expect(page).to have_current_path(education_students_path)
-      expect(page).to have_content("Education student was successfully updated.")
+      expect(page).to have_content(UPDATED_SUCCESS_MESSAGE)
       expect(page).to have_content(new_student_params[:name])
       expect(record(education_student)).to be_present
       expect(record(education_student).education_schools).to include(new_education_school)

@@ -24,9 +24,9 @@ RSpec.feature "education_classes#new", type: :feature, js: true do
       click_button "Save"
 
       # Verify the class was created successfully
-      expect(page).to have_current_path(education_classes_path)
-      expect(page).to have_content("Education class was successfully created.")
-      expect(page).to have_content(new_class_params[:name])
+      expect(page).to have_current_path(edit_education_class_path(class_record))
+      expect(page).to have_content(CREATED_SUCCESS_MESSAGE)
+      expect(page).to have_field("education_class[name]", with: new_class_params[:name])
       expect(class_record).to be_present
       expect(class_record.education_school).to eq(education_school)
       expect(class_record.education_course).to eq(education_course)

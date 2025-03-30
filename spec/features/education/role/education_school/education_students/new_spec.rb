@@ -25,7 +25,7 @@ RSpec.feature "education_students#new", type: :feature, js: true do
 
       # Verify the student was created successfully
       expect(page).to have_current_path(education_students_path)
-      expect(page).to have_content("Education student was successfully created.")
+      expect(page).to have_content(CREATED_SUCCESS_MESSAGE)
       expect(page).to have_content(new_student_params[:name])
       expect(student_record).to be_present
       expect(student_record.education_schools).to include(education_school)

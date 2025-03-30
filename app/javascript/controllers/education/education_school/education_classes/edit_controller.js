@@ -187,7 +187,9 @@ export default class extends Education_EducationSchool_LayoutController {
                 </div>
               </div>
               <div class="inline">
-                <input type="submit" name="commit" value="Save" class="rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer border border-gray-200 dark:border-gray-700">
+                <input 
+                  id="education_subject_appointment_education_class_id"
+                  type="submit" name="commit" value="Save" class="rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer border border-gray-200 dark:border-gray-700">
               </div>
             `
           })}

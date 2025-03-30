@@ -20,7 +20,7 @@ class EducationSchool::CalendarEventsController < EducationSchool::EducationsCon
     @calendar_event.calendar_groupable = @calendar_group
     respond_to do |format|
       if @calendar_event.save
-        format.html { redirect_to request.referer, notice: "Calendar event was successfully created." }
+        format.html { redirect_to request.referer, notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @calendar_event }
       else
         format.html { redirect_to request.referer, status: :unprocessable_entity, alert: "Calendar event was not created." }

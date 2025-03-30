@@ -25,7 +25,7 @@ RSpec.feature "education_subjects#new", type: :feature, js: true do
 
       # Verify the subject was created successfully
       expect(page).to have_current_path(education_subjects_path)
-      expect(page).to have_content("Education subject was successfully created.")
+      expect(page).to have_content(CREATED_SUCCESS_MESSAGE)
       expect(page).to have_content(new_subject_params[:name])
       expect(subject_record).to be_present
       expect(subject_record.education_school).to eq(education_school)

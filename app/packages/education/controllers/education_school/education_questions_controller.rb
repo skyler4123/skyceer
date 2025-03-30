@@ -28,7 +28,7 @@ class EducationSchool::EducationQuestionsController < EducationSchool::Education
           @education_question.education_categories = education_categories
         end
 
-        format.html { redirect_to education_questions_path, notice: "Education question was successfully created." }
+        format.html { redirect_to education_questions_path, notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_question }
       else
         format.html { render :new, status: :unprocessable_entity }

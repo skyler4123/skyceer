@@ -61,7 +61,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
           @education_exam.education_categories = education_categories
         end
 
-        format.html { redirect_to edit_education_exam_path(@education_exam), notice: "Education exam was successfully created." }
+        format.html { redirect_to edit_education_exam_path(@education_exam), notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_exam }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -83,7 +83,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
           @education_exam.education_classes = education_classes
         end
 
-        format.html { redirect_to edit_education_exam_path(@education_exam), notice: "Education exam was successfully updated." }
+        format.html { redirect_to edit_education_exam_path(@education_exam), notice: UPDATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :ok, location: @education_exam }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -97,7 +97,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
     @education_exam.destroy!
 
     respond_to do |format|
-      format.html { redirect_to education_exams_path, status: :see_other, notice: "Education exam was successfully destroyed." }
+      format.html { redirect_to education_exams_path, status: :see_other, notice: DELETED_SUCCESS_MESSAGE }
       format.json { head :no_content }
     end
   end

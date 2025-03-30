@@ -21,7 +21,7 @@ RSpec.feature "education_categories#edit", type: :feature, js: true do
 
       # Verify the category was created successfully
       expect(page).to have_current_path(education_categories_path)
-      expect(page).to have_content("Education category was successfully updated.")
+      expect(page).to have_content(UPDATED_SUCCESS_MESSAGE)
       expect(page).to have_content(new_category_params[:name])
       expect(category_record).to be_present
       expect(category_record.user).to eq(education_school.user)

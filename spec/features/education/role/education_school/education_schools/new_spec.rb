@@ -24,7 +24,7 @@ RSpec.feature "education_schools#new", type: :feature, js: true do
 
       # Verify the school was created successfully
       expect(page).to have_current_path(education_schools_path)
-      expect(page).to have_content("Education school was successfully created.")
+      expect(page).to have_content(CREATED_SUCCESS_MESSAGE)
       expect(page).to have_content(new_school_params[:name])
       expect(school_record).to be_present
       expect(school_record.education_categories).to include(education_category)

@@ -33,7 +33,7 @@ class EducationSchool::EducationCoursesController < EducationSchool::EducationsC
           @education_course.education_categories = education_categories
         end
         
-        format.html { redirect_to education_courses_path, notice: "Education course was successfully created." }
+        format.html { redirect_to education_courses_path, notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_course }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class EducationSchool::EducationCoursesController < EducationSchool::EducationsC
           @education_course.education_categories = education_categories
         end
         
-        format.html { redirect_to education_courses_path, notice: "Education course was successfully updated." }
+        format.html { redirect_to education_courses_path, notice: UPDATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :ok, location: @education_course }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,7 +65,7 @@ class EducationSchool::EducationCoursesController < EducationSchool::EducationsC
     @education_course.destroy!
 
     respond_to do |format|
-      format.html { redirect_to education_courses_path, status: :see_other, notice: "Education course was successfully destroyed." }
+      format.html { redirect_to education_courses_path, status: :see_other, notice: DELETED_SUCCESS_MESSAGE }
       format.json { head :no_content }
     end
   end

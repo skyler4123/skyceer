@@ -13,7 +13,7 @@ class EducationSchoolsController < EducationsController
 
     respond_to do |format|
       if @education_school.save
-        format.html { redirect_to @education_school, notice: "Education school was successfully created." }
+        format.html { redirect_to @education_school, notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_school }
       else
         format.html { redirect_to request.referer, error: "Education teacher was not created: #{@education_school.errors.full_messages}" }

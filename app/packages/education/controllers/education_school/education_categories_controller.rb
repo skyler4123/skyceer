@@ -25,7 +25,7 @@ class EducationSchool::EducationCategoriesController < EducationSchool::Educatio
     
     respond_to do |format|
       if @education_category.save
-        format.html { redirect_to education_categories_path, notice: "Education category was successfully created." }
+        format.html { redirect_to education_categories_path, notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_category }
       else
         # format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class EducationSchool::EducationCategoriesController < EducationSchool::Educatio
   def update
     respond_to do |format|
       if @education_category.update(education_category_params)
-        format.html { redirect_to education_categories_path, notice: "Education category was successfully updated." }
+        format.html { redirect_to education_categories_path, notice: UPDATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :ok, location: @education_category }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class EducationSchool::EducationCategoriesController < EducationSchool::Educatio
     @education_category.destroy!
 
     respond_to do |format|
-      format.html { redirect_to education_categories_path, status: :see_other, notice: "Education category was successfully destroyed." }
+      format.html { redirect_to education_categories_path, status: :see_other, notice: DELETED_SUCCESS_MESSAGE }
       format.json { head :no_content }
     end
   end

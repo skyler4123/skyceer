@@ -29,7 +29,7 @@ RSpec.feature "education_teachers#edit", type: :feature, js: true do
       click_button "Save"
 
       expect(page).to have_current_path(edit_education_teacher_path(education_teacher))
-      expect(page).to have_content("Education teacher was successfully updated.")
+      expect(page).to have_content(UPDATED_SUCCESS_MESSAGE)
       expect(page).to have_field("education_teacher[name]", with: new_teacher_params[:name])
       expect(page).to have_field("education_teacher[email]", with: new_teacher_params[:email])
       expect(page).to have_content(new_education_school.name)

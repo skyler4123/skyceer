@@ -25,7 +25,7 @@ RSpec.feature "education_courses#new", type: :feature, js: true do
 
       # Verify the course was created successfully
       expect(page).to have_current_path(education_courses_path)
-      expect(page).to have_content("Education course was successfully updated.")
+      expect(page).to have_content(UPDATED_SUCCESS_MESSAGE)
       expect(page).to have_content(new_course_params[:name])
       expect(course_record).to be_present
       expect(course_record.education_school).to eq(education_school)

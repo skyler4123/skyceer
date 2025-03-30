@@ -46,7 +46,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
           @education_class.education_categories = education_categories
         end
 
-        format.html { redirect_to education_classes_path, notice: "Education class was successfully created." }
+        format.html { redirect_to edit_education_class_path(@education_class), notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_class }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -64,7 +64,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
           @education_class.education_categories = education_categories
         end
         
-        format.html { redirect_to education_classes_path, notice: "Education class was successfully updated." }
+        format.html { redirect_to edit_education_class_path(@education_class), notice: UPDATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :ok, location: @education_class }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -78,7 +78,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
     @education_class.destroy!
 
     respond_to do |format|
-      format.html { redirect_to education_classes_path, status: :see_other, notice: "Education class was successfully destroyed." }
+      format.html { redirect_to education_classes_path, status: :see_other, notice: DELETED_SUCCESS_MESSAGE }
       format.json { head :no_content }
     end
   end
@@ -94,7 +94,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
     )
     respond_to do |format|
       if @education_subject_appointment.save
-        format.html { redirect_to edit_education_class_path(@education_class), notice: "Education subject was successfully appointed." }
+        format.html { redirect_to edit_education_class_path(@education_class), notice: UPDATED_SUCCESS_MESSAGE }
       else
         format.html { render edit_education_class_path(@education_class), status: :unprocessable_entity, error: @education_subject_appointment.errors }
       end

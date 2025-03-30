@@ -36,7 +36,7 @@ class EducationSchool::EducationParentsController < EducationSchool::EducationsC
           @education_parent.education_categories = education_categories
         end
 
-        format.html { redirect_to @education_parent, notice: "Education parent was successfully created." }
+        format.html { redirect_to @education_parent, notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_parent }
       else
         format.html { render :new, status: :unprocessable_entity }
