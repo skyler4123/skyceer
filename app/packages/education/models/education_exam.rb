@@ -14,4 +14,14 @@ class EducationExam < ApplicationRecord
   has_many :education_students, through: :education_exam_appointments, source: :appoint_to, source_type: 'EducationStudent'
 
   include EducationExam::ValidationConcern
+
+  enum :status, {
+    active: 0,
+    inactive: 1,
+    deleted: 2
+  }, default: :active, prefix: true
+
+  def status_enums
+    EducationExam.statuses
+  end
 end

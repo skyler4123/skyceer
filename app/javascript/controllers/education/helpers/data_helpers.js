@@ -413,6 +413,7 @@ export const createSelectTag = ({
   values = [],
   required = false,
   multiple = false, 
+  disabled = false,
   attributes = "" 
 }) => {
   // Ensure `values` is an array
@@ -427,8 +428,11 @@ export const createSelectTag = ({
   // Add the `multiple` attribute if the input is true
   const multipleAttribute = multiple ? "multiple" : "";
   
+  // Add the `disabled` attribute if the input is true
+  const disabledAttribute = disabled ? "disabled" : "";
+  const dataControllerAttribute = dataController ? `data-controller="${dataController}"` : "";
   return `
-    <select class="${className}" id="${id}" name="${name}" data-controller="${dataController}" ${requiredAttribute} ${multipleAttribute} ${attributes}>
+    <select class="${className}" id="${id}" name="${name}" ${disabledAttribute} ${dataControllerAttribute} ${requiredAttribute} ${multipleAttribute} ${attributes}>
       ${options.map(option => {
         const isSelected = values.includes(option.value) ? "selected" : "";
         return `<option value="${option.value}" ${isSelected}>${option.text}</option>`;
@@ -496,3 +500,17 @@ export const href = () => {
 export const timeFormat = (time, format = "DD/MM/YYYY") => {
   return dayjs(time).format(format)
 }
+
+export const getObjectKeys = (object) => {
+  if (typeof object !== "object" || object === null) {
+    throw new Error("Input must be a non-null object");
+  }
+  return Object.keys(object);
+}
+
+export const getObjectValues = (object) => {
+  if (typeof object !== "object" || object === null) {
+    throw new Error("Input must be a non-null object");
+  }
+  return Object.values(object);
+};
