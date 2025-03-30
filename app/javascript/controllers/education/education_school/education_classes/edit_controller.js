@@ -148,6 +148,7 @@ export default class extends Education_EducationSchool_LayoutController {
         <h1 class="text-2xl font-semibold">Appoint Subject</h1>
         <div class="">
           ${createForm({
+            className: "w-full flex flex-col gap-y-4",
             attributes: `action="/education_classes/${this.educationClass.id}/appoint_subject"`,
             method: "post",
             html: `
@@ -186,7 +187,7 @@ export default class extends Education_EducationSchool_LayoutController {
                 </div>
               </div>
               <div class="inline">
-                <input type="submit" name="commit" value="Save" class="rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer" data-disable-with="Save">
+                <input type="submit" name="commit" value="Save" class="rounded-lg py-3 px-5 bg-slate-800 text-white inline-block font-medium cursor-pointer border border-gray-200 dark:border-gray-700">
               </div>
             `
           })}

@@ -380,11 +380,15 @@ export const readCSVFile = (file) => {
 
 export const createForm = ({
   action = "",
+  className = "",
+  id = "",
   method = "post",
   dataCOntroller = "",
   html = "",
   attributes = "",
 }) => {
+  const classAttribute = className ? `class="${className}"` : "";
+  const idAttribute = id ? `id="${id}"` : "";
   const actionAttribute = action ? `action="${action}"` : "";
   const methodAttribute = `method="${method}"`;
   const dataControllerAttribute = dataCOntroller ? `data-controller="${dataCOntroller}"` : "";
@@ -396,7 +400,7 @@ export const createForm = ({
   const csrfInput = `<input type="hidden" name="authenticity_token" value="${csrfToken()}" autocomplete="off">`;
 
   return `
-    <form ${actionAttribute} ${methodAttribute} ${dataControllerAttribute} ${attributes} accept-charset="UTF-8">
+    <form ${idAttribute} ${classAttribute} ${actionAttribute} ${methodAttribute} ${dataControllerAttribute} ${attributes} accept-charset="UTF-8">
       ${methodInput}
       ${csrfInput}
       ${html}
@@ -437,7 +441,7 @@ export const createSelectTag = ({
   const dataControllerAttribute = dataController ? `data-controller="${dataController}"` : "";
   return `
     <select class="${className}" id="${id}" name="${name}" ${disabledAttribute} ${dataControllerAttribute} ${requiredAttribute} ${multipleAttribute} ${attributes}>
-      $(blank ? "<option value="">${blankText}</option>" : "")
+      ${blank ? `<option value="">${blankText}</option>` : ""}
       ${options.map(option => {
         const isSelected = values.includes(option.value) ? "selected" : "";
         return `<option value="${option.value}" ${isSelected}>${option.text}</option>`;
