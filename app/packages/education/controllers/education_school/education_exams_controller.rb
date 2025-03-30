@@ -13,6 +13,16 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
   # GET /education_exams/new
   def new
     @education_exam = EducationExam.new
+    @data = {
+      education_exam: @education_exam.as_json(
+        methods: %i[status_enums]
+      ),
+      education_categories: @education_categories.as_json(only: %i[id name]),
+      education_subjects: @education_subjects.as_json(only: %i[id name]),
+      education_schools: @education_schools.as_json(
+        only: %i[id name],
+        include: { education_classes: { only: %i[id name] }, education_subjects: { only: %i[id name] } }),
+    }.to_json
   end
 
   # GET /education_exams/1/edit
@@ -40,6 +50,10 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
       education_categories = EducationCategory.where(id: params[:education_exam][:education_category_id])
       @education_exam.education_categories = education_categories
     end
+    if params[:education_exam][:education_class_id].present?
+      education_classes = EducationClass.where(id: params[:education_exam][:education_class_id])
+      @education_exam.education_classes = education_classes
+    end
     respond_to do |format|
       if @education_exam.save
         if params[:education_exam][:education_category_id].present?
@@ -47,7 +61,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
           @education_exam.education_categories = education_categories
         end
 
-        format.html { redirect_to education_exams_path, notice: "Education exam was successfully created." }
+        format.html { redirect_to edit_education_exam_path(@education_exam), notice: "Education exam was successfully created." }
         format.json { render :show, status: :created, location: @education_exam }
       else
         format.html { render :new, status: :unprocessable_entity }

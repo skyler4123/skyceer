@@ -414,6 +414,8 @@ export const createSelectTag = ({
   required = false,
   multiple = false, 
   disabled = false,
+  blank = false,
+  blankText = "Select",
   attributes = "" 
 }) => {
   // Ensure `values` is an array
@@ -430,9 +432,12 @@ export const createSelectTag = ({
   
   // Add the `disabled` attribute if the input is true
   const disabledAttribute = disabled ? "disabled" : "";
+
+  // Add the `data-controller` attribute if the input is true
   const dataControllerAttribute = dataController ? `data-controller="${dataController}"` : "";
   return `
     <select class="${className}" id="${id}" name="${name}" ${disabledAttribute} ${dataControllerAttribute} ${requiredAttribute} ${multipleAttribute} ${attributes}>
+      $(blank ? "<option value="">${blankText}</option>" : "")
       ${options.map(option => {
         const isSelected = values.includes(option.value) ? "selected" : "";
         return `<option value="${option.value}" ${isSelected}>${option.text}</option>`;

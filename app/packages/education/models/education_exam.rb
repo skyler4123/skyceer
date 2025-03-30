@@ -16,10 +16,10 @@ class EducationExam < ApplicationRecord
   include EducationExam::ValidationConcern
 
   enum :status, {
-    active: 0,
-    inactive: 1,
+    inactive: 0,
+    active: 1,
     deleted: 2
-  }, default: :active, prefix: true
+  }, default: :inactive, prefix: true
 
   def status_enums
     EducationExam.statuses
