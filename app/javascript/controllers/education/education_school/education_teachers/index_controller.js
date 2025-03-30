@@ -5,6 +5,11 @@ import Education_EducationSchool_LayoutController from "controllers/education/ed
 
 export default class Education_EducationSchool_EducationTeachers_IndexController extends Education_EducationSchool_LayoutController {
 
+  initBinding() {
+    super.initBinding()
+    this.educationTeachers = ServerData.data.education_teachers
+  }
+
   init() {
     this.initHTML()
     this.initTable()
@@ -15,13 +20,13 @@ export default class Education_EducationSchool_EducationTeachers_IndexController
   }
 
   initTable() {
-    let tableData = this.educationTeachers().map((row) => {
+    let tableData = this.educationTeachers.map((row) => {
       return {
         ...row,
         name: `<a href="/education_teachers/${row.id}/edit">${row.name}</a>`,
         school_names: `<div>${row.education_schools.map((school) => `<span>${school.name}</span>`).join(",")}</div>`,
-        // class_names: `<div>${row.education_classes.map((klass) => `<span>${klass.name}</span>`).join(",")}</div>`,
         class_names: `<ol>${row.education_classes.map((klass) => `<li>${klass.name}</li>`).join("")}</ol>`,
+        subject_names: `<ol>${row.education_subjects.map((subject) => `<li>${subject.name}</li>`).join("")}</ol>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -44,12 +49,9 @@ export default class Education_EducationSchool_EducationTeachers_IndexController
         {title:"Name", field: "name", formatter: "html"},
         {title: "Schools", field: "school_names", width: 150, formatter: "html"},
         {title: "Classes", field: "class_names", width: 150, formatter: "html"},
+        {title: "Subjects", field: "subject_names", width: 150, formatter: "html"},
       ],
     });
-  }
-
-  educationTeachers() {
-    return ServerData.data.education_teachers
   }
 
   defaultHTML() {

@@ -212,7 +212,7 @@ class Seeding::EducationService
           education_subject: education_school.education_subjects.sample,
           name: "Exam #{Faker::Number.number}",
           description: Faker::Movie.quote,
-          status: rand(0..3)
+          status: rand(0..2)
         )
         education_exam.education_categories << education_school.user.education_categories.sample
       end
@@ -306,16 +306,33 @@ class Seeding::EducationService
   end
 
   def self.education_exam_appointments
-    education_class_appointments_for_exam = EducationClassAppointment.where(appoint_to_type: 'EducationExam')
-    education_class_appointments_for_exam.each do |education_class_appointment|
-      education_class = education_class_appointment.education_class
-      education_exam = education_class_appointment.appoint_to
-      education_students = education_class.education_students
-      education_students.each do |education_student|
-        education_student.education_exam_appointments.create!(
+    # education_class_appointments_for_exam = EducationClassAppointment.where(appoint_to_type: 'EducationExam')
+    # education_class_appointments_for_exam.each do |education_class_appointment|
+    #   education_class = education_class_appointment.education_class
+    #   education_exam = education_class_appointment.appoint_to
+    #   education_students = education_class.education_students
+    #   education_students.each do |education_student|
+    #     education_student.education_exam_appointments.create!(
+    #       education_exam: education_exam,
+    #       score: rand(0..10),
+    #     )
+    #   end
+    # 
+    EducationSchool.all.each do |education_school|
+      education_school.education_exams.each do |education_exam|
+        EducationExamAppointment.create!(
           education_exam: education_exam,
-          score: rand(0..10),
+          appoint_to: education_school.education_classes.sample,
         )
+        education_school.education_classes.each do |education_class|
+          education_class.education_students.each do |education_student|
+            EducationExamAppointment.create!(
+              education_exam: education_exam,
+              appoint_to: education_student,
+              score: rand(0..10),
+            )
+          end
+        end
       end
     end
   end
