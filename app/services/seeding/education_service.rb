@@ -324,15 +324,15 @@ class Seeding::EducationService
           education_exam: education_exam,
           appoint_to: education_school.education_classes.sample,
         )
-        education_school.education_classes.each do |education_class|
-          education_class.education_students.each do |education_student|
-            EducationExamAppointment.create!(
-              education_exam: education_exam,
-              appoint_to: education_student,
-              score: rand(0..10),
-            )
-          end
-        end
+        # education_school.education_classes.each do |education_class|
+        #   education_class.education_students.each do |education_student|
+        #     EducationExamAppointment.create!(
+        #       education_exam: education_exam,
+        #       appoint_to: education_student,
+        #       score: rand(0..10),
+        #     )
+        #   end
+        # end
       end
     end
   end
