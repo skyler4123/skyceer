@@ -251,18 +251,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.index ["education_school_id"], name: "index_education_courses_on_education_school_id"
   end
 
-  create_table "education_exam_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "education_exam_to_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_exam_id", null: false
     t.uuid "education_class_id", null: false
-    t.uuid "education_teacher_id", null: false
+    t.string "uid"
+    t.string "name"
+    t.string "description"
     t.decimal "score"
     t.integer "status"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["education_class_id"], name: "index_education_exam_appointments_on_education_class_id"
-    t.index ["education_exam_id"], name: "index_education_exam_appointments_on_education_exam_id"
-    t.index ["education_teacher_id"], name: "index_education_exam_appointments_on_education_teacher_id"
+    t.index ["education_class_id"], name: "index_education_exam_to_classes_on_education_class_id"
+    t.index ["education_exam_id"], name: "index_education_exam_to_classes_on_education_exam_id"
   end
 
   create_table "education_exam_to_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -409,15 +410,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_subject_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_subject_id", null: false
-    t.string "appoint_from_type"
-    t.uuid "appoint_from_id", comment: "Appoint From Teacher, can be null if appointment only to assinged subject to class as placeholder"
-    t.string "appoint_to_type"
-    t.uuid "appoint_to_id", comment: "Appoint To Class, can be null if appointment only to assinged subject to teacher as placeholder"
+    t.uuid "education_class_id", null: false
+    t.uuid "education_teacher_id", null: false
+    t.integer "status", comment: "0 = assigned, 1 = unassigned"
+    t.datetime "discarded_at", comment: "Soft delete"
+    t.string "uid", comment: "Unique Identifier"
+    t.string "name", comment: "Name of the appointment"
+    t.string "description", comment: "Description of the appointment"
+    t.datetime "start_at", comment: "Start date and time of the appointment"
+    t.datetime "end_at", comment: "End date and time of the appointment"
+    t.datetime "appoint_at", comment: "Appointment date and time"
+    t.datetime "cancel_at", comment: "Cancellation date and time"
+    t.datetime "reschedule_at", comment: "Reschedule date and time"
+    t.datetime "remind_at", comment: "Remind date and time"
+    t.string "remind_type", comment: "Remind type, can be email, sms, push notification, etc."
+    t.string "remind_to", comment: "Remind to, can be teacher, student, parent, etc."
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appoint_from_type", "appoint_from_id"], name: "index_education_subject_appointments_on_appoint_from"
-    t.index ["appoint_to_type", "appoint_to_id"], name: "index_education_subject_appointments_on_appoint_to"
+    t.index ["discarded_at"], name: "index_education_subject_appointments_on_discarded_at"
+    t.index ["education_class_id"], name: "index_education_subject_appointments_on_education_class_id"
     t.index ["education_subject_id"], name: "index_education_subject_appointments_on_education_subject_id"
+    t.index ["education_teacher_id"], name: "index_education_subject_appointments_on_education_teacher_id"
   end
 
   create_table "education_subjects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -705,9 +718,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_classes", "education_courses"
   add_foreign_key "education_classes", "education_schools"
   add_foreign_key "education_courses", "education_schools"
-  add_foreign_key "education_exam_appointments", "education_classes"
-  add_foreign_key "education_exam_appointments", "education_exams"
-  add_foreign_key "education_exam_appointments", "education_teachers"
+  add_foreign_key "education_exam_to_classes", "education_classes"
+  add_foreign_key "education_exam_to_classes", "education_exams"
   add_foreign_key "education_exam_to_students", "education_exams"
   add_foreign_key "education_exam_to_students", "education_students"
   add_foreign_key "education_exams", "education_schools"
@@ -728,7 +740,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_students", "education_parents"
   add_foreign_key "education_students", "users"
   add_foreign_key "education_students", "users", column: "education_school_user_id"
+  add_foreign_key "education_subject_appointments", "education_classes"
   add_foreign_key "education_subject_appointments", "education_subjects"
+  add_foreign_key "education_subject_appointments", "education_teachers"
   add_foreign_key "education_subjects", "education_schools"
   add_foreign_key "education_teachers", "users"
   add_foreign_key "education_teachers", "users", column: "education_school_user_id"

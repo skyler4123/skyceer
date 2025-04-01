@@ -14,10 +14,11 @@ class Seeding::EducationService
     self.education_question
     self.education_exam
     self.education_lesson
-    self.education_subject_appointments
     self.education_class_appointments
     self.education_question_appointments
-    self.education_exam_appointments
+    self.education_subject_appointments
+    self.education_exam_to_classes
+    self.education_exam_to_student
   end
 
   def self.create_user(education_role: :education_school, n: 0)
@@ -236,83 +237,57 @@ class Seeding::EducationService
   end
   
   def self.education_class_appointments
-    # EducationTeacher.all.each do |education_teacher|
-    #   EducationClassAppointment.create!(
-    #     education_class: education_teacher.education_schools.sample.education_classes.sample,
-    #     appoint_to: education_teacher,
-    #     dependentable: education_teacher.education_subject_appointments.sample,
-    #   )
-    # end
-    EducationStudent.all.each do |education_student|
-      EducationClassAppointment.create!(
-        education_class: education_student.education_schools.sample.education_classes.sample,
-        appoint_to: education_student,
-      )
-    end
-    # EducationSubject.all.each do |education_subject|
-    #   EducationClassAppointment.create!(
-    #     education_class: education_subject.education_school.education_classes.sample,
-    #     appoint_to: education_subject,
-    #   )
-    # end
-    EducationRoom.all.each do |education_room|
-      EducationClassAppointment.create!(
-        education_class: education_room.education_school.education_classes.sample,
-        appoint_to: education_room,
-      )
-    end
-    EducationExam.all.each do |education_exam|
-      EducationClassAppointment.create!(
-        education_class: education_exam.education_school.education_classes.sample,
-        appoint_to: education_exam,
-      )
-    end
-
-
-
-
-
     EducationSchool.all.each do |education_school|
       education_school.education_classes.each do |education_class|
-        EducationClassAppointment.create!(
+        EducationClassAppointment.find_or_create_by!(
           education_class: education_class,
           appoint_to: education_school.education_teachers.sample,
         )
-        EducationClassAppointment.create!(
+        EducationClassAppointment.find_or_create_by!(
           education_class: education_class,
           appoint_to: education_school.education_students.sample,
         )
-        EducationClassAppointment.create!(
-          education_class: education_class,
-          appoint_to: education_school.education_exams.sample,
-        )
-        EducationClassAppointment.create!(
+        # EducationClassAppointment.find_or_create_by!(
+        #   education_class: education_class,
+        #   appoint_to: education_school.education_exams.sample,
+        # )
+        EducationClassAppointment.find_or_create_by!(
           education_class: education_class,
           appoint_to: education_school.education_rooms.sample,
         )
+        EducationClassAppointment.find_or_create_by!(
+          education_class: education_class,
+          appoint_to: education_school.education_subjects.sample,
+        )
       end
       education_school.education_teachers.each do |education_teacher|
-        EducationClassAppointment.create!(
+        EducationClassAppointment.find_or_create_by!(
           education_class: education_school.education_classes.sample,
           appoint_to: education_teacher,
         )
       end
       education_school.education_students.each do |education_student|
-        EducationClassAppointment.create!(
+        EducationClassAppointment.find_or_create_by!(
           education_class: education_school.education_classes.sample,
           appoint_to: education_student,
         )
       end
-      education_school.education_exams.each do |education_exam|
-        EducationClassAppointment.create!(
-          education_class: education_school.education_classes.sample,
-          appoint_to: education_exam,
-        )
-      end
+      # education_school.education_exams.each do |education_exam|
+      #   EducationClassAppointment.find_or_create_by!(
+      #     education_class: education_school.education_classes.sample,
+      #     appoint_to: education_exam,
+      #   )
+      # end
       education_school.education_rooms.each do |education_room|
-        EducationClassAppointment.create!(
+        EducationClassAppointment.find_or_create_by!(
           education_class: education_school.education_classes.sample,
           appoint_to: education_room,
+        )
+      end
+      education_school.education_subjects.each do |education_subject|
+        EducationClassAppointment.find_or_create_by!(
+          education_class: education_school.education_classes.sample,
+          appoint_to: education_subject,
         )
       end
     end
@@ -337,51 +312,62 @@ class Seeding::EducationService
 
   def self.education_subject_appointments
     EducationSchool.all.each do |education_school|
-      education_teachers = education_school.education_teachers
-      education_teachers.each do |education_teacher|
-        EducationSubjectAppointment.create!(
-          education_subject: education_school.education_subjects.sample,
-          appoint_from: education_teacher,
+      education_school.education_subjects.each do |education_subject|
+        EducationSubjectAppointment.find_or_create_by!(
+          education_subject: education_subject,
+          education_class: education_school.education_classes.sample,
+          education_teacher: education_school.education_teachers.sample,
         )
       end
-      education_school.education_subjects.each do |education_subject|
-        EducationSubjectAppointment.create!(
-          education_subject: education_subject,
-          appoint_from: education_teachers.sample,
-          appoint_to: education_school.education_classes.sample,
+      education_school.education_classes.each do |education_class|
+        EducationSubjectAppointment.find_or_create_by!(
+          education_class: education_class,
+          education_subject: education_school.education_subjects.sample,
+          education_teacher: education_school.education_teachers.sample,
+        )
+      end
+      education_school.education_teachers.each do |education_teacher|
+        EducationSubjectAppointment.find_or_create_by!(
+          education_teacher: education_teacher,
+          education_subject: education_school.education_subjects.sample,
+          education_class: education_school.education_classes.sample,
         )
       end
     end
   end
 
-  def self.education_exam_appointments
-    # education_class_appointments_for_exam = EducationClassAppointment.where(appoint_to_type: 'EducationExam')
-    # education_class_appointments_for_exam.each do |education_class_appointment|
-    #   education_class = education_class_appointment.education_class
-    #   education_exam = education_class_appointment.appoint_to
-    #   education_students = education_class.education_students
-    #   education_students.each do |education_student|
-    #     education_student.education_exam_appointments.create!(
-    #       education_exam: education_exam,
-    #       score: rand(0..10),
-    #     )
-    #   end
-    # 
+  def self.education_exam_to_classes
     EducationSchool.all.each do |education_school|
       education_school.education_exams.each do |education_exam|
-        EducationExamAppointment.create!(
+        EducationExamToClass.find_or_create_by!(
           education_exam: education_exam,
-          appoint_to: education_school.education_classes.sample,
+          education_class: education_school.education_classes.sample,
         )
-        # education_school.education_classes.each do |education_class|
-        #   education_class.education_students.each do |education_student|
-        #     EducationExamAppointment.create!(
-        #       education_exam: education_exam,
-        #       appoint_to: education_student,
-        #       score: rand(0..10),
-        #     )
-        #   end
-        # end
+      end
+      education_school.education_classes.each do |education_class|
+        EducationExamToClass.find_or_create_by!(
+          education_class: education_class,
+          education_exam: education_school.education_exams.sample,
+        )
+      end
+    end
+  end
+
+  def self.education_exam_to_student
+    EducationSchool.all.each do |education_school|
+      education_school.education_classes.each do |education_class|
+        education_class.education_exam_to_classes.each do |education_exam_to_class|
+          education_exam = education_exam_to_class.education_exam
+          education_students = education_class.education_students
+          education_students.each do |education_student|
+            EducationExamToStudent.find_or_create_by!(
+              education_exam: education_exam,
+              education_student: education_student,
+              status: rand(0..3),
+              score: rand(0..10),
+            )
+          end
+        end
       end
     end
   end
