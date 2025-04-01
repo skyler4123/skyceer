@@ -267,6 +267,55 @@ class Seeding::EducationService
         appoint_to: education_exam,
       )
     end
+
+
+
+
+
+    EducationSchool.all.each do |education_school|
+      education_school.education_classes.each do |education_class|
+        EducationClassAppointment.create!(
+          education_class: education_class,
+          appoint_to: education_school.education_teachers.sample,
+        )
+        EducationClassAppointment.create!(
+          education_class: education_class,
+          appoint_to: education_school.education_students.sample,
+        )
+        EducationClassAppointment.create!(
+          education_class: education_class,
+          appoint_to: education_school.education_exams.sample,
+        )
+        EducationClassAppointment.create!(
+          education_class: education_class,
+          appoint_to: education_school.education_rooms.sample,
+        )
+      end
+      education_school.education_teachers.each do |education_teacher|
+        EducationClassAppointment.create!(
+          education_class: education_school.education_classes.sample,
+          appoint_to: education_teacher,
+        )
+      end
+      education_school.education_students.each do |education_student|
+        EducationClassAppointment.create!(
+          education_class: education_school.education_classes.sample,
+          appoint_to: education_student,
+        )
+      end
+      education_school.education_exams.each do |education_exam|
+        EducationClassAppointment.create!(
+          education_class: education_school.education_classes.sample,
+          appoint_to: education_exam,
+        )
+      end
+      education_school.education_rooms.each do |education_room|
+        EducationClassAppointment.create!(
+          education_class: education_school.education_classes.sample,
+          appoint_to: education_room,
+        )
+      end
+    end
   end
 
   def self.education_question_appointments

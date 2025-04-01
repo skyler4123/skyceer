@@ -253,15 +253,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
 
   create_table "education_exam_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_exam_id", null: false
-    t.string "appoint_to_type", null: false
-    t.uuid "appoint_to_id", null: false
+    t.uuid "education_class_id", null: false
+    t.uuid "education_teacher_id", null: false
     t.decimal "score"
     t.integer "status"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appoint_to_type", "appoint_to_id"], name: "index_education_exam_appointments_on_appoint_to"
+    t.index ["education_class_id"], name: "index_education_exam_appointments_on_education_class_id"
     t.index ["education_exam_id"], name: "index_education_exam_appointments_on_education_exam_id"
+    t.index ["education_teacher_id"], name: "index_education_exam_appointments_on_education_teacher_id"
+  end
+
+  create_table "education_exam_to_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_exam_id", null: false
+    t.uuid "education_student_id", null: false
+    t.json "answer"
+    t.decimal "score"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["education_exam_id"], name: "index_education_exam_to_students_on_education_exam_id"
+    t.index ["education_student_id"], name: "index_education_exam_to_students_on_education_student_id"
   end
 
   create_table "education_exams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -692,7 +705,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_classes", "education_courses"
   add_foreign_key "education_classes", "education_schools"
   add_foreign_key "education_courses", "education_schools"
+  add_foreign_key "education_exam_appointments", "education_classes"
   add_foreign_key "education_exam_appointments", "education_exams"
+  add_foreign_key "education_exam_appointments", "education_teachers"
+  add_foreign_key "education_exam_to_students", "education_exams"
+  add_foreign_key "education_exam_to_students", "education_students"
   add_foreign_key "education_exams", "education_schools"
   add_foreign_key "education_exams", "education_subjects"
   add_foreign_key "education_lessons", "education_classes"
