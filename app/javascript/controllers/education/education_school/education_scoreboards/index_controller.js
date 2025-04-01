@@ -28,15 +28,9 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
     const educationClassId = e.target.value
     const educationClass = this.selectionEducationClasses.find((klass) => klass.id === educationClassId)
     const selectionEducationSubjects = educationClass.education_subjects
-    this.selectionEducationSubjectValue = selectionEducationSubjects
-  }
-
-  selectionEducationSubjectValueChanged(value, previousValue) {
-    if (isEmpty(value)) return
-
     this.choicesControllerForSubjectIdSelect().choice.clearChoices()
     this.choicesControllerForSubjectIdSelect().choice.setChoices(
-      value.map((subject) => {
+      selectionEducationSubjects.map((subject) => {
         return { value: subject.id, label: subject.name }
       })
     )

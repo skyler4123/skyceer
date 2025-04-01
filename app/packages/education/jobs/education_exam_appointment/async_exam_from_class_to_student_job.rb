@@ -11,7 +11,7 @@ class EducationExamAppointment::AsyncExamFromClassToStudentJob < ApplicationJob
     students.each do |student|
       EducationExamAppointment.find_or_create_by!(education_exam: education_exam, appoint_to: student) do |appointment|
         appointment.status = :pending
-        appointment.score = 0
+        # appointment.score = nil
       end
     end
   end
