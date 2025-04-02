@@ -2,6 +2,8 @@ class EducationExamToClass < ApplicationRecord
   belongs_to :education_exam
   belongs_to :education_class
 
+  has_many :education_exam_to_students, dependent: :destroy
+
   # # Validation to ensure uniqueness of an appointment for an exam and appoint_to
   # validates :education_exam_id, uniqueness: { scope: [:appoint_to_type, :appoint_to_id], message: "already has an appointment for this class or student" }
 

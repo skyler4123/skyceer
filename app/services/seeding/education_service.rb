@@ -362,6 +362,7 @@ class Seeding::EducationService
         EducationExamToStudent.find_or_create_by!(
           education_exam: education_exam,
           education_student: education_student,
+          education_exam_to_class: education_exam_to_class,
           status: rand(0..3),
           score: rand(0..10),
         )
