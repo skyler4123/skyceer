@@ -69,12 +69,13 @@ class Seeding::EducationService
 
   def self.education_subject
     EducationSchool.all.each do |education_school|
-      5.times do
+      5.times do |n|
         education_subject = EducationSubject.create!(
-          name: Faker::Educator.subject,
+          name: "#{Faker::Educator.subject} #{n}",
           description: Faker::Movie.quote,
           education_school: education_school
         )
+
         education_subject.education_categories << education_school.user.education_categories.sample
       end
     end
@@ -318,6 +319,8 @@ class Seeding::EducationService
           education_class: education_school.education_classes.sample,
           education_teacher: education_school.education_teachers.sample,
         )
+      rescue
+        next
       end
       education_school.education_classes.each do |education_class|
         EducationSubjectAppointment.find_or_create_by!(
@@ -325,6 +328,8 @@ class Seeding::EducationService
           education_subject: education_school.education_subjects.sample,
           education_teacher: education_school.education_teachers.sample,
         )
+      rescue
+        next
       end
       education_school.education_teachers.each do |education_teacher|
         EducationSubjectAppointment.find_or_create_by!(
@@ -332,6 +337,8 @@ class Seeding::EducationService
           education_subject: education_school.education_subjects.sample,
           education_class: education_school.education_classes.sample,
         )
+      rescue
+        next
       end
     end
   end

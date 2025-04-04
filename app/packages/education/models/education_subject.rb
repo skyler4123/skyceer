@@ -13,7 +13,7 @@ class EducationSubject < ApplicationRecord
 
   # has_many :education_classes, through: :education_subject_appointments, source: :appoint_to, source_type: 'EducationClass'
   has_many :education_exam_appointments, dependent: :destroy
-  has_many :education_teachers, through: :education_subject_appointments, source: :appoint_to, source_type: 'EducationTeacher'
+  has_many :education_teachers, through: :education_subject_appointments
 
   include EducationSubject::ValidationConcern
 end
