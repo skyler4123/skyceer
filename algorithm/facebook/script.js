@@ -15,24 +15,25 @@ clearInterval(this.viewMoreInterval)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Load more comments with Xem thêm bình luận
-let scrollContainerClass = "x78zum5 xdt5ytf x6ikm8r x1odjw0f x1iyjqo2 x1pi30zi x1swvt13"
-let viewMoreCommentsClass = "x1i10hfl xjbqb8w xjqpnuy xa49m3k xqeqjp1 x2hbi6w x13fuv20 xu3j5b3 x1q0q8m5 x26u7qi x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xdl72j9 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j xeuugli xexx8yu x18d9i69 xkhd6sd x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1o1ewxj x3x9cwd x1e5q0jg x13rtm0m x3nfvp2 x87ps6o x1lku1pv x1a2a7pz x6s0dn4 xi81zsa x1q0g3np x1iyjqo2 xs83m0k xsyo7zv"
+function findElementByTextXPath(text) {
+  const xpath = `//*[contains(text(), '${text}')]`;
+  const result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+  return result.singleNodeValue; // Return the first matching element
+}
+let scrollElementClass = "x78zum5 xdt5ytf x1iyjqo2 x1n2onr6"
+let scrollElement = document.querySelectorAll(`[class="${scrollElementClass}"]`)[2]
 let viewMoreCommentsTextEN = "View more comments"
 let viewMoreCommentsTextVN = "Xem thêm bình luận"
-
+let viewMoreCommentsElement = findElementByTextXPath(viewMoreCommentsTextEN) || findElementByTextXPath(viewMoreCommentsTextVN)
 this.viewMoreInterval = setInterval(() => {
-  let scrollContainerElement = document.querySelectorAll(`[class="${scrollContainerClass}"]`)[0]
-  let viewMoreCommentsElements = document.querySelectorAll(`[class="${viewMoreCommentsClass}"]`)
-  let lastViewMoreCommentsElement = viewMoreCommentsElements[viewMoreCommentsElements.length - 1]
-  if (lastViewMoreCommentsElement && (lastViewMoreCommentsElement.textContent === viewMoreCommentsTextEN || lastViewMoreCommentsElement.textContent === viewMoreCommentsTextVN)) {
-    scrollContainerElement.scrollTo(0, scrollContainerElement.scrollHeight)
-    lastViewMoreCommentsElement.click()
-  } else {
-    scrollContainerElement.scrollTo(0, scrollContainerElement.scrollHeight)
-    clearInterval(this.viewMoreInterval)
+  if (viewMoreCommentsElement) {
+    viewMoreCommentsElement.click()
+    scrollElement.scrollIntoView(0, 999999)
   }
-}, 2000)
-
+}
+, 2000)
+// Stop auto scroll down
+clearInterval(this.viewMoreInterval)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Show full comments
