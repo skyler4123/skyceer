@@ -12,8 +12,21 @@ RSpec.describe EducationCategory, type: :model do
   end
 
   describe 'validations' do
+    subject { build(:education_category) }
     it { should validate_presence_of(:name) }
-    it { should validate_numericality_of(:nested_level).only_integer.is_greater_than_or_equal_to(0) }
+
+    it do
+      should validate_uniqueness_of(:name)
+        .scoped_to(:user_id)
+        # .case_insensitive
+        .with_message("must be unique per user")
+    end
+
+    it do
+      should validate_numericality_of(:nested_level)
+        .only_integer
+        .is_greater_than_or_equal_to(0)
+    end
   end
 
   describe 'nested categories' do
