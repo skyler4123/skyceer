@@ -31,7 +31,7 @@ this.viewMoreInterval = setInterval(() => {
     scrollElement.scrollIntoView(0, 999999)
   }
 }
-, 2000)
+, 1000)
 // Stop auto scroll down
 clearInterval(this.viewMoreInterval)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -45,11 +45,12 @@ document.querySelectorAll(`[class="${seeMoreClass}"]`).forEach(target => {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Search number of comments for POST
+// position start with 1
 let numberFrom = 0
 let numberTo = 99
 let position = 1
 
-let commentGroupClass = "html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x18d9i69 x1ye3gou xn6708d x1n2onr6"
+let commentGroupClass = "html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x18d9i69 x1swvt13 x1pi30zi"
 let commentClass = "x1lliihq xjkvuk6 x1iorvi4"
 let arrayRange = (start, stop, step = 1) =>
     Array.from(
