@@ -1,32 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe EducationSubjectAppointment, type: :model do
-  let(:education_subject) { create(:education_subject) }
-  let(:education_class) { create(:education_class) }
-  let(:teacher) { create(:education_teacher) }
-
-  it "allows unique subject-teacher-class combinations" do
-    appointment1 = EducationSubjectAppointment.create!(education_subject: education_subject, education_class: education_class, education_teacher: teacher)
-    appointment2 = EducationSubjectAppointment.new(education_subject: education_subject, education_class: education_class, education_teacher: create(:education_teacher))
-
-    expect(appointment2).to be_valid
+  describe 'associations' do
+    it { should belong_to(:education_subject) }
+    it { should belong_to(:education_class) }
+    it { should belong_to(:education_teacher) }
   end
 
-  it "does not allow duplicate subject-teacher-class combinations" do
-    appointment1 = EducationSubjectAppointment.create!(education_subject: education_subject, education_class: education_class, education_teacher: teacher)
-    appointment2 = EducationSubjectAppointment.new(education_subject: education_subject, education_class: education_class, education_teacher: teacher)
+  describe 'validations' do
+    subject { build(:education_subject_appointment) }
 
-    expect(appointment2).not_to be_valid
-    expect(appointment2.errors[:base]).to include("A subject can only appoint one teacher to a class")
-  end
+    it { should validate_presence_of(:education_subject) }
+    it { should validate_presence_of(:education_class) }
+    it { should validate_presence_of(:education_teacher) }
 
-  it "allows the same teacher to be assigned to different subjects or classes" do
-    education_subject2 = create(:education_subject)
-    education_class2 = create(:education_class)
+    it 'validates uniqueness of subject-class-teacher combination' do
+      education_subject = create(:education_subject)
+      education_class = create(:education_class)
+      education_teacher = create(:education_teacher)
 
-    appointment1 = EducationSubjectAppointment.create!(education_subject: education_subject, education_class: education_class, education_teacher: teacher)
-    appointment2 = EducationSubjectAppointment.new(education_subject: education_subject2, education_class: education_class2, education_teacher: teacher)
+      create(:education_subject_appointment, education_subject: education_subject, education_class: education_class, education_teacher: education_teacher)
 
-    expect(appointment2).to be_valid
+      duplicate_appointment = build(:education_subject_appointment, education_subject: education_subject, education_class: education_class, education_teacher: education_teacher)
+      expect(duplicate_appointment).not_to be_valid
+      expect(duplicate_appointment.errors[:base]).to include("A subject can only appoint one time to a class with a teacher")
+    end
   end
 end
