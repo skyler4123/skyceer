@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe EducationParent, type: :model do
-  let(:user) { create(:user) }
-  let(:education_school_user) { create(:user, :education_school) }
-  let(:education_parent) { build(:education_parent, user: user, education_school_user: education_school_user) }
-
   describe 'associations' do
     it { should belong_to(:user) }
     it { should belong_to(:education_school_user).class_name('User') }
@@ -15,6 +11,20 @@ RSpec.describe EducationParent, type: :model do
   end
 
   describe 'validations' do
+    subject { build(:education_parent) }
+
     it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:email) }
+
+    it do
+      should validate_uniqueness_of(:name)
+        .scoped_to(:education_school_user_id)
+        .with_message("must be unique within the same school user")
+    end
+
+    it do
+      should validate_uniqueness_of(:email)
+        .with_message("must be unique")
+    end
   end
 end
