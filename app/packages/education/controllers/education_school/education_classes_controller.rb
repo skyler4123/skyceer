@@ -23,7 +23,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
     @education_courses = EducationCourse.where(education_school: @education_schools)
     @education_subjects = EducationSubject.where(education_school: @education_class.education_school)
     @education_teachers = EducationTeacher.joins(:education_schools).where(education_schools: @education_schools)
-    @education_subject_appointments = EducationSubjectAppointment.where(appoint_to: @education_class)
+    @education_subject_appointments = EducationSubjectAppointment.where(education_class: @education_class)
     @data = {
       education_class: @education_class.as_json(include: { education_categories: { only: %i[id name] }, education_school: { only: %i[id name] }, education_course: { only: %i[id name] }, education_subjects: { only: %i[id name] } }),
       education_courses: @education_courses.as_json(only: %i[id name]),
@@ -89,8 +89,8 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
     @education_teacher = EducationTeacher.find(params[:education_subject_appointment][:appoint_from_id])
     @education_subject_appointment = EducationSubjectAppointment.new(
       education_subject: @education_subject,
-      appoint_to: @education_class,
-      appoint_from: @education_teacher,
+      education_class: @education_class,
+      education_teacher: @education_teacher,
     )
     respond_to do |format|
       if @education_subject_appointment.save

@@ -136,17 +136,17 @@ class Seeding::EducationService
   end
   
   def self.education_teacher
-    User.where(education_role: :education_school).each do |user|
-      5.times do
+    EducationSchool.all.each do |education_school|
+      5.times do |n|
         teacher_user = Seeding::UserService.create(education_role: :education_teacher)
         education_teacher = EducationTeacher.create!(
           name: "#{Faker::Name.name} #{Faker::Number.number}",
           email: Faker::Internet.email,
           user: teacher_user,
-          education_school_user: user,
+          education_school_user: education_school.user,
         )
-        education_teacher.education_schools << user.education_schools.sample
-        education_teacher.education_categories << user.education_categories.sample
+        education_teacher.education_schools << education_school
+        education_teacher.education_categories << education_school.user.education_categories.sample
         Seeding::AttachmentService.attach(record: education_teacher, relation: :image_attachments, number: 1)
       end
     end
@@ -256,10 +256,10 @@ class Seeding::EducationService
           education_class: education_class,
           appoint_to: education_school.education_rooms.sample,
         )
-        EducationClassAppointment.find_or_create_by!(
-          education_class: education_class,
-          appoint_to: education_school.education_subjects.sample,
-        )
+        # EducationClassAppointment.find_or_create_by!(
+        #   education_class: education_class,
+        #   appoint_to: education_school.education_subjects.sample,
+        # )
       end
       education_school.education_teachers.each do |education_teacher|
         EducationClassAppointment.find_or_create_by!(
@@ -319,7 +319,8 @@ class Seeding::EducationService
           education_class: education_school.education_classes.sample,
           education_teacher: education_school.education_teachers.sample,
         )
-      rescue
+      rescue ActiveRecord::RecordInvalid => e
+        puts "Error creating EducationExamToClass: #{e.message}"
         next
       end
       education_school.education_classes.each do |education_class|
@@ -328,7 +329,8 @@ class Seeding::EducationService
           education_subject: education_school.education_subjects.sample,
           education_teacher: education_school.education_teachers.sample,
         )
-      rescue
+      rescue ActiveRecord::RecordInvalid => e
+        puts "Error creating EducationExamToClass: #{e.message}"
         next
       end
       education_school.education_teachers.each do |education_teacher|
@@ -349,13 +351,23 @@ class Seeding::EducationService
         EducationExamToClass.find_or_create_by!(
           education_exam: education_exam,
           education_class: education_school.education_classes.sample,
+          name: "Exam" + "#{Faker::Number.number}",
+          description: Faker::Movie.quote,
         )
+      rescue ActiveRecord::RecordInvalid => e
+        puts "Error creating EducationExamToClass: #{e.message}"
+        next
       end
       education_school.education_classes.each do |education_class|
         EducationExamToClass.find_or_create_by!(
           education_class: education_class,
           education_exam: education_school.education_exams.sample,
+          name: "Exam" + "#{Faker::Number.number}",
+          description: Faker::Movie.quote,
         )
+      rescue ActiveRecord::RecordInvalid => e
+        puts "Error creating EducationExamToClass: #{e.message}"
+        next
       end
     end
   end
