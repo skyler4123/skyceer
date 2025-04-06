@@ -6,4 +6,5 @@ class PaymentMethod < ApplicationRecord
   has_many :payment_logs, dependent: :destroy
   has_many :payment_orders, dependent: :destroy
 
+  include PaymentMethod::ValidationConcern
 end

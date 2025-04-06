@@ -15,4 +15,6 @@ class PaymentOrder < ApplicationRecord
   def customer_name
     payment_customer.name
   end
+
+  include PaymentOrder::ValidationConcern
 end

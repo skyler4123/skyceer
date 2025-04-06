@@ -11,4 +11,5 @@ class PaymentCategory < ApplicationRecord
   has_many :payment_orders, through: :payment_category_appointments, source: :appoint_to, source_type: 'PaymentOrder'
   has_many :payment_invoices, through: :payment_category_appointments, source: :appoint_to, source_type: 'PaymentInvoice'
 
+  include PaymentCategory::ValidationConcern
 end
