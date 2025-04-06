@@ -103,7 +103,7 @@ export default class extends Education_EducationSchool_LayoutController {
   initSubjectTable() {
     const tableData = this.educationSubjectAppointments.map((row) => {
       const subject = this.educationSubjects.find((subject) => subject.id == row.education_subject_id)
-      const teacher = this.educationTeachers.find((teacher) => teacher.id == row.appoint_from_id)
+      const teacher = this.educationTeachers.find((teacher) => teacher.id == row.education_teacher_id)
       return {
         ...row,
         subject: `<div>${subject.name}</div>`,
@@ -178,9 +178,9 @@ export default class extends Education_EducationSchool_LayoutController {
                     options: this.educationSubjects[0].education_teachers.map((teacher) => {
                       return { value: teacher.id, text: teacher.name }
                     }),
-                    values: this.educationSubjects[0].education_teachers.map((teacher) => {
-                      return { value: teacher.id, text: teacher.name }
-                    })[0].id,                    
+                    // values: this.educationSubjects[0].education_teachers.map((teacher) => {
+                    //   return { value: teacher.id, text: teacher.name }
+                    // })[0].id,                    
                     dataController: this.choicesControllerIdentifier,
                     attributes: ` data-${this.identifier}-target="appointTeacherSelect"`,
                   })}
