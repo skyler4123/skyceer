@@ -3,7 +3,6 @@ class EducationSchool::EducationScoreboardsController < EducationSchool::Educati
     # @education_classes_for_select = Rails.cache.fetch("education_classes_for_select/#{@education_schools.cache_key_with_version}", expires_in: 5.minutes) do
     #   EducationClass.where(education_school: @education_schools).to_a
     # end
-    debugger
     @education_classes_for_select = EducationClass.where(education_school: @education_schools)
     @education_subjects_for_select = EducationSubject.where(education_school: @education_schools)
     @education_class = EducationClass.where(id: params[:education_class_id])
