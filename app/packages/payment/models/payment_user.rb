@@ -7,4 +7,6 @@ class PaymentUser < ApplicationRecord
   has_many :payment_items, dependent: :destroy
   has_many :payment_logs, dependent: :destroy
   has_many :payment_categories, dependent: :destroy
+
+  include PaymentUser::ValidationConcern
 end

@@ -14,5 +14,11 @@ FactoryBot.define do
       role { :normal }
       education_role { :education_school }
     end
+
+    trait :with_education_school do
+      after(:create) do |user|
+        create(:education_school, user: user)
+      end
+    end
   end
 end
