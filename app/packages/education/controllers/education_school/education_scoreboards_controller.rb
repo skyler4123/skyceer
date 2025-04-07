@@ -11,12 +11,12 @@ class EducationSchool::EducationScoreboardsController < EducationSchool::Educati
     @education_exam_to_class = EducationExamToClass.where(education_exam: @education_exams, education_class: @education_class)
     @education_exam_to_students = EducationExamToStudent.where(education_exam_to_class: @education_exam_to_class)
 
-    debugger
     @pagination, @education_students = pagy(@education_students)
     @data = {
       education_students: @education_students.as_json,
       education_exams: @education_exams.as_json,
-      # education_exam_appointments: @education_exam_appointments.as_json,
+      education_exam_to_class: @education_exam_to_class.as_json,
+      education_exam_to_students: @education_exam_to_students.as_json,
       selection_education_classes: @selection_education_classes.as_json(include: [:education_subjects]),
     }.to_json
   end

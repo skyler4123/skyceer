@@ -11,11 +11,12 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   }
 
   initBinding() {
+    console.log(this)
     super.initBinding()
-    this.educationClasses = ServerData.data.education_classes
     this.educationStudents = ServerData.data.education_students
     this.educationExams = ServerData.data.education_exams
-    this.educationExamAppointments = ServerData.data.education_exam_appointments
+    this.educationExamToClass = ServerData.data.education_exam_to_class
+    this.educationExamToStudents = ServerData.data.education_exam_to_students
     this.selectionEducationClasses = ServerData.data.selection_education_classes
   }
 
@@ -65,7 +66,6 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   tableData() {
     return this.educationStudents.map((row) => {
       return {
-        ...row,
         name: row.name,
         ...this.examAppointmentsData().find((data) => data.name === row.name)
       }
@@ -84,7 +84,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
       }
     })
     return [
-      {title:"Student Name", field: "name", formatter: "html"},
+      {title:"Student", field: "name", formatter: "html"},
       ...examColumns,
     ]
   }
@@ -98,7 +98,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
     this.educationStudents.forEach((student) => {
       const row = {name: student.name}
       this.educationExams.forEach((exam) => {
-        const appointment = this.educationExamAppointments.find((appointment) => appointment.education_exam_id === exam.id && appointment.appoint_to_id === student.id)
+        const appointment = this.educationExamToStudents.find((appointment) => appointment.education_exam_id === exam.id && appointment.education_student_id === student.id)
         row[exam.id] = appointment ? appointment.score : ''
       })
       data.push(row)
