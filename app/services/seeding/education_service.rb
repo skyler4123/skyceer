@@ -16,6 +16,7 @@ class Seeding::EducationService
     self.education_lesson
     self.education_class_appointments
     self.education_question_appointments
+    self.education_subject_to_teachers
     self.education_subject_appointments
     self.education_exam_to_classes
     self.education_exam_to_student
@@ -256,10 +257,10 @@ class Seeding::EducationService
           education_class: education_class,
           appoint_to: education_school.education_rooms.sample,
         )
-        # EducationClassAppointment.find_or_create_by!(
-        #   education_class: education_class,
-        #   appoint_to: education_school.education_subjects.sample,
-        # )
+        EducationClassAppointment.find_or_create_by!(
+          education_class: education_class,
+          appoint_to: education_school.education_subjects.sample,
+        )
       end
       education_school.education_teachers.each do |education_teacher|
         EducationClassAppointment.find_or_create_by!(
@@ -311,13 +312,24 @@ class Seeding::EducationService
     end
   end
 
+  def self.education_subject_to_teachers
+    EducationSchool.all.each do |education_school|
+      education_school.education_subjects.each do |education_subject|
+        education_subject.education_teachers << education_school.education_teachers.sample
+      end
+      education_school.education_teachers.each do |education_teacher|
+        education_teacher.education_subjects << education_school.education_subjects.sample
+      end
+    end
+  end
+
   def self.education_subject_appointments
     EducationSchool.all.each do |education_school|
       education_school.education_subjects.each do |education_subject|
         EducationSubjectAppointment.find_or_create_by!(
           education_subject: education_subject,
-          education_class: education_school.education_classes.sample,
-          education_teacher: education_school.education_teachers.sample,
+          education_class: education_subject.education_classes.sample,
+          education_teacher: education_subject.education_teachers.sample,
         )
       rescue ActiveRecord::RecordInvalid => e
         puts "Error creating EducationExamToClass: #{e.message}"
@@ -326,8 +338,8 @@ class Seeding::EducationService
       education_school.education_classes.each do |education_class|
         EducationSubjectAppointment.find_or_create_by!(
           education_class: education_class,
-          education_subject: education_school.education_subjects.sample,
-          education_teacher: education_school.education_teachers.sample,
+          education_subject: education_class.education_subjects.sample,
+          education_teacher: education_class.education_teachers.sample,
         )
       rescue ActiveRecord::RecordInvalid => e
         puts "Error creating EducationExamToClass: #{e.message}"
@@ -336,8 +348,8 @@ class Seeding::EducationService
       education_school.education_teachers.each do |education_teacher|
         EducationSubjectAppointment.find_or_create_by!(
           education_teacher: education_teacher,
-          education_subject: education_school.education_subjects.sample,
-          education_class: education_school.education_classes.sample,
+          education_subject: education_teacher.education_subjects.sample,
+          education_class: education_teacher.education_classes.sample,
         )
       rescue
         next

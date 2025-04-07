@@ -18,7 +18,9 @@ class EducationTeacher < ApplicationRecord
   has_many :education_categories, through: :education_category_appointments
 
   has_many :education_subject_appointments, dependent: :destroy
-  has_many :education_subjects, through: :education_subject_appointments
+
+  has_many :education_subject_to_teachers, dependent: :destroy
+  has_many :education_subjects, through: :education_subject_to_teachers
   
   include EducationTeacher::ValidationConcern
   include EducationTeacher::UserConcern
