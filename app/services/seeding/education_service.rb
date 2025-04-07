@@ -363,6 +363,7 @@ class Seeding::EducationService
         EducationExamToClass.find_or_create_by!(
           education_exam: education_exam,
           education_class: education_school.education_classes.sample,
+          education_subject: education_exam.education_subject,
           name: "Exam" + "#{Faker::Number.number}",
           description: Faker::Movie.quote,
         )
@@ -371,9 +372,12 @@ class Seeding::EducationService
         next
       end
       education_school.education_classes.each do |education_class|
+        education_exam = education_school.education_exams.sample
         EducationExamToClass.find_or_create_by!(
           education_class: education_class,
-          education_exam: education_school.education_exams.sample,
+          education_exam: education_exam,
+          education_subject: education_exam.education_subject,
+
           name: "Exam" + "#{Faker::Number.number}",
           description: Faker::Movie.quote,
         )
