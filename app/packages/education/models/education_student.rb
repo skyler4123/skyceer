@@ -16,8 +16,8 @@ class EducationStudent < ApplicationRecord
   has_many :education_category_appointments, as: :appoint_to, dependent: :destroy
   has_many :education_categories, through: :education_category_appointments
 
-  has_many :education_exam_appointments, as: :appoint_to, dependent: :destroy
-  has_many :education_exams, through: :education_exam_appointments
+  has_many :education_exam_to_students, dependent: :destroy
+  has_many :education_exams, through: :education_exam_to_students
 
   def class_names
     self.education_classes.map(&:name).join(", ")

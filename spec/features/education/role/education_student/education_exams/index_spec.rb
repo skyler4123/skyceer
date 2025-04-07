@@ -7,9 +7,9 @@ RSpec.feature "education_exams#index", type: :feature, js: true do
     before do
       education_school.education_students << education_student
       education_class.education_students << education_student
-      education_class.education_exams << education_exam
+      education_exam_to_student
     end
-    
+
     it "will not be redirected" do
       sign_in(user: education_student.user)
       visit education_exams_path

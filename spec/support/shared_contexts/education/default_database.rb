@@ -15,6 +15,8 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
   let(:education_exam) {create(:education_exam, education_school:, education_subject:) }
   let(:education_category) { create(:education_category, user: education_school.user) }
   let(:education_question) { create(:education_question, education_school:, education_teacher:) }
+  let(:education_exam_to_class) { create(:education_exam_to_class, education_exam:, education_class:, education_subject:) }
+  let(:education_exam_to_student) { create(:education_exam_to_student, education_exam:, education_student:, education_exam_to_class:) }
 
   let(:payment_user) { create(:payment_user, payment_userable: education_school) }
   let(:payment_customer) { create(:payment_customer, payment_customerable: education_student) }
