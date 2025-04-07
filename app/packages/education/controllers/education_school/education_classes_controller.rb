@@ -96,7 +96,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
       if @education_subject_appointment.save
         format.html { redirect_to edit_education_class_path(@education_class), notice: UPDATED_SUCCESS_MESSAGE }
       else
-        format.html { render edit_education_class_path(@education_class), status: :unprocessable_entity, error: @education_subject_appointment.errors }
+        format.html { redirect_to edit_education_class_path(@education_class), error: @education_subject_appointment.errors.full_messages }
       end
     end
   end

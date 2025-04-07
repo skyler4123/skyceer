@@ -89,10 +89,6 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
     ]
   }
 
-  // education_exam_appointments = [{id, education_exam_id, appoint_to_type, appoint_to_id, score, status, created_at, updated_at}]
-  // appoint_to_id is education_student_id
-  // education_student_id is education_students[].id
-  // loop through education_students[].id and get education_exam_appointments[].score
   examAppointmentsData() {
     const data = []
     this.educationStudents.forEach((student) => {
