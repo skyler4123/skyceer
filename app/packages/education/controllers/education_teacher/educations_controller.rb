@@ -19,7 +19,7 @@ class EducationTeacher::EducationsController < EducationsController
   end
 
   def set_education_classes
-    @education_classes = @education_teachers.education_classes
+    @education_classes = EducationClass.joins(:education_teachers).where(education_teachers: @education_teachers)
   end
 
 end
