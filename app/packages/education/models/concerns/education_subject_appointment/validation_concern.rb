@@ -24,7 +24,7 @@ module EducationSubjectAppointment::ValidationConcern
            education_subject: education_subject,
            education_class: education_class
          ).where.not(id: id).exists?
-        errors.add(:education_subject, "must be unique for the same class")
+        errors.add(:education_subject, "A subject can only appoint one time to a class with a teacher")
       end
     end
   end

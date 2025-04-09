@@ -23,7 +23,7 @@ RSpec.describe EducationSubjectAppointment, type: :model do
 
       duplicate_appointment = build(:education_subject_appointment, education_subject: education_subject, education_class: education_class, education_teacher: education_teacher)
       expect(duplicate_appointment).not_to be_valid
-      expect(duplicate_appointment.errors[:base]).to include("A subject can only appoint one time to a class with a teacher")
+      expect(duplicate_appointment.errors.full_messages).to include("Education subject A subject can only appoint one time to a class with a teacher")
     end
   end
 end
