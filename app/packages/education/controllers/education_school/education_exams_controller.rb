@@ -81,6 +81,19 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
         if params[:education_exam][:education_class_id].present?
           education_classes = EducationClass.where(id: params[:education_exam][:education_class_id])
           @education_exam.education_classes = education_classes
+          ActiveRecord::AppointmentService.new(@education_exam, education_classes, :education_classes) do |service|
+            service.append do |to_append|
+              puts "Appending: #{to_append.inspect}" # For debugging
+              debugger
+              # @education_exam.education_classes << to_append
+            end
+
+            service.remove do |to_remove|
+              puts "Removing: #{to_remove.inspect}" # For debugging
+              debugger
+              # @education_exam.education_classes.delete(to_remove)
+            end
+          end
         end
 
         format.html { redirect_to edit_education_exam_path(@education_exam), notice: UPDATED_SUCCESS_MESSAGE }
