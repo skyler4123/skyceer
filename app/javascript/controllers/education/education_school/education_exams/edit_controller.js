@@ -115,7 +115,6 @@ export default class extends Education_EducationSchool_LayoutController {
             className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
             name: "education_exam[education_class_id][]",
             id: "education_exam_education_class_id",
-            required: true,
             values: pluck(this.educationExam.education_classes, "id"),
             options: this.educationClasses.map((educationClass) => {
               return { value: educationClass.id, text: educationClass.name }

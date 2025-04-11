@@ -80,7 +80,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
         end
         if params[:education_exam][:education_class_id].present?
           education_classes = EducationClass.where(id: params[:education_exam][:education_class_id])
-          @education_exam.education_classes = education_classes
+          # @education_exam.education_classes = education_classes
           ActiveRecord::AppointmentService.new(@education_exam, education_classes, :education_classes) do |service|
             service.append do |to_append|
               puts "Appending: #{to_append.inspect}" # For debugging

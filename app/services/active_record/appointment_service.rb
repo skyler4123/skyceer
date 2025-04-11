@@ -4,9 +4,9 @@ module ActiveRecord
       @parent = parent
       @children = children
       @association_name = association_name
-      @to_append = []
-      @to_remove = []
-      process_appointments # Ensure appointments are processed first
+      @to_append = @children - current_children
+      @to_remove = current_children - @children
+      # process_appointments # Ensure appointments are processed first
       yield(self) if block_given?
     end
 
