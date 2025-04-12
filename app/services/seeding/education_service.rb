@@ -84,9 +84,9 @@ class Seeding::EducationService
 
   def self.education_course
     EducationSchool.all.each do |education_school|
-      5.times do
+      5.times do |n|
         education_course = EducationCourse.create!(
-          name: Faker::Educator.course_name,
+          name: "#{Faker::Educator.course_name} #{n}",
           description: Faker::Movie.quote,
           education_school: education_school
         )
@@ -398,7 +398,7 @@ class Seeding::EducationService
           education_exam: education_exam,
           education_student: education_student,
           education_exam_to_class: education_exam_to_class,
-          status: rand(0..3),
+          status: rand(0..2),
           score: rand(0..10),
         )
       end

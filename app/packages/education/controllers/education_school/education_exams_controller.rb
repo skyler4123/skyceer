@@ -81,20 +81,22 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
         end
         if params[:education_exam][:education_class_id].present?
           education_classes = EducationClass.where(id: params[:education_exam][:education_class_id])
-          @education_exam.education_classes = education_classes
-          # ActiveRecord::AppointmentService.new(@education_exam, education_classes, :education_classes) do |service|
-          #   service.append do |to_append|
-          #     puts "Appending: #{to_append.inspect}" # For debugging
-          #     debugger
-          #     # @education_exam.education_classes << to_append
-          #   end
+          ActiveRecord::AppointmentService.new(@education_exam, education_classes, :education_classes) do |service|
+            service.append do |appended_education_classes|
+              education_exam_to_classes = appended_education_classes.map do |appended_education_class|
+                EducationExamToClass.create(
+                  education_exam: @education_exam,
+                  education_class: appended_education_class,
+                )
+              end
+              EducationExamToClass::AfterCreate::SyncToEducationExamToStudentJob.perform_later(education_exam_to_classes.pluck(:id))
+            end
 
-          #   service.remove do |to_remove|
-          #     puts "Removing: #{to_remove.inspect}" # For debugging
-          #     debugger
-          #     # @education_exam.education_classes.delete(to_remove)
-          #   end
-          # end
+            service.remove do |removed_education_class|
+              # EducationExamToStudent::EducationExamToClass::AfterDestroyJob.perform_later(removed_education_class.id)
+              @education_exam.education_classes.delete(removed_education_class)
+            end
+          end
         end
 
         format.html { redirect_to edit_education_exam_path(@education_exam), notice: UPDATED_SUCCESS_MESSAGE }

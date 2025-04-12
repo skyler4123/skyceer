@@ -271,7 +271,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   create_table "education_exam_to_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_exam_id", null: false
     t.uuid "education_student_id", null: false
-    t.uuid "education_exam_to_class_id", null: false
+    t.uuid "education_exam_to_class_id"
     t.json "answer"
     t.decimal "score"
     t.integer "status"
