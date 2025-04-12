@@ -6,4 +6,6 @@ class EducationExamToClass < ApplicationRecord
   has_many :education_exam_to_students, dependent: :destroy
 
   include EducationExamToClass::ValidationConcern
+  include EducationExamToClass::AttributeConcern
+
 end
