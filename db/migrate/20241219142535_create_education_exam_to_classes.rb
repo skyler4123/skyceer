@@ -13,5 +13,7 @@ class CreateEducationExamToClasses < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
+
+    add_index :education_exam_to_classes, :discarded_at
   end
 end

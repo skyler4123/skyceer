@@ -92,9 +92,11 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
               EducationExamToClass::AfterCreate::SyncToEducationExamToStudentJob.perform_later(education_exam_to_classes.pluck(:id))
             end
 
-            service.remove do |removed_education_class|
+            service.remove do |removed_education_classes|
               # EducationExamToStudent::EducationExamToClass::AfterDestroyJob.perform_later(removed_education_class.id)
-              @education_exam.education_classes.delete(removed_education_class)
+              # @education_exam.education_classes.delete(removed_education_class)
+              EducationExamToClass.where(education_exam: @education_exam, education_class: removed_education_classes).each(&:discard)
+              
             end
           end
         end
