@@ -102,9 +102,15 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   }
 
   contentHTML() {
-    const initEducationClass = this.selectionEducationClasses.find((klass) => klass.id === params().education_class_id)
-    const initEducationSubjects = initEducationClass ? initEducationClass.education_subjects : []
-    const initEducationSubject = initEducationSubjects.find((subject) => subject.id === params().education_subject_id)
+    let initEducationClass = {}
+    let initEducationSubjects = []
+    let initEducationSubject = {}
+
+    if (params().education_class_id) {
+      initEducationClass = this.selectionEducationClasses.find((klass) => klass.id === params().education_class_id)
+      initEducationSubjects = initEducationClass ? initEducationClass.education_subjects : []
+      initEducationSubject = initEducationSubjects.find((subject) => subject.id === params().education_subject_id)
+    }
     return `
       <div class="mx-auto w-4/5 mt-10 flex flex-col gap-y-4">
         <form action="/education_scoreboards" class="flex flex-row gap-x-4 w-full justify-end items-center">
