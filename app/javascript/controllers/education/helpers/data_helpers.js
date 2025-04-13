@@ -523,3 +523,16 @@ export const getObjectValues = (object) => {
   }
   return Object.values(object);
 };
+
+export const params = () => {
+  const queryString = window.location.search; // Get the query string from the URL
+  const urlParams = new URLSearchParams(queryString); // Use URLSearchParams to parse the query string
+  const params = {};
+
+  // Iterate through all key-value pairs in the query string
+  urlParams.forEach((value, key) => {
+    params[key] = value; // Add each key-value pair to the params object
+  });
+
+  return params; // Return the params object
+};

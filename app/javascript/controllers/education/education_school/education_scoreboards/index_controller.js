@@ -1,4 +1,4 @@
-import { identifier, isEmpty, transferToValue } from "controllers/education/helpers/data_helpers"
+import { identifier, isEmpty, transferToValue, createSelectTag, params } from "controllers/education/helpers/data_helpers"
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_ChoicesController from "controllers/education/choices_controller";
@@ -11,7 +11,6 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   }
 
   initBinding() {
-    console.log(this)
     super.initBinding()
     this.educationStudents = ServerData.data.education_students
     this.educationExams = ServerData.data.education_exams
@@ -103,32 +102,44 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   }
 
   contentHTML() {
+    const initEducationClass = this.selectionEducationClasses.find((klass) => klass.id === params().education_class_id)
+    const initEducationSubjects = initEducationClass ? initEducationClass.education_subjects : []
+    const initEducationSubject = initEducationSubjects.find((subject) => subject.id === params().education_subject_id)
     return `
       <div class="mx-auto w-4/5 mt-10 flex flex-col gap-y-4">
         <form action="/education_scoreboards" class="flex flex-row gap-x-4 w-full justify-end items-center">
           <div class="w-1/3 flex justify-center items-center">
-            <select
-              name="education_class_id"
-              data-${this.identifier}-target="classIdSelect"
-              data-action="change->${this.identifier}#handleEducationClassIdSelection"
-              data-controller="${identifier(Education_ChoicesController)}"
-            >
-              <option value="" disabled selected>Select Class</option>
-              ${this.selectionEducationClasses.map((row) => {
-                return `<option value="${row.id}">${row.name}</option>`
-              }).join('')}
-            </select>
+            ${createSelectTag({
+              type: "text",
+              className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+              name: "education_class_id",
+              id: "education_class_id",
+              blank: true,
+              values: initEducationClass.id,
+              options: this.selectionEducationClasses.map((klass) => {
+                return { value: klass.id, text: klass.name }
+              }),
+              dataController: this.choicesControllerIdentifier,
+              attributes: ` data-${this.identifier}-target="classIdSelect" data-action="change->${this.identifier}#handleEducationClassIdSelection"`
+            })}
           </div>
+
           <div class="w-1/3 flex justify-center items-center">
-            <select
-              name="education_subject_id"
-              data-${this.identifier}-target="subjectIdSelect"
-              data-controller="${identifier(Education_ChoicesController)}"
-              required
-            >
-              <option value="">Select Subject</option>
-            </select>
+            ${createSelectTag({
+              type: "text",
+              className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+              name: "education_subject_id",
+              id: "education_subject_id",
+              blank: true,
+              values: initEducationSubject.id,
+              options: initEducationSubjects.map((subject) => {
+                return { value: subject.id, text: subject.name }
+              }),
+              dataController: this.choicesControllerIdentifier,
+              attributes: ` data-${this.identifier}-target="subjectIdSelect" data-controller="${identifier(Education_ChoicesController)}"`
+            })}
           </div>
+
           <div class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
             <input type="submit" value="Submit">
           </div>

@@ -134,6 +134,6 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
     end
 
     def update_education_exam_params
-      params.expect(education_exam: [ :name, :description, :status, :education_subject_id, :discarded_at ])
+      params.expect(education_exam: [ :name, :description, :status, :discarded_at ])
     end
 end

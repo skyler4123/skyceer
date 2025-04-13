@@ -91,6 +91,7 @@ export default class extends Education_EducationSchool_LayoutController {
               return { value: subject.id, text: subject.name }
             }),
             dataController: this.choicesControllerIdentifier,
+            disabled: true,
           })}
         </div>
 
