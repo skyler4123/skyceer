@@ -84,10 +84,12 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
           ActiveRecord::AppointmentService.new(@education_exam, education_classes, :education_classes) do |service|
             service.append do |appended_education_classes|
               education_exam_to_classes = appended_education_classes.map do |appended_education_class|
-                EducationExamToClass.create(
+                education_exam_to_class = EducationExamToClass.find_or_create_by(
                   education_exam: @education_exam,
                   education_class: appended_education_class,
                 )
+                education_exam_to_class.undiscard if education_exam_to_class.discarded?
+                education_exam_to_class
               end
               EducationExamToClass::AfterCreate::SyncToEducationExamToStudentJob.perform_later(education_exam_to_classes.pluck(:id))
             end

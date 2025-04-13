@@ -5,7 +5,7 @@ module EducationExamToClass::SoftDeleteConcern
     include Discard::Model
 
     # Exclude soft-deleted records by default
-    default_scope { kept }
+    # default_scope { kept }
   end
 
 end

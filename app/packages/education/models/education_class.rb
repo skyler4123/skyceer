@@ -12,7 +12,7 @@ class EducationClass < ApplicationRecord
   has_many :education_rooms, through: :education_class_appointments, source: :appoint_to, source_type: 'EducationRoom'
   has_many :education_subjects, through: :education_class_appointments, source: :appoint_to, source_type: 'EducationSubject'
   
-  has_many :education_exam_to_classes, dependent: :destroy
+  has_many :education_exam_to_classes, -> { kept }, dependent: :destroy
   has_many :education_exams, through: :education_exam_to_classes
   has_many :education_category_appointments, as: :appoint_to, dependent: :destroy
   has_many :education_categories, through: :education_category_appointments
