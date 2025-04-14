@@ -9,6 +9,7 @@ class EducationSchool::EducationScoreboardsController < EducationSchool::Educati
     @education_students = EducationStudent.joins(:education_classes).where(education_classes: @education_class)
     @education_exams = EducationExam.joins(:education_classes, :education_subject).where(education_classes: @education_class, education_subject: @education_subject)
     @education_exam_to_class = EducationExamToClass.where(education_exam: @education_exams, education_class: @education_class)
+    # debugger
     @education_exam_to_students = EducationExamToStudent.where(education_exam_to_class: @education_exam_to_class)
 
     @pagination, @education_students = pagy(@education_students)

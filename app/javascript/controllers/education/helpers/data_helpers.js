@@ -262,7 +262,7 @@ export const openPopover = ({parentElement, html = "Dialog content", position = 
   });
 }
 
-export const openModal = ({html = "Model!", customClass = {}}) => {
+export const openModal = ({html = "Model!", customClass = {}, options = {}}) => {
   Swal.fire({
     html: html,
     showConfirmButton: false,
@@ -275,6 +275,7 @@ export const openModal = ({html = "Model!", customClass = {}}) => {
       htmlContainer: '!p-0 !overflow-visible',
       ...customClass
     },
+    ...options,
   });
 }
 

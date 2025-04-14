@@ -618,12 +618,12 @@
 @media (hover: hover) and (pointer: fine) {
   .tabulator-row.tabulator-selectable:hover {
     background-color: #f5f5f5;
-    cursor: pointer;
+    /* cursor: pointer; */
   }
 
   .dark .tabulator-row.tabulator-selectable:hover {
     background-color: #374151; /* gray-800 */
-    cursor: pointer;
+    /* cursor: pointer; */
   }
 }
 
