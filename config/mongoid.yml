@@ -8,7 +8,7 @@ production:
 development:
   clients:
     default:
-      uri: <%= ENV['MONGO_URL'] %>
+      uri: <%= ENV.fetch('MONGO_URL') { "mongodb://127.0.0.1:27017/skyler_development" } %>
       options:
         server_selection_timeout: 5
   options:
