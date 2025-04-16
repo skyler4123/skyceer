@@ -46,21 +46,10 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
   # POST /education_exams or /education_exams.json
   def create
     @education_exam = EducationExam.new(education_exam_params)
-    if params[:education_exam][:education_category_id].present?
-      education_categories = EducationCategory.where(id: params[:education_exam][:education_category_id])
-      @education_exam.education_categories = education_categories
-    end
-    if params[:education_exam][:education_class_id].present?
-      education_classes = EducationClass.where(id: params[:education_exam][:education_class_id])
-      @education_exam.education_classes = education_classes
-    end
     respond_to do |format|
       if @education_exam.save
-        if params[:education_exam][:education_category_id].present?
-          education_categories = EducationCategory.where(id: params[:education_exam][:education_category_id])
-          @education_exam.education_categories = education_categories
-        end
-
+        appoint_with_education_categories
+        appoint_with_education_exams
         format.html { redirect_to edit_education_exam_path(@education_exam), notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_exam }
       else
@@ -75,34 +64,8 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
     # debugger
     respond_to do |format|
       if @education_exam.update(update_education_exam_params)
-        if params[:education_exam][:education_category_id].present?
-          education_categories = EducationCategory.where(id: params[:education_exam][:education_category_id])
-          @education_exam.education_categories = education_categories
-        end
-        if params[:education_exam][:education_class_id].present?
-          education_classes = EducationClass.where(id: params[:education_exam][:education_class_id])
-          ActiveRecord::AppointmentService.new(@education_exam, education_classes, :education_classes) do |service|
-            service.append do |appended_education_classes|
-              education_exam_to_classes = appended_education_classes.map do |appended_education_class|
-                education_exam_to_class = EducationExamToClass.find_or_create_by(
-                  education_exam: @education_exam,
-                  education_class: appended_education_class,
-                )
-                education_exam_to_class.undiscard if education_exam_to_class.discarded?
-                education_exam_to_class
-              end
-              EducationExamToClass::AfterCreate::SyncToEducationExamToStudentJob.perform_later(education_exam_to_classes.pluck(:id))
-            end
-
-            service.remove do |removed_education_classes|
-              # EducationExamToStudent::EducationExamToClass::AfterDestroyJob.perform_later(removed_education_class.id)
-              # @education_exam.education_classes.delete(removed_education_class)
-              EducationExamToClass.where(education_exam: @education_exam, education_class: removed_education_classes).each(&:discard)
-              
-            end
-          end
-        end
-
+        appoint_with_education_categories
+        appoint_with_education_exams
         format.html { redirect_to edit_education_exam_path(@education_exam), notice: UPDATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :ok, location: @education_exam }
       else
@@ -135,5 +98,35 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
 
     def update_education_exam_params
       params.expect(education_exam: [ :name, :description, :status, :discarded_at ])
+    end
+
+    def appoint_with_education_categories
+      return unless params[:education_exam][:education_category_id].present?
+      education_categories = EducationCategory.where(id: params[:education_exam][:education_category_id])
+      @education_exam.education_categories = education_categories
+    end
+
+    def appoint_with_education_exams
+      return unless params[:education_exam][:education_class_id].present?
+      education_classes = EducationClass.where(id: params[:education_exam][:education_class_id])
+      ActiveRecord::AppointmentService.new(@education_exam, education_classes, :education_classes) do |service|
+        service.append do |appended_education_classes|
+          education_exam_to_classes = appended_education_classes.map do |appended_education_class|
+            education_exam_to_class = EducationExamToClass.find_or_create_by!(
+              education_exam: @education_exam,
+              education_class: appended_education_class,
+            )
+            education_exam_to_class.undiscard if education_exam_to_class.discarded?
+            education_exam_to_class
+          end
+          EducationExamToClass::AfterCreate::SyncToEducationExamToStudentJob.perform_later(education_exam_to_classes.pluck(:id))
+        end
+
+        service.remove do |removed_education_classes|
+          # EducationExamToStudent::EducationExamToClass::AfterDestroyJob.perform_later(removed_education_class.id)
+          # @education_exam.education_classes.delete(removed_education_class)
+          EducationExamToClass.where(education_exam: @education_exam, education_class: removed_education_classes).each(&:discard)
+        end
+      end
     end
 end
