@@ -11,7 +11,11 @@ constraints EducationRoleConstraint.new(:education_school) do
     resources :education_school_appointments
     resources :education_admins
     resources :education_exam_appointments
-    resources :education_scoreboards, only: [:index]
+    resources :education_scoreboards, only: [:index] do
+      collection do
+        patch :import
+      end
+    end
     resources :education_courses
     resources :education_rooms
     resources :education_classes do

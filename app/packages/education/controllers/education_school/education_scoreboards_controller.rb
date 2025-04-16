@@ -21,4 +21,28 @@ class EducationSchool::EducationScoreboardsController < EducationSchool::Educati
       selection_education_classes: @selection_education_classes.as_json(include: [:education_subjects]),
     }.to_json
   end
+
+  def import
+    # debugger
+    education_exam_to_students = EducationExamToStudent.where(id: params[:education_exam_to_student][:ids])
+    education_exam_to_student_scores = params[:education_exam_to_student][:scores]
+    redirect_to request.referer, alert: "Amount of scores does not match the number of students" if education_exam_to_students.size != education_exam_to_student_scores.size
+
+    # Check if the scores are valid
+    ActiveRecord::Base.transaction do
+      education_exam_to_students.each_with_index do |education_exam_to_student, index|
+        education_exam_to_student.update!(score: education_exam_to_student_scores[index])
+      end
+    end
+    # If all updates are successful, redirect to the previous page with a success message
+    redirect_to request.referer, notice: UPDATED_SUCCESS_MESSAGE
+  rescue ActiveRecord::RecordInvalid => e
+    # If any update fails, rollback the transaction and redirect to the previous page with an error message
+    Rails.logger.error("Failed to update scores: #{e.message}")
+    redirect_to request.referer, alert: "Failed to update scores: #{e.message}"
+  rescue StandardError => e
+    # Handle any other errors that may occur
+    Rails.logger.error("An error occurred: #{e.message}")
+    redirect_to request.referer, alert: "An error occurred: #{e.message}"
+  end
 end

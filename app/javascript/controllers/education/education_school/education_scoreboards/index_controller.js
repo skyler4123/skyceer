@@ -63,7 +63,6 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   }
 
   tableData() {
-    console.log(this.examAppointmentsData())
     return this.educationStudents.map((row) => {
       return {
         // name: row.name,
@@ -91,17 +90,17 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
 
   examAppointmentsData() {
     const data = []
-    this.educationStudents.forEach((student) => {
-      const row = {name: student.name}
-      this.educationExams.forEach((exam) => {
-        const appointment = this.educationExamToStudents.find((appointment) => appointment.education_exam_id === exam.id && appointment.education_student_id === student.id)
-        // row[exam.id] = appointment ? appointment.score : ''
-        row[exam.id] = `
+    this.educationStudents.forEach((educationStudent) => {
+      const row = {name: educationStudent.name}
+      this.educationExams.forEach((educationExam) => {
+        const educationExamToStudent = this.educationExamToStudents.find((educationExamToStudent) => educationExamToStudent.education_exam_id === educationExam.id && educationExamToStudent.education_student_id === educationStudent.id)
+        // row[educationExam.id] = educationExamToStudent ? educationExamToStudent.score : ''
+        row[educationExam.id] = `
           <div>
-            ${appointment.score ? 
-              `<div>${appointment.score}</div>`
+            ${educationExamToStudent.score ? 
+              `<div>${educationExamToStudent.score}</div>`
               :
-              `<div class="text-red-500 cursor-copy" data-action="click->${this.identifier}#openModalUpdateExam" data-${this.identifier}-exam-id-param="${exam.id}">
+              `<div class="text-red-500 cursor-copy" data-action="click->${this.identifier}#openModalUpdateExam" data-${this.identifier}-education-exam-to-class-id-param="${educationExamToStudent.education_exam_to_class_id}" data-${this.identifier}-education-exam-id-param="${educationExam.id}">
                 <svg class="w-6 h-6 stroke-gray-800 dark:stroke-slate-200 fill-gray-100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path opacity="0.5" d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke-width="1.5"/>
                   <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
@@ -115,10 +114,6 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   }
 
   openModalUpdateExam(e) {
-    // const examId = e.currentTarget.dataset[`${this.identifier}-exam-id-param`]
-    // const studentId = this.educationStudents.find((student) => student.name === e.currentTarget.innerText).id
-    // const appointment = this.educationExamToStudents.find((appointment) => appointment.education_exam_id === examId && appointment.education_student_id === studentId)
-    // const modal = this.application.getControllerForElementAndIdentifier(this.modalTarget, identifier(this.modalController))
     openModal({
       html: this.updateExamModalHTML(e),
       customClass: {
@@ -132,36 +127,44 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
   }
 
   updateExamModalHTML(e) {
-    console.log(e)
-    const educationExamId = e.params.examId
+    const educationExamToClassId = e.params.educationExamToClassId
+    const educationExamId = e.params.educationExamId
+    const educationExam = this.educationExams.find((educationExam) => educationExam.id === educationExamId)
     return `
       <div class="mx-auto w-full mt-10">
         ${createForm({
-          action: `/education_exams/`,
+          action: `/education_scoreboards/import`,
           method: "patch",
           html: `
+            <div class="flex flex-row gap-x-4 justify-between items-center mx-10">
+              ${educationExam.name}
+            </div>
+            ${createInputTag({
+              type: "hidden",
+              name: "education_exam_to_class_id",
+              value: educationExamToClassId,
+            })}
             <div class="flex flex-col gap-y-4 justify-between items-center mx-10">
-              ${this.educationStudents.map((student) => {
-                const appointment = this.educationExamToStudents.find((appointment) => appointment.education_exam_id === educationExamId && appointment.education_student_id === student.id)
+              ${this.educationStudents.map((educationStudent) => {
+                const educationExamToStudent = this.educationExamToStudents.find((educationExamToStudent) => educationExamToStudent.education_exam_id === educationExamId && educationExamToStudent.education_student_id === educationStudent.id)
                 return `
                   <div class="flex flex-row gap-x-4 justify-between items-center mx-10">
                     <div class="my-5">
                       ${createSelectTag({
                         type: "text",
                         className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
-                        name: "education_student_id[]",
-                        id: "education_student_id[]",
-                        values: student.id,
-                        options: [{ value: student.id, text: student.name }],
+                        name: "education_exam_to_student[ids][]",
+                        values: educationExamToStudent.id,
+                        options: [{ value: educationExamToStudent.id, text: educationStudent.name }],
                       })}
                     </div>
                     <div class="my-5">
                       ${createInputTag({
                         type: "number",
                         className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
-                        name: "education_exam_to_student[score][]",
-                        id: "education_exam_to_student[score][]",
-                        value: appointment.score,
+                        name: "education_exam_to_student[scores][]",
+                        id: "education_exam_to_student[scores][]",
+                        value: educationExamToStudent.score,
                       })}
                     </div>
                   </div>
