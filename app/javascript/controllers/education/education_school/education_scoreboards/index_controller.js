@@ -122,7 +122,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
     openModal({
       html: this.updateExamModalHTML(e),
       customClass: {
-        popup: '!p-0 !bg-gray-200 !w-4.5',
+        popup: '!p-0 !w-4/5 dark:!bg-gray-700 dark:!text-gray-200',
       },
       options: {
         showCloseButton: true,
@@ -135,37 +135,42 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
     console.log(e)
     const educationExamId = e.params.examId
     return `
-      <div class="mx-auto w-full mt-10 flex flex-col gap-y-4">
+      <div class="mx-auto w-full mt-10">
         ${createForm({
           action: `/education_exams/`,
           method: "patch",
           html: `
-            ${this.educationStudents.map((student) => {
-              const appointment = this.educationExamToStudents.find((appointment) => appointment.education_exam_id === educationExamId && appointment.education_student_id === student.id)
-              return `
-                <div class="flex flex-row gap-x-4 justify-between items-center mx-10">
-                  <div class="my-5">
-                    ${createSelectTag({
-                      type: "text",
-                      className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
-                      name: "education_student_id[]",
-                      id: "education_student_id[]",
-                      values: student.id,
-                      options: [{ value: student.id, text: student.name }],
-                    })}
+            <div class="flex flex-col gap-y-4 justify-between items-center mx-10">
+              ${this.educationStudents.map((student) => {
+                const appointment = this.educationExamToStudents.find((appointment) => appointment.education_exam_id === educationExamId && appointment.education_student_id === student.id)
+                return `
+                  <div class="flex flex-row gap-x-4 justify-between items-center mx-10">
+                    <div class="my-5">
+                      ${createSelectTag({
+                        type: "text",
+                        className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+                        name: "education_student_id[]",
+                        id: "education_student_id[]",
+                        values: student.id,
+                        options: [{ value: student.id, text: student.name }],
+                      })}
+                    </div>
+                    <div class="my-5">
+                      ${createInputTag({
+                        type: "number",
+                        className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+                        name: "education_exam_to_student[score][]",
+                        id: "education_exam_to_student[score][]",
+                        value: appointment.score,
+                      })}
+                    </div>
                   </div>
-                  <div class="my-5">
-                    ${createInputTag({
-                      type: "number",
-                      className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
-                      name: "education_exam_to_student[score][]",
-                      id: "education_exam_to_student[score][]",
-                      value: appointment.score,
-                    })}
-                  </div>
-                </div>
-              `
-            })}
+                `
+              }).join('')}
+              <div class="my-5">
+                <input type="submit" value="Save" class="flex justify-center items-center text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+              </div>
+            </div>
           `
           })
         }
