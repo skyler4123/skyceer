@@ -12,7 +12,7 @@ RSpec.feature "education_students#index", type: :feature, js: true do
     it "will not be redirected" do
       sign_in(user: education_school.user)
       visit education_students_path
-      select education_class.name, from: "education_class_id"
+      single_select("education_class_id", education_class.name)
       find("input[type='submit']").click
       
       expect(page).to have_current_path(education_students_path, ignore_query: true)
