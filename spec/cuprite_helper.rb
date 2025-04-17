@@ -5,7 +5,7 @@ browser_options = {
   'no-sandbox': nil,
 }
 options = {
-  headless: false, # (String | Boolean) - Set browser as headless or not, true by default. You can set "new" to support new headless mode.
+  headless: true, # (String | Boolean) - Set browser as headless or not, true by default. You can set "new" to support new headless mode.
   # xvfb: false, # (Boolean) - Run browser in a virtual framebuffer, false by default.
   # flatten: true, # (Boolean) - Use one websocket connection to the browser and all the pages in flatten mode.
   window_size: [1024, 768], # (Array) - The dimensions of the browser window in which to test, expressed as a 2-element array, e.g. [1024, 768]. Default: [1024, 768]
