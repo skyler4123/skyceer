@@ -1,0 +1,115 @@
+database_interview:
+  general:
+    - question: What is a database?
+      answer: A database is an organized collection of data that can be easily accessed, managed, and updated.
+
+    - question: What is the difference between SQL and NoSQL databases?
+      answer: 
+        - SQL databases are relational and use structured query language (SQL) for defining and manipulating data.
+        - NoSQL databases are non-relational and store data in formats like key-value pairs, documents, or graphs.
+
+    - question: What is ACID in database systems?
+      answer: ACID stands for Atomicity, Consistency, Isolation, and Durability, which are properties that ensure reliable database transactions.
+
+    - question: What is a primary key in a database?
+      answer: A primary key is a unique identifier for a record in a table. It ensures that no two rows have the same value in the primary key column.
+
+    - question: What is a foreign key in a database?
+      answer: A foreign key is a column or set of columns in one table that references the primary key in another table, establishing a relationship between the two tables.
+
+  postgres:
+    - question: What is PostgreSQL?
+      answer: PostgreSQL is an open-source, object-relational database management system (ORDBMS) known for its robustness, extensibility, and support for advanced features.
+
+    - question: How do you create a database in PostgreSQL?
+      answer: Use the command `CREATE DATABASE database_name;` to create a new database in PostgreSQL.
+
+    - question: What is the purpose of `pgAdmin` in PostgreSQL?
+      answer: `pgAdmin` is a graphical user interface (GUI) tool used to manage PostgreSQL databases, execute queries, and visualize data.
+
+    - question: What are some advanced features of PostgreSQL?
+      answer: Advanced features of PostgreSQL include:
+        - Support for JSON and JSONB data types
+        - Full-text search
+        - Table inheritance
+        - Window functions
+        - Custom data types and extensions
+
+    - question: How do you back up and restore a PostgreSQL database?
+      answer: 
+        - Use `pg_dump` to back up a database: `pg_dump database_name > backup.sql`.
+        - Use `psql` to restore a database: `psql database_name < backup.sql`.
+
+  mysql:
+    - question: What is MySQL?
+      answer: MySQL is an open-source relational database management system (RDBMS) widely used for web applications and known for its speed and reliability.
+
+    - question: How do you create a database in MySQL?
+      answer: Use the command `CREATE DATABASE database_name;` to create a new database in MySQL.
+
+    - question: What is the difference between MyISAM and InnoDB storage engines in MySQL?
+      answer: 
+        - MyISAM is faster for read-heavy operations but does not support transactions or foreign keys.
+        - InnoDB supports transactions, foreign keys, and row-level locking, making it suitable for write-heavy operations.
+
+    - question: How do you back up and restore a MySQL database?
+      answer: 
+        - Use `mysqldump` to back up a database: `mysqldump -u username -p database_name > backup.sql`.
+        - Use `mysql` to restore a database: `mysql -u username -p database_name < backup.sql`.
+
+    - question: What is the purpose of the `EXPLAIN` statement in MySQL?
+      answer: The `EXPLAIN` statement is used to analyze and optimize SQL queries by showing how the database executes them.
+
+  sqlite:
+    - question: What is SQLite?
+      answer: SQLite is a lightweight, serverless, self-contained relational database management system that is embedded in applications.
+
+    - question: How do you create a database in SQLite?
+      answer: A database is created automatically when you connect to a new file using the `sqlite3` command, e.g., `sqlite3 database_name.db`.
+
+    - question: What are the advantages of SQLite?
+      answer: Advantages of SQLite include:
+        - Lightweight and easy to set up
+        - No server required
+        - Cross-platform compatibility
+        - Suitable for small to medium-sized applications
+
+    - question: How do you back up and restore an SQLite database?
+      answer: 
+        - To back up: Copy the `.db` file to a safe location.
+        - To restore: Copy the `.db` file back to the application directory.
+
+    - question: What are some limitations of SQLite?
+      answer: Limitations of SQLite include:
+        - Not suitable for high-concurrency applications
+        - Limited support for advanced features like stored procedures
+        - File-based storage may not scale well for large datasets
+
+  mongo:
+    - question: What is MongoDB?
+      answer: MongoDB is a NoSQL, document-oriented database that stores data in JSON-like documents with dynamic schemas.
+
+    - question: How do you create a database in MongoDB?
+      answer: A database is created automatically when you insert data into a collection in MongoDB.
+
+    - question: What is a collection in MongoDB?
+      answer: A collection in MongoDB is a group of documents, similar to a table in relational databases.
+
+    - question: What is the difference between MongoDB and relational databases?
+      answer: 
+        - MongoDB is schema-less and stores data in JSON-like documents.
+        - Relational databases use fixed schemas and store data in tables with rows and columns.
+
+    - question: How do you back up and restore a MongoDB database?
+      answer: 
+        - Use `mongodump` to back up a database: `mongodump --db database_name --out backup_directory`.
+        - Use `mongorestore` to restore a database: `mongorestore --db database_name backup_directory`.
+
+    - question: What is the purpose of indexing in MongoDB?
+      answer: Indexing in MongoDB improves query performance by allowing the database to quickly locate documents that match a query.
+
+    - question: What is a replica set in MongoDB?
+      answer: A replica set is a group of MongoDB servers that maintain the same data, providing high availability and redundancy.
+
+    - question: What is sharding in MongoDB?
+      answer: Sharding is a method of distributing data across multiple servers to handle large datasets and improve performance.

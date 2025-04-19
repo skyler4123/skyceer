@@ -1,0 +1,106 @@
+design_pattern_interview:
+  general:
+    - question: What is a design pattern?
+      answer: A design pattern is a reusable solution to a common problem in software design. It provides a template for solving problems in a specific context.
+
+    - question: Why are design patterns important?
+      answer: Design patterns improve code readability, reusability, and maintainability by providing proven solutions to common problems.
+
+    - question: What are the main categories of design patterns?
+      answer: The main categories of design patterns are:
+        - Creational patterns: Deal with object creation.
+        - Structural patterns: Deal with object composition.
+        - Behavioral patterns: Deal with object interaction and communication.
+
+  creational_patterns:
+    - question: What is the Singleton pattern?
+      answer: The Singleton pattern ensures that a class has only one instance and provides a global point of access to it.
+
+    - question: What is the Factory Method pattern?
+      answer: The Factory Method pattern defines an interface for creating objects but allows subclasses to alter the type of objects that will be created.
+
+    - question: What is the Abstract Factory pattern?
+      answer: The Abstract Factory pattern provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+
+    - question: What is the Builder pattern?
+      answer: The Builder pattern separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
+
+    - question: What is the Prototype pattern?
+      answer: The Prototype pattern creates new objects by copying an existing object, known as the prototype.
+
+  structural_patterns:
+    - question: What is the Adapter pattern?
+      answer: The Adapter pattern allows incompatible interfaces to work together by converting one interface into another.
+
+    - question: What is the Bridge pattern?
+      answer: The Bridge pattern separates an abstraction from its implementation, allowing them to vary independently.
+
+    - question: What is the Composite pattern?
+      answer: The Composite pattern allows you to compose objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly.
+
+    - question: What is the Decorator pattern?
+      answer: The Decorator pattern dynamically adds new behavior to an object without altering its structure.
+
+    - question: What is the Facade pattern?
+      answer: The Facade pattern provides a simplified interface to a larger body of code, making it easier to use.
+
+    - question: What is the Flyweight pattern?
+      answer: The Flyweight pattern reduces memory usage by sharing as much data as possible with similar objects.
+
+    - question: What is the Proxy pattern?
+      answer: The Proxy pattern provides a surrogate or placeholder for another object to control access to it.
+
+  behavioral_patterns:
+    - question: What is the Chain of Responsibility pattern?
+      answer: The Chain of Responsibility pattern passes a request along a chain of handlers until one of them handles it.
+
+    - question: What is the Command pattern?
+      answer: The Command pattern encapsulates a request as an object, allowing you to parameterize clients with different requests, queue requests, and log them.
+
+    - question: What is the Iterator pattern?
+      answer: The Iterator pattern provides a way to access the elements of a collection sequentially without exposing its underlying representation.
+
+    - question: What is the Mediator pattern?
+      answer: The Mediator pattern defines an object that encapsulates how a set of objects interact, promoting loose coupling.
+
+    - question: What is the Memento pattern?
+      answer: The Memento pattern captures and restores an object's internal state without violating encapsulation.
+
+    - question: What is the Observer pattern?
+      answer: The Observer pattern defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified.
+
+    - question: What is the State pattern?
+      answer: The State pattern allows an object to alter its behavior when its internal state changes.
+
+    - question: What is the Strategy pattern?
+      answer: The Strategy pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable.
+
+    - question: What is the Template Method pattern?
+      answer: The Template Method pattern defines the skeleton of an algorithm in a method, deferring some steps to subclasses.
+
+    - question: What is the Visitor pattern?
+      answer: The Visitor pattern separates an algorithm from the object structure it operates on, allowing you to add new operations without modifying the objects.
+
+  advanced:
+    - question: What is the difference between the Factory Method and Abstract Factory patterns?
+      answer: 
+        - The Factory Method pattern creates objects through inheritance by overriding a method.
+        - The Abstract Factory pattern creates families of related objects without specifying their concrete classes.
+
+    - question: What is the difference between the Strategy and State patterns?
+      answer: 
+        - The Strategy pattern is used to switch between algorithms dynamically.
+        - The State pattern is used to change an object's behavior based on its state.
+
+    - question: What is the difference between the Proxy and Decorator patterns?
+      answer: 
+        - The Proxy pattern controls access to an object.
+        - The Decorator pattern adds new behavior to an object dynamically.
+
+    - question: What is the difference between the Adapter and Bridge patterns?
+      answer: 
+        - The Adapter pattern is used to make two incompatible interfaces work together.
+        - The Bridge pattern separates an abstraction from its implementation, allowing them to vary independently.
+
+    - question: How do design patterns improve software development?
+      answer: Design patterns improve software development by providing reusable solutions, promoting best practices, improving code readability, and reducing development time.

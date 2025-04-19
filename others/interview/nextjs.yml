@@ -1,0 +1,126 @@
+nextjs_interview:
+  basics:
+    - question: What is Next.js?
+      answer: Next.js is a React-based framework for building server-rendered and statically generated web applications. It is maintained by Vercel.
+
+    - question: What are the main features of Next.js?
+      answer: The main features of Next.js include:
+        - Server-side rendering (SSR)
+        - Static site generation (SSG)
+        - API routes
+        - Automatic code splitting
+        - Built-in CSS and Sass support
+        - Image optimization
+        - File-based routing
+
+    - question: What is the difference between Next.js and React?
+      answer: React is a library for building user interfaces, while Next.js is a framework built on top of React that provides additional features like SSR, SSG, and routing.
+
+    - question: What is file-based routing in Next.js?
+      answer: File-based routing in Next.js means that the file structure in the `pages` directory determines the routes of the application. For example, `pages/about.js` corresponds to the `/about` route.
+
+  data_fetching:
+    - question: What are the different data-fetching methods in Next.js?
+      answer: Next.js provides three main data-fetching methods:
+        - `getStaticProps` for static site generation (SSG).
+        - `getServerSideProps` for server-side rendering (SSR).
+        - `getStaticPaths` for dynamic routes with static generation.
+
+    - question: What is `getStaticProps` in Next.js?
+      answer: `getStaticProps` is a function used to fetch data at build time for static site generation. It runs only during the build process and not on the client.
+
+    - question: What is `getServerSideProps` in Next.js?
+      answer: `getServerSideProps` is a function used to fetch data on the server for each request. It enables server-side rendering (SSR).
+
+    - question: What is `getStaticPaths` in Next.js?
+      answer: `getStaticPaths` is a function used to define dynamic routes for static site generation. It specifies which paths should be pre-rendered at build time.
+
+    - question: What is the difference between `getStaticProps` and `getServerSideProps`?
+      answer: 
+        - `getStaticProps` fetches data at build time and is used for static site generation.
+        - `getServerSideProps` fetches data on the server for each request and is used for server-side rendering.
+
+    - question: How do you fetch data on the client side in Next.js?
+      answer: Data can be fetched on the client side using React hooks like `useEffect` and `fetch` or libraries like Axios.
+
+  api_routes:
+    - question: What are API routes in Next.js?
+      answer: API routes in Next.js allow you to create serverless API endpoints within the `pages/api` directory. Each file in this directory maps to an API endpoint.
+
+    - question: How do you create an API route in Next.js?
+      answer: To create an API route, add a file in the `pages/api` directory. For example, `pages/api/hello.js` creates an endpoint at `/api/hello`.
+
+    - question: What is the difference between API routes and traditional REST APIs?
+      answer: API routes in Next.js are serverless functions that run on demand, while traditional REST APIs are typically hosted on dedicated servers.
+
+  rendering_and_performance:
+    - question: What is server-side rendering (SSR) in Next.js?
+      answer: SSR is a rendering method where the HTML is generated on the server for each request and sent to the client. It improves SEO and initial load time.
+
+    - question: What is static site generation (SSG) in Next.js?
+      answer: SSG is a rendering method where the HTML is generated at build time and served as static files. It is faster and more efficient for pages with static content.
+
+    - question: What is incremental static regeneration (ISR) in Next.js?
+      answer: ISR allows you to update static pages after the build process by revalidating them in the background. It combines the benefits of SSG and dynamic content.
+
+    - question: How does Next.js optimize performance?
+      answer: Next.js optimizes performance through features like:
+        - Automatic code splitting
+        - Image optimization
+        - Static site generation (SSG)
+        - Server-side rendering (SSR)
+        - Incremental static regeneration (ISR)
+
+  hooks_and_state:
+    - question: Can you use React hooks in Next.js?
+      answer: Yes, Next.js is built on React, so you can use all React hooks like `useState`, `useEffect`, `useContext`, `useReducer`, etc.
+
+    - question: How do you manage state in a Next.js application?
+      answer: State in Next.js can be managed using:
+        - React's built-in state management (`useState`, `useReducer`).
+        - Context API for global state.
+        - External libraries like Redux, Zustand, or Recoil.
+
+    - question: How do you handle side effects in Next.js?
+      answer: Side effects in Next.js are handled using React's `useEffect` hook for client-side effects or `getStaticProps`/`getServerSideProps` for server-side effects.
+
+  promises_and_async:
+    - question: How do you handle promises in Next.js?
+      answer: Promises in Next.js can be handled using `.then()` and `.catch()` methods or by using `async` and `await` in data-fetching functions like `getStaticProps` or `getServerSideProps`.
+
+    - question: How do you use `async` and `await` in Next.js?
+      answer: You can use `async` and `await` in data-fetching functions like `getStaticProps`, `getServerSideProps`, or API routes to handle asynchronous operations.
+
+    - question: What is the difference between `.then()` and `async/await` in Next.js?
+      answer: 
+        - `.then()` is a method used to handle promises and chain multiple asynchronous operations.
+        - `async/await` is a syntax that makes asynchronous code look synchronous and is easier to read.
+
+    - question: How do you handle errors in asynchronous code in Next.js?
+      answer: Errors in asynchronous code can be handled using `.catch()` for promises or a `try-catch` block for `async/await`.
+
+  advanced:
+    - question: What is dynamic routing in Next.js?
+      answer: Dynamic routing in Next.js allows you to create routes with dynamic segments by using square brackets in the file name, e.g., `pages/post/[id].js`.
+
+    - question: What is the difference between client-side navigation and server-side navigation in Next.js?
+      answer: 
+        - Client-side navigation uses the `next/link` component or `useRouter` hook to navigate between pages without a full page reload.
+        - Server-side navigation involves a full page reload and is handled by the server.
+
+    - question: What is the `next/image` component in Next.js?
+      answer: The `next/image` component is used for image optimization in Next.js. It automatically optimizes images for better performance and supports lazy loading.
+
+    - question: What is the `next/link` component in Next.js?
+      answer: The `next/link` component is used for client-side navigation in Next.js. It allows you to navigate between pages without a full page reload.
+
+    - question: What is middleware in Next.js?
+      answer: Middleware in Next.js is a feature that allows you to run code before a request is completed. It can be used for tasks like authentication, logging, and redirects.
+
+    - question: What is the `useRouter` hook in Next.js?
+      answer: The `useRouter` hook is a Next.js hook that provides access to the router object, allowing you to programmatically navigate between pages and access route parameters.
+
+    - question: What is the difference between `_app.js` and `_document.js` in Next.js?
+      answer: 
+        - `_app.js` is used to initialize pages and manage global state or styles.
+        - `_document.js` is used to customize the HTML document structure, such as adding meta tags or modifying the `<head>` and `<body>` tags.

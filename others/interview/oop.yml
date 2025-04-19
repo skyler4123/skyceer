@@ -1,0 +1,114 @@
+oop_interview:
+  general:
+    - question: What is Object-Oriented Programming (OOP)?
+      answer: Object-Oriented Programming (OOP) is a programming paradigm based on the concept of objects, which can contain data in the form of fields (attributes) and code in the form of methods (functions).
+
+    - question: What are the main principles of OOP?
+      answer: The main principles of OOP are:
+        - Encapsulation
+        - Inheritance
+        - Polymorphism
+        - Abstraction
+
+    - question: What is the difference between a class and an object?
+      answer: 
+        - A class is a blueprint or template for creating objects.
+        - An object is an instance of a class, containing data and methods defined by the class.
+
+  solid_principles:
+    - question: What is the SOLID principle in OOP?
+      answer: The SOLID principle is a set of five design principles that help developers write maintainable, scalable, and robust object-oriented code. It stands for:
+        - S: Single Responsibility Principle
+        - O: Open/Closed Principle
+        - L: Liskov Substitution Principle
+        - I: Interface Segregation Principle
+        - D: Dependency Inversion Principle
+
+    - question: What is the Single Responsibility Principle (SRP)?
+      answer: The Single Responsibility Principle states that a class should have only one reason to change, meaning it should have only one responsibility or function. This makes the code easier to maintain and test.
+
+    - question: Can you give an example of the Single Responsibility Principle?
+      answer: 
+        - A `Report` class should only handle report data, while a separate `ReportPrinter` class should handle printing the report. This separation ensures that changes to the printing logic do not affect the report data logic.
+
+    - question: What is the Open/Closed Principle (OCP)?
+      answer: The Open/Closed Principle states that a class should be open for extension but closed for modification. This means you should be able to add new functionality without changing the existing code.
+
+    - question: Can you give an example of the Open/Closed Principle?
+      answer: 
+        - Instead of modifying a `Shape` class to add new shapes, you can create new subclasses like `Circle` or `Rectangle` that extend the `Shape` class and implement their own behavior.
+
+    - question: What is the Liskov Substitution Principle (LSP)?
+      answer: The Liskov Substitution Principle states that objects of a superclass should be replaceable with objects of a subclass without affecting the correctness of the program. Subclasses must adhere to the behavior expected by the superclass.
+
+    - question: Can you give an example of the Liskov Substitution Principle?
+      answer: 
+        - If a `Bird` class has a `fly()` method, a subclass like `Penguin` should not override it in a way that breaks the behavior. Instead, you can refactor the hierarchy to separate flying and non-flying birds.
+
+    - question: What is the Interface Segregation Principle (ISP)?
+      answer: The Interface Segregation Principle states that a class should not be forced to implement interfaces it does not use. Instead, create smaller, more specific interfaces.
+
+    - question: Can you give an example of the Interface Segregation Principle?
+      answer: 
+        - Instead of having a single `Animal` interface with methods like `fly()`, `swim()`, and `run()`, create smaller interfaces like `Flyable`, `Swimmable`, and `Runnable` so that classes only implement the methods they need.
+
+    - question: What is the Dependency Inversion Principle (DIP)?
+      answer: The Dependency Inversion Principle states that high-level modules should not depend on low-level modules. Both should depend on abstractions, and abstractions should not depend on details.
+
+    - question: Can you give an example of the Dependency Inversion Principle?
+      answer: 
+        - Instead of a `PaymentProcessor` class directly depending on a `PayPal` class, it should depend on an interface like `PaymentGateway`. This allows you to switch to other payment providers like `Stripe` without modifying the `PaymentProcessor` class.
+
+  advanced_concepts:
+    - question: What is the difference between method overloading and method overriding?
+      answer: 
+        - Method overloading occurs when multiple methods in the same class have the same name but different parameters.
+        - Method overriding occurs when a subclass provides a specific implementation of a method already defined in its parent class.
+
+    - question: What is the difference between an abstract class and an interface?
+      answer: 
+        - An abstract class can have both abstract methods (without implementation) and concrete methods (with implementation). It is used for shared functionality.
+        - An interface only contains abstract methods and is used to define a contract that implementing classes must follow.
+
+    - question: What is the difference between composition and inheritance?
+      answer: 
+        - Inheritance is a "is-a" relationship where a child class inherits from a parent class.
+        - Composition is a "has-a" relationship where an object is composed of other objects.
+
+    - question: What is the difference between a constructor and a destructor?
+      answer: 
+        - A constructor is a special method used to initialize an object when it is created.
+        - A destructor is a special method used to clean up resources when an object is destroyed.
+
+    - question: What is the difference between static and instance methods?
+      answer: 
+        - Static methods belong to the class and can be called without creating an instance of the class.
+        - Instance methods belong to an object and require an instance of the class to be called.
+
+  real_world_examples:
+    - question: Can you give a real-world example of encapsulation?
+      answer: A car's dashboard encapsulates the internal workings of the engine. The driver interacts with the dashboard (methods) without knowing the engine's internal details.
+
+    - question: Can you give a real-world example of inheritance?
+      answer: A "Car" class can inherit from a "Vehicle" class, reusing properties like "speed" and "fuel" while adding specific features like "number of doors."
+
+    - question: Can you give a real-world example of polymorphism?
+      answer: A "Shape" class can have a method `draw()`. Subclasses like "Circle" and "Rectangle" can override the `draw()` method to provide specific implementations.
+
+    - question: Can you give a real-world example of abstraction?
+      answer: A TV remote control abstracts the internal workings of the TV. The user interacts with buttons (interface) without knowing the internal electronics.
+
+  best_practices:
+    - question: What are some best practices for writing OOP code?
+      answer: Best practices include:
+        - Following the Single Responsibility Principle (SRP)
+        - Using meaningful class and method names
+        - Avoiding deep inheritance hierarchies
+        - Favoring composition over inheritance
+        - Writing unit tests for classes and methods
+
+    - question: How do you ensure code reusability in OOP?
+      answer: Code reusability can be achieved by:
+        - Using inheritance to share common functionality
+        - Using composition to combine reusable components
+        - Writing modular and loosely coupled code

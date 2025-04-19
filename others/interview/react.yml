@@ -1,0 +1,126 @@
+react_interview:
+  basics:
+    - question: What is React?
+      answer: React is a JavaScript library for building user interfaces. It is maintained by Facebook and focuses on creating reusable UI components.
+
+    - question: What are the main features of React?
+      answer: The main features of React include:
+        - Declarative UI
+        - Component-based architecture
+        - Virtual DOM
+        - Unidirectional data flow
+        - JSX syntax
+
+    - question: What is JSX in React?
+      answer: JSX is a syntax extension for JavaScript that allows you to write HTML-like code inside JavaScript. It is used to describe the UI structure in React components.
+
+    - question: What is the Virtual DOM in React?
+      answer: The Virtual DOM is a lightweight representation of the real DOM. React uses it to optimize updates by comparing the Virtual DOM with the real DOM and applying only the necessary changes.
+
+    - question: What is the difference between a functional component and a class component in React?
+      answer: 
+        - Functional components are stateless and written as JavaScript functions.
+        - Class components are stateful and written as ES6 classes with lifecycle methods.
+
+  props_and_state:
+    - question: What are props in React?
+      answer: Props (short for properties) are read-only inputs passed from a parent component to a child component. They are used to pass data and configuration.
+
+    - question: What is state in React?
+      answer: State is a built-in object in React components that allows them to manage and store dynamic data that can change over time.
+
+    - question: What is the difference between props and state in React?
+      answer: 
+        - Props are read-only and passed from parent to child components.
+        - State is mutable and managed within the component itself.
+
+    - question: How do you update the state in React?
+      answer: State is updated using the `setState` method in class components or the `useState` hook in functional components.
+
+    - question: What happens when the state changes in React?
+      answer: When the state changes, React triggers a re-render of the component and its child components to update the UI.
+
+  lifecycle_methods_and_hooks:
+    - question: What are lifecycle methods in React?
+      answer: Lifecycle methods are special methods in class components that allow you to hook into different stages of a component's lifecycle, such as mounting, updating, and unmounting.
+
+    - question: What is the `useState` hook in React?
+      answer: The `useState` hook is a React hook that allows you to add state to functional components. It returns an array with the current state and a function to update it.
+
+    - question: What is the `useEffect` hook in React?
+      answer: The `useEffect` hook is used to perform side effects in functional components, such as fetching data, subscribing to events, or updating the DOM.
+
+    - question: What is the difference between `useEffect` and lifecycle methods?
+      answer: 
+        - `useEffect` is used in functional components and can handle multiple lifecycle phases (mount, update, unmount).
+        - Lifecycle methods like `componentDidMount` and `componentWillUnmount` are used in class components.
+
+    - question: What is the `useRef` hook in React?
+      answer: The `useRef` hook is used to create a mutable reference that persists across renders. It is commonly used to access DOM elements or store mutable values.
+
+    - question: What is the `useMemo` hook in React?
+      answer: The `useMemo` hook is used to optimize performance by memoizing the result of a computation and recomputing it only when its dependencies change.
+
+    - question: What is the `useCallback` hook in React?
+      answer: The `useCallback` hook is used to memoize a function and prevent it from being recreated on every render, improving performance in child components.
+
+  re_rendering_and_performance:
+    - question: What causes a component to re-render in React?
+      answer: A component re-renders when:
+        - Its state changes.
+        - Its props change.
+        - Its parent component re-renders.
+
+    - question: How can you prevent unnecessary re-renders in React?
+      answer: You can prevent unnecessary re-renders by:
+        - Using `React.memo` for functional components.
+        - Using `shouldComponentUpdate` or `PureComponent` for class components.
+        - Using the `useCallback` and `useMemo` hooks in functional components.
+
+    - question: What is React.memo?
+      answer: `React.memo` is a higher-order component that memoizes a functional component, preventing it from re-rendering unless its props change.
+
+    - question: What is the difference between `React.memo` and `useMemo`?
+      answer: 
+        - `React.memo` is used to memoize an entire functional component.
+        - `useMemo` is used to memoize the result of a computation within a functional component.
+
+  promises_and_async:
+    - question: How do you handle promises in React?
+      answer: Promises in React can be handled using `.then()` and `.catch()` methods or by using `async` and `await` inside `useEffect` or event handlers.
+
+    - question: How do you use `async` and `await` in React?
+      answer: You can use `async` and `await` inside `useEffect` or event handlers to handle asynchronous operations, such as fetching data from an API.
+
+    - question: What is the difference between `.then()` and `async/await`?
+      answer: 
+        - `.then()` is a method used to handle promises and chain multiple asynchronous operations.
+        - `async/await` is a syntax that makes asynchronous code look synchronous and is easier to read.
+
+    - question: How do you handle errors in asynchronous code in React?
+      answer: Errors in asynchronous code can be handled using `.catch()` for promises or a `try-catch` block for `async/await`.
+
+  advanced:
+    - question: What is the Context API in React?
+      answer: The Context API is a feature in React that allows you to share state and data across components without passing props down manually at every level.
+
+    - question: What is React Router?
+      answer: React Router is a library for managing navigation and routing in React applications. It allows you to define routes and render components based on the URL.
+
+    - question: What is the difference between controlled and uncontrolled components in React?
+      answer: 
+        - Controlled components have their state managed by React, and their value is controlled via props.
+        - Uncontrolled components manage their own state internally using refs.
+
+    - question: What is the difference between `useReducer` and `useState`?
+      answer: 
+        - `useState` is used for simple state management.
+        - `useReducer` is used for more complex state logic, similar to Redux reducers.
+
+    - question: What is server-side rendering (SSR) in React?
+      answer: Server-side rendering is a technique where React components are rendered on the server and sent to the client as HTML, improving performance and SEO.
+
+    - question: What is the difference between `React.Fragment` and a regular HTML element?
+      answer: 
+        - `React.Fragment` is used to group multiple elements without adding an extra DOM node.
+        - A regular HTML element adds an extra DOM node to the structure.

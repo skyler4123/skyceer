@@ -1,0 +1,119 @@
+javascript_interview:
+  basics:
+    - question: What is JavaScript?
+      answer: JavaScript is a high-level, interpreted programming language that is primarily used for creating interactive and dynamic content on web pages.
+
+    - question: What are the different data types in JavaScript?
+      answer: JavaScript has the following data types: `String`, `Number`, `Boolean`, `Undefined`, `Null`, `Symbol`, `BigInt`, and `Object`.
+
+    - question: What is the difference between `var`, `let`, and `const`?
+      answer: 
+        - `var` is function-scoped and can be redeclared.
+        - `let` is block-scoped and cannot be redeclared.
+        - `const` is block-scoped and used for constants; its value cannot be reassigned.
+
+    - question: What is the difference between `==` and `===` in JavaScript?
+      answer: `==` checks for equality with type coercion, while `===` checks for strict equality without type coercion.
+
+    - question: What is a closure in JavaScript?
+      answer: A closure is a function that has access to its own scope, the scope of the outer function, and the global scope, even after the outer function has returned.
+
+    - question: What is the difference between `null` and `undefined` in JavaScript?
+      answer: 
+        - `null` is an assigned value that represents no value or an empty value.
+        - `undefined` means a variable has been declared but has not been assigned a value.
+
+    - question: What is the `typeof` operator in JavaScript?
+      answer: The `typeof` operator is used to determine the type of a variable or value, e.g., `typeof 42` returns `"number"`.
+
+  promises_and_async:
+    - question: What is a Promise in JavaScript?
+      answer: A Promise is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+
+    - question: What are the states of a Promise?
+      answer: A Promise has three states:
+        - `pending`: The initial state, neither fulfilled nor rejected.
+        - `fulfilled`: The operation completed successfully.
+        - `rejected`: The operation failed.
+
+    - question: How do you handle Promises in JavaScript?
+      answer: Promises can be handled using `.then()` for success, `.catch()` for errors, and `.finally()` for cleanup actions.
+
+    - question: What is the difference between `then` and `catch` in Promises?
+      answer: 
+        - `then` is used to handle the resolved value of a Promise.
+        - `catch` is used to handle errors or rejected Promises.
+
+    - question: What is `async` and `await` in JavaScript?
+      answer: 
+        - `async` is used to declare a function that returns a Promise.
+        - `await` is used to pause the execution of an `async` function until the Promise is resolved or rejected.
+
+    - question: How do you handle multiple Promises in JavaScript?
+      answer: You can handle multiple Promises using:
+        - `Promise.all()`: Resolves when all Promises are resolved or rejects if any Promise is rejected.
+        - `Promise.race()`: Resolves or rejects as soon as the first Promise is settled.
+
+    - question: What is the difference between `Promise.all` and `Promise.allSettled`?
+      answer: 
+        - `Promise.all` resolves when all Promises are resolved or rejects if any Promise is rejected.
+        - `Promise.allSettled` resolves when all Promises are settled, regardless of whether they are resolved or rejected.
+
+    - question: What is the event loop in JavaScript?
+      answer: The event loop is a mechanism that handles the execution of multiple pieces of code, including asynchronous code, by managing the call stack and the task queue.
+
+  syntax_and_operators:
+    - question: What is destructuring in JavaScript?
+      answer: Destructuring is a syntax for extracting values from arrays or properties from objects into distinct variables, e.g., `const { name } = obj`.
+
+    - question: What is the spread operator in JavaScript?
+      answer: The spread operator (`...`) is used to expand an array or object into individual elements or properties, e.g., `[...array]` or `{...object}`.
+
+    - question: What is the rest parameter in JavaScript?
+      answer: The rest parameter (`...`) allows a function to accept an indefinite number of arguments as an array, e.g., `function sum(...numbers)`.
+
+    - question: What is template literal syntax in JavaScript?
+      answer: Template literals use backticks (`` ` ``) to embed expressions inside strings using `${expression}`, e.g., `` `Hello, ${name}!` ``.
+
+    - question: What is optional chaining in JavaScript?
+      answer: Optional chaining (`?.`) allows you to safely access deeply nested properties without checking for `null` or `undefined`, e.g., `obj?.property`.
+
+    - question: What is the nullish coalescing operator (`??`) in JavaScript?
+      answer: The nullish coalescing operator returns the right-hand operand if the left-hand operand is `null` or `undefined`, e.g., `value = a ?? b`.
+
+  advanced:
+    - question: What is the `this` keyword in JavaScript?
+      answer: The `this` keyword refers to the object that is currently executing the function. Its value depends on how the function is called.
+
+    - question: What is the difference between `call()`, `apply()`, and `bind()`?
+      answer: 
+        - `call()` invokes a function with a specified `this` context and arguments passed individually.
+        - `apply()` invokes a function with a specified `this` context and arguments passed as an array.
+        - `bind()` returns a new function with a specified `this` context.
+
+    - question: What is the difference between `map()`, `filter()`, and `reduce()`?
+      answer: 
+        - `map()` creates a new array by applying a function to each element of the original array.
+        - `filter()` creates a new array with elements that pass a specified condition.
+        - `reduce()` applies a function to accumulate array elements into a single value.
+
+    - question: What is a JavaScript module?
+      answer: A JavaScript module is a reusable piece of code that can be exported from one file and imported into another using `export` and `import` statements.
+
+    - question: What is the difference between synchronous and asynchronous code in JavaScript?
+      answer: 
+        - Synchronous code is executed line by line, blocking further execution until the current task is completed.
+        - Asynchronous code allows other tasks to run while waiting for an operation to complete.
+
+    - question: What is the difference between `Object.freeze()` and `Object.seal()`?
+      answer: 
+        - `Object.freeze()` makes an object immutable, preventing any changes to its properties.
+        - `Object.seal()` prevents adding or removing properties but allows modification of existing properties.
+
+    - question: What is prototypal inheritance in JavaScript?
+      answer: Prototypal inheritance is a feature in JavaScript where objects can inherit properties and methods from other objects via the prototype chain.
+
+    - question: What is the difference between `Object.create()` and a constructor function?
+      answer: 
+        - `Object.create()` creates a new object with the specified prototype object.
+        - A constructor function creates an object using the `new` keyword and sets the prototype to the constructor's `prototype` property.

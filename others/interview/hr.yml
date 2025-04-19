@@ -1,0 +1,87 @@
+hr_interview:
+  general:
+    - question: Can you tell us about yourself and your experience as a website developer?
+      answer: Provide a brief overview of your background, skills, and experience in website development, highlighting key projects and technologies you've worked with.
+
+    - question: Why did you choose a career in website development?
+      answer: Share your passion for website development, your interest in technology, and how you enjoy solving problems and creating user-friendly web applications.
+
+    - question: What are your strengths as a website developer?
+      answer: Highlight strengths such as problem-solving, attention to detail, proficiency in specific technologies, teamwork, or creativity in designing user interfaces.
+
+    - question: What are your weaknesses, and how are you working to improve them?
+      answer: Mention a genuine weakness that is not critical to the role and explain the steps you are taking to improve, such as learning new technologies or improving time management.
+
+    - question: How do you stay updated with the latest trends and technologies in web development?
+      answer: Mention resources like online courses, blogs, forums, conferences, or communities you follow to stay current with industry trends.
+
+  technical_skills:
+    - question: What programming languages and frameworks are you proficient in?
+      answer: List the programming languages (e.g., JavaScript, Python, PHP) and frameworks (e.g., React, Angular, Django) you are skilled in.
+
+    - question: Can you explain the difference between front-end and back-end development?
+      answer: 
+        - Front-end development focuses on the user interface and experience, using technologies like HTML, CSS, and JavaScript.
+        - Back-end development involves server-side logic, databases, and APIs, using technologies like Node.js, Python, or PHP.
+
+    - question: What tools and technologies do you use for version control and collaboration?
+      answer: Mention tools like Git, GitHub, GitLab, or Bitbucket, and explain how you use them for version control and team collaboration.
+
+    - question: How do you ensure the websites you develop are responsive and mobile-friendly?
+      answer: Explain your approach, such as using responsive design principles, CSS frameworks like Bootstrap, and testing on multiple devices and screen sizes.
+
+    - question: What is your experience with website performance optimization?
+      answer: Share techniques like image optimization, lazy loading, minifying CSS/JavaScript, caching, and using CDNs to improve website performance.
+
+  teamwork_and_communication:
+    - question: How do you handle working in a team with other developers and designers?
+      answer: Highlight your ability to collaborate, communicate effectively, and resolve conflicts while working towards a common goal.
+
+    - question: How do you handle feedback or criticism about your work?
+      answer: Explain that you view feedback as an opportunity to improve and grow, and describe how you incorporate constructive criticism into your work.
+
+    - question: Can you describe a time when you had to explain a technical concept to a non-technical team member?
+      answer: Share an example where you simplified a technical concept, ensuring the other person understood it clearly.
+
+    - question: How do you prioritize tasks when working on multiple projects or deadlines?
+      answer: Explain your approach to prioritization, such as using task management tools, setting clear goals, and communicating with stakeholders.
+
+  problem_solving:
+    - question: Can you describe a challenging problem you faced during a project and how you solved it?
+      answer: Share a specific example, explaining the problem, your approach to solving it, and the outcome.
+
+    - question: How do you handle debugging and troubleshooting issues in your code?
+      answer: Describe your debugging process, such as using browser developer tools, logging, or testing frameworks to identify and fix issues.
+
+    - question: What do you do when you encounter a technology or concept you are unfamiliar with?
+      answer: Explain your approach to learning, such as researching online, taking courses, or seeking help from colleagues or communities.
+
+  project_management:
+    - question: How do you manage your time and ensure deadlines are met?
+      answer: Mention techniques like creating detailed project plans, breaking tasks into smaller milestones, and using tools like Trello, Asana, or Jira.
+
+    - question: How do you handle scope changes or additional requirements during a project?
+      answer: Explain how you communicate with stakeholders, assess the impact of changes, and adjust the project plan accordingly.
+
+    - question: Can you describe a project you are particularly proud of and why?
+      answer: Share details about a project, your role in it, the challenges you overcame, and the impact it had.
+
+  soft_skills:
+    - question: How do you handle stress or tight deadlines?
+      answer: Explain your strategies, such as staying organized, prioritizing tasks, and maintaining open communication with your team.
+
+    - question: How do you ensure effective communication with clients or stakeholders?
+      answer: Mention techniques like regular updates, clear documentation, and active listening to understand their needs and expectations.
+
+    - question: What motivates you as a website developer?
+      answer: Share your passion for creating user-friendly websites, solving problems, and learning new technologies.
+
+  future_goals:
+    - question: Where do you see yourself in five years?
+      answer: Share your career aspirations, such as becoming a senior developer, learning new technologies, or contributing to impactful projects.
+
+    - question: Why do you want to work for our company?
+      answer: Research the company and mention specific reasons, such as their projects, culture, or values, that align with your goals.
+
+    - question: How do you plan to grow your skills as a website developer?
+      answer: Explain your commitment to continuous learning through courses, certifications, or hands-on experience with new technologies.

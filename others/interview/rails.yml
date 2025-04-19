@@ -1,3 +1,5 @@
+#  I want to create a yml that contain some question and answer about rails interview with some categories like: ruby (must have question about creator, variable, syntax, "everything is object",version, gem manager, bundle, rbenv, rvm), framework (must have question about creator, version, MVC, API, rack, middleware, include, extend, private, autoloader), assets pipeline, routing, model (must have questions about active record, active model, callback, validate, association, transaction, index type (B-tree, gin,...) and differents between them and what best case for each index types), view(must have erb), controller (must have question about render, redirect, filter), concern, stimulus (HTML first, event, action, value, re-render, callback), turbo frame, turbo stream
+
 rails_interview:
   ruby:
     - question: Who is the creator of Ruby?

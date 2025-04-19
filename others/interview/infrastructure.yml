@@ -1,0 +1,135 @@
+infrastructure_interview:
+  general:
+    - question: What is web infrastructure?
+      answer: Web infrastructure refers to the hardware, software, network, and services required to host, deploy, and manage websites and web applications.
+
+    - question: What are the key components of web infrastructure?
+      answer: Key components include:
+        - Web servers (e.g., Apache, Nginx)
+        - Application servers
+        - Databases
+        - Load balancers
+        - Content Delivery Networks (CDNs)
+        - DNS (Domain Name System)
+        - Firewalls and security systems
+
+  proxies_and_reverse_proxies:
+    - question: What is a proxy server?
+      answer: A proxy server acts as an intermediary between a client and a server, forwarding client requests to the server and returning the server's response to the client.
+
+    - question: What is a reverse proxy?
+      answer: A reverse proxy sits in front of one or more servers and forwards client requests to the appropriate server. It is commonly used for load balancing, caching, and security.
+
+    - question: What are the differences between a proxy and a reverse proxy?
+      answer: 
+        - A proxy server forwards client requests to external servers on behalf of the client.
+        - A reverse proxy forwards client requests to internal servers on behalf of the server.
+
+    - question: What are some common use cases for a reverse proxy?
+      answer: Common use cases include:
+        - Load balancing traffic across multiple servers
+        - Caching static content to improve performance
+        - Terminating SSL/TLS connections for HTTPS
+        - Protecting backend servers by hiding their IP addresses
+
+    - question: What are some popular reverse proxy tools?
+      answer: Popular reverse proxy tools include:
+        - Nginx
+        - HAProxy
+        - Apache HTTP Server
+        - Traefik
+        - Caddy
+
+  http_and_tcp:
+    - question: What is HTTP, and how does it work?
+      answer: HTTP (Hypertext Transfer Protocol) is a protocol used for transferring data over the web. It works as a request-response protocol where a client sends a request to a server, and the server responds with the requested data.
+
+    - question: What is the difference between HTTP and HTTPS?
+      answer: 
+        - HTTP is an unsecured protocol, while HTTPS encrypts data using SSL/TLS to ensure secure communication.
+        - HTTPS protects data integrity, confidentiality, and authenticity.
+
+    - question: What is TCP, and how does it work?
+      answer: TCP (Transmission Control Protocol) is a connection-oriented protocol that ensures reliable data transmission between devices by establishing a connection, sequencing packets, and retransmitting lost packets.
+
+    - question: What is the difference between TCP and UDP?
+      answer: 
+        - TCP is connection-oriented and ensures reliable data delivery.
+        - UDP (User Datagram Protocol) is connectionless and faster but does not guarantee reliable delivery.
+
+    - question: What are HTTP methods, and what are they used for?
+      answer: HTTP methods define the type of action to be performed on a resource. Common methods include:
+        - `GET`: Retrieve data
+        - `POST`: Submit data
+        - `PUT`: Update data
+        - `DELETE`: Delete data
+        - `PATCH`: Partially update data
+
+    - question: What are HTTP status codes, and what do they indicate?
+      answer: HTTP status codes indicate the result of an HTTP request. Common categories include:
+        - 1xx: Informational
+        - 2xx: Success (e.g., 200 OK)
+        - 3xx: Redirection (e.g., 301 Moved Permanently)
+        - 4xx: Client errors (e.g., 404 Not Found)
+        - 5xx: Server errors (e.g., 500 Internal Server Error)
+
+  websocket:
+    - question: What is WebSocket?
+      answer: WebSocket is a communication protocol that provides full-duplex, bidirectional communication between a client and a server over a single TCP connection.
+
+    - question: How does WebSocket differ from HTTP?
+      answer: 
+        - HTTP is a request-response protocol, while WebSocket allows continuous, real-time communication.
+        - WebSocket establishes a persistent connection, reducing the overhead of repeated HTTP requests.
+
+    - question: What are some common use cases for WebSocket?
+      answer: Common use cases include:
+        - Real-time chat applications
+        - Live notifications
+        - Online gaming
+        - Collaborative tools (e.g., document editing)
+        - Real-time data streaming (e.g., stock prices)
+
+    - question: How does the WebSocket handshake work?
+      answer: The WebSocket handshake starts as an HTTP request with an `Upgrade` header. If the server supports WebSocket, it responds with a `101 Switching Protocols` status code, and the connection is upgraded to WebSocket.
+
+    - question: What are some popular libraries for implementing WebSocket?
+      answer: Popular libraries include:
+        - Socket.IO
+        - ws (WebSocket library for Node.js)
+        - SignalR (for .NET)
+        - WebSocket API (built into modern browsers)
+
+  performance_and_scalability:
+    - question: What is load balancing, and why is it important?
+      answer: Load balancing distributes incoming traffic across multiple servers to ensure high availability, reliability, and performance.
+
+    - question: What is horizontal scaling vs. vertical scaling?
+      answer: 
+        - Horizontal scaling adds more servers to handle increased traffic.
+        - Vertical scaling increases the resources (CPU, RAM) of an existing server.
+
+    - question: What is a Content Delivery Network (CDN)?
+      answer: A CDN is a network of servers distributed across different locations that cache and deliver content to users based on their geographic proximity, improving website performance and reducing latency.
+
+    - question: How do you optimize website performance?
+      answer: Website performance can be optimized by:
+        - Using a CDN
+        - Compressing images and assets
+        - Minifying CSS, JavaScript, and HTML
+        - Enabling browser caching
+        - Reducing server response time
+
+  security:
+    - question: What is HTTPS, and why is it important?
+      answer: HTTPS (Hypertext Transfer Protocol Secure) encrypts data transmitted between the client and server using SSL/TLS, ensuring data integrity, confidentiality, and security.
+
+    - question: What is a firewall, and how does it protect web infrastructure?
+      answer: A firewall is a security system that monitors and controls incoming and outgoing network traffic based on predefined rules, protecting against unauthorized access and attacks.
+
+    - question: How do you secure WebSocket connections?
+      answer: WebSocket connections can be secured by:
+        - Using `wss://` (WebSocket Secure) to encrypt data
+        - Authenticating users before establishing a connection
+        - Validating and sanitizing incoming messages
+        - Implementing rate limiting to prevent abuse
