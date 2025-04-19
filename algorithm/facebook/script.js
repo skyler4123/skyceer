@@ -47,7 +47,7 @@ document.querySelectorAll(`[class="${seeMoreClass}"]`).forEach(target => {
 // Search number of comments for POST
 // position start with 1
 let numberFrom = 0
-let numberTo = 99
+let numberTo = 999
 let position = 1
 
 let commentGroupClass = "html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x18d9i69 x1swvt13 x1pi30zi"
@@ -95,6 +95,13 @@ Array.prototype.diff = function (a) {
     return a.indexOf(i) === -1;
   });
 };
+const countOccurrences = (arr) => {
+  return arr.reduce((acc, num) => {
+    acc[num] = (acc[num] || 0) + 1; // Increment count or initialize to 1
+    return acc;
+  }, {});
+};
+
 let numberSample = arrayRange(numberFrom, numberTo)
 let commentGroupElement = document.querySelector(`[class="${commentGroupClass}"]`)
 let commentElements = commentGroupElement.querySelectorAll(`[class="${commentClass}"]`)
@@ -107,6 +114,7 @@ let commentedNumbers = commentNumbers.map(comment => {
 })
 let diff = numberSample.diff(commentedNumbers)
 console.log(`Commented Numbers at position ${position}:`, commentedNumbers)
+console.log("Commented Numbers with count times:", countOccurrences(commentedNumbers))
 console.log("Available Number:", diff)
 
 
