@@ -1,0 +1,162 @@
+rails_interview:
+  ruby:
+    - question: Who is the creator of Ruby?
+      answer: Ruby was created by Yukihiro Matsumoto, also known as "Matz," in 1995.
+
+    - question: What are variables in Ruby, and how are they defined?
+      answer: Variables in Ruby are used to store data. They are defined without a type declaration, e.g., `name = "Ruby"`.
+
+    - question: What is the syntax for defining a method in Ruby?
+      answer: A method is defined using the `def` keyword, e.g., `def method_name; # code; end`.
+
+    - question: How do you check the Ruby version installed on your system?
+      answer: You can check the Ruby version by running `ruby -v` in the terminal.
+
+    - question: What is Bundler, and why is it used in Ruby?
+      answer: Bundler is the gem manager for Ruby. It manages gem dependencies for your application and ensures that the correct versions are installed.
+
+    - question: What is the difference between `rbenv` and `rvm`?
+      answer: Both `rbenv` and `rvm` are Ruby version managers. `rbenv` is lightweight and focuses on switching Ruby versions, while `rvm` is more feature-rich and includes gemsets.
+
+    - question: What is the purpose of the `bundle install` command?
+      answer: The `bundle install` command installs all the gems specified in the `Gemfile` and their dependencies.
+
+  framework:
+    - question: Who is the creator of Rails?
+      answer: Rails was created by David Heinemeier Hansson (DHH) in 2004.
+
+    - question: What is the MVC architecture in Rails?
+      answer: MVC stands for Model-View-Controller. It is a design pattern that separates an application into three interconnected components: the model handles data, the view handles the user interface, and the controller manages the flow between them.
+
+    - question: What is Rack in Rails?
+      answer: Rack is a minimal interface between web servers and Ruby frameworks. Rails uses Rack to handle HTTP requests and responses.
+
+    - question: What is middleware in Rails?
+      answer: Middleware is a layer that sits between the web server and the Rails application. It processes requests and responses, handling tasks like logging, authentication, and caching.
+
+    - question: How do you include a module in a class in Rails?
+      answer: You can include a module using the `include` keyword, e.g., `include MyModule`.
+
+    - question: What is the difference between `include` and `extend` in Ruby?
+      answer: `include` adds methods from a module as instance methods, while `extend` adds them as class methods.
+
+    - question: What is the purpose of the `private` keyword in Ruby?
+      answer: The `private` keyword restricts access to methods, making them callable only within the defining class.
+
+    - question: How do you build APIs in Rails?
+      answer: Rails provides tools like `ActionController::API` to build lightweight APIs by excluding view-related middleware and focusing on JSON responses.
+
+    - question: What is the Rails autoloader, and how does it work?
+      answer: Rails uses Zeitwerk as its autoloader. It automatically loads classes and modules based on file names and paths, following a convention-over-configuration approach.
+
+    - question: How do you check the Rails version of an application?
+      answer: You can check the Rails version by running `rails -v` or inspecting the `Gemfile.lock` file.
+
+  asset_pipeline:
+    - question: What is the asset pipeline in Rails?
+      answer: The asset pipeline is a framework in Rails for managing and serving static assets like JavaScript, CSS, and images. It allows preprocessing, compression, and concatenation of assets.
+
+    - question: How do you precompile assets in Rails?
+      answer: You can precompile assets using the command `rails assets:precompile`. This generates optimized versions of assets for production.
+
+    - question: What is the purpose of the `manifest.js` file in the asset pipeline?
+      answer: The `manifest.js` file specifies which assets should be precompiled and included in the application.
+
+  routing:
+    - question: What is the purpose of the `routes.rb` file in Rails?
+      answer: The `routes.rb` file defines the URL routes for the application and maps them to controller actions.
+
+    - question: How do you define a named route in Rails?
+      answer: You can define a named route using the `as` option, e.g., `get '/profile', to: 'users#show', as: 'profile'`.
+
+    - question: What is the difference between `resources` and `resource` in Rails routing?
+      answer: `resources` generates routes for all CRUD actions for a resource, while `resource` generates routes for a single instance of a resource (e.g., no index route).
+
+  model:
+    - question: What is the difference between Active Record and Active Model in Rails?
+      answer: Active Record is the ORM layer for database interaction, while Active Model provides features like validations and callbacks for non-database-backed models.
+
+    - question: What are callbacks in Rails models?
+      answer: Callbacks are methods that get triggered at specific points in an object's lifecycle, such as `before_save`, `after_create`, or `before_destroy`.
+
+    - question: What is the purpose of validations in Rails models?
+      answer: Validations ensure that only valid data is saved to the database by checking constraints like presence, uniqueness, and format.
+
+    - question: What is the difference between `has_many` and `belongs_to` associations?
+      answer: `has_many` defines a one-to-many relationship, while `belongs_to` defines a many-to-one relationship.
+
+    - question: How do you perform eager loading in Active Record?
+      answer: You can use the `includes` method to perform eager loading, which loads associated records in a single query to avoid N+1 query problems.
+
+    - question: What are transactions in Rails, and how are they used?
+      answer: Transactions ensure that a group of database operations either succeed or fail as a whole. They are used with `ActiveRecord::Base.transaction` to wrap operations.
+
+    - question: What are index types in Rails, and when should you use them?
+      answer: Common index types include:
+        - **B-tree Index**: Default index type, used for equality and range queries.
+        - **GIN Index**: Used for full-text search and JSONB columns.
+        - **Hash Index**: Optimized for equality comparisons (`=`).
+        - **Partial Index**: Indexes a subset of rows based on a condition.
+        - **Unique Index**: Ensures uniqueness of values in a column.
+        - **Composite Index**: Indexes multiple columns together for combined queries.
+        - **Expression Index**: Indexes the result of an expression or function.
+
+  view:
+    - question: What is ERB in Rails?
+      answer: ERB (Embedded Ruby) is a templating system in Rails that allows you to embed Ruby code within HTML files.
+
+    - question: What are partials in Rails views?
+      answer: Partials are reusable view templates that can be rendered in other views using the `render` method.
+
+    - question: How do you pass local variables to a partial in Rails?
+      answer: You can pass local variables to a partial using the `locals` option, e.g., `render partial: 'form', locals: { user: @user }`.
+
+  controller:
+    - question: What is the purpose of controllers in Rails?
+      answer: Controllers handle incoming HTTP requests, process them, and return the appropriate response (e.g., rendering a view or redirecting).
+
+    - question: What is the difference between `render` and `redirect_to` in Rails controllers?
+      answer: `render` renders a template without making a new HTTP request, while `redirect_to` sends a new HTTP request to a different URL.
+
+    - question: How do you handle strong parameters in Rails controllers?
+      answer: Strong parameters are used to whitelist attributes that can be mass-assigned. This is done using the `permit` method, e.g., `params.require(:user).permit(:name, :email)`.
+
+    - question: What is the difference between `before_action` and `after_action` in Rails controllers?
+      answer: `before_action` runs a method before a controller action is executed, while `after_action` runs a method after the controller action is executed.
+
+  concern:
+    - question: What are concerns in Rails?
+      answer: Concerns are modules used to extract reusable code shared across models or controllers. They help keep the codebase DRY.
+
+    - question: How do you include a concern in a model or controller?
+      answer: You can include a concern in a model or controller using the `include` keyword, e.g., `include MyConcern`.
+
+    - question: What is the difference between a concern and a helper?
+      answer: Concerns are used for reusable logic in models or controllers, while helpers are used for reusable logic in views.
+
+  hotwire:
+    stimulus:
+      - question: What does "HTML first" mean in Stimulus?
+        answer: Stimulus enhances existing HTML by connecting JavaScript controllers to elements using `data-controller` attributes.
+
+      - question: How do you define an action in Stimulus?
+        answer: Actions are defined using `data-action` attributes, which map DOM events to controller methods, e.g., `click->controller#method`.
+
+      - question: What are values in Stimulus?
+        answer: Values are used to define reactive properties in Stimulus controllers, allowing you to bind data to elements.
+
+      - question: How do you handle re-rendering in Stimulus?
+        answer: Stimulus listens to DOM changes and automatically reinitializes controllers when elements are added or removed.
+
+      - question: What are callbacks in Stimulus?
+        answer: Stimulus provides lifecycle callbacks like `connect`, `disconnect`, and `initialize` to manage controller behavior.
+
+    turbo:
+      - question: What is Turbo in Hotwire?
+        answer: Turbo is a framework for building fast, modern web applications without writing much JavaScript by using Turbo Frames and Turbo Streams.
+
+      - question: What are Turbo Frames?
+        answer: Turbo Frames allow you to update parts of a page without reloading the entire page by targeting specific frame elements.
+
+      - question: What are Turbo Streams?
+        answer: Turbo Streams enable real-time updates to the DOM using server-sent events or WebSocket connections.
