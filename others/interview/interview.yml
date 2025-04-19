@@ -1,0 +1,53 @@
+Hung:
+  - question: Could you tell me something about you?
+    answer: TBD
+  - question: Could you describe about your lastest project?
+    answer: TBD
+  - question: Do you have any peronal project and can you tell me something about it?
+    answer: TBD
+  - question: Why you choose RoR for work? If you have any other language, why you choose it?
+    answer: TBD
+  - question: What is the good and bad things about Ruby and RoR?
+    answer: TBD
+  - question: Who is creator of Ruby and RoR?
+    answer: TBD
+  - question: Had you ever hear about "everything is object"? What is it?
+    answer: TBD
+  - question: Do you know about MVC and API in RoR? What is the difference between them? What is better?
+    answer: TBD
+  - question: What is N+1 problem and how to solve it?
+    answer: TBD
+  - question: What is the difference between `include` and `extend` in Ruby?
+    answer: TBD
+  - question: What is the Rails autoloader, and how does it work?
+    answer: TBD
+  - question: What is difference between `before_action` and `before_commit` in Rails? 
+    answer: TBD
+  - question: How do you handle a method that currently haves a lot of logics?
+    answer: TBD
+  - question: How to make database faster? Tell me someway to do it.
+    answer: TBD
+  - question: Do you have any experience with any JS framework? If yes, can you tell me about it?
+    answer: TBD
+  - question: How React can trigger rerendering after state change? 
+    answer: TBD
+  - question: How can we reuse code in RoR?
+    answer: TBD
+  - question: How can we reuse code in RoR?
+    answer: TBD
+  - question: How can we reuse code in RoR?
+    answer: TBD
+  - question: How can we reuse code in RoR?
+    answer: TBD
+  - question: How can we reuse code in RoR?
+    answer: TBD
+  - question: How can we reuse code in RoR?
+    answer: TBD
+  - question: How can we reuse code in RoR?
+    answer: TBD
+  - question: How can we reuse code in RoR?
+    answer: TBD
+  - question: How can we reuse code in RoR?
+    answer: TBD
+  - question: How can we reuse code in RoR?
+    answer: TBD
