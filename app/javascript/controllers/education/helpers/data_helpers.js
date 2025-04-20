@@ -537,3 +537,19 @@ export const params = () => {
 
   return params; // Return the params object
 };
+
+export const sortByField = (array, field, order = 'asc') => {
+  if (!Array.isArray(array)) {
+    throw new Error("Input must be an array");
+  }
+
+  return array.sort((a, b) => {
+    if (a[field] < b[field]) {
+      return order === 'asc' ? -1 : 1;
+    }
+    if (a[field] > b[field]) {
+      return order === 'asc' ? 1 : -1;
+    }
+    return 0; // If values are equal
+  });
+};

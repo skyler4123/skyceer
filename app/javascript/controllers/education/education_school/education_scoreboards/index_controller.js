@@ -1,4 +1,4 @@
-import { identifier, isEmpty, transferToValue, createSelectTag, params, openModal, createForm, createInputTag } from "controllers/education/helpers/data_helpers"
+import { identifier, isEmpty, transferToValue, createSelectTag, params, openModal, createForm, createInputTag, sortByField } from "controllers/education/helpers/data_helpers"
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_ChoicesController from "controllers/education/choices_controller";
@@ -12,7 +12,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
 
   initBinding() {
     super.initBinding()
-    this.educationStudents = ServerData.data.education_students
+    this.educationStudents = sortByField(ServerData.data.education_students, 'name')
     this.educationExams = ServerData.data.education_exams
     this.educationExamToClass = ServerData.data.education_exam_to_class
     this.educationExamToStudents = ServerData.data.education_exam_to_students
