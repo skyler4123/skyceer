@@ -98,7 +98,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
         row[educationExam.id] = `
           <div>
             ${educationExamToStudent.score ? 
-              `<div data-action="click->${this.identifier}#openModalUpdateExam" data-${this.identifier}-education-exam-to-class-id-param="${educationExamToStudent.education_exam_to_class_id}" data-${this.identifier}-education-exam-id-param="${educationExam.id}">
+              `<div data-action="dblclick->${this.identifier}#openModalUpdateExam" data-${this.identifier}-education-exam-to-class-id-param="${educationExamToStudent.education_exam_to_class_id}" data-${this.identifier}-education-exam-id-param="${educationExam.id}">
                 ${educationExamToStudent.score}
               </div>`
               :
