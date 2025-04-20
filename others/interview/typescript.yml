@@ -1,0 +1,192 @@
+typescript_interview:
+  basics:
+    - question: What is TypeScript?
+      answer: TypeScript is a strongly typed, object-oriented, compiled language that builds on JavaScript by adding static type definitions. It is developed and maintained by Microsoft.
+
+    - question: What are the advantages of using TypeScript over JavaScript?
+      answer: Advantages include:
+        - Static typing for better error detection during development.
+        - Improved code readability and maintainability.
+        - Support for modern JavaScript features and ES6+.
+        - Integration with popular IDEs for better tooling and autocompletion.
+        - Compatibility with JavaScript, allowing gradual adoption.
+
+    - question: What is the difference between TypeScript and JavaScript?
+      answer: 
+        - TypeScript is a superset of JavaScript that adds static typing and other features.
+        - JavaScript is a dynamically typed language and does not support static typing.
+
+    - question: How do you compile TypeScript code?
+      answer: TypeScript code is compiled to JavaScript using the TypeScript compiler (`tsc`). For example:
+        ```bash
+        tsc file.ts
+        ```
+
+  types_and_interfaces:
+    - question: What are the basic types in TypeScript?
+      answer: Basic types include:
+        - `string`
+        - `number`
+        - `boolean`
+        - `any`
+        - `void`
+        - `null`
+        - `undefined`
+        - `never`
+        - `unknown`
+
+    - question: What is the difference between `interface` and `type` in TypeScript?
+      answer: 
+        - `interface` is used to define the shape of an object and can be extended or implemented.
+        - `type` is more flexible and can define unions, intersections, and other complex types.
+
+    - question: How do you define an interface in TypeScript?
+      answer: 
+        ```typescript
+        interface User {
+          id: number;
+          name: string;
+          email?: string; // Optional property
+        }
+        ```
+
+    - question: What is a union type in TypeScript?
+      answer: A union type allows a variable to hold one of several types. For example:
+        ```typescript
+        let value: string | number;
+        value = "Hello"; // Valid
+        value = 42; // Valid
+        ```
+
+    - question: What is a type alias in TypeScript?
+      answer: A type alias is a way to define a custom type. For example:
+        ```typescript
+        type ID = string | number;
+        let userId: ID = 123;
+        ```
+
+  advanced_types:
+    - question: What are generics in TypeScript?
+      answer: Generics allow you to create reusable components that work with a variety of types. For example:
+        ```typescript
+        function identity<T>(value: T): T {
+          return value;
+        }
+        ```
+
+    - question: What is the `unknown` type in TypeScript?
+      answer: The `unknown` type is a safer alternative to `any`. It requires type checking before performing operations on the value.
+
+    - question: What is the `never` type in TypeScript?
+      answer: The `never` type represents values that never occur, such as functions that throw errors or never return.
+
+    - question: What are mapped types in TypeScript?
+      answer: Mapped types allow you to create new types by transforming existing ones. For example:
+        ```typescript
+        type Readonly<T> = {
+          readonly [K in keyof T]: T[K];
+        };
+        ```
+
+    - question: What are utility types in TypeScript?
+      answer: Utility types are built-in types that help manipulate other types. Examples include:
+        - `Partial<T>`
+        - `Readonly<T>`
+        - `Pick<T, K>`
+        - `Omit<T, K>`
+
+  classes_and_objects:
+    - question: How do you define a class in TypeScript?
+      answer: 
+        ```typescript
+        class Person {
+          name: string;
+          constructor(name: string) {
+            this.name = name;
+          }
+          greet(): void {
+            console.log(`Hello, ${this.name}`);
+          }
+        }
+        ```
+
+    - question: What are access modifiers in TypeScript?
+      answer: Access modifiers control the visibility of class members:
+        - [public](http://_vscodecontentref_/1): Accessible from anywhere (default).
+        - `private`: Accessible only within the class.
+        - `protected`: Accessible within the class and its subclasses.
+
+    - question: What is the difference between `abstract` class and `interface`?
+      answer: 
+        - An `abstract` class can have both implemented and abstract methods, and it can include properties.
+        - An `interface` only defines the structure and does not include implementations.
+
+    - question: What is inheritance in TypeScript?
+      answer: Inheritance allows a class to extend another class, inheriting its properties and methods. For example:
+        ```typescript
+        class Animal {
+          move(): void {
+            console.log("Moving...");
+          }
+        }
+        class Dog extends Animal {
+          bark(): void {
+            console.log("Barking...");
+          }
+        }
+        ```
+
+  modules_and_namespaces:
+    - question: What are modules in TypeScript?
+      answer: Modules are used to organize code into reusable units. They can export and import functionality using `export` and `import` keywords.
+
+    - question: How do you export and import in TypeScript?
+      answer: 
+        ```typescript
+        // Export
+        export const PI = 3.14;
+
+        // Import
+        import { PI } from './math';
+        ```
+
+    - question: What is the difference between `namespace` and `module` in TypeScript?
+      answer: 
+        - `namespace` is used to organize code within the same file or across multiple files.
+        - `module` is based on ES6 modules and is used for organizing code across files.
+
+  decorators:
+    - question: What are decorators in TypeScript?
+      answer: Decorators are special functions that can be attached to classes, methods, properties, or parameters to modify their behavior. They are commonly used in frameworks like Angular.
+
+    - question: How do you define a class decorator in TypeScript?
+      answer: 
+        ```typescript
+        function Logger(constructor: Function) {
+          console.log(`Class ${constructor.name} was created.`);
+        }
+
+        @Logger
+        class MyClass {}
+        ```
+
+  best_practices:
+    - question: What are some best practices for using TypeScript?
+      answer: Best practices include:
+        - Using strict mode (`"strict": true` in `tsconfig.json`).
+        - Avoiding the `any` type whenever possible.
+        - Using interfaces or types for complex objects.
+        - Keeping code modular and reusable.
+        - Writing unit tests for type safety.
+
+    - question: How do you configure TypeScript in a project?
+      answer: TypeScript is configured using a `tsconfig.json` file, which specifies compiler options and file inclusions/exclusions. Example:
+        ```json
+        {
+          "compilerOptions": {
+            "target": "ES6",
+            "module": "commonjs",
+            "strict": true
+          }
+        }
+        ```
