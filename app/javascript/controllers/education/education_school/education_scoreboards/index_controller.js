@@ -98,7 +98,9 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
         row[educationExam.id] = `
           <div>
             ${educationExamToStudent.score ? 
-              `<div>${educationExamToStudent.score}</div>`
+              `<div data-action="click->${this.identifier}#openModalUpdateExam" data-${this.identifier}-education-exam-to-class-id-param="${educationExamToStudent.education_exam_to_class_id}" data-${this.identifier}-education-exam-id-param="${educationExam.id}">
+                ${educationExamToStudent.score}
+              </div>`
               :
               `<div class="text-red-500 cursor-copy" data-action="click->${this.identifier}#openModalUpdateExam" data-${this.identifier}-education-exam-to-class-id-param="${educationExamToStudent.education_exam_to_class_id}" data-${this.identifier}-education-exam-id-param="${educationExam.id}">
                 <svg class="w-6 h-6 stroke-gray-800 dark:stroke-slate-200 fill-gray-100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +119,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
     openModal({
       html: this.updateExamModalHTML(e),
       customClass: {
-        popup: '!p-0 !w-4/5 dark:!bg-gray-700 dark:!text-gray-200',
+        popup: '!p-0 !w-1/2 dark:!bg-gray-700 dark:!text-gray-200',
       },
       options: {
         showCloseButton: true,
@@ -131,25 +133,26 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
     const educationExamId = e.params.educationExamId
     const educationExam = this.educationExams.find((educationExam) => educationExam.id === educationExamId)
     return `
-      <div class="mx-auto w-full mt-10">
+      <div class="w-4/5 mt-10 mx-auto">
         ${createForm({
           action: `/education_scoreboards/import`,
           method: "patch",
           html: `
-            <div class="flex flex-row gap-x-4 justify-between items-center mx-10">
-              ${educationExam.name}
-            </div>
             ${createInputTag({
               type: "hidden",
               name: "education_exam_to_class_id",
               value: educationExamToClassId,
             })}
-            <div class="flex flex-col gap-y-4 justify-between items-center mx-10">
+            <div class="w-full grid grid-cols-1 gap-y-4 justify-between items-center">
+              <div class="flex flex-row gap-x-4 justify-between items-center">
+                <div class="w-3/4">${educationExam.name}</div>
+                <div class="w-1/4">Score</div>
+              </div>
               ${this.educationStudents.map((educationStudent) => {
                 const educationExamToStudent = this.educationExamToStudents.find((educationExamToStudent) => educationExamToStudent.education_exam_id === educationExamId && educationExamToStudent.education_student_id === educationStudent.id)
                 return `
-                  <div class="flex flex-row gap-x-4 justify-between items-center mx-10">
-                    <div class="my-5">
+                  <div class="flex flex-row gap-x-4 justify-between items-center">
+                    <div class="w-3/4 my-5">
                       ${createSelectTag({
                         type: "text",
                         className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
@@ -158,7 +161,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
                         options: [{ value: educationExamToStudent.id, text: educationStudent.name }],
                       })}
                     </div>
-                    <div class="my-5">
+                    <div class="w-1/4 my-5">
                       ${createInputTag({
                         type: "number",
                         className: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
