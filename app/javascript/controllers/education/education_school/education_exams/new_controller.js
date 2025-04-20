@@ -2,6 +2,7 @@ import { identifier, transferToValue, createForm, createSelectTag, createInputTa
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 
 export default class extends Education_EducationSchool_LayoutController {
+  static targets = ["educationClassSelectTag", "educationSubjectSelectTag"]
 
   initBinding() {
     super.initBinding()
@@ -10,16 +11,47 @@ export default class extends Education_EducationSchool_LayoutController {
     this.educationCategories = ServerData.data.education_categories
   }
 
+  educationSchoolIdSelectChange(event) {
+    const selectedEducationSchoolId = event.target.value
+    const selectedEducationSchool = this.educationSchools.find((school) => school.id === selectedEducationSchoolId)
+    const selectedEducationSubjects = selectedEducationSchool.education_subjects
+    const selectedEducationSubjectsChoiceData = selectedEducationSubjects.map((educationSubject) => {
+      return { value: educationSubject.id, label: educationSubject.name }
+    })
+    const selectedEducationSubjectsChoice = this.educationSubjectSelectTagController().choice
+    selectedEducationSubjectsChoice.clearStore()
+    selectedEducationSubjectsChoice.setChoices(selectedEducationSubjectsChoiceData)
+
+    const selectedEducationClasses = selectedEducationSchool.education_classes
+    const selectedEducationClassesChoiceData = selectedEducationClasses.map((educationClass) => {
+      return { value: educationClass.id, label: educationClass.name }
+    })
+    const selectedEducationClassesChoice = this.educationClassSelectTagController().choice
+    selectedEducationClassesChoice.clearStore()
+    selectedEducationClassesChoice.setChoices(selectedEducationClassesChoiceData)
+  }
+
+  educationClassSelectTagController() {
+    return this.application.getControllerForElementAndIdentifier(this.educationClassSelectTagTarget, this.choicesControllerIdentifier)
+  }
+
+  educationSubjectSelectTagController() {
+    return this.application.getControllerForElementAndIdentifier(this.educationSubjectSelectTagTarget, this.choicesControllerIdentifier)
+  }
+
   contentHTML() {
     return `
       <div class="mx-auto w-4/5 mt-10 flex flex-col gap-y-4">
-        <h1 class="text-2xl font-semibold">Edit Exam</h1>
+        <h1 class="text-2xl font-semibold">New Exam</h1>
         <div class="border border-gray-200 rounded-lg p-4">${this.editFormHTML()}</div>
       </div>
     `
   }
 
   editFormHTML() {
+    const initialEducationSchool = this.educationSchools[0]
+    const initialEducationSubjects = initialEducationSchool.education_subjects
+    const initialEducationClasses = initialEducationSchool.education_classes
     return createForm({
       attributes: `action="/education_exams"`,
       method: "post",
@@ -66,11 +98,12 @@ export default class extends Education_EducationSchool_LayoutController {
             name: "education_exam[education_school_id]",
             id: "education_exam_education_school_id",
             required: true,
-            values: this.educationSchools[0].id,
-            options: this.educationSchools.map((school) => {
-              return { value: school.id, text: school.name }
+            values: initialEducationSchool.id,
+            options: this.educationSchools.map((educationSchool) => {
+              return { value: educationSchool.id, text: educationSchool.name }
             }),
             dataController: this.choicesControllerIdentifier,
+            attributes: ` data-action="change->${this.identifier}#educationSchoolIdSelectChange"`,
           })}
         </div>
 
@@ -82,10 +115,11 @@ export default class extends Education_EducationSchool_LayoutController {
             id: "education_exam_education_subject_id",
             required: true,
             blank: true,
-            options: this.educationSchools[0].education_subjects.map((subject) => {
+            options: initialEducationSubjects.map((subject) => {
               return { value: subject.id, text: subject.name }
             }),
             dataController: this.choicesControllerIdentifier,
+            attributes: ` data-${this.identifier}-target="educationSubjectSelectTag"`,
           })}
         </div>
 
@@ -110,10 +144,11 @@ export default class extends Education_EducationSchool_LayoutController {
             name: "education_exam[education_class_id][]",
             id: "education_exam_education_class_id",
             required: true,
-            options: this.educationSchools[0].education_classes.map((klass) => {
-              return { value: klass.id, text: klass.name }
+            options: initialEducationClasses.map((educationClass) => {
+              return { value: educationClass.id, text: educationClass.name }
             }),
             dataController: this.choicesControllerIdentifier,
+            attributes: ` data-${this.identifier}-target="educationClassSelectTag"`,
             multiple: true,
           })}
         </div>
