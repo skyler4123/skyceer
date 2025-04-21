@@ -21,7 +21,7 @@ Hung:
     answer: TBD
   - question: What is the Rails autoloader, and how does it work?
     answer: TBD
-  - question: What is difference between `before_action` and `before_commit` in Rails? 
+  - question: What is difference between `before_action` and `after_commit` in Rails? 
     answer: TBD
   - question: How do you handle a method that currently haves a lot of logics?
     answer: TBD
