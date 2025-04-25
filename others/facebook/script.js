@@ -50,7 +50,7 @@ numberFrom = 0
 numberTo = 999
 position = 1
 
-commentGroupClass = "html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x18d9i69 x1swvt13 x1pi30zi"
+commentGroupClass = "html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x18d9i69 x1ye3gou xn6708d x1n2onr6"
 commentClass = "x1lliihq xjkvuk6 x1iorvi4"
 arrayRange = (start, stop, step = 1) =>
     Array.from(
