@@ -5,9 +5,9 @@ export default class extends Education_EducationSchool_LayoutController {
   // contentHTML() {
   //   return this.serverHTML
   // }
-
-  educationTeacher() {
-    return ServerData.data.education_teacher
+  initBinding() {
+    super.initBinding()
+    this.educationTeacher = ServerData.data.education_teacher
   }
 
   contentHTML() {
@@ -17,16 +17,16 @@ export default class extends Education_EducationSchool_LayoutController {
           <div>
             <p class="my-5">
               <strong class="block font-medium mb-1">Name:</strong>
-              ${this.educationTeacher().name}
+              ${this.educationTeacher.name}
             </p>
             <p class="my-5">
               <strong class="block font-medium mb-1">Email:</strong>
-              ${this.educationTeacher().email}
+              ${this.educationTeacher.email}
             </p>
             <div>
               <strong class="block font-medium mb-1">Schools:</strong>
               <ul>
-                ${this.educationTeacher().education_schools.map(educationSchool => `
+                ${this.educationTeacher.education_schools.map(educationSchool => `
                   <li>
                     <a href="/education_schools/${educationSchool.id}">${educationSchool.name}</a>
                   </li>
@@ -35,7 +35,7 @@ export default class extends Education_EducationSchool_LayoutController {
             </div>
           </div>
 
-          <a class="mt-2 rounded-lg py-3 px-5 bg-gray-100 dark:bg-gray-800 inline-block font-medium" href="/education_teachers/${this.educationTeacher().id}/edit">Edit this education school</a>
+          <a class="mt-2 rounded-lg py-3 px-5 bg-gray-100 dark:bg-gray-800 inline-block font-medium" href="/education_teachers/${this.educationTeacher.id}/edit">Edit this education school</a>
         </div>
       </div>
     `

@@ -12,7 +12,7 @@ export default class Education_EducationSchool_EducationStudents_ImportViewContr
   }
 
   initBinding() {
-    console.log(readXlsxFile)
+    // console.log(readXlsxFile)
     super.initBinding()
     this.csvController = Education_CsvController
   }

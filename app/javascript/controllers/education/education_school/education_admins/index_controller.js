@@ -5,6 +5,11 @@ import Education_EducationSchool_LayoutController from "controllers/education/ed
 
 export default class Education_EducationSchool_EducationAdmins_IndexController extends Education_EducationSchool_LayoutController {
 
+  initBinding() {
+    super.initBinding()
+    this.educationAdmins = ServerData.data.education_admins
+  }
+
   init() {
     this.initHTML()
     this.initTable()
@@ -15,7 +20,7 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
   }
 
   initTable() {
-    let tableData = this.educationAdmins().map((row) => {
+    let tableData = this.educationAdmins.map((row) => {
       return {
         ...row,
         name: `<a href="/education_admins/${row.id}/edit">${row.name}</a>`,
@@ -43,10 +48,6 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
         {title: "Schools", field: "school_names", width: 150, formatter: "html"},
       ],
     });
-  }
-
-  educationAdmins() {
-    return ServerData.data.education_admins
   }
 
   defaultHTML() {

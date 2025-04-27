@@ -5,6 +5,11 @@ import Education_EducationSchool_LayoutController from "controllers/education/ed
 
 export default class Education_EducationSchool_EducationCategories_IndexController extends Education_EducationSchool_LayoutController {
 
+  initBinding() {
+    super.initBinding()
+    this.educationCategories = ServerData.data.education_categories
+  }
+
   init() {
     this.initHTML()
     this.initTable()
@@ -15,7 +20,7 @@ export default class Education_EducationSchool_EducationCategories_IndexControll
   }
 
   initTable() {
-    let tableData = this.educationCategories().map((row) => {
+    let tableData = this.educationCategories.map((row) => {
       return {
         ...row,
         name: `<a href="/education_categories/${row.id}/edit">${row.name}</a>`,
@@ -42,10 +47,6 @@ export default class Education_EducationSchool_EducationCategories_IndexControll
         {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
       ],
     });
-  }
-
-  educationCategories() {
-    return ServerData.data.education_categories
   }
 
   defaultHTML() {

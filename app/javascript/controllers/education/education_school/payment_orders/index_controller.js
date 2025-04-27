@@ -4,6 +4,12 @@ import Education_EducationSchool_LayoutController from "controllers/education/ed
 import { identifier, transferToValue } from "controllers/education/helpers/data_helpers"
 
 export default class Education_EducationSchool_PaymentOrders_IndexController extends Education_EducationSchool_LayoutController {
+  
+  initBinding() {
+    super.initBinding()
+    this.paymentOrders = ServerData.data.payment_orders
+  }
+
   init() {
     this.initHTML()
     this.initTable()
@@ -14,7 +20,7 @@ export default class Education_EducationSchool_PaymentOrders_IndexController ext
   }
 
   initTable() {
-    let tableData = this.paymentOrders().map((row) => {
+    let tableData = this.paymentOrders.map((row) => {
       return {
         ...row,
         payment_customerable_name: row.payment_customer.payment_customerable ? row.payment_customer.payment_customerable.name : "",
@@ -47,10 +53,6 @@ export default class Education_EducationSchool_PaymentOrders_IndexController ext
 
       ],
     });
-  }
-
-  paymentOrders() {
-    return ServerData.data.payment_orders
   }
 
   defaultHTML() {
