@@ -263,6 +263,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_education_exam_to_classes_on_discarded_at"
     t.index ["education_class_id"], name: "index_education_exam_to_classes_on_education_class_id"
     t.index ["education_exam_id"], name: "index_education_exam_to_classes_on_education_exam_id"
     t.index ["education_subject_id"], name: "index_education_exam_to_classes_on_education_subject_id"
