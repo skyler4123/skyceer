@@ -40,7 +40,6 @@ env:
     - POSTGRES_PASSWORD
     - MONGO_URL
     - ELASTICSEARCH_URL
-    - TINYMCE_URL
 
 # Use a different ssh user than root
 # ssh:
