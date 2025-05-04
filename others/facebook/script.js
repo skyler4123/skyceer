@@ -20,8 +20,8 @@ findElementByTextXPath = (text) => {
   const result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
   return result.singleNodeValue; // Return the first matching element
 }
-scrollElementClass = "x78zum5 xdt5ytf x1iyjqo2 x1n2onr6"
-scrollElement = document.querySelectorAll(`[class="${scrollElementClass}"]`)[2]
+scrollElementClass = "x1jx94hy x78zum5 xdt5ytf x2lah0s xw2csxc x1odjw0f xmd6oqt x13o0s5z"
+scrollElement = document.querySelectorAll(`[class="${scrollElementClass}"]`)[0]
 viewMoreCommentsTextEN = "View more comments"
 viewMoreCommentsTextVN = "Xem thêm bình luận"
 viewMoreCommentsElement = findElementByTextXPath(viewMoreCommentsTextEN) || findElementByTextXPath(viewMoreCommentsTextVN)
@@ -62,6 +62,12 @@ Array.prototype.diff = function (a) {
     return a.indexOf(i) === -1;
   });
 };
+countOccurrences = (arr) => {
+  return arr.reduce((acc, num) => {
+    acc[num] = (acc[num] || 0) + 1; // Increment count or initialize to 1
+    return acc;
+  }, {});
+};
 numberSample = arrayRange(numberFrom, numberTo)
 commentGroupElement = document.querySelector(`[class="${commentGroupClass}"]`)
 commentElements = commentGroupElement.querySelectorAll(`[class="${commentClass}"]`)
@@ -74,6 +80,7 @@ commentedNumbers = commentNumbers.map(comment => {
 })
 diff = numberSample.diff(commentedNumbers)
 console.log(`Commented Numbers at position ${position}:`, commentedNumbers)
+console.log("Commented Numbers with count times:", countOccurrences(commentedNumbers))
 console.log("Available Number:", diff)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
