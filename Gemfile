@@ -46,8 +46,21 @@ gem "bcrypt"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
+# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_cache"
+gem "solid_queue"
+gem "solid_cable"
+gem "mission_control-jobs"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
+
+
+# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
+gem "kamal", require: false
+
+# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+gem "thruster", require: false
 
 # Use Sass to process CSS
 # gem "sassc-rails"
@@ -106,11 +119,6 @@ gem 'rack-cors'
 gem 'rswag-api'
 gem 'rswag-ui'
 
-gem "solid_queue"
-gem "solid_cable"
-gem "solid_cache"
-gem "mission_control-jobs"
-
 gem "elasticsearch-model"
 gem "elasticsearch-rails"
 gem "elasticsearch-persistence"
@@ -122,7 +130,6 @@ gem 'omniauth-google-oauth2'
 gem 'money-rails'
 gem 'eu_central_bank'
 
-gem "kamal"
 gem 'silencer', require: false
 gem 'country_select'
 gem "pundit"
