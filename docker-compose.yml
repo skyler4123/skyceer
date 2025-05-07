@@ -3,11 +3,11 @@ services:
   web:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    environment:
-      PWD: '/rails'
-      DATABASE_URL: "postgres://postgres:password@postgres:5432/skyceer_development"
-      MONGODB_URL: "mongodb://mongo:27017/skyceer_development"
-      ELASTICSEARCH_URL: "http://elasticsearch:9200"
+    # environment:
+    #   PWD: '/rails'
+    #   DATABASE_URL: "postgres://postgres:password@postgres:5432/skyceer_development"
+    #   MONGODB_URL: "mongodb://mongo:27017/skyceer_development"
+    #   ELASTICSEARCH_URL: "http://elasticsearch:9200"
     volumes:
       - .:/rails
     ports:
@@ -18,7 +18,7 @@ services:
       - elasticsearch
 
   postgres:
-    image: postgres:15
+    image: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -28,24 +28,24 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   mongo:
-    image: mongo:6
+    image: mongo
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
 
-  job:
-    build: .
-    command: bash -c "bin/jobs"
-    environment:
-      DATABASE_URL: "postgres://postgres:password@postgres:5432/skyceer_development"
-      MONGODB_URL: "mongodb://mongo:27017/skyceer_development"
-    depends_on:
-      - postgres
-      - mongo
+  # job:
+  #   build: .
+  #   command: bash -c "bin/jobs"
+  #   environment:
+  #     DATABASE_URL: "postgres://postgres:password@postgres:5432/skyceer_development"
+  #     MONGODB_URL: "mongodb://mongo:27017/skyceer_development"
+  #   depends_on:
+  #     - postgres
+  #     - mongo
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.9.0
+    image: elasticsearch:8.14.1
     environment:
       discovery.type: single-node
       xpack.security.enabled: "false"
@@ -54,14 +54,14 @@ services:
     volumes:
       - es_data:/usr/share/elasticsearch/data
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:8.9.0
-    environment:
-      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
+  # kibana:
+  #   image: kibana:8.14.1
+  #   environment:
+  #     ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+  #   ports:
+  #     - "5601:5601"
+  #   depends_on:
+  #     - elasticsearch
 
 volumes:
   postgres_data:

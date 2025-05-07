@@ -1,26 +1,29 @@
-production:
-  clients:
-    default:
-      uri: <%= ENV.fetch('MONGO_URL') { "mongodb://127.0.0.1:27017/skyler_production" } %>
-      options:
-        server_selection_timeout: 5
-
 development:
   clients:
     default:
-      uri: <%= ENV.fetch('MONGO_URL') { "mongodb://127.0.0.1:27017/skyler_development" } %>
+      database: skyceer_development
+      hosts:
+        - "<%= ENV.fetch('MONGO_HOST') { 'localhost' } %>:<%= ENV.fetch('MONGO_PORT') { 27017 } %>"
       options:
         server_selection_timeout: 5
-  options:
 
 test:
   clients:
     default:
-      uri: <%= ENV.fetch('MONGO_URL') { "mongodb://127.0.0.1:27017/skyler_test" } %>
+      database: skyceer_test
+      hosts:
+        - "<%= ENV.fetch('MONGO_HOST') { 'localhost' } %>:<%= ENV.fetch('MONGO_PORT') { 27017 } %>"
       options:
         server_selection_timeout: 5
-  options:
 
+production:
+  clients:
+    default:
+      database: skyceer_production
+      hosts:
+        - "<%= ENV.fetch('MONGO_HOST') { 'localhost' } %>:<%= ENV.fetch('MONGO_PORT') { 27017 } %>"
+      options:
+        server_selection_timeout: 5
 
 
 
