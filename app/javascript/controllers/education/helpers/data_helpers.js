@@ -553,3 +553,19 @@ export const sortByField = (array, field, order = 'asc') => {
     return 0; // If values are equal
   });
 };
+
+export const render = (controller, {className = "", values = [], attributes = ""}, children = null) => {
+
+  return `
+    <div
+      data-controller="${identifier(controller)}"
+      class="${className}"
+      ${values.map((value) => {
+        return `data-${value.key}="${value.value}"`;
+      }
+      ).join(' ')}
+      ${attributes}
+    >
+      ${children}
+    </div>`
+};
