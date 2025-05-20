@@ -3,11 +3,11 @@ services:
   web:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    # environment:
-    #   PWD: '/rails'
-    #   DATABASE_URL: "postgres://postgres:password@postgres:5432/skyceer_development"
-    #   MONGODB_URL: "mongodb://mongo:27017/skyceer_development"
-    #   ELASTICSEARCH_URL: "http://elasticsearch:9200"
+    environment:
+      RAILS_ENV: development
+      POSTGRES_HOST: postgres
+      ELASTICSEARCH_HOST: elasticsearch
+      MONGO_HOST: mongo
     volumes:
       - .:/rails
     ports:
