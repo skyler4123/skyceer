@@ -5,13 +5,13 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     # command: bash -c "rm -f tmp/pids/server.pid && bin/dev"
     environment:
-      # PWD: /rails
+      # PWD: /skyceer
       RAILS_ENV: development
       POSTGRES_HOST: postgres
       ELASTICSEARCH_HOST: elasticsearch
       MONGO_HOST: mongo
     volumes:
-      - .:/rails
+      - .:/skyceer
     ports:
       - "3000:3000"
     depends_on:
