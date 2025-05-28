@@ -65,6 +65,6 @@ class ReportUsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_user_params
-      params.expect(report_user: [ :report_userable_id, :report_userable_type, :discarded_at ])
+      params.expect(report_user: [ :report_ownerable_id, :report_ownerable_type, :discarded_at ])
     end
 end

@@ -87,14 +87,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.string "name"
     t.string "uid"
     t.string "color"
-    t.string "calendar_userable_type", null: false
-    t.uuid "calendar_userable_id", null: false
+    t.string "calendar_ownerable_type", null: false
+    t.uuid "calendar_ownerable_id", null: false
     t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_userable_type", "calendar_userable_id"], name: "index_calendar_categories_on_calendar_userable"
+    t.index ["calendar_ownerable_type", "calendar_ownerable_id"], name: "index_calendar_categories_on_calendar_ownerable"
     t.index ["parent_category_id"], name: "index_calendar_categories_on_parent_category_id"
   end
 
@@ -110,8 +110,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "calendar_userable_type", null: false
-    t.uuid "calendar_userable_id", null: false
+    t.string "calendar_ownerable_type", null: false
+    t.uuid "calendar_ownerable_id", null: false
     t.string "calendar_groupable_type", null: false
     t.uuid "calendar_groupable_id", null: false
     t.string "uid"
@@ -144,7 +144,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calendar_groupable_type", "calendar_groupable_id"], name: "index_calendar_events_on_calendar_groupable"
-    t.index ["calendar_userable_type", "calendar_userable_id"], name: "index_calendar_events_on_calendar_userable"
+    t.index ["calendar_ownerable_type", "calendar_ownerable_id"], name: "index_calendar_events_on_calendar_ownerable"
   end
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -681,12 +681,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "report_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "report_userable_type", null: false
-    t.uuid "report_userable_id", null: false
+    t.string "report_ownerable_type", null: false
+    t.uuid "report_ownerable_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["report_userable_type", "report_userable_id"], name: "index_report_users_on_report_userable"
+    t.index ["report_ownerable_type", "report_ownerable_id"], name: "index_report_users_on_report_ownerable"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -699,14 +699,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "username"
     t.string "uid"
-    t.string "email", null: false
+    t.string "email"
     t.string "password_digest", null: false
     t.string "name"
     t.string "avatar"
     t.integer "role"
     t.integer "education_role"
-    t.uuid "education_school_group_user_id"
     t.boolean "verified", default: false, null: false
     t.uuid "address_id"
     t.datetime "discarded_at"
@@ -714,8 +714,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
-    t.index ["education_school_group_user_id"], name: "index_users_on_education_school_group_user_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -791,5 +791,4 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "report_tickets", "report_users"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "addresses"
-  add_foreign_key "users", "users", column: "education_school_group_user_id"
 end

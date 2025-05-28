@@ -3,6 +3,7 @@ class NosqlUser
   include Mongoid::Timestamps
   
   field :user_id, type: String
+  field :username, type: String
   field :uid, type: String
   field :address_id, type: String
   field :email, type: String

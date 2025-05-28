@@ -33,6 +33,7 @@ SIGN_IN_SUCCESS_MESSAGE = "Signed in successfully"
 SIGN_IN_FAILED_MESSAGE = "That email or password is incorrect"
 SIGN_UP_SUCCESS_MESSAGE = "Welcome! You have signed up successfully"
 
+AMONYMOUS_USERNAME = "amonymous"
 AMONYMOUS_EMAIL = "amonymous@system.com"
  
 MISSION_CONTROL_FAILED_MESSAGE = "You are not authorized to access this page"

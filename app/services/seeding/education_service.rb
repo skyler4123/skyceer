@@ -1,6 +1,5 @@
 class Seeding::EducationService
   def self.run
-    self.education_school_group_user
     self.education_school_user
     self.education_category
     self.education_school
@@ -23,7 +22,7 @@ class Seeding::EducationService
     self.education_exam_to_student
   end
 
-  def self.create_user(education_role: :education_school, education_school_group_user: nil, n: 0)
+  def self.create_user(education_role: :education_school, n: 0)
     user = User.create!(
       email: "#{education_role}#{n}@education.com",
       name: "#{education_role} #{n}",
@@ -31,27 +30,13 @@ class Seeding::EducationService
       password: 'password1234',
       password_confirmation: 'password1234',
       education_role: education_role,
-      education_school_group_user: education_school_group_user,
     )
     Seeding::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
   end
 
-  def self.education_school_group_user
-    2.times do |n|
-      Seeding::EducationService.create_user(education_role: :education_school_group, n: n)
-    end
-  end
-
   def self.education_school_user
-    education_school_group_users = User.where(education_role: :education_school_group)
-    education_school_group_users.each do |education_school_group_user|
-      2.times do |n|
-        Seeding::EducationService.create_user(
-          education_role: :education_school,
-          education_school_group_user: education_school_group_user,
-          n: n
-        )
-      end
+    2.times do |n|
+      Seeding::EducationService.create_user(education_role: :education_school, n: n)
     end
   end
 
@@ -64,9 +49,6 @@ class Seeding::EducationService
           user: user
         )
       end
-    end
-    EducationSchool.all.each do |education_school|
-      education_school.education_categories << education_school.user.education_categories.sample
     end
   end
 
@@ -138,7 +120,7 @@ class Seeding::EducationService
 
   def self.education_admin
     EducationSchool.all.each do |education_school|
-      5.times do
+      2.times do
         admin_user = Seeding::UserService.create(education_role: :education_admin)
         education_admin = EducationAdmin.create!(
           name: "#{Faker::Name.name} #{Faker::Number.number}",

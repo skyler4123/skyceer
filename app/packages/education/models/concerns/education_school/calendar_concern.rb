@@ -3,7 +3,7 @@ module EducationSchool::CalendarConcern
   
   included do
 
-    has_many :calendar_groups, as: :calendar_userable, dependent: :destroy
+    has_many :calendar_events, as: :calendar_ownerable, dependent: :destroy
     
   end
 

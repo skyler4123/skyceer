@@ -8,6 +8,7 @@ class Seeding::UserService
 
   def self.create(role: :normal, education_role: nil)
     user = User.create!(
+      username: Faker::Internet.unique.username(specifier: 5..20),
       email: Seeding::EmailService.demo_email_with_roles(role:, education_role:),
       password: "password1234",
       password_confirmation: "password1234",
@@ -23,6 +24,7 @@ class Seeding::UserService
 
   def self.create_amonymous(role: :normal, education_role: nil)
     user = User.create!(
+      username: AMONYMOUS_USERNAME,
       email: AMONYMOUS_EMAIL,
       password: "password1234",
       password_confirmation: "password1234",

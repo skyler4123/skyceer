@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   has_many :sessions, dependent: :destroy
 
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  # validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 12 }
 
   normalizes :email, with: -> { _1.strip.downcase }
@@ -28,6 +28,7 @@ class User < ApplicationRecord
 
   # Customize the user model here
   include User::ApplicationConcern
+  include User::ValidationConcern
   include User::ElasticsearchConcern
   include User::AvatarConcern
   include User::ImagesConcern

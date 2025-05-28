@@ -19,7 +19,7 @@ class Seeding::ReportService
   def self.report_user
     User.all.each do |user|
       ReportUser.create!(
-        report_userable: user
+        report_ownerable: user
       )
     end
   end
