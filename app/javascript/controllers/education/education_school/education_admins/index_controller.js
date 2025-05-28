@@ -24,7 +24,7 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
       return {
         ...row,
         name: `<a href="/education_admins/${row.id}/edit">${row.name}</a>`,
-        school_names: `<div>${row.education_schools.map((school) => `<span>${school.name}</span>`).join(",")}</div>`,
+        school_name: `<div>${row.education_school.name}</div>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
@@ -45,7 +45,7 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
       },
       columns:[                 //define the table columns
         {title:"Name", field: "name", formatter: "html"},
-        {title: "Schools", field: "school_names", width: 150, formatter: "html"},
+        {title: "School", field: "school_name", width: 150, formatter: "html"},
       ],
     });
   }
