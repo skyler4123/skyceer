@@ -1,5 +1,6 @@
 class Seeding::EducationService
   def self.run
+    self.education_school_group_user
     self.education_school_user
     self.education_category
     self.education_school
@@ -9,8 +10,8 @@ class Seeding::EducationService
     self.education_room
     self.education_admin
     self.education_teacher
-    self.education_student
     self.education_parent
+    self.education_student
     self.education_question
     self.education_exam
     self.education_lesson
@@ -22,19 +23,35 @@ class Seeding::EducationService
     self.education_exam_to_student
   end
 
-  def self.create_user(education_role: :education_school, n: 0)
+  def self.create_user(education_role: :education_school, education_school_group_user: nil, n: 0)
     user = User.create!(
       email: "#{education_role}#{n}@education.com",
+      name: "#{education_role} #{n}",
+      uid: "#{education_role}#{n}",
       password: 'password1234',
       password_confirmation: 'password1234',
       education_role: education_role,
+      education_school_group_user: education_school_group_user,
     )
     Seeding::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
   end
 
-  def self.education_school_user
+  def self.education_school_group_user
     2.times do |n|
-      Seeding::EducationService.create_user(education_role: :education_school, n: n)
+      Seeding::EducationService.create_user(education_role: :education_school_group, n: n)
+    end
+  end
+
+  def self.education_school_user
+    education_school_group_users = User.where(education_role: :education_school_group)
+    education_school_group_users.each do |education_school_group_user|
+      2.times do |n|
+        Seeding::EducationService.create_user(
+          education_role: :education_school,
+          education_school_group_user: education_school_group_user,
+          n: n
+        )
+      end
     end
   end
 
@@ -120,17 +137,16 @@ class Seeding::EducationService
   end
 
   def self.education_admin
-    User.where(education_role: :education_school).each do |user|
+    EducationSchool.all.each do |education_school|
       5.times do
         admin_user = Seeding::UserService.create(education_role: :education_admin)
         education_admin = EducationAdmin.create!(
           name: "#{Faker::Name.name} #{Faker::Number.number}",
           email: Faker::Internet.email,
           user: admin_user,
-          education_school_user: user,
+          education_school: education_school,
         )
-        education_admin.education_schools << user.education_schools.sample
-        education_admin.education_categories << user.education_categories.sample
+        education_admin.education_categories << education_school.user.education_categories.sample
         Seeding::AttachmentService.attach(record: education_admin, relation: :image_attachments, number: 1)
       end
     end
@@ -144,45 +160,46 @@ class Seeding::EducationService
           name: "#{Faker::Name.name} #{Faker::Number.number}",
           email: Faker::Internet.email,
           user: teacher_user,
-          education_school_user: education_school.user,
+          education_school: education_school,
         )
-        education_teacher.education_schools << education_school
+        # education_teacher.education_school = education_school
         education_teacher.education_categories << education_school.user.education_categories.sample
         Seeding::AttachmentService.attach(record: education_teacher, relation: :image_attachments, number: 1)
       end
     end
   end
 
-  def self.education_student
-    User.where(education_role: :education_school).each do |user|
-      40.times do
-        student_user = Seeding::UserService.create(education_role: :education_student)
-        education_student = EducationStudent.create!(
-          name: "#{Faker::Name.name} #{Faker::Number.number}",
-          email: Faker::Internet.email,
-          user: student_user,
-          education_school_user: user,
-        )
-        education_student.education_schools << user.education_schools.sample
-        education_student.education_categories << user.education_categories.sample
-        Seeding::AttachmentService.attach(record: education_student, relation: :image_attachments, number: 1)
-      end
-    end
-  end
-
   def self.education_parent
-    User.where(education_role: :education_school).each do |user|
+    EducationSchool.all.each do |education_school|
       40.times do
         parent_user = Seeding::UserService.create(education_role: :education_parent)
         education_parent = EducationParent.create!(
           name: "#{Faker::Name.name} #{Faker::Number.number}",
           email: Faker::Internet.email,
           user: parent_user,
-          education_school_user: user,
+          education_school: education_school,
         )
-        education_parent.education_schools << user.education_schools.sample
-        education_parent.education_categories << user.education_categories.sample
+        # education_parent.education_school = user.education_school
+        education_parent.education_categories << education_school.user.education_categories.sample
         Seeding::AttachmentService.attach(record: education_parent, relation: :image_attachments, number: 1)
+      end
+    end
+  end
+
+  def self.education_student
+    EducationSchool.all.each do |education_school|
+      40.times do
+        student_user = Seeding::UserService.create(education_role: :education_student)
+        education_student = EducationStudent.create!(
+          name: "#{Faker::Name.name} #{Faker::Number.number}",
+          email: Faker::Internet.email,
+          user: student_user,
+          education_school: education_school,
+          education_parent: education_school.education_parents.sample,
+        )
+        # education_student.education_school = user.education_school
+        education_student.education_categories << education_school.user.education_categories.sample
+        Seeding::AttachmentService.attach(record: education_student, relation: :image_attachments, number: 1)
       end
     end
   end

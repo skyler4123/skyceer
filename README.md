@@ -18,12 +18,12 @@ Rules
 Rails
   ##
     docker build -t rails .
-    docker run -d -it --name web -p 3000:3000 -v $PWD:/rails rails
+    docker run -d -it --name web -p 3000:3000 -v $PWD:/skyceer rails
   ##
 Solid queue + cache
   ##
     docker build -t rails .
-    docker run -d --name solid -v $PWD:/rails rails bin/jobs
+    docker run -d --name solid -v $PWD:/skyceer rails bin/jobs
   ##
 Solid
   ##

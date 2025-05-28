@@ -63,10 +63,10 @@ module Skyceer
 
     ### Configurations for Thruster
     # Make sure public files are accessible
-    config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+    # config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
     # Ensure that assets are compressed
-    config.assets.compress = true
+    # config.assets.compress = true
     ### Configurations for Thruster
   end
 end

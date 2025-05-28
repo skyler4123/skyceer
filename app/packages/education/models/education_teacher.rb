@@ -3,10 +3,11 @@ class EducationTeacher < ApplicationRecord
   include EducationTeacher::ImagesConcern
 
   belongs_to :user, optional: true
-  belongs_to :education_school_user, class_name: 'User'
+  belongs_to :education_school
+  # belongs_to :education_school_user, class_name: 'User'
   
-  has_many :education_school_appointments, as: :appoint_to, dependent: :destroy
-  has_many :education_schools, through: :education_school_appointments
+  # has_many :education_school_appointments, as: :appoint_to, dependent: :destroy
+  # has_many :education_schools, through: :education_school_appointments
 
   has_many :education_questions, dependent: :destroy
   has_many :education_lessons, dependent: :destroy

@@ -11,6 +11,11 @@ class EducationSchool < ApplicationRecord
   has_many :education_students, through: :education_school_appointments, source: :appoint_to, source_type: 'EducationStudent'
   has_many :education_parents, through: :education_school_appointments, source: :appoint_to, source_type: 'EducationParent'
 
+  # has_many :education_admins, dependent: :destroy
+  # has_many :education_teachers, dependent: :destroy
+  # has_many :education_students, dependent: :destroy
+  # has_many :education_parents, dependent: :destroy
+
   has_many :education_category_appointments, as: :appoint_to, dependent: :destroy
   has_many :education_categories, through: :education_category_appointments
 

@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :avatar
       t.integer :role
       t.integer :education_role
+      t.references :education_school_group_user, null: true, foreign_key: { to_table: :users }, type: :uuid
       t.boolean :verified, null: false, default: false
       t.references :address, null: true, foreign_key: true, type: :uuid
       t.datetime :discarded_at
