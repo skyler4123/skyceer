@@ -4,10 +4,14 @@ import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 
 export default class Education_EducationSchool_EducationAdmins_IndexController extends Education_EducationSchool_LayoutController {
+  static values = {
+    educationAdmins: { type: Array, default: [] },
+  }
 
   initBinding() {
     super.initBinding()
-    this.educationAdmins = ServerData.data.education_admins
+    // this.educationAdmins = ServerData.data.education_admins
+    this.educationAdminsValue = ServerData.data.education_admins
   }
 
   init() {
@@ -17,6 +21,14 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
 
   initHTML() {
     this.contentTarget.innerHTML = this.defaultHTML()
+  }
+
+  educationAdminsValueChanged(value, previousValue) {
+    this.render()
+  }
+
+  render() {
+
   }
 
   initTable() {
