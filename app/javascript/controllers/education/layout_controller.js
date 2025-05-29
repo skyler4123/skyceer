@@ -3,10 +3,16 @@ import Education_HeaderController from "controllers/education/header_controller"
 import { identifier } from "controllers/education/helpers/data_helpers"
 import Education_PaginationController from "controllers/education/pagination_controller";
 import Education_ChoicesController from "controllers/education/choices_controller";
+import Education_TableController from "controllers/education/table_controller"
 import ApplicationController from "controllers/application_controller"
 
 export default class Education_LayoutController extends ApplicationController {
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'table']
+  static values = {
+    pagination: { type: Object, default: {} },
+    flash: { type: Object, default: {} },
+    data: { type: Object, default: {} },
+  }
 
   initBinding() {
     this.serverHTML = this.element.innerHTML
@@ -15,6 +21,10 @@ export default class Education_LayoutController extends ApplicationController {
     this.paginationController = Education_PaginationController
     this.paginationData = ServerData.pagination
     this.choicesControllerIdentifier = identifier(Education_ChoicesController)
+    // this.choicesController = Education_ChoicesController
+    this.tableController = Education_TableController
+    this.flashValue = ServerData.flash || {}
+    this.paginationValue = ServerData.pagination || {}
   }
 
   initLayout() {

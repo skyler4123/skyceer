@@ -1,34 +1,36 @@
-import { Controller } from "@hotwired/stimulus"
 import { isEmpty } from "controllers/education/helpers/data_helpers"
+import ApplicationController from "controllers/application_controller"
 
 
-export default class Education_PaginationController extends Controller {
+export default class Education_PaginationController extends ApplicationController {
   static targets = ["page", "currentPage"]
   static values = {
     pagination: { type: Object, default: {} },
+    data: { type: Object, default: {} },
   }
   
-  // initialize if paginationValue is not empty
-  initialize() {
-    if (!this.canInitialize()) { return }
+  init() {
+    console.log(this)
     this.element.className = "w-full flex flex-row justify-center items-center gap-x-1"
-    this.initPaginationHTML()
+  }
+
+  dataValueChanged(value, previousValue) {
+    if (isEmpty(value)) { return }
+    this.render()
+  }
+
+  render() {
+    if (this.table) {this.table.destroy()}
+    this.initPagination()
     this.currentPageTarget.className = "flex justify-center items-center bg-slate-800 text-white hover:cursor-not-allowed min-w-9 rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm text-slate-600"
   }
 
-  canInitialize() {
-    if (isEmpty(this.paginationValue)) { return false }
-    if (this.paginationValue.last === 1) { return false }
-    return true
+  initPagination() {
+    this.element.innerHTML = this.defaultHTML()
   }
 
-  initPaginationHTML() {
-    this.element.innerHTML = this.paginationHTML(this.paginationValue)
-  }
-
-  paginationHTML() {
+  defaultHTML() {
     return `
-
       <a
         class="hover:cursor-pointer rounded-md border border-slate-300 py-2 px-3 text-center text-sm transition-all shadow-sm hover:shadow-lg text-slate-600 hover:text-white hover:bg-slate-800 hover:border-slate-800 focus:text-white focus:bg-slate-800 focus:border-slate-800 active:border-slate-800 active:text-white active:bg-slate-800"
         href="${this.urlForPageNumber(this.previousPage())}"
@@ -42,7 +44,7 @@ export default class Education_PaginationController extends Controller {
             ${ pageNumber !== '...' ?
               `
                 href="${this.urlForPageNumber(pageNumber)}"
-                data-${this.identifier}-target="page ${pageNumber === this.paginationValue.page && "currentPage"}"
+                data-${this.identifier}-target="page ${pageNumber === this.dataValue.page && "currentPage"}"
               `
             :
             '' }
@@ -57,19 +59,18 @@ export default class Education_PaginationController extends Controller {
       >
         Next
       </a>
-
     `
   }
 
   pageNumbers() {
     // create an array of numbers from 1 to last
-    let last = this.paginationValue.last
+    let last = this.dataValue.last
     let pageNumbers = []
     for (let i = 1; i <= last; i++) {
       pageNumbers.push(i)
     }
     // reduce array to size with page in the middle
-    let pageIndex = pageNumbers.indexOf(this.paginationValue.page)
+    let pageIndex = pageNumbers.indexOf(this.dataValue.page)
     if (pageIndex < 4) {
       pageNumbers = pageNumbers.slice(0, 9)
     } else if (pageIndex > pageNumbers.length - 5) {
@@ -97,13 +98,13 @@ export default class Education_PaginationController extends Controller {
 
   // nextPage is greater than page + 1 with maximum of last
   nextPage() {
-    let nextPage = this.paginationValue.page + 1
-    return nextPage > this.paginationValue.last ? this.paginationValue.last : nextPage
+    let nextPage = this.dataValue.page + 1
+    return nextPage > this.dataValue.last ? this.dataValue.last : nextPage
   }
 
   // previousPage is less than page - 1 with minimum of 1
   previousPage() {
-    let previousPage = this.paginationValue.page - 1
+    let previousPage = this.dataValue.page - 1
     return previousPage < 1 ? 1 : previousPage
   }
 
