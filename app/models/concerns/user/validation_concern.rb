@@ -9,7 +9,7 @@ module User::ValidationConcern
     
     # Custom validation to ensure email is not a disposable email address
     # validate :email_not_disposable
-    validates :username, uniqueness: { case_sensitive: true }, length: { minimum: 3, maximum: 20 }, allow_blank: true
+    validates :username, uniqueness: { case_sensitive: true }, length: { minimum: 3, maximum: 30 }, allow_blank: true
     validates :email, uniqueness: { case_sensitive: true }, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
 
     # Custom validation to ensure at least one of username or email is present

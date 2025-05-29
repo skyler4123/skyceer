@@ -44,7 +44,7 @@ class Seeding::EducationService
     User.all.where(education_role: :education_school).each do |user|
       50.times do
         EducationCategory.create!(
-          name: "Category #{Faker::Number.number}",
+          name: "Category #{SecureRandom.hex(3)}",
           parent_category: [EducationCategory.all.sample, nil].sample,
           user: user
         )
@@ -98,7 +98,7 @@ class Seeding::EducationService
     EducationSchool.all.each do |education_school|
       5.times do
         education_class = EducationClass.create!(
-          name: "Class #{Faker::Number.number}",
+          name: "Class #{SecureRandom.hex(3)}",
           education_school: education_school,
           education_course: education_school.education_courses.sample,
         )
@@ -111,7 +111,7 @@ class Seeding::EducationService
   def self.education_room
     EducationSchool.all.each do |education_school|
       10.times do
-        education_room = EducationRoom.create!(name: "Room #{Faker::Number.number}", education_school: education_school)
+        education_room = EducationRoom.create!(name: "Room #{SecureRandom.hex(3)}", education_school: education_school)
         education_room.education_categories << education_school.user.education_categories.sample
         Seeding::AttachmentService.attach(record: education_room, relation: :image_attachments, number: 1)
       end
@@ -120,10 +120,10 @@ class Seeding::EducationService
 
   def self.education_admin
     EducationSchool.all.each do |education_school|
-      2.times do
+      35.times do
         admin_user = Seeding::UserService.create(education_role: :education_admin)
         education_admin = EducationAdmin.create!(
-          name: "#{Faker::Name.name} #{Faker::Number.number}",
+          name: "#{Faker::Name.name} #{SecureRandom.hex(3)}",
           email: Faker::Internet.email,
           user: admin_user,
           education_school: education_school,
@@ -139,7 +139,7 @@ class Seeding::EducationService
       5.times do |n|
         teacher_user = Seeding::UserService.create(education_role: :education_teacher)
         education_teacher = EducationTeacher.create!(
-          name: "#{Faker::Name.name} #{Faker::Number.number}",
+          name: "#{Faker::Name.name} #{SecureRandom.hex(3)}",
           email: Faker::Internet.email,
           user: teacher_user,
           education_school: education_school,
@@ -156,7 +156,7 @@ class Seeding::EducationService
       40.times do
         parent_user = Seeding::UserService.create(education_role: :education_parent)
         education_parent = EducationParent.create!(
-          name: "#{Faker::Name.name} #{Faker::Number.number}",
+          name: "#{Faker::Name.name} #{SecureRandom.hex(3)}",
           email: Faker::Internet.email,
           user: parent_user,
           education_school: education_school,
@@ -173,7 +173,7 @@ class Seeding::EducationService
       40.times do
         student_user = Seeding::UserService.create(education_role: :education_student)
         education_student = EducationStudent.create!(
-          name: "#{Faker::Name.name} #{Faker::Number.number}",
+          name: "#{Faker::Name.name} #{SecureRandom.hex(3)}",
           email: Faker::Internet.email,
           user: student_user,
           education_school: education_school,
@@ -212,7 +212,7 @@ class Seeding::EducationService
         education_exam = EducationExam.create!(
           education_school: education_school,
           education_subject: education_school.education_subjects.sample,
-          name: "Exam #{Faker::Number.number}",
+          name: "Exam #{SecureRandom.hex(3)}",
           description: Faker::Movie.quote,
           status: rand(0..2)
         )
@@ -363,7 +363,7 @@ class Seeding::EducationService
           education_exam: education_exam,
           education_class: education_school.education_classes.sample,
           education_subject: education_exam.education_subject,
-          name: "Exam" + "#{Faker::Number.number}",
+          name: "Exam" + "#{SecureRandom.hex(3)}",
           description: Faker::Movie.quote,
         )
       rescue ActiveRecord::RecordInvalid => e
@@ -377,7 +377,7 @@ class Seeding::EducationService
           education_exam: education_exam,
           education_subject: education_exam.education_subject,
 
-          name: "Exam" + "#{Faker::Number.number}",
+          name: "Exam" + "#{SecureRandom.hex(3)}",
           description: Faker::Movie.quote,
         )
       rescue ActiveRecord::RecordInvalid => e
