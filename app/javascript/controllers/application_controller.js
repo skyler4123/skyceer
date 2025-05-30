@@ -2,7 +2,6 @@ import { Controller } from "@hotwired/stimulus"
 import { isDefined, randomID, initializedEvent } from "controllers/education/helpers/data_helpers"
 
 export default class ApplicationController extends Controller {
-
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'content', 'contentJson']
   static values = {
     isReset: { type: Boolean, default: true },
@@ -11,6 +10,7 @@ export default class ApplicationController extends Controller {
     class: { type: String },
     attributes: { type: Object }
   }
+  static outlets = ['education--flash']
   static get identifier() {
     let identifier
     identifier = this.name
@@ -33,6 +33,7 @@ export default class ApplicationController extends Controller {
     this.initializeID()
     this.initializeHead()
     this.initializeDir()
+    this.initializeOutlets()
     if (isDefined(this.initLayout)) { this.initLayout() }
     if (isDefined(this.contentHTML)) { this.contentTarget.innerHTML = this.contentHTML() }
     if (isDefined(this.init)) { this.init() }
@@ -48,6 +49,10 @@ export default class ApplicationController extends Controller {
   initializeID() {
     if (this.element.id) { return } 
     this.element.id = randomID()
+  }
+
+  initializeOutlets() {
+    this.element.setAttribute(`data-${this.identifier}-education--flash-outlet`, "body")
   }
 
   initializeHead() {
@@ -73,5 +78,9 @@ export default class ApplicationController extends Controller {
     } else {
       this.element.removeAttribute('open')
     }
+  }
+
+  flash(messagesObject) { // messagesObject can be: { notice: "Hello World", error: "Something went wrong" }
+    this.educationFlashOutlet.messagesValue = messagesObject
   }
 }

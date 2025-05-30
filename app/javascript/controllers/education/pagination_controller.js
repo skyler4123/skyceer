@@ -10,7 +10,6 @@ export default class Education_PaginationController extends ApplicationControlle
   }
   
   init() {
-    console.log(this)
     this.element.className = "w-full flex flex-row justify-center items-center gap-x-1"
   }
 

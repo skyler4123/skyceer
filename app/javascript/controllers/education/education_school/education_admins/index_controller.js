@@ -1,5 +1,5 @@
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
-
+import { EducationAdminsApi } from "controllers/education/api/education_admins_api";
 export default class Education_EducationSchool_EducationAdmins_IndexController extends Education_EducationSchool_LayoutController {
   static targets = ['content', 'table', 'search', 'pagination']
   static values = {
@@ -9,6 +9,14 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
   initBinding() {
     super.initBinding()
     this.educationAdminsValue = ServerData.data.education_admins
+    EducationAdminsApi.index({ params: { page: 1, per_page: 10 } }).then((data) => {
+      // this.educationAdminsValue = data
+      // this.render()
+      console.log("Fetched education admins:", data)
+    }).catch((error) => {
+      console.error("Error fetching education admins:", error)
+      // this.contentTarget.innerHTML = "<p class='text-red-500'>Failed to load education admins.</p>"
+    })
   }
 
   init() {

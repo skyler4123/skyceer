@@ -126,6 +126,10 @@ export const findBy = (array, key, value) => {
   return array.find(object => object[key] === value)
 }
 
+export const camelCaseToUnderscore = (str) => {
+  return str.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
+}
+
 
 
 
