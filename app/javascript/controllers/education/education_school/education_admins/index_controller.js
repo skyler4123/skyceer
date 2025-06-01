@@ -112,7 +112,10 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
               blankText: "Select",
               // attributes: ""
             })}
-            <input type="submit" value="Search" class="bg-slate-800 text-white rounded-lg px-4 py-2 ml-2">
+            <input 
+              type="submit"
+              value="Search" 
+              class="bg-slate-800 text-white rounded-lg px-4 py-2 ml-2 cursor-pointer hover:bg-slate-700">
           `
         })}
         <div data-controller="${this.tableController.identifier}" data-${this.identifier}-target="table" class="w-full"></div>
