@@ -120,7 +120,7 @@ class Seeding::EducationService
 
   def self.education_admin
     EducationSchool.all.each do |education_school|
-      1.times do
+      15.times do
         admin_user = Seeding::UserService.create(education_role: :education_admin)
         education_admin = EducationAdmin.create!(
           name: "#{Faker::Name.name} #{SecureRandom.hex(3)}",

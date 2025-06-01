@@ -12,23 +12,20 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
     this.educationAdminsValue = ServerData.data.education_admins
     this.selectEducationSchools = ServerData.data.select_education_schools
 
-
-    // Demo + testing purposes
-    EducationAdminsApi.index({ params: { page: 1, per_page: 10 } }).then((data) => {
-      // console.log("Fetched education admins:", data)
-    }).catch((error) => {
-      console.error("Error fetching education admins:", error)
-      // this.contentTarget.innerHTML = "<p class='text-red-500'>Failed to load education admins.</p>"
-    })
-
-    this.demo()
+    // // Demo + testing purposes
+    // EducationAdminsApi.index({ params: { page: 1, per_page: 10 } }).then((data) => {
+    //   // console.log("Fetched education admins:", data)
+    // }).catch((error) => {
+    //   console.error("Error fetching education admins:", error)
+    //   // this.contentTarget.innerHTML = "<p class='text-red-500'>Failed to load education admins.</p>"
+    // })
   }
 
-  demo() {
-    let test = pluck(this.educationAdminsValue, 'education_school', "name" )
-    test = unique(test)
-    console.log(test)
-  }
+  // demo() {
+  //   let test = pluck(this.educationAdminsValue, 'education_school', "name" )
+  //   test = unique(test)
+  //   console.log(test)
+  // }
 
   init() {
     this.initHTML()
@@ -85,14 +82,17 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
           <h2 class="text-xl font-medium">Admins</h2>
           <a class="rounded-lg py-2 px-5 bg-slate-800 text-white" href="/education_admins/new">New Admin</a>
         </div>
-        <form class="flex flex-row my-5">
-          <input data-${this.identifier}-target="search" type="search" class="w-full border border-gray-200 rounded-lg p-2 focus:ring-blue-600" placeholder="Search">
-          <input type="submit" value="Search" class="bg-slate-800 text-white rounded-lg px-4 py-2 ml-2">
-        </form>
         ${createForm({
           className: "flex flex-row my-5",
           html: `
-            <input data-${this.identifier}-target="search" type="search" class="w-full border border-gray-200 rounded-lg p-2 focus:ring-blue-600" placeholder="Search">
+            <input 
+              data-${this.identifier}-target="search"
+              type="search"
+              class="w-full border border-gray-200 rounded-lg p-2 focus:ring-blue-600"
+              placeholder="Search"
+              name="full_text_search"
+              value="${params()["full_text_search"] || ""}"
+            >
             ${createSelectTag({
               // className: "",
               // id: "",
