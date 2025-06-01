@@ -3,7 +3,6 @@ class Elasticsearch::IndexerJob < ApplicationJob
   retry_on Timeout::Error, wait: 2.seconds, attempts: 3
 
   def perform(operation, record_id, record_class_name)
-    logger.debug [operation, "ID: #{record_id}, class: #{record_class_name}"]
     record_class = record_class_name.constantize
     index_name = record_class.index_name
     elasticsearch_client = Elasticsearch::Model.client

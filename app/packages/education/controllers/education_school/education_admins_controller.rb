@@ -3,12 +3,15 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
 
   # GET /education_admins or /education_admins.json
   def index
-    @education_admins = EducationAdmin.where(education_school: @education_schools)
+    @query_education_schools = @education_schools
+    @query_education_schools = EducationSchool.where(id: params[:education_school_id]) if params[:education_school_id].present?
+    @education_admins = EducationAdmin.where(education_school: @query_education_schools)
     # @education_admins = @education_admins.select(:id, :name, :created_at, :updated_at)
     @pagination, @education_admins = pagy(@education_admins)
     # @data = @education_admins.to_json(include: [:education_schools])
     @data = {
-      education_admins: @education_admins.as_json(include: { education_school: { only: [:id, :name] } }, only: [:id, :name, :created_at, :updated_at])
+      education_admins: @education_admins.as_json(include: { education_school: { only: [:id, :name] } }, only: [:id, :name, :created_at, :updated_at]),
+      select_education_schools: @education_schools.as_json(only: [:id, :name]),
     }.to_json
   end
 

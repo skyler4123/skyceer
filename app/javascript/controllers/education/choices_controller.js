@@ -1,9 +1,9 @@
 import "choices"
-import { Controller } from "@hotwired/stimulus"
 import { initializedEvent } from "controllers/education/helpers/data_helpers"
+import ApplicationController from "controllers/application_controller"
 
 
-export default class Education_ChoicesController extends Controller {
+export default class Education_ChoicesController extends ApplicationController {
   static values = {
     options: { type: Object, default: {
       removeItemButton: true,

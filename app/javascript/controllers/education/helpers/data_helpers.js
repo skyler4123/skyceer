@@ -33,13 +33,36 @@ export const isArray = (x) => {
   return Array.isArray(x)
 }
 
-export const onlyUniqueArray = (value, index, array) => {
-  return array.indexOf(value) === index;
-}
+// export const onlyUniqueArray = (value, index, array) => {
+//   return array.indexOf(value) === index;
+// }
 
-export const unique = (array) => {
-  return array.filter(onlyUniqueArray)
-}
+// export const unique = (array) => {
+//   return array.filter(onlyUniqueArray)
+// }
+
+export const unique = (array, key = null) => {
+  if (!Array.isArray(array)) return [];
+
+  if (!key) {
+    // For primitive values (string, number, etc.)
+    return [...new Set(array)];
+  } else {
+    // For objects, unique by key
+    const seen = new Set();
+    return array.filter(item => {
+      if (typeof item === 'object' && item !== null && key in item) {
+        if (seen.has(item[key])) {
+          return false;
+        } else {
+          seen.add(item[key]);
+          return true;
+        }
+      }
+      return false;
+    });
+  }
+};
 
 export const difference = (array1, array2) => {
   let result = {}
@@ -60,9 +83,14 @@ export const isNumberOrNumberString = (x) => {
   return isNumber(x) || isNumberString(x)
 }
 
-export const pluck = (object, key) => {
-  return object.map(x => x[key])
-}
+// export const pluck = (object, key) => {
+//   return object.map(x => x[key])
+// }
+export const pluck = (array, ...keys) => {
+  return array.map(item => {
+    return keys.reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), item);
+  });
+};
 
 export const minTime = (times) => {
   const minTime = times.reduce((min, current) => {
@@ -384,25 +412,26 @@ export const readCSVFile = (file) => {
 }
 
 export const createForm = ({
-  action = "",
+  action = "", //form action will be pathname if not provided
   className = "",
   id = "",
-  method = "post",
-  dataCOntroller = "",
+  method = "", //form method will be get if not provided
+  dataController = "",
   html = "",
   attributes = "",
 }) => {
   const classAttribute = className ? `class="${className}"` : "";
   const idAttribute = id ? `id="${id}"` : "";
   const actionAttribute = action ? `action="${action}"` : "";
-  const methodAttribute = `method="${method}"`;
-  const dataControllerAttribute = dataCOntroller ? `data-controller="${dataCOntroller}"` : "";
+  const methodAttribute = method ? `method="${method}"` : ""; // Default to GET method if not provided
+  const dataControllerAttribute = dataController ? `data-controller="${dataController}"` : "";
   const methodInput =
     method === "patch"
       ? '<input type="hidden" name="_method" value="patch" autocomplete="off">'
       : "";
 
-  const csrfInput = `<input type="hidden" name="authenticity_token" value="${csrfToken()}" autocomplete="off">`;
+  // Use the csrfToken function to get the CSRF token, If the method is not GET, include the CSRF token input
+  const csrfInput = (method === "" || method === "get") ? "" : `<input type="hidden" name="authenticity_token" value="${csrfToken()}" autocomplete="off">`;
 
   return `
     <form ${idAttribute} ${classAttribute} ${actionAttribute} ${methodAttribute} ${dataControllerAttribute} ${attributes} accept-charset="UTF-8">
@@ -418,7 +447,7 @@ export const createSelectTag = ({
   id = "",
   name = "",
   dataController = "",
-  options = [],
+  options = [], // Array of objects with `value` and `text` properties, for example: [{ value: "1", text: "Option 1" }, { value: "2", text: "Option 2" }]
   values = [],
   required = false,
   multiple = false, 
@@ -509,6 +538,10 @@ export const pathname = () => {
 
 export const href = () => {
   return window.location.href
+}
+
+export const origin = () => {
+  return window.location.origin
 }
 
 export const timeFormat = (time, format = "DD/MM/YYYY") => {

@@ -1,5 +1,6 @@
-import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
+import { createForm, createSelectTag, pluck, unique, params } from "controllers/education/helpers/data_helpers";
 import { EducationAdminsApi } from "controllers/education/api/education_admins_api";
+import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 export default class Education_EducationSchool_EducationAdmins_IndexController extends Education_EducationSchool_LayoutController {
   static targets = ['content', 'table', 'search', 'pagination']
   static values = {
@@ -9,14 +10,24 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
   initBinding() {
     super.initBinding()
     this.educationAdminsValue = ServerData.data.education_admins
+    this.selectEducationSchools = ServerData.data.select_education_schools
+
+
+    // Demo + testing purposes
     EducationAdminsApi.index({ params: { page: 1, per_page: 10 } }).then((data) => {
-      // this.educationAdminsValue = data
-      // this.render()
-      console.log("Fetched education admins:", data)
+      // console.log("Fetched education admins:", data)
     }).catch((error) => {
       console.error("Error fetching education admins:", error)
       // this.contentTarget.innerHTML = "<p class='text-red-500'>Failed to load education admins.</p>"
     })
+
+    this.demo()
+  }
+
+  demo() {
+    let test = pluck(this.educationAdminsValue, 'education_school', "name" )
+    test = unique(test)
+    console.log(test)
   }
 
   init() {
@@ -78,6 +89,32 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
           <input data-${this.identifier}-target="search" type="search" class="w-full border border-gray-200 rounded-lg p-2 focus:ring-blue-600" placeholder="Search">
           <input type="submit" value="Search" class="bg-slate-800 text-white rounded-lg px-4 py-2 ml-2">
         </form>
+        ${createForm({
+          className: "flex flex-row my-5",
+          html: `
+            <input data-${this.identifier}-target="search" type="search" class="w-full border border-gray-200 rounded-lg p-2 focus:ring-blue-600" placeholder="Search">
+            ${createSelectTag({
+              // className: "",
+              // id: "",
+              name: "education_school_id",
+              dataController: this.choicesControllerIdentifier,
+              options: this.selectEducationSchools.map((school) => {
+                return {
+                  value: school.id,
+                  text: school.name,
+                }
+              }),
+              values: params()["education_school_id"] || [],
+              // required: false,
+              // multiple: false, 
+              // disabled: false,
+              blank: true,
+              blankText: "Select",
+              // attributes: ""
+            })}
+            <input type="submit" value="Search" class="bg-slate-800 text-white rounded-lg px-4 py-2 ml-2">
+          `
+        })}
         <div data-controller="${this.tableController.identifier}" data-${this.identifier}-target="table" class="w-full"></div>
         <div data-controller="${this.paginationController.identifier}" data-${this.identifier}-target="pagination"></div>
       </div>
