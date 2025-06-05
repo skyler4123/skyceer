@@ -1,7 +1,8 @@
 // Load more comments - auto scroll down
+// Demo: https://www.facebook.com/watsonsvietnam/posts/741934148190230?rdid=mwhbQKL4iyCrhzIn
+scrollViewClass = "html-div xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x1g0dm76 xpdmqnj x1n2onr6"
+scrollElement = document.querySelector(`[class="${scrollViewClass}"]`)
 this.viewMoreInterval = setInterval(() => {
-  scrollViewClass = "html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x78zum5 xdt5ytf x1iyjqo2 x7ywyr2"
-  scrollElement = document.querySelector(`[class="${scrollViewClass}"]`)
   if (scrollElement) {
     scrollElement.scrollIntoView(0, 9999999)
   } else {
@@ -15,6 +16,7 @@ clearInterval(this.viewMoreInterval)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Load more comments with Xem thêm bình luận
+
 findElementByTextXPath = (text) => {
   const xpath = `//*[contains(text(), '${text}')]`;
   const result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
@@ -37,7 +39,8 @@ clearInterval(this.viewMoreInterval)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Show full comments
-seeMoreClass = "x1i10hfl xjbqb8w x1ejq31n xd10rxx x1sy0etr x17r0tee x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz xkrqix3 x1sur9pj xzsf02u x1s688f"
+// Demo: https://www.facebook.com/Yennguyencosmetic/posts/731808126041086?rdid=hur03i2qPqG3NT9e
+seeMoreClass = "x1i10hfl xjbqb8w x1ejq31n x18oe1m7 x1sy0etr xstzfhl x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xt0psk2 xe8uvvx xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz xkrqix3 x1sur9pj xzsf02u x1s688f"
 document.querySelectorAll(`[class="${seeMoreClass}"]`).forEach(target => {
   if (target.textContent === "See more" || target.textContent === "Xem thêm") { target.click() }
 })
@@ -46,11 +49,12 @@ document.querySelectorAll(`[class="${seeMoreClass}"]`).forEach(target => {
 
 // Search number of comments for POST
 // position start with 1
+// Demo: https://www.facebook.com/Yennguyencosmetic/posts/731808126041086?rdid=hur03i2qPqG3NT9e
 numberFrom = 0
 numberTo = 999
 position = 1
 
-commentGroupClass = "html-div xdj266r x11i5rnm xat24cr x1mh8g0r xexx8yu x18d9i69 x1ye3gou xn6708d x1n2onr6"
+commentGroupClass = "html-div xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x1g0dm76 xpdmqnj x1n2onr6"
 commentClass = "x1lliihq xjkvuk6 x1iorvi4"
 arrayRange = (start, stop, step = 1) =>
     Array.from(
