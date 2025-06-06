@@ -11,24 +11,11 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
     super.initBinding()
     this.educationAdminsValue = ServerData.data.education_admins
     this.selectEducationSchools = ServerData.data.select_education_schools
-
-    // // Demo + testing purposes
-    // EducationAdminsApi.index({ params: { page: 1, per_page: 10 } }).then((data) => {
-    //   // console.log("Fetched education admins:", data)
-    // }).catch((error) => {
-    //   console.error("Error fetching education admins:", error)
-    //   // this.contentTarget.innerHTML = "<p class='text-red-500'>Failed to load education admins.</p>"
-    // })
   }
-
-  // demo() {
-  //   let test = pluck(this.educationAdminsValue, 'education_school', "name" )
-  //   test = unique(test)
-  //   console.log(test)
-  // }
 
   init() {
     this.initHTML()
+    console.log(this)
   }
 
   initHTML() {
@@ -58,14 +45,31 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
     return this.application.getControllerForElementAndIdentifier(this.paginationTarget, this.paginationController.identifier)
   }
 
+  openEditEducationAdminModal(event) {
+    const educationAdminId = event.params.educationAdminId
+    
+    console.log("openEditEducationAdminModal", educationAdminId)
+    this.modal({
+      html: educationAdminId
+    })
+  }
+
   tableData() {
     // Tabulator expects an options object with data and columns
     return {
-      data: this.educationAdminsValue.map((row) => {
+      data: this.educationAdminsValue.map((educationAdmin) => {
         return {
-          ...row,
-          name: `<a href="/education_admins/${row.id}/edit">${row.name}</a>`,
-          school_name: `<div>${row.education_school.name}</div>`,
+          ...educationAdmin,
+          name: `
+            <div
+              class="cursor-pointer"
+              data-action="click->${this.identifier}#openEditEducationAdminModal"
+              data-${this.identifier}-education-admin-id-param="${educationAdmin.id}" 
+            >
+              ${educationAdmin.name}
+            </div>
+          `,
+          school_name: `<div>${educationAdmin.education_school.name}</div>`,
         }
       }),
       columns: [

@@ -10,7 +10,6 @@ export default class ApplicationController extends Controller {
     class: { type: String },
     attributes: { type: Object }
   }
-  static outlets = ['education--flash']
   static get identifier() {
     let identifier
     identifier = this.name
@@ -33,7 +32,7 @@ export default class ApplicationController extends Controller {
     this.initializeID()
     this.initializeHead()
     this.initializeDir()
-    this.initializeOutlets()
+    if (isDefined(this.initializeOutlets)) { this.initializeOutlets() }
     if (isDefined(this.initLayout)) { this.initLayout() }
     if (isDefined(this.contentHTML)) { this.contentTarget.innerHTML = this.contentHTML() }
     if (isDefined(this.init)) { this.init() }
@@ -49,10 +48,6 @@ export default class ApplicationController extends Controller {
   initializeID() {
     if (this.element.id) { return } 
     this.element.id = randomID()
-  }
-
-  initializeOutlets() {
-    this.element.setAttribute(`data-${this.identifier}-education--flash-outlet`, "body")
   }
 
   initializeHead() {
@@ -82,5 +77,9 @@ export default class ApplicationController extends Controller {
 
   flash(messagesObject) { // messagesObject can be: { notice: "Hello World", error: "Something went wrong" }
     this.educationFlashOutlet.messagesValue = messagesObject
+  }
+
+  modal(optionsObject) {
+    this.educationModalOutlet.optionsValue = optionsObject
   }
 }

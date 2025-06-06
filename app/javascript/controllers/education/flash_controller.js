@@ -1,10 +1,10 @@
 import Swal from 'sweetalert2'
 
-import { Controller } from "@hotwired/stimulus"
 import { isEmpty } from "controllers/education/helpers/data_helpers";
+import ApplicationController from "controllers/application_controller";
 
 
-export default class Education_FlashController extends Controller {
+export default class Education_FlashController extends ApplicationController {
   static values = {
     messages: { type: Object, default: {} }, // Ex: { notice: "Hello World", error: "Something went wrong" }
   }
@@ -57,44 +57,6 @@ export default class Education_FlashController extends Controller {
       }, 3000 * index)
     });
   }
-
-
-  // initFlash() {
-  //   const flashMessages = ServerData.flash;
-  //   Object.entries(flashMessages).forEach(([type, message], index) => {
-  //     setTimeout(() => {
-  //       Swal.fire({
-  //         position: "top",
-  //         html: this.flashHTML(type, message),
-  //         showConfirmButton: false,
-  //         timer: 3000,
-  //         backdrop: false,
-  //         customClass: {
-  //           container: '...1',
-  //           popup: '!p-0',
-  //           header: '...2',
-  //           title: '...3',
-  //           closeButton: '...',
-  //           icon: '...',
-  //           image: '...',
-  //           htmlContainer: '!p-0',
-  //           input: '...',
-  //           inputLabel: '...',
-  //           validationMessage: '...',
-  //           actions: '...',
-  //           confirmButton: '...',
-  //           denyButton: '...',
-  //           cancelButton: '...',
-  //           loader: '...5',
-  //           footer: '....6',
-  //           timerProgressBar: '....7',
-  //         }
-  //       });
-  //     }, 3000 * index)
-
-  //   });
-  // }
-
   
   flashHTML(type = "notice", message) {
     switch (type) {
@@ -110,4 +72,6 @@ export default class Education_FlashController extends Controller {
         return `<div class='w-full text-center py-2 px-3 bg-green-50 text-green-500 font-medium rounded-lg inline-block' id='notice'>${message}</div>`
     }
   }
+
+  reset() {}
 }

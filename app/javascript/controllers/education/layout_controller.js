@@ -5,6 +5,8 @@ import Education_PaginationController from "controllers/education/pagination_con
 import Education_ChoicesController from "controllers/education/choices_controller";
 import Education_TableController from "controllers/education/table_controller"
 import ApplicationController from "controllers/application_controller"
+import Education_FlashController from "controllers/education/flash_controller";
+import Education_ModalController from "controllers/education/modal_controller";
 
 export default class Education_LayoutController extends ApplicationController {
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'table']
@@ -12,6 +14,13 @@ export default class Education_LayoutController extends ApplicationController {
     pagination: { type: Object, default: {} },
     flash: { type: Object, default: {} },
     data: { type: Object, default: {} },
+  }
+  static outlets = ['education--flash', 'education--modal']
+
+  initializeOutlets() {
+    Education_ModalController
+    this.element.setAttribute(`data-${this.identifier}-${Education_FlashController.identifier}-outlet`, "body")
+    this.element.setAttribute(`data-${this.identifier}-${Education_ModalController.identifier}-outlet`, "body")
   }
 
   initBinding() {
