@@ -8,7 +8,7 @@ export default class Education_ModalController extends ApplicationController {
     options: { type: Object, default: {} }, // Ex: { notice: "Hello World", error: "Something went wrong" }
   }
 
-  htmlValueChanged(value, previousValue) {
+  optionsValueChanged(value, previousValue) {
     if (isEmpty(value)) return;
 
     this.render();

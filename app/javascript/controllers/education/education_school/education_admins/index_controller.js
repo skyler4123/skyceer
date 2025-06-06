@@ -5,6 +5,7 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
   static targets = ['content', 'table', 'search', 'pagination']
   static values = {
     educationAdmins: { type: Array, default: [] },
+    editEducationAdmin: { type: Object, default: {} },
   }
 
   initBinding() {
@@ -48,7 +49,13 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
   openEditEducationAdminModal(event) {
     const educationAdminId = event.params.educationAdminId
     
-    console.log("openEditEducationAdminModal", educationAdminId)
+    EducationAdminsApi.show(educationAdminId).then((educationAdmin) => {
+      console.log("Fetched education admin:", educationAdmin)
+    }).catch((error) => {
+      console.error("Error fetching education admin:", error)
+      this.contentTarget.innerHTML = "<p class='text-red-500'>Failed to load education admin.</p>"
+    })
+
     this.modal({
       html: educationAdminId
     })

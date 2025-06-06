@@ -1,5 +1,5 @@
 class EducationSchool::EducationAdminsController < EducationSchool::EducationsController
-  before_action :set_education_admin, only: %i[ edit update destroy ]
+  before_action :set_education_admin, only: %i[ show edit update destroy ]
 
   # GET /education_admins or /education_admins.json
   def index
@@ -17,6 +17,14 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
     }.to_json
   end
 
+  # GET /education_admins/1 or /education_admins/1.json
+  def show
+    # respond_to do |format|
+    #     format.json do
+    #     end
+    #   end
+    # end
+  end
   # GET /education_admins/new
   def new
     @education_admin = EducationAdmin.new

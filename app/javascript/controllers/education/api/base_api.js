@@ -32,4 +32,25 @@ export class BaseApi {
       .catch(error => reject(error));
     });
   }
+
+  static show(id, {params = {}, headers = {}} = {}) {
+    return new Promise((resolve, reject) => {
+      fetch(`/${this.resourceName}/${id}`, {
+        method: 'GET',
+        headers: {
+          ...this.defaultHeaders(),
+          ...headers,
+        },
+        params: new URLSearchParams(params).toString(),
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => resolve(data))
+      .catch(error => reject(error));
+    });
+  }
 }
