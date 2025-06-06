@@ -39,7 +39,7 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
         end
         if params[:education_admin][:education_school_id].present?
           education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id])
-          @education_admin.education_schools = education_schools
+          @education_admin.education_school = education_schools.first
         end
         if params[:education_admin][:education_category_id].present?
           education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id])
@@ -61,7 +61,7 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
       if @education_admin.update(education_admin_params)
         if params[:education_admin][:education_school_id].present?
           education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id])
-          @education_admin.education_schools = education_schools
+          @education_admin.education_school = education_schools.first
         end
         if params[:education_admin][:education_category_id].present?
           education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id])

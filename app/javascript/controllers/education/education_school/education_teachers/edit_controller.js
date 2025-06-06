@@ -58,8 +58,8 @@ export default class extends Education_EducationSchool_LayoutController {
             name: "education_teacher[education_school_id][]",
             id: "education_teacher_education_school_id",
             required: true,
-            multiple: true,
-            values: pluck(this.educationTeacher.education_schools, "id"),
+            multiple: false,
+            values: this.educationTeacher.education_school.id,
             options: this.educationSchools.map((school) => {
               return { value: school.id, text: school.name }
             }),

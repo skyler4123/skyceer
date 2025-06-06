@@ -10,11 +10,11 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
     elsif params[:education_school_id].present?
       @education_teachers = EducationTeacher.where(education_school_id: params[:education_school_id])
     else
-      @education_teachers = EducationTeacher.joins(:education_schools).where(education_schools: @education_schools)
+      @education_teachers = EducationTeacher.where(education_school: @education_schools)
     end
     @pagination, @education_teachers = pagy(@education_teachers)
     @data = {
-      education_teachers: @education_teachers.as_json(include: [:education_schools, :education_classes, :education_subjects])
+      education_teachers: @education_teachers.as_json(include: [:education_school, :education_classes, :education_subjects])
     }.to_json
   end
 
@@ -28,7 +28,7 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
     @education_classes = EducationClass.where(education_school: @education_schools)
     @education_subjects = EducationSubject.where(education_school: @education_schools) 
     @data = {
-      education_teacher: @education_teacher.as_json(include: [:education_schools, :education_classes, :education_categories, :education_subjects]),
+      education_teacher: @education_teacher.as_json(include: [:education_school, :education_classes, :education_categories, :education_subjects]),
       education_subjects: @education_subjects.as_json,
       education_schools: @education_schools.as_json,
       education_classes: @education_classes.as_json,
@@ -49,7 +49,7 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
         end
         if params[:education_teacher][:education_school_id].present?
           education_schools = EducationSchool.where(id: params[:education_teacher][:education_school_id])
-          @education_teacher.education_schools = education_schools
+          @education_teacher.education_school = education_schools.first
         end
         if params[:education_teacher][:education_class_id].present?
           education_classes = EducationClass.where(id: params[:education_teacher][:education_class_id])
@@ -75,7 +75,7 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
       if @education_teacher.update(education_teacher_params)
         if params[:education_teacher][:education_school_id].present?
           education_schools = EducationSchool.where(id: params[:education_teacher][:education_school_id])
-          @education_teacher.education_schools = education_schools
+          @education_teacher.education_school = education_schools.first
         end
         if params[:education_teacher][:education_class_id].present?
           education_classes = EducationClass.where(id: params[:education_teacher][:education_class_id])

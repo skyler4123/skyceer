@@ -26,7 +26,7 @@
 
     <div class="my-5">
       <%= form.label :education_school_id, "School", class: "required" %>
-      <%= form.select :education_school_id, options_for_select(@education_schools.pluck(:name, :id), @education_admin.education_schools.pluck(:id)), { include_blank: true, required: true, multiple: true }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
+      <%= form.select :education_school_id, options_for_select(@education_schools.pluck(:name, :id), @education_admin.education_school.id), { include_blank: true, required: true, multiple: false }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { controller: "education--choices" } } %>
     </div>
 
     <div class="my-5">
