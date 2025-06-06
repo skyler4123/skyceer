@@ -6,13 +6,13 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
   # GET /education_students or /education_students.json
   def index
     @education_students = EducationStudent.all
-    @education_students = @education_students.where(education_school_user: current_user)
-    @education_students = @education_students.joins(:education_schools).where(education_schools: { id: params[:education_school_id] }) if params[:education_school_id].present?
+    @education_students = @education_students.where(education_school: @education_schools)
+    @education_school = EducationSchool.find_by(id: params[:education_school_id]) if params[:education_school_id].present?
+    @education_students = @education_students.where(education_school: @education_school) if @education_school.present?
     @education_students = @education_students.joins(:education_classes).where(education_classes: { id: params[:education_class_id] }) if params[:education_class_id].present?
-    @education_students = @education_students.select(:id, :name, :created_at, :updated_at)
     @pagination, @education_students = pagy(@education_students)
     @data = {
-      education_students: @education_students.as_json(include: { education_schools: { only: [:id, :name] }, education_classes: { only: [:id, :name] } }, only: [:id, :name, :created_at, :updated_at]),
+      education_students: @education_students.as_json(include: [education_school: { only: [:id, :name] }, education_classes: { only: [:id, :name] } ], only: [:id, :name, :created_at, :updated_at]),
       selection_education_classes: EducationClass.where(education_school: @education_schools).as_json(only: [:id, :name]),
       selection_education_schools: @education_schools.as_json(only: [:id, :name]),
     }.to_json
@@ -39,10 +39,6 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
         if params[:education_student][:email].present?
           user = User.find_by(email: params[:education_student][:email])
           @education_student.user = user if user.present?
-        end
-        if params[:education_student][:education_school_id].present?
-          education_schools = EducationSchool.where(id: params[:education_student][:education_school_id])
-          @education_student.education_school = education_schools.first
         end
         if params[:education_student][:education_class_id].present?
           education_classes = EducationClass.where(id: params[:education_student][:education_class_id])
@@ -79,7 +75,7 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
           @education_student.education_categories = education_categories
         end
 
-        format.html { redirect_to education_students_path, notice: UPDATED_SUCCESS_MESSAGE }
+        format.html { redirect_to edit_education_student_path(@education_student), notice: UPDATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :ok, location: @education_student }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -122,6 +118,6 @@ class EducationSchool::EducationStudentsController < EducationSchool::Educations
 
     # Only allow a list of trusted parameters through.
     def education_student_params
-      params.expect(education_student: [:name, :email])
+      params.expect(education_student: [:name, :email, :education_school_id])
     end
 end

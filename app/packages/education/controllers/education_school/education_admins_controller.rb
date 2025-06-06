@@ -37,10 +37,6 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
           user = User.find_by(email: params[:education_admin][:email])
           @education_admin.user = user if user.present?
         end
-        if params[:education_admin][:education_school_id].present?
-          education_schools = EducationSchool.where(id: params[:education_admin][:education_school_id])
-          @education_admin.education_school = education_schools.first
-        end
         if params[:education_admin][:education_category_id].present?
           education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id])
           @education_admin.education_categories = education_categories
@@ -95,6 +91,6 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
 
     # Only allow a list of trusted parameters through.
     def education_admin_params
-      params.expect(education_admin: [:name, :email])
+      params.expect(education_admin: [:name, :email, :education_school_id])
     end
 end

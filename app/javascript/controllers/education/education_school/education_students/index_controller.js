@@ -27,7 +27,7 @@ export default class Education_EducationSchool_EducationStudents_IndexController
         ...row,
         name: `<a href="/education_students/${row.id}/edit">${row.name}</a>`,
         class_names: `<div>${row.education_classes.map((klass) => `<span>${klass.name}</span>`).join(",")}</div>`,
-        school_names: `<div>${row.education_schools.map((school) => `<span>${school.name}</span>`).join(",")}</div>`,
+        school_names: `<div>${row.education_school.id}</div>`,
       }
     })
     this.table = new Tabulator(this.tableTarget, {
