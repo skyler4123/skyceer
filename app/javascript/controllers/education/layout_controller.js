@@ -30,6 +30,7 @@ export default class Education_LayoutController extends ApplicationController {
     this.paginationController = Education_PaginationController
     this.paginationData = ServerData.pagination
     this.selectControllerIdentifier = identifier(Education_ChoicesController)
+    this.selectController = Education_ChoicesController
     this.choicesController = Education_ChoicesController
     this.tableController = Education_TableController
     this.flashValue = ServerData.flash || {}

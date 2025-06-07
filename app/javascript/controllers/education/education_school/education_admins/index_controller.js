@@ -1,7 +1,7 @@
 import { createForm, createSelectTag, pluck, unique, params } from "controllers/education/helpers/data_helpers";
 import { EducationAdminsApi } from "controllers/education/api/education_admins_api";
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
-import Education_EducationSchool_EducationAdmins_EditFormController from "controllers/education/education_school/education_admins/edit_form_controller";
+import { editModalHTML } from "controllers/education/education_school/education_admins/edit_modal_html";
 export default class Education_EducationSchool_EducationAdmins_IndexController extends Education_EducationSchool_LayoutController {
   static targets = ['content', 'table', 'search', 'pagination']
   static values = {
@@ -17,7 +17,6 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
 
   init() {
     this.initHTML()
-    console.log(this)
   }
 
   initHTML() {
@@ -51,10 +50,8 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
     const educationAdminId = event.params.educationAdminId
     
     EducationAdminsApi.show(educationAdminId).then((educationAdmin) => {
-      console.log("Fetched education admin:", educationAdmin)
-      Education_EducationSchool_EducationAdmins_EditFormController
       this.modal({
-        html: this.editModalHTML(educationAdmin),
+        html: editModalHTML({educationAdmin: educationAdmin, selectControllerIdentifier: this.selectControllerIdentifier, educationSchools: this.selectEducationSchools}),
       })
     }).catch((error) => {
       console.error("Error fetching education admin:", error)
@@ -85,44 +82,6 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
         {title: "School", field: "school_name", width: 150, formatter: "html"},
       ],
     }
-  }
-
-  editModalHTML(educationAdmin, selectController = this.selectController) {
-    return `
-      <div class="p-5">
-        <h2 class="text-xl font-medium mb-4">Edit Admin</h2>
-        ${createForm({
-          className: "flex flex-col gap-y-4",
-          html: `
-            <input 
-              type="text" 
-              name="name" 
-              value="${educationAdmin.name || ""}" 
-              placeholder="Name" 
-              class="border border-gray-200 rounded-lg p-2 focus:ring-blue-600"
-            >
-            ${createSelectTag({
-              name: "education_school_id",
-              dataController: selectController.identifier,
-              options: this.selectEducationSchools.map((school) => {
-                return {
-                  value: school.id,
-                  text: school.name,
-                }
-              }),
-              values: [educationAdmin.education_school_id || ""],
-              blank: true,
-              blankText: "Select School",
-            })}
-            <input 
-              type="submit" 
-              value="Save" 
-              class="bg-slate-800 text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-slate-700"
-            >
-          `
-        })}
-      </div>
-    `
   }
 
   defaultHTML() {
