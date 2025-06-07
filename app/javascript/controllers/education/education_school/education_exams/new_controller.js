@@ -102,7 +102,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: this.educationSchools.map((educationSchool) => {
               return { value: educationSchool.id, text: educationSchool.name }
             }),
-            dataController: this.selectControllerIdentifier,
+            dataController: this.selectController.identifier,
             attributes: ` data-action="change->${this.identifier}#educationSchoolIdSelectChange"`,
           })}
         </div>
@@ -118,7 +118,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: initialEducationSubjects.map((subject) => {
               return { value: subject.id, text: subject.name }
             }),
-            dataController: this.selectControllerIdentifier,
+            dataController: this.selectController.identifier,
             attributes: ` data-${this.identifier}-target="educationSubjectSelectTag"`,
           })}
         </div>
@@ -132,7 +132,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: this.educationCategories.map((category) => {
               return { value: category.id, text: category.name }
             }),
-            dataController: this.selectControllerIdentifier,
+            dataController: this.selectController.identifier,
             multiple: true,
           })}
         </div>
@@ -147,7 +147,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: initialEducationClasses.map((educationClass) => {
               return { value: educationClass.id, text: educationClass.name }
             }),
-            dataController: this.selectControllerIdentifier,
+            dataController: this.selectController.identifier,
             attributes: ` data-${this.identifier}-target="educationClassSelectTag"`,
             multiple: true,
           })}

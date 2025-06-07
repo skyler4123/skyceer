@@ -1,5 +1,6 @@
-import { Controller } from "@hotwired/stimulus"
+import Swal from 'sweetalert2';
 import { isDefined, randomID, initializedEvent } from "controllers/education/helpers/data_helpers"
+import { Controller } from "@hotwired/stimulus"
 
 export default class ApplicationController extends Controller {
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'content', 'contentJson']
@@ -81,5 +82,28 @@ export default class ApplicationController extends Controller {
 
   modal(optionsObject) {
     this.educationModalOutlet.optionsValue = optionsObject
+  }
+
+  openModal(options = {}) {
+    if (!options.html) {
+      console.error("Open modal requires an html option")
+      return;
+    }
+
+    Swal.fire({
+      //  Require html option to be passed
+      // html: options.html,
+      showConfirmButton: false,
+      showCloseButton: false,
+      backdrop: true,
+      target: document.querySelector('main'), // Default target
+      ...options,
+      customClass: {
+        container: '!bg-transparent',
+        popup: '!p-0 !bg-transparent !w-full',
+        htmlContainer: '!p-0 !overflow-visible',
+        ...options.customClass
+      },
+    });
   }
 }

@@ -2,6 +2,7 @@ import { createForm, createSelectTag, pluck, unique, params } from "controllers/
 import { EducationAdminsApi } from "controllers/education/api/education_admins_api";
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
 import { editModalHTML } from "controllers/education/education_school/education_admins/edit_modal_html";
+import { tableData } from "controllers/education/education_school/education_admins/table_data";
 export default class Education_EducationSchool_EducationAdmins_IndexController extends Education_EducationSchool_LayoutController {
   static targets = ['content', 'table', 'search', 'pagination']
   static values = {
@@ -33,7 +34,10 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
 
   render() {
     Promise.resolve().then(() => {
-      this.getTableController().dataValue = this.tableData()
+      this.getTableController().dataValue = tableData({
+        educationAdmins: this.educationAdminsValue,
+        identifier: this.identifier,
+      })
       this.getPaginationController().dataValue = this.paginationValue
     })
   }
@@ -50,38 +54,13 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
     const educationAdminId = event.params.educationAdminId
     
     EducationAdminsApi.show(educationAdminId).then((educationAdmin) => {
-      this.modal({
-        html: editModalHTML({educationAdmin: educationAdmin, selectControllerIdentifier: this.selectControllerIdentifier, educationSchools: this.selectEducationSchools}),
+      this.openModal({
+        html: editModalHTML({educationAdmin: educationAdmin, selectControllerIdentifier: this.selectController.identifier, educationSchools: this.selectEducationSchools}),
       })
     }).catch((error) => {
       console.error("Error fetching education admin:", error)
       this.contentTarget.innerHTML = "<p class='text-red-500'>Failed to load education admin.</p>"
     })
-  }
-
-  tableData() {
-    // Tabulator expects an options object with data and columns
-    return {
-      data: this.educationAdminsValue.map((educationAdmin) => {
-        return {
-          ...educationAdmin,
-          name: `
-            <div
-              class="cursor-pointer"
-              data-action="click->${this.identifier}#openEditEducationAdminModal"
-              data-${this.identifier}-education-admin-id-param="${educationAdmin.id}" 
-            >
-              ${educationAdmin.name}
-            </div>
-          `,
-          school_name: `<div>${educationAdmin.education_school.name}</div>`,
-        }
-      }),
-      columns: [
-        {title:"Name", field: "name", formatter: "html"},
-        {title: "School", field: "school_name", width: 150, formatter: "html"},
-      ],
-    }
   }
 
   defaultHTML() {
@@ -106,7 +85,7 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
               // className: "",
               // id: "",
               name: "education_school_id",
-              dataController: this.selectControllerIdentifier,
+              dataController: this.selectController.identifier,
               options: this.selectEducationSchools.map((school) => {
                 return {
                   value: school.id,
