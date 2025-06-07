@@ -10,33 +10,62 @@ this.viewMoreInterval = setInterval(() => {
   }
 }, 2000)
 
+
+
+
+
+
+
 // Stop auto scroll down
 clearInterval(this.viewMoreInterval)
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
 
 // Load more comments with Xem thêm bình luận
-
+// Demo: https://www.facebook.com/watch/?v=2133168130484657
 findElementByTextXPath = (text) => {
   const xpath = `//*[contains(text(), '${text}')]`;
   const result = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
   return result.singleNodeValue; // Return the first matching element
 }
-scrollElementClass = "x1jx94hy x78zum5 xdt5ytf x2lah0s xw2csxc x1odjw0f xmd6oqt x13o0s5z"
-scrollElement = document.querySelectorAll(`[class="${scrollElementClass}"]`)[0]
+// scrollElementClass = "x1jx94hy x78zum5 xdt5ytf x2lah0s xw2csxc x1odjw0f xmd6oqt x13o0s5z"
+// scrollElement = document.querySelectorAll(`[class="${scrollElementClass}"]`)[0]
 viewMoreCommentsTextEN = "View more comments"
 viewMoreCommentsTextVN = "Xem thêm bình luận"
 viewMoreCommentsElement = findElementByTextXPath(viewMoreCommentsTextEN) || findElementByTextXPath(viewMoreCommentsTextVN)
 this.viewMoreInterval = setInterval(() => {
   if (viewMoreCommentsElement) {
     viewMoreCommentsElement.click()
-    scrollElement.scrollIntoView(0, 999999)
+    // scrollElement.scrollIntoView(0, 999999)
   }
 }
-, 1000)
+, 2000)
+
+
+
+
+
+
+
+
+
 // Stop auto scroll down
 clearInterval(this.viewMoreInterval)
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
 
 // Show full comments
 // Demo: https://www.facebook.com/Yennguyencosmetic/posts/731808126041086?rdid=hur03i2qPqG3NT9e
@@ -45,7 +74,12 @@ document.querySelectorAll(`[class="${seeMoreClass}"]`).forEach(target => {
   if (target.textContent === "See more" || target.textContent === "Xem thêm") { target.click() }
 })
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
 
 // Search number of comments for POST
 // position start with 1
@@ -53,8 +87,6 @@ document.querySelectorAll(`[class="${seeMoreClass}"]`).forEach(target => {
 numberFrom = 0
 numberTo = 999
 position = 1
-
-commentGroupClass = "html-div xdj266r x14z9mp xat24cr x1lziwak xexx8yu x18d9i69 x1g0dm76 xpdmqnj x1n2onr6"
 commentClass = "x1lliihq xjkvuk6 x1iorvi4"
 arrayRange = (start, stop, step = 1) =>
     Array.from(
@@ -73,8 +105,7 @@ countOccurrences = (arr) => {
   }, {});
 };
 numberSample = arrayRange(numberFrom, numberTo)
-commentGroupElement = document.querySelector(`[class="${commentGroupClass}"]`)
-commentElements = commentGroupElement.querySelectorAll(`[class="${commentClass}"]`)
+commentElements = document.querySelectorAll(`[class="${commentClass}"]`)
 commentContents = Array.from(commentElements).map(comment => comment.textContent)
 commentNumbers = commentContents.map(comment => comment.match(/\d+/g))
 commentedNumbers = commentNumbers.map(comment => {
@@ -87,15 +118,21 @@ console.log(`Commented Numbers at position ${position}:`, commentedNumbers)
 console.log("Commented Numbers with count times:", countOccurrences(commentedNumbers))
 console.log("Available Number:", diff)
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
 
 // Search number of comments for VIDEO POST
 numberFrom = 0
 numberTo = 999
 position = 1
-
-commentGroupClass = "x78zum5 xdt5ytf x6ikm8r x1odjw0f x1iyjqo2 x1pi30zi x1swvt13"
-commentClass = "x1lliihq xjkvuk6 x1iorvi4"
+commentClass = "xdj266r x14z9mp xat24cr x1lziwak x1vvkbs"
 arrayRange = (start, stop, step = 1) =>
     Array.from(
     { length: (stop - start) / step + 1 },
@@ -112,10 +149,8 @@ countOccurrences = (arr) => {
     return acc;
   }, {});
 };
-
 numberSample = arrayRange(numberFrom, numberTo)
-commentGroupElement = document.querySelector(`[class="${commentGroupClass}"]`)
-commentElements = commentGroupElement.querySelectorAll(`[class="${commentClass}"]`)
+commentElements = document.querySelectorAll(`[class="${commentClass}"]`)
 commentContents = Array.from(commentElements).map(comment => comment.textContent)
 commentNumbers = commentContents.map(comment => comment.match(/\d+/g))
 commentedNumbers = commentNumbers.map(comment => {
