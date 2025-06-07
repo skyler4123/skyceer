@@ -29,7 +29,6 @@ export default class Education_LayoutController extends ApplicationController {
     this.footerController = Education_FooterController
     this.paginationController = Education_PaginationController
     this.paginationData = ServerData.pagination
-    this.selectControllerIdentifier = identifier(Education_ChoicesController)
     this.selectController = Education_ChoicesController
     this.choicesController = Education_ChoicesController
     this.tableController = Education_TableController
@@ -40,6 +39,14 @@ export default class Education_LayoutController extends ApplicationController {
   initLayout() {
     this.element.className = 'w-full h-full bg-white dark:bg-gray-900 text-black dark:text-white'
     this.element.innerHTML = this.layoutHTML()
+  }
+
+  getTableController() {
+    return this.application.getControllerForElementAndIdentifier(this.tableTarget, this.tableController.identifier)
+  }
+
+  getPaginationController() {
+    return this.application.getControllerForElementAndIdentifier(this.paginationTarget, this.paginationController.identifier)
   }
 
   layoutHTML() {

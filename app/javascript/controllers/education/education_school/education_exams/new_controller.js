@@ -32,11 +32,11 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   educationClassSelectTagController() {
-    return this.application.getControllerForElementAndIdentifier(this.educationClassSelectTagTarget, this.selectControllerIdentifier)
+    return this.application.getControllerForElementAndIdentifier(this.educationClassSelectTagTarget, this.selectController.identifier)
   }
 
   educationSubjectSelectTagController() {
-    return this.application.getControllerForElementAndIdentifier(this.educationSubjectSelectTagTarget, this.selectControllerIdentifier)
+    return this.application.getControllerForElementAndIdentifier(this.educationSubjectSelectTagTarget, this.selectController.identifier)
   }
 
   contentHTML() {

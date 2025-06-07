@@ -199,7 +199,7 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   appointTeacherSelectController() {
-    return this.application.getControllerForElementAndIdentifier(this.appointTeacherSelectTarget, this.selectControllerIdentifier)
+    return this.application.getControllerForElementAndIdentifier(this.appointTeacherSelectTarget, this.selectController.identifier)
   }
 
   updateAppointmentSubject(event) {

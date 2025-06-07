@@ -43,14 +43,6 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
     })
   }
 
-  getTableController() {
-    return this.application.getControllerForElementAndIdentifier(this.tableTarget, this.tableController.identifier)
-  }
-
-  getPaginationController() {
-    return this.application.getControllerForElementAndIdentifier(this.paginationTarget, this.paginationController.identifier)
-  }
-
   openEditEducationAdminModal(event) {
     const educationAdminId = event.params.educationAdminId
     EducationAdminsApi.show(educationAdminId).then((educationAdmin) => {
