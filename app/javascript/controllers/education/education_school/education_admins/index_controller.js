@@ -1,8 +1,9 @@
 import { createForm, createSelectTag, pluck, unique, params } from "controllers/education/helpers/data_helpers";
 import { EducationAdminsApi } from "controllers/education/api/education_admins_api";
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
-import { editModalHTML } from "controllers/education/education_school/education_admins/edit_modal_html";
+import { EditModalHTML } from "controllers/education/education_school/education_admins/edit_modal_html";
 import { tableData } from "controllers/education/education_school/education_admins/table_data";
+
 export default class Education_EducationSchool_EducationAdmins_IndexController extends Education_EducationSchool_LayoutController {
   static targets = ['content', 'table', 'search', 'pagination']
   static values = {
@@ -52,10 +53,10 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
 
   openEditEducationAdminModal(event) {
     const educationAdminId = event.params.educationAdminId
-    
     EducationAdminsApi.show(educationAdminId).then((educationAdmin) => {
+      console.log("Fetched education admin:", educationAdmin)
       this.openModal({
-        html: editModalHTML({educationAdmin: educationAdmin, selectControllerIdentifier: this.selectController.identifier, educationSchools: this.selectEducationSchools}),
+        html: EditModalHTML({educationAdmin: educationAdmin, selectControllerIdentifier: this.selectController.identifier, educationSchools: this.selectEducationSchools}),
       })
     }).catch((error) => {
       console.error("Error fetching education admin:", error)

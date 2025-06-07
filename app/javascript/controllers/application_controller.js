@@ -99,7 +99,7 @@ export default class ApplicationController extends Controller {
       target: document.querySelector('main'), // Default target
       ...options,
       customClass: {
-        container: '!bg-transparent',
+        container: '!bg-transparent !p-0',
         popup: '!p-0 !bg-transparent !w-full',
         htmlContainer: '!p-0 !overflow-visible',
         ...options.customClass
