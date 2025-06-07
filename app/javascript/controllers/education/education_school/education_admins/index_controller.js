@@ -12,6 +12,7 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
   }
 
   initBinding() {
+    console.log(this)
     super.initBinding()
     this.educationAdminsValue = ServerData.data.education_admins
     this.selectEducationSchools = ServerData.data.select_education_schools
@@ -46,7 +47,6 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
   openEditEducationAdminModal(event) {
     const educationAdminId = event.params.educationAdminId
     EducationAdminsApi.show(educationAdminId).then((educationAdmin) => {
-      console.log("Fetched education admin:", educationAdmin)
       this.openModal({
         html: EditModalHTML({educationAdmin: educationAdmin, selectControllerIdentifier: this.selectController.identifier, educationSchools: this.selectEducationSchools}),
       })

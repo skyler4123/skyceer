@@ -92,7 +92,7 @@ export default class ApplicationController extends Controller {
 
     Swal.fire({
       //  Require html option to be passed
-      // html: options.html,
+      //  html: options.html,
       showConfirmButton: false,
       showCloseButton: false,
       backdrop: true,
@@ -102,6 +102,57 @@ export default class ApplicationController extends Controller {
         container: '!bg-transparent !p-0',
         popup: '!p-0 !bg-transparent !w-full',
         htmlContainer: '!p-0 !overflow-visible',
+        ...options.customClass
+      },
+    });
+  }
+
+
+  openFlash({type = "notice", message = "Notice!", options = {}} = {}) {
+    let html = ""
+    switch (type) {
+      case "error":
+        html = `<div class='w-full text-center py-2 px-3 bg-red-50 text-red-500 font-medium rounded-lg inline-block' id='error'>${message}</div>`
+        break;
+      case "info":
+        html = `<div class='w-full text-center py-2 px-3 bg-blue-50 text-blue-500 font-medium rounded-lg inline-block' id='info'>${message}</div>`
+        break;
+      case "alert":
+        html = `<div class='w-full text-center py-2 px-3 bg-red-50 text-red-500 font-medium rounded-lg inline-block' id='alert'>${message}</div>`
+        break;
+      case "warning":
+        html = `<div class='w-full text-center py-2 px-3 bg-yellow-50 text-yellow-500 font-medium rounded-lg inline-block' id='warning'>${message}</div>`
+        break;
+      case "notice":
+        html = `<div class='w-full text-center py-2 px-3 bg-green-50 text-green-500 font-medium rounded-lg inline-block' id='notice'>${message}</div>`
+        break;
+    }
+    Swal.fire({
+      html: html,
+      position: "top",
+      showConfirmButton: false,
+      timer: 3000,
+      backdrop: false,
+      ...options,
+      customClass: {
+        container: '...1',
+        popup: '!p-0',
+        header: '...2',
+        title: '...3',
+        closeButton: '...',
+        icon: '...',
+        image: '...',
+        htmlContainer: '!p-0',
+        input: '...',
+        inputLabel: '...',
+        validationMessage: '...',
+        actions: '...',
+        confirmButton: '...',
+        denyButton: '...',
+        cancelButton: '...',
+        loader: '...5',
+        footer: '....6',
+        timerProgressBar: '....7',
         ...options.customClass
       },
     });
