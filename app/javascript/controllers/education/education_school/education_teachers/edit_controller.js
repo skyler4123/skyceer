@@ -63,7 +63,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: this.educationSchools.map((school) => {
               return { value: school.id, text: school.name }
             }),
-            dataController: this.choicesControllerIdentifier,
+            dataController: this.selectControllerIdentifier,
           })}
         </div>
 
@@ -78,7 +78,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: this.educationSubjects.map((subject) => {
               return { value: subject.id, text: subject.name }
             }),
-            dataController: this.choicesControllerIdentifier,
+            dataController: this.selectControllerIdentifier,
           })}
         </div>
 
@@ -93,7 +93,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: this.educationCategories.map((category) => {
               return { value: category.id, text: category.name }
             }),
-            dataController: this.choicesControllerIdentifier,
+            dataController: this.selectControllerIdentifier,
           })}
         </div>
 

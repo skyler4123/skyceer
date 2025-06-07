@@ -1,6 +1,6 @@
 import ApplicationController from "controllers/application_controller";
 
-export default class Education_EducationSchool_EducationAdmins_EditModalController extends ApplicationController {
+export default class Education_EducationSchool_EducationAdmins_EditFormController extends ApplicationController {
   static values = {
     educationAdminId: { type: String, default: "" },
   }
@@ -11,10 +11,10 @@ export default class Education_EducationSchool_EducationAdmins_EditModalControll
   }
 
   render() {
-    console.log(this.educationAdminIdValue)
+    this.element.innerHTML = this.defaultHTML()
   }
 
-    editModalHTML() {
+    defaultHTML() {
       return `
         <div class="p-5">
           <h2 class="text-xl font-medium mb-4">Edit Admin</h2>
@@ -30,7 +30,7 @@ export default class Education_EducationSchool_EducationAdmins_EditModalControll
               >
               ${createSelectTag({
                 name: "education_school_id",
-                dataController: this.choicesControllerIdentifier,
+                dataController: this.selectControllerIdentifier,
                 options: this.selectEducationSchools.map((school) => {
                   return {
                     value: school.id,

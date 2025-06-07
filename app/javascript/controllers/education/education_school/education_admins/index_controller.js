@@ -1,6 +1,7 @@
 import { createForm, createSelectTag, pluck, unique, params } from "controllers/education/helpers/data_helpers";
 import { EducationAdminsApi } from "controllers/education/api/education_admins_api";
 import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
+import Education_EducationSchool_EducationAdmins_EditFormController from "controllers/education/education_school/education_admins/edit_form_controller";
 export default class Education_EducationSchool_EducationAdmins_IndexController extends Education_EducationSchool_LayoutController {
   static targets = ['content', 'table', 'search', 'pagination']
   static values = {
@@ -51,13 +52,13 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
     
     EducationAdminsApi.show(educationAdminId).then((educationAdmin) => {
       console.log("Fetched education admin:", educationAdmin)
+      Education_EducationSchool_EducationAdmins_EditFormController
+      this.modal({
+        html: this.editModalHTML(educationAdmin),
+      })
     }).catch((error) => {
       console.error("Error fetching education admin:", error)
       this.contentTarget.innerHTML = "<p class='text-red-500'>Failed to load education admin.</p>"
-    })
-
-    this.modal({
-      html: educationAdminId
     })
   }
 
@@ -86,7 +87,7 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
     }
   }
 
-  editModalHTML() {
+  editModalHTML(educationAdmin, selectController = this.selectController) {
     return `
       <div class="p-5">
         <h2 class="text-xl font-medium mb-4">Edit Admin</h2>
@@ -96,20 +97,20 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
             <input 
               type="text" 
               name="name" 
-              value="${this.editEducationAdmin.name || ""}" 
+              value="${educationAdmin.name || ""}" 
               placeholder="Name" 
               class="border border-gray-200 rounded-lg p-2 focus:ring-blue-600"
             >
             ${createSelectTag({
               name: "education_school_id",
-              dataController: this.choicesControllerIdentifier,
+              dataController: selectController.identifier,
               options: this.selectEducationSchools.map((school) => {
                 return {
                   value: school.id,
                   text: school.name,
                 }
               }),
-              values: [this.editEducationAdmin.education_school_id || ""],
+              values: [educationAdmin.education_school_id || ""],
               blank: true,
               blankText: "Select School",
             })}
@@ -146,7 +147,7 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
               // className: "",
               // id: "",
               name: "education_school_id",
-              dataController: this.choicesControllerIdentifier,
+              dataController: this.selectControllerIdentifier,
               options: this.selectEducationSchools.map((school) => {
                 return {
                   value: school.id,

@@ -47,7 +47,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: this.educationSchools.map((school) => {
               return { value: school.id, text: school.name }
             }),
-            dataController: this.choicesControllerIdentifier,
+            dataController: this.selectControllerIdentifier,
           })}
         </div>
 
@@ -62,7 +62,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: this.educationCourses.map((course) => {
               return { value: course.id, text: course.name }
             }),
-            dataController: this.choicesControllerIdentifier,
+            dataController: this.selectControllerIdentifier,
           })}
         </div>
 
@@ -88,7 +88,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: this.educationCategories.map((category) => {
               return { value: category.id, text: category.name }
             }),
-            dataController: this.choicesControllerIdentifier,
+            dataController: this.selectControllerIdentifier,
             multiple: true,
           })}
         </div>
@@ -163,7 +163,7 @@ export default class extends Education_EducationSchool_LayoutController {
                     options: this.educationSubjects.map((subject) => {
                       return { value: subject.id, text: subject.name }
                     }),
-                    dataController: this.choicesControllerIdentifier,
+                    dataController: this.selectControllerIdentifier,
                     attributes: ` data-action="change->${this.identifier}#updateAppointmentSubject"`,
                   })}
                 </div>
@@ -181,7 +181,7 @@ export default class extends Education_EducationSchool_LayoutController {
                     // values: this.educationSubjects[0].education_teachers.map((teacher) => {
                     //   return { value: teacher.id, text: teacher.name }
                     // })[0].id,                    
-                    dataController: this.choicesControllerIdentifier,
+                    dataController: this.selectControllerIdentifier,
                     attributes: ` data-${this.identifier}-target="appointTeacherSelect"`,
                   })}
                 </div>
@@ -199,7 +199,7 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   appointTeacherSelectController() {
-    return this.application.getControllerForElementAndIdentifier(this.appointTeacherSelectTarget, this.choicesControllerIdentifier)
+    return this.application.getControllerForElementAndIdentifier(this.appointTeacherSelectTarget, this.selectControllerIdentifier)
   }
 
   updateAppointmentSubject(event) {

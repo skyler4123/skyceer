@@ -32,11 +32,11 @@ export default class extends Education_EducationSchool_LayoutController {
   }
 
   educationClassSelectTagController() {
-    return this.application.getControllerForElementAndIdentifier(this.educationClassSelectTagTarget, this.choicesControllerIdentifier)
+    return this.application.getControllerForElementAndIdentifier(this.educationClassSelectTagTarget, this.selectControllerIdentifier)
   }
 
   educationSubjectSelectTagController() {
-    return this.application.getControllerForElementAndIdentifier(this.educationSubjectSelectTagTarget, this.choicesControllerIdentifier)
+    return this.application.getControllerForElementAndIdentifier(this.educationSubjectSelectTagTarget, this.selectControllerIdentifier)
   }
 
   contentHTML() {
@@ -102,7 +102,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: this.educationSchools.map((educationSchool) => {
               return { value: educationSchool.id, text: educationSchool.name }
             }),
-            dataController: this.choicesControllerIdentifier,
+            dataController: this.selectControllerIdentifier,
             attributes: ` data-action="change->${this.identifier}#educationSchoolIdSelectChange"`,
           })}
         </div>
@@ -118,7 +118,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: initialEducationSubjects.map((subject) => {
               return { value: subject.id, text: subject.name }
             }),
-            dataController: this.choicesControllerIdentifier,
+            dataController: this.selectControllerIdentifier,
             attributes: ` data-${this.identifier}-target="educationSubjectSelectTag"`,
           })}
         </div>
@@ -132,7 +132,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: this.educationCategories.map((category) => {
               return { value: category.id, text: category.name }
             }),
-            dataController: this.choicesControllerIdentifier,
+            dataController: this.selectControllerIdentifier,
             multiple: true,
           })}
         </div>
@@ -147,7 +147,7 @@ export default class extends Education_EducationSchool_LayoutController {
             options: initialEducationClasses.map((educationClass) => {
               return { value: educationClass.id, text: educationClass.name }
             }),
-            dataController: this.choicesControllerIdentifier,
+            dataController: this.selectControllerIdentifier,
             attributes: ` data-${this.identifier}-target="educationClassSelectTag"`,
             multiple: true,
           })}

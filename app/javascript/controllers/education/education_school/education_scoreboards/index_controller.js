@@ -207,7 +207,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
               options: this.selectionEducationClasses.map((klass) => {
                 return { value: klass.id, text: klass.name }
               }),
-              dataController: this.choicesControllerIdentifier,
+              dataController: this.selectControllerIdentifier,
               attributes: ` data-${this.identifier}-target="classIdSelect" data-action="change->${this.identifier}#handleEducationClassIdSelection"`
             })}
           </div>
@@ -223,7 +223,7 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
               options: initEducationSubjects.map((subject) => {
                 return { value: subject.id, text: subject.name }
               }),
-              dataController: this.choicesControllerIdentifier,
+              dataController: this.selectControllerIdentifier,
               attributes: ` data-${this.identifier}-target="subjectIdSelect" data-controller="${identifier(Education_ChoicesController)}"`
             })}
           </div>
