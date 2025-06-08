@@ -59,3 +59,11 @@ Redis
     docker pull redis
     docker run --name redis -d -p 6379:6379 redis
   ##
+Run development
+  ##
+    docker compose -p skyceer-development up -d
+  ##
+Run test
+  ##
+    docker compose -p skyceer-test -f docker-compose.yml -f docker-compose.test.yml up -d
+  ##
