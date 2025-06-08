@@ -24,7 +24,7 @@ export default class Education_EducationSchool_EducationTeachers_IndexController
       return {
         ...row,
         name: `<a href="/education_teachers/${row.id}/edit">${row.name}</a>`,
-        school_names: `<div>${row.education_school.id}</div>`,
+        school_names: `<div>${row.education_school.name}</div>`,
         class_names: `<ol>${row.education_classes.map((klass) => `<li>${klass.name}</li>`).join("")}</ol>`,
         subject_names: `<ol>${row.education_subjects.map((subject) => `<li>${subject.name}</li>`).join("")}</ol>`,
       }

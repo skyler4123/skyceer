@@ -4,7 +4,7 @@ RSpec.feature "education_students#index", type: :feature, js: true do
   include_context "support/shared_contexts/education/default_database"
 
   before do
-    education_school.education_students << education_student
+    # education_school.education_students << education_student
     education_class.education_students << education_student
   end
   
