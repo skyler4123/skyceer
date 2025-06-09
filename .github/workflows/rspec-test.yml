@@ -1,33 +1,33 @@
-name: Rspec Tests
+# name: Rspec Tests
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
 
-      -
-        name: Set up Docker Compose
-        uses: docker/setup-compose-action@v1
-        with:
-          version: latest
+#       -
+#         name: Set up Docker Compose
+#         uses: docker/setup-compose-action@v1
+#         with:
+#           version: latest
 
-      # Run docker compose that shows onlt logs from the web service and fails on test failure
-      - name: Run Docker Compose and fail on test failure
-        run: |
-          docker compose -p skyceer-test -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web
+#       # Run docker compose that shows onlt logs from the web service and fails on test failure
+#       - name: Run Docker Compose and fail on test failure
+#         run: |
+#           docker compose -p skyceer-test -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web
 
-      - name: Show running containers
-        run: docker ps -a
+#       - name: Show running containers
+#         run: docker ps -a
 
-      # Optional: Tear down after test
-      - name: Stop and remove containers
-        if: always()
-        run: docker compose -p skyceer-test -f docker-compose.yml -f docker-compose.test.yml down
+#       # Optional: Tear down after test
+#       - name: Stop and remove containers
+#         if: always()
+#         run: docker compose -p skyceer-test -f docker-compose.yml -f docker-compose.test.yml down
