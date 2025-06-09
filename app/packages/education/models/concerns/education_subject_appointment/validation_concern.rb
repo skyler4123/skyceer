@@ -20,12 +20,12 @@ module EducationSubjectAppointment::ValidationConcern
     # end
 
     def unique_subject_per_class
-      if EducationSubjectAppointment.where(
-           education_subject: education_subject,
-           education_class: education_class
-         ).where.not(id: id).exists?
-        errors.add(:education_subject, "A subject can only appoint one time to a class with a teacher")
-      end
+      # if EducationSubjectAppointment.where(
+      #      education_subject: education_subject,
+      #      education_class: education_class
+      #    ).where.not(id: id).exists?
+      #   errors.add(:education_subject, "A subject can only appoint one time to a class with a teacher")
+      # end
     end
   end
 

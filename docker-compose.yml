@@ -18,7 +18,6 @@ services:
       - mongo
       - elasticsearch
       - kibana
-      - job
 
   postgres:
     image: postgres
@@ -39,7 +38,7 @@ services:
 
   job:
     build: .
-    command: bash -c "bin/jobs"
+    command: bash -c "bundle exec rails db:create db:migrate && bin/jobs"
     environment:
       # DATABASE_URL: "postgres://postgres:password@postgres:5432/skyceer_development"
       # MONGODB_URL: "mongodb://mongo:27017/skyceer_development"
@@ -49,10 +48,7 @@ services:
       ELASTICSEARCH_HOST: elasticsearch
       MONGO_HOST: mongo
     depends_on:
-      - postgres
-      - mongo
-      - elasticsearch
-      - kibana
+      - web
 
   elasticsearch:
     image: elasticsearch:8.14.1

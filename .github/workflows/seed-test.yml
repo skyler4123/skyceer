@@ -21,8 +21,7 @@ jobs:
 
       # Run docker compose that shows onlt logs from the web service and fails on test failure
       - name: Run Docker Compose and fail on test failure
-        run: |
-          docker compose -p skyceer-test -f docker-compose.yml -f docker-compose.seed-test.yml up --abort-on-container-exit --exit-code-from web
+        run: docker compose -p skyceer-seed-test -f docker-compose.yml -f docker-compose.seed-test.yml up --abort-on-container-exit --exit-code-from web
 
       - name: Show running containers
         run: docker ps -a
@@ -30,4 +29,4 @@ jobs:
       # Optional: Tear down after test
       - name: Stop and remove containers
         if: always()
-        run: docker compose -p skyceer-test -f docker-compose.yml -f docker-compose.test.yml down
+        run: docker compose -p skyceer-seed-test -f docker-compose.yml -f docker-compose.seed-test.yml down

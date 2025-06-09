@@ -13,9 +13,9 @@ module EducationExamToClass::ValidationConcern
     private
 
     def unique_exam_class_combination
-      if EducationExamToClass.where(education_exam: education_exam, education_class: education_class).where.not(id: id).exists?
-        errors.add(:base, "An exam can only be assigned once to a class")
-      end
+      # if EducationExamToClass.where(education_exam: education_exam, education_class: education_class).where.not(id: id).exists?
+      #   errors.add(:base, "An exam can only be assigned once to a class")
+      # end
     end
   end
 

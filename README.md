@@ -50,7 +50,7 @@ Run development
   ##
 Run test
   ##
-    docker compose -p skyceer-test -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web
-    docker compose -p skyceer-test -f docker-compose.yml -f docker-compose.seed-test.yml up --abort-on-container-exit --exit-code-from web
+    docker compose -p skyceer-rspec-test -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web
+    docker compose -p skyceer-seed-test -f docker-compose.yml -f docker-compose.seed-test.yml up --abort-on-container-exit --exit-code-from web
   ##
   
