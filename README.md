@@ -2,13 +2,13 @@
 
 Rails
   ##
-    docker build -t rails .
-    docker run -d -it --name web -p 3000:3000 -v $PWD:/skyceer rails
+    docker build -t skyceer-rails .
+    docker run -d -it --name web -p 3000:3000 -v $PWD:/skyceer skyceer-rails
   ##
 Solid queue + cache
   ##
     docker build -t rails .
-    docker run -d --name solid -v $PWD:/skyceer rails bin/jobs
+    docker run -d --name solid -v $PWD:/skyceer skyceer-rails bin/jobs
   ##
 Solid
   ##
