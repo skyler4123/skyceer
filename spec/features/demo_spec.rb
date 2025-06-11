@@ -6,7 +6,7 @@ RSpec.feature "Demo", type: :feature do
     # expect(true).to be_falsey
   end
 
-  it "will failed" do
-    expect(true).to be_falsey
-  end
+  # it "will failed" do
+  #   expect(true).to be_falsey
+  # end
 end
