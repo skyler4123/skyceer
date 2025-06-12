@@ -17,7 +17,6 @@ services:
       - postgres
       - mongo
       - elasticsearch
-      - kibana
 
   postgres:
     image: postgres
@@ -62,14 +61,14 @@ services:
     volumes:
       - es_data:/usr/share/elasticsearch/data
 
-  kibana:
-    image: kibana:8.14.1
-    environment:
-      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
+  # kibana:
+  #   image: kibana:8.14.1
+  #   environment:
+  #     ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+  #   ports:
+  #     - "5601:5601"
+  #   depends_on:
+  #     - elasticsearch
 
 volumes:
   postgres_data:

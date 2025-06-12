@@ -9,8 +9,8 @@ postgresql: &postgresql
   pool: 5
   username: <%= Rails.application.credentials.dig(:postgres_username) || "postgres" %>
   password: <%= Rails.application.credentials.dig(:postgres_password) || "password" %>
-  # host: <%= Rails.application.credentials.dig(:postgres_host) || "localhost" %>
-  host: <%= ENV.fetch("POSTGRES_HOST") { "0.0.0.0" } %>
+  host: <%= Rails.application.credentials.dig(:postgres_host) || "localhost" %>
+  # host: <%= ENV.fetch("POSTGRES_HOST") { "0.0.0.0" } %>
   port: <%= Rails.application.credentials.dig(:postgres_port) || "5432" %>
 
 queue: &queue
