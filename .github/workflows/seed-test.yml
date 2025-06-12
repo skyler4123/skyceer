@@ -21,6 +21,8 @@ jobs:
 
       # Run docker compose that shows onlt logs from the web service and fails on test failure
       - name: Run Docker Compose and fail on test failure
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: docker compose -p skyceer-seed-test -f docker-compose.yml -f docker-compose.seed-test.yml up --abort-on-container-exit --exit-code-from web
 
       - name: Show running containers
