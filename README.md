@@ -7,13 +7,13 @@ Rails
   ##
 Solid queue + cache
   ##
-    docker build -t rails .
+    docker build -t skyceer-rails .
     docker run -d --name solid -v $PWD:/skyceer skyceer-rails bin/jobs
   ##
 Solid
   ##
-    docker build -t rails .
-    docker run -d --name solid rails bundle exec rails solid_queue:start
+    docker build -t skyceer-rails .
+    docker run -d --name solid skyceer-rails bundle exec rails solid_queue:start
   ##
 Postgres
   ##
@@ -53,4 +53,7 @@ Run test
     docker compose -p skyceer-rspec-test -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web
     docker compose -p skyceer-seed-test -f docker-compose.yml -f docker-compose.seed-test.yml up --abort-on-container-exit --exit-code-from web
   ##
-  
+ENV
+  ##
+    EDITOR="code --wait" bin/rails credentials:edit
+  ##

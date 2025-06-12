@@ -1,7 +1,7 @@
 services:
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails db:create db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
     # command: bash -c "rm -f tmp/pids/server.pid && bin/dev"
     environment:
       PWD: /skyceer
@@ -47,6 +47,8 @@ services:
       POSTGRES_HOST: postgres
       ELASTICSEARCH_HOST: elasticsearch
       MONGO_HOST: mongo
+    volumes:
+      - .:/skyceer
     depends_on:
       - web
 
