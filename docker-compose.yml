@@ -1,9 +1,10 @@
 services:
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails db:create db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
     # command: bash -c "rm -f tmp/pids/server.pid && bin/dev"
     environment:
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       PWD: /skyceer
       RAILS_ENV: development
       POSTGRES_HOST: postgres
@@ -17,7 +18,6 @@ services:
       - postgres
       - mongo
       - elasticsearch
-      - kibana
 
   postgres:
     image: postgres
@@ -40,6 +40,7 @@ services:
     build: .
     command: bash -c "bundle exec rails db:create db:migrate && bin/jobs"
     environment:
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       # DATABASE_URL: "postgres://postgres:password@postgres:5432/skyceer_development"
       # MONGODB_URL: "mongodb://mongo:27017/skyceer_development"
       PWD: /skyceer
@@ -47,6 +48,8 @@ services:
       POSTGRES_HOST: postgres
       ELASTICSEARCH_HOST: elasticsearch
       MONGO_HOST: mongo
+    volumes:
+      - .:/skyceer
     depends_on:
       - web
 
@@ -60,14 +63,14 @@ services:
     volumes:
       - es_data:/usr/share/elasticsearch/data
 
-  kibana:
-    image: kibana:8.14.1
-    environment:
-      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
+  # kibana:
+  #   image: kibana:8.14.1
+  #   environment:
+  #     ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+  #   ports:
+  #     - "5601:5601"
+  #   depends_on:
+  #     - elasticsearch
 
 volumes:
   postgres_data:
