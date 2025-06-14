@@ -1,9 +1,9 @@
 name: Deploy to Main
 
 on:
-  push:
-    branches: [main]
-  # pull_request:
+  # push:
+  #   branches: [main]
+  pull_request:
   #   branches: [main]
   workflow_run:
     workflows: ["Rspec Tests", "Seed Tests"]
@@ -15,5 +15,12 @@ jobs:
     # if: github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for tests to succeed
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Run tests'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
       - name: Echo deploy message
         run: echo "Deploying to main branch because all tests passed!"
