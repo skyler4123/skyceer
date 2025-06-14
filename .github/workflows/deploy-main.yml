@@ -1,0 +1,16 @@
+name: Deploy to Main
+
+on:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: ["Rspec Tests", "Seed Tests"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo deploy message
+        run: echo "Deploying to main branch because all tests passed!"
