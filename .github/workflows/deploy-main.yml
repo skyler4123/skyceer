@@ -1,14 +1,16 @@
 name: Deploy Main
 
 on:
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
   # pull_request:
   #   branches: [main]
-  workflow_run:
-    workflows: [Rspec Tests, Seed Tests]
-    types:
-      - completed
+
+  # workflow_run like after_create callback, we dont need it appear on workflows box
+  # workflow_run:
+  #   workflows: [Rspec Tests, Seed Tests]
+  #   types:
+  #     - completed
 
 jobs:
   deploy:
