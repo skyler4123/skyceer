@@ -3,7 +3,7 @@ name: Deploy Main
 on:
   # push:
   #   branches: [main]
-  pull_request:
+  # pull_request:
   #   branches: [main]
   workflow_run:
     workflows: [Rspec Tests, Seed Tests]
@@ -18,13 +18,13 @@ jobs:
       - name: Init action
         run: echo "Preparing to deploy to main branch"
 
-      - name: Wait for tests to succeed
-        uses: lewagon/wait-on-check-action@v1.3.4
-        with:
-          ref: ${{ github.ref }}
-          check-name: 'Rspec Tests'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
+      # - name: Wait for tests to succeed
+      #   uses: lewagon/wait-on-check-action@v1.3.4
+      #   with:
+      #     ref: ${{ github.ref }}
+      #     check-name: 'Rspec Tests'
+      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
+      #     wait-interval: 10
 
       - name: Echo deploy message
         run: echo "Deploying to main branch because all tests passed!"
