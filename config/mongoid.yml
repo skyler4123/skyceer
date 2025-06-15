@@ -19,9 +19,7 @@ test:
 production:
   clients:
     default:
-      database: skyceer_production
-      hosts:
-        - "<%= Rails.application.credentials.dig(:mongo_host) || 'localhost' %>:<%= Rails.application.credentials.dig(:mongo_port) || 27017 %>"
+      uri: "<%= Rails.application.credentials.dig(:mongo_uri) %>"
       options:
         server_selection_timeout: 5
 

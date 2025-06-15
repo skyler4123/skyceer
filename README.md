@@ -56,5 +56,6 @@ Run test
 ENV
   ##
     EDITOR="code --wait" bin/rails credentials:edit
+    EDITOR="code --wait" bin/rails credentials:edit -e production
   ##
   
