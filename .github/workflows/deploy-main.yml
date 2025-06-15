@@ -1,4 +1,4 @@
-name: Deploy to Main
+name: Deploy Main
 
 on:
   # push:
@@ -15,6 +15,9 @@ jobs:
     # if: github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
     steps:
+      - name: Init action
+        run: echo "Preparing to deploy to main branch"
+
       - name: Wait for tests to succeed
         uses: lewagon/wait-on-check-action@v1.3.4
         with:
@@ -22,5 +25,6 @@ jobs:
           check-name: 'Run tests'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 10
+
       - name: Echo deploy message
         run: echo "Deploying to main branch because all tests passed!"
