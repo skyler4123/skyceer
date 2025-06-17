@@ -30,6 +30,11 @@ Elasticsearch
     docker pull elasticsearch:8.14.1
     docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e "xpack.security.enrollment.enabled=false" elasticsearch:8.14.1
   ##
+Opensearch
+  ##
+    docker pull opensearchproject/opensearch
+    docker run -d --name opensearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e OPENSEARCH_INITIAL_ADMIN_PASSWORD=password opensearchproject/opensearch
+  ##
 Kibana
   ##
     docker pull kibana:8.14.1

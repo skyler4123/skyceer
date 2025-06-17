@@ -17,7 +17,7 @@ services:
     depends_on:
       - postgres
       - mongo
-      - elasticsearch
+      # - elasticsearch
 
   postgres:
     image: postgres
@@ -53,15 +53,15 @@ services:
     depends_on:
       - web
 
-  elasticsearch:
-    image: elasticsearch:8.14.1
-    environment:
-      discovery.type: single-node
-      xpack.security.enabled: "false"
-    ports:
-      - "9200:9200"
-    volumes:
-      - es_data:/usr/share/elasticsearch/data
+  # elasticsearch:
+  #   image: elasticsearch:8.14.1
+  #   environment:
+  #     discovery.type: single-node
+  #     xpack.security.enabled: "false"
+  #   ports:
+  #     - "9200:9200"
+  #   volumes:
+  #     - es_data:/usr/share/elasticsearch/data
 
   # kibana:
   #   image: kibana:8.14.1
@@ -71,6 +71,17 @@ services:
   #     - "5601:5601"
   #   depends_on:
   #     - elasticsearch
+
+  opensearch:
+    image: opensearchproject/opensearch:2.10.0
+    environment:
+      - discovery.type=single-node
+      - plugins.security.disabled=true
+    ports:
+      - "9200:9200"
+      - "9600:9600"
+    volumes:
+      - es_data:/usr/share/opensearch/data
 
 volumes:
   postgres_data:

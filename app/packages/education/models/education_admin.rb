@@ -13,5 +13,5 @@ class EducationAdmin < ApplicationRecord
   
   include EducationAdmin::ValidationConcern
   include EducationAdmin::UserConcern
-  include EducationAdmin::ElasticsearchConcern
+  # include EducationAdmin::ElasticsearchConcern
 end
