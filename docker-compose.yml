@@ -18,6 +18,7 @@ services:
       - postgres
       - mongo
       - opensearch
+      - opensearch_dashboards
       # - elasticsearch
 
   job:
