@@ -51,7 +51,7 @@ Redis
   ##
 Run development
   ##
-    docker compose -p skyceer-development up -d
+    RAILS_MASTER_KEY=$(cat config/master.key) docker compose -p skyceer-development up -d
   ##
 Run test
   ##
@@ -62,5 +62,7 @@ ENV
   ##
     EDITOR="code --wait" bin/rails credentials:edit
     EDITOR="code --wait" bin/rails credentials:edit -e production
+    EDITOR="code --wait" bin/rails credentials:edit -e development
+    EDITOR="code --wait" bin/rails credentials:edit -e test
   ##
   

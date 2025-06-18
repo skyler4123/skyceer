@@ -119,9 +119,11 @@ gem 'rack-cors'
 gem 'rswag-api'
 gem 'rswag-ui'
 
-gem "elasticsearch-model"
-gem "elasticsearch-rails"
-gem "elasticsearch-persistence"
+gem "searchkick"
+gem "opensearch-ruby" # select one
+# gem "elasticsearch-model"
+# gem "elasticsearch-rails"
+# gem "elasticsearch-persistence"
 
 gem 'rack-attack'
 

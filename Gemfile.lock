@@ -147,25 +147,6 @@ GEM
       railties (>= 6.1)
     drb (2.2.3)
     ed25519 (1.4.0)
-    elastic-transport (8.4.0)
-      faraday (< 3)
-      multi_json
-    elasticsearch (8.18.0)
-      elastic-transport (~> 8.3)
-      elasticsearch-api (= 8.18.0)
-    elasticsearch-api (8.18.0)
-      multi_json
-    elasticsearch-model (8.0.0)
-      activesupport (> 3)
-      elasticsearch (~> 8)
-      hashie
-    elasticsearch-persistence (8.0.0)
-      activemodel (> 4)
-      activesupport (> 4)
-      elasticsearch (~> 8)
-      elasticsearch-model (= 8)
-      hashie
-    elasticsearch-rails (8.0.0)
     em-websocket (0.5.3)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0)
@@ -335,6 +316,9 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
+    opensearch-ruby (3.4.0)
+      faraday (>= 1.0, < 3)
+      multi_json (>= 1.0)
     ostruct (0.6.1)
     packwerk (3.2.3)
       activesupport (>= 6.0)
@@ -467,6 +451,9 @@ GEM
     ruby-vips (2.2.4)
       ffi (~> 1.12)
       logger
+    searchkick (5.5.2)
+      activemodel (>= 7.1)
+      hashie
     securerandom (0.4.1)
     shoulda-matchers (6.5.0)
       activesupport (>= 5.2.0)
@@ -567,9 +554,6 @@ DEPENDENCIES
   debug
   discard
   dotenv-rails
-  elasticsearch-model
-  elasticsearch-persistence
-  elasticsearch-rails
   em-websocket
   eu_central_bank
   factory_bot_rails
@@ -585,6 +569,7 @@ DEPENDENCIES
   money-rails
   mongoid
   omniauth-google-oauth2
+  opensearch-ruby
   packwerk
   pagy
   pg
@@ -602,6 +587,7 @@ DEPENDENCIES
   rswag-api
   rswag-specs
   rswag-ui
+  searchkick
   shoulda-matchers
   silencer
   simplecov
