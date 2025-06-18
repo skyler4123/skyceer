@@ -4,12 +4,12 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails db:create db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
     # command: bash -c "rm -f tmp/pids/server.pid && bin/dev"
     environment:
+      RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       # PWD: /skyceer
-      RAILS_ENV: development
-      POSTGRES_HOST: postgres
-      ELASTICSEARCH_HOST: elasticsearch
-      MONGO_HOST: mongo
+      # POSTGRES_HOST: postgres
+      # ELASTICSEARCH_HOST: elasticsearch
+      # MONGO_HOST: mongo
     volumes:
       - .:/skyceer
     ports:
@@ -41,14 +41,14 @@ services:
     build: .
     command: bash -c "bundle exec rails db:create db:migrate && bin/jobs"
     environment:
+      RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       # DATABASE_URL: "postgres://postgres:password@postgres:5432/skyceer_development"
       # MONGODB_URL: "mongodb://mongo:27017/skyceer_development"
       # PWD: /skyceer
-      RAILS_ENV: development
-      POSTGRES_HOST: postgres
-      ELASTICSEARCH_HOST: elasticsearch
-      MONGO_HOST: mongo
+      # POSTGRES_HOST: postgres
+      # ELASTICSEARCH_HOST: elasticsearch
+      # MONGO_HOST: mongo
     volumes:
       - .:/skyceer
     depends_on:
@@ -74,11 +74,12 @@ services:
   #     - elasticsearch
 
   opensearch:
-    image: opensearchproject/opensearch:2.10.0
+    image: opensearchproject/opensearch:3
     environment:
       OPENSEARCH_INITIAL_ADMIN_PASSWORD: OpensearchPassword@1234
       discovery.type: single-node
       plugins.security.disabled: "true"
+      # DISABLE_SECURITY_PLUGIN: "true" # Disables Security plugin
     ports:
       - "9200:9200"
       - "9600:9600"
@@ -86,9 +87,10 @@ services:
       - es_data:/usr/share/opensearch/data
 
   opensearch_dashboards:
-    image: opensearchproject/opensearch-dashboards:2.10.0
+    image: opensearchproject/opensearch-dashboards:3
     environment:
-      OPENSEARCH_HOSTS: "http://opensearch:9200"
+      - 'OPENSEARCH_HOSTS=["http://opensearch:9200"]'
+      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"
     ports:
       - "5601:5601"
     depends_on:
