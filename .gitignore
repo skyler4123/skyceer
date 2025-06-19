@@ -29,6 +29,9 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials/production.key
+/config/credentials/development.key
+/config/credentials/test.key
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
@@ -38,4 +41,4 @@
 !/.env*.erb
 coverage
 
-/config/credentials/production.key
+
