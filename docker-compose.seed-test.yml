@@ -1,3 +1,4 @@
+name: skyceer_seed_test
 services:
   web:
     build: .

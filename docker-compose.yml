@@ -1,7 +1,8 @@
+name: skyceer_development
 services:
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails db:create db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails db:prepare && bundle exec rails s -p 3000 -b '0.0.0.0'"
     # command: bash -c "rm -f tmp/pids/server.pid && bin/dev"
     environment:
       RAILS_ENV: development
@@ -22,7 +23,7 @@ services:
 
   job:
     build: .
-    command: bash -c "bundle exec rails db:create db:migrate && bin/jobs"
+    command: bash -c "sleep 5 && bundle exec rails db:prepare && bin/jobs"
     environment:
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}

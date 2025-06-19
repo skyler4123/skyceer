@@ -1,3 +1,4 @@
+name: skyceer_rspec_test
 services:
   web:
     build: .
