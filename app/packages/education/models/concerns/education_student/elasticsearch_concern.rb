@@ -1,4 +1,4 @@
-# module EducationStudent::ElasticsearchConcern
+module EducationStudent::ElasticsearchConcern
 #   extend ActiveSupport::Concern
   
 #   included do
@@ -35,4 +35,4 @@
 #   #   # ...
 #   # end
 
-# end
+end
