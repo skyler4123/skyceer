@@ -1,6 +1,15 @@
+name: skyceer_seed_test
 services:
   web:
-    build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails db:create db:migrate db:seed"
     environment:
       RAILS_ENV: test
+    volumes: !reset null
+    depends_on: !reset
+      - postgres
+      - mongo
+      - opensearch
+  
+  job: !reset null
+
+  opensearch_dashboards: !reset null

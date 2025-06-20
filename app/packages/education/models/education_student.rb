@@ -1,7 +1,7 @@
 class EducationStudent < ApplicationRecord
   # include EducationStudent::AvatarConcern
   include EducationStudent::ImagesConcern
-  include EducationStudent::ElasticsearchConcern
+  # include EducationStudent::ElasticsearchConcern
 
   belongs_to :user, optional: true
   # belongs_to :education_school_user, class_name: 'User'

@@ -29,7 +29,8 @@ class User < ApplicationRecord
   # Customize the user model here
   include User::ApplicationConcern
   include User::ValidationConcern
-  include User::ElasticsearchConcern
+  # include User::ElasticsearchConcern
+  include User::SearchkickConcern
   include User::AvatarConcern
   include User::ImagesConcern
   include User::ImagesInArticlePostConcern

@@ -8,6 +8,8 @@ class NosqlUser
   field :address_id, type: String
   field :email, type: String
   field :name, type: String
+  field :first_name, type: String
+  field :last_name, type: String
   field :avatar, type: String
   field :role, type: Integer
   field :education_role, type: Integer

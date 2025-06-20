@@ -30,6 +30,11 @@ Elasticsearch
     docker pull elasticsearch:8.14.1
     docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" -e "xpack.security.enrollment.enabled=false" elasticsearch:8.14.1
   ##
+Opensearch
+  ##
+    docker pull opensearchproject/opensearch
+    docker run -d --name opensearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e OPENSEARCH_INITIAL_ADMIN_PASSWORD=password opensearchproject/opensearch
+  ##
 Kibana
   ##
     docker pull kibana:8.14.1
@@ -46,15 +51,18 @@ Redis
   ##
 Run development
   ##
-    docker compose -p skyceer-development up -d
+    RAILS_MASTER_KEY=$(cat config/master.key) docker compose up -d
   ##
 Run test
   ##
-    RAILS_MASTER_KEY=$(cat config/master.key) docker compose -p skyceer-rspec-test -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web
-    RAILS_MASTER_KEY=$(cat config/master.key) docker compose -p skyceer-seed-test -f docker-compose.yml -f docker-compose.seed-test.yml up --abort-on-container-exit --exit-code-from web
+    RAILS_MASTER_KEY=$(cat config/master.key) docker compose -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web
+    RAILS_MASTER_KEY=$(cat config/master.key) docker compose -f docker-compose.yml -f docker-compose.seed-test.yml up --abort-on-container-exit --exit-code-from web
   ##
 ENV
   ##
     EDITOR="code --wait" bin/rails credentials:edit
+    EDITOR="code --wait" bin/rails credentials:edit -e production
+    EDITOR="code --wait" bin/rails credentials:edit -e development
+    EDITOR="code --wait" bin/rails credentials:edit -e test
   ##
   

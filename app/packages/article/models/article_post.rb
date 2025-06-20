@@ -2,7 +2,7 @@ class ArticlePost
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  include ArticlePost::ElasticsearchConcern
+  # include ArticlePost::ElasticsearchConcern
   include ArticlePost::ImagesConcern
   
   field :user_id, type: String
