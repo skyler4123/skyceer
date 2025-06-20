@@ -62,7 +62,5 @@ ENV
   ##
     EDITOR="code --wait" bin/rails credentials:edit
     EDITOR="code --wait" bin/rails credentials:edit -e production
-    EDITOR="code --wait" bin/rails credentials:edit -e development
-    EDITOR="code --wait" bin/rails credentials:edit -e test
   ##
   
