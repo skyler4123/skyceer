@@ -9,7 +9,7 @@ services:
     environment:
       # For Thruster
       DEBUG: "true"
-      HTTP_PORT: 8080
+      # HTTP_PORT: 8080
 
       # For Rails 
       RAILS_ENV: development
@@ -22,7 +22,11 @@ services:
       - .:/skyceer
     ports:
       # - "3000:3000"
-      - "8080:8080"
+
+      # Use Thruster to handle port 80 and 443
+      # - "8080:8080"
+      - "80:80"
+      - "443:443"
     depends_on:
       - postgres
       - mongo
