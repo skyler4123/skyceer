@@ -19,7 +19,7 @@ test:
 production:
   clients:
     default:
-      uri: "<%= Rails.application.credentials.dig(:mongo_uri) %>"
+      uri: "<%= Rails.application.credentials.dig(:mongo_url) %>"
       options:
         server_selection_timeout: 5
 
