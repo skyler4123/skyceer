@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
       set_cookie_for_sign_in(session: @session, user: user)
       redirect_to root_path, notice: SIGN_IN_SUCCESS_MESSAGE
     else
-      redirect_to sign_in_path(email_hint: params[:email]), alert: "That email or password is incorrect"
+      redirect_to sign_in_path(email: params[:email]), alert: "That email or password is incorrect"
     end
   end
 
