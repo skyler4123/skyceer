@@ -707,6 +707,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.string "first_name"
     t.string "last_name"
     t.string "avatar"
+    t.string "phone_number"
+    t.string "country_code"
     t.integer "role"
     t.integer "education_role"
     t.boolean "verified", default: false, null: false

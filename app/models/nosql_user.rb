@@ -5,6 +5,8 @@ class NosqlUser
   field :user_id, type: String
   field :username, type: String
   field :uid, type: String
+  field :phone_number, type: String
+  field :country_code, type: String
   field :address_id, type: String
   field :email, type: String
   field :name, type: String
