@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
       #   redirect_to sign_in_path
       # end
       unless Current.session
-        set_cookie_for_sign_out
+        clear_cookie_for_sign_out
         redirect_to sign_in_path
       end
     end

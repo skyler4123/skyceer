@@ -52,7 +52,7 @@ Redis
 Run development
   ##
     RAILS_MASTER_KEY=$(cat config/master.key) docker compose up -d
-    DEBUG=true HTTP_PORT=8080 thrust bin/rails s
+    DEBUG=true HTTP_PORT=80 thrust bin/rails s
   ##
 Run test
   ##
