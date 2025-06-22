@@ -193,7 +193,7 @@ export const setCookie = (name, value, days) => {
 
 // check isSignedIn by check email in cookie
 export const isSignedIn = () => {
-  return Cookie('email') && Cookie('email').length > 0
+  return Cookie('is_signed_in') && Cookie('is_signed_in') === 'true'
 }
 
 // get avatar from cookie
