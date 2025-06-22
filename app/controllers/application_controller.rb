@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_session
   before_action :set_current_request_details
   before_action :authenticate
+  before_action :check_sign_out_and_clear_cookie
 
   helper_method :current_user, :is_signed_in
 
@@ -36,7 +37,10 @@ class ApplicationController < ActionController::Base
       # else
       #   redirect_to sign_in_path
       # end
-      redirect_to sign_in_path unless Current.session
+      unless Current.session
+        set_cookie_for_sign_out
+        redirect_to sign_in_path
+      end
     end
 
     def set_current_request_details

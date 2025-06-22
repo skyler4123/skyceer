@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     if user
       @session = user.sessions.create!
       # cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
-      set_cookie(session: @session, user: user)
+      set_cookie_for_sign_in(session: @session, user: user)
       redirect_to root_path, notice: SIGN_IN_SUCCESS_MESSAGE
     else
       redirect_to sign_in_path(email_hint: params[:email]), alert: "That email or password is incorrect"
