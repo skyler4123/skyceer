@@ -5,7 +5,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
   def index
     @education_exams = EducationExam.where(education_school: @education_schools)
     @pagination, @education_exams = pagy(@education_exams)
-    @data = {
+    @json_data = {
       education_exams: @education_exams.as_json(only: %i[id education_school_id name description discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
     }.to_json
   end
@@ -13,7 +13,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
   # GET /education_exams/new
   def new
     @education_exam = EducationExam.new
-    @data = {
+    @json_data = {
       education_exam: @education_exam.as_json(
         methods: %i[status_enums]
       ),
@@ -30,7 +30,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
     @education_subjects = EducationSubject.where(education_school: @education_schools)
     @education_school = @education_exam.education_school
     @education_classes = @education_school.education_classes
-    @data = {
+    @json_data = {
       education_exam: @education_exam.as_json(
         only: %i[id education_school_id name description status education_school_id education_subject_id],
         include: { education_categories: { only: %i[id name] }, education_classes: { only: %i[id name] } },

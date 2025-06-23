@@ -14,8 +14,8 @@ static targets= ["calendar", "selectClass"]
 
   initBinding() {
     super.initBinding()
-    this.calendarEvents = ServerData.data.calendar_events
-    this.educationClassesForSelect = ServerData.data.selection_education_classes
+    this.calendarEvents = JsonData.data.calendar_events
+    this.educationClassesForSelect = JsonData.data.selection_education_classes
   }
 
   init() {

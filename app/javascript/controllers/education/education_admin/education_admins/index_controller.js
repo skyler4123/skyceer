@@ -48,7 +48,7 @@ export default class extends Education_EducationSchool_LayoutController {
   // }
 
   // educationAdmins() {
-  //   return ServerData.data.education_admins
+  //   return JsonData.data.education_admins
   // }
 
   // defaultHTML() {

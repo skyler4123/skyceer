@@ -17,11 +17,11 @@ export default class Education_FlashController extends ApplicationController {
   }
 
   hasFlash() {
-    return !isEmpty(ServerData.flash)
+    return !isEmpty(JsonData.flash)
   }
 
   initValue() {
-    this.messagesValue = ServerData.flash
+    this.messagesValue = JsonData.flash
   }
 
   messagesValueChanged(value, previousValue) {

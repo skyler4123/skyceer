@@ -7,13 +7,13 @@ export default class extends Education_EducationSchool_LayoutController {
 
   initBinding() {
     super.initBinding()
-    this.educationClass = ServerData.data.education_class
-    this.educationCourses = ServerData.data.education_courses
-    this.educationCategories = ServerData.data.education_categories
-    this.educationSchools = ServerData.data.education_schools
-    this.educationSubjects = ServerData.data.education_subjects
-    this.educationTeachers = ServerData.data.education_teachers
-    this.educationSubjectAppointments = ServerData.data.education_subject_appointments
+    this.educationClass = JsonData.data.education_class
+    this.educationCourses = JsonData.data.education_courses
+    this.educationCategories = JsonData.data.education_categories
+    this.educationSchools = JsonData.data.education_schools
+    this.educationSubjects = JsonData.data.education_subjects
+    this.educationTeachers = JsonData.data.education_teachers
+    this.educationSubjectAppointments = JsonData.data.education_subject_appointments
   }
 
   init() {

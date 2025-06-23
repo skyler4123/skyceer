@@ -5,7 +5,7 @@ export default class extends Education_EducationSchool_LayoutController {
 
   // initBinding() {
   //   super.initBinding()
-  //   this.educationSchool = ServerData.data.education_school
+  //   this.educationSchool = JsonData.data.education_school
   // }
 
   // contentHTML() {

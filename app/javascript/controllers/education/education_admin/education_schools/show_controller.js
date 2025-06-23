@@ -4,7 +4,7 @@ import Education_EducationSchool_LayoutController from "controllers/education/ed
 export default class extends Education_EducationSchool_LayoutController {
 
   educationSchool() {
-    return ServerData.data.education_school
+    return JsonData.data.education_school
   }
 
   contentHTML() {

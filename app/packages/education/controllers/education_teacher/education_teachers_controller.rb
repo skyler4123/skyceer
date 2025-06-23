@@ -11,7 +11,7 @@ class EducationTeacher::EducationTeachersController < EducationTeacher::Educatio
       @education_teachers = EducationTeacher.where(education_school_id: params[:education_school_id])
     end
     @pagination, @education_teachers = pagy(@education_teachers)
-    @data = {
+    @json_data = {
       education_teachers: @education_teachers.as_json(include: [:education_schools, :education_classes, :education_subjects])
     }.to_json
   end

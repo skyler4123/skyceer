@@ -7,9 +7,9 @@ export default class Education_EducationSchool_EducationStudents_IndexController
 
   initBinding() {
     super.initBinding()
-    this.selectionEducationClasses = ServerData.data.selection_education_classes
-    this.selectionEducationSchools = ServerData.data.selection_education_schools
-    this.educationStudents = ServerData.data.education_students
+    this.selectionEducationClasses = JsonData.data.selection_education_classes
+    this.selectionEducationSchools = JsonData.data.selection_education_schools
+    this.educationStudents = JsonData.data.education_students
   }
 
   init() {

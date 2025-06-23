@@ -12,11 +12,11 @@ export default class Education_EducationSchool_EducationScoreboards_IndexControl
 
   initBinding() {
     super.initBinding()
-    this.educationStudents = sortByField(ServerData.data.education_students, 'name')
-    this.educationExams = ServerData.data.education_exams
-    this.educationExamToClass = ServerData.data.education_exam_to_class
-    this.educationExamToStudents = ServerData.data.education_exam_to_students
-    this.selectionEducationClasses = ServerData.data.selection_education_classes
+    this.educationStudents = sortByField(JsonData.data.education_students, 'name')
+    this.educationExams = JsonData.data.education_exams
+    this.educationExamToClass = JsonData.data.education_exam_to_class
+    this.educationExamToStudents = JsonData.data.education_exam_to_students
+    this.selectionEducationClasses = JsonData.data.selection_education_classes
   }
 
   init() {

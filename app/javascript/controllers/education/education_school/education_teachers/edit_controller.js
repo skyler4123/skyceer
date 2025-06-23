@@ -5,11 +5,11 @@ export default class extends Education_EducationSchool_LayoutController {
 
   initBinding() {
     super.initBinding()
-    this.educationTeacher = ServerData.data.education_teacher
-    this.educationSchools = ServerData.data.education_schools
-    this.educationCategories = ServerData.data.education_categories
-    this.educationClasses = ServerData.data.education_classes
-    this.educationSubjects = ServerData.data.education_subjects
+    this.educationTeacher = JsonData.data.education_teacher
+    this.educationSchools = JsonData.data.education_schools
+    this.educationCategories = JsonData.data.education_categories
+    this.educationClasses = JsonData.data.education_classes
+    this.educationSubjects = JsonData.data.education_subjects
   }
 
   contentHTML() {

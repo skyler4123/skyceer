@@ -7,7 +7,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
     @education_schools = EducationSchool.find(params[:education_school_id]) if params[:education_school_id].present?
     @education_classes = EducationClass.where(education_school: @education_schools)
     @pagination, @education_classes = pagy(@education_classes)
-    @data = {
+    @json_data = {
       education_classes: @education_classes.as_json(only: %i[id education_school_id education_course_id name discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
     }.to_json
   end
@@ -24,7 +24,7 @@ class EducationSchool::EducationClassesController < EducationSchool::EducationsC
     @education_subjects = EducationSubject.where(education_school: @education_class.education_school)
     @education_teachers = EducationTeacher.joins(:education_schools).where(education_schools: @education_schools)
     @education_subject_appointments = EducationSubjectAppointment.where(education_class: @education_class)
-    @data = {
+    @json_data = {
       education_class: @education_class.as_json(include: { education_categories: { only: %i[id name] }, education_school: { only: %i[id name] }, education_course: { only: %i[id name] }, education_subjects: { only: %i[id name] } }),
       education_courses: @education_courses.as_json(only: %i[id name]),
       education_categories: @education_categories.as_json(only: %i[id name]),

@@ -14,8 +14,8 @@ export default class Education_EducationSchool_EducationAdmins_IndexController e
   initBinding() {
     console.log(this)
     super.initBinding()
-    this.educationAdminsValue = ServerData.data.education_admins
-    this.selectEducationSchools = ServerData.data.select_education_schools
+    this.educationAdminsValue = JsonData.data.education_admins
+    this.selectEducationSchools = JsonData.data.select_education_schools
   }
 
   init() {

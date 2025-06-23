@@ -21,6 +21,6 @@
     <main data-controller="<%= stimulus_controller %>">
       <%= yield %>
     </main>
-    <%= render(Education::ServerDataComponent.new(data: @data, pagination: @pagination, flash:)) %>
+    <%= render(Education::JsonDataComponent.new(json_data: @json_data, pagination: @pagination, flash:)) %>
   </body>
 </html>
