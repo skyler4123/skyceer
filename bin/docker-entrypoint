@@ -1,28 +1,14 @@
 #!/bin/bash -e
-set -e
-rm -f /rails/tmp/pids/server.pid
-# If running the rails server then create or migrate existing database
-# if [ "${*}" == "./bin/rails server" ]; then
-#   ./bin/rails db:prepare
-# fi
-# ./bin/rails db:prepare
-# ./bin/rails log:clear
-# ./bin/rails assets:precompile
 
-# Update Sorbet
-# ./bin/bundle exec tapioca init
-# ./bin/bundle exec tapioca dsl
-# Update Packwerk
-# ./bin/bundle exec packwerk check
-# ./bin/rails graphwerk:update
-# echo "${*}"
-# echo "$1"
-# echo "${@}"
-
-# exec "${@}"
-
-if [ "$1" == "solid" ]; then
-  ./bin/rails solid_queue:start
-else
-  exec "${@}"
+# Enable jemalloc for reduced memory usage and latency.
+if [ -z "${LD_PRELOAD+x}" ]; then
+    LD_PRELOAD=$(find /usr/lib -name libjemalloc.so.2 -print -quit)
+    export LD_PRELOAD
 fi
+
+# If running the rails server then create or migrate existing database
+if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+  ./bin/rails db:prepare
+fi
+
+exec "${@}"

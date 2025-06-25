@@ -87,13 +87,15 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'
+  # gem "selenium-webdriver"
+
+  
   gem "rspec-rails"
   gem 'factory_bot_rails'
   gem "rails-controller-testing"
   gem 'shoulda-matchers'
-  # gem "selenium-webdriver"
   gem "cuprite"
-  gem 'capybara'
   gem 'simplecov', require: false
   gem 'rack-test'
   gem 'webmock'
