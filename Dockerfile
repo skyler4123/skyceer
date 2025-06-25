@@ -68,6 +68,7 @@ ENTRYPOINT ["/skyceer/bin/docker-entrypoint"]
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
-CMD ["bundle", "exec", "thrust", "./bin/rails", "server", "-p", "3001"]
+# CMD ["./bin/thrust", "./bin/rails", "server", "-p", "3001", "-b"]
+# CMD ["bundle", "exec", "thrust", "./bin/rails", "server", "-p", "3001"]
 # CMD ["./bin/bundle", "exec", "sidekiq"]
 # CMD ["./bin/rails", "solid_queue:start"]
