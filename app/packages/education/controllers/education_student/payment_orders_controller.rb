@@ -6,7 +6,7 @@ class EducationStudent::PaymentOrdersController < EducationStudent::EducationsCo
     @payment_orders = PaymentOrder.includes(payment_customer: :payment_customerable).where(payment_user: @payment_users)
     @pagination, @payment_orders = pagy(@payment_orders)
     
-    @data = {
+    @json_data = {
       payment_orders: @payment_orders.as_json(include: {payment_customer: {include: :payment_customerable}, payment_user: {include: :payment_userable}})
     }.to_json
   end

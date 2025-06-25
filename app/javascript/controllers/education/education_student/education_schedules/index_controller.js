@@ -73,11 +73,11 @@ static targets= ["calendar", "selectClass"]
   }
 
   calendarEvents() {
-    return ServerData.data.calendar_events
+    return JsonData.data.calendar_events
   }
 
   educationClassesForSelect() {
-    return ServerData.data.education_classes
+    return JsonData.data.education_classes
   }
 
   changeView(event) {

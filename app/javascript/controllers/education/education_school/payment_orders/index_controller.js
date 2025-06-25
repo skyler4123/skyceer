@@ -7,7 +7,7 @@ export default class Education_EducationSchool_PaymentOrders_IndexController ext
   
   initBinding() {
     super.initBinding()
-    this.paymentOrders = ServerData.data.payment_orders
+    this.paymentOrders = JsonData.data.payment_orders
   }
 
   init() {

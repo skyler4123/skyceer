@@ -1,7 +1,7 @@
 name: skyceer_rspec_test
 services:
   web:
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails db:prepare && bundle exec rails assets:precompile && bundle exec rspec"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails db:create db:migrate && bundle exec rails assets:precompile && bundle exec rspec"
     environment:
       RAILS_ENV: test
     volumes: !reset null

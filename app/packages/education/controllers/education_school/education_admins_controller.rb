@@ -11,7 +11,7 @@ class EducationSchool::EducationAdminsController < EducationSchool::EducationsCo
     @education_admins = @education_admins.where(education_school: @query_education_schools)
 
     @pagination, @education_admins = pagy(@education_admins)
-    @data = {
+    @json_data = {
       education_admins: @education_admins.as_json(include: { education_school: { only: [:id, :name] } }, only: [:id, :name, :created_at, :updated_at]),
       select_education_schools: @education_schools.as_json(only: [:id, :name]),
     }.to_json

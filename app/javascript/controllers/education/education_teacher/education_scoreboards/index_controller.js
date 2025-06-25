@@ -36,11 +36,11 @@ export default class extends Education_EducationTeacher_LayoutController {
   }
 
   contentClasses() {
-    return ServerData.data.education_classes
+    return JsonData.data.education_classes
   }
 
   contentClassesForSelect() {
-    return ServerData.data.education_classes_for_select
+    return JsonData.data.education_classes_for_select
   }
 
   choicesControllerForSubjectIdSelect() {
@@ -80,15 +80,15 @@ export default class extends Education_EducationTeacher_LayoutController {
   }
 
   educationTeachers() {
-    return ServerData.data.education_students
+    return JsonData.data.education_students
   }
 
   educationExams() {
-    return ServerData.data.education_exams
+    return JsonData.data.education_exams
   }
 
   educationExamAppointments() {
-    return ServerData.data.education_exam_appointments
+    return JsonData.data.education_exam_appointments
   }
 
   tableColumns() {

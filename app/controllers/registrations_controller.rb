@@ -11,7 +11,7 @@ class RegistrationsController < ApplicationController
     if @user.save
       session_record = @user.sessions.create!
       # cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
-      set_cookie(session: session_record, user: @user)
+      set_cookie_for_sign_in(session: session_record, user: @user)
       send_email_verification
       redirect_to root_path, notice: SIGN_UP_SUCCESS_MESSAGE
     else

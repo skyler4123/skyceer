@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class Education::ServerDataComponent < ViewComponent::Base
+class Education::JsonDataComponent < ViewComponent::Base
   erb_template <<-ERB
     <script>
-      window.ServerData = {
-        data: <%= @data&.html_safe || {} %>,
+      window.JsonData = {
+        data: <%= @json_data&.html_safe || {} %>,
         pagination: <%= @pagination&.to_json&.html_safe || {} %>,
         flash: <%= @flash.to_hash.to_json.html_safe %>
       };
@@ -12,8 +12,8 @@ class Education::ServerDataComponent < ViewComponent::Base
   ERB
 
   # data must be json formatted
-  def initialize(data: nil, pagination: nil, flash: nil)
-    @data = data
+  def initialize(json_data: nil, pagination: nil, flash: nil)
+    @json_data = json_data
     @pagination = pagination
     @flash = flash
   end

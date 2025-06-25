@@ -52,6 +52,7 @@ Redis
 Run development
   ##
     RAILS_MASTER_KEY=$(cat config/master.key) docker compose up -d
+    DEBUG=true HTTP_PORT=80 thrust bin/rails s
   ##
 Run test
   ##
@@ -62,7 +63,5 @@ ENV
   ##
     EDITOR="code --wait" bin/rails credentials:edit
     EDITOR="code --wait" bin/rails credentials:edit -e production
-    EDITOR="code --wait" bin/rails credentials:edit -e development
-    EDITOR="code --wait" bin/rails credentials:edit -e test
   ##
   

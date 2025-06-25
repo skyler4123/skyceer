@@ -28,12 +28,12 @@ export default class Education_LayoutController extends ApplicationController {
     this.headerController = Education_HeaderController
     this.footerController = Education_FooterController
     this.paginationController = Education_PaginationController
-    this.paginationData = ServerData.pagination
+    this.paginationData = JsonData.pagination
     this.selectController = Education_ChoicesController
     this.choicesController = Education_ChoicesController
     this.tableController = Education_TableController
-    this.flashValue = ServerData.flash || {}
-    this.paginationValue = ServerData.pagination || {}
+    this.flashValue = JsonData.flash || {}
+    this.paginationValue = JsonData.pagination || {}
   }
 
   initLayout() {

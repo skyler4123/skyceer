@@ -13,7 +13,7 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
       @education_teachers = EducationTeacher.where(education_school: @education_schools)
     end
     @pagination, @education_teachers = pagy(@education_teachers)
-    @data = {
+    @json_data = {
       education_teachers: @education_teachers.as_json(include: [:education_school, :education_classes, :education_subjects])
     }.to_json
   end
@@ -27,7 +27,7 @@ class EducationSchool::EducationTeachersController < EducationSchool::Educations
   def edit
     @education_classes = EducationClass.where(education_school: @education_schools)
     @education_subjects = EducationSubject.where(education_school: @education_schools) 
-    @data = {
+    @json_data = {
       education_teacher: @education_teacher.as_json(include: [:education_school, :education_classes, :education_categories, :education_subjects]),
       education_subjects: @education_subjects.as_json,
       education_schools: @education_schools.as_json,
