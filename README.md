@@ -4,6 +4,8 @@ Rails
   ##
     docker build -t skyceer-rails .
     docker run -d -it --name web -p 3000:3000 -v $PWD:/skyceer skyceer-rails
+    docker run -d -it --name web -p 3000:3000 -e RAILS_MASTER_KEY=$(cat config/master.key) skyceer-rails
+    docker run -d -it --name web -p 3000:3000 -e RAILS_MASTER_KEY=$(cat config/credentials/production.key) skyceer-rails
   ##
 Solid queue + cache
   ##

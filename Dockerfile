@@ -11,7 +11,9 @@ WORKDIR /skyceer
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development" \
+    HTTP_PORT="3000" \
+    TARGET_PORT="3001"
 
 
 # Throw-away build stage to reduce size of final image
@@ -66,5 +68,6 @@ ENTRYPOINT ["/skyceer/bin/docker-entrypoint"]
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "thrust", "./bin/rails", "server", "-p", "3001"]
 # CMD ["./bin/bundle", "exec", "sidekiq"]
 # CMD ["./bin/rails", "solid_queue:start"]
