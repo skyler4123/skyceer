@@ -2,7 +2,7 @@
 service: skyceer
 
 # Name of the container image.
-image: pkphung2001/skyceer-rails-image
+image: pkphung2001/skyceer-rails:latest
 
 # Deploy to these servers.
 servers:
