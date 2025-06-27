@@ -14,12 +14,12 @@ services:
       # For Rails 
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
-      # PWD: /skyceer
+      # PWD: /rails
       # POSTGRES_HOST: postgres
       # ELASTICSEARCH_HOST: elasticsearch
       # MONGO_HOST: mongo
     volumes:
-      - .:/skyceer
+      - .:/rails
     ports:
       # - "3000:3000"
 
@@ -41,12 +41,12 @@ services:
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       # DATABASE_URL: "postgres://postgres:password@postgres:5432/skyceer_development"
       # MONGODB_URL: "mongodb://mongo:27017/skyceer_development"
-      # PWD: /skyceer
+      # PWD: /rails
       # POSTGRES_HOST: postgres
       # ELASTICSEARCH_HOST: elasticsearch
       # MONGO_HOST: mongo
     volumes:
-      - .:/skyceer
+      - .:/rails
     depends_on:
       - web
 
