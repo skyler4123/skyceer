@@ -4,6 +4,9 @@ Rails
   ##
     docker build -t skyceer-rails .
     docker run -d -it --name web -p 3000:3000 -v $PWD:/skyceer skyceer-rails
+    docker run -d -it --name web -p 3000:3000 -e RAILS_MASTER_KEY=$(cat config/master.key) skyceer-rails
+    docker run -d -it --name web -p 3000:3000 -e RAILS_MASTER_KEY=$(cat config/credentials/production.key) skyceer-rails
+    DEBUG=true HTTP_PORT=80 TARGET_PORT=3001 RAILS_MASTER_KEY=$(cat config/credentials/production.key) bin/thrust bin/rails server -p 3001 -b "127.0.0.1" -e production
   ##
 Solid queue + cache
   ##
@@ -52,7 +55,6 @@ Redis
 Run development
   ##
     RAILS_MASTER_KEY=$(cat config/master.key) docker compose up -d
-    DEBUG=true HTTP_PORT=80 thrust bin/rails s
   ##
 Run test
   ##

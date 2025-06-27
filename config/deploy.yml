@@ -2,118 +2,16 @@
 service: skyceer
 
 # Name of the container image.
-image: pkphung2001/skyceer
-
-# Deploy to these servers.
-servers:
-  web:
-    hosts:
-      - "<%= ENV["KAMAL_WEB_HOST"] %>"
-    # volumes:
-    #   - ".:/skyceer"
-  job:
-    hosts:
-      - "<%= ENV["KAMAL_JOB_HOST"] %>"
-    cmd: bundle exec rails bin/jobs
-
-# Credentials for your image host.
-registry:
-  # Specify the registry server, if you're not using Docker Hub
-  # server: registry.digitalocean.com / ghcr.io / ...
-  username: pkphung2001
-
-  # Always use an access token rather than real password when possible.
-  password:
-    - KAMAL_REGISTRY_PASSWORD
-
-# Inject ENV variables into containers (secrets come from .env).
-# Remember to run `kamal env push` after making changes!
-env:
-  # clear:
-  #   DB_HOST: 192.168.0.2
-  secret:
-    - RAILS_MASTER_KEY
-    - PWD
-    - POSTGRES_USERNAME
-    - POSTGRES_HOST
-    - POSTGRES_PORT
-    - POSTGRES_PASSWORD
-    - MONGO_URL
-    - ELASTICSEARCH_URL
-
-# Use a different ssh user than root
-# ssh:
-  # user: { AWS: ubuntu, DigitalOcean: root }
-  # user: "<%= ENV["KAMAL_SSH_USER"] %>"
-  # proxy:
-  #   - "ubuntu@13.250.29.204"
-  #   - "ubuntu@54.255.170.174"
-
-# Use accessory services (secrets come from .env).
-accessories:
-  postgres:
-    image: postgres:latest
-    host: "<%= ENV["KAMAL_POSTGRES_HOST"] %>"
-    port: "<%= ENV["KAMAL_POSTGRES_PORT"] %>"
-    env:
-      secret:
-        - POSTGRES_USERNAME
-        - POSTGRES_PASSWORD
-        - POSTGRES_HOST
-        - POSTGRES_PORT
-    volumes:
-      - /var/lib/postgres:/data
-
-  mongo:
-    image: mongo:latest
-    host: "<%= ENV["KAMAL_MONGO_HOST"] %>"
-    port: "<%= ENV["KAMAL_MONGO_PORT"] %>"
-    volumes:
-      - /var/lib/mongo:/data
-
-  elasticsearch:
-    image: elasticsearch:8.14.1
-    host: "<%= ENV["KAMAL_ELASTICSEARCH_HOST"] %>"
-    port: "<%= ENV["KAMAL_ELASTICSEARCH_PORT"] %>"
-    volumes:
-      - /var/lib/elasticsearch:/data
-
-# Configure a custom healthcheck (default is /up on port 3000)
-healthcheck:
-  # path: /up
-  interval: 10s
-  max_attempts: 20
-#   port: 3000
-#   exposed_port: 3000
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Name of your application. Used to uniquely configure containers.
-service: skyceer
-
-# Name of the container image.
 image: pkphung2001/skyceer-rails
 
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.0.1
-  # job:
-  #   hosts:
-  #     - 192.168.0.1
-  #   cmd: bin/jobs
+    - 54.167.132.227
+  job:
+    hosts:
+      - 54.167.132.227
+    cmd: bin/jobs
 
 # Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
 # Remove this section when using multiple web servers and ensure you terminate SSL at your load balancer.
@@ -190,8 +88,8 @@ builder:
   #   - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
-# ssh:
-#   user: app
+ssh:
+  user: ubuntu
 
 # Use accessory services (secrets come from .kamal/secrets).
 # accessories:
