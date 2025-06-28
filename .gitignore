@@ -41,5 +41,3 @@
 /.env*
 !/.env*.erb
 coverage
-
-

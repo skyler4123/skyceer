@@ -55,6 +55,7 @@ Redis
 Run development
   ##
     RAILS_MASTER_KEY=$(cat config/master.key) docker compose up -d
+    RAILS_MASTER_KEY=$(cat config/master.key) docker compose -f docker-compose.yml -f docker-compose.local.yml up -d
   ##
 Run test
   ##
