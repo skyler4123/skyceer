@@ -14,6 +14,8 @@ class Seeding::UserService
       password_confirmation: "password1234",
       verified: true,
       name: Faker::Movies::HarryPotter.character,
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
       role: role,
       education_role: education_role,
       address: Address.create_random_vietnam,
@@ -30,6 +32,8 @@ class Seeding::UserService
       password_confirmation: "password1234",
       verified: true,
       name: "amonymous",
+      first_name: "Amonymous",
+      last_name: "User",
       role: role,
       education_role: education_role,
     )

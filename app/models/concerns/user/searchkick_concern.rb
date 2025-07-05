@@ -16,7 +16,13 @@ module User::SearchkickConcern
                    },
                    first_name: {
                      type: "text", # Index first_name as text for full-text search
-                     analyzer: "standard" # Use the standard analyzer for first_name
+                     analyzer: "standard", # Use the standard analyzer for first_name
+                      fields: {
+                        keyword: {
+                          type: "keyword", # Index first_name as a keyword for exact matches
+                          ignore_above: 256 # Ignore names longer than 256 characters
+                        }
+                      }
                    },
                    last_name: {
                      type: "text", # Index last_name as text for full-text search
