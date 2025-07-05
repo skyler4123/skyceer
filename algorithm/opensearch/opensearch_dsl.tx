@@ -1,0 +1,165 @@
+GET /users_development/_mapping
+
+GET /users_development/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 1000,
+  "aggs": {
+    "role_count": {
+      "terms": {
+        "field": "role"
+      }
+    },
+    "education_role_count": {
+      "terms": {
+        "field": "education_role"
+      }
+    }
+  }
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 1000
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "match": {
+      "name": "nick"
+    }
+  },
+  "size": 1000
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "term": {
+      "name": "nick"
+    }
+  },
+  "size": 1000
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "term": {
+      "name": "nick"
+    },
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  },
+  "size": 1000
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 1000
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "match": {
+      "first_name": "stacy"
+    }
+  }
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "term": {
+      "first_name.keyword": "man"
+    }
+  }
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "role": "normal"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "match": {
+      "role_details.role": "normal"
+    }
+  }
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "term": {
+      "role_details.role.keyword": "normal"
+    }
+  }
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "role_details.role.keyword": "normal"
+          }
+        },
+        {
+          "term": {
+            "role_details.education_role.keyword": "education_student"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "match": {
+      "roles": "normal"
+    }
+  }
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "term": {
+      "roles.keyword": "education_school"
+    }
+  }
+}
