@@ -8,3 +8,28 @@
 #     command: "SoftDeletedRecord.due.delete_all"
 #     priority: 2
 #     schedule: at 5am every day
+
+default: &default
+  # periodic_cleanup:
+  #   class: CleanSoftDeletedRecordsJob
+  #   queue: background
+  #   args: [ 1000, { batch_size: 500 } ]
+  #   schedule: every hour
+  # periodic_command:
+  #   command: "SoftDeletedRecord.due.delete_all"
+  #   priority: 2
+  #   schedule: at 5am every day
+  periodic_searchkick_reindex_all:
+    class: Searchkick::ReindexAllJob
+    queue: Searchkick_reindex_all
+    # schedule: every 1 day at 2am
+    schedule: every 5 minutes
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default

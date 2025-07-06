@@ -1,6 +1,6 @@
 class Application::User::SyncWithPackageUserJob < ApplicationJob
   queue_as :default
-  self.queue_adapter = :solid_queue
+  # self.queue_adapter = :solid_queue
 
   # assign user to package user if package user have same email with user
   def perform(user_id)
