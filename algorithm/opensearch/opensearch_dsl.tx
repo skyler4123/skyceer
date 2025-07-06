@@ -25,6 +25,47 @@ GET /users_development/_search
   "query": {
     "match_all": {}
   },
+  "size": 10000,
+  "aggs": {
+    "education_roles": {
+      "filters": {
+        "filters": {
+          "parent": {
+            "term": {
+              "education_role": "education_parent"
+            }
+          },
+          "student": {
+            "term": {
+              "education_role": "education_student"
+            }
+          },
+          "admin": {
+            "term": {
+              "education_role": "education_admin"
+            }
+          },
+          "teacher": {
+            "term": {
+              "education_role": "education_teacher"
+            }
+          },
+          "school": {
+            "term": {
+              "education_role": "education_school"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "match_all": {}
+  },
   "size": 1000
 }
 
@@ -32,7 +73,7 @@ GET /users_development/_search
 {
   "query": {
     "match": {
-      "name": "nick"
+      "name": "Nick"
     }
   },
   "size": 1000
@@ -161,5 +202,19 @@ GET /users_development/_search
     "term": {
       "roles.keyword": "education_school"
     }
+  }
+}
+
+GET /users_development/_search
+{
+  "query": {
+    "match": { "name": "nick" },
+    "term": { "roles.keyword": "education_student" }
+  }
+}
+{
+  "query": {
+    "match": { "name": "nick" },
+    "term": { "roles.keyword": "education_student" }
   }
 }
