@@ -1,0 +1,1 @@
+    Turbo::StreamsChannel.broadcast_append_to("12345", target: "demo_123", html: "<div class='message'>Hello, this is a live update!</div>")
