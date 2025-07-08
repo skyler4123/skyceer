@@ -21,7 +21,7 @@ default: &default
   #   schedule: at 5am every day
   periodic_searchkick_reindex_all:
     class: Searchkick::ReindexAllJob
-    queue: Searchkick_reindex_all
+    queue: searchkick_reindex_all
     # schedule: every 1 day at 2am
     schedule: every 1 minutes
 
