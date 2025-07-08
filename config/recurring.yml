@@ -23,7 +23,7 @@ default: &default
     class: Searchkick::ReindexAllJob
     queue: Searchkick_reindex_all
     # schedule: every 1 day at 2am
-    schedule: every 5 minutes
+    schedule: every 1 minutes
 
 production:
   <<: *default
