@@ -20,7 +20,7 @@
   <body data-controller="<%= APP_NAME %>--flash <%= APP_NAME %>--modal">
     <!-- Single stream for all user events -->
     <% if current_user %>
-      <%= turbo_stream_from current_user %>
+      <%= turbo_stream_from dom_id(current_user) %>
     <% end %>
 
     <main data-controller="<%= stimulus_controller %>">
