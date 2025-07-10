@@ -191,7 +191,7 @@ export const setCookie = (name, value, days) => {
   document.cookie = name + "=" + value + expires + "; path=/"
 }
 
-// check isSignedIn by check email in cookie
+// check isSignedIn by check is_signed_in in cookie
 export const isSignedIn = () => {
   return Cookie('is_signed_in') && Cookie('is_signed_in') === 'true'
 }

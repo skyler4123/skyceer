@@ -13,7 +13,7 @@ module SessionHelpers
     fill_in 'password', with: params[:password]
     fill_in 'password_confirmation', with: params[:password_confirmation]
     fill_in 'name', with: params[:name]
-    select params[:education_role], from: 'education_role'
+    # select params[:education_role], from: 'education_role'
     submit_button = find('input[type="submit"]')
     submit_button.click
   end

@@ -3,11 +3,10 @@ require 'rails_helper'
 RSpec.feature "Authentication::SignUps", type: :feature, js: true do
   let(:new_user_params) {
     {
-      email: 'user@example.com',
+      email: 'test@example.com',
       password: 'password1234',
       password_confirmation: 'password1234',
-      name: 'User',
-      education_role: User::EDUCATION_ROLE_DESCRIPTIONS.values.sample
+      name: 'Test User',
     } 
   }
   let(:created_user) { User.find_by(email: new_user_params[:email]) }
