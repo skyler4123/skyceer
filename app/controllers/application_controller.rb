@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_request_details
   before_action :authenticate
   before_action :check_sign_out_and_clear_cookie
+  before_action :set_package_name
 
   helper_method :current_user, :is_signed_in
 
@@ -54,5 +55,9 @@ class ApplicationController < ActionController::Base
 
     def render_not_found
       render file: "#{Rails.root}/public/404.html", status: :not_found, layout: false
+    end
+
+    def set_package_name
+      @package_name = :application
     end
 end
