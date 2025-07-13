@@ -1,0 +1,1 @@
+json.partial! "project_group_apointments/project_group_apointment", project_group_apointment: @project_group_apointment

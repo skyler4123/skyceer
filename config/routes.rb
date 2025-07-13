@@ -22,6 +22,18 @@ class EducationRoleConstraint
 end
 
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+    resources :project_category_appointments
+    resources :project_categories
+    resources :project_subticket_apointments
+    resources :project_subtickets
+    resources :project_ticket_apointments
+    resources :project_tickets
+    resources :project_group_apointments
+    resources :project_groups
+    end
+  end
   get "up" => "rails/health#show", as: :rails_health_check
   resources :demo, only: [:index, :new]
   resources :images, only: [] do
