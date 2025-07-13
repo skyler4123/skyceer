@@ -7,18 +7,18 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Project subticket apointments</h1>
-    <%= link_to "New project subticket apointment", new_project_subticket_apointment_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+    <%= link_to "New project subticket apointment", new_project_subticket_appointment_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
   </div>
 
-  <div id="project_subticket_apointments" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @project_subticket_apointments.any? %>
-      <% @project_subticket_apointments.each do |project_subticket_apointment| %>
+  <div id="project_subticket_appointments" class="min-w-full divide-y divide-gray-200 space-y-5">
+    <% if @project_subticket_appointments.any? %>
+      <% @project_subticket_appointments.each do |project_subticket_appointment| %>
         <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render project_subticket_apointment %>
+          <%= render project_subticket_appointment %>
           <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", project_subticket_apointment, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_project_subticket_apointment_path(project_subticket_apointment), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", project_subticket_apointment, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+            <%= link_to "Show", project_subticket_appointment, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+            <%= link_to "Edit", edit_project_subticket_appointment_path(project_subticket_appointment), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+            <%= button_to "Destroy", project_subticket_appointment, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
           </div>
         </div>
       <% end %>

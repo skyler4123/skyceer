@@ -1,2 +1,2 @@
-module ProjectSubticketApointmentsHelper
+module ProjectSubticketAppointmentsHelper
 end

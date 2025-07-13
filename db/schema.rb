@@ -665,14 +665,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.index ["project_category_id"], name: "index_project_category_appointments_on_project_category_id"
   end
 
-  create_table "project_group_apointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "project_group_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "project_group_id", null: false
     t.string "appoint_to_type", null: false
     t.uuid "appoint_to_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_group_apointments_on_appoint_to"
-    t.index ["project_group_id"], name: "index_project_group_apointments_on_project_group_id"
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_group_appointments_on_appoint_to"
+    t.index ["project_group_id"], name: "index_project_group_appointments_on_project_group_id"
   end
 
   create_table "project_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -686,14 +686,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.index ["project_group_ownerable_type", "project_group_ownerable_id"], name: "index_project_groups_on_project_group_ownerable"
   end
 
-  create_table "project_subticket_apointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "project_subticket_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "project_subticket_id", null: false
     t.string "appoint_to_type", null: false
     t.uuid "appoint_to_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_subticket_apointments_on_appoint_to"
-    t.index ["project_subticket_id"], name: "index_project_subticket_apointments_on_project_subticket_id"
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_subticket_appointments_on_appoint_to"
+    t.index ["project_subticket_id"], name: "index_project_subticket_appointments_on_project_subticket_id"
   end
 
   create_table "project_subtickets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -706,14 +706,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.index ["project_ticket_id"], name: "index_project_subtickets_on_project_ticket_id"
   end
 
-  create_table "project_ticket_apointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "project_ticket_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "project_ticket_id", null: false
     t.string "appoint_to_type", null: false
     t.uuid "appoint_to_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_ticket_apointments_on_appoint_to"
-    t.index ["project_ticket_id"], name: "index_project_ticket_apointments_on_project_ticket_id"
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_ticket_appointments_on_appoint_to"
+    t.index ["project_ticket_id"], name: "index_project_ticket_appointments_on_project_ticket_id"
   end
 
   create_table "project_tickets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -887,10 +887,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "payment_orders", "payment_users"
   add_foreign_key "project_categories", "project_groups"
   add_foreign_key "project_category_appointments", "project_categories"
-  add_foreign_key "project_group_apointments", "project_groups"
-  add_foreign_key "project_subticket_apointments", "project_subtickets"
+  add_foreign_key "project_group_appointments", "project_groups"
+  add_foreign_key "project_subticket_appointments", "project_subtickets"
   add_foreign_key "project_subtickets", "project_tickets"
-  add_foreign_key "project_ticket_apointments", "project_tickets"
+  add_foreign_key "project_ticket_appointments", "project_tickets"
   add_foreign_key "project_tickets", "project_groups"
   add_foreign_key "report_categories", "report_categories", column: "parent_category_id"
   add_foreign_key "report_category_appointments", "report_categories"

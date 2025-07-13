@@ -1,1 +1,1 @@
-json.partial! "project_ticket_apointments/project_ticket_apointment", project_ticket_apointment: @project_ticket_apointment
+json.partial! "project_ticket_appointments/project_ticket_appointment", project_ticket_appointment: @project_ticket_appointment

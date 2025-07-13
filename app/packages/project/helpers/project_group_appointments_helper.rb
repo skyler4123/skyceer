@@ -1,2 +1,2 @@
-module ProjectGroupApointmentsHelper
+module ProjectGroupAppointmentsHelper
 end

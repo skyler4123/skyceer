@@ -1,1 +1,1 @@
-json.array! @project_subticket_apointments, partial: "project_subticket_apointments/project_subticket_apointment", as: :project_subticket_apointment
+json.array! @project_subticket_appointments, partial: "project_subticket_appointments/project_subticket_appointment", as: :project_subticket_appointment
