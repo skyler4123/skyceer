@@ -3,7 +3,7 @@ class ProjectGroupApointmentsController < ApplicationController
 
   # GET /project_group_apointments or /project_group_apointments.json
   def index
-    @project_group_apointments = ProjectGroupApointment.all
+    @project_group_apointments = ProjectGroupAppointment.all
   end
 
   # GET /project_group_apointments/1 or /project_group_apointments/1.json
@@ -12,7 +12,7 @@ class ProjectGroupApointmentsController < ApplicationController
 
   # GET /project_group_apointments/new
   def new
-    @project_group_apointment = ProjectGroupApointment.new
+    @project_group_apointment = ProjectGroupAppointment.new
   end
 
   # GET /project_group_apointments/1/edit
@@ -21,7 +21,7 @@ class ProjectGroupApointmentsController < ApplicationController
 
   # POST /project_group_apointments or /project_group_apointments.json
   def create
-    @project_group_apointment = ProjectGroupApointment.new(project_group_apointment_params)
+    @project_group_apointment = ProjectGroupAppointment.new(project_group_apointment_params)
 
     respond_to do |format|
       if @project_group_apointment.save
@@ -60,7 +60,7 @@ class ProjectGroupApointmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project_group_apointment
-      @project_group_apointment = ProjectGroupApointment.find(params.expect(:id))
+      @project_group_apointment = ProjectGroupAppointment.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

@@ -396,6 +396,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.index ["user_id"], name: "index_education_schools_on_user_id"
   end
 
+  create_table "education_staffs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.uuid "education_school_id", null: false
+    t.string "uid"
+    t.string "name", null: false
+    t.string "email", comment: "Student can be created without user at first time then will match with user by email"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_education_staffs_on_discarded_at"
+    t.index ["education_school_id"], name: "index_education_staffs_on_education_school_id"
+    t.index ["user_id"], name: "index_education_staffs_on_user_id"
+  end
+
   create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.uuid "education_school_id", null: false
@@ -633,12 +647,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "project_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
+    t.uuid "project_group_id", null: false
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_project_categories_on_user_id"
+    t.index ["project_group_id"], name: "index_project_categories_on_project_group_id"
   end
 
   create_table "project_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -838,6 +852,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "education_school_appointments", "education_schools"
   add_foreign_key "education_schools", "addresses"
   add_foreign_key "education_schools", "users"
+  add_foreign_key "education_staffs", "education_schools"
+  add_foreign_key "education_staffs", "users"
   add_foreign_key "education_students", "education_parents"
   add_foreign_key "education_students", "education_schools"
   add_foreign_key "education_students", "users"
@@ -869,7 +885,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "payment_orders", "payment_discounts"
   add_foreign_key "payment_orders", "payment_methods"
   add_foreign_key "payment_orders", "payment_users"
-  add_foreign_key "project_categories", "users"
+  add_foreign_key "project_categories", "project_groups"
   add_foreign_key "project_category_appointments", "project_categories"
   add_foreign_key "project_group_apointments", "project_groups"
   add_foreign_key "project_subticket_apointments", "project_subtickets"
