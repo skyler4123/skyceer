@@ -61,7 +61,7 @@ rails g scaffold ReportCategory name parent_category:references nested_level:int
 rails g scaffold ReportCategoryAppointment report_category:references appoint_to:references{polymorphic} discarded_at:datetime --force
 
 Project
-rails g scaffold ProjectGroup project_group_ownerable:references{polymorphic} name description status
+rails g scaffold ProjectGroup project_ownerable:references{polymorphic} name description status
 rails g scaffold ProjectGroupAppointment project_group:references appoint_to:references{polymorphic}
 rails g scaffold ProjectTicket project_group:references name description status
 rails g scaffold ProjectTicketApointment project_ticket:references appoint_to:references{polymorphic}

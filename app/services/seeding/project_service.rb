@@ -12,7 +12,7 @@ class Seeding::ProjectService
       50.times do |i|
         ProjectCategory.create!(
           name: "Category #{i + 1} for #{user.name}",
-          user: user
+          project_ownerable: user
         )
       end
     end
@@ -24,7 +24,7 @@ class Seeding::ProjectService
       project_categories = school.user.project_categories
       project_group = ProjectGroup.create!(
         name: "#{school.name} Project Group",
-        project_group_ownerable: school
+        project_ownerable: school
       )
       ProjectCategoryAppointment.create!(
         project_category: project_categories.sample,
@@ -37,7 +37,7 @@ class Seeding::ProjectService
   def self.create_project_tickets
     # Logic to create project tickets
     ProjectGroup.find_each do |group|
-      user = group.project_group_ownerable.user
+      user = group.project_ownerable.user
       project_categories = user.project_categories
       5.times do |i|
         project_ticket = ProjectTicket.create!(
@@ -55,7 +55,7 @@ class Seeding::ProjectService
   def self.create_project_subtickets
     # Logic to create project subtickets
     ProjectTicket.find_each do |ticket|
-      user = ticket.project_group.project_group_ownerable.user
+      user = ticket.project_group.project_ownerable.user
       project_categories = user.project_categories
       3.times do |i|
         project_subticket = ProjectSubticket.create!(
@@ -78,7 +78,7 @@ class Seeding::ProjectService
   # def self.create_project_ticket_appointments
   #   # Logic to create project ticket appointments
   #   ProjectTicket.find_each do |ticket|
-  #     user = ticket.project_group.project_group_ownerable.user
+  #     user = ticket.project_group.project_ownerable.user
   #     project_categories = user.project_categories
   #     EducationTeacher.find_each do |teacher|
   #       ProjectTicketAppointment.create!(
@@ -93,7 +93,7 @@ class Seeding::ProjectService
   # def self.create_project_subticket_appointments
   #   # Logic to create project subticket appointments
   #   ProjectSubticket.find_each do |subticket|
-  #     user = subticket.project_ticket.project_group.project_group_ownerable.user
+  #     user = subticket.project_ticket.project_group.project_ownerable.user
   #     project_categories = user.project_categories
   #     EducationStudent.find_each do |student|
   #       ProjectSubticketAppointment.create!(

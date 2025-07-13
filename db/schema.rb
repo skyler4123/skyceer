@@ -649,10 +649,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
 
   create_table "project_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
+    t.string "project_ownerable_type", null: false
+    t.uuid "project_ownerable_id", null: false
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["project_ownerable_type", "project_ownerable_id"], name: "index_project_categories_on_project_ownerable"
     t.index ["user_id"], name: "index_project_categories_on_user_id"
   end
 
@@ -677,14 +680,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "project_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "project_group_ownerable_type", null: false
-    t.uuid "project_group_ownerable_id", null: false
+    t.string "project_ownerable_type", null: false
+    t.uuid "project_ownerable_id", null: false
     t.string "name"
     t.string "description"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_group_ownerable_type", "project_group_ownerable_id"], name: "index_project_groups_on_project_group_ownerable"
+    t.index ["project_ownerable_type", "project_ownerable_id"], name: "index_project_groups_on_project_ownerable"
   end
 
   create_table "project_subticket_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
