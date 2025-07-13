@@ -1,5 +1,5 @@
 class ProjectCategory < ApplicationRecord
-  belongs_to :user
+  belongs_to :project_ownerable, polymorphic: true
 
   has_many :project_category_appointments, dependent: :destroy
   has_many :project_groups, through: :project_category_appointments, source: :appoint_to, source_type: 'ProjectGroup'
