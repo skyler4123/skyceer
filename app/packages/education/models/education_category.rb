@@ -16,7 +16,7 @@ class EducationCategory < ApplicationRecord
   has_many :education_teachers, through: :education_category_appointments, source: :appoint_to, source_type: 'EducationTeacher'
   has_many :education_admins, through: :education_category_appointments, source: :appoint_to, source_type: 'EducationAdmin'
   has_many :education_lessons, through: :education_category_appointments, source: :appoint_to, source_type: 'EducationLesson'
-
+  has_many :education_staffs, through: :education_category_appointments, source: :appoint_to, source_type: 'EducationStaff'
 
   scope :first_level, -> { where(parent_category_id: nil) }
 

@@ -23,6 +23,7 @@ module User::EducationConcern
       education_teacher: 2,
       education_student: 3,
       education_parent: 4,
+      education_staff: 5
     }
 
     def is_education_user

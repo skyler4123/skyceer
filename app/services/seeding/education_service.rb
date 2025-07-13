@@ -11,6 +11,7 @@ class Seeding::EducationService
     self.education_teacher
     self.education_parent
     self.education_student
+    self.education_staff
     self.education_question
     self.education_exam
     self.education_lesson
@@ -164,6 +165,23 @@ class Seeding::EducationService
         # education_parent.education_school = user.education_school
         education_parent.education_categories << education_school.user.education_categories.sample
         Seeding::AttachmentService.attach(record: education_parent, relation: :image_attachments, number: 1)
+      end
+    end
+  end
+
+  def self.education_staff
+    EducationSchool.all.each do |education_school|
+      10.times do
+        staff_user = Seeding::UserService.create(education_role: :education_staff)
+        education_staff = EducationStaff.create!(
+          name: "#{Faker::Name.name} #{SecureRandom.hex(3)}",
+          email: Faker::Internet.email,
+          user: staff_user,
+          education_school: education_school,
+        )
+        # education_staff.education_school = user.education_school
+        education_staff.education_categories << education_school.user.education_categories.sample
+        Seeding::AttachmentService.attach(record: education_staff, relation: :image_attachments, number: 1)
       end
     end
   end

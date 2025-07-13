@@ -42,4 +42,5 @@ class User < ApplicationRecord
   include User::EducationConcern
   include User::PackageConcern
   include User::CalendarConcern
+  include User::ProjectConcern
 end

@@ -11,5 +11,6 @@ class CreateEducationParents < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
+    add_index :education_parents, :discarded_at
   end
 end
