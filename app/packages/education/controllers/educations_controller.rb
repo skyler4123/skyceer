@@ -1,6 +1,5 @@
 class EducationsController < ApplicationController
   skip_before_action :authenticate, only: [:home]
-  before_action :set_app_name
   before_action :redirect_when_not_education_user, only: [:index]
 
   # education_schools_path can be different base on the user role, use it as second landing page
@@ -13,8 +12,8 @@ class EducationsController < ApplicationController
 
   private
 
-  def set_app_name
-    @app_name = :education
+  def set_package_name
+    @package_name = :education
   end
 
   # Redirect when user is not education user

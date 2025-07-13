@@ -60,7 +60,8 @@ class UsersController < ApplicationController
 
   def profile
     @user = Current.user
-    render :show
+    # render :show
+    render html: "", layout: true
   end
 
   private

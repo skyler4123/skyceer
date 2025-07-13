@@ -1,0 +1,1 @@
+    Turbo::StreamsChannel.broadcast_append_to(User.find_by(email: "education_school0@education.com"), target: "demo_123", html: "<div class='message'>Hello, this is a live update!</div>")

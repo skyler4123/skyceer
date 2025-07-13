@@ -46,6 +46,11 @@ Rails.application.routes.draw do
     resource :email_verification, only: [:show, :create]
     resource :password_reset,     only: [:new, :edit, :create, :update]
   end
+  resources :users, only: [:index, :show, :update] do
+    member do
+      get :profile
+    end
+  end
 
   # draw for app routes
   draw(:education) if APP_NAME == "education"

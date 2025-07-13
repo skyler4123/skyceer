@@ -61,7 +61,7 @@ export default class Education_HeaderController extends ApplicationController {
     return `
       <div class="flex flex-col gap-y-2 p-2 w-full">
         <div>${Cookie("name")}</div>
-        <a href="/users/${Cookie("id")}">Profile</a>
+        <a href="/users/${Cookie("id")}/profile">Profile</a>
         <a href="/sign_out">Sign Out</a>
       </div>
     `

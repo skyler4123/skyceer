@@ -1,6 +1,6 @@
 class AutoGeneratorJob < ApplicationJob
   queue_as :default
-  self.queue_adapter = :solid_queue
+  # self.queue_adapter = :solid_queue
 
   def perform
     # Run generator to create x*record, x*image*

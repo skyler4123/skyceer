@@ -6,5 +6,5 @@ If you are using a non-root user, you may need to bootstrap your servers manuall
   sudo apt update
   sudo apt upgrade -y
   sudo apt install -y docker.io curl git
-  sudo usermod -a -G docker app
+  sudo usermod -a -G docker ubuntu
 ##

@@ -7,10 +7,10 @@ image: pkphung2001/skyceer-rails
 # Deploy to these servers.
 servers:
   web:
-    - 54.167.132.227
+    - 34.238.80.89
   job:
     hosts:
-      - 54.167.132.227
+      - 34.238.80.89
     cmd: bin/jobs
 
 # Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
