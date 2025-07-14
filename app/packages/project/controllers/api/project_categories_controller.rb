@@ -1,4 +1,4 @@
-class ProjectCategoriesController < ApplicationController
+class Api::ProjectCategoriesController < Api::ApplicationController
   before_action :set_project_category, only: %i[ show edit update destroy ]
 
   # GET /project_categories or /project_categories.json

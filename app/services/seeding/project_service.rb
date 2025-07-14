@@ -55,14 +55,14 @@ class Seeding::ProjectService
   def self.create_project_subtickets
     # Logic to create project subtickets
     ProjectTicket.find_each do |ticket|
-      user = ticket.project_group.project_ownerable
+      user = ticket.project_group.project_ownerable.user
       project_categories = user.project_categories
       3.times do |i|
         project_subticket = ProjectSubticket.create!(
           name: "Subticket #{i + 1} for #{ticket.name}",
           project_ticket: ticket
         )
-        ProjectSubticketAppointment.create!(
+        ProjectCategoryAppointment.create!(
           project_category: project_categories.sample,
           appoint_to: project_subticket
         )

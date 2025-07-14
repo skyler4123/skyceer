@@ -1,4 +1,4 @@
-class ProjectTicketAppointmentsController < ApplicationController
+class Api::ProjectTicketAppointmentsController < Api::ApplicationController
   before_action :set_project_ticket_appointment, only: %i[ show edit update destroy ]
 
   # GET /project_ticket_appointments or /project_ticket_appointments.json
