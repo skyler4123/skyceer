@@ -175,6 +175,11 @@ class Seeding::EducationService
         staff_user = Seeding::UserService.create(education_role: :education_staff)
         education_staff = EducationStaff.create!(
           name: "#{Faker::Name.name} #{SecureRandom.hex(3)}",
+          position: Faker::Job.position,
+          title: Faker::Job.title,
+          department: Faker::Company.industry,
+          phone: Faker::PhoneNumber.phone_number,
+          avatar: Faker::Avatar.image,
           email: Faker::Internet.email,
           user: staff_user,
           education_school: education_school,

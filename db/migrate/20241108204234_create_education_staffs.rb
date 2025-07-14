@@ -6,6 +6,11 @@ class CreateEducationStaffs < ActiveRecord::Migration[7.2]
       
       t.string :uid
       t.string :name, null: false
+      t.string :position
+      t.string :title
+      t.string :department
+      t.string :avatar
+      t.string :phone
       t.string :email, comment: 'Student can be created without user at first time then will match with user by email'
       t.datetime :discarded_at
 
