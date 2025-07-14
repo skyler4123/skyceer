@@ -648,7 +648,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "project_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
     t.string "project_ownerable_type", null: false
     t.uuid "project_ownerable_id", null: false
     t.string "name"
@@ -656,7 +655,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_ownerable_type", "project_ownerable_id"], name: "index_project_categories_on_project_ownerable"
-    t.index ["user_id"], name: "index_project_categories_on_user_id"
   end
 
   create_table "project_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -889,7 +887,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "payment_orders", "payment_discounts"
   add_foreign_key "payment_orders", "payment_methods"
   add_foreign_key "payment_orders", "payment_users"
-  add_foreign_key "project_categories", "users"
   add_foreign_key "project_category_appointments", "project_categories"
   add_foreign_key "project_group_appointments", "project_groups"
   add_foreign_key "project_subticket_appointments", "project_subtickets"
