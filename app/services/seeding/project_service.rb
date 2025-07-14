@@ -72,37 +72,32 @@ class Seeding::ProjectService
 
   def self.create_project_group_appointments
     # Logic to create project group appointments
-    
+    ProjectGroup.find_each do |group|
+      school = group.project_ownerable
+      staffs = school.education_staffs
+      staffs.each do |staff|
+        ProjectGroupAppointment.create!(
+          project_group: group,
+          appoint_to: staff,
+        )
+      end
+    end
   end
 
-  # def self.create_project_ticket_appointments
-  #   # Logic to create project ticket appointments
-  #   ProjectTicket.find_each do |ticket|
-  #     user = ticket.project_group.project_ownerable.user
-  #     project_categories = user.project_categories
-  #     EducationTeacher.find_each do |teacher|
-  #       ProjectTicketAppointment.create!(
-  #         project_ticket: ticket,
-  #         appoint_to: teacher,
-  #         project_category: project_categories.sample
-  #       )
-  #     end
-  #   end
-  # end
-
-  # def self.create_project_subticket_appointments
-  #   # Logic to create project subticket appointments
-  #   ProjectSubticket.find_each do |subticket|
-  #     user = subticket.project_ticket.project_group.project_ownerable.user
-  #     project_categories = user.project_categories
-  #     EducationStudent.find_each do |student|
-  #       ProjectSubticketAppointment.create!(
-  #         project_subticket: subticket,
-  #         appoint_to: student,
-  #         project_category: project_categories.sample
-  #       )
-  #     end
-  #   end
-  # end
+  def self.create_project_ticket_appointments
+    # Logic to create project ticket appointments
+    ProjectTicket.find_each do |ticket|
+      project_group = ticket.project_group
+      school = project_group.project_ownerable
+      staffs = school.education_staffs
+      staffs.each do |staff|
+        ProjectTicketAppointment.create!(
+          project_ticket: ticket,
+          appoint_to: staff,
+        )
+      end
+    end
+  end
+  
   
 end

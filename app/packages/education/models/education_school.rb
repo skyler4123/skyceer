@@ -26,6 +26,7 @@ class EducationSchool < ApplicationRecord
   has_many :education_questions, dependent: :destroy
   has_many :education_subjects, dependent: :destroy
   has_many :education_lessons, dependent: :destroy
+  has_many :education_staffs, dependent: :destroy
 
   include EducationSchool::ValidationConcern
   include EducationSchool::PaymentConcern
