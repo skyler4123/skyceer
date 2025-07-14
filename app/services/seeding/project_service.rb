@@ -2,6 +2,7 @@ class Seeding::ProjectService
   def self.run
     self.create_project_categories
     self.create_project_groups
+    self.create_project_members
     self.create_project_tickets
     self.create_project_subtickets
     self.create_project_categories
@@ -32,6 +33,9 @@ class Seeding::ProjectService
       )
       # Additional logic for project group creation if needed
     end
+  end
+
+  def self.create_project_members
   end
 
   def self.create_project_tickets
@@ -65,20 +69,6 @@ class Seeding::ProjectService
         ProjectCategoryAppointment.create!(
           project_category: project_categories.sample,
           appoint_to: project_subticket
-        )
-      end
-    end
-  end
-
-  def self.create_project_group_appointments
-    # Logic to create project group appointments
-    ProjectGroup.find_each do |group|
-      school = group.project_ownerable
-      staffs = school.education_staffs
-      staffs.each do |staff|
-        ProjectGroupAppointment.create!(
-          project_group: group,
-          appoint_to: staff,
         )
       end
     end
