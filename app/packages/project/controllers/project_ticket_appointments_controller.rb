@@ -3,7 +3,7 @@ class ProjectTicketAppointmentsController < ApplicationController
 
   # GET /project_ticket_appointments or /project_ticket_appointments.json
   def index
-    @project_ticket_appointments = ProjectTicketApointment.all
+    @project_ticket_appointments = ProjectTicketAppointment.all
   end
 
   # GET /project_ticket_appointments/1 or /project_ticket_appointments/1.json
@@ -12,7 +12,7 @@ class ProjectTicketAppointmentsController < ApplicationController
 
   # GET /project_ticket_appointments/new
   def new
-    @project_ticket_appointment = ProjectTicketApointment.new
+    @project_ticket_appointment = ProjectTicketAppointment.new
   end
 
   # GET /project_ticket_appointments/1/edit
@@ -21,7 +21,7 @@ class ProjectTicketAppointmentsController < ApplicationController
 
   # POST /project_ticket_appointments or /project_ticket_appointments.json
   def create
-    @project_ticket_appointment = ProjectTicketApointment.new(project_ticket_appointment_params)
+    @project_ticket_appointment = ProjectTicketAppointment.new(project_ticket_appointment_params)
 
     respond_to do |format|
       if @project_ticket_appointment.save
@@ -60,7 +60,7 @@ class ProjectTicketAppointmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project_ticket_appointment
-      @project_ticket_appointment = ProjectTicketApointment.find(params.expect(:id))
+      @project_ticket_appointment = ProjectTicketAppointment.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

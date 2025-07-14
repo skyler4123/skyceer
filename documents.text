@@ -64,8 +64,8 @@ Project
 rails g scaffold ProjectGroup project_ownerable:references{polymorphic} name description status
 rails g scaffold ProjectGroupAppointment project_group:references appoint_to:references{polymorphic}
 rails g scaffold ProjectTicket project_group:references name description status
-rails g scaffold ProjectTicketApointment project_ticket:references appoint_to:references{polymorphic}
+rails g scaffold ProjectTicketAppointment project_ticket:references appoint_to:references{polymorphic}
 rails g scaffold ProjectSubticket project_ticket:references name description status
-rails g scaffold ProjectSubticketApointment project_subticket:references appoint_to:references{polymorphic}
+rails g scaffold ProjectSubticketAppointment project_subticket:references appoint_to:references{polymorphic}
 rails g scaffold ProjectCategory project_group:references name description
 rails g scaffold ProjectCategoryAppointment project_category:references appoint_to:references{polymorphic}
