@@ -32,5 +32,4 @@ class EducationSchool < ApplicationRecord
   include EducationSchool::PaymentConcern
   # include EducationSchool::CalendarConcern
   include EducationSchool::UserConcern
-  include EducationSchool::ProjectConcern
 end

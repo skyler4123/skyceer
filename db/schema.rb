@@ -653,13 +653,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "project_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "project_ownerable_type", null: false
-    t.uuid "project_ownerable_id", null: false
+    t.uuid "project_owner_id", null: false
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_ownerable_type", "project_ownerable_id"], name: "index_project_categories_on_project_ownerable"
+    t.index ["project_owner_id"], name: "index_project_categories_on_project_owner_id"
   end
 
   create_table "project_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -673,18 +672,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "project_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "project_ownerable_type", null: false
-    t.uuid "project_ownerable_id", null: false
+    t.uuid "project_owner_id", null: false
     t.string "name"
     t.string "description"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_ownerable_type", "project_ownerable_id"], name: "index_project_groups_on_project_ownerable"
+    t.index ["project_owner_id"], name: "index_project_groups_on_project_owner_id"
   end
 
   create_table "project_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "project_group_id", null: false
+    t.uuid "project_owner_id", null: false
     t.string "project_membersable_type", null: false
     t.uuid "project_membersable_id", null: false
     t.string "name"
@@ -692,8 +690,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_group_id"], name: "index_project_members_on_project_group_id"
     t.index ["project_membersable_type", "project_membersable_id"], name: "index_project_members_on_project_membersable"
+    t.index ["project_owner_id"], name: "index_project_members_on_project_owner_id"
+  end
+
+  create_table "project_owners", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "project_ownerable_type", null: false
+    t.uuid "project_ownerable_id", null: false
+    t.string "name"
+    t.string "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_ownerable_type", "project_ownerable_id"], name: "index_project_owners_on_project_ownerable"
   end
 
   create_table "project_subtask_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -707,12 +716,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "project_subtasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_owner_id", null: false
     t.uuid "project_task_id", null: false
     t.string "name"
     t.string "description"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["project_owner_id"], name: "index_project_subtasks_on_project_owner_id"
     t.index ["project_task_id"], name: "index_project_subtasks_on_project_task_id"
   end
 
@@ -727,6 +738,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "project_tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_owner_id", null: false
     t.uuid "project_group_id", null: false
     t.string "name"
     t.string "description"
@@ -734,6 +746,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_group_id"], name: "index_project_tasks_on_project_group_id"
+    t.index ["project_owner_id"], name: "index_project_tasks_on_project_owner_id"
   end
 
   create_table "report_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -895,12 +908,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "payment_orders", "payment_discounts"
   add_foreign_key "payment_orders", "payment_methods"
   add_foreign_key "payment_orders", "payment_users"
+  add_foreign_key "project_categories", "project_owners"
   add_foreign_key "project_category_appointments", "project_categories"
-  add_foreign_key "project_members", "project_groups"
+  add_foreign_key "project_groups", "project_owners"
+  add_foreign_key "project_members", "project_owners"
   add_foreign_key "project_subtask_appointments", "project_subtasks"
+  add_foreign_key "project_subtasks", "project_owners"
   add_foreign_key "project_subtasks", "project_tasks"
   add_foreign_key "project_task_appointments", "project_tasks"
   add_foreign_key "project_tasks", "project_groups"
+  add_foreign_key "project_tasks", "project_owners"
   add_foreign_key "report_categories", "report_categories", column: "parent_category_id"
   add_foreign_key "report_category_appointments", "report_categories"
   add_foreign_key "report_frontends", "report_users"
