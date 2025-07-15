@@ -1,7 +1,7 @@
 class Seeding::ReportService
   def self.run
     # User.all.each_with_index do |user, n|
-    #   report_ticket = ReportTask.create!(
+    #   report_ticket = ReportTicket.create!(
     #     title: "report ticket title #{n}",
     #     content: Faker::Movie.quote,
     #     category: rand(0..3),
@@ -26,7 +26,7 @@ class Seeding::ReportService
 
   def self.report_ticket
     ReportUser.all.each do |report_user|
-      report_ticket = ReportTask.create!(
+      report_ticket = ReportTicket.create!(
         report_user: report_user,
         title: Faker::Movie.quote,
         content: Faker::Movie.quote,
@@ -61,7 +61,7 @@ class Seeding::ReportService
   end
 
   def self.report_category_appointment
-    ReportTask.all.each do |report_ticket|
+    ReportTicket.all.each do |report_ticket|
       ReportCategoryAppointment.create!(
         appoint_to: report_ticket,
         report_category: ReportCategory.all.sample,

@@ -1,4 +1,4 @@
-module ReportTask::ImagesConcern
+module ReportTicket::ImagesConcern
   extend ActiveSupport::Concern
   
   included do

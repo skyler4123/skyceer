@@ -43,7 +43,7 @@ CalendarEvent.destroy_all
 CalendarCategory.destroy_all
 CalendarCategoryAppointment.destroy_all
 
-ReportTask.destroy_all
+ReportTicket.destroy_all
 ReportFrontend.destroy_all
 
 PaymentUser.destroy_all

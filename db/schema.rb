@@ -402,6 +402,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.uuid "education_school_id", null: false
     t.string "uid"
     t.string "name", null: false
+    t.string "position"
+    t.string "title"
+    t.string "department"
+    t.string "avatar"
+    t.string "phone"
     t.string "email", comment: "Student can be created without user at first time then will match with user by email"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -667,16 +672,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.index ["project_category_id"], name: "index_project_category_appointments_on_project_category_id"
   end
 
-  create_table "project_group_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "project_group_id", null: false
-    t.string "appoint_to_type", null: false
-    t.uuid "appoint_to_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_group_appointments_on_appoint_to"
-    t.index ["project_group_id"], name: "index_project_group_appointments_on_project_group_id"
-  end
-
   create_table "project_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "project_ownerable_type", null: false
     t.uuid "project_ownerable_id", null: false
@@ -686,6 +681,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_ownerable_type", "project_ownerable_id"], name: "index_project_groups_on_project_ownerable"
+  end
+
+  create_table "project_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_group_id", null: false
+    t.string "project_membersable_type", null: false
+    t.uuid "project_membersable_id", null: false
+    t.string "name"
+    t.string "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_group_id"], name: "index_project_members_on_project_group_id"
+    t.index ["project_membersable_type", "project_membersable_id"], name: "index_project_members_on_project_membersable"
   end
 
   create_table "project_subtask_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -888,7 +896,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "payment_orders", "payment_methods"
   add_foreign_key "payment_orders", "payment_users"
   add_foreign_key "project_category_appointments", "project_categories"
-  add_foreign_key "project_group_appointments", "project_groups"
+  add_foreign_key "project_members", "project_groups"
   add_foreign_key "project_subtask_appointments", "project_subtasks"
   add_foreign_key "project_subtasks", "project_tasks"
   add_foreign_key "project_task_appointments", "project_tasks"
