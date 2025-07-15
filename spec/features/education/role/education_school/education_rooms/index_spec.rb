@@ -7,7 +7,7 @@ RSpec.feature "education_rooms#index", type: :feature, js: true do
     education_school.education_rooms << education_room
   end
 
-  context "education_role: :education_school" do
+  context "education_role: :education_owner" do
     it "will not be redirected" do
       sign_in(user: education_school.user)
       visit education_rooms_path

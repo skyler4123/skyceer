@@ -3,7 +3,7 @@
 # RSpec.feature "education_subjects#new", type: :feature, js: true do
 #   include_context "support/shared_contexts/education/default_database"
   
-#   context "education_role: :education_school" do
+#   context "education_role: :education_owner" do
 #     let(:new_subject_params) {{
 #       name: Faker::Name.name,
 #       description: Faker::Lorem.sentence,

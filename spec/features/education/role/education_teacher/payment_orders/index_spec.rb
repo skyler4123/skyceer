@@ -3,7 +3,7 @@
 # RSpec.feature "payment_orders#index", type: :feature, js: true do
 #   include_context "support/shared_contexts/education/default_database"
 
-#   context "education_role: :education_school" do
+#   context "education_role: :education_owner" do
 #     let(:payment_user) { create(:payment_user, payment_userable: education_school) }
 #     let(:payment_customer) { create(:payment_customer, payment_customerable: education_student) }
 

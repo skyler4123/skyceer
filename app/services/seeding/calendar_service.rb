@@ -6,7 +6,7 @@ class Seeding::CalendarService
   end
 
   def self.calendar_category
-    calendar_owners = User.where(education_role: :education_school)
+    calendar_owners = User.where(education_role: :education_owner)
     calendar_owners.each do |calendar_owner|
       10.times do
         CalendarCategory.create!(
@@ -19,7 +19,7 @@ class Seeding::CalendarService
   end
 
   def self.calendar_event
-    school_users = User.where(education_role: :education_school)
+    school_users = User.where(education_role: :education_owner)
     school_users.each do |school_user|
       education_schools = school_user.education_schools
       education_schools.all.each do |education_school|

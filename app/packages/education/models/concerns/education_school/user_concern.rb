@@ -7,7 +7,7 @@ module EducationSchool::UserConcern
     private
 
     def set_user_education_role
-      user.update(education_role: :education_school)
+      user.update(education_role: :education_owner)
     end
   end
 

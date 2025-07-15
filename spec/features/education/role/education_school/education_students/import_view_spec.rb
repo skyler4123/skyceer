@@ -3,7 +3,7 @@
 # RSpec.feature "education_students#import_view", type: :feature, js: true do
 #   include_context "support/shared_contexts/education/default_database"
 
-#   context "education_role: :education_school" do
+#   context "education_role: :education_owner" do
 #     # Create a temporary CSV file
 #     let(:csv_file) do
 #       file = Tempfile.new(['students', '.csv'])

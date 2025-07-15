@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :education_parent do
     association :user, factory: :user
-    # association :education_school_user, factory: :user, role: :normal, education_role: :education_school
+    # association :education_school_user, factory: :user, role: :normal, education_role: :education_owner
 
     name { Faker::Name.name }
     email { Faker::Internet.email }

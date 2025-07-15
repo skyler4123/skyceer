@@ -1,6 +1,7 @@
 class Seeding::EducationService
   def self.run
-    self.education_school_user
+    # self.education_school_user
+    self.education_owner
     self.education_category
     self.education_school
     self.education_subject
@@ -23,7 +24,7 @@ class Seeding::EducationService
     self.education_exam_to_student
   end
 
-  def self.create_user(education_role: :education_school, n: 0)
+  def self.create_user(education_role: :education_owner, n: 0)
     user = User.create!(
       email: "#{education_role}#{n}@education.com",
       name: "#{education_role} #{n}",
@@ -35,14 +36,26 @@ class Seeding::EducationService
     Seeding::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
   end
 
-  def self.education_school_user
-    2.times do |n|
-      Seeding::EducationService.create_user(education_role: :education_school, n: n)
+  # def self.education_school_user
+  #   2.times do |n|
+  #     Seeding::EducationService.create_user(education_role: :education_owner, n: n)
+  #   end
+  # end
+
+  def self.education_owner
+    User.where(education_role: :education_owner).find_each do |user|
+      EducationOwner.create!(
+        user: user,
+        uid: user.uid,
+        name: user.name,
+        email: user.email,
+        address: Address.create_random
+      )
     end
   end
 
   def self.education_category
-    User.all.where(education_role: :education_school).each do |user|
+    User.all.where(education_role: :education_owner).each do |user|
       50.times do
         EducationCategory.create!(
           name: "Category #{SecureRandom.hex(3)}",
@@ -54,7 +67,7 @@ class Seeding::EducationService
   end
 
   def self.education_school
-    User.where(education_role: :education_school).each do |user|
+    User.where(education_role: :education_owner).each do |user|
       2.times do
         education_school = EducationSchool.create!(
           name: Faker::Name.name,

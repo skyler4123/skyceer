@@ -3,7 +3,7 @@ module User::EducationConcern
   
   included do
     EDUCATION_ROLE_DESCRIPTIONS = {
-      education_school: 'School Owner',
+      education_owner: 'School Owner',
       education_admin: 'School Admin',
       education_teacher: 'Teacher',
       education_student: 'Student',
@@ -13,7 +13,7 @@ module User::EducationConcern
     has_one :education_owner, dependent: :destroy
 
     enum :education_role, {
-      education_school: 0,
+      education_owner: 0,
       education_admin: 1,
       education_teacher: 2,
       education_student: 3,

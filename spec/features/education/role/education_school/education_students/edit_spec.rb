@@ -3,7 +3,7 @@
 # RSpec.feature "education_students#edit", type: :feature, js: true do
 #   include_context "support/shared_contexts/education/default_database"
   
-#   context "education_role: :education_school" do
+#   context "education_role: :education_owner" do
 #     let(:new_student_params) {{
 #       email: Faker::Internet.email,
 #       name: Faker::Name.name,

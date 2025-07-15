@@ -4,7 +4,7 @@ RSpec.feature "Home", type: :feature do
   # include_context "support/shared_contexts/education/default_database"
 
   context "when user is set education_role as school" do
-    let(:user) { create(:user, education_role: :education_school) }
+    let(:user) { create(:user, education_role: :education_owner) }
 
     before do
       sign_in(user: user)
