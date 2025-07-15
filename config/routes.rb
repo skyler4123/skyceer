@@ -26,10 +26,10 @@ Rails.application.routes.draw do
     namespace :v1 do
     resources :project_category_appointments
     resources :project_categories
-    resources :project_subticket_appointments
-    resources :project_subtickets
-    resources :project_ticket_appointments
-    resources :project_tickets
+    resources :project_subtask_appointments
+    resources :project_subtasks
+    resources :project_task_appointments
+    resources :project_tasks
     resources :project_group_appointments
     resources :project_groups
     end

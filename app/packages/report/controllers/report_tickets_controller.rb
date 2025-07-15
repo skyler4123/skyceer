@@ -1,9 +1,9 @@
-class ReportTicketsController < ApplicationController
+class ReportTasksController < ApplicationController
   before_action :set_report_ticket, only: %i[ show edit update destroy ]
 
   # GET /report_tickets or /report_tickets.json
   def index
-    @report_tickets = ReportTicket.all
+    @report_tickets = ReportTask.all
   end
 
   # GET /report_tickets/1 or /report_tickets/1.json
@@ -12,7 +12,7 @@ class ReportTicketsController < ApplicationController
 
   # GET /report_tickets/new
   def new
-    @report_ticket = ReportTicket.new
+    @report_ticket = ReportTask.new
   end
 
   # GET /report_tickets/1/edit
@@ -21,7 +21,7 @@ class ReportTicketsController < ApplicationController
 
   # POST /report_tickets or /report_tickets.json
   def create
-    @report_ticket = ReportTicket.new(report_ticket_params)
+    @report_ticket = ReportTask.new(report_ticket_params)
 
     respond_to do |format|
       if @report_ticket.save
@@ -60,7 +60,7 @@ class ReportTicketsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_report_ticket
-      @report_ticket = ReportTicket.find(params.expect(:id))
+      @report_ticket = ReportTask.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

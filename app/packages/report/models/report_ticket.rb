@@ -1,5 +1,5 @@
-class ReportTicket < ApplicationRecord
-  include ReportTicket::ImagesConcern
+class ReportTask < ApplicationRecord
+  include ReportTask::ImagesConcern
 
   belongs_to :report_user, optional: true
   has_many :report_category_appointments, as: :appoint_to

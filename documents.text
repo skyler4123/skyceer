@@ -55,7 +55,7 @@ rails g scaffold CalendarEventAppointment calendar_event:references calendar_eve
 
 REPORT
 rails g scaffold ReportUser report_ownerable:references{polymorphic} discarded_at:datetime --force
-rails g scaffold ReportTicket report_user:references title content status:integer email phone nation discarded_at:datetime --force
+rails g scaffold ReportTask report_user:references title content status:integer email phone nation discarded_at:datetime --force
 rails g scaffold ReportFrontend report_user:references content url cookie:json status:integer discarded_at:datetime --force
 rails g scaffold ReportCategory name parent_category:references nested_level:integer discarded_at:datetime --force
 rails g scaffold ReportCategoryAppointment report_category:references appoint_to:references{polymorphic} discarded_at:datetime --force
@@ -63,9 +63,9 @@ rails g scaffold ReportCategoryAppointment report_category:references appoint_to
 Project
 rails g scaffold ProjectGroup project_ownerable:references{polymorphic} name description status
 rails g scaffold ProjectGroupAppointment project_group:references appoint_to:references{polymorphic}
-rails g scaffold ProjectTicket project_group:references name description status
-rails g scaffold ProjectTicketAppointment project_ticket:references appoint_to:references{polymorphic}
-rails g scaffold ProjectSubticket project_ticket:references name description status
-rails g scaffold ProjectSubticketAppointment project_subticket:references appoint_to:references{polymorphic}
+rails g scaffold ProjectTask project_group:references name description status
+rails g scaffold ProjectTaskAppointment project_task:references appoint_to:references{polymorphic}
+rails g scaffold ProjectSubtask project_task:references name description status
+rails g scaffold ProjectSubtaskAppointment project_subtask:references appoint_to:references{polymorphic}
 rails g scaffold ProjectCategory project_group:references name description
 rails g scaffold ProjectCategoryAppointment project_category:references appoint_to:references{polymorphic}

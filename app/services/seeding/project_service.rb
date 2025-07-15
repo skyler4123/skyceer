@@ -3,8 +3,8 @@ class Seeding::ProjectService
     self.create_project_categories
     self.create_project_groups
     self.create_project_members
-    self.create_project_tickets
-    self.create_project_subtickets
+    self.create_project_tasks
+    self.create_project_subtasks
     self.create_project_categories
   end
 
@@ -38,51 +38,51 @@ class Seeding::ProjectService
   def self.create_project_members
   end
 
-  def self.create_project_tickets
+  def self.create_project_tasks
     # Logic to create project tickets
     ProjectGroup.find_each do |group|
       user = group.project_ownerable.user
       project_categories = user.project_categories
       5.times do |i|
-        project_ticket = ProjectTicket.create!(
-          name: "Ticket #{i + 1} for #{group.name}",
+        project_task = ProjectTask.create!(
+          name: "Task #{i + 1} for #{group.name}",
           project_group: group
         )
         ProjectCategoryAppointment.create!(
           project_category: project_categories.sample,
-          appoint_to: project_ticket
+          appoint_to: project_task
         )
       end
     end
   end
 
-  def self.create_project_subtickets
-    # Logic to create project subtickets
-    ProjectTicket.find_each do |ticket|
+  def self.create_project_subtasks
+    # Logic to create project subtasks
+    ProjectTask.find_each do |ticket|
       user = ticket.project_group.project_ownerable.user
       project_categories = user.project_categories
       3.times do |i|
-        project_subticket = ProjectSubticket.create!(
-          name: "Subticket #{i + 1} for #{ticket.name}",
-          project_ticket: ticket
+        project_subtask = ProjectSubtask.create!(
+          name: "Subtask #{i + 1} for #{ticket.name}",
+          project_task: ticket
         )
         ProjectCategoryAppointment.create!(
           project_category: project_categories.sample,
-          appoint_to: project_subticket
+          appoint_to: project_subtask
         )
       end
     end
   end
 
-  def self.create_project_ticket_appointments
+  def self.create_project_task_appointments
     # Logic to create project ticket appointments
-    ProjectTicket.find_each do |ticket|
+    ProjectTask.find_each do |ticket|
       project_group = ticket.project_group
       school = project_group.project_ownerable
       staffs = school.education_staffs
       staffs.each do |staff|
-        ProjectTicketAppointment.create!(
-          project_ticket: ticket,
+        ProjectTaskAppointment.create!(
+          project_task: ticket,
           appoint_to: staff,
         )
       end
