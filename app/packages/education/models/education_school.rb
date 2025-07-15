@@ -2,7 +2,7 @@ class EducationSchool < ApplicationRecord
   include EducationSchool::AvatarConcern
   include EducationSchool::ImagesConcern
 
-  belongs_to :user
+  belongs_to :education_owner
   belongs_to :address, optional: true
 
   # has_many :education_school_appointments, dependent: :destroy

@@ -1,5 +1,6 @@
 class Seeding::ProjectService
   def self.run
+    self.create_project_owners
     self.create_project_categories
     self.create_project_groups
     self.create_project_members
@@ -8,34 +9,42 @@ class Seeding::ProjectService
     self.create_project_categories
   end
 
-  def self.create_project_categories
+  def self.create_project_owners
     User.where(education_role: "education_school").find_each do |user|
+      ProjectOwner.create!(
+        project_ownerable: user
+      )
+    end
+  end
+
+  def self.create_project_categories
+    ProjectOwner.find_each do |owner|
       50.times do |i|
         ProjectCategory.create!(
-          name: "Category #{i + 1} for #{user.name}",
-          project_ownerable: user
+          name: "Category #{i + 1} for #{owner.project_ownerable.name}",
+          project_owner: owner
         )
       end
     end
   end
 
   def self.create_project_groups
-    # Logic to create project groups
-    EducationSchool.all.each do |school|
-      project_categories = school.user.project_categories
-      project_group = ProjectGroup.create!(
-        name: "#{school.name} Project Group",
-        project_ownerable: school
-      )
-      ProjectCategoryAppointment.create!(
-        project_category: project_categories.sample,
-        appoint_to: project_group
-      )
-      # Additional logic for project group creation if needed
+    ProjectOwner.find_each do |owner|
+      10.times do |i|
+        project_group = ProjectGroup.create!(
+          name: "Group #{i + 1} for #{owner.project_ownerable.name}",
+          project_owner: owner
+        )
+        ProjectCategoryAppointment.create!(
+          project_category: owner.project_categories.sample,
+          appoint_to: project_group
+        )
+      end
     end
   end
 
   def self.create_project_members
+    
   end
 
   def self.create_project_tasks

@@ -10,12 +10,7 @@ module User::EducationConcern
       education_parent: 'Parent',
     }
 
-    has_many :education_categories, dependent: :destroy
-    has_many :education_schools, dependent: :destroy
-    has_one :education_admin, dependent: :destroy
-    has_one :education_teacher, dependent: :destroy
-    has_one :education_student, dependent: :destroy
-    has_one :education_parent, dependent: :destroy
+    has_one :education_owner, dependent: :destroy
 
     enum :education_role, {
       education_school: 0,
