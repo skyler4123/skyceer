@@ -1,8 +1,8 @@
 class Seeding::SeedService
   def self.run(seed_number: 0)    
     Seeding::ApplicationService.run
-    # Seeding::EducationService.run
-    # Seeding::ProjectService.run
+    Seeding::EducationService.run
+    Seeding::ProjectService.run
     # Seeding::CalendarService.run
     # Seeding::ChatService.run
     # Seeding::ArticleService.run
