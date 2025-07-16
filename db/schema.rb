@@ -185,13 +185,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
 
   create_table "education_admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_owner_id", null: false
-    t.uuid "user_id", null: false
-    t.uuid "education_school_id", null: false
+    t.uuid "user_id"
+    t.uuid "education_school_id"
     t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Admin can be created without user at first time then will match with user by email"
-    t.string "status", default: "active", null: false, comment: "Status of the admin, can be active, inactive, or archived"
-    t.string "role", default: "admin", null: false, comment: "Role of the admin, can be admin or super_admin"
+    t.string "status", default: "active", comment: "Status of the admin, can be active, inactive, or archived"
+    t.string "role", default: "admin", comment: "Role of the admin, can be admin or super_admin"
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -238,10 +238,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.uuid "education_course_id", null: false
     t.string "uid"
     t.string "name", null: false
-    t.string "description", null: false
-    t.string "status", default: "active", null: false, comment: "Status of the class, can be active, inactive, or archived"
+    t.string "description"
+    t.string "status", default: "active", comment: "Status of the class, can be active, inactive, or archived"
     t.string "color", comment: "Color theme of the class"
-    t.string "language", default: "en", null: false, comment: "Language of the class, default is English"
+    t.string "language", default: "en", comment: "Language of the class, default is English"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -254,8 +254,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.uuid "education_school_id", null: false
     t.string "uid"
     t.string "name", null: false
-    t.string "description", null: false
-    t.string "status", default: "active", null: false, comment: "Status of the course, can be active, inactive, or archived"
+    t.string "description"
+    t.string "status", default: "active", comment: "Status of the course, can be active, inactive, or archived"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["education_school_id"], name: "index_education_courses_on_education_school_id"
@@ -331,18 +331,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.uuid "user_id", null: false
     t.string "uid"
     t.string "name", null: false
-    t.string "email", null: false, comment: "Email address of the school can be different from the user's email address"
+    t.string "email", comment: "Email address of the school can be different from the user's email address"
     t.string "category"
-    t.string "phone", null: false, comment: "Phone number of the school can be different from the user's phone number"
-    t.string "description", null: false, comment: "Description of the school"
-    t.string "status", default: "active", null: false, comment: "Status of the school, can be active, inactive, or archived"
-    t.string "website", null: false, comment: "Website of the school"
+    t.string "phone", comment: "Phone number of the school can be different from the user's phone number"
+    t.string "description", comment: "Description of the school"
+    t.string "status", default: "active", comment: "Status of the school, can be active, inactive, or archived"
+    t.string "website", comment: "Website of the school"
     t.string "avatar", comment: "Avatar image of the school"
     t.string "logo"
     t.string "banner"
     t.string "color", comment: "Color theme of the school"
-    t.string "timezone", default: "UTC", null: false, comment: "Timezone of the school, default is UTC"
-    t.string "language", default: "en", null: false, comment: "Language of the school, default is English"
+    t.string "timezone", default: "UTC", comment: "Timezone of the school, default is UTC"
+    t.string "language", default: "en", comment: "Language of the school, default is English"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -352,15 +352,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
 
   create_table "education_parents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_owner_id", null: false
-    t.uuid "user_id", null: false
+    t.uuid "user_id"
     t.uuid "education_school_id", null: false
     t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Parent can be created without user at first time then will match with user by email"
-    t.string "status", default: "active", null: false, comment: "Status of the parent, can be active, inactive, or archived"
+    t.string "status", default: "active", comment: "Status of the parent, can be active, inactive, or archived"
     t.string "phone"
-    t.string "description", null: false, comment: "Description of the parent"
-    t.string "language", default: "en", null: false, comment: "Language of the parent, default is English"
+    t.string "description", comment: "Description of the parent"
+    t.string "language", default: "en", comment: "Language of the parent, default is English"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -409,8 +409,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.uuid "education_school_id", null: false
     t.string "uid"
     t.string "name", null: false
-    t.string "description", null: false
-    t.string "status", default: "active", null: false, comment: "Status of the room, can be active, inactive, or archived"
+    t.string "description"
+    t.string "status", default: "active", comment: "Status of the room, can be active, inactive, or archived"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -434,17 +434,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.uuid "address_id"
     t.string "uid"
     t.string "name", null: false
-    t.string "email", null: false, comment: "Email address of the school can be different from the user's email address"
+    t.string "email", comment: "Email address of the school can be different from the user's email address"
     t.string "category"
-    t.string "phone", null: false, comment: "Phone number of the school can be different from the user's phone number"
-    t.string "description", null: false, comment: "Description of the school"
-    t.string "status", default: "active", null: false, comment: "Status of the school, can be active, inactive, or archived"
-    t.string "website", null: false, comment: "Website of the school"
+    t.string "phone", comment: "Phone number of the school can be different from the user's phone number"
+    t.string "description", comment: "Description of the school"
+    t.string "status", default: "active", comment: "Status of the school, can be active, inactive, or archived"
+    t.string "website", comment: "Website of the school"
     t.string "logo"
     t.string "banner"
     t.string "color", comment: "Color theme of the school"
-    t.string "timezone", default: "UTC", null: false, comment: "Timezone of the school, default is UTC"
-    t.string "language", default: "en", null: false, comment: "Language of the school, default is English"
+    t.string "timezone", default: "UTC", comment: "Timezone of the school, default is UTC"
+    t.string "language", default: "en", comment: "Language of the school, default is English"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -464,8 +464,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.string "department"
     t.string "avatar"
     t.string "phone"
-    t.string "status", default: "active", null: false, comment: "Status of the staff, can be active, inactive, or archived"
-    t.string "description", null: false, comment: "Description of the staff"
+    t.string "status", default: "active", comment: "Status of the staff, can be active, inactive, or archived"
+    t.string "description", comment: "Description of the staff"
     t.string "email", comment: "Student can be created without user at first time then will match with user by email"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -484,9 +484,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Student can be created without user at first time then will match with user by email"
-    t.string "status", default: "active", null: false, comment: "Status of the student, can be active, inactive, or archived"
+    t.string "status", default: "active", comment: "Status of the student, can be active, inactive, or archived"
     t.string "phone"
-    t.string "description", null: false, comment: "Description of the student"
+    t.string "description", comment: "Description of the student"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -536,8 +536,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.uuid "education_school_id", null: false
     t.string "uid"
     t.string "name", null: false
-    t.string "description", null: false
-    t.string "status", default: "active", null: false, comment: "Status of the subject, can be active, inactive, or archived"
+    t.string "description"
+    t.string "status", default: "active", comment: "Status of the subject, can be active, inactive, or archived"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -552,10 +552,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Teacher can be created without user at first time then will match with user by email"
-    t.string "status", default: "active", null: false, comment: "Status of the teacher, can be active, inactive, or archived"
+    t.string "status", default: "active", comment: "Status of the teacher, can be active, inactive, or archived"
     t.string "phone"
-    t.string "description", null: false, comment: "Description of the teacher"
-    t.string "language", default: "en", null: false, comment: "Language of the teacher, default is English"
+    t.string "description", comment: "Description of the teacher"
+    t.string "language", default: "en", comment: "Language of the teacher, default is English"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
