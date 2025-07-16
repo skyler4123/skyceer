@@ -84,17 +84,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "calendar_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "calendar_owner_id", null: false
+    t.uuid "parent_category_id"
     t.string "name"
     t.string "uid"
     t.string "color"
-    t.string "calendar_ownerable_type", null: false
-    t.uuid "calendar_ownerable_id", null: false
-    t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_ownerable_type", "calendar_ownerable_id"], name: "index_calendar_categories_on_calendar_ownerable"
+    t.index ["calendar_owner_id"], name: "index_calendar_categories_on_calendar_owner_id"
     t.index ["parent_category_id"], name: "index_calendar_categories_on_parent_category_id"
   end
 
@@ -110,10 +109,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "calendar_ownerable_type", null: false
-    t.uuid "calendar_ownerable_id", null: false
-    t.string "calendar_groupable_type", null: false
-    t.uuid "calendar_groupable_id", null: false
+    t.uuid "calendar_owner_id", null: false
+    t.uuid "calendar_group_id", null: false
     t.string "uid"
     t.integer "library"
     t.string "title"
@@ -143,8 +140,35 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_groupable_type", "calendar_groupable_id"], name: "index_calendar_events_on_calendar_groupable"
-    t.index ["calendar_ownerable_type", "calendar_ownerable_id"], name: "index_calendar_events_on_calendar_ownerable"
+    t.index ["calendar_group_id"], name: "index_calendar_events_on_calendar_group_id"
+    t.index ["calendar_owner_id"], name: "index_calendar_events_on_calendar_owner_id"
+  end
+
+  create_table "calendar_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "calendar_owner_id", null: false
+    t.string "uid"
+    t.string "name"
+    t.string "color"
+    t.string "borderColor"
+    t.string "backgroundColor"
+    t.string "dragBackgroundColor"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_owner_id"], name: "index_calendar_groups_on_calendar_owner_id"
+  end
+
+  create_table "calendar_owners", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "calendar_ownerable_type", null: false
+    t.uuid "calendar_ownerable_id", null: false
+    t.string "uid"
+    t.string "name"
+    t.string "email"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_ownerable_type", "calendar_ownerable_id"], name: "index_calendar_owners_on_calendar_ownerable"
+    t.index ["discarded_at"], name: "index_calendar_owners_on_discarded_at"
   end
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -625,6 +649,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "payment_invoices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_owner_id", null: false
     t.uuid "payment_order_id", null: false
     t.string "uid"
     t.string "transaction_id"
@@ -635,6 +660,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_order_id"], name: "index_payment_invoices_on_payment_order_id"
+    t.index ["payment_owner_id"], name: "index_payment_invoices_on_payment_owner_id"
   end
 
   create_table "payment_item_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -940,7 +966,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "calendar_categories", "calendar_categories", column: "parent_category_id"
+  add_foreign_key "calendar_categories", "calendar_owners"
   add_foreign_key "calendar_category_appointments", "calendar_categories"
+  add_foreign_key "calendar_events", "calendar_groups"
+  add_foreign_key "calendar_events", "calendar_owners"
+  add_foreign_key "calendar_groups", "calendar_owners"
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "category_appointments", "categories"
   add_foreign_key "education_admins", "education_owners"
@@ -1004,6 +1034,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "payment_category_appointments", "payment_categories"
   add_foreign_key "payment_discounts", "payment_owners"
   add_foreign_key "payment_invoices", "payment_orders"
+  add_foreign_key "payment_invoices", "payment_owners"
   add_foreign_key "payment_item_appointments", "payment_items"
   add_foreign_key "payment_item_appointments", "payment_orders"
   add_foreign_key "payment_items", "payment_owners"

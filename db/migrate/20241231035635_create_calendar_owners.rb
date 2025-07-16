@@ -9,6 +9,6 @@ class CreateCalendarOwners < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
+    add_index :calendar_owners, :discarded_at
   end
-  add_index :calendar_owners, :discarded_at
 end
