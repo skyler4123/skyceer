@@ -44,6 +44,17 @@ class Seeding::ProjectService
   end
 
   def self.create_project_members
+      ProjectOwner.find_each do |owner|
+        owner.project_ownerable.education_staffs.each do |staff|
+          ProjectMember.create!(
+            project_owner: owner,
+            project_membersable: staff,
+            name: staff.name,
+            description: "Member of #{owner.project_ownerable.name}",
+            status: 'active'
+          )
+        end
+      end
     
   end
 
