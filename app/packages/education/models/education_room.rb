@@ -2,6 +2,7 @@ class EducationRoom < ApplicationRecord
   include EducationRoom::AvatarConcern
   include EducationRoom::ImagesConcern
 
+  belongs_to :education_owner
   belongs_to :education_school
 
   has_many :education_class_appointments, as: :appoint_to, dependent: :destroy

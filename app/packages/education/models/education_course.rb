@@ -1,4 +1,5 @@
 class EducationCourse < ApplicationRecord
+  belongs_to :education_owner
   belongs_to :education_school
 
   has_one :user, through: :education_school

@@ -73,7 +73,6 @@ class Seeding::EducationService
         education_school = EducationSchool.create!(
           name: "School #{n + 1} for #{owner.name}",
           description: Faker::Company.catch_phrase,
-          address: Faker::Address.full_address,
           phone: Faker::PhoneNumber.phone_number,
           email: Faker::Internet.email,
           uid: SecureRandom.uuid,
@@ -86,28 +85,32 @@ class Seeding::EducationService
   end
 
   def self.education_subject
-    EducationSchool.all.each do |education_school|
-      5.times do |n|
-        education_subject = EducationSubject.create!(
-          name: "#{Faker::Educator.subject} #{n}",
-          description: Faker::Movie.quote,
-          education_school: education_school
-        )
-
-        education_subject.education_categories << education_school.user.education_categories.sample
+    EducationOwner.find_each do |owner|
+      owner.education_schools.each do |education_school|
+        5.times do |n|
+          education_subject = EducationSubject.create!(
+            education_owner: owner,
+            name: "#{Faker::Educator.subject} #{n}",
+            description: Faker::Movie.quote,
+            education_school: education_school
+          )
+          education_subject.education_categories << owner.education_categories.sample
+        end
       end
     end
   end
 
   def self.education_course
-    EducationSchool.all.each do |education_school|
-      5.times do |n|
-        education_course = EducationCourse.create!(
-          name: "#{Faker::Educator.course_name} #{n}",
-          description: Faker::Movie.quote,
-          education_school: education_school
-        )
-        education_course.education_categories << education_school.user.education_categories.sample
+    EducationOwner.find_each do |owner|
+      owner.education_schools.each do |education_school|
+        5.times do |n|
+          education_course = EducationCourse.create!(
+            name: "#{Faker::Educator.course_name} #{n}",
+            description: Faker::Movie.quote,
+            education_school: education_school
+          )
+          education_course.education_categories << owner.education_categories.sample
+        end
       end
     end
   end
