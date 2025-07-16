@@ -6,8 +6,8 @@ class CreateEducationSubjects < ActiveRecord::Migration[8.0]
 
       t.string :uid
       t.string :name, null: false
-      t.string :description, null: false
-      t.string :status, default: "active", null: false, comment: "Status of the subject, can be active, inactive, or archived"
+      t.string :description
+      t.string :status, default: "active", comment: "Status of the subject, can be active, inactive, or archived"
       t.datetime :discarded_at
 
       t.timestamps
