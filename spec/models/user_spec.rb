@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
     it { should have_one(:education_admin).dependent(:destroy) }
     it { should have_one(:education_teacher).dependent(:destroy) }
     it { should have_one(:education_student).dependent(:destroy) }
-    it { should have_one(:report_user).dependent(:destroy) }
+    it { should have_one(:report_owner).dependent(:destroy) }
   end
 
   describe 'callbacks' do

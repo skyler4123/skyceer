@@ -65,6 +65,6 @@ class ReportTicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_ticket_params
-      params.expect(report_ticket: [ :report_user_id, :title, :content, :status, :email, :phone, :nation, :discarded_at ])
+      params.expect(report_ticket: [ :report_owner_id, :title, :content, :status, :email, :phone, :nation, :discarded_at ])
     end
 end

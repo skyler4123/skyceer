@@ -54,9 +54,9 @@ rails g scaffold CalendarGroup calendar_groupable:references{polymorphic} name c
 rails g scaffold CalendarEventAppointment calendar_event:references calendar_event_appointmentable:references{polymorphic} discarded_at:datetime --force
 
 REPORT
-rails g scaffold ReportUser report_ownerable:references{polymorphic} discarded_at:datetime --force
-rails g scaffold ReportTicket report_user:references title content status:integer email phone nation discarded_at:datetime --force
-rails g scaffold ReportFrontend report_user:references content url cookie:json status:integer discarded_at:datetime --force
+rails g scaffold ReportOwner report_ownerable:references{polymorphic} discarded_at:datetime --force
+rails g scaffold ReportTicket report_owner:references title content status:integer email phone nation discarded_at:datetime --force
+rails g scaffold ReportFrontend report_owner:references content url cookie:json status:integer discarded_at:datetime --force
 rails g scaffold ReportCategory name parent_category:references nested_level:integer discarded_at:datetime --force
 rails g scaffold ReportCategoryAppointment report_category:references appoint_to:references{polymorphic} discarded_at:datetime --force
 

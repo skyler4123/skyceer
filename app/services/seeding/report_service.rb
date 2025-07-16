@@ -9,25 +9,25 @@ class Seeding::ReportService
     #     reporter_email: ["", user.email].sample
     #   )
     #   Seeding::AttachmentService.attach(record: report_ticket, relation: :image_attachments, number: 2)
-    self.report_user
+    self.report_owner
     self.report_ticket
     self.report_frontend
     self.report_category
     self.report_category_appointment
   end
 
-  def self.report_user
+  def self.report_owner
     User.all.each do |user|
-      ReportUser.create!(
+      ReportOwner.create!(
         report_ownerable: user
       )
     end
   end
 
   def self.report_ticket
-    ReportUser.all.each do |report_user|
+    ReportOwner.all.each do |report_owner|
       report_ticket = ReportTicket.create!(
-        report_user: report_user,
+        report_owner: report_owner,
         title: Faker::Movie.quote,
         content: Faker::Movie.quote,
         status: rand(0..3),
@@ -40,9 +40,9 @@ class Seeding::ReportService
   end
 
   def self.report_frontend
-    ReportUser.all.each do |report_user|
+    ReportOwner.all.each do |report_owner|
       ReportFrontend.create!(
-        report_user: report_user,
+        report_owner: report_owner,
         content: Faker::Movie.quote,
         url: Faker::Internet.url,
         cookie: { key: "value" },

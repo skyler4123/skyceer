@@ -65,6 +65,6 @@ class ReportFrontendsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_frontend_params
-      params.expect(report_frontend: [ :report_user_id, :url, :cookie, :status, :discarded_at ])
+      params.expect(report_frontend: [ :report_owner_id, :url, :cookie, :status, :discarded_at ])
     end
 end

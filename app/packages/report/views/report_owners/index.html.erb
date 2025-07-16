@@ -1,0 +1,17 @@
+<div class="w-full">
+  <% content_for :title, "Report users" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-2xl">Report users</h1>
+    <%= link_to "New report user", new_report_owner_path, class: "rounded-lg py-3 px-5 bg-slate-800 text-white block font-medium" %>
+  </div>
+
+  <div id="report_owners" class="min-w-full">
+    <% @report_owners.each do |report_owner| %>
+      <%= render report_owner %>
+      <p>
+        <%= link_to "Show this report user", report_owner, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>
