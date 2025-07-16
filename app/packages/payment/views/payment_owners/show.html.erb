@@ -1,0 +1,11 @@
+<div class="mx-auto w-4/5 flex">
+  <div class="mx-auto">
+    <%= render @payment_owner %>
+
+    <%= link_to "Edit this payment user", edit_payment_owner_path(@payment_owner), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Back to payment users", payment_owners_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+      <%= button_to "Destroy this payment user", @payment_owner, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+  </div>
+</div>

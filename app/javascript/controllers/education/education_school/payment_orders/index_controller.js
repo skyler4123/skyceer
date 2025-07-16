@@ -24,7 +24,7 @@ export default class Education_EducationSchool_PaymentOrders_IndexController ext
       return {
         ...row,
         payment_customerable_name: row.payment_customer.payment_customerable ? row.payment_customer.payment_customerable.name : "",
-        payment_userable_name: row.payment_user.payment_userable ? row.payment_user.payment_userable.name : "",
+        payment_ownerable_name: row.payment_owner.payment_ownerable ? row.payment_owner.payment_ownerable.name : "",
         status: this.paymentStatusHTML(row.status),
       }
     })
@@ -46,7 +46,7 @@ export default class Education_EducationSchool_PaymentOrders_IndexController ext
       },
       columns:[                 //define the table columns
           {title:"Customer", field: "payment_customerable_name", formatter: "html"},
-          {title: "School", field: "payment_userable_name", width: 150, formatter: "html"},
+          {title: "School", field: "payment_ownerable_name", width: 150, formatter: "html"},
           {title: "Status", field: "status", formatter: "html"},
           {title:"Created At", field:"created_at", width:130, sorter:"date", hozAlign:"center"},
           {title:"Updated At", field:"updated_at", width:130, sorter:"date", hozAlign:"center"},

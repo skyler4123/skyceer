@@ -1,7 +1,7 @@
 class PaymentCategory < ApplicationRecord
   include CategoryConcern
   
-  belongs_to :payment_user
+  belongs_to :payment_owner
 
   has_many :payment_category_appointments, dependent: :destroy
   has_many :payment_customers, through: :payment_category_appointments, source: :appoint_to, source_type: 'PaymentCustomer'

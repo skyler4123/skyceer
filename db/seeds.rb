@@ -46,7 +46,7 @@ CalendarCategoryAppointment.destroy_all
 ReportTicket.destroy_all
 ReportFrontend.destroy_all
 
-PaymentUser.destroy_all
+PaymentOwner.destroy_all
 PaymentCustomer.destroy_all
 PaymentMethod.destroy_all
 PaymentMethodAppointment.destroy_all

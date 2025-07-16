@@ -2,12 +2,12 @@ class EducationSchool::PaymentOrdersController < EducationSchool::EducationsCont
 
   # GET /payment_orders or /payment_orders.json
   def index
-    @payment_users = PaymentUser.where(payment_userable: @education_schools)
-    @payment_orders = PaymentOrder.includes(payment_customer: :payment_customerable).where(payment_user: @payment_users)
+    @payment_owners = PaymentOwner.where(payment_ownerable: @education_schools)
+    @payment_orders = PaymentOrder.includes(payment_customer: :payment_customerable).where(payment_owner: @payment_owners)
     @pagination, @payment_orders = pagy(@payment_orders)
     
     @json_data = {
-      payment_orders: @payment_orders.as_json(include: {payment_customer: {include: :payment_customerable}, payment_user: {include: :payment_userable}})
+      payment_orders: @payment_orders.as_json(include: {payment_customer: {include: :payment_customerable}, payment_owner: {include: :payment_ownerable}})
     }.to_json
   end
 
@@ -66,6 +66,6 @@ class EducationSchool::PaymentOrdersController < EducationSchool::EducationsCont
 
     # Only allow a list of trusted parameters through.
     def payment_order_params
-      params.expect(payment_order: [ :payment_user_id, :payment_customer_id, :payment_method_id, :payment_discount_id, :status, :amount, :paid, :due, :expire ])
+      params.expect(payment_order: [ :payment_owner_id, :payment_customer_id, :payment_method_id, :payment_discount_id, :status, :amount, :paid, :due, :expire ])
     end
 end

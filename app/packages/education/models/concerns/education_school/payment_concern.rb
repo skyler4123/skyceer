@@ -2,14 +2,14 @@ module EducationSchool::PaymentConcern
   extend ActiveSupport::Concern
   
   included do
-    has_one :payment_user, as: :payment_userable, dependent: :destroy
+    has_one :payment_owner, as: :payment_ownerable, dependent: :destroy
     
-    after_create :create_payment_user
+    after_create :create_payment_owner
 
     private
 
-    def create_payment_user
-      PaymentUser.create!(payment_userable: self)
+    def create_payment_owner
+      PaymentOwner.create!(payment_ownerable: self)
     end
   end
 

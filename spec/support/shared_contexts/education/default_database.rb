@@ -18,12 +18,12 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
   let(:education_exam_to_class) { create(:education_exam_to_class, education_exam:, education_class:, education_subject:) }
   let(:education_exam_to_student) { create(:education_exam_to_student, education_exam:, education_student:, education_exam_to_class:) }
 
-  let(:payment_user) { create(:payment_user, payment_userable: education_school) }
+  let(:payment_owner) { create(:payment_owner, payment_ownerable: education_school) }
   let(:payment_customer) { create(:payment_customer, payment_customerable: education_student) }
   let(:payment_method) { create(:payment_method) }
-  let(:payment_discount) { create(:payment_discount, payment_user:) }
-  let(:payment_item) { create(:payment_item, payment_itemable: education_course, payment_user:) }
-  let(:payment_order) { create(:payment_order, payment_user:, payment_customer:, payment_method:, payment_discount:) }
+  let(:payment_discount) { create(:payment_discount, payment_owner:) }
+  let(:payment_item) { create(:payment_item, payment_itemable: education_course, payment_owner:) }
+  let(:payment_order) { create(:payment_order, payment_owner:, payment_customer:, payment_method:, payment_discount:) }
 end
 
 RSpec.configure do |rspec|

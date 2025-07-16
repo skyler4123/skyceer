@@ -1,5 +1,5 @@
 class PaymentDiscount < ApplicationRecord
-  belongs_to :payment_user
+  belongs_to :payment_owner
   has_many :payment_orders, dependent: :destroy
   has_many :payment_logs, dependent: :destroy
 

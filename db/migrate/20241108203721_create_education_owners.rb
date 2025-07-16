@@ -16,7 +16,6 @@ class CreateEducationOwners < ActiveRecord::Migration[7.2]
       t.string :color, null: true, comment: "Color theme of the school"
       t.string :timezone, null: false, default: "UTC", comment: "Timezone of the school, default is UTC"
       t.string :language, null: false, default: "en", comment: "Language of the school, default is English"
-      t.string :address, null: true, foreign_key: true, type: :uuid
       t.datetime :discarded_at
 
       t.timestamps

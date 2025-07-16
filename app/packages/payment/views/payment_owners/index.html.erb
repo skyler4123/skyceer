@@ -1,0 +1,17 @@
+<div class="w-full">
+  <% content_for :title, "Payment users" %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-2xl">Payment users</h1>
+    <%= link_to "New payment user", new_payment_owner_path, class: "rounded-lg py-3 px-5 bg-slate-800 text-white block font-medium" %>
+  </div>
+
+  <div id="payment_owners" class="min-w-full">
+    <% @payment_owners.each do |payment_owner| %>
+      <%= render payment_owner %>
+      <p>
+        <%= link_to "Show this payment user", payment_owner, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :payment_item do
-    association :payment_user
+    association :payment_owner
     payment_itemable { create(:education_course) }
     price { 50.0 }
     discarded_at { nil }

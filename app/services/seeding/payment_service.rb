@@ -28,18 +28,18 @@ class Seeding::PaymentService
   end
 
   def self.payment_method_appointment
-    PaymentUser.all.each do |payment_user|
+    PaymentOwner.all.each do |payment_owner|
       PaymentMethodAppointment.create!(
-        payment_user: payment_user,
+        payment_owner: payment_owner,
         payment_method: PaymentMethod.all.sample
       )
     end
   end
 
   def self.payment_discount
-    PaymentUser.all.each do |payment_user|
+    PaymentOwner.all.each do |payment_owner|
       PaymentDiscount.create!(
-        payment_user: payment_user,
+        payment_owner: payment_owner,
         name: "payment discount name #{Faker::Movie.title}",
         code: Faker::Alphanumeric.alphanumeric(number: 6),
         description: Faker::Movie.quote,
@@ -53,12 +53,12 @@ class Seeding::PaymentService
 
   def self.payment_order
     PaymentItem.all.each do |payment_item|
-      payment_user = payment_item.payment_user
+      payment_owner = payment_item.payment_owner
       payment_customer = PaymentCustomer.all.sample
-      payment_method = payment_user.payment_methods.sample
-      payment_discount = payment_user.payment_discounts.sample
+      payment_method = payment_owner.payment_methods.sample
+      payment_discount = payment_owner.payment_discounts.sample
       PaymentOrder.create!(
-        payment_user: payment_user,
+        payment_owner: payment_owner,
         payment_customer: payment_customer,
         payment_method: payment_method,
         payment_discount: payment_discount,
@@ -73,8 +73,8 @@ class Seeding::PaymentService
   
   def self.payment_item_appointment
     PaymentOrder.all.each do |payment_order|
-      payment_user = payment_order.payment_user
-      payment_item = payment_user.payment_items.sample
+      payment_owner = payment_order.payment_owner
+      payment_item = payment_owner.payment_items.sample
       PaymentItemAppointment.create!(
         payment_item: payment_item,
         payment_order: payment_order,
@@ -99,13 +99,13 @@ class Seeding::PaymentService
   def self.payment_log
     PaymentInvoice.all.each do |payment_invoice|
       payment_order = payment_invoice.payment_order
-      payment_user = payment_order.payment_user
+      payment_owner = payment_order.payment_owner
       payment_customer = payment_order.payment_customer
       payment_method = payment_order.payment_method
       payment_discount = payment_order.payment_discount
       amount = payment_order.amount
       PaymentLog.create!(
-        payment_user: payment_user,
+        payment_owner: payment_owner,
         payment_customer: payment_customer,
         payment_order: payment_order,
         payment_method: payment_method,
@@ -119,10 +119,10 @@ class Seeding::PaymentService
   end
 
   def self.payment_category
-    PaymentUser.all.each do |payment_user|
+    PaymentOwner.all.each do |payment_owner|
       10.times do
         PaymentCategory.create!(
-          payment_user: payment_user,
+          payment_owner: payment_owner,
           name: "payment category name #{Faker::Movie.title}",
           parent_category: [PaymentCategory.all.sample, nil].sample,
         )
@@ -131,11 +131,11 @@ class Seeding::PaymentService
   end
 
   def self.payment_category_appointment
-    PaymentUser.all.each do |payment_user|
-      case payment_user.payment_userable_type
+    PaymentOwner.all.each do |payment_owner|
+      case payment_owner.payment_ownerable_type
       when "EducationSchool"
-        payment_categories = payment_user.payment_categories
-        payment_customers = PaymentUser.where(payment_userable_type: "PaymentCustomer")
+        payment_categories = payment_owner.payment_categories
+        payment_customers = PaymentOwner.where(payment_ownerable_type: "PaymentCustomer")
 
         payment_customers.sample(10).each do |payment_customer|
           PaymentCategoryAppointment.create!(
@@ -144,7 +144,7 @@ class Seeding::PaymentService
           )
         end
 
-        payment_user.payment_orders.each do |payment_order|
+        payment_owner.payment_orders.each do |payment_order|
           PaymentCategoryAppointment.create!(
             payment_category: payment_categories.sample,
             appoint_to: payment_order,
@@ -152,21 +152,21 @@ class Seeding::PaymentService
         end
 
 
-        payment_user.payment_items.each do |payment_item|
+        payment_owner.payment_items.each do |payment_item|
           PaymentCategoryAppointment.create!(
             payment_category: payment_categories.sample,
             appoint_to: payment_item,
           )
         end
 
-        payment_user.payment_discounts.each do |payment_discount|
+        payment_owner.payment_discounts.each do |payment_discount|
           PaymentCategoryAppointment.create!(
             payment_category: payment_categories.sample,
             appoint_to: payment_discount,
           )
         end
 
-        payment_user.payment_methods.each do |payment_method|
+        payment_owner.payment_methods.each do |payment_method|
           PaymentCategoryAppointment.create!(
             payment_category: payment_categories.sample,
             appoint_to: payment_method,
