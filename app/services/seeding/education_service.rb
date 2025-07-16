@@ -1,6 +1,6 @@
 class Seeding::EducationService
   def self.run
-    # self.education_school_user
+    self.user_owner
     self.education_owner
     self.education_category
     self.education_school
@@ -36,11 +36,11 @@ class Seeding::EducationService
     Seeding::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
   end
 
-  # def self.education_school_user
-  #   2.times do |n|
-  #     Seeding::EducationService.create_user(education_role: :education_owner, n: n)
-  #   end
-  # end
+  def self.user_owner
+    2.times do |n|
+      Seeding::EducationService.create_user(education_role: :education_owner, n: n)
+    end
+  end
 
   def self.education_owner
     User.where(education_role: :education_owner).find_each do |user|
@@ -49,34 +49,38 @@ class Seeding::EducationService
         uid: user.uid,
         name: user.name,
         email: user.email,
-        address: Address.create_random
       )
     end
   end
 
   def self.education_category
-    User.all.where(education_role: :education_owner).each do |user|
-      50.times do
+    EducationOwner.find_each do |owner|
+      10.times do |i|
         EducationCategory.create!(
-          name: "Category #{SecureRandom.hex(3)}",
-          parent_category: [EducationCategory.all.sample, nil].sample,
-          user: user
+          name: "Category #{i + 1} for #{owner.name}",
+          education_owner: owner,
+          uid: SecureRandom.uuid,
+          color: Faker::Color.hex_color,
+          nested_level: 0
         )
       end
     end
   end
 
   def self.education_school
-    User.where(education_role: :education_owner).each do |user|
-      2.times do
+    EducationOwner.find_each do |owner|
+      5.times do |n|
         education_school = EducationSchool.create!(
-          name: Faker::Name.name,
+          name: "School #{n + 1} for #{owner.name}",
+          description: Faker::Company.catch_phrase,
+          address: Faker::Address.full_address,
+          phone: Faker::PhoneNumber.phone_number,
           email: Faker::Internet.email,
-          user: user,
-          address: Address.create_random
+          uid: SecureRandom.uuid,
+          education_owner: owner
         )
-        education_school.education_categories << user.education_categories.sample
-        Seeding::AttachmentService.attach(record: education_school, relation: :avatar_attachment, number: 1)
+        education_school.education_categories << owner.education_categories.sample
+        Seeding::AttachmentService.attach(record: education_school, relation: :image_attachments, number: 1)
       end
     end
   end

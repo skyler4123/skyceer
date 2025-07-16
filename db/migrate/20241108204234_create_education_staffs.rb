@@ -12,6 +12,8 @@ class CreateEducationStaffs < ActiveRecord::Migration[7.2]
       t.string :department
       t.string :avatar
       t.string :phone
+      t.string :status, default: "active", null: false, comment: "Status of the staff, can be active, inactive, or archived"
+      t.string :description, null: false, comment: "Description of the staff"
       t.string :email, comment: 'Student can be created without user at first time then will match with user by email'
       t.datetime :discarded_at
 

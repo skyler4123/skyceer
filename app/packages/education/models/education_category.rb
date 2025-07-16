@@ -1,7 +1,7 @@
 class EducationCategory < ApplicationRecord
   include CategoryConcern
 
-  belongs_to :user
+  belongs_to :education_owner
 
   has_many :education_category_appointments, dependent: :destroy
   has_many :education_schools, through: :education_category_appointments, source: :appoint_to, source_type: 'EducationSchool'

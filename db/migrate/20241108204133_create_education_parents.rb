@@ -8,6 +8,10 @@ class CreateEducationParents < ActiveRecord::Migration[8.0]
       t.string :uid
       t.string :name, null: false
       t.string :email, comment: 'Parent can be created without user at first time then will match with user by email'
+      t.string :status, default: "active", null: false, comment: "Status of the parent, can be active, inactive, or archived"
+      t.string :phone, null: true
+      t.string :description, null: false, comment: "Description of the parent"
+      t.string :language, null: false, default: "en", comment: "Language of the parent, default is English"
       t.datetime :discarded_at
 
       t.timestamps

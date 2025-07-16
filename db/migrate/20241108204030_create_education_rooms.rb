@@ -4,6 +4,8 @@ class CreateEducationRooms < ActiveRecord::Migration[7.2]
       t.references :education_school, null: false, foreign_key: true, type: :uuid
       t.string :uid
       t.string :name, null: false
+      t.string :description, null: false
+      t.string :status, default: "active", null: false, comment: "Status of the room, can be active, inactive, or archived"
       t.datetime :discarded_at
 
       t.timestamps
