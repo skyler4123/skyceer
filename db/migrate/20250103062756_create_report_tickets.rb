@@ -1,7 +1,8 @@
 class CreateReportTickets < ActiveRecord::Migration[8.0]
   def change
     create_table :report_tickets, id: :uuid do |t|
-      t.references :report_user, null: true, foreign_key: true, type: :uuid
+      t.references :report_owner, null: true, foreign_key: true, type: :uuid
+      
       t.string :title
       t.string :content
       t.integer :status
