@@ -356,7 +356,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "education_owners", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
+    t.string "education_ownerable_type", null: false
+    t.uuid "education_ownerable_id", null: false
     t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Email address of the school can be different from the user's email address"
@@ -375,7 +376,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_owners_on_discarded_at"
-    t.index ["user_id"], name: "index_education_owners_on_user_id"
+    t.index ["education_ownerable_type", "education_ownerable_id"], name: "index_education_owners_on_education_ownerable"
   end
 
   create_table "education_parents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -596,11 +597,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "payment_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_owner_id", null: false
+    t.uuid "parent_category_id"
     t.string "name"
     t.string "uid"
     t.string "color"
-    t.uuid "payment_owner_id", null: false
-    t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
@@ -621,15 +622,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   end
 
   create_table "payment_customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_owner_id", null: false
     t.string "payment_customerable_type", null: false
     t.uuid "payment_customerable_id", null: false
     t.string "uid"
     t.string "name"
     t.string "email"
+    t.string "phone"
+    t.integer "status"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_customerable_type", "payment_customerable_id"], name: "index_payment_customers_on_payment_customerable"
+    t.index ["payment_owner_id"], name: "index_payment_customers_on_payment_owner_id"
   end
 
   create_table "payment_discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -754,10 +759,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.uuid "payment_ownerable_id", null: false
     t.string "uid"
     t.datetime "discarded_at"
-    t.string "status", default: "active", null: false, comment: "Status of the payment owner, can be active, inactive, or archived"
+    t.string "status", default: "active", comment: "Status of the payment owner, can be active, inactive, or archived"
     t.string "name", null: false, comment: "Name of the payment owner"
-    t.string "description", null: false, comment: "Description of the payment owner"
-    t.string "language", default: "en", null: false, comment: "Language of the payment owner, default is English"
+    t.string "description", comment: "Description of the payment owner"
+    t.string "language", default: "en", comment: "Language of the payment owner, default is English"
     t.string "email", comment: "Email of the payment owner, can be null if not provided"
     t.string "phone", comment: "Phone number of the payment owner, can be null if not provided"
     t.datetime "created_at", null: false
@@ -841,12 +846,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
 
   create_table "project_subtasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "project_owner_id", null: false
+    t.uuid "project_group_id", null: false
     t.uuid "project_task_id", null: false
     t.string "name"
     t.string "description"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["project_group_id"], name: "index_project_subtasks_on_project_group_id"
     t.index ["project_owner_id"], name: "index_project_subtasks_on_project_owner_id"
     t.index ["project_task_id"], name: "index_project_subtasks_on_project_task_id"
   end
@@ -897,18 +904,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.index ["report_category_id"], name: "index_report_category_appointments_on_report_category_id"
   end
 
-  create_table "report_frontends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "report_owner_id"
-    t.string "content"
-    t.string "url"
-    t.json "cookie"
-    t.integer "status"
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["report_owner_id"], name: "index_report_frontends_on_report_owner_id"
-  end
-
   create_table "report_owners", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "report_ownerable_type", null: false
     t.uuid "report_ownerable_id", null: false
@@ -920,14 +915,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
 
   create_table "report_reporters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "report_owner_id"
+    t.string "report_reporterable_type", null: false
+    t.uuid "report_reporterable_id", null: false
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.string "nation"
+    t.string "description"
+    t.integer "status", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["report_owner_id"], name: "index_report_reporters_on_report_owner_id"
+    t.index ["report_reporterable_type", "report_reporterable_id"], name: "index_report_reporters_on_report_reporterable"
   end
 
   create_table "report_tickets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "report_owner_id"
+    t.uuid "report_reporter_id"
     t.string "title"
     t.string "content"
     t.integer "status"
@@ -938,6 +943,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["report_owner_id"], name: "index_report_tickets_on_report_owner_id"
+    t.index ["report_reporter_id"], name: "index_report_tickets_on_report_reporter_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -1009,7 +1015,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "education_lessons", "education_schools"
   add_foreign_key "education_lessons", "education_subjects"
   add_foreign_key "education_lessons", "education_teachers"
-  add_foreign_key "education_owners", "users"
   add_foreign_key "education_parents", "education_owners"
   add_foreign_key "education_parents", "education_schools"
   add_foreign_key "education_parents", "users"
@@ -1042,6 +1047,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "payment_categories", "payment_categories", column: "parent_category_id"
   add_foreign_key "payment_categories", "payment_owners"
   add_foreign_key "payment_category_appointments", "payment_categories"
+  add_foreign_key "payment_customers", "payment_owners"
   add_foreign_key "payment_discounts", "payment_owners"
   add_foreign_key "payment_invoices", "payment_orders"
   add_foreign_key "payment_invoices", "payment_owners"
@@ -1066,6 +1072,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "project_groups", "project_owners"
   add_foreign_key "project_members", "project_owners"
   add_foreign_key "project_subtask_appointments", "project_subtasks"
+  add_foreign_key "project_subtasks", "project_groups"
   add_foreign_key "project_subtasks", "project_owners"
   add_foreign_key "project_subtasks", "project_tasks"
   add_foreign_key "project_task_appointments", "project_tasks"
@@ -1074,9 +1081,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "report_categories", "report_categories", column: "parent_category_id"
   add_foreign_key "report_categories", "report_owners"
   add_foreign_key "report_category_appointments", "report_categories"
-  add_foreign_key "report_frontends", "report_owners"
   add_foreign_key "report_reporters", "report_owners"
   add_foreign_key "report_tickets", "report_owners"
+  add_foreign_key "report_tickets", "report_reporters"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "addresses"
 end

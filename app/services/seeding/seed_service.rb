@@ -3,7 +3,7 @@ class Seeding::SeedService
     Seeding::ApplicationService.run
     Seeding::EducationService.run
     Seeding::ProjectService.run
-    # Seeding::CalendarService.run
+    Seeding::CalendarService.run
     # Seeding::ChatService.run
     # Seeding::ArticleService.run
     # Seeding::ReportService.run

@@ -43,4 +43,5 @@ class User < ApplicationRecord
   include User::PackageConcern
   include User::CalendarConcern
   include User::ProjectConcern
+  include User::PaymentConcern
 end

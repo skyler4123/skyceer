@@ -1,7 +1,8 @@
 class CreateEducationOwners < ActiveRecord::Migration[7.2]
   def change
     create_table :education_owners, id: :uuid do |t|
-      t.references :user, null: false, foreign_key: true, type: :uuid
+      t.references :education_ownerable, polymorphic: true, null: false, type: :uuid
+
       t.string :uid
       t.string :name, null: false
       t.string :email, comment: "Email address of the school can be different from the user's email address"

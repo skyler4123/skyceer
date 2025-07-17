@@ -1,6 +1,6 @@
 class Seeding::EducationService
   def self.run
-    self.user_owner
+    self.owner_user
     self.education_owner
     self.education_category
     self.education_school
@@ -24,28 +24,25 @@ class Seeding::EducationService
     self.education_exam_to_student
   end
 
-  def self.create_user(education_role: :education_owner, n: 0)
-    user = User.create!(
-      email: "#{education_role}#{n}@education.com",
-      name: "#{education_role} #{n}",
-      uid: "#{education_role}#{n}",
-      password: 'password1234',
-      password_confirmation: 'password1234',
-      education_role: education_role,
-    )
-    Seeding::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
-  end
-
-  def self.user_owner
+  def self.owner_user
+    education_role = :education_owner
     2.times do |n|
-      Seeding::EducationService.create_user(education_role: :education_owner, n: n)
+      user = User.create!(
+        email: "#{education_role}#{n}@education.com",
+        name: "#{education_role} #{n}",
+        uid: "#{education_role}#{n}",
+        password: 'password1234',
+        password_confirmation: 'password1234',
+        education_role: education_role,
+      )
+      Seeding::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
     end
   end
 
   def self.education_owner
     User.where(education_role: :education_owner).find_each do |user|
       EducationOwner.create!(
-        user: user,
+        education_ownerable: user,
         uid: user.uid,
         name: user.name,
         email: user.email,
@@ -69,7 +66,7 @@ class Seeding::EducationService
 
   def self.education_school
     EducationOwner.find_each do |owner|
-      5.times do |n|
+      2.times do |n|
         education_school = EducationSchool.create!(
           name: "School #{n + 1} for #{owner.name}",
           description: Faker::Company.catch_phrase,
@@ -87,7 +84,7 @@ class Seeding::EducationService
   def self.education_subject
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        5.times do |n|
+        2.times do |n|
           education_subject = EducationSubject.create!(
             education_owner: owner,
             name: "#{Faker::Educator.subject} #{n}",
@@ -103,7 +100,7 @@ class Seeding::EducationService
   def self.education_course
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        5.times do |n|
+        2.times do |n|
           education_course = EducationCourse.create!(
             education_owner: owner,
             name: "#{Faker::Educator.course_name} #{n}",
@@ -119,7 +116,7 @@ class Seeding::EducationService
   def self.education_class
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        5.times do |n|
+        2.times do |n|
           education_class = EducationClass.create!(
             education_owner: owner,
             name: "Class #{n + 1} for #{education_school.name}",
@@ -137,7 +134,7 @@ class Seeding::EducationService
   def self.education_room
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        10.times do
+        2.times do
           education_room = EducationRoom.create!(
             name: "Room #{SecureRandom.hex(3)}",
             education_school: education_school,
@@ -153,7 +150,7 @@ class Seeding::EducationService
   def self.education_admin
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        15.times do
+        2.times do
           admin_user = Seeding::UserService.create(education_role: :education_admin)
           education_admin = EducationAdmin.create!(
             education_owner: owner,
@@ -172,7 +169,7 @@ class Seeding::EducationService
   def self.education_teacher
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        5.times do |n|
+        2.times do |n|
           teacher_user = Seeding::UserService.create(education_role: :education_teacher)
           education_teacher = EducationTeacher.create!(
             education_owner: owner,
@@ -191,7 +188,7 @@ class Seeding::EducationService
   def self.education_parent
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        40.times do
+        2.times do
           parent_user = Seeding::UserService.create(education_role: :education_parent)
           education_parent = EducationParent.create!(
             education_owner: owner,
@@ -210,7 +207,7 @@ class Seeding::EducationService
   def self.education_staff
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        10.times do
+        2.times do
           staff_user = Seeding::UserService.create(education_role: :education_staff)
           education_staff = EducationStaff.create!(
             education_owner: owner,
@@ -233,7 +230,7 @@ class Seeding::EducationService
   def self.education_student
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        40.times do
+        2.times do
           student_user = Seeding::UserService.create(education_role: :education_student)
           education_student = EducationStudent.create!(
             education_owner: owner,
@@ -253,7 +250,7 @@ class Seeding::EducationService
   def self.education_question
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        50.times do
+        2.times do
           education_question = EducationQuestion.create!(
             education_owner: owner,
             education_school: education_school,
@@ -294,7 +291,7 @@ class Seeding::EducationService
   def self.education_lesson
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
-        10.times do
+        2.times do
           education_lesson = EducationLesson.create!(
             title: Faker::Movie.title,
             content: Faker::Movie.quote,

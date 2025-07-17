@@ -1,5 +1,5 @@
 class EducationOwner < ApplicationRecord
-  belongs_to :user
+  belongs_to :education_ownerable, polymorphic: true
 
   has_many :education_schools, dependent: :destroy
   has_many :education_admins, dependent: :destroy

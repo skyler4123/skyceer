@@ -6,8 +6,9 @@ class Seeding::ProjectService
     self.create_project_members
     self.create_project_group_appointments
     self.create_project_tasks
+    self.create_project_task_appointments
     self.create_project_subtasks
-    self.create_project_categories
+    self.create_project_subtask_appointments
   end
 
   def self.create_project_owners
@@ -46,6 +47,7 @@ class Seeding::ProjectService
 
   def self.create_project_members
     ProjectOwner.find_each do |project_owner|
+      # For EDUCATION
       project_owner.project_ownerable.education_owner.education_staffs.each do |education_staff|
         project_member = ProjectMember.create!(
           project_owner: project_owner,
@@ -63,84 +65,90 @@ class Seeding::ProjectService
   end
 
   def self.create_project_group_appointments
+    ProjectOwner.find_each do |project_owner|
+      project_members = project_owner.project_members
+      project_groups = project_owner.project_groups
+      project_groups.each do |project_group|
+        ProjectGroupAppointment.create!(
+          project_group: project_group,
+          appoint_to: project_members.sample
+        )
+      end
+      project_members.each do |project_member|
+        ProjectGroupAppointment.create!(
+          project_group: project_groups.sample,
+          appoint_to: project_member
+        )
+      end
+    end
   end
 
   def self.create_project_tasks
+    ProjectOwner.find_each do |project_owner|
+      project_owner.project_groups.each do |project_group|
+        5.times do |i|
+          project_task = ProjectTask.create!(
+            project_owner: project_owner,
+            project_group: project_group,
+            name: "Task #{i + 1} for #{project_group.name}",
+            description: "Description for Task #{i + 1}",
+            status: 'active'
+          )
+          ProjectCategoryAppointment.create!(
+            project_category: project_owner.project_categories.sample,
+            appoint_to: project_task
+          )
+        end
+      end
+    end
   end
 
   def self.create_project_task_appointments
+    ProjectGroup.find_each do |project_group|
+      project_members = project_group.project_members
+      project_tasks = project_group.project_tasks
+      project_tasks.each do |project_task|
+        ProjectTaskAppointment.create!(
+          project_task: project_task,
+          appoint_to: project_members.sample
+        )
+      end
+    end
   end
 
   def self.create_project_subtasks
+    ProjectOwner.find_each do |project_owner|
+      project_owner.project_groups.each do |project_group|
+        project_group.project_tasks.each do |project_task|
+          3.times do |i|
+            project_subtask = ProjectSubtask.create!(
+              project_owner: project_owner,
+              project_group: project_group,
+              project_task: project_task,
+              name: "Subtask #{i + 1} for #{project_task.name}",
+              description: "Description for Subtask #{i + 1}",
+              status: 'active'
+            )
+            ProjectCategoryAppointment.create!(
+              project_category: project_owner.project_categories.sample,
+              appoint_to: project_subtask
+            )
+          end
+        end
+      end
+    end
   end
 
   def self.create_project_subtask_appointments
+    ProjectGroup.find_each do |project_group|
+      project_members = project_group.project_members
+      project_group.project_subtasks.each do |project_subtask|
+        ProjectSubtaskAppointment.create!(
+          project_subtask: project_subtask,
+          appoint_to: project_members.sample
+        )
+      end
+    end
   end
-
-  # Uncomment the following methods to implement the logic for creating project tasks and subtasks
-  # def self.create_project_group_appointments
-  #   ProjectGroup.find_each do |group|
-  #     user = group.project_ownerable.user
-  #     project_categories = user.project_categories
-  #     group.project_members.each do |member|
-  #       ProjectGroupAppointment.create!(
-  #         project_group: group,
-  #         appoint_to: member
-  #       )
-  #     end
-  #   end
-  # end
-
-  # def self.create_project_tasks
-  #   # Logic to create project tickets
-  #   ProjectGroup.find_each do |group|
-  #     user = group.project_ownerable.user
-  #     project_categories = user.project_categories
-  #     5.times do |i|
-  #       project_task = ProjectTask.create!(
-  #         name: "Task #{i + 1} for #{group.name}",
-  #         project_group: group
-  #       )
-  #       ProjectCategoryAppointment.create!(
-  #         project_category: project_categories.sample,
-  #         appoint_to: project_task
-  #       )
-  #     end
-  #   end
-  # end
-
-  # def self.create_project_subtasks
-  #   # Logic to create project subtasks
-  #   ProjectTask.find_each do |ticket|
-  #     user = ticket.project_group.project_ownerable.user
-  #     project_categories = user.project_categories
-  #     3.times do |i|
-  #       project_subtask = ProjectSubtask.create!(
-  #         name: "Subtask #{i + 1} for #{ticket.name}",
-  #         project_task: ticket
-  #       )
-  #       ProjectCategoryAppointment.create!(
-  #         project_category: project_categories.sample,
-  #         appoint_to: project_subtask
-  #       )
-  #     end
-  #   end
-  # end
-
-  # def self.create_project_task_appointments
-  #   # Logic to create project ticket appointments
-  #   ProjectTask.find_each do |ticket|
-  #     project_group = ticket.project_group
-  #     school = project_group.project_ownerable
-  #     staffs = school.education_staffs
-  #     staffs.each do |staff|
-  #       ProjectTaskAppointment.create!(
-  #         project_task: ticket,
-  #         appoint_to: staff,
-  #       )
-  #     end
-  #   end
-  # end
-  
   
 end
