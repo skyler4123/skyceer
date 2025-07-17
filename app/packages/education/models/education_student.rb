@@ -4,9 +4,10 @@ class EducationStudent < ApplicationRecord
 
   belongs_to :education_owner
   belongs_to :user, optional: true
-  belongs_to :education_parent, optional: true
   belongs_to :education_school
 
+  has_many :education_student_appointments, dependent: :destroy
+  has_one :education_parent, through: :education_student_appointments, source: :appoint_to, source_type: 'EducationParent'
   has_many :education_class_appointments, as: :appoint_to, dependent: :destroy
   has_many :education_classes, through: :education_class_appointments
   has_many :education_category_appointments, as: :appoint_to, dependent: :destroy

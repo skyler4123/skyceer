@@ -238,8 +238,8 @@ class Seeding::EducationService
             email: Faker::Internet.email,
             user: student_user,
             education_school: education_school,
-            education_parent: education_school.education_parents.sample,
           )
+          education_student.education_parent << owner.education_parents.sample
           education_student.education_categories << owner.education_categories.sample
           Seeding::AttachmentService.attach(record: education_student, relation: :image_attachments, number: 1)
         end
