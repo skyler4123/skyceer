@@ -4,6 +4,7 @@ class Seeding::ProjectService
     self.create_project_categories
     self.create_project_groups
     self.create_project_members
+    self.create_project_group_appointments
     self.create_project_tasks
     self.create_project_subtasks
     self.create_project_categories
@@ -48,7 +49,7 @@ class Seeding::ProjectService
       project_owner.project_ownerable.education_owner.education_staffs.each do |education_staff|
         project_member = ProjectMember.create!(
           project_owner: project_owner,
-          project_membersable: education_staff,
+          project_memberable: education_staff,
           name: education_staff.name,
           description: "Member of #{project_owner.project_ownerable.name}",
           status: 'active'
@@ -60,6 +61,35 @@ class Seeding::ProjectService
       end
     end
   end
+
+  def self.create_project_group_appointments
+  end
+
+  def self.create_project_tasks
+  end
+
+  def self.create_project_task_appointments
+  end
+
+  def self.create_project_subtasks
+  end
+
+  def self.create_project_subtask_appointments
+  end
+
+  # Uncomment the following methods to implement the logic for creating project tasks and subtasks
+  # def self.create_project_group_appointments
+  #   ProjectGroup.find_each do |group|
+  #     user = group.project_ownerable.user
+  #     project_categories = user.project_categories
+  #     group.project_members.each do |member|
+  #       ProjectGroupAppointment.create!(
+  #         project_group: group,
+  #         appoint_to: member
+  #       )
+  #     end
+  #   end
+  # end
 
   # def self.create_project_tasks
   #   # Logic to create project tickets

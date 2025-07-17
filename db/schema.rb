@@ -785,6 +785,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.index ["project_category_id"], name: "index_project_category_appointments_on_project_category_id"
   end
 
+  create_table "project_group_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_group_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_group_appointments_on_appoint_to"
+    t.index ["project_group_id"], name: "index_project_group_appointments_on_project_group_id"
+  end
+
   create_table "project_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "project_owner_id", null: false
     t.string "name"
@@ -797,14 +807,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
 
   create_table "project_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "project_owner_id", null: false
-    t.string "project_membersable_type", null: false
-    t.uuid "project_membersable_id", null: false
+    t.string "project_memberable_type", null: false
+    t.uuid "project_memberable_id", null: false
     t.string "name"
     t.string "description"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_membersable_type", "project_membersable_id"], name: "index_project_members_on_project_membersable"
+    t.index ["project_memberable_type", "project_memberable_id"], name: "index_project_members_on_project_memberable"
     t.index ["project_owner_id"], name: "index_project_members_on_project_owner_id"
   end
 
@@ -1052,6 +1062,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "payment_orders", "payment_owners"
   add_foreign_key "project_categories", "project_owners"
   add_foreign_key "project_category_appointments", "project_categories"
+  add_foreign_key "project_group_appointments", "project_groups"
   add_foreign_key "project_groups", "project_owners"
   add_foreign_key "project_members", "project_owners"
   add_foreign_key "project_subtask_appointments", "project_subtasks"
