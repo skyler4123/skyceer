@@ -7,7 +7,7 @@ class Seeding::SeedService
     Seeding::ReportService.run
     Seeding::PaymentService.run
     # Seeding::ChatService.run
-    # Seeding::ArticleService.run
+    Seeding::ArticleService.run
     
     self.puts_count
     puts "Seeding::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"
