@@ -7,6 +7,6 @@ class CreateEducationStudentAppointments < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    add_index :education_students, :discarded_at
+    add_index :education_student_appointments, :discarded_at
   end
 end
