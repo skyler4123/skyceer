@@ -5,10 +5,11 @@ class ArticlePost
   # include ArticlePost::ElasticsearchConcern
   include ArticlePost::ImagesConcern
   
-  field :user_id, type: String
+  # field :user_id, type: String
   field :title, type: String
   field :content, type: Hash
-  
+
+  belongs_to :nosql_user
   embeds_many :article_comments
 
   index({ chat_user_ids: '2d' }, { unique: true })

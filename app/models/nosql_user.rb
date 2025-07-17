@@ -18,8 +18,14 @@ class NosqlUser
   field :verified, type: Boolean
   field :discarded_at, type: DateTime
 
+  has_many :article_posts
+  has_many :article_comments
+  has_many :article_subcomments
+  has_many :chat_conversations
+  has_many :chat_messages
+
   def user
-    User.where(id: self.user_id)
+    User.where(id: self.user_id).first
   end
 
 end

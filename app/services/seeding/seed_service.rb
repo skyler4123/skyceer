@@ -4,11 +4,10 @@ class Seeding::SeedService
     Seeding::EducationService.run
     Seeding::ProjectService.run
     Seeding::CalendarService.run
-    # Seeding::ChatService.run
-    # Seeding::ArticleService.run
     Seeding::ReportService.run
     Seeding::PaymentService.run
-
+    # Seeding::ChatService.run
+    # Seeding::ArticleService.run
     
     self.puts_count
     puts "Seeding::SeedService doneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee!"

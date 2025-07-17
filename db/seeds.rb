@@ -13,6 +13,7 @@ return if ENV['RAILS_ENV'] == 'production'
 
 # DESTROY ALL
 User.destroy_all
+NosqlUser.destroy_all
 Session.destroy_all
 Address.destroy_all
 Category.destroy_all
