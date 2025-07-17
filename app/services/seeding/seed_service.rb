@@ -7,7 +7,7 @@ class Seeding::SeedService
     # Seeding::ChatService.run
     # Seeding::ArticleService.run
     # Seeding::ReportService.run
-    # Seeding::PaymentService.run
+    Seeding::PaymentService.run
 
     
     self.puts_count

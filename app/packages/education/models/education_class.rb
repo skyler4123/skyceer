@@ -21,5 +21,4 @@ class EducationClass < ApplicationRecord
   has_many :education_subject_appointments, dependent: :destroy
 
   include EducationClass::ValidationConcern
-  include EducationClass::CalendarConcern
 end

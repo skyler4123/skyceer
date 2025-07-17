@@ -8,6 +8,7 @@ class CreatePaymentInvoices < ActiveRecord::Migration[8.0]
       t.integer :status
       t.decimal :amount
       t.string :tax_code
+      t.text :item_list
       t.datetime :discarded_at
 
       t.timestamps

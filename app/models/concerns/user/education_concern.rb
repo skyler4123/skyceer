@@ -11,6 +11,11 @@ module User::EducationConcern
     }
 
     has_one :education_owner, as: :education_ownerable, dependent: :destroy
+    has_one :education_admin, dependent: :destroy
+    has_one :education_teacher, dependent: :destroy
+    has_one :education_student, dependent: :destroy
+    has_one :education_parent,  dependent: :destroy
+    has_one :education_staff, dependent: :destroy
 
     enum :education_role, {
       education_owner: 0,

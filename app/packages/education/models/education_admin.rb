@@ -9,5 +9,4 @@ class EducationAdmin < ApplicationRecord
   has_many :education_categories, through: :education_category_appointments
   
   include EducationAdmin::ValidationConcern
-  include EducationAdmin::UserConcern
 end
