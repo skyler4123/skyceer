@@ -59,8 +59,12 @@ class Seeding::ArticleService
     end
     ArticlePost.all.each_with_index do |article_post, n|
       2.times do
-        nosql_user = NosqlUser.all.sample
-        article_post.article_comments << ArticleComment.new(nosql_user_id: nosql_user.id, content: "comment #{Time.now.to_i}")
+        article_post.article_comments << ArticleComment.new(nosql_user_id: NosqlUser.all.sample.id, content: "comment #{Time.now.to_i}")
+      end
+      article_post.article_comments.each do |article_comment|
+        2.times do
+          article_comment.article_subcomments << ArticleSubcomment.new(nosql_user_id: NosqlUser.all.sample.id, content: "subcomment #{Time.now.to_i}")
+        end
       end
     end
   end
