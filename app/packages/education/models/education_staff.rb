@@ -10,4 +10,5 @@ class EducationStaff < ApplicationRecord
   has_many :education_categories, through: :education_category_appointments
 
   include EducationStaff::ProjectConcern
+  include EducationStaff::ReportConcern
 end

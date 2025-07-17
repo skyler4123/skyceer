@@ -6,7 +6,7 @@ class Seeding::SeedService
     Seeding::CalendarService.run
     # Seeding::ChatService.run
     # Seeding::ArticleService.run
-    # Seeding::ReportService.run
+    Seeding::ReportService.run
     Seeding::PaymentService.run
 
     

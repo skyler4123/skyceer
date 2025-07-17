@@ -1,19 +1,9 @@
 class Seeding::ReportService
   def self.run
-    # User.all.each_with_index do |user, n|
-    #   report_ticket = ReportTicket.create!(
-    #     title: "report ticket title #{n}",
-    #     content: Faker::Movie.quote,
-    #     category: rand(0..3),
-    #     status: rand(0..3),
-    #     reporter_email: ["", user.email].sample
-    #   )
-    #   Seeding::AttachmentService.attach(record: report_ticket, relation: :image_attachments, number: 2)
     self.report_owners
+    self.report_category
     self.report_reporters
     self.report_tickets
-    self.report_category
-    self.report_category_appointment
   end
 
   def self.report_owners
@@ -37,19 +27,26 @@ class Seeding::ReportService
   end
 
   def self.report_reporters
-    User.where(education_role: :education_owner).find_each do |owner_user|
-      owner_user.education_owner.education_staffs.each do |education_staff|
-        ReportReporter.create!(
-          report_owner: owner_user.report_owner,
+    ReportOwner.find_each do |report_owner|
+      owner_user = report_owner.report_ownerable
+      education_owner = owner_user.education_owner
+      education_staffs = education_owner.education_staffs
+      education_staffs.each do |education_staff|
+        report_reporter = ReportReporter.create!(
+          report_owner: report_owner,
           report_reporterable: education_staff,
           name: education_staff.name,
           email: education_staff.email,
-          phone: Faker::PhoneNumber.cell_phone,
+          phone: Faker::PhoneNumber.phone_number,
           nation: Faker::Address.country,
-          description: Faker::Movie.quote,
-          status: rand(0..3),
+          status: rand(0..3)
+        )
+        ReportCategoryAppointment.create!(
+          report_category: report_owner.report_categories.sample,
+          appoint_to: report_reporter
         )
       end
+    end
   end
 
   def self.report_tickets
@@ -65,20 +62,9 @@ class Seeding::ReportService
         phone: Faker::PhoneNumber.cell_phone
       )
       Seeding::AttachmentService.attach(record: report_ticket, relation: :image_attachments, number: 2)
-    end
-  end
-
-  def self.report_category_appointment
-    ReportTicket.all.each do |report_ticket|
       ReportCategoryAppointment.create!(
-        appoint_to: report_ticket,
-        report_category: ReportCategory.all.sample,
-      )
-    end
-    ReportFrontend.all.each do |report_frontend|
-      ReportCategoryAppointment.create!(
-        appoint_to: report_frontend,
-        report_category: ReportCategory.all.sample,
+        report_category: report_owner.report_categories.sample,
+        appoint_to: report_ticket
       )
     end
   end
