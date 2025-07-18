@@ -379,6 +379,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.index ["education_ownerable_type", "education_ownerable_id"], name: "index_education_owners_on_education_ownerable"
   end
 
+  create_table "education_parent_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_parent_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_education_parent_appointments_on_appoint_to"
+    t.index ["discarded_at"], name: "index_education_parent_appointments_on_discarded_at"
+    t.index ["education_parent_id"], name: "index_education_parent_appointments_on_education_parent_id"
+  end
+
   create_table "education_parents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "education_owner_id", null: false
     t.uuid "user_id"
@@ -505,18 +517,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.index ["education_owner_id"], name: "index_education_staffs_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_staffs_on_education_school_id"
     t.index ["user_id"], name: "index_education_staffs_on_user_id"
-  end
-
-  create_table "education_student_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "education_student_id", null: false
-    t.string "appoint_to_type", null: false
-    t.uuid "appoint_to_id", null: false
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["appoint_to_type", "appoint_to_id"], name: "index_education_student_appointments_on_appoint_to"
-    t.index ["discarded_at"], name: "index_education_student_appointments_on_discarded_at"
-    t.index ["education_student_id"], name: "index_education_student_appointments_on_education_student_id"
   end
 
   create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -1026,6 +1026,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "education_lessons", "education_schools"
   add_foreign_key "education_lessons", "education_subjects"
   add_foreign_key "education_lessons", "education_teachers"
+  add_foreign_key "education_parent_appointments", "education_parents"
   add_foreign_key "education_parents", "education_owners"
   add_foreign_key "education_parents", "education_schools"
   add_foreign_key "education_parents", "users"
@@ -1041,7 +1042,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "education_staffs", "education_owners"
   add_foreign_key "education_staffs", "education_schools"
   add_foreign_key "education_staffs", "users"
-  add_foreign_key "education_student_appointments", "education_students"
   add_foreign_key "education_students", "education_owners"
   add_foreign_key "education_students", "education_schools"
   add_foreign_key "education_students", "users"

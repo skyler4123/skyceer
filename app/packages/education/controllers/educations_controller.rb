@@ -8,6 +8,8 @@ class EducationsController < ApplicationController
   end
 
   def home
+    puts "DemoJob is runningggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
+    DemoJob.set(wait: 5.seconds).perform_later
   end
 
   private
