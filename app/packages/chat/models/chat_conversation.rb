@@ -62,6 +62,47 @@ class ChatConversation
     nosql_user_ids.include?(nosql_user_id.to_s)
   end
   
+  # Get recent messages with  limit and offset
+  def recent_messages(limit = 10, offset = 0)
+    chat_messages.desc(:created_at).skip(offset).limit(limit).to_a.reverse
+  end
+
+  # Get messages in reverse order (for pagination)
+  def messages_with_pagination(page = 1, per_page = 10)
+    offset = (page - 1) * per_page
+    chat_messages.desc(:created_at).skip(offset).limit(per_page).to_a.reverse
+  end
+
+  # Get messages before a specific message (for infinite scroll)
+  def messages_before(message_id, limit = 10)
+    target_message = chat_messages.find(message_id)
+    chat_messages
+      .where(:created_at.lt => target_message.created_at)
+      .desc(:created_at)
+      .limit(limit)
+      .to_a
+      .reverse
+  end
+
+  # Get messages after a specific message
+  def messages_after(message_id, limit = 10)
+    target_message = chat_messages.find(message_id)
+    chat_messages
+      .where(:created_at.gt => target_message.created_at)
+      .asc(:created_at)
+      .limit(limit)
+  end
+
+  # Get total message count
+  def total_messages_count
+    chat_messages.count
+  end
+
+  # Check if there are more messages to load
+  def has_more_messages?(offset, limit = 10)
+    total_messages_count > (offset + limit)
+  end
+
   private
   
   def normalize_nosql_user_ids
