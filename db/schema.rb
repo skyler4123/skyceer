@@ -606,6 +606,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
     t.index ["user_id"], name: "index_education_teachers_on_user_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "action", null: false
+    t.string "user_agent"
+    t.string "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
   create_table "payment_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "payment_owner_id", null: false
     t.uuid "parent_category_id"
@@ -1055,6 +1065,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   add_foreign_key "education_teachers", "education_owners"
   add_foreign_key "education_teachers", "education_schools"
   add_foreign_key "education_teachers", "users"
+  add_foreign_key "events", "users"
   add_foreign_key "payment_categories", "payment_categories", column: "parent_category_id"
   add_foreign_key "payment_categories", "payment_owners"
   add_foreign_key "payment_category_appointments", "payment_categories"
