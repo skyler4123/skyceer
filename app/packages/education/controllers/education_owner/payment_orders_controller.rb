@@ -2,8 +2,10 @@ class EducationOwner::PaymentOrdersController < EducationOwner::EducationsContro
 
   # GET /payment_orders or /payment_orders.json
   def index
-    @payment_owners = PaymentOwner.where(payment_ownerable: @education_schools)
-    @payment_orders = PaymentOrder.includes(payment_customer: :payment_customerable).where(payment_owner: @payment_owners)
+    # @payment_owners = PaymentOwner.where(payment_ownerable: @education_schools)
+    # @payment_orders = PaymentOrder.includes(payment_customer: :payment_customerable).where(payment_owner: @payment_owners)
+    @payment_owner = current_user.payment_owner
+    @payment_orders = @payment_owner.payment_orders
     @pagination, @payment_orders = pagy(@payment_orders)
     
     @json_data = {

@@ -1,9 +1,9 @@
 class EducationOwner::CalendarEventsController < EducationOwner::EducationsController
   def index
-    
     @selection_education_classes = EducationClass.where(education_school: @education_schools)
     @education_classes = EducationClass.where(id: params[:education_class_id]) if params[:education_class_id].present?
-    @calendar_events = CalendarEvent.where(calendar_groupable: @education_classes)
+    @calendar_owner = current_user.calendar_owner
+    @calendar_events = @calendar_owner.calendar_events
     @json_data = {
       selection_education_classes: @selection_education_classes.as_json(only: %i[id name]),
       education_classes: @education_classes.as_json(only: %i[id name]),

@@ -1,5 +1,6 @@
 class EducationOwner::EducationsController < EducationsController
   before_action :redirect_when_not_education_school
+  before_action :set_education_owner
   before_action :set_education_schools
   before_action :set_education_categories
 
@@ -9,12 +10,16 @@ class EducationOwner::EducationsController < EducationsController
     render_not_found if current_user.education_role != "education_owner"
   end
 
+  def set_education_owner
+    @education_owner = current_user.education_owner
+  end
+
   def set_education_schools
-    @education_schools = current_user.education_owner.education_schools
+    @education_schools = @education_owner.education_schools
   end
 
   def set_education_categories
-    @education_categories = EducationCategory.where(user: current_user)
+    @education_categories = @education_owner.education_categories
   end
 
   def select_options_schools_and_categories(education_schools)

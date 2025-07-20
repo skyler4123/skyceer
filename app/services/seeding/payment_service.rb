@@ -62,18 +62,22 @@ class Seeding::PaymentService
     # For EDUCATION
     User.where(education_role: :education_owner).find_each do |owner_user|
       payment_owner = owner_user.payment_owner
-      payment_customer = PaymentCustomer.create!(
-        payment_owner: payment_owner,
-        payment_customerable: owner_user,
-        name: owner_user.name,
-        email: owner_user.email,
-        phone: Faker::PhoneNumber.phone_number,
-        status: rand(0..3)
-      )
-      PaymentCategoryAppointment.create!(
-        payment_category: payment_owner.payment_categories.sample,
-        appoint_to: payment_customer
-      )
+      education_owner = owner_user.education_owner
+      education_students = education_owner.education_students
+      education_students.each do |education_student|
+        payment_customer = PaymentCustomer.create!(
+          payment_owner: payment_owner,
+          payment_customerable: education_student,
+          name: education_student.name,
+          email: education_student.email,
+          phone: Faker::PhoneNumber.phone_number,
+          status: rand(0..3)
+        )
+        PaymentCategoryAppointment.create!(
+          payment_category: payment_owner.payment_categories.sample,
+          appoint_to: payment_customer
+        )
+      end
     end
   end
 
