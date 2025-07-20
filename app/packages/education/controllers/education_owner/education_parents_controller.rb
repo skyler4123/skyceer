@@ -1,4 +1,4 @@
-class EducationSchool::EducationParentsController < EducationSchool::EducationsController
+class EducationOwner::EducationParentsController < EducationOwner::EducationsController
   before_action :set_education_parent, only: %i[ show edit update destroy ]
 
   # GET /education_parents or /education_parents.json

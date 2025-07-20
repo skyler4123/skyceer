@@ -1,4 +1,4 @@
-class EducationSchool::EducationExamsController < EducationSchool::EducationsController
+class EducationOwner::EducationExamsController < EducationOwner::EducationsController
   before_action :set_education_exam, only: %i[ edit update destroy ]
 
   # GET /education_exams or /education_exams.json
@@ -61,7 +61,7 @@ class EducationSchool::EducationExamsController < EducationSchool::EducationsCon
 
   # PATCH/PUT /education_exams/1 or /education_exams/1.json
   def update
-    # debugger
+    
     respond_to do |format|
       if @education_exam.update(update_education_exam_params)
         appoint_with_education_categories

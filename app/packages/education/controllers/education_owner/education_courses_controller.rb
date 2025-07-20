@@ -1,4 +1,4 @@
-class EducationSchool::EducationCoursesController < EducationSchool::EducationsController
+class EducationOwner::EducationCoursesController < EducationOwner::EducationsController
   before_action :set_education_course, only: %i[ edit update destroy ]
 
   # GET /education_courses or /education_courses.json

@@ -1,11 +1,11 @@
-class EducationSchool::EducationSchoolsController < EducationSchool::EducationsController
+class EducationOwner::EducationSchoolsController < EducationOwner::EducationsController
   before_action :set_education_school, only: %i[ edit update destroy education_schools]
 
   # GET /education_schools or /education_schools.json
   def index
     @pagination, @education_schools = pagy(@education_schools)
     @json_data = {
-      education_schools: @education_schools.as_json(include: [:user, :address]),
+      education_schools: @education_schools.as_json(include: [:education_owner, :address]),
     }.to_json
   end
 

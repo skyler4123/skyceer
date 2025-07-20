@@ -28,6 +28,8 @@ class EducationSchool < ApplicationRecord
   has_many :education_lessons, dependent: :destroy
   has_many :education_staffs, dependent: :destroy
 
+  # delegate :user, to: :session, allow_nil: true
+  # delegate :education_owner, to: :user, allow_nil: true
   include EducationSchool::ValidationConcern
   # include EducationSchool::CalendarConcern
 end

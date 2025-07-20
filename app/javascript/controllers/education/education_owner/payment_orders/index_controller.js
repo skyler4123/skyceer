@@ -1,5 +1,5 @@
 import {TabulatorFull as Tabulator} from 'tabulator';
-import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
+import Education_EducationSchool_LayoutController from "controllers/education/education_owner/layout_controller";
 
 import { identifier, transferToValue } from "controllers/education/helpers/data_helpers"
 

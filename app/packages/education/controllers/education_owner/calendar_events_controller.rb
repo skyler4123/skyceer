@@ -1,6 +1,6 @@
-class EducationSchool::CalendarEventsController < EducationSchool::EducationsController
+class EducationOwner::CalendarEventsController < EducationOwner::EducationsController
   def index
-    # debugger
+    
     @selection_education_classes = EducationClass.where(education_school: @education_schools)
     @education_classes = EducationClass.where(id: params[:education_class_id]) if params[:education_class_id].present?
     @calendar_events = CalendarEvent.where(calendar_groupable: @education_classes)

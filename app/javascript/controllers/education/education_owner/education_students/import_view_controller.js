@@ -1,7 +1,7 @@
 import { identifier, transferToValue, readCSVFile, createForm } from "controllers/education/helpers/data_helpers"
 import {TabulatorFull as Tabulator} from 'tabulator';
 import 'read-excel-file'
-import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
+import Education_EducationSchool_LayoutController from "controllers/education/education_owner/layout_controller";
 import Education_CsvController from "controllers/education/csv_controller";
 
 

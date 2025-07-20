@@ -1,4 +1,4 @@
-class EducationSchool::PaymentOrdersController < EducationSchool::EducationsController
+class EducationOwner::PaymentOrdersController < EducationOwner::EducationsController
 
   # GET /payment_orders or /payment_orders.json
   def index

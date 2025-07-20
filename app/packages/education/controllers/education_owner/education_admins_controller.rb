@@ -1,4 +1,4 @@
-class EducationSchool::EducationAdminsController < EducationSchool::EducationsController
+class EducationOwner::EducationAdminsController < EducationOwner::EducationsController
   before_action :set_education_admin, only: %i[ show edit update destroy ]
 
   # GET /education_admins or /education_admins.json

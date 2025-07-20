@@ -1,4 +1,4 @@
-class EducationSchool::EducationScoreboardsController < EducationSchool::EducationsController
+class EducationOwner::EducationScoreboardsController < EducationOwner::EducationsController
   def index
     # @selection_education_classes = Rails.cache.fetch("selection_education_classes/#{@education_schools.cache_key_with_version}", expires_in: 5.minutes) do
     #   EducationClass.where(education_school: @education_schools).to_a
@@ -9,7 +9,7 @@ class EducationSchool::EducationScoreboardsController < EducationSchool::Educati
     @education_students = EducationStudent.joins(:education_classes).where(education_classes: @education_class)
     @education_exams = EducationExam.joins(:education_classes, :education_subject).where(education_classes: @education_class, education_subject: @education_subject)
     @education_exam_to_class = EducationExamToClass.where(education_exam: @education_exams, education_class: @education_class)
-    # debugger
+    
     @education_exam_to_students = EducationExamToStudent.where(education_exam_to_class: @education_exam_to_class)
 
     @pagination, @education_students = pagy(@education_students)
@@ -23,7 +23,7 @@ class EducationSchool::EducationScoreboardsController < EducationSchool::Educati
   end
 
   def import
-    # debugger
+    
     education_exam_to_student_ids = params[:education_exam_to_student][:ids]
     education_exam_to_student_scores = params[:education_exam_to_student][:scores]
     education_exam_to_students = EducationExamToStudent.where(id: education_exam_to_student_ids)

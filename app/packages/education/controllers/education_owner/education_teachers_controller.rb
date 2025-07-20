@@ -1,6 +1,6 @@
 require 'pagy/extras/elasticsearch_rails'
 
-class EducationSchool::EducationTeachersController < EducationSchool::EducationsController
+class EducationOwner::EducationTeachersController < EducationOwner::EducationsController
   before_action :set_education_teacher, only: %i[ edit update destroy ]
 
   # GET /education_teachers or /education_teachers.json

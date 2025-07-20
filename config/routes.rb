@@ -7,8 +7,8 @@ class EducationRoleConstraint
   def matches?(request)
     education_role = request.cookies["education_role"]
     case education_role.to_sym
-    when :education_school
-      return true if @education_role == :education_school
+    when :education_owner
+      return true if @education_role == :education_owner
     when :education_admin
       return true if @education_role == :education_admin
     when :education_teacher

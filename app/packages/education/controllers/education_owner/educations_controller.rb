@@ -1,4 +1,4 @@
-class EducationSchool::EducationsController < EducationsController
+class EducationOwner::EducationsController < EducationsController
   before_action :redirect_when_not_education_school
   before_action :set_education_schools
   before_action :set_education_categories
@@ -6,11 +6,11 @@ class EducationSchool::EducationsController < EducationsController
   private
 
   def redirect_when_not_education_school
-    render_not_found if current_user.education_role != "education_school"
+    render_not_found if current_user.education_role != "education_owner"
   end
 
   def set_education_schools
-    @education_schools = current_user.education_schools
+    @education_schools = current_user.education_owner.education_schools
   end
 
   def set_education_categories

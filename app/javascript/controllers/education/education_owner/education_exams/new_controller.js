@@ -1,5 +1,5 @@
 import { identifier, transferToValue, createForm, createSelectTag, createInputTag, pluck, openModal, getObjectKeys } from "controllers/education/helpers/data_helpers";
-import Education_EducationSchool_LayoutController from "controllers/education/education_school/layout_controller";
+import Education_EducationSchool_LayoutController from "controllers/education/education_owner/layout_controller";
 
 export default class extends Education_EducationSchool_LayoutController {
   static targets = ["educationClassSelectTag", "educationSubjectSelectTag"]

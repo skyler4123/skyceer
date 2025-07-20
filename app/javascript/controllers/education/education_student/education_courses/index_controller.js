@@ -1,4 +1,4 @@
-import Education_EducationSchool_EducationCourses_IndexController from "controllers/education/education_school/education_courses/index_controller";
+import Education_EducationSchool_EducationCourses_IndexController from "controllers/education/education_owner/education_courses/index_controller";
 import Education_EducationStudent_AsideController from "controllers/education/education_student/aside_controller";
 
 export default class extends Education_EducationSchool_EducationCourses_IndexController {
