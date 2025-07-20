@@ -1,10 +1,10 @@
 import { identifier, isEmpty, transferToValue, createSelectTag, params, openModal, createForm, createInputTag, sortByField } from "controllers/education/helpers/data_helpers"
-import Education_EducationSchool_LayoutController from "controllers/education/education_owner/layout_controller";
+import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_ChoicesController from "controllers/education/choices_controller";
 
 
-export default class Education_EducationSchool_EducationScoreboards_IndexController extends Education_EducationSchool_LayoutController {
+export default class Education_EducationOwner_EducationScoreboards_IndexController extends Education_EducationOwner_LayoutController {
   static targets = ['classIdSelect', 'subjectIdSelect', 'table']
   static values = {
     selectionEducationSubject: {  type: Array, default: [] },

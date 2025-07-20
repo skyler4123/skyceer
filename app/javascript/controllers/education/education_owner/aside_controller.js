@@ -1,7 +1,7 @@
 // https://www.svgrepo.com/
 import Education_AsideController from "controllers/education/aside_controller"
 
-export default class Education_EducationSchool_AsideController extends Education_AsideController {
+export default class Education_EducationOwner_AsideController extends Education_AsideController {
 
   asideData() {
     return [

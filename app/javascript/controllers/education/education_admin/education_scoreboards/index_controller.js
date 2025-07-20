@@ -1,10 +1,10 @@
 import { identifier, isEmpty, transferToValue } from "controllers/education/helpers/data_helpers"
 
-import Education_EducationSchool_LayoutController from "controllers/education/education_owner/layout_controller";
+import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
 
 
-export default class extends Education_EducationSchool_LayoutController {
+export default class extends Education_EducationOwner_LayoutController {
   static targets = ['classIdSelect', 'subjectIdSelect', 'table']
   static values = {
     classId: { type: String, default: '' }, // fetch, re-render

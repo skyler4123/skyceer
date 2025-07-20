@@ -1,8 +1,8 @@
 import { identifier, transferToValue, createForm, createSelectTag, createInputTag, pluck, openModal } from "controllers/education/helpers/data_helpers"
 import {TabulatorFull as Tabulator} from 'tabulator';
-import Education_EducationSchool_LayoutController from "controllers/education/education_owner/layout_controller";
+import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 
-export default class extends Education_EducationSchool_LayoutController {
+export default class extends Education_EducationOwner_LayoutController {
   static targets = ["subjectTable", "appointTeacherSelect"]
 
   initBinding() {

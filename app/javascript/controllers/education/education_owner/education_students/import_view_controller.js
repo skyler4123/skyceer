@@ -1,11 +1,11 @@
 import { identifier, transferToValue, readCSVFile, createForm } from "controllers/education/helpers/data_helpers"
 import {TabulatorFull as Tabulator} from 'tabulator';
 import 'read-excel-file'
-import Education_EducationSchool_LayoutController from "controllers/education/education_owner/layout_controller";
+import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 import Education_CsvController from "controllers/education/csv_controller";
 
 
-export default class Education_EducationSchool_EducationStudents_ImportViewController extends Education_EducationSchool_LayoutController {
+export default class Education_EducationOwner_EducationStudents_ImportViewController extends Education_EducationOwner_LayoutController {
   static targets = ["inputContainer", "inputFile", "table", "formAndTable", "form", "payloadInput"]
   static values = {
     import: { type: Array, default: [] },

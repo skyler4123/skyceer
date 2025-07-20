@@ -1,10 +1,10 @@
 import { createForm, createSelectTag, pluck, unique, params } from "controllers/education/helpers/data_helpers";
 import { EducationAdminsApi } from "controllers/education/api/education_admins_api";
-import Education_EducationSchool_LayoutController from "controllers/education/education_owner/layout_controller";
+import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 import { EditModalHTML } from "controllers/education/education_owner/education_admins/edit_modal_html";
 import { tableData } from "controllers/education/education_owner/education_admins/table_data";
 
-export default class Education_EducationSchool_EducationAdmins_IndexController extends Education_EducationSchool_LayoutController {
+export default class Education_EducationOwner_EducationAdmins_IndexController extends Education_EducationOwner_LayoutController {
   static targets = ['content', 'table', 'search', 'pagination']
   static values = {
     educationAdmins: { type: Array, default: [] },

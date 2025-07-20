@@ -1,11 +1,11 @@
-import Education_EducationSchool_LayoutController from "controllers/education/education_owner/layout_controller";
+import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 import Calendar from '@toast-ui/calendar';
 import { createForm, openModal, openDrawer, identifier, pathname, href } from "controllers/education/helpers/data_helpers";
 import Education_ChoicesController from "controllers/education/choices_controller";
 import Swal from 'sweetalert2';
 
 
-export default class Education_EducationSchool_CalendarEvents_IndexController extends Education_EducationSchool_LayoutController {
+export default class Education_EducationOwner_CalendarEvents_IndexController extends Education_EducationOwner_LayoutController {
 static targets= ["calendar", "selectClass"]
   static values = {
     groups: { type: Array, default: [] },
