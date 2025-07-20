@@ -5,8 +5,8 @@ resources :educations, only: [:index] do
     get :home
   end
 end
-constraints EducationRoleConstraint.new(:education_school) do
-  scope module: :education_school do
+constraints EducationRoleConstraint.new(:education_owner) do
+  scope module: :education_owner do
     resources :education_schools
     resources :education_school_appointments
     resources :education_admins

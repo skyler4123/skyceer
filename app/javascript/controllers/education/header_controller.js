@@ -70,7 +70,7 @@ export default class Education_HeaderController extends ApplicationController {
   headerNavigationHTML() {
     const educationRole = Cookie("education_role")
     switch (educationRole) {
-      case "education_school":
+      case "education_owner":
         return `
           <a href="/">Home</a>
           <a href="/education_schools">My Education</a>
