@@ -8,14 +8,12 @@ class EducationsController < ApplicationController
   end
 
   def home
-    puts "DemoJob is runningggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
-    DemoJob.set(wait: 5.seconds).perform_later
   end
 
   private
 
-  def set_package_name
-    @package_name = :education
+  def set_app_name
+    @app_name = :education
   end
 
   # Redirect when user is not education user

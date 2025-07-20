@@ -6,7 +6,7 @@ class Application::Home::Header::NavigationComponent < ViewComponent::Base
       <ul class="flex flex-row gap-x-4">
         <li><a href="/">Home</a></li>
 
-        <li class="<%= can_show_create_school ? "flex" : "hidden" %>"><a href="/education_schools/new">Create School</a></li>
+        <li class="<%= can_show_create_school ? "flex" : "hidden" %>"><a href="/education_owners/new">Create School</a></li>
         <li class="<%= can_show_create_teacher ? "flex" : "hidden" %>"><a href="/education_teachers/new">Create Teacher</a></li>
         <li class="<%= can_show_create_student ? "flex" : "hidden" %>"><a href="/education_students/new">Create Student</a></li>
 
