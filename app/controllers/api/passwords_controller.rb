@@ -1,4 +1,4 @@
-class Api::PasswordsController < ApplicationController
+class Api::PasswordsController < Api::ApplicationController
   before_action :set_user
 
   def update
