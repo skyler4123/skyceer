@@ -9,7 +9,7 @@ class EducationSchoolsController < EducationsController
   # POST /education_schools or /education_schools.json
   def create
     @education_school = EducationSchool.new(education_school_params)
-    @education_school.user = current_user
+    @education_owner.education_ownerable = current_user
 
     respond_to do |format|
       if @education_school.save

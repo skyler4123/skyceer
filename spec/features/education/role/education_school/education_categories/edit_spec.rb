@@ -24,13 +24,13 @@
 #       expect(page).to have_content(UPDATED_SUCCESS_MESSAGE)
 #       expect(page).to have_content(new_category_params[:name])
 #       expect(category_record).to be_present
-#       expect(category_record.user).to eq(education_school.user)
+#       expect(category_record.user).to eq(education_owner.education_ownerable)
 #     end
 #   end
 
 #   context "education_role: :not_education_user" do
 #     before do
-#       education_school.user.update(education_role: nil)
+#       education_owner.education_ownerable.update(education_role: nil)
 #     end
 
 #     it "will be redirected" do

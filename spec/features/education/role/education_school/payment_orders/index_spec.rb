@@ -19,7 +19,7 @@ RSpec.feature "payment_orders#index", type: :feature, js: true do
 
   context "education_role: :not_education_user" do
     before do
-      education_school.user.update(education_role: nil)
+      education_owner.education_ownerable.update(education_role: nil)
     end
 
     it "will be redirected" do

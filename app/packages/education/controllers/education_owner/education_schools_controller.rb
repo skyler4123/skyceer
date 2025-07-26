@@ -22,13 +22,13 @@ class EducationOwner::EducationSchoolsController < EducationOwner::EducationsCon
   # POST /education_schools or /education_schools.json
   def create
     @education_school = EducationSchool.new(education_school_params)
-    @education_school.user = current_user
+    @education_owner.education_ownerable = current_user
 
     respond_to do |format|
       if @education_school.save
         if params[:education_school][:email].present?
           user = User.find_by(email: params[:education_school][:email])
-          @education_school.user = user if user.present?
+          @education_owner.education_ownerable = user if user.present?
         end
         if params[:education_school][:education_category_id].present?
           education_categories = EducationCategory.where(id: params[:education_school][:education_category_id])

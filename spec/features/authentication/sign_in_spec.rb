@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature "Authentication::SignIns", type: :feature do
-  include_context "support/shared_contexts/education/default_database"
-
+  # include_context "support/shared_contexts/education/default_database"
+  let(:user) { create(:user) }
   context "Sign in with correct data" do
 
     it "signs me in" do

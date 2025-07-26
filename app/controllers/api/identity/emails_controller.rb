@@ -1,4 +1,4 @@
-class Identity::EmailsController < ApplicationController
+class Api::Identity::EmailsController < ApplicationController
   before_action :set_user
 
   def update
