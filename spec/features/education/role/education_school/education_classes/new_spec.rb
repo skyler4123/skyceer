@@ -12,7 +12,7 @@
 #     before do
 #       education_category
 #       education_course
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit new_education_class_path
 #     end
 
@@ -40,7 +40,7 @@
 #     end
 
 #     it "will be redirected" do
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit new_education_class_path
 #       expect(page).to have_routing_error
 #     end

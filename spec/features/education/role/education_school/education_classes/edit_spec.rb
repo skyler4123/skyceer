@@ -8,7 +8,7 @@
 #       name: Faker::Name.name,
 #     }}
 #     let(:class_record) { EducationClass.find_by(name: new_class_params[:name]) }
-#     let!(:new_education_school) { create(:education_school, user: education_school.user) }
+#     let!(:new_education_school) { create(:education_school, user: education_owner.education_ownerable) }
 #     let!(:new_education_course) { create(:education_course, education_school: education_school) }
 
 #     before do
@@ -16,7 +16,7 @@
 #       education_school.education_teachers << education_teacher
 #       education_school.education_subjects << education_subject
 #       education_teacher.education_subjects << education_subject
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit edit_education_class_path(education_class)
 #     end
 
@@ -56,7 +56,7 @@
 #     end
 
 #     it "will be redirected" do
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit edit_education_class_path(education_class)
 #       expect(page).to have_routing_error
 #     end

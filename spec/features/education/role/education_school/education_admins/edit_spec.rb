@@ -8,13 +8,13 @@
 #       email: Faker::Internet.email,
 #       name: Faker::Name.name,
 #     }}
-#     let!(:new_education_school) { create(:education_school, user: education_school.user) }
-#     let!(:new_education_category) { create(:education_category, user: education_school.user) }
+#     let!(:new_education_school) { create(:education_school, user: education_owner.education_ownerable) }
+#     let!(:new_education_category) { create(:education_category, user: education_owner.education_ownerable) }
 #     let(:admin_record) { EducationAdmin.find_by(email: new_admin_params[:email]) }
 
 #     before do
 #       education_category
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit edit_education_admin_path(education_admin)
 #     end
 
@@ -42,7 +42,7 @@
 #     end
 
 #     it "will be redirected" do
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit edit_education_admin_path(education_admin)
 #       expect(page).to have_routing_error
 #     end

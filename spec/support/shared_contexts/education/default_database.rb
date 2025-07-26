@@ -2,7 +2,7 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
   let(:education_owner_user) { create(:user, role: :normal, education_role: :education_owner) }
   let(:address) { create(:address) }
 
-  let(:education_owner) { create(:education_owner, education_ownerable: education_owner_user, address:) }
+  let(:education_owner) { create(:education_owner, education_ownerable: education_owner_user) }
   let(:education_school) { create(:education_school, education_owner:) }
   let(:education_student) { create(:education_student, education_owner:, education_school: education_school, education_parent:) }
   let(:education_class) { create(:education_class, education_owner:, education_school:, education_course:) }
@@ -14,7 +14,7 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
   let(:education_subject) { create(:education_subject, education_owner:, education_school:) }
   let(:education_lesson) { create(:education_lesson, education_owner:, education_school:, education_class:, education_subject:, education_teacher:) }
   let(:education_exam) {create(:education_exam, education_owner:, education_school:, education_subject:) }
-  let(:education_category) { create(:education_category, education_owner:, user: education_school.user) }
+  let(:education_category) { create(:education_category, education_owner:, user: education_owner.education_ownerable) }
   let(:education_question) { create(:education_question, education_owner:, education_school:, education_teacher:) }
   let(:education_exam_to_class) { create(:education_exam_to_class, education_exam:, education_class:, education_subject:) }
   let(:education_exam_to_student) { create(:education_exam_to_student, education_exam:, education_student:, education_exam_to_class:) }

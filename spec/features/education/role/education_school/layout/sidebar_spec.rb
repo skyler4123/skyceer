@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature "Home", type: :feature do
-  # include_context "support/shared_contexts/education/default_database"
+  include_context "support/shared_contexts/education/default_database"
 
   context "when user is set education_role as school" do
-    let(:user) { create(:user, education_role: :education_owner) }
+    let(:user) { education_owner.education_ownerable }
     let(:available_paths) {[
       education_schools_path,
       education_admins_path,

@@ -9,11 +9,11 @@
 #       name: Faker::Name.name,
 #       # name: "New School Name",
 #     }}
-#     let!(:new_education_school) { create(:education_school, user: education_school.user) }
+#     let!(:new_education_school) { create(:education_school, user: education_owner.education_ownerable) }
     
 #     before do
 #       education_category
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit edit_education_school_path(education_school)
 #     end
 
@@ -39,7 +39,7 @@
 #     end
 
 #     it "will be redirected" do
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit edit_education_school_path(education_school)
 #       expect(page).to have_routing_error
 #     end

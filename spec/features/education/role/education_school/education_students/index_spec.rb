@@ -10,7 +10,7 @@ RSpec.feature "education_students#index", type: :feature, js: true do
   
   context "education_role: :education_owner" do
     it "will not be redirected" do
-      sign_in(user: education_school.user)
+      sign_in(user: education_owner.education_ownerable)
       visit education_students_path
       single_select("education_class_id", education_class.name)
       find("input[type='submit']").click
@@ -26,7 +26,7 @@ RSpec.feature "education_students#index", type: :feature, js: true do
     end
 
     it "will be redirected" do
-      sign_in(user: education_school.user)
+      sign_in(user: education_owner.education_ownerable)
       visit education_students_path
       expect(page).to have_routing_error
     end

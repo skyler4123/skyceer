@@ -8,15 +8,15 @@
 #       email: Faker::Internet.email,
 #       name: Faker::Name.name,
 #     }}
-#     let!(:new_education_school) { create(:education_school, user: education_school.user) }
-#     let!(:new_education_category) { create(:education_category, user: education_school.user) }
+#     let!(:new_education_school) { create(:education_school, user: education_owner.education_ownerable) }
+#     let!(:new_education_category) { create(:education_category, user: education_owner.education_ownerable) }
 #     let!(:new_education_subject) { create(:education_subject, education_school: education_school) }
     
 #     before do
 #       education_school.education_teachers << education_teacher
 #       education_category
 #       education_subject
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit edit_education_teacher_path(education_teacher)
 #     end
 
@@ -49,7 +49,7 @@
 #     end
 
 #     it "will be redirected" do
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit edit_education_teacher_path(education_teacher)
 #       expect(page).to have_routing_error
 #     end

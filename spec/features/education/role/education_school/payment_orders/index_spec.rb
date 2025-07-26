@@ -10,7 +10,7 @@ RSpec.feature "payment_orders#index", type: :feature, js: true do
   context "education_role: :education_owner" do
 
     it "will not be redirected" do
-      sign_in(user: education_school.user)
+      sign_in(user: education_owner.education_ownerable)
       visit payment_orders_path
       expect(page).to have_current_path(payment_orders_path, ignore_query: true)
       expect(page).to have_content(education_student.name)
@@ -23,7 +23,7 @@ RSpec.feature "payment_orders#index", type: :feature, js: true do
     end
 
     it "will be redirected" do
-      sign_in(user: education_school.user)
+      sign_in(user: education_owner.education_ownerable)
       visit payment_orders_path
       expect(page).to have_routing_error
     end
