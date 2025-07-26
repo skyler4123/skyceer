@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :education_teacher do
+    association :education_owner
     association :user, factory: :user, role: :normal, education_role: :education_teacher
     # association :education_school_user, factory: :user, role: :normal, education_role: :education_owner
 

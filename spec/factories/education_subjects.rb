@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :education_subject do
+    association :education_owner
     association :education_school
     name { Faker::Name.name }
     description { Faker::Lorem.sentence }

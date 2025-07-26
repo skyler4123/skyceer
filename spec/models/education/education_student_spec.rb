@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe EducationStudent, type: :model do
   describe 'associations' do
     it { should belong_to(:user).optional }
-    it { should belong_to(:education_parent).optional }
+    # it { should have_many(:education_parents).optional }
     # it { should belong_to(:education_school_user).class_name('User') }
 
     it { should have_many(:education_classes) }
@@ -11,6 +11,7 @@ RSpec.describe EducationStudent, type: :model do
     # it { should have_many(:education_schools).through(:education_school_appointments) }
     # it { should have_many(:education_class_appointments).dependent(:destroy) }
     it { should have_many(:education_classes).through(:education_class_appointments) }
+    it { should have_many(:education_parents).through(:education_parent_appointments) }
   end
 
   describe 'validations' do

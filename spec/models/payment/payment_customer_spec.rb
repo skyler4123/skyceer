@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PaymentCustomer, type: :model do
   describe 'associations' do
-    it { should belong_to(:payment_customerable) }
+    it { should belong_to(:payment_customerable).optional }
   end
 
   describe 'validations' do

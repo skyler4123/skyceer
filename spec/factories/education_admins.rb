@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :education_admin do
+    association :education_owner
     association :user, factory: :user, role: :normal, education_role: :education_admin
     name { Faker::Name.name }
     email { Faker::Internet.email }
