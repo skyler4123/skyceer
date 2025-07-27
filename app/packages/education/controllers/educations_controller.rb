@@ -12,8 +12,8 @@ class EducationsController < ApplicationController
 
   private
 
-  def set_app_name
-    @app_name = :education
+  def set_package_name
+    @package_name = :education
   end
 
   # Redirect when user is not education user
