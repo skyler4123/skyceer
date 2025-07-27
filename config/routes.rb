@@ -76,6 +76,8 @@ Rails.application.routes.draw do
   end
 
   # draw for app routes
-  draw(:education) if APP_NAME == "education"
+  root 'educations#home'
+  draw(:education)
+  draw(:article)
 
 end
