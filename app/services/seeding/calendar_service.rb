@@ -10,7 +10,9 @@ class Seeding::CalendarService
   def self.calendar_owners
     User.where(education_role: :education_owner).find_each do |user|
       CalendarOwner.create!(
-        calendar_ownerable: user
+        calendar_ownerable: user,
+        name: user.name,
+        email: user.email,
       )
     end
   end
@@ -32,7 +34,8 @@ class Seeding::CalendarService
       10.times do
         calendar_group = CalendarGroup.create!(
           name: "Group #{Faker::Number.number}",
-          calendar_owner: calendar_owner
+          calendar_owner: calendar_owner,
+          color: '#' + SecureRandom.hex(3),
         )
         CalendarCategoryAppointment.create!(
           calendar_category: calendar_owner.calendar_categories.sample,
