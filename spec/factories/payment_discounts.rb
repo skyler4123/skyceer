@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :payment_discount do
-    association :payment_user
+    association :payment_owner
     name { Faker::Name.name }
     description { Faker::Lorem.sentence }
     code { Faker::Code.asin }

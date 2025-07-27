@@ -1,7 +1,7 @@
-import Education_EducationSchool_EducationClasses_IndexController from "controllers/education/education_school/education_classes/index_controller";
+import Education_EducationOwner_EducationClasses_IndexController from "controllers/education/education_owner/education_classes/index_controller";
 import Education_EducationAdmin_AsideController from "controllers/education/education_admin/aside_controller";
 
-export default class extends Education_EducationSchool_EducationClasses_IndexController {
+export default class extends Education_EducationOwner_EducationClasses_IndexController {
 
   initBinding() {
     super.initBinding()

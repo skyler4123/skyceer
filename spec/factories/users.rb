@@ -6,8 +6,8 @@ FactoryBot.define do
     verified { true }
     name { Faker::Movies::HarryPotter.character }
     avatar { "https://flowbite.com/docs/images/people/profile-picture-5.jpg" }
-    role { :normal }
-    education_role { :education_school }
+    role { nil }
+    education_role { nil }
     association :address
     
     trait :education_school do

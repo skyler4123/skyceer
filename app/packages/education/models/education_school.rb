@@ -2,7 +2,7 @@ class EducationSchool < ApplicationRecord
   include EducationSchool::AvatarConcern
   include EducationSchool::ImagesConcern
 
-  belongs_to :user
+  belongs_to :education_owner
   belongs_to :address, optional: true
 
   # has_many :education_school_appointments, dependent: :destroy
@@ -26,9 +26,10 @@ class EducationSchool < ApplicationRecord
   has_many :education_questions, dependent: :destroy
   has_many :education_subjects, dependent: :destroy
   has_many :education_lessons, dependent: :destroy
+  has_many :education_staffs, dependent: :destroy
 
+  # delegate :user, to: :session, allow_nil: true
+  # delegate :education_owner, to: :user, allow_nil: true
   include EducationSchool::ValidationConcern
-  include EducationSchool::PaymentConcern
   # include EducationSchool::CalendarConcern
-  include EducationSchool::UserConcern
 end

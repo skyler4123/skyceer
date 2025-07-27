@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :education_lesson do
+    association :education_owner
     association :education_school
     association :education_class
     association :education_subject

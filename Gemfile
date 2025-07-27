@@ -90,9 +90,8 @@ group :test do
   gem 'capybara'
   # gem "selenium-webdriver"
 
-  
+  gem 'factory_bot_rails'  
   gem "rspec-rails"
-  gem 'factory_bot_rails'
   gem "rails-controller-testing"
   gem 'shoulda-matchers'
   gem "cuprite"

@@ -1,4 +1,5 @@
 class EducationQuestion < ApplicationRecord
+  belongs_to :education_owner
   belongs_to :education_school, optional: true
   belongs_to :education_teacher, optional: true
 

@@ -1,8 +1,8 @@
 import { identifier, transferToValue } from "controllers/education/helpers/data_helpers"
-import Education_EducationSchool_EducationSchools_IndexController from "controllers/education/education_school/education_schools/index_controller";
+import Education_EducationOwner_EducationSchools_IndexController from "controllers/education/education_owner/education_schools/index_controller";
 import Education_EducationStudent_AsideController from "controllers/education/education_student/aside_controller";
 
-export default class extends Education_EducationSchool_EducationSchools_IndexController {
+export default class extends Education_EducationOwner_EducationSchools_IndexController {
 
   initBinding() {
     super.initBinding()

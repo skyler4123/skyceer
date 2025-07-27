@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :payment_order do
-    association :payment_user
+    association :payment_owner
     association :payment_customer
     association :payment_method
     association :payment_discount

@@ -3,8 +3,8 @@
 # RSpec.feature "payment_orders#index", type: :feature, js: true do
 #   include_context "support/shared_contexts/education/default_database"
 
-#   context "education_role: :education_school" do
-#     let(:payment_user) { create(:payment_user, payment_userable: education_school) }
+#   context "education_role: :education_owner" do
+#     let(:payment_owner) { create(:payment_owner, payment_ownerable: education_school) }
 #     let(:payment_customer) { create(:payment_customer, payment_customerable: education_student) }
 
 #     before do
@@ -13,7 +13,7 @@
 #     end
 
 #     it "will not be redirected" do
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit payment_orders_path
 #       expect(page).to have_current_path(payment_orders_path, ignore_query: true)
 #       expect(page).to have_content(education_student.name)
@@ -22,11 +22,11 @@
 
 #   context "education_role: :not_education_user" do
 #     before do
-#       education_school.user.update(education_role: nil)
+#       education_owner.education_ownerable.update(education_role: nil)
 #     end
 
 #     it "will be redirected" do
-#       sign_in(user: education_school.user)
+#       sign_in(user: education_owner.education_ownerable)
 #       visit payment_orders_path
 #       expect(page).to have_routing_error
 #     end

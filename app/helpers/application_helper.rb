@@ -24,6 +24,6 @@ module ApplicationHelper
 
   def stimulus_controller
     return @stimulus_controller if @stimulus_controller
-    @stimulus_controller = [@package_name, controller_path.gsub('/', '--'), action_name].join('--').dasherize
+    @stimulus_controller = [@app_name, controller_path.gsub('/', '--'), action_name].join('--').dasherize
   end
 end

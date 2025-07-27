@@ -2,6 +2,7 @@ class EducationClass < ApplicationRecord
   include EducationClass::AvatarConcern
   include EducationClass::ImagesConcern
 
+  belongs_to :education_owner
   belongs_to :education_school
   belongs_to :education_course
 
@@ -20,6 +21,4 @@ class EducationClass < ApplicationRecord
   has_many :education_subject_appointments, dependent: :destroy
 
   include EducationClass::ValidationConcern
-  include EducationClass::CalendarConcern
-  include EducationClass::PaymentConcern
 end

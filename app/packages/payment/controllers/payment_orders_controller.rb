@@ -4,8 +4,8 @@ class PaymentOrdersController < ApplicationController
   # GET /payment_orders or /payment_orders.json
   def index
     @education_schools = current_user.education_schools
-    @payment_users = PaymentUser.where(payment_userable: @education_schools)
-    @payment_orders = PaymentOrder.includes(payment_customer: :payment_customerable).where(payment_user: @payment_users)
+    @payment_owners = PaymentOwner.where(payment_ownerable: @education_schools)
+    @payment_orders = PaymentOrder.includes(payment_customer: :payment_customerable).where(payment_owner: @payment_owners)
     @pagy, @payment_orders = pagy(@payment_orders)
   end
 
@@ -68,6 +68,6 @@ class PaymentOrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def payment_order_params
-      params.expect(payment_order: [ :payment_user_id, :payment_customer_id, :payment_method_id, :payment_discount_id, :status, :amount, :paid, :due, :expire ])
+      params.expect(payment_order: [ :payment_owner_id, :payment_customer_id, :payment_method_id, :payment_discount_id, :status, :amount, :paid, :due, :expire ])
     end
 end

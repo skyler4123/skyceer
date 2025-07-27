@@ -1,4 +1,5 @@
 class PaymentInvoice < ApplicationRecord
+  belongs_to :payment_owner
   belongs_to :payment_order
   has_many :payment_logs, dependent: :destroy
 

@@ -3,7 +3,7 @@
 # RSpec.feature "education_subjects#index", type: :feature, js: true do
 #   include_context "support/shared_contexts/education/default_database"
 
-#   context "education_role: :education_school" do
+#   context "education_role: :education_owner" do
 #     before do
 #       education_school.education_students << education_student
 #       education_class.education_students << education_student

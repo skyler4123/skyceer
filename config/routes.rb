@@ -7,8 +7,8 @@ class EducationRoleConstraint
   def matches?(request)
     education_role = request.cookies["education_role"]
     case education_role.to_sym
-    when :education_school
-      return true if @education_role == :education_school
+    when :education_owner
+      return true if @education_role == :education_owner
     when :education_admin
       return true if @education_role == :education_admin
     when :education_teacher
@@ -22,6 +22,29 @@ class EducationRoleConstraint
 end
 
 Rails.application.routes.draw do
+  namespace :api do
+    post "sign_in", to: "sessions#create"
+    post "sign_up", to: "registrations#create"
+    resources :sessions, only: [:index, :show, :destroy]
+    resource  :password, only: [:edit, :update]
+    namespace :identity do
+      resource :email,              only: [:edit, :update]
+      resource :email_verification, only: [:show, :create]
+      resource :password_reset,     only: [:new, :edit, :create, :update]
+    end
+    namespace :authentications do
+      resources :events, only: :index
+    end
+
+    resources :project_category_appointments
+    resources :project_categories
+    resources :project_subtask_appointments
+    resources :project_subtasks
+    resources :project_task_appointments
+    resources :project_tasks
+    resources :project_group_appointments
+    resources :project_groups
+  end
   get "up" => "rails/health#show", as: :rails_health_check
   resources :demo, only: [:index, :new]
   resources :images, only: [] do

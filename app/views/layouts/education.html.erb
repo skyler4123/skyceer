@@ -17,7 +17,7 @@
     <meta name="turbo-prefetch" content="false">
   </head>
   
-  <body data-controller="<%= @package_name %>--flash <%= @package_name %>--modal">
+  <body data-controller="<%= @app_name %>--flash <%= @app_name %>--modal">
     <!-- Single stream for all user events -->
     <% if current_user %>
       <%= turbo_stream_from current_user %>

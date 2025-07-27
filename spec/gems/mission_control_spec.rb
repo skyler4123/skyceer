@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "Application::Gems::MissionControl", type: :feature do
   context "Sign in with correct data" do
     let(:role) { :normal }
-    let(:education_role) { :education_school }
+    let(:education_role) { :education_owner }
     let!(:user) { create(:user, role: role, education_role: education_role) }
     let(:mission_control_url) { '/jobs' }
 

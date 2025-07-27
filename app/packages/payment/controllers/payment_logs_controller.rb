@@ -65,6 +65,6 @@ class PaymentLogsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def payment_log_params
-      params.expect(payment_log: [ :payment_user_id, :payment_customer_id, :payment_order_id, :payment_method_id, :payment_discount_id, :payment_invoice_id, :action, :amount, :note ])
+      params.expect(payment_log: [ :payment_owner_id, :payment_customer_id, :payment_order_id, :payment_method_id, :payment_discount_id, :payment_invoice_id, :action, :amount, :note ])
     end
 end

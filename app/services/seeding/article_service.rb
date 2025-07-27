@@ -1,9 +1,9 @@
 class Seeding::ArticleService
   def self.run
-    User.all.each_with_index do |user, user_index|
+    NosqlUser.all.each_with_index do |nosql_user, user_index|
       1.times do |n|
-        article_post = ArticlePost.create!(user_id: user.id, title: Faker::Movie.title)
-        image_attachments = Seeding::AttachmentService.attach(record: user, relation: :image_attachments, number: 2)        
+        article_post = ArticlePost.create!(nosql_user: nosql_user, title: Faker::Movie.title)
+        image_attachments = Seeding::AttachmentService.attach(record: nosql_user.user, relation: :image_attachments, number: 2)
         content = {
           blocks: [
             {
@@ -57,10 +57,15 @@ class Seeding::ArticleService
         article_post.update!(content: content)
       end
     end
-    2.times do |n|
-      article_post = ArticlePost.all.sample
-      user = User.all.sample
-      article_post.article_comments << ArticleComment.new(user_id: user.id, content: "comment #{Time.now.to_i}_#{n}")
+    ArticlePost.all.each_with_index do |article_post, n|
+      2.times do
+        article_post.article_comments << ArticleComment.new(nosql_user_id: NosqlUser.all.sample.id, content: "comment #{Time.now.to_i}")
+      end
+      article_post.article_comments.each do |article_comment|
+        2.times do
+          article_comment.article_subcomments << ArticleSubcomment.new(nosql_user_id: NosqlUser.all.sample.id, content: "subcomment #{Time.now.to_i}")
+        end
+      end
     end
   end
 end

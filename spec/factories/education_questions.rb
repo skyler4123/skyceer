@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :education_question do
+    association :education_owner
     association :education_school
     association :education_teacher
     question_type { 1 }

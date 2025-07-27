@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_13_060059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -84,17 +84,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "calendar_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "calendar_owner_id", null: false
+    t.uuid "parent_category_id"
     t.string "name"
     t.string "uid"
     t.string "color"
-    t.string "calendar_ownerable_type", null: false
-    t.uuid "calendar_ownerable_id", null: false
-    t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_ownerable_type", "calendar_ownerable_id"], name: "index_calendar_categories_on_calendar_ownerable"
+    t.index ["calendar_owner_id"], name: "index_calendar_categories_on_calendar_owner_id"
     t.index ["parent_category_id"], name: "index_calendar_categories_on_parent_category_id"
   end
 
@@ -110,10 +109,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "calendar_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "calendar_ownerable_type", null: false
-    t.uuid "calendar_ownerable_id", null: false
-    t.string "calendar_groupable_type", null: false
-    t.uuid "calendar_groupable_id", null: false
+    t.uuid "calendar_owner_id", null: false
+    t.uuid "calendar_group_id", null: false
     t.string "uid"
     t.integer "library"
     t.string "title"
@@ -143,8 +140,35 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["calendar_groupable_type", "calendar_groupable_id"], name: "index_calendar_events_on_calendar_groupable"
-    t.index ["calendar_ownerable_type", "calendar_ownerable_id"], name: "index_calendar_events_on_calendar_ownerable"
+    t.index ["calendar_group_id"], name: "index_calendar_events_on_calendar_group_id"
+    t.index ["calendar_owner_id"], name: "index_calendar_events_on_calendar_owner_id"
+  end
+
+  create_table "calendar_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "calendar_owner_id", null: false
+    t.string "uid"
+    t.string "name"
+    t.string "color"
+    t.string "borderColor"
+    t.string "backgroundColor"
+    t.string "dragBackgroundColor"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_owner_id"], name: "index_calendar_groups_on_calendar_owner_id"
+  end
+
+  create_table "calendar_owners", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "calendar_ownerable_type", null: false
+    t.uuid "calendar_ownerable_id", null: false
+    t.string "uid"
+    t.string "name"
+    t.string "email"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_ownerable_type", "calendar_ownerable_id"], name: "index_calendar_owners_on_calendar_ownerable"
+    t.index ["discarded_at"], name: "index_calendar_owners_on_discarded_at"
   end
 
   create_table "categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -184,28 +208,33 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_admins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
     t.uuid "user_id"
-    t.uuid "education_school_id", null: false
+    t.uuid "education_school_id"
     t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Admin can be created without user at first time then will match with user by email"
+    t.string "status", default: "active", comment: "Status of the admin, can be active, inactive, or archived"
+    t.string "role", default: "admin", comment: "Role of the admin, can be admin or super_admin"
+    t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["education_owner_id"], name: "index_education_admins_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_admins_on_education_school_id"
     t.index ["user_id"], name: "index_education_admins_on_user_id"
   end
 
   create_table "education_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
     t.string "name", null: false
     t.string "uid"
     t.string "color"
-    t.uuid "user_id", null: false
     t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["education_owner_id"], name: "index_education_categories_on_education_owner_id"
     t.index ["parent_category_id"], name: "index_education_categories_on_parent_category_id"
-    t.index ["user_id"], name: "index_education_categories_on_user_id"
   end
 
   create_table "education_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -229,25 +258,34 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_classes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
     t.uuid "education_school_id", null: false
     t.uuid "education_course_id", null: false
     t.string "uid"
     t.string "name", null: false
+    t.string "description"
+    t.string "status", default: "active", comment: "Status of the class, can be active, inactive, or archived"
+    t.string "color", comment: "Color theme of the class"
+    t.string "language", default: "en", comment: "Language of the class, default is English"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_classes_on_discarded_at"
     t.index ["education_course_id"], name: "index_education_classes_on_education_course_id"
+    t.index ["education_owner_id"], name: "index_education_classes_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_classes_on_education_school_id"
   end
 
   create_table "education_courses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
+    t.uuid "education_school_id", null: false
     t.string "uid"
     t.string "name", null: false
-    t.string "description", null: false
-    t.uuid "education_school_id", null: false
+    t.string "description"
+    t.string "status", default: "active", comment: "Status of the course, can be active, inactive, or archived"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["education_owner_id"], name: "index_education_courses_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_courses_on_education_school_id"
   end
 
@@ -284,44 +322,91 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_exams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
+    t.uuid "education_school_id", null: false
+    t.uuid "education_subject_id", null: false
     t.string "uid"
     t.string "name", null: false
     t.string "description"
     t.integer "status"
-    t.uuid "education_school_id", null: false
-    t.uuid "education_subject_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["education_owner_id"], name: "index_education_exams_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_exams_on_education_school_id"
     t.index ["education_subject_id"], name: "index_education_exams_on_education_subject_id"
   end
 
   create_table "education_lessons", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "title", null: false
-    t.string "content"
+    t.uuid "education_owner_id", null: false
     t.uuid "education_school_id", null: false
     t.uuid "education_class_id"
     t.uuid "education_subject_id"
     t.uuid "education_teacher_id"
+    t.string "title", null: false
+    t.string "content"
     t.string "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["education_class_id"], name: "index_education_lessons_on_education_class_id"
+    t.index ["education_owner_id"], name: "index_education_lessons_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_lessons_on_education_school_id"
     t.index ["education_subject_id"], name: "index_education_lessons_on_education_subject_id"
     t.index ["education_teacher_id"], name: "index_education_lessons_on_education_teacher_id"
   end
 
+  create_table "education_owners", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "education_ownerable_type", null: false
+    t.uuid "education_ownerable_id", null: false
+    t.string "uid"
+    t.string "name", null: false
+    t.string "email", comment: "Email address of the school can be different from the user's email address"
+    t.string "category"
+    t.string "phone", comment: "Phone number of the school can be different from the user's phone number"
+    t.string "description", comment: "Description of the school"
+    t.string "status", default: "active", comment: "Status of the school, can be active, inactive, or archived"
+    t.string "website", comment: "Website of the school"
+    t.string "avatar", comment: "Avatar image of the school"
+    t.string "logo"
+    t.string "banner"
+    t.string "color", comment: "Color theme of the school"
+    t.string "timezone", default: "UTC", comment: "Timezone of the school, default is UTC"
+    t.string "language", default: "en", comment: "Language of the school, default is English"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_education_owners_on_discarded_at"
+    t.index ["education_ownerable_type", "education_ownerable_id"], name: "index_education_owners_on_education_ownerable"
+  end
+
+  create_table "education_parent_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_parent_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_education_parent_appointments_on_appoint_to"
+    t.index ["discarded_at"], name: "index_education_parent_appointments_on_discarded_at"
+    t.index ["education_parent_id"], name: "index_education_parent_appointments_on_education_parent_id"
+  end
+
   create_table "education_parents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
+    t.uuid "education_owner_id", null: false
+    t.uuid "user_id"
     t.uuid "education_school_id", null: false
     t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Parent can be created without user at first time then will match with user by email"
+    t.string "status", default: "active", comment: "Status of the parent, can be active, inactive, or archived"
+    t.string "phone"
+    t.string "description", comment: "Description of the parent"
+    t.string "language", default: "en", comment: "Language of the parent, default is English"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_education_parents_on_discarded_at"
+    t.index ["education_owner_id"], name: "index_education_parents_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_parents_on_education_school_id"
     t.index ["user_id"], name: "index_education_parents_on_user_id"
   end
@@ -342,6 +427,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
     t.uuid "education_school_id", null: false
     t.uuid "education_teacher_id"
     t.string "uid"
@@ -355,18 +441,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.string "choice_4"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["education_owner_id"], name: "index_education_questions_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_questions_on_education_school_id"
     t.index ["education_teacher_id"], name: "index_education_questions_on_education_teacher_id"
   end
 
   create_table "education_rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
     t.uuid "education_school_id", null: false
     t.string "uid"
     t.string "name", null: false
+    t.string "description"
+    t.string "status", default: "active", comment: "Status of the room, can be active, inactive, or archived"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_rooms_on_discarded_at"
+    t.index ["education_owner_id"], name: "index_education_rooms_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_rooms_on_education_school_id"
   end
 
@@ -382,32 +473,67 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_schools", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
+    t.uuid "education_owner_id", null: false
     t.uuid "address_id"
     t.string "uid"
     t.string "name", null: false
-    t.string "email", null: false, comment: "Email address of the school can be different from the user's email address"
+    t.string "email", comment: "Email address of the school can be different from the user's email address"
     t.string "category"
+    t.string "phone", comment: "Phone number of the school can be different from the user's phone number"
+    t.string "description", comment: "Description of the school"
+    t.string "status", default: "active", comment: "Status of the school, can be active, inactive, or archived"
+    t.string "website", comment: "Website of the school"
+    t.string "logo"
+    t.string "banner"
+    t.string "color", comment: "Color theme of the school"
+    t.string "timezone", default: "UTC", comment: "Timezone of the school, default is UTC"
+    t.string "language", default: "en", comment: "Language of the school, default is English"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_education_schools_on_address_id"
     t.index ["discarded_at"], name: "index_education_schools_on_discarded_at"
-    t.index ["user_id"], name: "index_education_schools_on_user_id"
+    t.index ["education_owner_id"], name: "index_education_schools_on_education_owner_id"
   end
 
-  create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "education_staffs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
     t.uuid "user_id"
     t.uuid "education_school_id", null: false
-    t.uuid "education_parent_id"
     t.string "uid"
     t.string "name", null: false
+    t.string "position"
+    t.string "title"
+    t.string "department"
+    t.string "avatar"
+    t.string "phone"
+    t.string "status", default: "active", comment: "Status of the staff, can be active, inactive, or archived"
+    t.string "description", comment: "Description of the staff"
     t.string "email", comment: "Student can be created without user at first time then will match with user by email"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["discarded_at"], name: "index_education_staffs_on_discarded_at"
+    t.index ["education_owner_id"], name: "index_education_staffs_on_education_owner_id"
+    t.index ["education_school_id"], name: "index_education_staffs_on_education_school_id"
+    t.index ["user_id"], name: "index_education_staffs_on_user_id"
+  end
+
+  create_table "education_students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
+    t.uuid "user_id"
+    t.uuid "education_school_id", null: false
+    t.string "uid"
+    t.string "name", null: false
+    t.string "email", comment: "Student can be created without user at first time then will match with user by email"
+    t.string "status", default: "active", comment: "Status of the student, can be active, inactive, or archived"
+    t.string "phone"
+    t.string "description", comment: "Description of the student"
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_students_on_discarded_at"
-    t.index ["education_parent_id"], name: "index_education_students_on_education_parent_id"
+    t.index ["education_owner_id"], name: "index_education_students_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_students_on_education_school_id"
     t.index ["user_id"], name: "index_education_students_on_user_id"
   end
@@ -447,41 +573,61 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "education_subjects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
+    t.uuid "education_school_id", null: false
     t.string "uid"
     t.string "name", null: false
-    t.string "description", null: false
-    t.uuid "education_school_id", null: false
+    t.string "description"
+    t.string "status", default: "active", comment: "Status of the subject, can be active, inactive, or archived"
+    t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["education_owner_id"], name: "index_education_subjects_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_subjects_on_education_school_id"
   end
 
   create_table "education_teachers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "education_owner_id", null: false
     t.uuid "user_id"
     t.uuid "education_school_id", null: false
     t.string "uid"
     t.string "name", null: false
     t.string "email", comment: "Teacher can be created without user at first time then will match with user by email"
+    t.string "status", default: "active", comment: "Status of the teacher, can be active, inactive, or archived"
+    t.string "phone"
+    t.string "description", comment: "Description of the teacher"
+    t.string "language", default: "en", comment: "Language of the teacher, default is English"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discarded_at"], name: "index_education_teachers_on_discarded_at"
+    t.index ["education_owner_id"], name: "index_education_teachers_on_education_owner_id"
     t.index ["education_school_id"], name: "index_education_teachers_on_education_school_id"
     t.index ["user_id"], name: "index_education_teachers_on_user_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "action", null: false
+    t.string "user_agent"
+    t.string "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
   create_table "payment_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_owner_id", null: false
+    t.uuid "parent_category_id"
     t.string "name"
     t.string "uid"
     t.string "color"
-    t.uuid "payment_user_id", null: false
-    t.uuid "parent_category_id"
     t.integer "nested_level", default: 0
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_category_id"], name: "index_payment_categories_on_parent_category_id"
-    t.index ["payment_user_id"], name: "index_payment_categories_on_payment_user_id"
+    t.index ["payment_owner_id"], name: "index_payment_categories_on_payment_owner_id"
   end
 
   create_table "payment_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -496,19 +642,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "payment_customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_owner_id", null: false
     t.string "payment_customerable_type", null: false
     t.uuid "payment_customerable_id", null: false
     t.string "uid"
     t.string "name"
     t.string "email"
+    t.string "phone"
+    t.integer "status"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_customerable_type", "payment_customerable_id"], name: "index_payment_customers_on_payment_customerable"
+    t.index ["payment_owner_id"], name: "index_payment_customers_on_payment_owner_id"
   end
 
   create_table "payment_discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "payment_user_id", null: false
+    t.uuid "payment_owner_id", null: false
     t.string "uid"
     t.string "name"
     t.string "description"
@@ -520,20 +670,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["payment_user_id"], name: "index_payment_discounts_on_payment_user_id"
+    t.index ["payment_owner_id"], name: "index_payment_discounts_on_payment_owner_id"
   end
 
   create_table "payment_invoices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "payment_owner_id", null: false
     t.uuid "payment_order_id", null: false
     t.string "uid"
     t.string "transaction_id"
     t.integer "status"
     t.decimal "amount"
     t.string "tax_code"
+    t.text "item_list"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_order_id"], name: "index_payment_invoices_on_payment_order_id"
+    t.index ["payment_owner_id"], name: "index_payment_invoices_on_payment_owner_id"
   end
 
   create_table "payment_item_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -549,7 +702,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "payment_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "payment_user_id", null: false
+    t.uuid "payment_owner_id", null: false
     t.string "payment_itemable_type", null: false
     t.uuid "payment_itemable_id", null: false
     t.string "uid"
@@ -558,11 +711,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_itemable_type", "payment_itemable_id"], name: "index_payment_items_on_payment_itemable"
-    t.index ["payment_user_id"], name: "index_payment_items_on_payment_user_id"
+    t.index ["payment_owner_id"], name: "index_payment_items_on_payment_owner_id"
   end
 
   create_table "payment_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "payment_user_id", null: false
+    t.uuid "payment_owner_id", null: false
     t.uuid "payment_customer_id", null: false
     t.uuid "payment_order_id", null: false
     t.uuid "payment_method_id", null: false
@@ -579,17 +732,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.index ["payment_invoice_id"], name: "index_payment_logs_on_payment_invoice_id"
     t.index ["payment_method_id"], name: "index_payment_logs_on_payment_method_id"
     t.index ["payment_order_id"], name: "index_payment_logs_on_payment_order_id"
-    t.index ["payment_user_id"], name: "index_payment_logs_on_payment_user_id"
+    t.index ["payment_owner_id"], name: "index_payment_logs_on_payment_owner_id"
   end
 
   create_table "payment_method_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "payment_user_id"
+    t.uuid "payment_owner_id"
     t.uuid "payment_method_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["payment_method_id"], name: "index_payment_method_appointments_on_payment_method_id"
-    t.index ["payment_user_id"], name: "index_payment_method_appointments_on_payment_user_id"
+    t.index ["payment_owner_id"], name: "index_payment_method_appointments_on_payment_owner_id"
   end
 
   create_table "payment_methods", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -603,7 +756,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   end
 
   create_table "payment_orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "payment_user_id", null: false
+    t.uuid "payment_owner_id", null: false
     t.uuid "payment_customer_id", null: false
     t.uuid "payment_method_id", null: false
     t.uuid "payment_discount_id", null: false
@@ -619,28 +772,146 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.index ["payment_customer_id"], name: "index_payment_orders_on_payment_customer_id"
     t.index ["payment_discount_id"], name: "index_payment_orders_on_payment_discount_id"
     t.index ["payment_method_id"], name: "index_payment_orders_on_payment_method_id"
-    t.index ["payment_user_id"], name: "index_payment_orders_on_payment_user_id"
+    t.index ["payment_owner_id"], name: "index_payment_orders_on_payment_owner_id"
   end
 
-  create_table "payment_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "payment_userable_type", null: false
-    t.uuid "payment_userable_id", null: false
+  create_table "payment_owners", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "payment_ownerable_type", null: false
+    t.uuid "payment_ownerable_id", null: false
     t.string "uid"
     t.datetime "discarded_at"
+    t.string "status", default: "active", comment: "Status of the payment owner, can be active, inactive, or archived"
+    t.string "name", null: false, comment: "Name of the payment owner"
+    t.string "description", comment: "Description of the payment owner"
+    t.string "language", default: "en", comment: "Language of the payment owner, default is English"
+    t.string "email", comment: "Email of the payment owner, can be null if not provided"
+    t.string "phone", comment: "Phone number of the payment owner, can be null if not provided"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["payment_userable_type", "payment_userable_id"], name: "index_payment_users_on_payment_userable"
+    t.index ["discarded_at"], name: "index_payment_owners_on_discarded_at"
+    t.index ["payment_ownerable_type", "payment_ownerable_id"], name: "index_payment_owners_on_payment_ownerable"
+  end
+
+  create_table "project_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_owner_id", null: false
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_owner_id"], name: "index_project_categories_on_project_owner_id"
+  end
+
+  create_table "project_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_category_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_category_appointments_on_appoint_to"
+    t.index ["project_category_id"], name: "index_project_category_appointments_on_project_category_id"
+  end
+
+  create_table "project_group_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_group_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_group_appointments_on_appoint_to"
+    t.index ["project_group_id"], name: "index_project_group_appointments_on_project_group_id"
+  end
+
+  create_table "project_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_owner_id", null: false
+    t.string "name"
+    t.string "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_owner_id"], name: "index_project_groups_on_project_owner_id"
+  end
+
+  create_table "project_members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_owner_id", null: false
+    t.string "project_memberable_type", null: false
+    t.uuid "project_memberable_id", null: false
+    t.string "name"
+    t.string "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_memberable_type", "project_memberable_id"], name: "index_project_members_on_project_memberable"
+    t.index ["project_owner_id"], name: "index_project_members_on_project_owner_id"
+  end
+
+  create_table "project_owners", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "project_ownerable_type", null: false
+    t.uuid "project_ownerable_id", null: false
+    t.string "name"
+    t.string "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_ownerable_type", "project_ownerable_id"], name: "index_project_owners_on_project_ownerable"
+  end
+
+  create_table "project_subtask_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_subtask_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_subtask_appointments_on_appoint_to"
+    t.index ["project_subtask_id"], name: "index_project_subtask_appointments_on_project_subtask_id"
+  end
+
+  create_table "project_subtasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_owner_id", null: false
+    t.uuid "project_group_id", null: false
+    t.uuid "project_task_id", null: false
+    t.string "name"
+    t.string "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_group_id"], name: "index_project_subtasks_on_project_group_id"
+    t.index ["project_owner_id"], name: "index_project_subtasks_on_project_owner_id"
+    t.index ["project_task_id"], name: "index_project_subtasks_on_project_task_id"
+  end
+
+  create_table "project_task_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_task_id", null: false
+    t.string "appoint_to_type", null: false
+    t.uuid "appoint_to_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["appoint_to_type", "appoint_to_id"], name: "index_project_task_appointments_on_appoint_to"
+    t.index ["project_task_id"], name: "index_project_task_appointments_on_project_task_id"
+  end
+
+  create_table "project_tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_owner_id", null: false
+    t.uuid "project_group_id", null: false
+    t.string "name"
+    t.string "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_group_id"], name: "index_project_tasks_on_project_group_id"
+    t.index ["project_owner_id"], name: "index_project_tasks_on_project_owner_id"
   end
 
   create_table "report_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "report_owner_id"
+    t.uuid "parent_category_id"
     t.string "name"
     t.string "color"
-    t.uuid "parent_category_id"
     t.integer "nested_level"
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_category_id"], name: "index_report_categories_on_parent_category_id"
+    t.index ["report_owner_id"], name: "index_report_categories_on_report_owner_id"
   end
 
   create_table "report_category_appointments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -654,20 +925,35 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.index ["report_category_id"], name: "index_report_category_appointments_on_report_category_id"
   end
 
-  create_table "report_frontends", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "report_user_id"
-    t.string "content"
-    t.string "url"
-    t.json "cookie"
-    t.integer "status"
+  create_table "report_owners", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "report_ownerable_type", null: false
+    t.uuid "report_ownerable_id", null: false
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["report_user_id"], name: "index_report_frontends_on_report_user_id"
+    t.index ["report_ownerable_type", "report_ownerable_id"], name: "index_report_owners_on_report_ownerable"
+  end
+
+  create_table "report_reporters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "report_owner_id"
+    t.string "report_reporterable_type", null: false
+    t.uuid "report_reporterable_id", null: false
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.string "nation"
+    t.string "description"
+    t.integer "status", default: 0
+    t.datetime "discarded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_owner_id"], name: "index_report_reporters_on_report_owner_id"
+    t.index ["report_reporterable_type", "report_reporterable_id"], name: "index_report_reporters_on_report_reporterable"
   end
 
   create_table "report_tickets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "report_user_id"
+    t.uuid "report_owner_id"
+    t.uuid "report_reporter_id"
     t.string "title"
     t.string "content"
     t.integer "status"
@@ -677,16 +963,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
     t.datetime "discarded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["report_user_id"], name: "index_report_tickets_on_report_user_id"
-  end
-
-  create_table "report_users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "report_ownerable_type", null: false
-    t.uuid "report_ownerable_id", null: false
-    t.datetime "discarded_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["report_ownerable_type", "report_ownerable_id"], name: "index_report_users_on_report_ownerable"
+    t.index ["report_owner_id"], name: "index_report_tickets_on_report_owner_id"
+    t.index ["report_reporter_id"], name: "index_report_tickets_on_report_reporter_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -725,17 +1003,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "calendar_categories", "calendar_categories", column: "parent_category_id"
+  add_foreign_key "calendar_categories", "calendar_owners"
   add_foreign_key "calendar_category_appointments", "calendar_categories"
+  add_foreign_key "calendar_events", "calendar_groups"
+  add_foreign_key "calendar_events", "calendar_owners"
+  add_foreign_key "calendar_groups", "calendar_owners"
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "category_appointments", "categories"
+  add_foreign_key "education_admins", "education_owners"
   add_foreign_key "education_admins", "education_schools"
   add_foreign_key "education_admins", "users"
   add_foreign_key "education_categories", "education_categories", column: "parent_category_id"
-  add_foreign_key "education_categories", "users"
+  add_foreign_key "education_categories", "education_owners"
   add_foreign_key "education_category_appointments", "education_categories"
   add_foreign_key "education_class_appointments", "education_classes"
   add_foreign_key "education_classes", "education_courses"
+  add_foreign_key "education_classes", "education_owners"
   add_foreign_key "education_classes", "education_schools"
+  add_foreign_key "education_courses", "education_owners"
   add_foreign_key "education_courses", "education_schools"
   add_foreign_key "education_exam_to_classes", "education_classes"
   add_foreign_key "education_exam_to_classes", "education_exams"
@@ -743,22 +1028,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_exam_to_students", "education_exam_to_classes"
   add_foreign_key "education_exam_to_students", "education_exams"
   add_foreign_key "education_exam_to_students", "education_students"
+  add_foreign_key "education_exams", "education_owners"
   add_foreign_key "education_exams", "education_schools"
   add_foreign_key "education_exams", "education_subjects"
   add_foreign_key "education_lessons", "education_classes"
+  add_foreign_key "education_lessons", "education_owners"
   add_foreign_key "education_lessons", "education_schools"
   add_foreign_key "education_lessons", "education_subjects"
   add_foreign_key "education_lessons", "education_teachers"
+  add_foreign_key "education_parent_appointments", "education_parents"
+  add_foreign_key "education_parents", "education_owners"
   add_foreign_key "education_parents", "education_schools"
   add_foreign_key "education_parents", "users"
   add_foreign_key "education_question_appointments", "education_questions"
+  add_foreign_key "education_questions", "education_owners"
   add_foreign_key "education_questions", "education_schools"
   add_foreign_key "education_questions", "education_teachers"
+  add_foreign_key "education_rooms", "education_owners"
   add_foreign_key "education_rooms", "education_schools"
   add_foreign_key "education_school_appointments", "education_schools"
   add_foreign_key "education_schools", "addresses"
-  add_foreign_key "education_schools", "users"
-  add_foreign_key "education_students", "education_parents"
+  add_foreign_key "education_schools", "education_owners"
+  add_foreign_key "education_staffs", "education_owners"
+  add_foreign_key "education_staffs", "education_schools"
+  add_foreign_key "education_staffs", "users"
+  add_foreign_key "education_students", "education_owners"
   add_foreign_key "education_students", "education_schools"
   add_foreign_key "education_students", "users"
   add_foreign_key "education_subject_appointments", "education_classes"
@@ -766,33 +1060,52 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_062806) do
   add_foreign_key "education_subject_appointments", "education_teachers"
   add_foreign_key "education_subject_to_teachers", "education_subjects"
   add_foreign_key "education_subject_to_teachers", "education_teachers"
+  add_foreign_key "education_subjects", "education_owners"
   add_foreign_key "education_subjects", "education_schools"
+  add_foreign_key "education_teachers", "education_owners"
   add_foreign_key "education_teachers", "education_schools"
   add_foreign_key "education_teachers", "users"
+  add_foreign_key "events", "users"
   add_foreign_key "payment_categories", "payment_categories", column: "parent_category_id"
-  add_foreign_key "payment_categories", "payment_users"
+  add_foreign_key "payment_categories", "payment_owners"
   add_foreign_key "payment_category_appointments", "payment_categories"
-  add_foreign_key "payment_discounts", "payment_users"
+  add_foreign_key "payment_customers", "payment_owners"
+  add_foreign_key "payment_discounts", "payment_owners"
   add_foreign_key "payment_invoices", "payment_orders"
+  add_foreign_key "payment_invoices", "payment_owners"
   add_foreign_key "payment_item_appointments", "payment_items"
   add_foreign_key "payment_item_appointments", "payment_orders"
-  add_foreign_key "payment_items", "payment_users"
+  add_foreign_key "payment_items", "payment_owners"
   add_foreign_key "payment_logs", "payment_customers"
   add_foreign_key "payment_logs", "payment_discounts"
   add_foreign_key "payment_logs", "payment_invoices"
   add_foreign_key "payment_logs", "payment_methods"
   add_foreign_key "payment_logs", "payment_orders"
-  add_foreign_key "payment_logs", "payment_users"
+  add_foreign_key "payment_logs", "payment_owners"
   add_foreign_key "payment_method_appointments", "payment_methods"
-  add_foreign_key "payment_method_appointments", "payment_users"
+  add_foreign_key "payment_method_appointments", "payment_owners"
   add_foreign_key "payment_orders", "payment_customers"
   add_foreign_key "payment_orders", "payment_discounts"
   add_foreign_key "payment_orders", "payment_methods"
-  add_foreign_key "payment_orders", "payment_users"
+  add_foreign_key "payment_orders", "payment_owners"
+  add_foreign_key "project_categories", "project_owners"
+  add_foreign_key "project_category_appointments", "project_categories"
+  add_foreign_key "project_group_appointments", "project_groups"
+  add_foreign_key "project_groups", "project_owners"
+  add_foreign_key "project_members", "project_owners"
+  add_foreign_key "project_subtask_appointments", "project_subtasks"
+  add_foreign_key "project_subtasks", "project_groups"
+  add_foreign_key "project_subtasks", "project_owners"
+  add_foreign_key "project_subtasks", "project_tasks"
+  add_foreign_key "project_task_appointments", "project_tasks"
+  add_foreign_key "project_tasks", "project_groups"
+  add_foreign_key "project_tasks", "project_owners"
   add_foreign_key "report_categories", "report_categories", column: "parent_category_id"
+  add_foreign_key "report_categories", "report_owners"
   add_foreign_key "report_category_appointments", "report_categories"
-  add_foreign_key "report_frontends", "report_users"
-  add_foreign_key "report_tickets", "report_users"
+  add_foreign_key "report_reporters", "report_owners"
+  add_foreign_key "report_tickets", "report_owners"
+  add_foreign_key "report_tickets", "report_reporters"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "addresses"
 end

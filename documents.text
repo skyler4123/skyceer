@@ -30,17 +30,17 @@ rails g scaffold EducationSubjectAppointment education_subject:references educat
 
 
 PAYMENT
-rails g scaffold PaymentUser payment_userable:references{polymorphic} discarded_at:datetime --force
+rails g scaffold PaymentOwner payment_ownerable:references{polymorphic} discarded_at:datetime --force
 rails g scaffold PaymentCustomer payment_customerable:references{polymorphic} discarded_at:datetime --force
 rails g scaffold PaymentMethod name description region:integer discarded_at:datetime --force
-rails g scaffold PaymentDiscount payment_user:references name description code expire:datetime amount:decimal status:integer kind:integer discarded_at:datetime --force
-rails g scaffold PaymentItem payment_user:references payment_itemable:references{polymorphic} price:decimal discarded_at:datetime --force
-rails g scaffold PaymentOrder payment_user:references payment_customer:references payment_method:references payment_discount:references status:integer amount:decimal paid:decimal due:decimal expire:datetime discarded_at:datetime --force
+rails g scaffold PaymentDiscount payment_owner:references name description code expire:datetime amount:decimal status:integer kind:integer discarded_at:datetime --force
+rails g scaffold PaymentItem payment_owner:references payment_itemable:references{polymorphic} price:decimal discarded_at:datetime --force
+rails g scaffold PaymentOrder payment_owner:references payment_customer:references payment_method:references payment_discount:references status:integer amount:decimal paid:decimal due:decimal expire:datetime discarded_at:datetime --force
 rails g scaffold PaymentInvoice payment_order:references transaction_id status:integer amount:decimal tax_code discarded_at:datetime --force
 rails g scaffold PaymentItemAppointment payment_item:references payment_order:references item_quantity:integer unit_price:decimal discarded_at:datetime --force
-rails g scaffold PaymentMethodAppointment payment_user:references payment_method:references discarded_at:datetime --force
-rails g scaffold PaymentLog payment_user:references payment_customer:references payment_order:references payment_method:references payment_discount:references payment_invoice:references action amount:decimal note discarded_at:datetime --force
-rails g scaffold PaymentCategory name payment_user:references parent_category:references nested_level:integer discarded_at:datetime --force
+rails g scaffold PaymentMethodAppointment payment_owner:references payment_method:references discarded_at:datetime --force
+rails g scaffold PaymentLog payment_owner:references payment_customer:references payment_order:references payment_method:references payment_discount:references payment_invoice:references action amount:decimal note discarded_at:datetime --force
+rails g scaffold PaymentCategory name payment_owner:references parent_category:references nested_level:integer discarded_at:datetime --force
 rails g scaffold PaymentCategoryAppointment payment_category:references appoint_to:references{polymorphic} discarded_at:datetime --force
 
 
@@ -54,8 +54,18 @@ rails g scaffold CalendarGroup calendar_groupable:references{polymorphic} name c
 rails g scaffold CalendarEventAppointment calendar_event:references calendar_event_appointmentable:references{polymorphic} discarded_at:datetime --force
 
 REPORT
-rails g scaffold ReportUser report_ownerable:references{polymorphic} discarded_at:datetime --force
-rails g scaffold ReportTicket report_user:references title content status:integer email phone nation discarded_at:datetime --force
-rails g scaffold ReportFrontend report_user:references content url cookie:json status:integer discarded_at:datetime --force
+rails g scaffold ReportOwner report_ownerable:references{polymorphic} discarded_at:datetime --force
+rails g scaffold ReportTicket report_owner:references title content status:integer email phone nation discarded_at:datetime --force
+rails g scaffold ReportFrontend report_owner:references content url cookie:json status:integer discarded_at:datetime --force
 rails g scaffold ReportCategory name parent_category:references nested_level:integer discarded_at:datetime --force
 rails g scaffold ReportCategoryAppointment report_category:references appoint_to:references{polymorphic} discarded_at:datetime --force
+
+Project
+rails g scaffold ProjectGroup project_ownerable:references{polymorphic} name description status
+rails g scaffold ProjectGroupAppointment project_group:references appoint_to:references{polymorphic}
+rails g scaffold ProjectTask project_group:references name description status
+rails g scaffold ProjectTaskAppointment project_task:references appoint_to:references{polymorphic}
+rails g scaffold ProjectSubtask project_task:references name description status
+rails g scaffold ProjectSubtaskAppointment project_subtask:references appoint_to:references{polymorphic}
+rails g scaffold ProjectCategory project_group:references name description
+rails g scaffold ProjectCategoryAppointment project_category:references appoint_to:references{polymorphic}
