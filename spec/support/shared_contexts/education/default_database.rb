@@ -4,7 +4,7 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
 
   let(:education_owner) { create(:education_owner, education_ownerable: education_owner_user) }
   let(:education_school) { create(:education_school, education_owner:) }
-  let(:education_student) { create(:education_student, education_owner:, education_school: education_school, education_parent:) }
+  let(:education_student) { create(:education_student, education_owner:, education_school: education_school) }
   let(:education_class) { create(:education_class, education_owner:, education_school:, education_course:) }
   let(:education_admin) { create(:education_admin, education_owner:, education_school: education_school) }
   let(:education_teacher) { create(:education_teacher, education_owner:, education_school: education_school) }
@@ -20,11 +20,15 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
   let(:education_exam_to_student) { create(:education_exam_to_student, education_exam:, education_student:, education_exam_to_class:) }
 
   let(:payment_owner) { create(:payment_owner, payment_ownerable: education_owner_user) }
-  let(:payment_customer) { create(:payment_customer, payment_customerable: education_student) }
+  let(:payment_customer) { create(:payment_customer, payment_owner:, payment_customerable: education_student) }
   let(:payment_method) { create(:payment_method) }
   let(:payment_discount) { create(:payment_discount, payment_owner:) }
   let(:payment_item) { create(:payment_item, payment_itemable: education_course, payment_owner:) }
   let(:payment_order) { create(:payment_order, payment_owner:, payment_customer:, payment_method:, payment_discount:) }
+
+  let(:calendar_owner) { create(:calendar_owner, calendar_ownerable: education_owner_user) }
+  let(:calendar_group) { create(:calendar_group, calendar_owner:) }
+  let(:calendar_event) { create(:calendar_event, calendar_owner:, calendar_group:) }
 end
 
 RSpec.configure do |rspec|
