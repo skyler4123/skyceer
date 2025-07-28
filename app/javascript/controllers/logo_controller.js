@@ -1,6 +1,6 @@
-import { Controller } from "@hotwired/stimulus"
+import ApplicationController from "controllers/application_controller"
 
-export default class LogoController extends Controller {
+export default class LogoController extends ApplicationController {
 
   initialize() {
     this.initHTML()
