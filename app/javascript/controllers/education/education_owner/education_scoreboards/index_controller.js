@@ -37,7 +37,7 @@ export default class Education_EducationOwner_EducationScoreboards_IndexControll
   }
 
   choicesControllerForSubjectIdSelect() {
-    return this.application.getControllerForElementAndIdentifier(this.subjectIdSelectTarget, identifier(Education_ChoicesController))
+    return this.application.getControllerForElementAndIdentifier(this.subjectIdSelectTarget, identifier(ChoicesController))
   }
 
   initTable() {
@@ -224,7 +224,7 @@ export default class Education_EducationOwner_EducationScoreboards_IndexControll
                 return { value: subject.id, text: subject.name }
               }),
               dataController: this.selectController.identifier,
-              attributes: ` data-${this.identifier}-target="subjectIdSelect" data-controller="${identifier(Education_ChoicesController)}"`
+              attributes: ` data-${this.identifier}-target="subjectIdSelect" data-controller="${identifier(ChoicesController)}"`
             })}
           </div>
 
