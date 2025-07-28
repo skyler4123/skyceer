@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" data-country-code="<%= country_code %>">
+<html dir="ltr" data-main-package="<%= @package_name %>" data-env="<%= Rails.env %>" data-country-code="<%= country_code %>">
   <head>
     <title>Skyceer</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,13 +11,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <meta name="turbo-prefetch" content="false">
   </head>
   
-  <body>
+  <body data-controller="<%= @package_name %>--flash <%= @package_name %>--modal">
+    <!-- Single stream for all user events -->
+    <% if current_user %>
+      <%= turbo_stream_from current_user %>
+    <% end %>
 
-    <%= yield %>      
+    <main data-controller="<%= stimulus_controller %>">
+      <%= yield %>
+    </main>
+    <%= render(Education::JsonDataComponent.new(json_data: @json_data, pagination: @pagination, flash:)) %>
   </body>
 </html>
