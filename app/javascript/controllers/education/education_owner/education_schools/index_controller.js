@@ -1,4 +1,4 @@
-import { identifier, transferToValue, timeFormat } from "controllers/education/helpers/data_helpers"
+import { identifier, transferToValue, timeFormat } from "controllers/data_helpers"
 
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";

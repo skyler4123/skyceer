@@ -1,4 +1,4 @@
-import { identifier, transferToValue, createForm, createSelectTag, createInputTag, pluck, openModal, getObjectKeys } from "controllers/education/helpers/data_helpers";
+import { identifier, transferToValue, createForm, createSelectTag, createInputTag, pluck, openModal, getObjectKeys } from "controllers/data_helpers";
 import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 
 export default class extends Education_EducationOwner_LayoutController {

@@ -1,4 +1,4 @@
-import { createForm, createInputTag, createSelectTag } from "controllers/education/helpers/data_helpers";
+import { createForm, createInputTag, createSelectTag } from "controllers/data_helpers";
 
 export function EditModalHTML({educationAdmin, selectControllerIdentifier, educationSchools, identifier} = {}) {
   return `

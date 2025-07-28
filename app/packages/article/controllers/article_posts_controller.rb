@@ -1,9 +1,14 @@
 class ArticlePostsController < ArticleController
+  skip_before_action :authenticate, only: %i[ index show ]
   before_action :set_article_post, only: %i[ show edit update destroy ]
 
   # GET /article_posts or /article_posts.json
   def index
     @article_posts = ArticlePost.all
+    @json_data = {
+      article_posts: @article_posts
+    }.to_json
+    # render html: "hahahahahha", layout: true
   end
 
   # GET /article_posts/1 or /article_posts/1.json

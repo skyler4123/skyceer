@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { isDefined, randomID, initializedEvent } from "controllers/education/helpers/data_helpers"
+import { isDefined, randomID, initializedEvent } from "controllers/data_helpers"
 import { Controller } from "@hotwired/stimulus"
 
 export default class ApplicationController extends Controller {
@@ -34,6 +34,7 @@ export default class ApplicationController extends Controller {
     this.initializeHead()
     this.initializeDir()
     if (isDefined(this.initializeOutlets)) { this.initializeOutlets() }
+    if (isDefined(this.initOutlets)) { this.initOutlets() }
     if (isDefined(this.initLayout)) { this.initLayout() }
     if (isDefined(this.contentHTML)) { this.contentTarget.innerHTML = this.contentHTML() }
     if (isDefined(this.init)) { this.init() }

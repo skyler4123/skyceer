@@ -1,7 +1,7 @@
 import ApplicationController from "controllers/application_controller"
-import { openPopover, openModal } from "controllers/education/helpers/data_helpers"
+import { openPopover, openModal } from "controllers/data_helpers"
 
-export default class Education_CsvController extends ApplicationController {
+export default class CsvController extends ApplicationController {
   static targets = ["input"]
   static values = {
     csv: { type: Array, default: [] },

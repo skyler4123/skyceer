@@ -1,4 +1,4 @@
-import { camelCaseToUnderscore } from "controllers/education/helpers/data_helpers";
+import { camelCaseToUnderscore } from "controllers/data_helpers";
 export class BaseApi {
   static get resourceName() {
     return camelCaseToUnderscore(this.name.replace('Api', ''))

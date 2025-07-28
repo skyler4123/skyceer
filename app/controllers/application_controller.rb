@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  layout 'education'
   append_view_path(Dir.glob(Rails.root.join('app/packages/*/views')))
 
   # include ApplicationController::AuthenticationConcern

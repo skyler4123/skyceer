@@ -1,7 +1,7 @@
 import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 import Calendar from '@toast-ui/calendar';
-import { createForm, openModal, openDrawer, identifier, pathname, href } from "controllers/education/helpers/data_helpers";
-import Education_ChoicesController from "controllers/education/choices_controller";
+import { createForm, openModal, openDrawer, identifier, pathname, href } from "controllers/data_helpers";
+import ChoicesController from "controllers/choices_controller";
 import Swal from 'sweetalert2';
 
 

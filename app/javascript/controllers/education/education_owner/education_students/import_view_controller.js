@@ -1,8 +1,8 @@
-import { identifier, transferToValue, readCSVFile, createForm } from "controllers/education/helpers/data_helpers"
+import { identifier, transferToValue, readCSVFile, createForm } from "controllers/data_helpers"
 import {TabulatorFull as Tabulator} from 'tabulator';
 import 'read-excel-file'
 import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
-import Education_CsvController from "controllers/education/csv_controller";
+import CsvController from "controllers/csv_controller";
 
 
 export default class Education_EducationOwner_EducationStudents_ImportViewController extends Education_EducationOwner_LayoutController {
@@ -14,7 +14,7 @@ export default class Education_EducationOwner_EducationStudents_ImportViewContro
   initBinding() {
     // console.log(readXlsxFile)
     super.initBinding()
-    this.csvController = Education_CsvController
+    this.csvController = CsvController
   }
 
   init() {

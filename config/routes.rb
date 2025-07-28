@@ -76,7 +76,7 @@ Rails.application.routes.draw do
   end
 
   # draw for app routes
-  root 'educations#home'
+  root 'article_posts#index'
   draw(:education)
   draw(:article)
 

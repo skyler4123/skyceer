@@ -1,10 +1,11 @@
 import { isSignedIn, educationRole, avatarHTML, openPopover } from "controllers/data_helpers"
-import ApplicationController from "controllers/application_controller"
 import { Cookie } from "controllers/data_helpers"
 import DarkmodeController from "controllers/darkmode_controller"
 import { identifier } from "controllers/data_helpers"
 import LogoController from "controllers/logo_controller"
-export default class Education_HeaderController extends ApplicationController {
+import ApplicationController from "controllers/application_controller";
+
+export default class HeaderController extends ApplicationController {
   static targets = ["profile"]
   
   initialize() {

@@ -1,12 +1,12 @@
 import Education_FooterController from "controllers/education/footer_controller"
 import Education_HeaderController from "controllers/education/header_controller"
-import { identifier } from "controllers/education/helpers/data_helpers"
-import Education_PaginationController from "controllers/education/pagination_controller";
-import Education_ChoicesController from "controllers/education/choices_controller";
-import Education_TableController from "controllers/education/table_controller"
+import { identifier } from "controllers/data_helpers"
+import PaginationController from "controllers/pagination_controller";
+import ChoicesController from "controllers/choices_controller";
+import TableController from "controllers/table_controller"
 import ApplicationController from "controllers/application_controller"
-import Education_FlashController from "controllers/education/flash_controller";
-import Education_ModalController from "controllers/education/modal_controller";
+import FlashController from "controllers/flash_controller";
+import ModalController from "controllers/modal_controller";
 
 export default class Education_LayoutController extends ApplicationController {
   static targets = ['header', 'main', 'aside', 'content', 'footer', 'table']
@@ -15,23 +15,23 @@ export default class Education_LayoutController extends ApplicationController {
     flash: { type: Object, default: {} },
     data: { type: Object, default: {} },
   }
-  static outlets = ['education--flash', 'education--modal']
+  static outlets = ['flash', 'modal']
 
   initializeOutlets() {
-    Education_ModalController
-    this.element.setAttribute(`data-${this.identifier}-${Education_FlashController.identifier}-outlet`, "body")
-    this.element.setAttribute(`data-${this.identifier}-${Education_ModalController.identifier}-outlet`, "body")
+    ModalController
+    this.element.setAttribute(`data-${this.identifier}-${FlashController.identifier}-outlet`, "body")
+    this.element.setAttribute(`data-${this.identifier}-${ModalController.identifier}-outlet`, "body")
   }
 
   initBinding() {
     this.serverHTML = this.element.innerHTML
     this.headerController = Education_HeaderController
     this.footerController = Education_FooterController
-    this.paginationController = Education_PaginationController
+    this.paginationController = PaginationController
     this.paginationData = JsonData.pagination
-    this.selectController = Education_ChoicesController
-    this.choicesController = Education_ChoicesController
-    this.tableController = Education_TableController
+    this.selectController = ChoicesController
+    this.choicesController = ChoicesController
+    this.tableController = TableController
     this.flashValue = JsonData.flash || {}
     this.paginationValue = JsonData.pagination || {}
   }

@@ -8,6 +8,7 @@ class ArticlePost
   # field :user_id, type: String
   field :title, type: String
   field :content, type: Hash
+  field :teaser, type: String
 
   belongs_to :nosql_user
   embeds_many :article_comments
@@ -20,4 +21,7 @@ class ArticlePost
     blocks[:blocks].pluck(:data).pluck(:text).join("")
   end
 
+  def user
+    nosql_user
+  end
 end

@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-export default class Education_LogoController extends Controller {
+export default class LogoController extends Controller {
 
   initialize() {
     this.initHTML()
