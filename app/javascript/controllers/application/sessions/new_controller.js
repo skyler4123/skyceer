@@ -42,7 +42,7 @@ export default class Sessions_NewController extends ApplicationController {
                   })}
                 </div>
                 <div class="mt-4 flex justify-center text-lg text-black cursor-pointer">
-                  <button type="submit" class="rounded-3xl bg-gray-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-gray-600">Login</button>
+                  <input type="submit" class="rounded-3xl bg-gray-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-gray-600" value="Login">
                 </div>
                 <div class="mt-4 flex justify-center text-lg text-black">
                   <a href="/sign_up" class="text-gray-300 hover:underline">Don't have an account? Sign up</a>

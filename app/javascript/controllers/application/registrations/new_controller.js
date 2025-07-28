@@ -53,14 +53,14 @@ export default class Registrations_NewController extends ApplicationController {
                 <div class="mb-4 text-lg">
                   ${createInputTag({
                     className: "rounded-3xl border-none bg-gray-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md",
-                    name: "confirm_password",
+                    name: "password_confirmation",
                     type: "password",
                     placeholder: "*********",
                     required: true,
                   })}
                 </div>
                 <div class="mt-4 flex justify-center text-lg text-black">
-                  <button type="submit" class="rounded-3xl bg-gray-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-gray-600">Sign Up</button>
+                  <input type="submit" class="rounded-3xl bg-gray-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-gray-600" value="Sign Up">
                 </div>
                 <div class="mt-4 flex justify-center text-lg text-black">
                   <a href="/sign_in" class="text-gray-300 hover:underline">Already have an account? Sign in</a>
