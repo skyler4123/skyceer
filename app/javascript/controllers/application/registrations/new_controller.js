@@ -2,8 +2,8 @@ import { createForm, createInputTag } from "controllers/data_helpers";
 import LogoController from "controllers/logo_controller";
 import ApplicationController from "controllers/application_controller";
 
-export default class Sessions_NewController extends ApplicationController {
-  
+export default class Registrations_NewController extends ApplicationController {
+
   init()  {
     this.initHTML();
   }
@@ -19,10 +19,19 @@ export default class Sessions_NewController extends ApplicationController {
               <span class="text-gray-300">Enter Login Details</span>
             </div>
             ${createForm({
-              action: "/sign_in",
+              action: "/sign_up",
               method: "post",
               className: "flex flex-col gap-4",
               html: `
+                <div class="mb-4 text-lg">
+                  ${createInputTag({
+                    className: "rounded-3xl border-none bg-gray-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md",
+                    name: "name",
+                    type: "text",
+                    placeholder: "Your Name",
+                    required: true,
+                  })}
+                </div>
                 <div class="mb-4 text-lg">
                   ${createInputTag({
                     className: "rounded-3xl border-none bg-gray-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md",
@@ -41,11 +50,20 @@ export default class Sessions_NewController extends ApplicationController {
                     required: true,
                   })}
                 </div>
-                <div class="mt-4 flex justify-center text-lg text-black cursor-pointer">
-                  <button type="submit" class="rounded-3xl bg-gray-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-gray-600">Login</button>
+                <div class="mb-4 text-lg">
+                  ${createInputTag({
+                    className: "rounded-3xl border-none bg-gray-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md",
+                    name: "confirm_password",
+                    type: "password",
+                    placeholder: "*********",
+                    required: true,
+                  })}
                 </div>
                 <div class="mt-4 flex justify-center text-lg text-black">
-                  <a href="/sign_up" class="text-gray-300 hover:underline">Don't have an account? Sign up</a>
+                  <button type="submit" class="rounded-3xl bg-gray-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-gray-600">Sign Up</button>
+                </div>
+                <div class="mt-4 flex justify-center text-lg text-black">
+                  <a href="/sign_in" class="text-gray-300 hover:underline">Already have an account? Sign in</a>
                 </div>
               `
             })}
