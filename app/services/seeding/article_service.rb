@@ -42,6 +42,135 @@ class Seeding::ArticleService
               }
             },
             {
+              type: "list",
+              data: {
+                style: "unordered",
+                items: [
+                  {
+                    content: "Apples",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                ]
+              }
+            },
+            {
+              type: "list",
+              data: {
+                style: "ordered",
+                meta: {
+                  start: 2,
+                  counterType: "upper-roman",
+                },
+                items: [
+                  {
+                    content: "Apples",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                ]
+              }
+            },
+            {
+              type: "list",
+              data: {
+                style: "checklist",
+                items: [
+                  {
+                    content: "Apples",
+                    meta: {
+                      checked: false
+                    },
+                    items: [
+                      {
+                        content: "Red",
+                        meta: {
+                          checked: true
+                        },
+                        items: []
+                      },
+                    ]
+                  },
+                ]
+              }
+            },
+            {
+              type: "checklist",
+              data: {
+                items: [
+                  {
+                    text: "This is a block-styled editor",
+                    checked: true
+                  },
+                  {
+                    text: "Clean output data",
+                    checked: false
+                  },
+                  {
+                    text: "Simple and powerful API",
+                    checked: true
+                  }
+                ]
+              }
+            },
+            {
+              type: "delimiter",
+              data: {}
+            },
+            {
+              type: "table",
+              data: {
+                withHeadings: true,
+                stretched: false,
+                content: [ [ "Kine", "Pigs", "Chicken" ], [ "1 pcs", "3 pcs", "12 pcs" ], [ "100$", "200$", "150$" ] ]
+              }
+            },
+            {
+              type: "warning",
+              data: {
+                title: "Note:",
+                message: "Avoid using this method just for lulz. It can be very dangerous opposite your daily fun stuff."
+              }
+            },
+            {
+              type: "code",
+              data: {
+                  code: "body {\n font-size: 14px;\n line-height: 16px;\n}",
+              }
+            },
+            {
+              type: "text",
+              data: {
+                text: "Create a directory for your module, enter it and run <mark class=\"cdx-marker\">npm init</mark> command."
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: Faker::Lorem.paragraph(sentence_count: 30)
+              }
+            },
+            {
+              type: "quote",
+              data: {
+                text: Faker::Movie.quote,
+                caption: "#{Faker::Name.name}, #{Faker::Company.name}",
+                alignment: "left"
+              }
+            },
+            {
               type: "image",
               data: {
                 caption: Faker::Movie.title,

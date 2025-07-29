@@ -22,6 +22,10 @@ class ArticlePost
     blocks[:blocks].pluck(:data).pluck(:text).join("")
   end
 
+  def content_as_html
+    EditorjsToHtmlService.convert(content)
+  end
+
   def user
     nosql_user
   end
