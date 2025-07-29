@@ -62,8 +62,8 @@ class EditorjsToHtmlService
     text = data["text"] || ""
     level = data["level"] || 2
     level = [1, 2, 3, 4, 5, 6].include?(level) ? level : 2
-    
-    "<h#{level}>#{sanitize_html(text)}</h#{level}>"
+    # add tailwindcss class for header
+    "<h#{level} class=\"text-#{level == 1 ? '3xl' : level == 2 ? '2xl' : 'xl'} font-bold mb-4\">#{sanitize_html(text)}</h#{level}>"
   end
 
   def self.convert_list(data)
@@ -98,8 +98,8 @@ class EditorjsToHtmlService
         "<li>#{sanitize_html(item)}</li>"
       end
     end
-    
-    "<ol#{start_attr}#{style_attr}>#{list_items.join}</ol>"
+
+    "<ol#{start_attr}#{style_attr} class=\"pl-4 max-w-md space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400\">#{list_items.join}</ol>"
   end
 
   def self.convert_unordered_list(items)
@@ -115,8 +115,8 @@ class EditorjsToHtmlService
         "<li>#{sanitize_html(item)}</li>"
       end
     end
-    
-    "<ul>#{list_items.join}</ul>"
+
+    "<ul class=\"pl-4 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400\">#{list_items.join}</ul>"
   end
 
   def self.convert_nested_list_items(items)
@@ -128,7 +128,7 @@ class EditorjsToHtmlService
       content += "</li>"
     end
     
-    "<ul>#{nested_items.join}</ul>"
+    "<ul class=\"pl-4 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400\">#{nested_items.join}</ul>"
   end
 
   def self.convert_checklist(data)
@@ -163,8 +163,8 @@ class EditorjsToHtmlService
         "<li><input type=\"checkbox\" disabled> #{sanitize_html(item)}</li>"
       end
     end
-    
-    "<ul class=\"checklist\">#{list_items.join}</ul>"
+
+    "<ul class=\"checklist pl-4 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400\">#{list_items.join}</ul>"
   end
 
   def self.convert_delimiter(data)
@@ -178,17 +178,16 @@ class EditorjsToHtmlService
     with_headings = data["withHeadings"] || false
     stretched = data["stretched"] || false
     
-    table_class = stretched ? " class=\"table-stretched\"" : ""
-    
-    html = "<table#{table_class}>"
-    
+    table_class = stretched ? "table-stretched" : ""
+    html = "<table class=\"#{table_class} w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400\">"
+
     content.each_with_index do |row, index|
       if with_headings && index == 0
-        cells = row.map { |cell| "<th>#{sanitize_html(cell)}</th>" }.join
-        html += "<thead><tr>#{cells}</tr></thead><tbody>"
+        cells = row.map { |cell| "<th class=\"px-6 py-3\">#{sanitize_html(cell)}</th>" }.join
+        html += "<thead class=\"text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400\"><tr>#{cells}</tr></thead><tbody>"
       else
-        cells = row.map { |cell| "<td>#{sanitize_html(cell)}</td>" }.join
-        html += "<tr>#{cells}</tr>"
+        cells = row.map { |cell| "<td class=\"px-6 py-4\">#{sanitize_html(cell)}</td>" }.join
+        html += "<tr class=\"bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600\">#{cells}</tr>"
       end
     end
     
@@ -199,8 +198,31 @@ class EditorjsToHtmlService
   def self.convert_warning(data)
     title = data["title"] || "Warning"
     message = data["message"] || ""
+    "
+      <div class=\"warning-block flex gap-x-2 p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-yellow-800 dark:text-yellow-400\" role=\"alert\">
+        <svg class=\"shrink-0 inline w-4 h-4 me-3 mt-[2px]\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 20 20\">
+          <path d=\"M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z\"/>
+        </svg>
+        <div>
+          <span class=\"font-medium\">#{sanitize_html(title)}</span>
+          <div class=\"mt-1\">#{sanitize_html(message)}</div>
+        </div>
+      </div>
+    "
+  end
+
+  def self.convert_code(data)
+    code = data["code"] || ""
+    language = data["language"] || ""
     
-    "<div class=\"warning-block\"><strong>#{sanitize_html(title)}</strong><p>#{sanitize_html(message)}</p></div>"
+    language_class = language.present? ? " class=\"language-#{language}\"" : ""
+    "<pre><code#{language_class}>#{escape_html(code)}</code></pre>"
+    "
+      <div class=\"code-block bg-gray-100 dark:bg-gray-800 rounded-lg p-4 mb-4\">
+        <pre><code#{language_class}>#{escape_html(code)}</code></pre>
+        </div>
+      </div>
+    "
   end
 
   def self.convert_code(data)
@@ -244,7 +266,7 @@ class EditorjsToHtmlService
     css_classes << "image-stretched" if stretched
     css_classes << "image-with-background" if with_background
     css_classes << "image-with-border" if with_border
-    
+    css_classes << "flex flex-col justify-center items-center"
     class_attr = css_classes.any? ? " class=\"#{css_classes.join(' ')}\"" : ""
     
     html = "<figure#{class_attr}>"

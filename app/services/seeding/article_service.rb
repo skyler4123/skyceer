@@ -61,6 +61,10 @@ class Seeding::ArticleService
               }
             },
             {
+              type: "delimiter",
+              data: {}
+            },
+            {
               type: "list",
               data: {
                 style: "ordered",
@@ -80,8 +84,34 @@ class Seeding::ArticleService
                       },
                     ]
                   },
+                  {
+                    content: "Apples 2",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red 2",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                  {
+                    content: "Apples 3",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red 3",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
                 ]
               }
+            },
+            {
+              type: "delimiter",
+              data: {}
             },
             {
               type: "list",
@@ -105,6 +135,10 @@ class Seeding::ArticleService
                   },
                 ]
               }
+            },
+            {
+              type: "delimiter",
+              data: {}
             },
             {
               type: "checklist",
@@ -151,10 +185,18 @@ class Seeding::ArticleService
               }
             },
             {
+              type: "delimiter",
+              data: {}
+            },
+            {
               type: "text",
               data: {
                 text: "Create a directory for your module, enter it and run <mark class=\"cdx-marker\">npm init</mark> command."
               }
+            },
+            {
+              type: "delimiter",
+              data: {}
             },
             {
               type: "paragraph",
