@@ -6,7 +6,7 @@ class Seeding::ArticleService
           nosql_user: nosql_user,
           title: Faker::Movie.title,
           teaser: Faker::Movie.quote,
-          categories: Faker::Book.genre,
+          categories: [Faker::Book.genre],
           content: {
             blocks: [
               {
@@ -31,7 +31,7 @@ class Seeding::ArticleService
             {
               type: "paragraph",
               data: {
-                text: Faker::Movie.quote
+                text: Faker::Lorem.paragraph(sentence_count: 30)
               }
             },
             {
@@ -54,7 +54,7 @@ class Seeding::ArticleService
             {
               type: "paragraph",
               data: {
-                text: Faker::Movie.quote
+                text: Faker::Lorem.paragraph(sentence_count: 30)
               }
             },
             {
@@ -65,6 +65,12 @@ class Seeding::ArticleService
                 stretched: false,
                 withBackground: false,
                 withBorder: false,
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: Faker::Lorem.paragraph(sentence_count: 30)
               }
             },
           ],
