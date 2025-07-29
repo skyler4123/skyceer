@@ -69,6 +69,55 @@ class Seeding::ArticleService
               data: {
                 style: "ordered",
                 meta: {
+                  start: 1,
+                  counterType: "upper-roman",
+                },
+                items: [
+                  {
+                    content: "Apples",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                  {
+                    content: "Apples 2",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red 2",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                  {
+                    content: "Apples 3",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red 3",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                ]
+              }
+            },
+            {
+              type: "delimiter",
+              data: {}
+            },
+            {
+              type: "list",
+              data: {
+                style: "ordered",
+                meta: {
                   start: 2,
                   counterType: "upper-roman",
                 },

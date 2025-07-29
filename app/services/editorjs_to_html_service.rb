@@ -155,7 +155,7 @@ class EditorjsToHtmlService
             nested_checked_attr = nested_checked ? " checked" : ""
             "<li><input type=\"checkbox\"#{nested_checked_attr} disabled> #{sanitize_html(nested_text)}</li>"
           end
-          content += "<ul>#{nested_items.join}</ul>"
+          content += "<ul class=\"list-none pl-4 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400\">#{nested_items.join}</ul>"
         end
         
         content += "</li>"
@@ -164,7 +164,7 @@ class EditorjsToHtmlService
       end
     end
 
-    "<ul class=\"checklist pl-4 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400\">#{list_items.join}</ul>"
+    "<ul class=\"checklist list-none pl-4 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400\">#{list_items.join}</ul>"
   end
 
   def self.convert_delimiter(data)
