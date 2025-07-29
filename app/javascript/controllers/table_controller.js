@@ -2,10 +2,10 @@ import Swal from 'sweetalert2'
 import {TabulatorFull as Tabulator} from 'tabulator';
 
 import ApplicationController from "controllers/application_controller"
-import { isEmpty } from "controllers/education/helpers/data_helpers";
+import { isEmpty } from "controllers/data_helpers";
 
 
-export default class Education_TableController extends ApplicationController {
+export default class TableController extends ApplicationController {
   static values = {
     data: { type: Object, default: {} }
   }

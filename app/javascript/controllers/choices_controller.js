@@ -1,9 +1,9 @@
 import "choices"
-import { initializedEvent } from "controllers/education/helpers/data_helpers"
+import { initializedEvent } from "controllers/data_helpers"
 import ApplicationController from "controllers/application_controller"
 
 
-export default class Education_ChoicesController extends ApplicationController {
+export default class ChoicesController extends ApplicationController {
   static values = {
     options: { type: Object, default: {
       removeItemButton: true,

@@ -2,7 +2,22 @@ class Seeding::ArticleService
   def self.run
     NosqlUser.all.each_with_index do |nosql_user, user_index|
       1.times do |n|
-        article_post = ArticlePost.create!(nosql_user: nosql_user, title: Faker::Movie.title)
+        article_post = ArticlePost.create!(
+          nosql_user: nosql_user,
+          title: Faker::Movie.title,
+          teaser: Faker::Movie.quote,
+          categories: [Faker::Book.genre],
+          content: {
+            blocks: [
+              {
+                type: "paragraph",
+                data: {
+                  text: Faker::Movie.quote
+                }
+              },
+            ]
+          }
+        )
         image_attachments = Seeding::AttachmentService.attach(record: nosql_user.user, relation: :image_attachments, number: 2)
         content = {
           blocks: [
@@ -16,7 +31,7 @@ class Seeding::ArticleService
             {
               type: "paragraph",
               data: {
-                text: Faker::Movie.quote
+                text: Faker::Lorem.paragraph(sentence_count: 30)
               }
             },
             {
@@ -24,6 +39,226 @@ class Seeding::ArticleService
               data: {
                 style: "unordered",
                 items: [Faker::Movie.quote, Faker::Movie.quote, Faker::Movie.quote]
+              }
+            },
+            {
+              type: "list",
+              data: {
+                style: "unordered",
+                items: [
+                  {
+                    content: "Apples",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                ]
+              }
+            },
+            {
+              type: "delimiter",
+              data: {}
+            },
+            {
+              type: "list",
+              data: {
+                style: "ordered",
+                meta: {
+                  start: 1,
+                  counterType: "upper-roman",
+                },
+                items: [
+                  {
+                    content: "Apples",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                  {
+                    content: "Apples 2",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red 2",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                  {
+                    content: "Apples 3",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red 3",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                ]
+              }
+            },
+            {
+              type: "delimiter",
+              data: {}
+            },
+            {
+              type: "list",
+              data: {
+                style: "ordered",
+                meta: {
+                  start: 2,
+                  counterType: "upper-roman",
+                },
+                items: [
+                  {
+                    content: "Apples",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                  {
+                    content: "Apples 2",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red 2",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                  {
+                    content: "Apples 3",
+                    meta: {},
+                    items: [
+                      {
+                        content: "Red 3",
+                        meta: {},
+                        items: []
+                      },
+                    ]
+                  },
+                ]
+              }
+            },
+            {
+              type: "delimiter",
+              data: {}
+            },
+            {
+              type: "list",
+              data: {
+                style: "checklist",
+                items: [
+                  {
+                    content: "Apples",
+                    meta: {
+                      checked: false
+                    },
+                    items: [
+                      {
+                        content: "Red",
+                        meta: {
+                          checked: true
+                        },
+                        items: []
+                      },
+                    ]
+                  },
+                ]
+              }
+            },
+            {
+              type: "delimiter",
+              data: {}
+            },
+            {
+              type: "checklist",
+              data: {
+                items: [
+                  {
+                    text: "This is a block-styled editor",
+                    checked: true
+                  },
+                  {
+                    text: "Clean output data",
+                    checked: false
+                  },
+                  {
+                    text: "Simple and powerful API",
+                    checked: true
+                  }
+                ]
+              }
+            },
+            {
+              type: "delimiter",
+              data: {}
+            },
+            {
+              type: "table",
+              data: {
+                withHeadings: true,
+                stretched: false,
+                content: [ [ "Kine", "Pigs", "Chicken" ], [ "1 pcs", "3 pcs", "12 pcs" ], [ "100$", "200$", "150$" ] ]
+              }
+            },
+            {
+              type: "warning",
+              data: {
+                title: "Note:",
+                message: "Avoid using this method just for lulz. It can be very dangerous opposite your daily fun stuff."
+              }
+            },
+            {
+              type: "code",
+              data: {
+                  code: "body {\n font-size: 14px;\n line-height: 16px;\n}",
+              }
+            },
+            {
+              type: "delimiter",
+              data: {}
+            },
+            {
+              type: "text",
+              data: {
+                text: "Create a directory for your module, enter it and run <mark class=\"cdx-marker\">npm init</mark> command."
+              }
+            },
+            {
+              type: "delimiter",
+              data: {}
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: Faker::Lorem.paragraph(sentence_count: 30)
+              }
+            },
+            {
+              type: "quote",
+              data: {
+                text: Faker::Movie.quote,
+                caption: "#{Faker::Name.name}, #{Faker::Company.name}",
+                alignment: "left"
               }
             },
             {
@@ -39,7 +274,7 @@ class Seeding::ArticleService
             {
               type: "paragraph",
               data: {
-                text: Faker::Movie.quote
+                text: Faker::Lorem.paragraph(sentence_count: 30)
               }
             },
             {
@@ -50,6 +285,12 @@ class Seeding::ArticleService
                 stretched: false,
                 withBackground: false,
                 withBorder: false,
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: Faker::Lorem.paragraph(sentence_count: 30)
               }
             },
           ],

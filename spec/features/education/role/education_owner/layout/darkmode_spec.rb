@@ -12,12 +12,12 @@ RSpec.feature "Darkmode", type: :feature do
 
     it "have School text in page" do
       visit root_path
-      # click on element that have attribute [data-controller='education--darkmode']
-      find("[data-controller='education--darkmode']").click
+      # click on element that have attribute [data-controller='darkmode']
+      find("[data-controller='darkmode']").click
       # expect html tag have class dark
       expect(page).to have_css("html.dark")
-      # click on element that have attribute [data-controller='education--darkmode']
-      find("[data-controller='education--darkmode']").click
+      # click on element that have attribute [data-controller='darkmode']
+      find("[data-controller='darkmode']").click
       # expect html tag not have class dark
       expect(page).not_to have_css("html.dark")
     end

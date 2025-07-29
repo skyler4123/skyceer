@@ -1,4 +1,4 @@
-import { createForm, createSelectTag, pluck, unique, params } from "controllers/education/helpers/data_helpers";
+import { createForm, createSelectTag, pluck, unique, params } from "controllers/data_helpers";
 import { EducationAdminsApi } from "controllers/education/api/education_admins_api";
 import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 import { EditModalHTML } from "controllers/education/education_owner/education_admins/edit_modal_html";

@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
   end
 
   def new
+    render html: "", layout: true
   end
 
   def create

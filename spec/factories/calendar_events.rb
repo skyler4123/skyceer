@@ -5,7 +5,7 @@ FactoryBot.define do
     association :calendar_group
     
     uid { SecureRandom.uuid }
-    library { rand(0..2) }
+    library { 0 }
     title { Faker::Lorem.sentence(word_count: 3) }
     body { Faker::Lorem.paragraph }
     isAllday { false }
@@ -15,10 +15,10 @@ FactoryBot.define do
     comingDuration { rand(15..60) }
     location { Faker::Address.full_address }
     attendees { [Faker::Internet.email, Faker::Internet.email].to_json }
-    category { rand(0..5) }
+    # category { rand(0..5) }
     dueDateClass { %w[overdue today tomorrow this-week next-week].sample }
     recurrenceRule { nil }
-    state { rand(0..3) }
+    # state { rand(0..3) }
     isVisible { true }
     isPending { false }
     isFocused { false }

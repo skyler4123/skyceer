@@ -1,9 +1,9 @@
 import Swal from 'sweetalert2'
 
-import { isEmpty } from "controllers/education/helpers/data_helpers";
+import { isEmpty } from "controllers/data_helpers";
 import ApplicationController from "controllers/application_controller";
 
-export default class Education_ModalController extends ApplicationController {
+export default class ModalController extends ApplicationController {
   static values = {
     options: { type: Object, default: {} }, // Ex: { notice: "Hello World", error: "Something went wrong" }
   }

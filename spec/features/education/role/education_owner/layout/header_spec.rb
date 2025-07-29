@@ -14,8 +14,8 @@ RSpec.feature "Home", type: :feature do
       visit root_path
       expect(page).to have_content("Home")
       expect(page).to have_content("My Education")
-      expect(page).to have_selector("[data-controller='education--logo']")
-      expect(page).to have_selector("[data-controller='education--darkmode']")
+      expect(page).to have_selector("[data-controller='logo']")
+      expect(page).to have_selector("[data-controller='darkmode']")
       expect(page).to have_selector("[role='profile']")
     end
   end

@@ -1,4 +1,4 @@
-import { identifier } from "controllers/education/helpers/data_helpers"
+import { identifier } from "controllers/data_helpers"
 import Education_LayoutController from "controllers/education/layout_controller"
 import Education_EducationAdmin_AsideController from "controllers/education/education_admin/aside_controller"
 

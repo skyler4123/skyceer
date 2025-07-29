@@ -1,8 +1,8 @@
-import { isEmpty } from "controllers/education/helpers/data_helpers"
+import { isEmpty } from "controllers/data_helpers"
 import ApplicationController from "controllers/application_controller"
 
 
-export default class Education_PaginationController extends ApplicationController {
+export default class PaginationController extends ApplicationController {
   static targets = ["page", "currentPage"]
   static values = {
     pagination: { type: Object, default: {} },

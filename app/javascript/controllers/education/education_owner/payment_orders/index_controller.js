@@ -1,7 +1,7 @@
 import {TabulatorFull as Tabulator} from 'tabulator';
 import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 
-import { identifier, transferToValue } from "controllers/education/helpers/data_helpers"
+import { identifier, transferToValue } from "controllers/data_helpers"
 
 export default class Education_EducationOwner_PaymentOrders_IndexController extends Education_EducationOwner_LayoutController {
   

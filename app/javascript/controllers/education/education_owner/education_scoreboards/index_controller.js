@@ -1,7 +1,7 @@
-import { identifier, isEmpty, transferToValue, createSelectTag, params, openModal, createForm, createInputTag, sortByField } from "controllers/education/helpers/data_helpers"
+import { identifier, isEmpty, transferToValue, createSelectTag, params, openModal, createForm, createInputTag, sortByField } from "controllers/data_helpers"
 import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 import {TabulatorFull as Tabulator} from 'tabulator';
-import Education_ChoicesController from "controllers/education/choices_controller";
+import ChoicesController from "controllers/choices_controller";
 
 
 export default class Education_EducationOwner_EducationScoreboards_IndexController extends Education_EducationOwner_LayoutController {
@@ -37,7 +37,7 @@ export default class Education_EducationOwner_EducationScoreboards_IndexControll
   }
 
   choicesControllerForSubjectIdSelect() {
-    return this.application.getControllerForElementAndIdentifier(this.subjectIdSelectTarget, identifier(Education_ChoicesController))
+    return this.application.getControllerForElementAndIdentifier(this.subjectIdSelectTarget, identifier(ChoicesController))
   }
 
   initTable() {
@@ -224,7 +224,7 @@ export default class Education_EducationOwner_EducationScoreboards_IndexControll
                 return { value: subject.id, text: subject.name }
               }),
               dataController: this.selectController.identifier,
-              attributes: ` data-${this.identifier}-target="subjectIdSelect" data-controller="${identifier(Education_ChoicesController)}"`
+              attributes: ` data-${this.identifier}-target="subjectIdSelect" data-controller="${identifier(ChoicesController)}"`
             })}
           </div>
 

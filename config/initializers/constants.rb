@@ -2,7 +2,7 @@ def TrueOrFalse(value_need_to_check)
   ActiveModel::Type::Boolean.new.cast(value_need_to_check)
 end
 
-APP_NAME = "education"
+# APP_NAME = "education"
 APP_VERSION = "0.0.1"
 UNAUTHORIZE_MESSAGE = "You are not authorized to perform this action!"
 SIGN_IN_SUCCESS_MESSAGE = "Signed in successfully"

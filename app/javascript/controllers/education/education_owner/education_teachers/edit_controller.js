@@ -1,4 +1,4 @@
-import { pluck, createForm, createSelectTag, createInputTag, createSubmitTag } from "controllers/education/helpers/data_helpers"
+import { pluck, createForm, createSelectTag, createInputTag, createSubmitTag } from "controllers/data_helpers"
 import Education_EducationOwner_LayoutController from "controllers/education/education_owner/layout_controller";
 
 export default class extends Education_EducationOwner_LayoutController {

@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-export default class Education_DarkmodeController extends Controller {
+export default class DarkmodeController extends Controller {
   static values = {
     darkmode: { type: Boolean, default: false },
   }

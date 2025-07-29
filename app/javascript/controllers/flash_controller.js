@@ -1,10 +1,10 @@
 import Swal from 'sweetalert2'
 
-import { isEmpty } from "controllers/education/helpers/data_helpers";
+import { isEmpty } from "controllers/data_helpers";
 import ApplicationController from "controllers/application_controller";
 
 
-export default class Education_FlashController extends ApplicationController {
+export default class FlashController extends ApplicationController {
   static values = {
     messages: { type: Object, default: {} }, // Ex: { notice: "Hello World", error: "Something went wrong" }
   }

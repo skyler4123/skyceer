@@ -12,7 +12,7 @@ RSpec.feature "Home", type: :feature do
 
     it "have School text in page" do
       visit root_path
-      # expect(page).to have_selector("[data-controller='education--darkmode']")
+      # expect(page).to have_selector("[data-controller='darkmode']")
       # click on element that have attribute [role='profile']
       find("[role='profile']").click
       # expect see user.name
