@@ -2,7 +2,22 @@ class Seeding::ArticleService
   def self.run
     NosqlUser.all.each_with_index do |nosql_user, user_index|
       1.times do |n|
-        article_post = ArticlePost.create!(nosql_user: nosql_user, title: Faker::Movie.title, teaser: Faker::Movie.quote)
+        article_post = ArticlePost.create!(
+          nosql_user: nosql_user,
+          title: Faker::Movie.title,
+          teaser: Faker::Movie.quote,
+          categories: Faker::Book.genre,
+          content: {
+            blocks: [
+              {
+                type: "paragraph",
+                data: {
+                  text: Faker::Movie.quote
+                }
+              },
+            ]
+          }
+        )
         image_attachments = Seeding::AttachmentService.attach(record: nosql_user.user, relation: :image_attachments, number: 2)
         content = {
           blocks: [
