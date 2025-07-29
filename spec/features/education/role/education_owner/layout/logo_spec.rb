@@ -12,8 +12,8 @@ RSpec.feature "Home", type: :feature do
 
     it "have School text in page" do
       visit root_path
-      # click on element that have attribute [data-controller='education--logo']
-      find("[data-controller='education--logo']").click
+      # click on element that have attribute [data-controller='logo']
+      find("[data-controller='logo']").click
       # expect redirect to root_path
       expect(page).to have_current_path(root_path)
       # click on role=product-name
