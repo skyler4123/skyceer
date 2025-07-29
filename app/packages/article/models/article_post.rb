@@ -9,12 +9,10 @@ class ArticlePost
   field :title, type: String
   field :content, type: Hash
   field :teaser, type: String
+  field :categories, type: Array, default: []
 
   belongs_to :nosql_user
   embeds_many :article_comments
-
-  index({ chat_user_ids: '2d' }, { unique: true })
-  index({ package: 1 }, { unique: false })
 
   def raw_content
     blocks = self.content.with_indifferent_access
