@@ -14,6 +14,9 @@ class ArticlePost
   belongs_to :nosql_user
   embeds_many :article_comments
 
+  validates :title, presence: true
+  validates :content, presence: true
+
   def raw_content
     blocks = self.content.with_indifferent_access
     blocks[:blocks].pluck(:data).pluck(:text).join("")
