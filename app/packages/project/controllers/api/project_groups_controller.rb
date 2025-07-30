@@ -4,10 +4,12 @@ class Api::ProjectGroupsController < Api::ApplicationController
   # GET /project_groups or /project_groups.json
   def index
     @project_groups = ProjectGroup.all
+    render json: @project_groups, status: :ok
   end
 
   # GET /project_groups/1 or /project_groups/1.json
   def show
+    render json: @project_group, status: :ok
   end
 
   # GET /project_groups/new
