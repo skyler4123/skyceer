@@ -34,6 +34,7 @@ module ApplicationRecord::CacheConcern
       Rails.cache.exist?(cache_key)
     end
 
+    # Fetch from cache or database
     def self.fetch_from_cache(id)
       Rails.cache.fetch("#{name.downcase}_#{id}") do
         find(id)
