@@ -8,7 +8,11 @@ module ApplicationRecord::CacheConcern
     end
 
     # Cache the record with a default expiration
-    def cache!(expires_in: default_cache_expiration)
+    def cache!(expires_in: nil)
+      return if self.try(:expired?) # Skip caching if the record is expired
+
+      expires_in ||= self.expires_in if respond_to?(:expires_in)
+      expires_in ||= default_cache_expiration
       Rails.cache.write(cache_key, self, expires_in: expires_in)
     end
 
@@ -38,9 +42,7 @@ module ApplicationRecord::CacheConcern
 
     # Fetch from cache or database
     def self.fetch_from_cache(id)
-      Rails.cache.fetch("#{name.downcase}_#{id}") do
-        find(id)
-      end
+      Rails.cache.fetch("#{name.downcase}_#{id}")
     end
   end
 end
