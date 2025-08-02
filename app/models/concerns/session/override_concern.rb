@@ -8,8 +8,8 @@ module Session::OverrideConcern
       raise UnknownPrimaryKey.new(self) if primary_key.nil?
 
       if id = signed_id_verifier.verified(signed_id, purpose: combine_signed_id_purposes(purpose))
-        # fetch_from_cache(id) || find_by(primary_key => id)
-        find_by(primary_key => id)
+        fetch_from_cache(id) || find_by(primary_key => id)
+        # find_by(primary_key => id)
       end
     end
   end

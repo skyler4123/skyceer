@@ -17,7 +17,7 @@ DELETED_SUCCESS_MESSAGE = "Data Deleted Successfully!"
 NOT_FOUND_MESSAGE = "Data Not Found!"
 NOT_AUTHORIZED_MESSAGE = "You are not authorized to perform this action!"
 
-API_TOKEN_EXPIRED_IN_SECONDS = 5.seconds # 5 seconds
+API_TOKEN_EXPIRED_IN_SECONDS = (5 * 60).seconds
 API_TOKEN_EXPIRED_MESSAGE = "Your session has expired, please sign in again"
 API_TOKEN_INVALID_MESSAGE = "Invalid session token, please sign in again"
 API_TOKEN_MISSING_MESSAGE = "Session token is missing, please sign in"
