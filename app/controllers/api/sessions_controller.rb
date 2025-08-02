@@ -13,7 +13,7 @@ class Api::SessionsController < Api::ApplicationController
 
   def create
     if user = User.authenticate_by(email: params[:email], password: params[:password])
-      @session = user.sessions.create!(expires_at: 10.seconds.from_now)
+      @session = user.sessions.create!(expires_at: 10.minutes.from_now)
       @session.cache! # Cache the session record
       response.set_header "X-Session-Token", @session.signed_id(expires_in: @session.expires_in)
       render json: @session, status: :created
