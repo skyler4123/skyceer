@@ -2,10 +2,12 @@ module ApplicationRecord::CacheConcern
   extend ActiveSupport::Concern
 
   included do
+    # Define a cache key for the record
     def cache_key
       "#{self.class.name.downcase}_#{id}"
     end
 
+    # Cache the record with a default expiration
     def cache!(expires_in: default_cache_expiration)
       Rails.cache.write(cache_key, self, expires_in: expires_in)
     end
