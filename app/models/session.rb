@@ -8,4 +8,13 @@ class Session < ApplicationRecord
 
   after_create  { user.events.create! action: "signed_in" }
   after_destroy { user.events.create! action: "signed_out" }
+  include Session::OverrideConcern
+
+  def expires_in
+    expires_at - Time.current
+  end
+
+  def expired?
+    expires_in <= 0
+  end
 end
