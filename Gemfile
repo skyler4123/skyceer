@@ -137,3 +137,7 @@ gem 'silencer', require: false
 gem 'country_select'
 gem "pundit"
 gem 'discard'
+
+gem "opentelemetry-sdk"
+gem "opentelemetry-exporter-otlp"
+gem "opentelemetry-instrumentation-all"
