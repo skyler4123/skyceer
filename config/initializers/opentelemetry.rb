@@ -4,8 +4,8 @@ require 'opentelemetry/exporter/otlp'
 require 'opentelemetry/instrumentation/all'
 
 OpenTelemetry::SDK.configure do |c|
-  c.service_name = 'skyceer-ruby111'
-  
+  c.service_name = "skyceer-#{Rails.env}"
+
   c.add_span_processor(
     OpenTelemetry::SDK::Trace::Export::BatchSpanProcessor.new(
       OpenTelemetry::Exporter::OTLP::Exporter.new(
