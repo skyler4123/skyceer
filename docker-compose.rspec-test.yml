@@ -17,3 +17,5 @@ services:
     volumes: !reset null
 
   opensearch_dashboards: !reset null
+
+  grafana/otel-lgtm: !reset null
