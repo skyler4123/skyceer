@@ -9,7 +9,7 @@ OpenTelemetry::SDK.configure do |c|
   c.add_span_processor(
     OpenTelemetry::SDK::Trace::Export::BatchSpanProcessor.new(
       OpenTelemetry::Exporter::OTLP::Exporter.new(
-        endpoint: 'http://localhost:4318/v1/traces',
+        endpoint: 'http://monitor:4318/v1/traces',
         timeout: 30
       ),
       # Prevent rapid-fire exports that cause recursion
