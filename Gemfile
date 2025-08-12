@@ -110,9 +110,7 @@ gem "faker"
 gem "jwt"
 gem "em-websocket"
 gem "aws-sdk-s3", require: false
-gem 'rack-mini-profiler', require: false
-gem 'memory_profiler'
-gem 'stackprof'
+
 gem "mongoid"
 gem 'pagy'
 gem 'rack-cors'
@@ -122,9 +120,6 @@ gem 'rswag-ui'
 
 gem "searchkick"
 gem "opensearch-ruby" # select one
-# gem "elasticsearch-model"
-# gem "elasticsearch-rails"
-# gem "elasticsearch-persistence"
 
 gem 'rack-attack'
 
