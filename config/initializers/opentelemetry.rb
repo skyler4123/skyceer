@@ -3,6 +3,10 @@ require 'opentelemetry/sdk'
 require 'opentelemetry/exporter/otlp'
 require 'opentelemetry/instrumentation/all'
 
+# opentelemetry_traces_endpoint
+# opentelemetry_metrics_endpoint
+# opentelemetry_logs_endpoint
+
 OpenTelemetry::SDK.configure do |c|
   c.service_name = "skyceer-#{Rails.env}"
 
@@ -10,7 +14,7 @@ OpenTelemetry::SDK.configure do |c|
     OpenTelemetry::SDK::Trace::Export::BatchSpanProcessor.new(
       OpenTelemetry::Exporter::OTLP::Exporter.new(
         # "monitor:4318" is the container name for the OTLP endpoint
-        endpoint: 'http://monitor:4318/v1/traces',
+        endpoint: Rails.application.credentials.dig(:opentelemetry_traces_endpoint) || 'http://localhost:4318/v1/traces',
         timeout: 30
       ),
       # Prevent rapid-fire exports that cause recursion
@@ -20,6 +24,29 @@ OpenTelemetry::SDK.configure do |c|
     )
   )
   
+  # c.add_meter_reader(
+  #   OpenTelemetry::SDK::Metrics::Export::PeriodicExportingMetricReader.new(
+  #     OpenTelemetry::Exporter::OTLP::Exporter.new(
+  #       endpoint: Rails.application.credentials.dig(:opentelemetry_metrics_endpoint) || 'http://localhost:4318/v1/metrics',
+  #       timeout: 30
+  #     ),
+  #     export_interval: 10 # Export metrics every 10 seconds
+  #   )
+  # )
+
+  # c.add_log_record_processor(
+  #   OpenTelemetry::SDK::Logs::Export::BatchLogRecordProcessor.new(
+  #     OpenTelemetry::Exporter::OTLP::Exporter.new(
+  #       endpoint: Rails.application.credentials.dig(:opentelemetry_logs_endpoint) || 'http://localhost:4318/v1/logs',
+  #       timeout: 30
+  #     ),
+  #     # Adjust batch size and delay for logs
+  #     max_queue_size: 2048,
+  #     max_export_batch_size: 512,
+  #     schedule_delay: 5000 # 5 seconds between log exports
+  #   )
+  # )
+
   # Use all instrumentation BUT exclude Net::HTTP for OTLP endpoint
   c.use_all({
     'OpenTelemetry::Instrumentation::Net::HTTP' => {
