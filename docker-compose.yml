@@ -97,9 +97,11 @@ services:
   monitor:
     image: grafana/otel-lgtm
     ports:
-      - "3000:3000"
-      - "4317:4317"
-      - "4318:4318"
+      - "3000:3000" # Grafana
+      - "4317:4317" # OpenTelemetry
+      - "4318:4318" # OpenTelemetry
+      - "9090:9090" # Prometheus
+      - "3100:3100" # Loki
 
   # elasticsearch:
   #   image: elasticsearch:8.14.1
