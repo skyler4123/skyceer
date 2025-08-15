@@ -14,7 +14,7 @@ services:
       # For Rails 
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
-      # OTEL_EXPORTER_OTLP_ENDPOINT: http://monitor:4318
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://monitor:4318
       # PWD: /rails
       # POSTGRES_HOST: postgres
       # ELASTICSEARCH_HOST: elasticsearch
