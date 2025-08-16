@@ -4,6 +4,7 @@ class ArticlePostsController < ArticleController
 
   # GET /article_posts or /article_posts.json
   def index
+    OpenTelemetry.logger_provider.logger(name: "test_log_01").on_emit(body: "A log message from console 01!")
     @article_posts = ArticlePost.all
     @json_data = {
       article_posts: @article_posts

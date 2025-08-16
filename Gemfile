@@ -135,4 +135,5 @@ gem 'discard'
 
 gem "opentelemetry-sdk"
 gem "opentelemetry-exporter-otlp"
+gem "opentelemetry-exporter-otlp-logs"
 gem "opentelemetry-instrumentation-all"
