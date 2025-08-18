@@ -3,7 +3,7 @@ require 'opentelemetry/sdk'
 require 'opentelemetry/exporter/otlp'
 require 'opentelemetry/instrumentation/all'
 
-ENV["OTEL_EXPORTER_OTLP_ENDPOINT"] = Rails.application.credentials.dig(:otel_exporter_otlp_endpoint) || 'http://localhost:4318'
+ENV["OTEL_EXPORTER_OTLP_ENDPOINT"] = Rails.application.credentials.dig(:otel_exporter_otlp_endpoint) || 'http://192.168.0.100:4318'
 
 OpenTelemetry::SDK.configure do |c|
   c.service_name = "skyceer-#{Rails.env}"
