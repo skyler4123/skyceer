@@ -24,56 +24,6 @@ OpenTelemetry::SDK.configure do |c|
   #   )
   # )
   
-  # c.add_meter_reader(
-  #   OpenTelemetry::SDK::Metrics::Export::PeriodicExportingMetricReader.new(
-  #     OpenTelemetry::Exporter::OTLP::Exporter.new(
-  #       endpoint: Rails.application.credentials.dig(:opentelemetry_metrics_endpoint) || 'http://localhost:4318/v1/metrics',
-  #       timeout: 30
-  #     ),
-  #     export_interval: 10 # Export metrics every 10 seconds
-  #   )
-  # )
-
-  # c.add_log_record_processor(
-  #   OpenTelemetry::SDK::Logs::Export::BatchLogRecordProcessor.new(
-  #     OpenTelemetry::Exporter::OTLP::Exporter.new(
-  #       endpoint: Rails.application.credentials.dig(:opentelemetry_logs_endpoint) || 'http://localhost:4318/v1/logs',
-  #       timeout: 30
-  #     ),
-  #     # Adjust batch size and delay for logs
-  #     max_queue_size: 2048,
-  #     max_export_batch_size: 512,
-  #     schedule_delay: 5000 # 5 seconds between log exports
-  #   )
-  # )
-
-  # # METRICS (uncomment this)
-  # c.add_meter_provider(
-  #   OpenTelemetry::SDK::Metrics::MeterProvider.new(
-  #     metric_readers: [
-  #       OpenTelemetry::SDK::Metrics::Export::PeriodicExportingMetricReader.new(
-  #         OpenTelemetry::Exporter::OTLP::Exporter.new(
-  #           endpoint: Rails.application.credentials.dig(:opentelemetry_metrics_endpoint) || 'http://localhost:4318/v1/metrics',
-  #           timeout: 30
-  #         ),
-  #         export_interval: 10000 # Export every 10 seconds
-  #       )
-  #     ]
-  #   )
-  # )
-
-  # # LOGS (add this for log support)
-  # c.logger_provider = OpenTelemetry::SDK::Logs::LoggerProvider.new(
-  #   log_record_processors: [
-  #     OpenTelemetry::SDK::Logs::Export::BatchLogRecordProcessor.new(
-  #       OpenTelemetry::Exporter::OTLP::Exporter.new(
-  #         endpoint: Rails.application.credentials.dig(:opentelemetry_logs_endpoint) || 'http://localhost:4318/v1/logs',
-  #         timeout: 30
-  #       )
-  #     )
-  #   ]
-  # )
-
   # Use all instrumentation BUT exclude Net::HTTP for OTLP endpoint
   c.use_all({
     'OpenTelemetry::Instrumentation::Net::HTTP' => {
@@ -88,4 +38,5 @@ OpenTelemetry::SDK.configure do |c|
       untraced_hosts: ['monitor:4318', 'localhost:4318'] # Don't trace OTLP exports
     },
   })
+
 end
