@@ -805,6 +805,7 @@ DEPENDENCIES
   opentelemetry-exporter-otlp
   opentelemetry-exporter-otlp-logs
   opentelemetry-instrumentation-all
+  opentelemetry-logs-sdk
   opentelemetry-sdk
   packwerk
   pagy
