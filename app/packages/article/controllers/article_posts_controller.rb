@@ -4,8 +4,8 @@ class ArticlePostsController < ArticleController
 
   # GET /article_posts or /article_posts.json
   def index
-    OpenTelemetry.logger_provider.logger(name: "test_log_01").on_emit(body: "A log message from console 01!")
     @article_posts = ArticlePost.all
+    OpenTelemetry.logger_provider.logger(name: "article_posts").on_emit(severity_text: "INFO", body: "Listing all article posts: #{@article_posts.map(&:id).join(", ")}")
     @json_data = {
       article_posts: @article_posts
     }.to_json
@@ -14,6 +14,7 @@ class ArticlePostsController < ArticleController
 
   # GET /article_posts/1 or /article_posts/1.json
   def show
+    OpenTelemetry.logger_provider.logger(name: "article_post").on_emit(body: "Showing article post: #{@article_post.id}")
     # flash[:notice] = "Article post was successfully created."
   end
 
