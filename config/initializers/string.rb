@@ -2,6 +2,6 @@
 
 class String
   def strip_html_tags
-    self.gsub(/<[^>]*>/,'')
+    self.gsub(/<[^>]*>/, "")
   end
 end

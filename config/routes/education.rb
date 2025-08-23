@@ -1,4 +1,4 @@
-resources :educations, only: [:index] do
+resources :educations, only: [ :index ] do
   collection do
     get :home
   end
@@ -9,7 +9,7 @@ constraints EducationRoleConstraint.new(:education_owner) do
     resources :education_school_appointments
     resources :education_admins
     resources :education_exam_appointments
-    resources :education_scoreboards, only: [:index] do
+    resources :education_scoreboards, only: [ :index ] do
       collection do
         patch :import
       end
@@ -49,8 +49,8 @@ constraints EducationRoleConstraint.new(:education_admin) do
     resources :education_schools
     # resources :education_admins
     resources :education_exam_appointments
-    resources :calendar_events, only: [:index] 
-    resources :education_scoreboards, only: [:index]
+    resources :calendar_events, only: [ :index ]
+    resources :education_scoreboards, only: [ :index ]
     resources :education_courses
     resources :education_rooms
     resources :education_classes
@@ -73,30 +73,30 @@ end
 
 constraints EducationRoleConstraint.new(:education_student) do
   scope module: :education_student do
-    resources :education_schools, only: [:index]
-    resources :education_teachers, only: [:index]
-    resources :education_students, only: [:index]
-    resources :education_classes, only: [:index]
-    resources :education_scoreboards, only: [:index]
-    resources :calendar_events, only: [:index]
-    resources :education_courses, only: [:index]
-    resources :education_subjects, only: [:index]
-    resources :education_exams, only: [:index]
-    resources :payment_orders, only: [:index]
+    resources :education_schools, only: [ :index ]
+    resources :education_teachers, only: [ :index ]
+    resources :education_students, only: [ :index ]
+    resources :education_classes, only: [ :index ]
+    resources :education_scoreboards, only: [ :index ]
+    resources :calendar_events, only: [ :index ]
+    resources :education_courses, only: [ :index ]
+    resources :education_subjects, only: [ :index ]
+    resources :education_exams, only: [ :index ]
+    resources :payment_orders, only: [ :index ]
   end
 end
 
 constraints EducationRoleConstraint.new(:education_teacher) do
   scope module: :education_teacher do
-    resources :education_schools, only: [:index]
-    resources :education_teachers, only: [:index]
-    resources :education_students, only: [:index]
-    resources :education_classes, only: [:index]
-    resources :education_scoreboards, only: [:index]
-    resources :calendar_events, only: [:index]
-    resources :education_courses, only: [:index]
-    resources :education_subjects, only: [:index]
-    resources :education_exams, only: [:index]
-    resources :payment_orders, only: [:index]
+    resources :education_schools, only: [ :index ]
+    resources :education_teachers, only: [ :index ]
+    resources :education_students, only: [ :index ]
+    resources :education_classes, only: [ :index ]
+    resources :education_scoreboards, only: [ :index ]
+    resources :calendar_events, only: [ :index ]
+    resources :education_courses, only: [ :index ]
+    resources :education_subjects, only: [ :index ]
+    resources :education_exams, only: [ :index ]
+    resources :payment_orders, only: [ :index ]
   end
 end

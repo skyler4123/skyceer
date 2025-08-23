@@ -1,5 +1,4 @@
 class EducationAdmin::EducationSubjectsController < EducationAdmin::EducationsController
-
   # GET /education_subjects or /education_subjects.json
   def index
     # get education_schools from id params when it exists instead of current_education_school
@@ -18,8 +17,7 @@ class EducationAdmin::EducationSubjectsController < EducationAdmin::EducationsCo
     @education_subjects = EducationSubject.where(education_school: @education_schools) if @education_subjects.blank?
     @pagination, @education_subjects = pagy(@education_subjects)
     @json_data = {
-      education_subjects: @education_subjects.as_json(only: %i[id education_school_id name description discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
+      education_subjects: @education_subjects.as_json(only: %i[id education_school_id name description discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } })
     }.to_json
   end
-
 end

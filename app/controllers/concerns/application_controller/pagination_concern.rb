@@ -1,6 +1,6 @@
 module ApplicationController::PaginationConcern
   extend ActiveSupport::Concern
-  
+
   included do
     include Pagy::Backend
 
@@ -8,8 +8,7 @@ module ApplicationController::PaginationConcern
 
     def pagy_custom(collection, vars = {})
       pagy = Pagy.new(count: collection.count(*vars[:count_args]), page: params[:page], **vars)
-      [pagy, collection.offset(pagy.offset).limit(pagy.items)]
+      [ pagy, collection.offset(pagy.offset).limit(pagy.items) ]
     end
-
   end
 end

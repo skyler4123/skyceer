@@ -1,13 +1,13 @@
 module User::EducationConcern
   extend ActiveSupport::Concern
-  
+
   included do
     EDUCATION_ROLE_DESCRIPTIONS = {
-      education_owner: 'School Owner',
-      education_admin: 'School Admin',
-      education_teacher: 'Teacher',
-      education_student: 'Student',
-      education_parent: 'Parent',
+      education_owner: "School Owner",
+      education_admin: "School Admin",
+      education_teacher: "Teacher",
+      education_student: "Student",
+      education_parent: "Parent"
     }
 
     has_one :education_owner, as: :education_ownerable, dependent: :destroy

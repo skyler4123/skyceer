@@ -6,7 +6,7 @@ class EducationOwner::EducationRoomsController < EducationOwner::EducationsContr
     @education_rooms = EducationRoom.where(education_school: @education_schools)
     @pagination, @education_rooms = pagy(@education_rooms)
     @json_data = {
-      education_rooms: @education_rooms.as_json(only: %i[id education_school_id name discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
+      education_rooms: @education_rooms.as_json(only: %i[id education_school_id name discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } })
     }.to_json
   end
 
@@ -76,10 +76,10 @@ class EducationOwner::EducationRoomsController < EducationOwner::EducationsContr
 
     # Only allow a list of trusted parameters through.
     def education_room_params
-      params.expect(education_room: [:education_school_id, :name])
+      params.expect(education_room: [ :education_school_id, :name ])
     end
 
     def update_education_room_params
-      params.expect(education_room: [:name])
+      params.expect(education_room: [ :name ])
     end
 end

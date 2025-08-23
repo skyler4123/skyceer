@@ -9,7 +9,7 @@ class EducationOwner::EducationScoreboardsController < EducationOwner::Education
     @education_students = EducationStudent.joins(:education_classes).where(education_classes: @education_class)
     @education_exams = EducationExam.joins(:education_classes, :education_subject).where(education_classes: @education_class, education_subject: @education_subject)
     @education_exam_to_class = EducationExamToClass.where(education_exam: @education_exams, education_class: @education_class)
-    
+
     @education_exam_to_students = EducationExamToStudent.where(education_exam_to_class: @education_exam_to_class)
 
     @pagination, @education_students = pagy(@education_students)
@@ -18,12 +18,11 @@ class EducationOwner::EducationScoreboardsController < EducationOwner::Education
       education_exams: @education_exams.as_json,
       education_exam_to_class: @education_exam_to_class.as_json,
       education_exam_to_students: @education_exam_to_students.as_json,
-      selection_education_classes: @selection_education_classes.as_json(include: [:education_subjects]),
+      selection_education_classes: @selection_education_classes.as_json(include: [ :education_subjects ])
     }.to_json
   end
 
   def import
-    
     education_exam_to_student_ids = params[:education_exam_to_student][:ids]
     education_exam_to_student_scores = params[:education_exam_to_student][:scores]
     education_exam_to_students = EducationExamToStudent.where(id: education_exam_to_student_ids)

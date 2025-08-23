@@ -54,7 +54,7 @@ class Seeding::ProjectService
           project_memberable: education_staff,
           name: education_staff.name,
           description: "Member of #{project_owner.project_ownerable.name}",
-          status: 'active'
+          status: "active"
         )
         ProjectCategoryAppointment.create!(
           project_category: project_owner.project_categories.sample,
@@ -92,7 +92,7 @@ class Seeding::ProjectService
             project_group: project_group,
             name: "Task #{i + 1} for #{project_group.name}",
             description: "Description for Task #{i + 1}",
-            status: 'active'
+            status: "active"
           )
           ProjectCategoryAppointment.create!(
             project_category: project_owner.project_categories.sample,
@@ -127,7 +127,7 @@ class Seeding::ProjectService
               project_task: project_task,
               name: "Subtask #{i + 1} for #{project_task.name}",
               description: "Description for Subtask #{i + 1}",
-              status: 'active'
+              status: "active"
             )
             ProjectCategoryAppointment.create!(
               project_category: project_owner.project_categories.sample,
@@ -150,5 +150,4 @@ class Seeding::ProjectService
       end
     end
   end
-  
 end

@@ -31,8 +31,8 @@ class Seeding::EducationService
         email: "#{education_role}#{n}@education.com",
         name: "#{education_role} #{n}",
         uid: "#{education_role}#{n}",
-        password: 'password1234',
-        password_confirmation: 'password1234',
+        password: "password1234",
+        password_confirmation: "password1234",
         education_role: education_role,
       )
       Seeding::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
@@ -165,7 +165,7 @@ class Seeding::EducationService
       end
     end
   end
-  
+
   def self.education_teacher
     EducationOwner.find_each do |owner|
       owner.education_schools.each do |education_school|
@@ -258,11 +258,11 @@ class Seeding::EducationService
             question_type: rand(0..3),
             title: Faker::Movie.title,
             content: Faker::Movie.quote,
-            anwser: ['A', 'B', 'C', 'D'].sample,
-            choice_1: 'A',
-            choice_2: 'B',
-            choice_3: 'C',
-            choice_4: 'D',
+            anwser: [ "A", "B", "C", "D" ].sample,
+            choice_1: "A",
+            choice_2: "B",
+            choice_3: "C",
+            choice_4: "D",
           )
           education_question.education_categories << owner.education_categories.sample
         end
@@ -306,7 +306,7 @@ class Seeding::EducationService
       end
     end
   end
-  
+
   def self.education_class_appointments
     EducationSchool.all.each do |education_school|
       education_school.education_classes.each do |education_class|
@@ -363,7 +363,7 @@ class Seeding::EducationService
           score: rand(0..10),
           time: rand(0..10),
           status: rand(0..3),
-          anwser: ['A', 'B', 'C', 'D'].sample,
+          anwser: [ "A", "B", "C", "D" ].sample,
           result: rand(0..1),
         )
       end

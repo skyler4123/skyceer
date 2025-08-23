@@ -4,7 +4,7 @@ class ArticlePost
 
   # include ArticlePost::ElasticsearchConcern
   include ArticlePost::ImagesConcern
-  
+
   # field :user_id, type: String
   field :title, type: String
   field :content, type: Hash

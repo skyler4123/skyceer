@@ -8,16 +8,16 @@ class Elasticsearch::IndexerJob < ApplicationJob
     elasticsearch_client = Elasticsearch::Model.client
 
     case operation.to_s
-      when /index/
+    when /index/
         record = record_class.find(record_id)
-        elasticsearch_client.index  index: index_name, id: record_id, body: record.__elasticsearch__.as_indexed_json
-      when /delete/
+        elasticsearch_client.index index: index_name, id: record_id, body: record.__elasticsearch__.as_indexed_json
+    when /delete/
         begin
           elasticsearch_client.delete index: index_name, id: record_id
         rescue Elastic::Transport::Transport::Errors::NotFound
           logger.debug "#{record_class_name} not found, ID: #{record_id}"
         end
-      else raise ArgumentError, "Unknown operation '#{operation}'"
+    else raise ArgumentError, "Unknown operation '#{operation}'"
     end
   end
 end

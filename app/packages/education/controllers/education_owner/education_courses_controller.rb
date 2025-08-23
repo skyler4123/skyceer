@@ -8,7 +8,7 @@ class EducationOwner::EducationCoursesController < EducationOwner::EducationsCon
     @education_courses = EducationCourse.where(education_school: @education_schools)
     @pagination, @education_courses = pagy(@education_courses)
     @json_data = {
-      education_courses: @education_courses.as_json(only: %i[id education_school_id name description discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
+      education_courses: @education_courses.as_json(only: %i[id education_school_id name description discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } })
     }.to_json
   end
 
@@ -32,7 +32,7 @@ class EducationOwner::EducationCoursesController < EducationOwner::EducationsCon
           education_categories = EducationCategory.where(id: params[:education_course][:education_category_id])
           @education_course.education_categories = education_categories
         end
-        
+
         format.html { redirect_to education_courses_path, notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_course }
       else
@@ -50,7 +50,7 @@ class EducationOwner::EducationCoursesController < EducationOwner::EducationsCon
           education_categories = EducationCategory.where(id: params[:education_course][:education_category_id])
           @education_course.education_categories = education_categories
         end
-        
+
         format.html { redirect_to education_courses_path, notice: UPDATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :ok, location: @education_course }
       else

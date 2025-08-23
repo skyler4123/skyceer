@@ -1,6 +1,6 @@
 module ApplicationRecord::SearchkickConcern
   extend ActiveSupport::Concern
-  
+
   included do
     def self.searchkick_documents
       # Use the Searchkick client to fetch all documents

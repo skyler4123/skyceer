@@ -22,7 +22,7 @@ class Seeding::CalendarService
       10.times do
         CalendarCategory.create!(
           name: "Category #{Faker::Number.number}",
-          parent_category: [calendar_owner.calendar_categories.sample, nil].sample,
+          parent_category: [ calendar_owner.calendar_categories.sample, nil ].sample,
           calendar_owner: calendar_owner
         )
       end
@@ -35,7 +35,7 @@ class Seeding::CalendarService
         calendar_group = CalendarGroup.create!(
           name: "Group #{Faker::Number.number}",
           calendar_owner: calendar_owner,
-          color: '#' + SecureRandom.hex(3),
+          color: "#" + SecureRandom.hex(3),
         )
         CalendarCategoryAppointment.create!(
           calendar_category: calendar_owner.calendar_categories.sample,
@@ -64,19 +64,19 @@ class Seeding::CalendarService
             comingDuration: 0,
             location: Address.create_random.id,
             attendees: [],
-            category: ['milestone', 'task', 'time', 'allday'].sample,
+            category: [ "milestone", "task", "time", "allday" ].sample,
             dueDateClass: "",
             recurrenceRule: "",
-            state: ["Busy", "Free"].sample,
+            state: [ "Busy", "Free" ].sample,
             isVisible: true,
             isPending: false,
             isFocused: false,
             isReadOnly: false,
             isPrivate: false,
-            color: '#' + SecureRandom.hex(3),
-            backgroundColor: '#' + SecureRandom.hex(3),
-            dragBackgroundColor: '#' + SecureRandom.hex(3),
-            borderColor: '#' + SecureRandom.hex(3),
+            color: "#" + SecureRandom.hex(3),
+            backgroundColor: "#" + SecureRandom.hex(3),
+            dragBackgroundColor: "#" + SecureRandom.hex(3),
+            borderColor: "#" + SecureRandom.hex(3),
             customStyle: {},
             raw: {},
           )
@@ -95,5 +95,4 @@ class Seeding::CalendarService
       end
     end
   end
-
 end

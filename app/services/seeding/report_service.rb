@@ -19,7 +19,7 @@ class Seeding::ReportService
       10.times do |n|
         ReportCategory.create!(
           name: "report category #{n}",
-          parent_category: [report_owner.report_categories.sample, nil].sample,
+          parent_category: [ report_owner.report_categories.sample, nil ].sample,
           report_owner: report_owner
         )
       end

@@ -16,5 +16,4 @@ class EducationAdmin::EducationsController < EducationsController
   def set_education_school
     @education_school = @education_admin.education_school
   end
-
 end

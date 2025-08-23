@@ -46,19 +46,19 @@ RSpec.describe EducationExamToClass, type: :model do
       expect(education_exam_to_class.discarded?).to be true
       # expect(EducationExamToClass.all).not_to include(education_exam_to_class)
     end
-  
+
     it 'restores a soft-deleted record' do
       education_exam_to_class.discard
       education_exam_to_class.undiscard
       expect(education_exam_to_class.discarded?).to be false
       expect(EducationExamToClass.all).to include(education_exam_to_class)
     end
-  
+
     it 'queries only discarded records' do
       education_exam_to_class.discard
       expect(EducationExamToClass.discarded).to include(education_exam_to_class)
     end
-  
+
     it 'queries all records including discarded ones' do
       education_exam_to_class.discard
       expect(EducationExamToClass.with_discarded).to include(education_exam_to_class)

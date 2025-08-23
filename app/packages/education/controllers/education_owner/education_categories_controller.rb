@@ -5,7 +5,7 @@ class EducationOwner::EducationCategoriesController < EducationOwner::Educations
   def index
     @pagination, @education_categories = pagy(@education_categories)
     @json_data = {
-      education_categories: @education_categories.as_json(only: %i[id name parent_category_id created_at updated_at] ),
+      education_categories: @education_categories.as_json(only: %i[id name parent_category_id created_at updated_at])
     }.to_json
   end
 
@@ -22,7 +22,7 @@ class EducationOwner::EducationCategoriesController < EducationOwner::Educations
   def create
     @education_category = EducationCategory.new(education_category_params)
     @education_category.user = current_user
-    
+
     respond_to do |format|
       if @education_category.save
         format.html { redirect_to education_categories_path, notice: CREATED_SUCCESS_MESSAGE }

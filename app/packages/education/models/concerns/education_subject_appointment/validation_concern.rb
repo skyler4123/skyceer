@@ -1,6 +1,6 @@
 module EducationSubjectAppointment::ValidationConcern
   extend ActiveSupport::Concern
-  
+
   included do
     validates :education_subject, presence: true
     validates :education_class, presence: true
@@ -28,5 +28,4 @@ module EducationSubjectAppointment::ValidationConcern
       # end
     end
   end
-
 end

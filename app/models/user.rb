@@ -35,10 +35,10 @@ class User < ApplicationRecord
     events.create! action: "password_changed"
   end
 
-  after_update if: [:verified_previously_changed?, :verified?] do
+  after_update if: [ :verified_previously_changed?, :verified? ] do
     events.create! action: "email_verified"
   end
-  
+
   # Customize the user model here
   include User::ApplicationConcern
   include User::ValidationConcern
@@ -49,7 +49,7 @@ class User < ApplicationRecord
   include User::ImagesInArticlePostConcern
 
   belongs_to :address, optional: true
-  
+
   include User::ReportConcern
   include User::NosqlUserConcern
   include User::EducationConcern

@@ -17,7 +17,7 @@ class HomeController < ApplicationController
   # end
 
   # private
-  
+
   # def layout_for_actions
   #   return 'application' if action_name == 'index' || action_name == 'about'
   #   action_name

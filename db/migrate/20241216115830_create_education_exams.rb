@@ -9,7 +9,7 @@ class CreateEducationExams < ActiveRecord::Migration[8.0]
       t.string :description
       t.integer :status
       t.datetime :discarded_at
-      
+
       t.timestamps
     end
   end

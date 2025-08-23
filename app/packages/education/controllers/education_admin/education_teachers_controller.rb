@@ -1,7 +1,6 @@
-require 'pagy/extras/elasticsearch_rails'
+require "pagy/extras/elasticsearch_rails"
 
 class EducationAdmin::EducationTeachersController < EducationAdmin::EducationsController
-
   # GET /education_teachers or /education_teachers.json
   def index
     if params[:full_text_search].present?
@@ -13,8 +12,7 @@ class EducationAdmin::EducationTeachersController < EducationAdmin::EducationsCo
     end
     @pagination, @education_teachers = pagy(@education_teachers)
     @json_data = {
-      education_teachers: @education_teachers.as_json(include: [:education_schools, :education_classes, :education_subjects])
+      education_teachers: @education_teachers.as_json(include: [ :education_schools, :education_classes, :education_subjects ])
     }.to_json
   end
-
 end

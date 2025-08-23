@@ -5,15 +5,15 @@ class EducationOwner::EducationAdminsController < EducationOwner::EducationsCont
   def index
     @query_education_schools = @education_schools
     @query_education_schools = @query_education_schools.where(id: params[:education_school_id]) if params[:education_school_id].present?
-    
+
     @education_admins = EducationAdmin.all
     @education_admins = EducationAdmin.search(params[:full_text_search]).records if params[:full_text_search].present?
     @education_admins = @education_admins.where(education_school: @query_education_schools)
 
     @pagination, @education_admins = pagy(@education_admins)
     @json_data = {
-      education_admins: @education_admins.as_json(include: { education_school: { only: [:id, :name] } }, only: [:id, :name, :created_at, :updated_at]),
-      select_education_schools: @education_schools.as_json(only: [:id, :name]),
+      education_admins: @education_admins.as_json(include: { education_school: { only: [ :id, :name ] } }, only: [ :id, :name, :created_at, :updated_at ]),
+      select_education_schools: @education_schools.as_json(only: [ :id, :name ])
     }.to_json
   end
 
@@ -49,7 +49,7 @@ class EducationOwner::EducationAdminsController < EducationOwner::EducationsCont
           education_categories = EducationCategory.where(id: params[:education_admin][:education_category_id])
           @education_admin.education_categories = education_categories
         end
-    
+
         format.html { redirect_to education_admins_path, notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_admin }
       else
@@ -99,6 +99,6 @@ class EducationOwner::EducationAdminsController < EducationOwner::EducationsCont
 
     # Only allow a list of trusted parameters through.
     def education_admin_params
-      params.expect(education_admin: [:name, :email, :education_school_id])
+      params.expect(education_admin: [ :name, :email, :education_school_id ])
     end
 end

@@ -1,10 +1,10 @@
 class EmailService
   def self.username(email)
-    email.split('@').first
+    email.split("@").first
   end
 
   def self.domain(email)
-    email.split('@').last
+    email.split("@").last
   end
 
   def self.valid?(email)

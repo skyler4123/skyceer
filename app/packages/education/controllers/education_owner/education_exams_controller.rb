@@ -6,7 +6,7 @@ class EducationOwner::EducationExamsController < EducationOwner::EducationsContr
     @education_exams = EducationExam.where(education_school: @education_schools)
     @pagination, @education_exams = pagy(@education_exams)
     @json_data = {
-      education_exams: @education_exams.as_json(only: %i[id education_school_id name description discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
+      education_exams: @education_exams.as_json(only: %i[id education_school_id name description discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } })
     }.to_json
   end
 
@@ -21,7 +21,7 @@ class EducationOwner::EducationExamsController < EducationOwner::EducationsContr
       education_subjects: @education_subjects.as_json(only: %i[id name]),
       education_schools: @education_schools.as_json(
         only: %i[id name],
-        include: { education_classes: { only: %i[id name] }, education_subjects: { only: %i[id name] } }),
+        include: { education_classes: { only: %i[id name] }, education_subjects: { only: %i[id name] } })
     }.to_json
   end
 
@@ -39,7 +39,7 @@ class EducationOwner::EducationExamsController < EducationOwner::EducationsContr
       education_categories: @education_categories.as_json(only: %i[id name]),
       education_subjects: @education_subjects.as_json(only: %i[id name]),
       education_schools: @education_schools.as_json(only: %i[id name]),
-      education_classes: @education_classes.as_json(only: %i[id name]),
+      education_classes: @education_classes.as_json(only: %i[id name])
     }.to_json
   end
 
@@ -61,7 +61,6 @@ class EducationOwner::EducationExamsController < EducationOwner::EducationsContr
 
   # PATCH/PUT /education_exams/1 or /education_exams/1.json
   def update
-    
     respond_to do |format|
       if @education_exam.update(update_education_exam_params)
         appoint_with_education_categories

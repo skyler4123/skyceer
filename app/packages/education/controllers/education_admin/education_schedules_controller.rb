@@ -5,7 +5,7 @@ class EducationAdmin::EducationSchedulesController < EducationAdmin::EducationsC
     @calendar_events = CalendarEvent.where(calendar_group: @calendar_groups)
     @json_data = {
       education_classes: @education_classes.as_json(only: %i[id name]),
-      calendar_events: @calendar_events.as_json,
+      calendar_events: @calendar_events.as_json
     }.to_json
   end
 end

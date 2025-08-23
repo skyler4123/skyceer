@@ -1,5 +1,4 @@
 class ImagesController < ApplicationController
-
   # For EditorJS
   def editorjs_upload_by_file
     record_class = params[:record_class].camelize.constantize
@@ -16,5 +15,4 @@ class ImagesController < ApplicationController
   # For EditorJS
   def editorjs_upload_by_url
   end
-  
 end

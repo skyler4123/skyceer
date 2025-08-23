@@ -7,7 +7,7 @@ require 'rspec/rails'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 include ActiveSupport::Testing::TimeHelpers
-# require 'sidekiq/testing' 
+# require 'sidekiq/testing'
 require 'spec_helper'
 Dir["./spec/matchers/**/*.rb"].sort.each { |f| require f }
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }

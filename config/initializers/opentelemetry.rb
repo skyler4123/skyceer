@@ -1,9 +1,9 @@
 # config/initializers/opentelemetry.rb
-require 'opentelemetry/sdk'
-require 'opentelemetry/exporter/otlp'
-require 'opentelemetry/instrumentation/all'
+require "opentelemetry/sdk"
+require "opentelemetry/exporter/otlp"
+require "opentelemetry/instrumentation/all"
 
-ENV["OTEL_EXPORTER_OTLP_ENDPOINT"] = Rails.application.credentials.dig(:otel_exporter_otlp_endpoint) || 'http://192.168.0.100:4318'
+ENV["OTEL_EXPORTER_OTLP_ENDPOINT"] = Rails.application.credentials.dig(:otel_exporter_otlp_endpoint) || "http://192.168.0.100:4318"
 
 OpenTelemetry::SDK.configure do |c|
   c.service_name = "skyceer-#{Rails.env}"
@@ -21,10 +21,10 @@ OpenTelemetry::SDK.configure do |c|
   #     max_export_batch_size: 512 # Smaller batches
   #   )
   # )
-  
+
   # Use all instrumentation BUT exclude Net::HTTP for OTLP endpoint
   c.use_all({
-    'OpenTelemetry::Instrumentation::Net::HTTP' => {
+    "OpenTelemetry::Instrumentation::Net::HTTP" => {
       enabled: false, # Disable Net::HTTP instrumentation
       # This prevents recursion when the OTLP exporter tries to send traces
       # to the same host that is being instrumented.
@@ -33,8 +33,7 @@ OpenTelemetry::SDK.configure do |c|
       # You can also use a different exporter or disable tracing for specific hosts.
       # Example: if you have a monitoring service running on 'monitor:4318',
       # you can add it to untraced_hosts.
-      untraced_hosts: ['monitor:4318', 'localhost:4318'] # Don't trace OTLP exports
-    },
+      untraced_hosts: [ "monitor:4318", "localhost:4318" ] # Don't trace OTLP exports
+    }
   })
-
 end

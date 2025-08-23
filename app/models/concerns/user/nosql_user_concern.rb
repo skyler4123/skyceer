@@ -9,7 +9,7 @@ module User::NosqlUserConcern
     def nosql_user
       NosqlUser.where(user_id: self.id).first
     end
-    
+
     private
 
     def create_nosql_user
@@ -19,14 +19,14 @@ module User::NosqlUserConcern
     def update_nosql_user
       nosql_user = NosqlUser.where(user_id: self.id).first
       return unless nosql_user
-      
+
       nosql_user.update!(self.user_attributes)
     end
 
     def destroy_nosql_user
       nosql_user = NosqlUser.where(user_id: self.id).first
       return unless nosql_user
-      
+
       nosql_user.destroy
     end
 
@@ -37,5 +37,4 @@ module User::NosqlUserConcern
       attributes_data = attributes_data.except("id", "password_digest", "created_at", "updated_at")
     end
   end
-
 end

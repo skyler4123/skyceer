@@ -2,13 +2,13 @@ require "capybara/cuprite"
 
 Capybara.javascript_driver = :cuprite
 browser_options = {
-  'no-sandbox': nil,
+  'no-sandbox': nil
 }
 options = {
   headless: true, # (String | Boolean) - Set browser as headless or not, true by default. You can set "new" to support new headless mode.
   # xvfb: false, # (Boolean) - Run browser in a virtual framebuffer, false by default.
   # flatten: true, # (Boolean) - Use one websocket connection to the browser and all the pages in flatten mode.
-  window_size: [1024, 768], # (Array) - The dimensions of the browser window in which to test, expressed as a 2-element array, e.g. [1024, 768]. Default: [1024, 768]
+  window_size: [ 1024, 768 ], # (Array) - The dimensions of the browser window in which to test, expressed as a 2-element array, e.g. [1024, 768]. Default: [1024, 768]
   # extensions: [], # (Array[String | Hash]) - An array of paths to files or JS source code to be preloaded into the browser e.g.: ["/path/to/script.js", { source: "window.secret = 'top'" }]
   # logger: nil, # (Object responding to puts) - When present, debug output is written to this object.
   # slowmo: 1, # (Integer | Float) - Set a delay in seconds to wait before sending command. Useful companion of headless option, so that you have time to see changes.
@@ -28,7 +28,7 @@ options = {
   # proxy: {}, # (Hash) - Specify proxy settings, read more
   # save_path: {}, # (String) - Path to save attachments with Content-Disposition header.
   # env: {}, # (Hash) - Environment variables you'd like to pass through to the process
-  inspector: true,
+  inspector: true
 }
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app, options)
@@ -38,4 +38,3 @@ Capybara.default_driver = :cuprite
 Capybara.use_default_driver
 # Capybara.app_host = 'http://lvh.me'
 # Capybara.always_include_port = true
-

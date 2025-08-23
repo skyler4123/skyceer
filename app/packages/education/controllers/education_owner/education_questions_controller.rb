@@ -45,7 +45,7 @@ class EducationOwner::EducationQuestionsController < EducationOwner::EducationsC
           education_categories = EducationCategory.where(id: params[:education_question][:education_category_id])
           @education_question.education_categories = education_categories
         end
-        
+
         format.html { redirect_to education_questions_path, notice: "Education question was successfully updated." }
         format.json { render :show, status: :ok, location: @education_question }
       else

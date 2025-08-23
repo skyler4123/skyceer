@@ -6,7 +6,7 @@ class Seeding::ArticleService
           nosql_user: nosql_user,
           title: Faker::Movie.title,
           teaser: Faker::Movie.quote,
-          categories: [Faker::Book.genre],
+          categories: [ Faker::Book.genre ],
           content: {
             blocks: [
               {
@@ -14,7 +14,7 @@ class Seeding::ArticleService
                 data: {
                   text: Faker::Movie.quote
                 }
-              },
+              }
             ]
           }
         )
@@ -38,7 +38,7 @@ class Seeding::ArticleService
               type: "list",
               data: {
                 style: "unordered",
-                items: [Faker::Movie.quote, Faker::Movie.quote, Faker::Movie.quote]
+                items: [ Faker::Movie.quote, Faker::Movie.quote, Faker::Movie.quote ]
               }
             },
             {
@@ -54,9 +54,9 @@ class Seeding::ArticleService
                         content: "Red",
                         meta: {},
                         items: []
-                      },
+                      }
                     ]
-                  },
+                  }
                 ]
               }
             },
@@ -70,7 +70,7 @@ class Seeding::ArticleService
                 style: "ordered",
                 meta: {
                   start: 1,
-                  counterType: "upper-roman",
+                  counterType: "upper-roman"
                 },
                 items: [
                   {
@@ -81,7 +81,7 @@ class Seeding::ArticleService
                         content: "Red",
                         meta: {},
                         items: []
-                      },
+                      }
                     ]
                   },
                   {
@@ -92,7 +92,7 @@ class Seeding::ArticleService
                         content: "Red 2",
                         meta: {},
                         items: []
-                      },
+                      }
                     ]
                   },
                   {
@@ -103,9 +103,9 @@ class Seeding::ArticleService
                         content: "Red 3",
                         meta: {},
                         items: []
-                      },
+                      }
                     ]
-                  },
+                  }
                 ]
               }
             },
@@ -119,7 +119,7 @@ class Seeding::ArticleService
                 style: "ordered",
                 meta: {
                   start: 2,
-                  counterType: "upper-roman",
+                  counterType: "upper-roman"
                 },
                 items: [
                   {
@@ -130,7 +130,7 @@ class Seeding::ArticleService
                         content: "Red",
                         meta: {},
                         items: []
-                      },
+                      }
                     ]
                   },
                   {
@@ -141,7 +141,7 @@ class Seeding::ArticleService
                         content: "Red 2",
                         meta: {},
                         items: []
-                      },
+                      }
                     ]
                   },
                   {
@@ -152,9 +152,9 @@ class Seeding::ArticleService
                         content: "Red 3",
                         meta: {},
                         items: []
-                      },
+                      }
                     ]
-                  },
+                  }
                 ]
               }
             },
@@ -179,9 +179,9 @@ class Seeding::ArticleService
                           checked: true
                         },
                         items: []
-                      },
+                      }
                     ]
-                  },
+                  }
                 ]
               }
             },
@@ -230,7 +230,7 @@ class Seeding::ArticleService
             {
               type: "code",
               data: {
-                  code: "body {\n font-size: 14px;\n line-height: 16px;\n}",
+                  code: "body {\n font-size: 14px;\n line-height: 16px;\n}"
               }
             },
             {
@@ -268,7 +268,7 @@ class Seeding::ArticleService
                 file: { url: image_attachments.first },
                 stretched: false,
                 withBackground: false,
-                withBorder: false,
+                withBorder: false
               }
             },
             {
@@ -284,7 +284,7 @@ class Seeding::ArticleService
                 file: { url: image_attachments.second },
                 stretched: false,
                 withBackground: false,
-                withBorder: false,
+                withBorder: false
               }
             },
             {
@@ -292,8 +292,8 @@ class Seeding::ArticleService
               data: {
                 text: Faker::Lorem.paragraph(sentence_count: 30)
               }
-            },
-          ],
+            }
+          ]
         }
         article_post.update!(content: content)
       end

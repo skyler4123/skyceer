@@ -19,11 +19,11 @@ module ApplicationRecord::CacheConcern
     # Default expiration based on model type
     def default_cache_expiration
       case self.class.name
-      when 'User'
+      when "User"
         1.hour    # Users change less frequently
-      when 'Session'
+      when "Session"
         5.minutes # Sessions need shorter cache
-      when 'Article'
+      when "Article"
         2.hours   # Articles are relatively static
       else
         30.minutes # Default for other models

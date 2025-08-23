@@ -6,7 +6,7 @@
 #   before do
 #     education_school.education_admins << education_admin
 #   end
-  
+
 #   context "education_role: :education_admin" do
 #     it "will not be redirected" do
 #       sign_in(user: education_admin.user)
@@ -27,5 +27,5 @@
 #       expect(page).to have_routing_error
 #     end
 #   end
-    
+
 # end

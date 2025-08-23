@@ -1,6 +1,6 @@
 module EducationExamToClass::ValidationConcern
   extend ActiveSupport::Concern
-  
+
   included do
     validates :education_exam, presence: true
     validates :education_class, presence: true
@@ -18,5 +18,4 @@ module EducationExamToClass::ValidationConcern
       # end
     end
   end
-
 end

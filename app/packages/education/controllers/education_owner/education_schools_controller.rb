@@ -5,7 +5,7 @@ class EducationOwner::EducationSchoolsController < EducationOwner::EducationsCon
   def index
     @pagination, @education_schools = pagy(@education_schools)
     @json_data = {
-      education_schools: @education_schools.as_json(include: [:education_owner, :address]),
+      education_schools: @education_schools.as_json(include: [ :education_owner, :address ])
     }.to_json
   end
 
@@ -34,7 +34,7 @@ class EducationOwner::EducationSchoolsController < EducationOwner::EducationsCon
           education_categories = EducationCategory.where(id: params[:education_school][:education_category_id])
           @education_school.education_categories = education_categories
         end
-        
+
         format.html { redirect_to education_schools_path, notice: CREATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :created, location: @education_school }
       else
@@ -80,6 +80,6 @@ class EducationOwner::EducationSchoolsController < EducationOwner::EducationsCon
 
     # Only allow a list of trusted parameters through.
     def education_school_params
-      params.expect(education_school: [:name, :email])
+      params.expect(education_school: [ :name, :email ])
     end
 end

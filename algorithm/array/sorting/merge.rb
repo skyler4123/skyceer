@@ -1,38 +1,38 @@
-def merge(array = [15,14,13,12,11,10,9,0,8,4,3,2,1])
+def merge(array = [ 15, 14, 13, 12, 11, 10, 9, 0, 8, 4, 3, 2, 1 ])
   length = array.length
   return array if length == 1
   if length == 2
     return sort_two_element_array(array)
   end
   if length > 2
-    puts array.to_s
+    puts array
     first_subarray, last_subarray = divide_array_at_medium(array)
     first_subarray = merge(first_subarray)
     last_subarray = merge(last_subarray)
-    return merge_two_sorted_array(first_subarray, last_subarray)
+    merge_two_sorted_array(first_subarray, last_subarray)
   end
 end
 
-def sort_two_element_array(array = [3,2])
+def sort_two_element_array(array = [ 3, 2 ])
   a = array[0]
   b = array[1]
   if a > b
-    return [b, a]
+    [ b, a ]
   else
-    return [a, b]
+    [ a, b ]
   end
 end
 
-def divide_array_at_medium(array = [0,1,2,3,4,5,6,7])
+def divide_array_at_medium(array = [ 0, 1, 2, 3, 4, 5, 6, 7 ])
   length = array.length - 1
   return array if length == 1
   pivot_index = length / 2
   first_subarray = array[0..pivot_index]
   last_subarray = array[(pivot_index + 1)..-1]
-  return [first_subarray, last_subarray]
+  [ first_subarray, last_subarray ]
 end
 
-def merge_two_sorted_array(array1 = [3,5,7], array2 = [2,4,6,8,10])
+def merge_two_sorted_array(array1 = [ 3, 5, 7 ], array2 = [ 2, 4, 6, 8, 10 ])
   length1 = array1.length
   length2 = array2.length
   total_length = length1 + length2
@@ -62,5 +62,4 @@ def merge_two_sorted_array(array1 = [3,5,7], array2 = [2,4,6,8,10])
   result
 end
 
-puts merge.to_s
-
+puts merge

@@ -1,22 +1,22 @@
 class ElasticsearchToOpensearchConverter
   def self.convert_es_legacy_to_opensearch2(params)
     converted = params.deep_dup
-    
+
     # Convert facets to aggregations
     converted = convert_facets_to_aggregations(converted)
-    
+
     # Convert old query structure
     converted = convert_legacy_query_structure(converted)
-    
+
     # Convert old filter syntax
     converted = convert_legacy_filters(converted)
-    
+
     # Convert deprecated parameters
     converted = convert_deprecated_params(converted)
-    
+
     # Convert old script syntax
     converted = convert_legacy_scripts(converted)
-    
+
     converted
   end
 
@@ -25,14 +25,14 @@ class ElasticsearchToOpensearchConverter
   def self.convert_facets_to_aggregations(params)
     if params[:facets]
       params[:aggs] = {}
-      
+
       params[:facets].each do |facet_name, facet_config|
         params[:aggs][facet_name] = convert_single_facet(facet_config)
       end
-      
+
       params.delete(:facets)
     end
-    
+
     params
   end
 
@@ -62,13 +62,13 @@ class ElasticsearchToOpensearchConverter
     agg_config = {
       terms: {}
     }
-    
+
     # Convert field
     agg_config[:terms][:field] = terms_config[:field] if terms_config[:field]
-    
+
     # Convert size (was called 'size' in old facets too)
     agg_config[:terms][:size] = terms_config[:size] || 10
-    
+
     # Convert order
     if terms_config[:order]
       case terms_config[:order]
@@ -82,7 +82,7 @@ class ElasticsearchToOpensearchConverter
         agg_config[:terms][:order] = { "_key": "desc" }
       end
     end
-    
+
     # Convert script field (old ES < 1.0 style)
     if terms_config[:script_field]
       agg_config[:terms][:script] = {
@@ -90,7 +90,7 @@ class ElasticsearchToOpensearchConverter
       }
       agg_config[:terms].delete(:field)
     end
-    
+
     agg_config
   end
 
@@ -98,14 +98,14 @@ class ElasticsearchToOpensearchConverter
     agg_config = {
       date_histogram: {}
     }
-    
+
     # Convert field
     agg_config[:date_histogram][:field] = date_config[:field] if date_config[:field]
-    
+
     # Convert interval to calendar_interval (OpenSearch 2.0 style)
     if date_config[:interval]
       interval = date_config[:interval]
-      
+
       # Map old interval formats to new ones
       interval_mapping = {
         'year' => '1y',
@@ -116,9 +116,9 @@ class ElasticsearchToOpensearchConverter
         'minute' => '1m',
         'second' => '1s'
       }
-      
+
       mapped_interval = interval_mapping[interval] || interval
-      
+
       # Determine if it's calendar or fixed interval
       calendar_intervals = %w[1y 1M 1w 1d year month week day]
       if calendar_intervals.include?(mapped_interval)
@@ -127,12 +127,12 @@ class ElasticsearchToOpensearchConverter
         agg_config[:date_histogram][:fixed_interval] = mapped_interval
       end
     end
-    
+
     # Convert time_zone
     if date_config[:time_zone]
       agg_config[:date_histogram][:time_zone] = date_config[:time_zone]
     end
-    
+
     agg_config
   end
 
@@ -178,41 +178,41 @@ class ElasticsearchToOpensearchConverter
 
   def self.convert_legacy_query_structure(params)
     # Convert old query types that were common in ES < 1.0
-    
+
     # Convert 'query_string' with old syntax
     if params.dig(:query, :query_string)
       query_string = params[:query][:query_string]
-      
+
       # Convert old 'default_field' to 'fields'
       if query_string[:default_field] && !query_string[:fields]
-        query_string[:fields] = [query_string.delete(:default_field)]
+        query_string[:fields] = [ query_string.delete(:default_field) ]
       end
     end
-    
+
     # Convert old 'text' query to 'match'
     if params.dig(:query, :text)
       text_query = params[:query].delete(:text)
       params[:query][:match] = text_query
     end
-    
+
     # Convert old 'field' query to 'match'
     if params.dig(:query, :field)
       field_query = params[:query].delete(:field)
       params[:query][:match] = field_query
     end
-    
+
     # Convert old bool query structure
     if params.dig(:query, :bool)
       bool_query = params[:query][:bool]
-      
+
       # Convert old 'must' array structure
-      [:must, :should, :must_not].each do |clause|
+      [ :must, :should, :must_not ].each do |clause|
         if bool_query[clause] && !bool_query[clause].is_a?(Array)
-          bool_query[clause] = [bool_query[clause]]
+          bool_query[clause] = [ bool_query[clause] ]
         end
       end
     end
-    
+
     params
   end
 
@@ -221,14 +221,14 @@ class ElasticsearchToOpensearchConverter
     if params[:filter] && !params.dig(:query, :bool)
       # Move filter to bool query
       original_query = params[:query]
-      
+
       params[:query] = {
         bool: {
-          must: original_query ? [original_query] : [{ match_all: {} }],
-          filter: [convert_legacy_filter_syntax(params[:filter])]
+          must: original_query ? [ original_query ] : [ { match_all: {} } ],
+          filter: [ convert_legacy_filter_syntax(params[:filter]) ]
         }
       }
-      
+
       params.delete(:filter)
     elsif params[:filter] && params.dig(:query, :bool)
       # Add filter to existing bool query
@@ -237,13 +237,13 @@ class ElasticsearchToOpensearchConverter
       params[:query][:bool][:filter] = existing_filter
       params.delete(:filter)
     end
-    
+
     params
   end
 
   def self.convert_legacy_filter_syntax(filter)
     return filter unless filter.is_a?(Hash)
-    
+
     # Convert old 'and' filter to bool must
     if filter[:and]
       return {
@@ -252,7 +252,7 @@ class ElasticsearchToOpensearchConverter
         }
       }
     end
-    
+
     # Convert old 'or' filter to bool should
     if filter[:or]
       return {
@@ -262,16 +262,16 @@ class ElasticsearchToOpensearchConverter
         }
       }
     end
-    
+
     # Convert old 'not' filter to bool must_not
     if filter[:not]
       return {
         bool: {
-          must_not: [convert_legacy_filter_syntax(filter[:not])]
+          must_not: [ convert_legacy_filter_syntax(filter[:not]) ]
         }
       }
     end
-    
+
     # Convert old 'missing' filter to bool must_not exists
     if filter[:missing]
       return {
@@ -286,7 +286,7 @@ class ElasticsearchToOpensearchConverter
         }
       }
     end
-    
+
     filter
   end
 
@@ -311,33 +311,33 @@ class ElasticsearchToOpensearchConverter
     when Array
       obj.each { |item| convert_scripts_recursive(item) }
     end
-    
+
     obj
   end
 
   def self.convert_deprecated_params(params)
     # Remove or convert parameters that don't exist in OpenSearch 2.0
-    
+
     # Remove old routing parameters
     params.delete(:routing) if params[:routing]
-    
+
     # Convert old timeout format
     if params[:timeout] && params[:timeout].is_a?(Integer)
       params[:timeout] = "#{params[:timeout]}ms"
     end
-    
+
     # Remove old search_type that's not supported
     params.delete(:search_type) if params[:search_type] == 'count'
-    
+
     # Convert old from/size to new format (they're the same but validate)
     if params[:from] && params[:from] < 0
       params[:from] = 0
     end
-    
+
     if params[:size] && params[:size] > 10000
       params[:size] = 10000  # OpenSearch default max
     end
-    
+
     params
   end
 end

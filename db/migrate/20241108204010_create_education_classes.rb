@@ -17,4 +17,3 @@ class CreateEducationClasses < ActiveRecord::Migration[7.2]
     add_index :education_classes, :discarded_at
   end
 end
- 

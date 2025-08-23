@@ -20,7 +20,7 @@ module Address::SeedConcern
     end
 
     def self.create_random_vietnam
-      self.create_random(alpha2: 'VN')
+      self.create_random(alpha2: "VN")
     end
   end
 end

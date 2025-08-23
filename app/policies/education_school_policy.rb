@@ -47,7 +47,7 @@ class EducationSchoolPolicy < ApplicationPolicy
     return true if @user.education_teacher?
     false
   end
-  
+
   def education_student?
     return true if @user.admin?
     return true if @user.education_student?

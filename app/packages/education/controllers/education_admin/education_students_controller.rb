@@ -1,7 +1,6 @@
-require 'pagy/extras/elasticsearch_rails'
+require "pagy/extras/elasticsearch_rails"
 
 class EducationAdmin::EducationStudentsController < EducationAdmin::EducationsController
-
   # GET /education_students or /education_students.json
   def index
     @education_students = EducationStudent.all
@@ -11,9 +10,9 @@ class EducationAdmin::EducationStudentsController < EducationAdmin::EducationsCo
     @education_students = @education_students.select(:id, :name, :created_at, :updated_at)
     @pagination, @education_students = pagy(@education_students)
     @json_data = {
-      education_students: @education_students.as_json(include: { education_schools: { only: [:id, :name] }, education_classes: { only: [:id, :name] } }, only: [:id, :name, :created_at, :updated_at]),
-      selection_education_classes: EducationClass.where(education_school: @education_schools).as_json(only: [:id, :name]),
-      selection_education_schools: @education_schools.as_json(only: [:id, :name]),
+      education_students: @education_students.as_json(include: { education_schools: { only: [ :id, :name ] }, education_classes: { only: [ :id, :name ] } }, only: [ :id, :name, :created_at, :updated_at ]),
+      selection_education_classes: EducationClass.where(education_school: @education_schools).as_json(only: [ :id, :name ]),
+      selection_education_schools: @education_schools.as_json(only: [ :id, :name ])
     }.to_json
   end
 
@@ -32,5 +31,4 @@ class EducationAdmin::EducationStudentsController < EducationAdmin::EducationsCo
 
     redirect_to education_students_path, notice: "Education students were successfully imported."
   end
-
 end

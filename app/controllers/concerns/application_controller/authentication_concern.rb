@@ -1,6 +1,6 @@
 module ApplicationController::AuthenticationConcern
   extend ActiveSupport::Concern
-  
+
   included do
     before_action :authenticate
 
@@ -13,6 +13,5 @@ module ApplicationController::AuthenticationConcern
         redirect_to Rails.application.routes.url_helpers.sign_in_path(redirect_to: request.url)
       end
     end
-
   end
 end

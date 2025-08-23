@@ -1,7 +1,7 @@
 class NosqlUser
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+
   field :user_id, type: String
   field :username, type: String
   field :uid, type: String
@@ -27,5 +27,4 @@ class NosqlUser
   def user
     User.where(id: self.user_id).first
   end
-
 end

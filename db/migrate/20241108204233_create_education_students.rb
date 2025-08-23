@@ -4,7 +4,7 @@ class CreateEducationStudents < ActiveRecord::Migration[7.2]
       t.references :education_owner, null: false, foreign_key: true, type: :uuid
       t.references :user, null: true, foreign_key: true, type: :uuid
       t.references :education_school, null: false, foreign_key: true, type: :uuid
-      
+
       t.string :uid
       t.string :name, null: false
       t.string :email, comment: 'Student can be created without user at first time then will match with user by email'

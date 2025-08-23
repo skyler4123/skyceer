@@ -1,4 +1,4 @@
-require 'pagy/extras/elasticsearch_rails'
+require "pagy/extras/elasticsearch_rails"
 
 class EducationOwner::EducationTeachersController < EducationOwner::EducationsController
   before_action :set_education_teacher, only: %i[ edit update destroy ]
@@ -14,7 +14,7 @@ class EducationOwner::EducationTeachersController < EducationOwner::EducationsCo
     end
     @pagination, @education_teachers = pagy(@education_teachers)
     @json_data = {
-      education_teachers: @education_teachers.as_json(include: [:education_school, :education_classes, :education_subjects])
+      education_teachers: @education_teachers.as_json(include: [ :education_school, :education_classes, :education_subjects ])
     }.to_json
   end
 
@@ -26,9 +26,9 @@ class EducationOwner::EducationTeachersController < EducationOwner::EducationsCo
   # GET /education_teachers/1/edit
   def edit
     @education_classes = EducationClass.where(education_school: @education_schools)
-    @education_subjects = EducationSubject.where(education_school: @education_schools) 
+    @education_subjects = EducationSubject.where(education_school: @education_schools)
     @json_data = {
-      education_teacher: @education_teacher.as_json(include: [:education_school, :education_classes, :education_categories, :education_subjects]),
+      education_teacher: @education_teacher.as_json(include: [ :education_school, :education_classes, :education_categories, :education_subjects ]),
       education_subjects: @education_subjects.as_json,
       education_schools: @education_schools.as_json,
       education_classes: @education_classes.as_json,
@@ -40,7 +40,7 @@ class EducationOwner::EducationTeachersController < EducationOwner::EducationsCo
   def create
     @education_teacher = EducationTeacher.new(education_teacher_params)
     @education_teacher.education_school_user = current_user
-    
+
     respond_to do |format|
       if @education_teacher.save
         if params[:education_teacher][:email].present?
@@ -113,6 +113,6 @@ class EducationOwner::EducationTeachersController < EducationOwner::EducationsCo
 
     # Only allow a list of trusted parameters through.
     def education_teacher_params
-      params.expect(education_teacher: [:name, :email, :education_school_id])
+      params.expect(education_teacher: [ :name, :email, :education_school_id ])
     end
 end
