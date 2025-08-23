@@ -2,8 +2,7 @@
 class ImageUploadService
   ALLOWED_MODELS = {
     'article_post' => ArticlePost,
-    'user' => User,
-    'product' => Product
+    'user' => User
   }.freeze
 
   def initialize(record_class_param, record_id, image_file)
