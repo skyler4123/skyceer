@@ -8,7 +8,7 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 # pin_all_from "app/components", under: "controllers", to: "components"
 
 # pin "axios", to: "https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js", preload: true
-pin "axios"
+pin "axios" # @1.1.2
 pin "dayjs" # @1.11.12
 pin "flatpickr" # @4.6.13
 pin "flatpickr/dist/l10n/ru.js", to: "flatpickr--dist--l10n--ru.js.js" # @4.6.13
@@ -58,5 +58,5 @@ pin "@editorjs/nested-list", to: "@editorjs--nested-list.js" # @1.4.3
 pin "editorjs-text-alignment-blocktune" # @1.0.3
 pin "@calumk/editorjs-codeflask", to: "@calumk--editorjs-codeflask.js" # @1.0.10
 pin "editorjs-toggle-block" # @0.3.16
-pin "tabulator"
+pin "tabulator" # @6.3.0 
 pin "read-excel-file" # @5.8.7
