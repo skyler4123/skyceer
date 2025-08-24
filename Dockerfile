@@ -17,10 +17,10 @@ FROM docker.io/library/ruby:$RUBY_VERSION-slim  AS base
 WORKDIR /rails
 
 # Set production environment, uncomment for deploy on production mode
-ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+# ENV RAILS_ENV="production" \
+#     BUNDLE_DEPLOYMENT="1" \
+#     BUNDLE_PATH="/usr/local/bundle" \
+#     BUNDLE_WITHOUT="development"
     # HTTP_PORT="3000" \
     # TARGET_PORT="3001"
 
