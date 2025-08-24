@@ -7,10 +7,10 @@ image: pkphung2001/skyceer-rails
 # Deploy to these servers.
 servers:
   web:
-    - 34.238.80.89
+    - 54.234.110.247
   job:
     hosts:
-      - 34.238.80.89
+      - 54.234.110.247
     cmd: bin/jobs
 
 # Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
@@ -90,6 +90,7 @@ builder:
 # Use a different ssh user than root
 ssh:
   user: ubuntu
+  keys: [ "~/Documents/aws/key_pair_01.pem" ]
 
 # Use accessory services (secrets come from .kamal/secrets).
 # accessories:
