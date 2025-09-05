@@ -4,7 +4,7 @@ services:
   postgresql-master:
     image: bitnami/postgresql:latest
     ports:
-      - 5432:5432
+      - "5432:5432" # Published on port 5432 of the ingress network
     volumes:
       - postgresql_master_data:/bitnami/postgresql
     environment:
@@ -26,7 +26,7 @@ services:
   postgresql-slave-1:
     image: bitnami/postgresql:latest
     ports:
-      - 5432:5432
+      - "5433:5432" # Published on port 5433 of the ingress network
     volumes:
       - postgresql_slave_data_1:/bitnami/postgresql
     depends_on:
@@ -46,8 +46,8 @@ services:
       replicas: 1
       placement:
         constraints:
-          # # docker node update --label-add node_rule=postgresql_slave-1 <node_id>
-          - node.labels.node_rule == postgresql_slave-1 # <-- Force to the master node
+          # docker node update --label-add node_rule=postgresql_slave-1 <node_id>
+          - node.labels.node_rule == postgresql_slave_1 # <-- Force to the master node
 
 networks:
   postgres_network:
