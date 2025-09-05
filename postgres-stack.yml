@@ -1,32 +1,61 @@
-version: '3.2'
+version: '3.7'
 
 services:
-  postgres:
-    image: postgres:15
-    environment:
-      # These environment variables configure the PostgreSQL database.
-      # It is highly recommended to use Docker secrets or environment variables for production passwords.
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-    volumes:
-      # This volume ensures your data persists even if the container is removed or replaced.
-      - postgres_data:/var/lib/postgresql/data
+  postgresql-master:
+    image: bitnami/postgresql:latest
     ports:
-      # This exposes the standard PostgreSQL port (5432) to the host machine.
-      - "5432:5432"
+      - 5432:5432
+    volumes:
+      - postgresql_master_data:/bitnami/postgresql
+    environment:
+      - POSTGRESQL_REPLICATION_MODE=master
+      - POSTGRESQL_REPLICATION_USER=repl_user
+      - POSTGRESQL_REPLICATION_PASSWORD=repl_password
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=password
+    networks:
+      - postgres_network
     deploy:
       mode: replicated
       replicas: 1
       placement:
-        # This constraint ensures the PostgreSQL service is deployed to a manager node
-        # as it is a single-replica service and requires stable storage.
         constraints:
-          - node.role == manager
+          # docker node update --label-add node_rule=postgresql_master <node_id>
+          - node.labels.node_rule == postgresql_master # <-- Force to the master node
+
+  postgresql-slave-1:
+    image: bitnami/postgresql:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresql_slave_data_1:/bitnami/postgresql
+    depends_on:
+      - postgresql-master
+    environment:
+      - POSTGRESQL_REPLICATION_MODE=slave
+      - POSTGRESQL_REPLICATION_USER=repl_user
+      - POSTGRESQL_REPLICATION_PASSWORD=repl_password
+      - POSTGRESQL_MASTER_HOST=postgresql-master
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_MASTER_PORT_NUMBER=5432
+    networks:
+      - postgres_network
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          # # docker node update --label-add node_rule=postgresql_slave-1 <node_id>
+          - node.labels.node_rule == postgresql_slave-1 # <-- Force to the master node
 
 networks:
-  agent_network:
+  postgres_network:
     driver: overlay
     attachable: true
 
 volumes:
-  postgres_data:
+  postgresql_master_data:
+    driver: local
+  postgresql_slave_data_1:
+    driver: local
