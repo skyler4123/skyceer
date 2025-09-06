@@ -18,7 +18,9 @@ sudo usermod -aG docker $USER
 newgrp docker
 docker run hello-world
 
-docker swarm init --autolock --cert-expiry 8760h0m0s --advertise-addr 54.87.63.186
+docker swarm init --autolock --cert-expiry 8760h0m0s --advertise-addr 52.207.224.117
+docker swarm init --autolock --cert-expiry 8760h0m0s --advertise-addr 10.0.43.151
+
 
 # Swarm initialized: current node (ke4rouvr3yz7wc97id18avyzz) is now a manager.
 

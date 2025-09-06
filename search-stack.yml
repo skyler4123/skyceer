@@ -19,11 +19,11 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      # placement:
-      #   # This constraint ensures the PostgreSQL service is deployed to a manager node
-      #   # as it is a single-replica service and requires stable storage.
-      #   constraints:
-      #     - node.role == manager
+      placement:
+        # This constraint ensures the PostgreSQL service is deployed to a manager node
+        # as it is a single-replica service and requires stable storage.
+        constraints:
+          - node.role == worker
 
   opensearch_dashboards:
     image: opensearchproject/opensearch-dashboards:3
@@ -39,11 +39,11 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      # placement:
-      #   # This constraint ensures the PostgreSQL service is deployed to a manager node
-      #   # as it is a single-replica service and requires stable storage.
-      #   constraints:
-      #     - node.role == manager
+      placement:
+        # This constraint ensures the PostgreSQL service is deployed to a manager node
+        # as it is a single-replica service and requires stable storage.
+        constraints:
+          - node.role == manager
 
 networks:
   search_network:
