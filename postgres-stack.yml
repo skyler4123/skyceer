@@ -18,10 +18,10 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      # placement:
-      #   constraints:
-      #     # docker node update --label-add node_rule=postgresql_master <node_id>
-      #     - node.labels.node_rule == postgresql_master # <-- Force to the master node
+      placement:
+        constraints:
+          - node.role == manager
+          # - node.labels.node_rule == postgresql_master
 
   postgresql-slave-1:
     image: bitnami/postgresql:latest
@@ -44,10 +44,10 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      # placement:
-      #   constraints:
-      #     # docker node update --label-add node_rule=postgresql_slave-1 <node_id>
-      #     - node.labels.node_rule == postgresql_slave_1 # <-- Force to the master node
+      placement:
+        constraints:
+          - node.role == worker
+          # - node.labels.node_rule == postgresql_slave_1
 
 networks:
   postgres_network:
