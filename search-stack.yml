@@ -1,4 +1,4 @@
-version: '3.2'
+version: '3.7'
 
 services:
   opensearch:
@@ -14,6 +14,8 @@ services:
       - "9600:9600"
     volumes:
       - es_data:/usr/share/opensearch/data
+    networks:
+      - search_network
     deploy:
       mode: replicated
       replicas: 1
@@ -32,6 +34,8 @@ services:
       - "5601:5601"
     depends_on:
       - opensearch
+    networks:
+      - search_network
     deploy:
       mode: replicated
       replicas: 1
@@ -42,7 +46,7 @@ services:
           - node.role == manager
 
 networks:
-  agent_network:
+  search_network:
     driver: overlay
     attachable: true
 
