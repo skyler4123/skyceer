@@ -31,7 +31,7 @@ describe Rack::Attack do
 
   # describe "throttle excessive requests by IP address" do
   #   let(:limit) { 20 }
-  
+
   #   context "number of requests is lower than the limit" do
   #     it "does not change the request status" do
   #       limit.times do
@@ -40,7 +40,7 @@ describe Rack::Attack do
   #       end
   #     end
   #   end
-  
+
   #   context "number of requests is higher than the limit" do
   #     it "changes the request status to 429" do
   #       (limit * 2).times do |i|

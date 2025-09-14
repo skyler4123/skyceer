@@ -2,7 +2,7 @@
 
 # RSpec.feature "education_teachers#edit", type: :feature, js: true do
 #   include_context "support/shared_contexts/education/default_database"
-  
+
 #   context "education_role: :education_owner" do
 #     let(:new_teacher_params) {{
 #       email: Faker::Internet.email,
@@ -11,7 +11,7 @@
 #     let!(:new_education_school) { create(:education_school, user: education_owner.education_ownerable) }
 #     let!(:new_education_category) { create(:education_category, user: education_owner.education_ownerable) }
 #     let!(:new_education_subject) { create(:education_subject, education_school: education_school) }
-    
+
 #     before do
 #       education_school.education_teachers << education_teacher
 #       education_category

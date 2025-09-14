@@ -4,10 +4,12 @@ class Api::ProjectSubtasksController < Api::ApplicationController
   # GET /project_subtasks or /project_subtasks.json
   def index
     @project_subtasks = ProjectSubtask.all
+    render json: @project_subtasks, status: :ok
   end
 
   # GET /project_subtasks/1 or /project_subtasks/1.json
   def show
+    render json: @project_subtask, status: :ok
   end
 
   # GET /project_subtasks/new

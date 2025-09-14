@@ -21,5 +21,4 @@ class EducationTeacher::EducationsController < EducationsController
   def set_education_classes
     @education_classes = EducationClass.joins(:education_teachers).where(education_teachers: @education_teachers)
   end
-
 end

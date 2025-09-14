@@ -10,7 +10,7 @@
 #       education_class.education_students << education_student
 #       education_class.education_teachers << education_teacher
 #     end
-    
+
 #     it "will not be redirected" do
 #       sign_in(user: education_student.user)
 #       visit education_teachers_path

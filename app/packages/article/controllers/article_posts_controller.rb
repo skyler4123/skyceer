@@ -5,6 +5,7 @@ class ArticlePostsController < ArticleController
   # GET /article_posts or /article_posts.json
   def index
     @article_posts = ArticlePost.all
+    OpenTelemetry.logger_provider.logger(name: "article_posts").on_emit(severity_text: "INFO", body: "Listing all article posts: #{@article_posts.map(&:id).join(", ")}")
     @json_data = {
       article_posts: @article_posts
     }.to_json
@@ -13,6 +14,7 @@ class ArticlePostsController < ArticleController
 
   # GET /article_posts/1 or /article_posts/1.json
   def show
+    OpenTelemetry.logger_provider.logger(name: "article_post").on_emit(body: "Showing article post: #{@article_post.id}")
     # flash[:notice] = "Article post was successfully created."
   end
 
@@ -48,7 +50,7 @@ class ArticlePostsController < ArticleController
   def update
     article_post_update_params = {
       title: params[:article_post][:title],
-      content: params[:article_post][:content].as_json,
+      content: params[:article_post][:content].as_json
     }
     respond_to do |format|
       if @article_post.update(article_post_update_params)
@@ -79,6 +81,6 @@ class ArticlePostsController < ArticleController
 
     # Only allow a list of trusted parameters through.
     def article_post_params
-      params.expect(article_post: [:title, :content])
+      params.expect(article_post: [ :title, :content ])
     end
 end

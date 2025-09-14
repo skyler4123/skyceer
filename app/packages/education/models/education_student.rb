@@ -18,7 +18,7 @@ class EducationStudent < ApplicationRecord
   def class_names
     self.education_classes.map(&:name).join(", ")
   end
-  
+
   def avatar
     self.user.avatar_path
   end

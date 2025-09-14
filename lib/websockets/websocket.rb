@@ -3,9 +3,9 @@
 EM.run {
   @channels = {} # {channel_id: [ws]}
   @clients = {} # {client_id: channel_id}
-  EM::WebSocket.run(:host => WEBSOCKET_HOST, :port => WEBSOCKET_PORT.to_s) do |ws|
+  EM::WebSocket.run(host: WEBSOCKET_HOST, port: WEBSOCKET_PORT.to_s) do |ws|
     ws.onopen { |handshake|
-    # TODO: validate
+      # TODO: validate
       puts "WebSocket connection open"
       channel_id = handshake.path
       channel = @channels[channel_id] || EM::Channel.new

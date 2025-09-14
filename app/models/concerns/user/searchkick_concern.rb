@@ -1,9 +1,9 @@
 module User::SearchkickConcern
   extend ActiveSupport::Concern
-  
+
   included do
-    searchkick  word_start: [:name, :email],
-                searchable: [:name, :email],
+    searchkick  word_start: [ :name, :email ],
+                searchable: [ :name, :email ],
                 callbacks: :async,
                 mappings: {
                  properties: {
@@ -54,7 +54,7 @@ module User::SearchkickConcern
                        name_shingle: {
                          type: "custom",
                          tokenizer: "standard",
-                         filter: ["lowercase", "english_stop", "name_shingle_filter"] # Use a shingle filter for name shingling
+                         filter: [ "lowercase", "english_stop", "name_shingle_filter" ] # Use a shingle filter for name shingling
                        }
                      },
                      filter: {
@@ -88,13 +88,12 @@ module User::SearchkickConcern
         full_name: "#{first_name} #{last_name}", # Add cuxtome full_name for better searchability, this field dont exist in the model
         role: role,
         education_role: education_role,
-        roles: [role, education_role].compact, # Include both role and education_role in the search data
+        roles: [ role, education_role ].compact, # Include both role and education_role in the search data
         role_details: {
           role: role,
           education_role: education_role
         }
       }
     end
-
   end
 end

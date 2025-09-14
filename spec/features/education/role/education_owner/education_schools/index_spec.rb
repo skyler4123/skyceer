@@ -27,5 +27,4 @@ RSpec.feature "education_schools#index", type: :feature, js: true do
       expect(page).to have_routing_error
     end
   end
-    
 end

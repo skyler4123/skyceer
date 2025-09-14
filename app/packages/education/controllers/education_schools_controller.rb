@@ -1,5 +1,5 @@
 class EducationSchoolsController < EducationsController
-  skip_before_action :redirect_when_not_education_user, only: [:new, :create]
+  skip_before_action :redirect_when_not_education_user, only: [ :new, :create ]
 
   # GET /education_schools/new
   def new
@@ -25,6 +25,6 @@ class EducationSchoolsController < EducationsController
   private
     # Only allow a list of trusted parameters through.
     def education_school_params
-      params.expect(education_school: [:address_id, :name, :email])
+      params.expect(education_school: [ :address_id, :name, :email ])
     end
 end

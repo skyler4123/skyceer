@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  append_view_path(Dir.glob(Rails.root.join('app/packages/*/views')))
+  append_view_path(Dir.glob(Rails.root.join("app/packages/*/views")))
 
   # include ApplicationController::AuthenticationConcern
   # include ApplicationController::CurrentConcern
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     def current_user
       Current.user
     end
-    
+
     def set_current_session
       if session_record = Session.find_by_id(cookies.signed[:session_token])
         Current.session = session_record

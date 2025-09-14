@@ -26,7 +26,7 @@ class EducationOwner::EducationsController < EducationsController
     @select_options_schools_and_categories ||= []
     education_schools.each do |school|
       school.education_categories.each do |category|
-        @select_options_schools_and_categories << ["#{school.name} - #{category.name}", category.id]
+        @select_options_schools_and_categories << [ "#{school.name} - #{category.name}", category.id ]
       end
     end
     @select_options_schools_and_categories

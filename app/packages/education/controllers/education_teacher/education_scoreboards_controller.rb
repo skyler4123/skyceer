@@ -13,7 +13,7 @@ class EducationTeacher::EducationScoreboardsController < EducationTeacher::Educa
       education_students: @education_students.as_json,
       education_exams: @education_exams.as_json,
       education_exam_appointments: @education_exam_appointments.as_json,
-      education_classes_for_select: @education_classes_for_select.as_json(include: [:education_subjects]),
+      education_classes_for_select: @education_classes_for_select.as_json(include: [ :education_subjects ])
     }.to_json
   end
 end

@@ -9,7 +9,7 @@ FactoryBot.define do
     role { nil }
     education_role { nil }
     association :address
-    
+
     trait :education_school do
       role { :normal }
       education_role { :education_school }

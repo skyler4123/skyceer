@@ -2,7 +2,7 @@
 
 # RSpec.feature "education_schools#edit", type: :feature, js: true do
 #   include_context "support/shared_contexts/education/default_database"
-  
+
 #   context "education_role: :education_owner" do
 #     let(:new_school_params) {{
 #       email: Faker::Internet.email,
@@ -10,7 +10,7 @@
 #       # name: "New School Name",
 #     }}
 #     let!(:new_education_school) { create(:education_school, user: education_owner.education_ownerable) }
-    
+
 #     before do
 #       education_category
 #       sign_in(user: education_owner.education_ownerable)

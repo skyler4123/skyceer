@@ -6,7 +6,7 @@
 #   before do
 #     education_school.education_students << education_student
 #   end
-  
+
 #   context "education_role: :education_student" do
 #     it "will not be redirected" do
 #       sign_in(user: education_student.user)

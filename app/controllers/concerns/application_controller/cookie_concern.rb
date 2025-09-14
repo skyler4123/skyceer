@@ -1,6 +1,6 @@
 module ApplicationController::CookieConcern
   extend ActiveSupport::Concern
-  
+
   included do
     def set_cookie_for_sign_in(session:, user:)
       cookies.signed.permanent[:session_token] = { value: session.id, httponly: true }
@@ -21,7 +21,7 @@ module ApplicationController::CookieConcern
 
     def check_sign_out_and_clear_cookie
       return if is_signed_in
-      
+
       clear_cookie_for_sign_out
     end
   end

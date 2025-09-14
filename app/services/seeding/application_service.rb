@@ -13,7 +13,7 @@ class Seeding::ApplicationService
     20.times do |n|
       category = Category.create!(
         name: "category #{n}",
-        parent_category: [Category.all.sample, nil].sample
+        parent_category: [ Category.all.sample, nil ].sample
       )
     end
   end
@@ -26,5 +26,4 @@ class Seeding::ApplicationService
       )
     end
   end
-
 end

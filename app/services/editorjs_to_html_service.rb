@@ -1,7 +1,7 @@
 class EditorjsToHtmlService
   def self.convert(content)
     return "" unless content.is_a?(Hash) && content["blocks"]
-    
+
     blocks = content["blocks"]
     html_parts = blocks.map { |block| convert_block(block) }.compact
     html_parts.join("\n")
@@ -12,7 +12,7 @@ class EditorjsToHtmlService
   def self.convert_block(block)
     type = block["type"]
     data = block["data"] || {}
-    
+
     case type
     when "paragraph"
       convert_paragraph(data)
@@ -61,7 +61,7 @@ class EditorjsToHtmlService
   def self.convert_header(data)
     text = data["text"] || ""
     level = data["level"] || 2
-    level = [1, 2, 3, 4, 5, 6].include?(level) ? level : 2
+    level = [ 1, 2, 3, 4, 5, 6 ].include?(level) ? level : 2
     # add tailwindcss class for header
     "<h#{level} class=\"text-#{level == 1 ? '3xl' : level == 2 ? '2xl' : 'xl'} font-bold mb-4\">#{sanitize_html(text)}</h#{level}>"
   end
@@ -69,9 +69,9 @@ class EditorjsToHtmlService
   def self.convert_list(data)
     style = data["style"] || "unordered"
     items = data["items"] || []
-    
+
     return "" if items.empty?
-    
+
     case style
     when "ordered"
       convert_ordered_list(items, data["meta"])
@@ -85,7 +85,7 @@ class EditorjsToHtmlService
   def self.convert_ordered_list(items, meta = {})
     start_attr = meta && meta["start"] ? " start=\"#{meta['start']}\"" : ""
     style_attr = meta && meta["counterType"] ? " style=\"list-style-type: #{meta['counterType']}\"" : ""
-    
+
     list_items = items.map do |item|
       if item.is_a?(Hash) && item["content"]
         # Nested list item
@@ -127,7 +127,7 @@ class EditorjsToHtmlService
       end
       content += "</li>"
     end
-    
+
     "<ul class=\"pl-4 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400\">#{nested_items.join}</ul>"
   end
 
@@ -138,15 +138,15 @@ class EditorjsToHtmlService
 
   def self.convert_checklist_items(items)
     return "" if items.empty?
-    
+
     list_items = items.map do |item|
       if item.is_a?(Hash)
         text = item["text"] || item["content"] || ""
         checked = item["checked"] || (item["meta"] && item["meta"]["checked"]) || false
         checked_attr = checked ? " checked" : ""
-        
+
         content = "<li><input type=\"checkbox\"#{checked_attr} disabled> #{sanitize_html(text)}"
-        
+
         # Handle nested checklist items
         if item["items"] && !item["items"].empty?
           nested_items = item["items"].map do |nested_item|
@@ -157,7 +157,7 @@ class EditorjsToHtmlService
           end
           content += "<ul class=\"list-none pl-4 max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400\">#{nested_items.join}</ul>"
         end
-        
+
         content += "</li>"
       else
         "<li><input type=\"checkbox\" disabled> #{sanitize_html(item)}</li>"
@@ -174,10 +174,10 @@ class EditorjsToHtmlService
   def self.convert_table(data)
     content = data["content"] || []
     return "" if content.empty?
-    
+
     with_headings = data["withHeadings"] || false
     stretched = data["stretched"] || false
-    
+
     table_class = stretched ? "table-stretched" : ""
     html = "<table class=\"#{table_class} w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400\">"
 
@@ -190,7 +190,7 @@ class EditorjsToHtmlService
         html += "<tr class=\"bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600\">#{cells}</tr>"
       end
     end
-    
+
     html += with_headings ? "</tbody></table>" : "</table>"
     html
   end
@@ -214,7 +214,7 @@ class EditorjsToHtmlService
   def self.convert_code(data)
     code = data["code"] || ""
     language = data["language"] || ""
-    
+
     language_class = language.present? ? " class=\"language-#{language}\"" : ""
     "<pre><code#{language_class}>#{escape_html(code)}</code></pre>"
     "
@@ -228,7 +228,7 @@ class EditorjsToHtmlService
   def self.convert_code(data)
     code = data["code"] || ""
     language = data["language"] || ""
-    
+
     language_class = language.present? ? " class=\"language-#{language}\"" : ""
     "<pre><code#{language_class}>#{escape_html(code)}</code></pre>"
   end
@@ -242,9 +242,9 @@ class EditorjsToHtmlService
     text = data["text"] || ""
     caption = data["caption"] || ""
     alignment = data["alignment"] || "left"
-    
+
     align_class = " class=\"quote-#{alignment}\""
-    
+
     html = "<blockquote#{align_class}>"
     html += "<p>#{sanitize_html(text)}</p>"
     html += "<cite>#{sanitize_html(caption)}</cite>" if caption.present?
@@ -259,16 +259,16 @@ class EditorjsToHtmlService
     stretched = data["stretched"] || false
     with_background = data["withBackground"] || false
     with_border = data["withBorder"] || false
-    
+
     return "" if url.blank?
-    
+
     css_classes = []
     css_classes << "image-stretched" if stretched
     css_classes << "image-with-background" if with_background
     css_classes << "image-with-border" if with_border
     css_classes << "flex flex-col justify-center items-center"
     class_attr = css_classes.any? ? " class=\"#{css_classes.join(' ')}\"" : ""
-    
+
     html = "<figure#{class_attr}>"
     html += "<img src=\"#{escape_html(url)}\" alt=\"#{escape_html(caption)}\">"
     html += "<figcaption>#{sanitize_html(caption)}</figcaption>" if caption.present?
@@ -282,18 +282,18 @@ class EditorjsToHtmlService
     caption = data["caption"] || ""
     width = data["width"] || 580
     height = data["height"] || 320
-    
+
     return "" if embed_url.blank?
-    
+
     html = "<figure class=\"embed\">"
-    
+
     case service.downcase
     when "youtube"
       html += "<iframe width=\"#{width}\" height=\"#{height}\" src=\"#{escape_html(embed_url)}\" frameborder=\"0\" allowfullscreen></iframe>"
     else
       html += "<iframe width=\"#{width}\" height=\"#{height}\" src=\"#{escape_html(embed_url)}\" frameborder=\"0\"></iframe>"
     end
-    
+
     html += "<figcaption>#{sanitize_html(caption)}</figcaption>" if caption.present?
     html += "</figure>"
     html
@@ -305,16 +305,16 @@ class EditorjsToHtmlService
     title = meta["title"] || link
     description = meta["description"] || ""
     image_url = meta.dig("image", "url") || ""
-    
+
     return "" if link.blank?
-    
+
     html = "<div class=\"link-tool\">"
     html += "<a href=\"#{escape_html(link)}\" target=\"_blank\" rel=\"noopener\">"
-    
+
     if image_url.present?
       html += "<div class=\"link-image\"><img src=\"#{escape_html(image_url)}\" alt=\"#{escape_html(title)}\"></div>"
     end
-    
+
     html += "<div class=\"link-content\">"
     html += "<div class=\"link-title\">#{sanitize_html(title)}</div>"
     html += "<div class=\"link-description\">#{sanitize_html(description)}</div>" if description.present?
@@ -329,11 +329,11 @@ class EditorjsToHtmlService
     url = file["url"] || ""
     size = file["size"] || 0
     extension = file["extension"] || ""
-    
+
     return "" if url.blank?
-    
+
     size_formatted = format_file_size(size)
-    
+
     html = "<div class=\"attachment\">"
     html += "<a href=\"#{escape_html(url)}\" target=\"_blank\" rel=\"noopener\">"
     html += "<div class=\"attachment-icon\">📎</div>"
@@ -352,15 +352,15 @@ class EditorjsToHtmlService
   def self.convert_toggle(data)
     text = data["text"] || ""
     items = data["items"] || []
-    
+
     html = "<details class=\"toggle\">"
     html += "<summary>#{sanitize_html(text)}</summary>"
     html += "<div class=\"toggle-content\">"
-    
+
     items.each do |item|
       html += "<p>#{sanitize_html(item)}</p>"
     end
-    
+
     html += "</div></details>"
     html
   end
@@ -369,7 +369,7 @@ class EditorjsToHtmlService
     # For unknown block types, try to render basic content
     type = block["type"]
     data = block["data"] || {}
-    
+
     if data["text"]
       "<p><em>[#{type}]</em> #{sanitize_html(data['text'])}</p>"
     elsif data["content"]
@@ -382,32 +382,32 @@ class EditorjsToHtmlService
   # Utility methods
   def self.sanitize_html(text)
     return "" unless text
-    
+
     # Allow basic HTML tags but escape others
     allowed_tags = %w[b strong i em u mark code a]
-    
+
     # Simple HTML sanitization (you might want to use a gem like Sanitize for production)
-    text.to_s.gsub(/<(?!\/?(?:#{allowed_tags.join('|')})\b)[^>]*>/, '')
+    text.to_s.gsub(/<(?!\/?(?:#{allowed_tags.join('|')})\b)[^>]*>/, "")
   end
 
   def self.escape_html(text)
     return "" unless text
-    
+
     text.to_s
-        .gsub('&', '&amp;')
-        .gsub('<', '&lt;')
-        .gsub('>', '&gt;')
-        .gsub('"', '&quot;')
-        .gsub("'", '&#39;')
+        .gsub("&", "&amp;")
+        .gsub("<", "&lt;")
+        .gsub(">", "&gt;")
+        .gsub('"', "&quot;")
+        .gsub("'", "&#39;")
   end
 
   def self.format_file_size(size)
     return "0 B" if size == 0
-    
+
     units = %w[B KB MB GB TB]
     base = 1024
     exponent = (Math.log(size) / Math.log(base)).floor
-    
+
     formatted_size = (size.to_f / (base ** exponent)).round(1)
     "#{formatted_size} #{units[exponent]}"
   end

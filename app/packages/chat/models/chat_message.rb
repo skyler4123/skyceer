@@ -20,9 +20,9 @@ class ChatMessage
 
   def user_must_be_participant
     return unless chat_conversation && nosql_user_id.present?
-    
+
     unless chat_conversation.nosql_user_ids.include?(nosql_user_id)
-      errors.add(:nosql_user_id, 'must be a participant in this conversation')
+      errors.add(:nosql_user_id, "must be a participant in this conversation")
     end
   end
 
@@ -37,4 +37,3 @@ class ChatMessage
     )
   end
 end
-

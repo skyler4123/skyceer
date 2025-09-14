@@ -7,7 +7,7 @@
 #     before do
 #       education_school.education_students << education_student
 #     end
-    
+
 #     it "will not be redirected" do
 #       sign_in(user: education_student.user)
 #       visit education_schools_path
@@ -27,5 +27,5 @@
 #       expect(page).to have_routing_error
 #     end
 #   end
-    
+
 # end

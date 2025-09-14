@@ -1,4 +1,4 @@
-RSpec.shared_context "support/shared_contexts/education/default_database", :shared_context => :metadata do
+RSpec.shared_context "support/shared_contexts/education/default_database", shared_context: :metadata do
   let(:education_owner_user) { create(:user, role: :normal, education_role: :education_owner) }
   let(:address) { create(:address) }
 
@@ -13,7 +13,7 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
   let(:education_room) { create(:education_room, education_owner:, education_school:) }
   let(:education_subject) { create(:education_subject, education_owner:, education_school:) }
   let(:education_lesson) { create(:education_lesson, education_owner:, education_school:, education_class:, education_subject:, education_teacher:) }
-  let(:education_exam) {create(:education_exam, education_owner:, education_school:, education_subject:) }
+  let(:education_exam) { create(:education_exam, education_owner:, education_school:, education_subject:) }
   let(:education_category) { create(:education_category, education_owner:) }
   let(:education_question) { create(:education_question, education_owner:, education_school:, education_teacher:) }
   let(:education_exam_to_class) { create(:education_exam_to_class, education_exam:, education_class:, education_subject:) }
@@ -32,5 +32,5 @@ RSpec.shared_context "support/shared_contexts/education/default_database", :shar
 end
 
 RSpec.configure do |rspec|
-  rspec.include_context "support/shared_contexts/education/default_database", :include_shared => true
+  rspec.include_context "support/shared_contexts/education/default_database", include_shared: true
 end

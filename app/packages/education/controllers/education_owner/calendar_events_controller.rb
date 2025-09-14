@@ -7,7 +7,7 @@ class EducationOwner::CalendarEventsController < EducationOwner::EducationsContr
     @json_data = {
       selection_education_classes: @selection_education_classes.as_json(only: %i[id name]),
       education_classes: @education_classes.as_json(only: %i[id name]),
-      calendar_events: @calendar_events.as_json,
+      calendar_events: @calendar_events.as_json
     }.to_json
   end
 
@@ -32,6 +32,6 @@ class EducationOwner::CalendarEventsController < EducationOwner::EducationsContr
   private
 
   def calendar_event_params
-    params.expect(calendar_event: [:library, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw, :discarded_at ])
+    params.expect(calendar_event: [ :library, :title, :body, :isAllday, :start, :end, :goingDuration, :comingDuration, :location, :attendees, :category, :dueDateClass, :recurrenceRule, :state, :isVisible, :isPending, :isFocused, :isReadOnly, :isPrivate, :color, :backgroundColor, :dragBackgroundColor, :borderColor, :customStyle, :raw, :discarded_at ])
   end
 end

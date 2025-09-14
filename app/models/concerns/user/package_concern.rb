@@ -1,6 +1,6 @@
 module User::PackageConcern
   extend ActiveSupport::Concern
-  
+
   included do
     after_create_commit :sync_with_package_user
 
@@ -10,5 +10,4 @@ module User::PackageConcern
       Application::User::SyncWithPackageUserJob.perform_later(self.id)
     end
   end
-
 end

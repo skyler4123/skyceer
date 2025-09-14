@@ -2,7 +2,7 @@
 
 # RSpec.feature "education_rooms#new", type: :feature, js: true do
 #   include_context "support/shared_contexts/education/default_database"
-  
+
 #   context "education_role: :education_owner" do
 #     let(:new_room_params) {{
 #       name: Faker::Name.name,

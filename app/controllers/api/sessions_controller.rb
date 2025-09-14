@@ -13,9 +13,9 @@ class Api::SessionsController < Api::ApplicationController
 
   def create
     if user = User.authenticate_by(email: params[:email], password: params[:password])
-      @session = user.sessions.create!
-      response.set_header "X-Session-Token", @session.signed_id
-
+      @session = user.sessions.create!(expires_at: API_TOKEN_EXPIRED_IN_SECONDS.from_now)
+      @session.cache! # Cache the session record
+      response.set_header "X-Session-Token", @session.signed_id(expires_in: @session.expires_in)
       render json: @session, status: :created
     else
       render json: { error: "That email or password is incorrect" }, status: :unauthorized

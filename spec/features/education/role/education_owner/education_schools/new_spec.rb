@@ -2,7 +2,7 @@
 
 # RSpec.feature "education_schools#new", type: :feature, js: true do
 #   include_context "support/shared_contexts/education/default_database"
-  
+
 #   context "education_role: :education_owner" do
 #     let(:new_school_params) {{
 #       email: Faker::Internet.email,

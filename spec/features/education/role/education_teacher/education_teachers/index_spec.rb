@@ -7,7 +7,7 @@
 #     before do
 #       education_school.education_teachers << education_teacher
 #     end
-    
+
 #     it "will not be redirected" do
 #       sign_in(user: education_teacher.user)
 #       visit education_teachers_path

@@ -4,10 +4,12 @@ class Api::ProjectCategoriesController < Api::ApplicationController
   # GET /project_categories or /project_categories.json
   def index
     @project_categories = ProjectCategory.all
+    render json: @project_categories, status: :ok
   end
 
   # GET /project_categories/1 or /project_categories/1.json
   def show
+    render json: @project_category, status: :ok
   end
 
   # GET /project_categories/new

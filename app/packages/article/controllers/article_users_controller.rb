@@ -65,6 +65,6 @@ class ArticleUsersController < ArticleController
 
     # Only allow a list of trusted parameters through.
     def article_user_params
-      params.expect(article_user: [:user_id])
+      params.expect(article_user: [ :user_id ])
     end
 end

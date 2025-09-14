@@ -63,6 +63,6 @@ Rails.application.configure do
 
 
 
-  # CUSTOMIZE 
+  # CUSTOMIZE
   config.action_controller.allow_forgery_protection = true
 end

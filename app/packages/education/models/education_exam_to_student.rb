@@ -6,8 +6,8 @@ class EducationExamToStudent < ApplicationRecord
   enum :status, {
     pending: 0,
     completed: 1,
-    failed: 2,
+    failed: 2
   }
-  
+
   include EducationExamToStudent::ValidationConcern
 end

@@ -18,5 +18,4 @@ RSpec.describe EducationSchool, type: :model do
   # it 'should create a new payment user for the school' do
   #   expect(subject.payment_owner).to be_present
   # end
-
 end

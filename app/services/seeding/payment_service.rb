@@ -29,7 +29,7 @@ class Seeding::PaymentService
         PaymentCategory.create!(
           payment_owner: payment_owner,
           name: "payment category name #{Faker::Movie.title}",
-          parent_category: [payment_owner.payment_categories.sample, nil].sample,
+          parent_category: [ payment_owner.payment_categories.sample, nil ].sample,
         )
       end
     end
@@ -144,7 +144,7 @@ class Seeding::PaymentService
       end
     end
   end
-  
+
   def self.payment_item_appointments
     PaymentOwner.all.each do |payment_owner|
       payment_orders = payment_owner.payment_orders

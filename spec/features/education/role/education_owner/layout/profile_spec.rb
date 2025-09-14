@@ -19,7 +19,6 @@ RSpec.feature "Home", type: :feature do
       expect(page).to have_content(user.name)
       # expect see Sign out
       expect(page).to have_content("Sign Out")
-
     end
   end
 end

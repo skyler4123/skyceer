@@ -8,6 +8,6 @@ class PaymentInvoice < ApplicationRecord
 
   enum :status, { active: 0, inactive: 1, expired: 2, paid: 3 }
   # enum :kind, { invoice: 0, receipt: 1 }
-  
+
   include PaymentInvoice::ValidationConcern
 end

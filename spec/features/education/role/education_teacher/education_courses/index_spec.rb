@@ -10,7 +10,7 @@
 #       education_class.education_teachers << education_teacher
 #       education_course
 #     end
-    
+
 #     it "will not be redirected" do
 #       sign_in(user: education_teacher.user)
 #       visit education_courses_path

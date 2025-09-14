@@ -9,9 +9,8 @@ class Address < ApplicationRecord
   before_save :update_level_total
 
   def update_level_total
-    levels = self.attributes.slice('level_1', 'level_2', 'level_3', 'level_4', 'level_5', 'level_6', 'level_7', 'level_8', 'level_9', 'level_10')
+    levels = self.attributes.slice("level_1", "level_2", "level_3", "level_4", "level_5", "level_6", "level_7", "level_8", "level_9", "level_10")
     level_total = levels.values.select { |level| level.present? }.size
     self.level_total = level_total
   end
-
 end

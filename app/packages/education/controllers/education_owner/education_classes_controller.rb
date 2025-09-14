@@ -8,7 +8,7 @@ class EducationOwner::EducationClassesController < EducationOwner::EducationsCon
     @education_classes = EducationClass.where(education_school: @education_schools)
     @pagination, @education_classes = pagy(@education_classes)
     @json_data = {
-      education_classes: @education_classes.as_json(only: %i[id education_school_id education_course_id name discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
+      education_classes: @education_classes.as_json(only: %i[id education_school_id education_course_id name discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } })
     }.to_json
   end
 
@@ -31,7 +31,7 @@ class EducationOwner::EducationClassesController < EducationOwner::EducationsCon
       education_schools: @education_schools.as_json(only: %i[id name]),
       education_subjects: @education_subjects.as_json(only: %i[id name], include: { education_teachers: { only: %i[id name] } }),
       education_subject_appointments: @education_subject_appointments.as_json,
-      education_teachers: @education_teachers.as_json(only: %i[id name]),
+      education_teachers: @education_teachers.as_json(only: %i[id name])
     }.to_json
   end
 
@@ -63,7 +63,7 @@ class EducationOwner::EducationClassesController < EducationOwner::EducationsCon
           education_categories = EducationCategory.where(id: params[:education_class][:education_category_id])
           @education_class.education_categories = education_categories
         end
-        
+
         format.html { redirect_to edit_education_class_path(@education_class), notice: UPDATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :ok, location: @education_class }
       else

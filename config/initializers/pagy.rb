@@ -7,5 +7,5 @@ Pagy::DEFAULT[:limit] = 10
 # globally
 Pagy::DEFAULT[:steps] = { 0 => 5, 540 => 7, 720 => 9 }
 # Better user experience handled automatically
-require 'pagy/extras/overflow'
+require "pagy/extras/overflow"
 Pagy::DEFAULT[:overflow] = :last_page

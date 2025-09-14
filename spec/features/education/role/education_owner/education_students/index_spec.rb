@@ -6,14 +6,14 @@ RSpec.feature "education_students#index", type: :feature, js: true do
   before do
     education_class.education_students << education_student
   end
-  
+
   context "education_role: :education_owner" do
     it "will not be redirected" do
       sign_in(user: education_owner.education_ownerable)
       visit education_students_path
       single_select("education_class_id", education_class.name)
       find("input[type='submit']").click
-      
+
       expect(page).to have_current_path(education_students_path, ignore_query: true)
       expect(page).to have_content(education_student.name)
     end

@@ -18,8 +18,8 @@ RSpec.describe EducationCategory, type: :model do
     it do
       should validate_uniqueness_of(:name)
         .scoped_to(:education_owner_id)
-        # .case_insensitive
-        # .with_message("must be unique per user")
+      # .case_insensitive
+      # .with_message("must be unique per user")
     end
 
     it do

@@ -3,4 +3,5 @@ class ApplicationRecord < ActiveRecord::Base
   include Pagy::Backend
   include ApplicationRecord::ImageConcern
   include ApplicationRecord::SearchkickConcern
+  include ApplicationRecord::CacheConcern
 end

@@ -2,7 +2,19 @@
 
 Rails
   ##
-    docker build -t skyceer-rails .
+    DOCKER_USERNAME=$(cat .ignore/docker-username.key)
+    DOCKER_PASSWORD=$(cat .ignore/docker.key)
+    GIT_COMMIT_HASH=$(git rev-parse --short HEAD)
+    REPOSITORY_NAME=skyceer-rails
+
+    docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+    docker build -t $REPOSITORY_NAME .
+    docker image tag $REPOSITORY_NAME $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH
+    docker image tag $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH $DOCKER_USERNAME/$REPOSITORY_NAME:latest
+
+    docker image push $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH
+    docker image push $DOCKER_USERNAME/$REPOSITORY_NAME:latest
+
     docker run -d -it --name web -p 3000:3000 -v $PWD:/skyceer skyceer-rails
     docker run -d -it --name web -p 3000:3000 -e RAILS_MASTER_KEY=$(cat config/master.key) skyceer-rails
     docker run -d -it --name web -p 3000:3000 -e RAILS_MASTER_KEY=$(cat config/credentials/production.key) skyceer-rails
@@ -68,4 +80,8 @@ ENV
     EDITOR="code --wait" bin/rails credentials:edit -e production
   ##
   
-  
+  Setup Opentelemetry
+  ##
+    <!-- https://hub.docker.com/r/grafana/otel-lgtm -->
+    docker run -p 3000:3000 -p 4317:4317 -p 4318:4318 --rm -ti grafana/otel-lgtm
+  ##

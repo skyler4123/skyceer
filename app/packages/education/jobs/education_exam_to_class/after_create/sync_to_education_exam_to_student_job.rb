@@ -1,5 +1,4 @@
 class EducationExamToClass::AfterCreate::SyncToEducationExamToStudentJob < ApplicationJob
-
   def perform(education_exam_to_class_ids)
     education_exam_to_classes = EducationExamToClass.where(id: education_exam_to_class_ids)
     education_exam_to_classes.each do |education_exam_to_class|
@@ -17,5 +16,4 @@ class EducationExamToClass::AfterCreate::SyncToEducationExamToStudentJob < Appli
       end
     end
   end
-
 end

@@ -33,6 +33,7 @@
 /config/credentials/development.key
 /config/credentials/test.key
 /config/credentials/ignore/*
+/.ignore
 
 /app/assets/builds/*
 !/app/assets/builds/.keep

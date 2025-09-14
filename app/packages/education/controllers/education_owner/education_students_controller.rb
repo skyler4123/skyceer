@@ -1,4 +1,4 @@
-require 'pagy/extras/elasticsearch_rails'
+require "pagy/extras/elasticsearch_rails"
 
 class EducationOwner::EducationStudentsController < EducationOwner::EducationsController
   before_action :set_education_student, only: %i[ edit update destroy ]
@@ -12,9 +12,9 @@ class EducationOwner::EducationStudentsController < EducationOwner::EducationsCo
     @education_students = @education_students.joins(:education_classes).where(education_classes: { id: params[:education_class_id] }) if params[:education_class_id].present?
     @pagination, @education_students = pagy(@education_students)
     @json_data = {
-      education_students: @education_students.as_json(include: [education_school: { only: [:id, :name] }, education_classes: { only: [:id, :name] } ], only: [:id, :name, :created_at, :updated_at]),
-      selection_education_classes: EducationClass.where(education_school: @education_schools).as_json(only: [:id, :name]),
-      selection_education_schools: @education_schools.as_json(only: [:id, :name]),
+      education_students: @education_students.as_json(include: [ education_school: { only: [ :id, :name ] }, education_classes: { only: [ :id, :name ] } ], only: [ :id, :name, :created_at, :updated_at ]),
+      selection_education_classes: EducationClass.where(education_school: @education_schools).as_json(only: [ :id, :name ]),
+      selection_education_schools: @education_schools.as_json(only: [ :id, :name ])
     }.to_json
   end
 
@@ -118,6 +118,6 @@ class EducationOwner::EducationStudentsController < EducationOwner::EducationsCo
 
     # Only allow a list of trusted parameters through.
     def education_student_params
-      params.expect(education_student: [:name, :email, :education_school_id])
+      params.expect(education_student: [ :name, :email, :education_school_id ])
     end
 end

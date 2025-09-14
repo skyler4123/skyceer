@@ -6,7 +6,7 @@ RSpec.feature "education_admins#index", type: :feature, js: true do
   before do
     education_school.education_admins << education_admin
   end
-  
+
   context "education_role: :education_owner" do
     it "will not be redirected" do
       sign_in(user: education_owner.education_ownerable)

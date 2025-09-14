@@ -62,7 +62,7 @@ class CalendarEventsController < ApplicationController
   #   @calendar_events = CalendarEvent.where(eventable_id: params[:eventable_id])
   #   render json: @calendar_events.to_json(only: [:id, :title, :start, :end])
   # end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_calendar_event

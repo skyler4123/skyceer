@@ -1,5 +1,4 @@
 class EducationOwner::PaymentOrdersController < EducationOwner::EducationsController
-
   # GET /payment_orders or /payment_orders.json
   def index
     # @payment_owners = PaymentOwner.where(payment_ownerable: @education_schools)
@@ -7,9 +6,9 @@ class EducationOwner::PaymentOrdersController < EducationOwner::EducationsContro
     @payment_owner = current_user.payment_owner
     @payment_orders = @payment_owner.payment_orders
     @pagination, @payment_orders = pagy(@payment_orders)
-    
+
     @json_data = {
-      payment_orders: @payment_orders.as_json(include: {payment_customer: {include: :payment_customerable}, payment_owner: {include: :payment_ownerable}})
+      payment_orders: @payment_orders.as_json(include: { payment_customer: { include: :payment_customerable }, payment_owner: { include: :payment_ownerable } })
     }.to_json
   end
 

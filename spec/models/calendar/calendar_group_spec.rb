@@ -11,12 +11,12 @@ RSpec.describe CalendarGroup, type: :model do
 
   describe 'validations' do
     subject { build(:calendar_group) }
-    
+
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name).scoped_to(:calendar_owner_id) }
     # it { should validate_inclusion_of(:status).in_array([0, 1, 2]) }
     # it { should validate_numericality_of(:position).is_greater_than_or_equal_to(0) }
-    
+
     it 'validates color format' do
       should allow_value('#FF0000').for(:color)
       should allow_value('#abc123').for(:color)
@@ -43,7 +43,7 @@ RSpec.describe CalendarGroup, type: :model do
   #   it 'orders by position' do
   #     group1 = create(:calendar_group, position: 2, calendar_owner: calendar_owner)
   #     group2 = create(:calendar_group, position: 1, calendar_owner: calendar_owner)
-      
+
   #     expect(CalendarGroup.ordered).to eq([group2, group1])
   #   end
   # end

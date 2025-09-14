@@ -8,7 +8,7 @@ RSpec.feature "Education Index pages", type: :feature do
   context "when user is set education_role as owner" do
     let(:user) { education_owner.education_ownerable }
 
-# Define path methods as constants (symbols)
+    # Define path methods as constants (symbols)
     available_paths = [
       :education_schools_path,
       :education_admins_path,

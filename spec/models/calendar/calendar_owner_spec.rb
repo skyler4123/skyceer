@@ -11,12 +11,12 @@ RSpec.describe CalendarOwner, type: :model do
 
   describe 'validations' do
     subject { build(:calendar_owner) }
-    
+
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:email) }
     it { should validate_uniqueness_of(:email).scoped_to(:calendar_ownerable_type, :calendar_ownerable_id) }
     it { should validate_uniqueness_of(:uid).allow_blank }
-    
+
     it 'validates email format' do
       should allow_value('test@example.com').for(:email)
       should allow_value('user+tag@domain.co.uk').for(:email)

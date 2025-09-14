@@ -19,7 +19,7 @@ class EducationOwner::EducationSubjectsController < EducationOwner::EducationsCo
     @education_subjects = EducationSubject.where(education_school: @education_schools) if @education_subjects.blank?
     @pagination, @education_subjects = pagy(@education_subjects)
     @json_data = {
-      education_subjects: @education_subjects.as_json(only: %i[id education_school_id name description discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } }),
+      education_subjects: @education_subjects.as_json(only: %i[id education_school_id name description discarded_at created_at updated_at], include: { education_school: { only: %i[id name] } })
     }.to_json
   end
 
@@ -62,7 +62,7 @@ class EducationOwner::EducationSubjectsController < EducationOwner::EducationsCo
           education_categories = EducationCategory.where(id: params[:education_subject][:education_category_id])
           @education_subject.education_categories = education_categories
         end
-        
+
         format.html { redirect_to education_subjects_path, notice: UPDATED_SUCCESS_MESSAGE }
         format.json { render :show, status: :ok, location: @education_subject }
       else

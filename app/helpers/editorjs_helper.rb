@@ -5,25 +5,25 @@ module EditorjsHelper
     content = content.with_indifferent_access
     content_html = content[:blocks].map do |block|
       case block[:type]
-      when 'paragraph'
+      when "paragraph"
         editorjs_paragraph(block)
-      when 'header'
+      when "header"
         editorjs_header(block)
-      when 'list'
+      when "list"
         editorjs_list(block)
-      when 'image'
+      when "image"
         editorjs_image(block)
-      when 'checklist'
+      when "checklist"
         editorjs_checklist(block)
-      when 'code'
+      when "code"
         editorjs_code(block)
-      when 'delimiter'
+      when "delimiter"
         editorjs_delimiter(block)
-      when 'embed'
+      when "embed"
         editorjs_embed(block)
-      when 'quote'
+      when "quote"
         editorjs_quote(block)
-      when 'table'
+      when "table"
         editorjs_table(block)
       else
         "<div>Unsupported block type: #{block[:type]}</div>"

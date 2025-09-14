@@ -70,8 +70,15 @@ gem "image_processing"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
-  gem 'rswag-specs'
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
+
+  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  gem "rubocop-rails-omakase", require: false
+
+  gem "rswag-specs"
 end
 
 group :development do
@@ -87,18 +94,18 @@ group :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem "capybara"
   # gem "selenium-webdriver"
 
-  gem 'factory_bot_rails'  
+  gem "factory_bot_rails"
   gem "rspec-rails"
   gem "rails-controller-testing"
-  gem 'shoulda-matchers'
+  gem "shoulda-matchers"
   gem "cuprite"
-  gem 'simplecov', require: false
-  gem 'rack-test'
-  gem 'webmock'
-  gem 'vcr'
+  gem "simplecov", require: false
+  gem "rack-test"
+  gem "webmock"
+  gem "vcr"
   gem "rspec-retry"
 end
 
@@ -110,30 +117,31 @@ gem "faker"
 gem "jwt"
 gem "em-websocket"
 gem "aws-sdk-s3", require: false
-gem 'rack-mini-profiler', require: false
-gem 'memory_profiler'
-gem 'stackprof'
-gem "mongoid"
-gem 'pagy'
-gem 'rack-cors'
 
-gem 'rswag-api'
-gem 'rswag-ui'
+gem "mongoid"
+gem "pagy"
+gem "rack-cors"
+
+gem "rswag-api"
+gem "rswag-ui"
 
 gem "searchkick"
 gem "opensearch-ruby" # select one
-# gem "elasticsearch-model"
-# gem "elasticsearch-rails"
-# gem "elasticsearch-persistence"
 
-gem 'rack-attack'
+gem "rack-attack"
 
-gem 'omniauth-google-oauth2'
+gem "omniauth-google-oauth2"
 
-gem 'money-rails'
-gem 'eu_central_bank'
+gem "money-rails"
+gem "eu_central_bank"
 
-gem 'silencer', require: false
-gem 'country_select'
+gem "silencer", require: false
+gem "country_select"
 gem "pundit"
-gem 'discard'
+gem "discard"
+
+gem "opentelemetry-sdk"
+gem "opentelemetry-exporter-otlp"
+gem "opentelemetry-logs-sdk"
+gem "opentelemetry-exporter-otlp-logs"
+gem "opentelemetry-instrumentation-all"
