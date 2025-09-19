@@ -15,7 +15,9 @@ Capybara.configure do |config|
   # Set the app host to the name of the Rails service in your docker-compose file.
   # This allows the Selenium container to find the Rails application.
   # Capybara will prepend this to your `visit` calls.
-  config.app_host = 'http://192.168.0.100:3000'
+  # config.app_host = 'http://192.168.0.100:3000'
+  config.app_host = 'http://web:3000'
+
   config.server_host = '0.0.0.0' # Allow Rails test server to accept external connections
   config.server_port = 3000 # Match your Rails server port
   # Register a custom driver for remote Selenium
@@ -27,8 +29,8 @@ Capybara.configure do |config|
       browser: :remote,
       # The URL for the Selenium Hub is based on the service name from docker-compose.yml.
       # The host `selenium-chromium` is the name of the service, and `4444` is the exposed port.
-      # url: "http://selenium-chromium:4444/wd/hub",
-      url: "http://localhost:4444/wd/hub",
+      url: "http://selenium-chromium:4444/wd/hub",
+      # url: "http://localhost:4444/wd/hub",
 
       # Add capabilities for the browser (e.g., to run headless)
       capabilities: Selenium::WebDriver::Options.chrome(
