@@ -121,6 +121,13 @@ services:
   #   depends_on:
   #     - elasticsearch
 
+  selenium-chromium:
+    image: selenium/standalone-chromium:latest
+    shm_size: '2gb'
+    ports:
+      - "4444:4444"
+      - "5900:5900"
+      - "7900:7900"
 volumes:
   postgres_data:
   mongo_data:
