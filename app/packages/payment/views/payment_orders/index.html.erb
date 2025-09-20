@@ -10,4 +10,4 @@
   </div>
   <%== pagy_nav(@pagy) if @pagy.pages > 1 %>
 </div>
-<%= content_data(@payment_orders, only: [:id, :amount, :status, :created_at, :updated_at], methods: [:customer_name]).html_safe %>
+<%= sanitize content_data(@payment_orders, only: [:id, :amount, :status, :created_at, :updated_at], methods: [:customer_name]) %>

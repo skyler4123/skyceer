@@ -14,6 +14,7 @@ RSpec.feature "Authentication::SignUps", type: :feature, js: true do
   context "Sign up with normal user" do
     it "signs me in" do
       sign_up(params: new_user_params)
+      expect(page).to have_current_path('/')
       expect(created_user).to be_truthy
       # expect(page).to have_content(SIGN_UP_SUCCESS_MESSAGE)
     end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Home", type: :feature do
+RSpec.feature "Home", type: :feature, js: true do
   # include_context "support/shared_contexts/education/default_database"
 
   context "when user is set education_role as school" do

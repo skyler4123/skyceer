@@ -121,6 +121,33 @@ services:
   #   depends_on:
   #     - elasticsearch
 
+  # For Selenium test
+  selenium-chromium:
+    image: selenium/standalone-chromium:latest
+    shm_size: '2gb'
+    ports:
+      - "4444:4444"
+      - "5900:5900"
+      - "7900:7900"
+  
+  # For Cuprite test 
+  # chrome:
+  #   # Currently, Apple M1 is only supported in unnumbered "latest" versions.
+  #   # See https://github.com/browserless/chrome/issues/1393
+  #   image: browserless/chrome
+  #   ports:
+  #     - "3333:3333"
+  #   # Mount application source code to support file uploading
+  #   # (otherwise Chrome won't be able to find files).
+  #   # NOTE: Make sure you use absolute paths in `#attach_file`.
+  #   volumes:
+  #     - .:/app:cached
+  #   environment:
+  #     # By default, it uses 3000, which is typically used by Rails.
+  #     PORT: 3333
+  #     # Set connection timeout to avoid timeout exception during debugging
+  #     # https://docs.browserless.io/docs/docker.html#connection-timeout
+  #     CONNECTION_TIMEOUT: 600000
 volumes:
   postgres_data:
   mongo_data:
