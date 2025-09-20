@@ -38,7 +38,7 @@ Capybara.configure do |config|
 
       # Add capabilities for the browser (e.g., to run headless)
       capabilities: Selenium::WebDriver::Options.chrome(
-        "goog:chromeOptions": { "args": ["--headless", "--disable-gpu", "--no-sandbox"] }
+        "goog:chromeOptions": { "args": [ "--headless", "--disable-gpu", "--no-sandbox" ] }
         # "goog:chromeOptions": { "args": ["--disable-gpu", "--no-sandbox"] }
 
       )
@@ -48,6 +48,4 @@ Capybara.configure do |config|
   # # Use the custom registered driver as the default for JavaScript tests
   config.javascript_driver = :remote_selenium_chrome
   # config.javascript_driver = :selenium_chrome
-
 end
-

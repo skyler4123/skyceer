@@ -1,8 +1,8 @@
 # app/services/image_upload_service.rb
 class ImageUploadService
   ALLOWED_MODELS = {
-    'article_post' => ArticlePost,
-    'user' => User
+    "article_post" => ArticlePost,
+    "user" => User
   }.freeze
 
   def initialize(record_class_param, record_id, image_file)
@@ -14,7 +14,7 @@ class ImageUploadService
 
   def upload
     return failure_response unless valid?
-    
+
     begin
       record = find_or_create_record
       attach_image(record)

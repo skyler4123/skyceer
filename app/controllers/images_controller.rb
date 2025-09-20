@@ -7,9 +7,9 @@ class ImagesController < ApplicationController
       params[:record_id],
       params[:image]
     )
-    
+
     result = service.upload
-    
+
     if result[:success] == 1
       render json: result
     else
