@@ -9,6 +9,8 @@ require 'capybara/rspec'
 require 'selenium-webdriver'
 
 # Run native local
+# Capybara.default_max_wait_time = 5
+# Capybara.default_driver = :selenium_chrome
 # Capybara.javascript_driver = :selenium_chrome
 
 # Run inside docker
