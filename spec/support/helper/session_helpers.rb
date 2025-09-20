@@ -5,6 +5,7 @@ module SessionHelpers
     fill_in 'password', with: user.password
     submit_button = find('input[type="submit"]')
     submit_button.click
+    expect(page).to have_css("img[src='#{user.avatar}']")
   end
 
   def sign_up(params:)
