@@ -8,8 +8,10 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 
+# Run native local
 # Capybara.javascript_driver = :selenium_chrome
 
+# Run inside docker
 # Configure Capybara to use a remote browser
 Capybara.configure do |config|
   # Set the app host to the name of the Rails service in your docker-compose file.
