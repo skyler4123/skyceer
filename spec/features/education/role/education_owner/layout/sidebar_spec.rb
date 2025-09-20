@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Education Index pages", type: :feature do
+RSpec.feature "Education Index pages", type: :feature, js: true do
   include Rails.application.routes.url_helpers
 
   include_context "support/shared_contexts/education/default_database"

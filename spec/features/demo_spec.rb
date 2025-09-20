@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Demo", type: :feature do
+RSpec.feature "Demo", type: :feature, js: true do
   it "will passed" do
     expect(true).to be_truthy
     # expect(true).to be_falsey

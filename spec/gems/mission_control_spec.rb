@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Application::Gems::MissionControl", type: :feature do
+RSpec.feature "Application::Gems::MissionControl", type: :feature, js: true do
   context "Sign in with correct data" do
     let(:role) { :normal }
     let(:education_role) { :education_owner }
