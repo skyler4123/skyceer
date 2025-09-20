@@ -12,7 +12,7 @@ require 'spec_helper'
 Dir["./spec/matchers/**/*.rb"].sort.each { |f| require f }
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
-require 'capybara_helper'
+require 'selenium_helper'
 # require 'cuprite_helper'
 # require 'vcr_helper'
 require 'retry_helper'
