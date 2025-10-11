@@ -12,8 +12,8 @@ Rails
     docker image tag $REPOSITORY_NAME $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH
     docker image tag $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH $DOCKER_USERNAME/$REPOSITORY_NAME:latest
 
-    docker image push $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH
     docker image push $DOCKER_USERNAME/$REPOSITORY_NAME:latest
+    docker image push $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH
 
     docker run -d -it --name web -p 3000:3000 -v $PWD:/skyceer skyceer-rails
     docker run -d -it --name web -p 3000:3000 -e RAILS_MASTER_KEY=$(cat config/master.key) skyceer-rails

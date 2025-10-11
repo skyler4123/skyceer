@@ -1,4 +1,4 @@
-if Rails.env.production?
+if Rails.application.credentials.dig(:opensearch_url)
   Searchkick.client = OpenSearch::Client.new(
     url: Rails.application.credentials.dig(:opensearch_url),
     transport_options: {

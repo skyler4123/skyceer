@@ -1,6 +1,6 @@
 <div class="mx-auto w-4/5 flex">
   <div class="mx-auto">
-    <%= render @chat_message %>
+    <%= render partial: 'chat_message', locals: { chat_message: @chat_message } %>
 
     <%= link_to "Edit this chat_message", edit_chat_message_path(@chat_message), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
