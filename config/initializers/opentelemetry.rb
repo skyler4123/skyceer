@@ -34,7 +34,7 @@ if Rails.env.production?
         # You can also use a different exporter or disable tracing for specific hosts.
         # Example: if you have a monitoring service running on 'monitor:4318',
         # you can add it to untraced_hosts.
-        untraced_hosts: [ "monitor:4318", 'grafana:4318', "localhost:4318" ] # Don't trace OTLP exports
+        untraced_hosts: [ "monitor:4318", "grafana:4318", "localhost:4318" ] # Don't trace OTLP exports
       }
     })
   end
