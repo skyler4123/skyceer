@@ -7,11 +7,11 @@ Rails
     GIT_COMMIT_HASH=$(git rev-parse --short HEAD)
     REPOSITORY_NAME=skyceer-rails
 
-    docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
     docker build -t $REPOSITORY_NAME .
     docker image tag $REPOSITORY_NAME $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH
     docker image tag $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH $DOCKER_USERNAME/$REPOSITORY_NAME:latest
 
+    docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
     docker image push $DOCKER_USERNAME/$REPOSITORY_NAME:latest
     docker image push $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH
 
