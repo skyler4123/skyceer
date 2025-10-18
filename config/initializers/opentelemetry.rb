@@ -1,3 +1,5 @@
+# OpenTelemetry.logger_provider.logger(name: "skyceer-#{Rails.env}").on_emit(body: "A log message from console!")
+
 # config/initializers/opentelemetry.rb
 require "opentelemetry/sdk"
 require "opentelemetry/exporter/otlp"
