@@ -12,7 +12,7 @@ services:
       # HTTP_PORT: 8080
 
       # For Rails 
-      # RAILS_ENV: development
+      RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       # OTEL_EXPORTER_OTLP_ENDPOINT: http://monitor:4318
       # PWD: /rails
@@ -38,7 +38,7 @@ services:
 
   job:
     build: .
-    command: bash -c "sleep 5 && bundle exec rails db:prepare && bin/jobs"
+    command: bash -c "sleep 30 && bundle exec rails db:prepare && bin/jobs"
     environment:
       RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
@@ -94,6 +94,8 @@ services:
       - opensearch
 
   grafana:
+    # username: admin
+    # password: admin
     image: grafana/otel-lgtm
     ports:
       - "3000:3000" # Grafana

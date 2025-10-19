@@ -6,6 +6,7 @@ class ArticlePostsController < ArticleController
   def index
     @article_posts = ArticlePost.all
     OpenTelemetry.logger_provider.logger(name: "article_posts").on_emit(severity_text: "INFO", body: "Listing all article posts: #{@article_posts.map(&:id).join(", ")}")
+    Rails.logger.debug("Test Rails.logger.debug")
     @json_data = {
       article_posts: @article_posts
     }.to_json
