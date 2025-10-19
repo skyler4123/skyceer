@@ -12,7 +12,7 @@ services:
       # HTTP_PORT: 8080
 
       # For Rails 
-      RAILS_ENV: development
+      # RAILS_ENV: development
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       # OTEL_EXPORTER_OTLP_ENDPOINT: http://monitor:4318
       # PWD: /rails
@@ -93,14 +93,14 @@ services:
     depends_on:
       - opensearch
 
-  # monitor:
-  #   image: grafana/otel-lgtm
-  #   ports:
-  #     - "3000:3000" # Grafana
-  #     - "4317:4317" # OpenTelemetry
-  #     - "4318:4318" # OpenTelemetry
-  #     - "9090:9090" # Prometheus
-  #     - "3100:3100" # Loki
+  grafana:
+    image: grafana/otel-lgtm
+    ports:
+      - "3000:3000" # Grafana
+      - "4317:4317" # OpenTelemetry
+      - "4318:4318" # OpenTelemetry
+      - "9090:9090" # Prometheus
+      - "3100:3100" # Loki
 
   # elasticsearch:
   #   image: elasticsearch:8.14.1

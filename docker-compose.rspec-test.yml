@@ -18,4 +18,4 @@ services:
 
   opensearch_dashboards: !reset null
 
-  grafana/otel-lgtm: !reset null
+  grafana: !reset null
