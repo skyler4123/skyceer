@@ -78,7 +78,7 @@ Rails.application.configure do
   # config.assets.debug = true
   # config.active_job.queue_adapter = :solid_queue
   # Show log when run "rails db:....."
-  config.logger = ActiveSupport::Logger.new(STDOUT)
+  # config.logger = ActiveSupport::Logger.new(STDOUT)
   # config.hosts << "localhostdev:3000"
 
   # Replace the default in-process memory cache store with a durable alternative.
