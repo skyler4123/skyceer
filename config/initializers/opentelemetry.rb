@@ -29,6 +29,24 @@ if Rails.env.production? || Rails.env.development?
         enabled: false
       },
       # OpenTelemetry::Instrumentation::ActiveJob
+      'OpenTelemetry::Instrumentation::ActionView' => {
+        enabled: false
+      },
+      'OpenTelemetry::Instrumentation::ActiveStorage' => {
+        enabled: false
+      },
+      'OpenTelemetry::Instrumentation::ConcurrentRuby' => {
+        enabled: false
+      },
+      'OpenTelemetry::Instrumentation::Faraday' => {
+        enabled: false
+      },
+      'OpenTelemetry::Instrumentation::Mongo' => {
+        enabled: false
+      },
+      'OpenTelemetry::Instrumentation::Rails' => {
+        enabled: false
+      },
     )
   end
 end
