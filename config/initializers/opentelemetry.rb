@@ -20,7 +20,15 @@ if Rails.env.production? || Rails.env.development?
       # Configuration to ignore ActiveRecord
       'OpenTelemetry::Instrumentation::ActiveRecord' => {
         enabled: false # Disable ActiveRecord instrumentation
-      }
+      },
+      # OpenTelemetry::Instrumentation::Rack
+      'OpenTelemetry::Instrumentation::Rake' => {
+        enabled: false
+      },
+      'OpenTelemetry::Instrumentation::PG' => {
+        enabled: false
+      },
+      # OpenTelemetry::Instrumentation::ActiveJob
     )
   end
 end
