@@ -97,6 +97,8 @@ services:
     # username: admin
     # password: admin
     image: grafana/otel-lgtm
+    volumes:
+      - grafana_data:/data
     ports:
       - "3000:3000" # Grafana
       - "4317:4317" # OpenTelemetry
@@ -154,3 +156,4 @@ volumes:
   postgres_data:
   mongo_data:
   es_data:
+  grafana_data:

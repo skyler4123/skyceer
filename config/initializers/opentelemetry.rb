@@ -16,6 +16,10 @@ if Rails.env.production? || Rails.env.development?
       'OpenTelemetry::Instrumentation::Net::HTTP' => {
         enabled: false, # Disable Net::HTTP instrumentation to avoid recursion
         untraced_hosts: ['grafana:4318', 'localhost:4318'] # Don't trace OTLP exports
+      },
+      # Configuration to ignore ActiveRecord
+      'OpenTelemetry::Instrumentation::ActiveRecord' => {
+        enabled: false # Disable ActiveRecord instrumentation
       }
     )
   end
