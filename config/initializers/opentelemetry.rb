@@ -13,38 +13,38 @@ if Rails.env.production? || Rails.env.development?
 
     # Use all instrumentation BUT exclude Net::HTTP for OTLP endpoint
     c.use_all(
-      'OpenTelemetry::Instrumentation::Net::HTTP' => {
+      "OpenTelemetry::Instrumentation::Net::HTTP" => {
         enabled: false, # Disable Net::HTTP instrumentation to avoid recursion
-        untraced_hosts: ['grafana:4318', 'localhost:4318'] # Don't trace OTLP exports
+        untraced_hosts: [ "grafana:4318", "localhost:4318" ] # Don't trace OTLP exports
       },
       # Configuration to ignore ActiveRecord
-      'OpenTelemetry::Instrumentation::ActiveRecord' => {
+      "OpenTelemetry::Instrumentation::ActiveRecord" => {
         enabled: false # Disable ActiveRecord instrumentation
       },
       # OpenTelemetry::Instrumentation::Rack
-      'OpenTelemetry::Instrumentation::Rake' => {
+      "OpenTelemetry::Instrumentation::Rake" => {
         enabled: false
       },
-      'OpenTelemetry::Instrumentation::PG' => {
+      "OpenTelemetry::Instrumentation::PG" => {
         enabled: false
       },
       # OpenTelemetry::Instrumentation::ActiveJob
-      'OpenTelemetry::Instrumentation::ActionView' => {
+      "OpenTelemetry::Instrumentation::ActionView" => {
         enabled: false
       },
-      'OpenTelemetry::Instrumentation::ActiveStorage' => {
+      "OpenTelemetry::Instrumentation::ActiveStorage" => {
         enabled: false
       },
-      'OpenTelemetry::Instrumentation::ConcurrentRuby' => {
+      "OpenTelemetry::Instrumentation::ConcurrentRuby" => {
         enabled: false
       },
-      'OpenTelemetry::Instrumentation::Faraday' => {
+      "OpenTelemetry::Instrumentation::Faraday" => {
         enabled: false
       },
-      'OpenTelemetry::Instrumentation::Mongo' => {
+      "OpenTelemetry::Instrumentation::Mongo" => {
         enabled: false
       },
-      'OpenTelemetry::Instrumentation::Rails' => {
+      "OpenTelemetry::Instrumentation::Rails" => {
         enabled: false
       },
     )
