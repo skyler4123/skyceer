@@ -3,15 +3,15 @@ class Seeding::EmailService
     case role.to_sym
     when :normal
       if User.normal.count.zero?
-        email = "#{role}@application.com"
+        email = "#{role}@example.com"
       else
-        email = "#{role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@application.com"
+        email = "#{role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
       end
     when :admin
       if User.admin.count.zero?
-        email = "#{role}@application.com"
+        email = "#{role}@example.com"
       else
-        email = "#{role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@application.com"
+        email = "#{role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
       end
     end
 
@@ -19,27 +19,27 @@ class Seeding::EmailService
       case education_role.to_sym
       when :education_school
         if User.education_school.count.zero?
-          email = "#{education_role}@education.com"
+          email = "#{education_role}@example.com"
         else
-          email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@education.com"
+          email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
         end
       when :education_admin
         if User.education_admin.count.zero?
-          email = "#{education_role}@education.com"
+          email = "#{education_role}@example.com"
         else
-          email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@education.com"
+          email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
         end
       when :education_teacher
         if User.education_teacher.count.zero?
-          email = "#{education_role}@education.com"
+          email = "#{education_role}@example.com"
         else
-          email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@education.com"
+          email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
         end
       when :education_student
         if User.education_student.count.zero?
-          email = "#{education_role}@education.com"
+          email = "#{education_role}@example.com"
         else
-          email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@education.com"
+          email = "#{role}_#{education_role}_#{Time.now.to_i}_#{SecureRandom.hex(3)}@example.com"
         end
       end
     end
