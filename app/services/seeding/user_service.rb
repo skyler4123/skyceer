@@ -3,7 +3,7 @@ class Seeding::UserService
     User.roles.each do |key, value|
       self.create(role: key)
     end
-    self.create_amonymous
+    self.create_normal_user
   end
 
   def self.create(role: :normal, education_role: nil)
@@ -24,28 +24,19 @@ class Seeding::UserService
     user
   end
 
-  def self.create_amonymous(role: :normal, education_role: nil)
-    user = User.create!(
-      username: AMONYMOUS_USERNAME,
-      email: AMONYMOUS_EMAIL,
-      password: "password1234",
-      password_confirmation: "password1234",
-      verified: true,
-      name: "amonymous",
-      first_name: "Amonymous",
-      last_name: "User",
-      role: role,
-      education_role: education_role,
-    )
-    Seeding::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
-    user
-  end
-
-  def self.amonymous
-    user = User.find_by(email: AMONYMOUS_EMAIL)
-    if user.nil?
-      self.create_amonymous
-    else
+  def self.create_normal_user(role: :normal, education_role: nil)
+    10.times do |n|
+      user = User.create!(
+        username: "user#{n}",
+        email: "user#{n}@example.com",
+        password: "password1234",
+        password_confirmation: "password1234",
+        verified: true,
+        name: "user#{n}",
+        first_name: "user#{n}",
+        last_name: "user#{n}"
+      )
+      Seeding::AttachmentService.attach(record: user, relation: :avatar_attachment, number: 1)
       user
     end
   end
