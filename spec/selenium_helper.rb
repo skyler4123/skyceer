@@ -13,6 +13,9 @@ require 'selenium-webdriver'
 # Capybara.default_driver = :selenium_chrome
 # Capybara.javascript_driver = :selenium_chrome
 
+# 🛑 ADD THIS LINE TO SUPPRESS DEBUG/INFO LOGS
+Selenium::WebDriver.logger.level = :warn
+
 # Run inside docker
 # Configure Capybara to use a remote browser
 Capybara.configure do |config|

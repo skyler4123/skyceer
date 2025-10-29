@@ -8,6 +8,10 @@ require "opentelemetry/instrumentation/all"
 # if Rails.env.production? || Rails.env.development?
 ENV["OTEL_EXPORTER_OTLP_ENDPOINT"] = Rails.application.credentials.dig(:otel_exporter_otlp_endpoint) || "http://localhost:4318"
 
+# Set OpenTelemetry's internal logger to a higher level (e.g., FATAL)
+# This will suppress the ERROR messages like the connection failures.
+OpenTelemetry.logger.level = Logger::FATAL
+
 OpenTelemetry::SDK.configure do |c|
   c.service_name = "skyceer-#{Rails.env}"
 
