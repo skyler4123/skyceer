@@ -35,8 +35,9 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  # config.active_storage.service = :local
   # config.active_storage.service = :amazon
+  config.active_storage.service = :minio
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -78,7 +79,7 @@ Rails.application.configure do
   # config.assets.debug = true
   # config.active_job.queue_adapter = :solid_queue
   # Show log when run "rails db:....."
-  config.logger = ActiveSupport::Logger.new(STDOUT)
+  # config.logger = ActiveSupport::Logger.new(STDOUT)
   # config.hosts << "localhostdev:3000"
 
   # Replace the default in-process memory cache store with a durable alternative.

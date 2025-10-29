@@ -1,39 +1,56 @@
-# # config/initializers/opentelemetry.rb
-# require "opentelemetry/sdk"
-# require "opentelemetry/exporter/otlp"
-# require "opentelemetry/instrumentation/all"
+# OpenTelemetry.logger_provider.logger(name: "skyceer-#{Rails.env}").on_emit(body: "A log message from console!")
 
-# ENV["OTEL_EXPORTER_OTLP_ENDPOINT"] = Rails.application.credentials.dig(:otel_exporter_otlp_endpoint) || "http://192.168.0.100:4318"
+# config/initializers/opentelemetry.rb
+require "opentelemetry/sdk"
+require "opentelemetry/exporter/otlp"
+require "opentelemetry/instrumentation/all"
 
-# OpenTelemetry::SDK.configure do |c|
-#   c.service_name = "skyceer-#{Rails.env}"
+# if Rails.env.production? || Rails.env.development?
+ENV["OTEL_EXPORTER_OTLP_ENDPOINT"] = Rails.application.credentials.dig(:otel_exporter_otlp_endpoint) || "http://localhost:4318"
 
-#   # c.add_span_processor(
-#   #   OpenTelemetry::SDK::Trace::Export::BatchSpanProcessor.new(
-#   #     OpenTelemetry::Exporter::OTLP::Exporter.new(
-#   #       # "monitor:4318" is the container name for the OTLP endpoint
-#   #       endpoint: Rails.application.credentials.dig(:opentelemetry_traces_endpoint) || 'http://localhost:4318/v1/traces',
-#   #       timeout: 30
-#   #     ),
-#   #     # Prevent rapid-fire exports that cause recursion
-#   #     schedule_delay: 5000,      # 5 seconds between exports
-#   #     max_queue_size: 2048,      # Larger queue
-#   #     max_export_batch_size: 512 # Smaller batches
-#   #   )
-#   # )
+# Set OpenTelemetry's internal logger to a higher level (e.g., FATAL)
+# This will suppress the ERROR messages like the connection failures.
+OpenTelemetry.logger.level = Logger::FATAL
 
-#   # Use all instrumentation BUT exclude Net::HTTP for OTLP endpoint
-#   c.use_all({
-#     "OpenTelemetry::Instrumentation::Net::HTTP" => {
-#       enabled: false, # Disable Net::HTTP instrumentation
-#       # This prevents recursion when the OTLP exporter tries to send traces
-#       # to the same host that is being instrumented.
-#       # If you need to trace HTTP requests, consider using a different host or port.
-#       # This is a workaround to avoid recursion issues with OTLP exports.
-#       # You can also use a different exporter or disable tracing for specific hosts.
-#       # Example: if you have a monitoring service running on 'monitor:4318',
-#       # you can add it to untraced_hosts.
-#       untraced_hosts: [ "monitor:4318", "localhost:4318" ] # Don't trace OTLP exports
-#     }
-#   })
+OpenTelemetry::SDK.configure do |c|
+  c.service_name = "skyceer-#{Rails.env}"
+
+  # Use all instrumentation BUT exclude Net::HTTP for OTLP endpoint
+  c.use_all(
+    "OpenTelemetry::Instrumentation::Net::HTTP" => {
+      enabled: false, # Disable Net::HTTP instrumentation to avoid recursion
+      untraced_hosts: [ "grafana:4318", "localhost:4318" ] # Don't trace OTLP exports
+    },
+    # Configuration to ignore ActiveRecord
+    "OpenTelemetry::Instrumentation::ActiveRecord" => {
+      enabled: false # Disable ActiveRecord instrumentation
+    },
+    # OpenTelemetry::Instrumentation::Rack
+    "OpenTelemetry::Instrumentation::Rake" => {
+      enabled: false
+    },
+    "OpenTelemetry::Instrumentation::PG" => {
+      enabled: false
+    },
+    # OpenTelemetry::Instrumentation::ActiveJob
+    "OpenTelemetry::Instrumentation::ActionView" => {
+      enabled: false
+    },
+    "OpenTelemetry::Instrumentation::ActiveStorage" => {
+      enabled: false
+    },
+    "OpenTelemetry::Instrumentation::ConcurrentRuby" => {
+      enabled: false
+    },
+    "OpenTelemetry::Instrumentation::Faraday" => {
+      enabled: false
+    },
+    "OpenTelemetry::Instrumentation::Mongo" => {
+      enabled: false
+    },
+    "OpenTelemetry::Instrumentation::Rails" => {
+      enabled: false
+    },
+  )
+end
 # end

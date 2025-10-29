@@ -7,11 +7,11 @@ Rails
     GIT_COMMIT_HASH=$(git rev-parse --short HEAD)
     REPOSITORY_NAME=skyceer-rails
 
-    docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
     docker build -t $REPOSITORY_NAME .
     docker image tag $REPOSITORY_NAME $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH
     docker image tag $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH $DOCKER_USERNAME/$REPOSITORY_NAME:latest
 
+    docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
     docker image push $DOCKER_USERNAME/$REPOSITORY_NAME:latest
     docker image push $DOCKER_USERNAME/$REPOSITORY_NAME:$GIT_COMMIT_HASH
 
@@ -71,8 +71,8 @@ Run development
   ##
 Run test
   ##
-    RAILS_MASTER_KEY=$(cat config/master.key) docker compose -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web
-    RAILS_MASTER_KEY=$(cat config/master.key) docker compose -f docker-compose.yml -f docker-compose.seed-test.yml up --abort-on-container-exit --exit-code-from web
+    RAILS_MASTER_KEY=$(cat config/master.key) docker compose -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web --attach web
+    RAILS_MASTER_KEY=$(cat config/master.key) docker compose -f docker-compose.yml -f docker-compose.seed-test.yml up --abort-on-container-exit --exit-code-from web --attach web
   ##
 ENV
   ##
@@ -80,8 +80,13 @@ ENV
     EDITOR="code --wait" bin/rails credentials:edit -e production
   ##
   
-  Setup Opentelemetry
+Setup Opentelemetry
   ##
     <!-- https://hub.docker.com/r/grafana/otel-lgtm -->
     docker run -p 3000:3000 -p 4317:4317 -p 4318:4318 --rm -ti grafana/otel-lgtm
+  ##
+
+Rubocop
+  ##
+     bundle exec rubocop -A
   ##

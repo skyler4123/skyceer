@@ -26,7 +26,7 @@ jobs:
       - name: Run Docker Compose and fail on test failure
         env:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: docker compose -p skyceer-rspec-test -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web
+        run: docker compose -p skyceer-rspec-test -f docker-compose.yml -f docker-compose.rspec-test.yml up --abort-on-container-exit --exit-code-from web --attach web
 
       - name: Show running containers
         run: docker ps -a
