@@ -19,3 +19,5 @@ services:
   opensearch_dashboards: !reset null
 
   grafana: !reset null
+
+  create_buckets:: !reset null

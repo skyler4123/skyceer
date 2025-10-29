@@ -9,9 +9,22 @@ services:
       - postgres
       - mongo
       - opensearch
-  
+
   job: !reset null
+
+  postgres:
+    volumes: !reset null
+
+  mongo:
+    volumes: !reset null
+
+  opensearch:
+    volumes: !reset null
 
   opensearch_dashboards: !reset null
 
   grafana: !reset null
+  
+  minio: !reset null
+
+  create_buckets: !reset null
