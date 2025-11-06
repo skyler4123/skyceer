@@ -2,7 +2,7 @@ module ApplicationController::PaginationConcern
   extend ActiveSupport::Concern
 
   included do
-    include Pagy::Backend
+    include Pagy::Method
 
     private
 
