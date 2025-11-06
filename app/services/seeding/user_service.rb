@@ -1,9 +1,9 @@
 class Seeding::UserService
   def self.run
+    self.create_normal_user
     User.roles.each do |key, value|
       self.create(role: key)
     end
-    self.create_normal_user
   end
 
   def self.create(role: :normal, education_role: nil)
