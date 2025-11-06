@@ -1,5 +1,3 @@
-require "pagy/extras/elasticsearch_rails"
-
 class EducationTeacher::EducationTeachersController < EducationTeacher::EducationsController
   before_action :set_education_teacher, only: %i[ show edit update destroy ]
 

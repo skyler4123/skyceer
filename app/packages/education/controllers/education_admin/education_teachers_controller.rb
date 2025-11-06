@@ -1,5 +1,3 @@
-require "pagy/extras/elasticsearch_rails"
-
 class EducationAdmin::EducationTeachersController < EducationAdmin::EducationsController
   # GET /education_teachers or /education_teachers.json
   def index
