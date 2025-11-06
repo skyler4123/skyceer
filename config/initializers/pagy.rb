@@ -10,5 +10,5 @@
 # require "pagy/extras/overflow"
 # Pagy::DEFAULT[:overflow] = :last_page
 # pagy.rb initializer
-javascript_dir = Rails.root.join('app/javascript/controllers/libs/pagy/javascripts')
-Pagy.sync_javascript(javascript_dir, 'pagy.mjs') if Rails.env.development?
+javascript_dir = Rails.root.join("app/javascript/controllers/libs/pagy/javascripts")
+Pagy.sync_javascript(javascript_dir, "pagy.mjs") if Rails.env.development?
