@@ -2,9 +2,8 @@
 
 class Seeding::ChatService
   def self.run
-    ChatConversation.destroy_all
-    ChatBucket.destroy_all
-
+    # ChatConversation.destroy_all
+    # ChatBucket.destroy_all
     self.chat_conversation
     self.chat_bucket
     self.chat_message
@@ -32,6 +31,14 @@ class Seeding::ChatService
   end
 
   def self.chat_message
-    # C
+    ChatConversation.all.each do |chat_conversation|
+      20.times do |n|
+        nosql_user_id = chat_conversation.nosql_user_ids.sample
+        chat_conversation.chat_messages.create!(
+          nosql_user_id: nosql_user_id,
+          content: Faker::Movie.quote
+        )
+      end
+    end
   end
 end

@@ -22,6 +22,7 @@ class EducationRoleConstraint
 end
 
 Rails.application.routes.draw do
+  resources :chat_conversations
   namespace :api do
     post "sign_in", to: "sessions#create"
     post "sign_up", to: "registrations#create"
