@@ -1,16 +1,17 @@
 <%= turbo_stream_from chat_conversation.id %>
-<div id="<%= dom_id chat_conversation %>">
+<div>
   <p class="my-5">
     <strong class="block font-medium mb-1">User:</strong>
-    <%= chat_conversation.chat_user_ids %>
-    <div id="chat_messages">
+    <%= chat_conversation.nosql_user_ids %>
+    <div id="<%= dom_id chat_conversation %>" data-controller="chat--chat-conversation">
       <% chat_messages.each do |chat_message| %>
-        <div>
-          <%= chat_message.chat_user_id %>
-          <%= chat_message.content %>
-        </div>
+        <template><%= chat_message.nosql_user_id %><%= chat_message.delimiter %><%= chat_message.content %></template>
       <% end %>
-      <%== pagy_nav(@pagy) if @pagy && @pagy.pages > 0 %>
+<%
+=begin%>
+<%== pagy_nav(@pagy) if @pagy && @pagy.pages > 0 %> 
+<%
+=end%>
     </div>
   </p>
   <% if action_name != "show" %>

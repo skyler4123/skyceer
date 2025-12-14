@@ -21,8 +21,10 @@ class NosqlUser
   has_many :article_posts
   has_many :article_comments
   has_many :article_subcomments
-  has_many :chat_conversations
-  has_many :chat_messages
+
+  # has_many :chat_conversations
+  # has_many :chat_messages
+  field :chat_conversation_ids, type: Array, default: []
 
   def user
     User.where(id: self.user_id).first
